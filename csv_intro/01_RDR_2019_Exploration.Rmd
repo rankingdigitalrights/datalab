@@ -1,0 +1,54 @@
+---
+title: "Introductionary Tasks for Gaby"
+output: html_notebook
+---
+
+# Context
+
+In order to get familiar with RDR's publicly available data, to introduce you to RMarkdown and R Notebooks, and test a GitHub-based way to collaborate, we have created this Notebook with some data-related tasks.
+
+For R-specific guidance see
+
++ [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham & Garrett Grolemund
++ [Happy Git and GitHub for the useR](https://happygitwithr.com/) by Jenny Bryan
++ [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/) by Claus Wilke
++ [Data Visualization. A practical introduction](https://socviz.co/) by Kieran Healy
+
+
+# Data
+
++ [2019 Excel + CSV files](https://rankingdigitalrights.org/index2019/download/)
++ [2018 Excel + CSV files](https://rankingdigitalrights.org/index2018/download/)
+
+# Tasks
+
+## Validate the 2019 summary scores CSV
+
+### 2019 summary scores overview
+
+> Filename: `RDR2019_01_Quick_Overview.csv`
+
+#### Read in the 2019 summary scores quick overview
+
+```{r}
+# TODO
+
+```
+
+#### Calculate the total scores from the category scores
+
+#### Compare the distributions of the scoring categories
+
+### 2019 summary scores
+
+> Filename: `RDR2019_02_Summary_Scores.csv`
+
+#### Read in the 2019 summary scores
+
+#### Companies: Calculate the Governance, Freedom of Expression, and Privacy scores from the indicator scores
+
+#### Services: Calculate the Privacy scores for Cloud services
+
+### 2019 Company Outcomes
+
+> TBD
