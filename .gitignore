@@ -1,0 +1,5 @@
+.httr-oauth
+GS_token.rds
+.Rhistory
+.Rproj.user
+*.Rproj
