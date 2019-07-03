@@ -3,7 +3,7 @@ title: "Introductionary Tasks for Gaby"
 output: html_notebook
 ---
 
-# Context
+# Task 1
 
 In order to get familiar with RDR's publicly available data, to introduce you to RMarkdown and R Notebooks, and test a GitHub-based way to collaborate, we have created this Notebook with some data-related tasks.
 
