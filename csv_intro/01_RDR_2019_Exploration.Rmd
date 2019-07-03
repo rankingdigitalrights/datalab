@@ -32,7 +32,7 @@ For R-specific guidance see
 
 ```{r}
 # ## Pulling in data sets for the overview
-RDR_Overview <- read.csv("c:/Users/gaby.walton/Desktop/CSV_Data/RDR2019_01_Quick_Overview.csv")
+RDR_Overview <- read.csv("data/RDR2019_01_Quick_Overview.csv")
 
 ```
 
@@ -94,7 +94,7 @@ p
 
 #### Read in the 2019 summary scores
 ```{r}
-RDR_Summary <- read.csv("c:/Users/gaby.walton/Desktop/CSV_Data/RDR2019_02_Summary_Scores.csv")
+RDR_Summary <- read.csv("data/RDR2019_02_Summary_Scores.csv")
 ```
 
 
