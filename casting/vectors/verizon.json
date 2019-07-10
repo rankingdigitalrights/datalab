@@ -1,0 +1,34 @@
+{
+  "collection": "companies",
+  "id": "ivm1",
+  "label": {
+    "current": "Verizon Media",
+    "legacy": [
+      "Oath",
+      "Yahoo"
+      ]
+  },
+  "type": "internet",
+  "groupLabel": "Verizon Media",
+  "opCom": false,
+  "opComLabel": null,
+  "numberOfServices": 2,
+  "services": [
+    {
+      "id":"ivm1ym",
+      "type": "mail",
+      "label": {
+        "current": "Yahoo Mail",
+        "legacy": null
+        }
+    },
+    {
+      "id":"ivm1t",
+      "type": "photoVideo",
+      "label": {
+        "current": "Tumblr",
+        "legacy": null
+        }
+    }
+  ]
+}
