@@ -12,6 +12,8 @@
   "groupLabel": "Verizon Media",
   "opCom": false,
   "opComLabel": null,
+  "prevScored": false,
+  "firstIndex": 2019,
   "numberOfServices": 2,
   "services": [
     {
