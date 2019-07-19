@@ -1,0 +1,144 @@
+{
+    "meta": {
+        "year": "2019",
+        "vendor": "RDR",
+        "type": "Index",
+        "methodologyVersion": "v1",
+        "stepsMain": 7,
+        "stepsMinor": 12
+    },
+    "researchSteps": {
+        "1": {
+            "order": 1,
+            "description": "Researcher A: Initial Evaluation and year-on-year check",
+            "modules": {
+                "A": {
+                    "logicalOrder": "1",
+                    "activity": "scoring",
+                    "label": "Data Collection",
+                    "instructions": null
+                },
+                "B": {
+                    "logicalOrder": "1.5",
+                    "activity": "comparison",
+                    "label": "Year-on-year analysis",
+                    "instructions": {
+                        "agreementPreviousYear": "Is your answer the same as 2018?",
+                        "reason": "If no, please select the reason why and provide comments for that element."
+                    }
+                }
+            }
+        },
+        "2": {
+            "order": 2,
+            "description": "Researcher B: Initial Evaluation, comparative veto, and year-on-year check",
+            "modules": {
+                "A": {
+                    "logicalOrder": "2",
+                    "activity": "review",
+                    "label": "Review",
+                    "instructions": {
+                        "agreementCoReviewer": "Do you agree with the answer(s) in Step 1?"
+                    }
+                },
+                "B": {
+                    "logicalOrder": "2.5",
+                    "activity": "comparison",
+                    "label": "Year-on-year analysis",
+                    "instructions": {
+                        "agreementPreviousYear": "Do you agree with the year-on-year analysis in Step 1.5?"
+                    }
+                }
+            }
+        },
+        "3": {
+            "order": 3,
+            "description": "Consensual score post-review evaluation",
+            "modules": {
+                "A": {
+                    "logicalOrder": "3",
+                    "activity": "scoring",
+                    "label": "Score Consensus",
+                    "instructions": null
+                },
+                "B": {
+                    "logicalOrder": "3.5",
+                    "activity": "comparison",
+                    "label": "Year-on-year analysis",
+                    "instructions": {
+                        "agreementPreviousYear": "Is your answer the same as 2018?",
+                        "reason": "If no, please select the reason why and provide comments for that element."
+                    }
+                }
+            }
+        },
+        "4": {
+            "order": 4,
+            "description": "Horizontal Review (over same indicator)",
+            "modules": {
+                "A": {
+                    "logicalOrder": "4",
+                    "activity": "scoring",
+                    "label": "First Horizontal Review",
+                    "instructions": null
+                },
+                "B": {
+                    "logicalOrder": "4.5",
+                    "activity": "comparison",
+                    "label": "Year-on-year analysis",
+                    "instructions": {
+                        "agreementPreviousYear": "Is your answer the same as 2018?",
+                        "reason": "If no, please select the reason why and provide comments for that element."
+                    }
+                }
+            }
+        },
+        "5": {
+            "order": 5,
+            "description": "Evaluation fo Company Feedback from the Feddback Request Forms",
+            "modules": {
+                "A": {
+                    "logicalOrder": "5",
+                    "activity": "review",
+                    "label": "Company Feedback",
+                    "instructions": {
+                        "indicatorChallange": "Does company feedback merit a change?"
+                    }
+                }
+            }
+        },
+        "6": {
+            "order": 6,
+            "description": "Horizontal review post-company-feedback",
+            "modules": {
+                "A": {
+                    "logicalOrder": "6",
+                    "activity": "scoring",
+                    "label": "Second Horizontal Review",
+                    "instructions": null
+                }
+            }
+        },
+        "7": {
+            "order": 7,
+            "description": "Final Score following review in step 6",
+            "modules": {
+                "A": {
+                    "logicalOrder": "7",
+                    "activity": "scoring",
+                    "label": "Final Score",
+                    "instructions": null
+                },
+                "B": {
+                    "logicalOrder": "7.5",
+                    "activity": "comparison",
+                    "label": "Year-on-year analysis",
+                    "instructions": {
+                        "agreementPreviousYear": "Is your answer the same as 2018?",
+                        "reason": "If no, please select the reason why and provide comments for that element."
+                    }
+                }
+            }
+        }
+    }
+}
