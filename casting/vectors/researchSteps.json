@@ -9,7 +9,7 @@
     },
     "allowedValues": {
         "scoring" : ["not selected","yes","partial","no","no disclosure found","N/A"],
-        "comparion" : ["select your response","yes","no"],
+        "comparison" : ["select your response","yes","no"],
         "comparisonReasonForNo" : ["select your response","the policy appears revised or changed","I do not agree with last year's score","the element is new or has been revised"],
         "review" : ["yes","no"]
     },
