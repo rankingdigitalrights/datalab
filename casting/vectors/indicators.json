@@ -9,6 +9,7 @@
                 "labelShort": "G1",
                 "labelLong": "Policy Commitment",
                 "description": "The company should publicly commit to respect users’ human rights to freedom of expression and privacy.",
+                "components": ["Freedom of Expression", "Privacy"],
                 "elements": [
                     {
                         "labelShort": "G1.1",
@@ -20,6 +21,7 @@
                 "labelShort": "G2",
                 "labelLong": "Governance and management oversight",
                 "description": "The company’s senior leadership should exercise oversight over how its policies and practices affect freedom of expression and privacy.",
+                "components": ["Freedom of Expression", "Privacy"],
                 "elements": [
                     {
                         "labelShort": "G2.1",
@@ -39,6 +41,7 @@
                 "labelShort": "G3",
                 "labelLong": "Internal implementation",
                 "description": "The company should have mechanisms in place to implement its commitments to freedom of expression and privacy within the company.",
+                "components": ["Freedom of Expression", "Privacy"],
                 "elements": [
                     {
                         "labelShort": "G3.1",
@@ -54,6 +57,7 @@
                 "labelShort": "G4",
                 "labelLong": "Impact assessment",
                 "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                "components": ["Freedom of Expression", "Privacy"],
                 "elements": [
                     {
                         "labelShort": "G4.1",
@@ -106,6 +110,7 @@
                 "labelShort": "G5",
                 "labelLong": "Stakeholder engagement",
                 "description": "The company should engage with a range of stakeholders on freedom of expression and privacy issues.",
+                "components": ["Freedom of Expression", "Privacy"],
                 "elements": [
                     {
                         "labelShort": "G5.1",
@@ -125,6 +130,7 @@
                 "labelShort": "G6",
                 "labelLong": "Remedy",
                 "description": "The company should have grievance and remedy mechanisms to address users’ freedom of expression and privacy concerns.",
+                "components": ["Freedom of Expression", "Privacy"],
                 "elements": [
                     {
                         "labelShort": "G6.1",
