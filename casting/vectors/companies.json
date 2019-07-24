@@ -1,0 +1,81 @@
+{
+    "collection": "companies",
+    "indexYear": 2019,
+    "indexType": "RDR",
+    "companies": [{
+            "id": "mes1",
+            "label": {
+                "current": "Etisalat",
+                "legacy": [null]
+            },
+            "type": "telecom",
+            "groupLabel": "Etisalat",
+            "opCom": true,
+            "opComLabel": "Etisalat UAE",
+            "prevScored": true,
+            "firstIndex": 2015,
+            "numberOfServices": 3,
+            "services": [{
+                    "id": "mes1bb",
+                    "type": "broadband",
+                    "label": {
+                        "current": "Fixed-line broadband",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mes1mprep",
+                    "type": "mobile",
+                    "subtype": "postpaid",
+                    "label": {
+                        "current": "Postpaid mobile",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mes1mpostp",
+                    "type": "mobile",
+                    "subtype": "prepaid",
+                    "label": {
+                        "current": "Prepaid mobile",
+                        "legacy": null
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ivm1",
+            "label": {
+                "current": "Verizon Media",
+                "legacy": [
+                    "Oath",
+                    "Yahoo"
+                ]
+            },
+            "type": "internet",
+            "groupLabel": "Verizon Media",
+            "opCom": false,
+            "opComLabel": null,
+            "prevScored": false,
+            "firstIndex": 2019,
+            "numberOfServices": 2,
+            "services": [{
+                    "id": "ivm1ym",
+                    "type": "mail",
+                    "label": {
+                        "current": "Yahoo Mail",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "ivm1t",
+                    "type": "photoVideo",
+                    "label": {
+                        "current": "Tumblr",
+                        "legacy": null
+                    }
+                }
+            ]
+        }
+    ]
+}
