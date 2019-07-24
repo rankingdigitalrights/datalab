@@ -156,6 +156,7 @@
         "labelLong": "Freedom of Expression",
         "description": "Indicators in this category seek evidence that the company demonstrates it respects the right to freedom of expression, as articulated in the Universal Declaration of Human Rights, the International Covenant on Civil and Political Rights and other international human rights instruments. The company’s disclosed policies and practices demonstrate how it works to avoid contributing to actions that may interfere with this right, except where such actions are lawful, proportionate and for a justifiable purpose. Companies that perform well on this indicator demonstrate a strong public commitment to transparency not only in terms of how they respond to government and others’ demands, but also how they determine, communicate, and enforce private rules and commercial practices that affect users’ freedom of expression.",
         "researchGuidance": "TBD",
+        "hasComponents": true,
         "indicators": [{
                 "labelShort": "F1",
                 "labelLong": "Access to terms of service",
@@ -484,6 +485,7 @@
         "labelLong": "Privacy",
         "description": "Indicators in this category seek evidence that in its disclosed policies and practices, the company demonstrates concrete ways in which it respects the right to privacy of users, as articulated in the Universal Declaration of Human Rights, the International Covenant on Civil and Political Rights and other international human rights instruments. The company’s disclosed policies and practices demonstrate how it works to avoid contributing to actions that may interfere with users’ privacy, except where such actions are lawful, proportionate and for a justifiable purpose. They will also demonstrate a strong commitment to protect and defend users’ digital security. Companies that perform well on these indicators demonstrate a strong public commitment to transparency not only in terms of how they respond to government and others’ demands, but also how they determine, communicate, and enforce private rules and commercial practices that affect users’ privacy.",
         "researchGuidance": "TBD",
+        "hasComponents": true,
         "indicators": [{
                 "labelShort": "P1",
                 "labelLong": "Access to privacy policies",
