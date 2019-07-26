@@ -20,10 +20,10 @@ function main() {
   populate(file, Indicators.governance, Verizon, Steps);
 
   // 2. setting up freedom
-  //populate(file, Indicators.freedom, Verizon, Steps);
+  populate(file, Indicators.freedom, Verizon, Steps);
   
   // 3. the privacy tabs
-  //populate(file, Indicators.privacy, Verizon, Steps);
+  populate(file, Indicators.privacy, Verizon, Steps);
   
   
  
@@ -31,30 +31,6 @@ function main() {
   return;
 }
 
-
-function holding() {
-   //testing year on year
-  var spread = file.insertSheet();
-  spread.setName('testing');
-  
-  var compRow=2;
-  var compCol=3;
-  var sheet='2018 Outcome Ranges';
-  
-  var url ='https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553';
-  
-  for(var i=0; i<Indicators.governance.indicators[0].elements.length; i++) {
-    for(var j=0; j< (Verizon.numberOfServices+2)*2; j++) {
-      var cell = spread.getRange(i+1, j+1);
-      var string = '=IF('+columnToLetter(compCol)+compRow+'=IMPORTRANGE("'+url+'", "'+sheet+'!B'+(compCol+j)+'"),"YES","NO")';
-      string.toString();
-      Logger.log(string);
-      cell.setFormula(string);
-    }   
-  }
-  //=IF(B43=IMPORTRANGE("https://docs.google.com/spreadsheets/d/1QrGg07QwH-U6UqOtZ730lfnZ6Svo8UrZdsgfvzu4p2Q/edit","G1!B66"),"Yes","No")
-  
-}
 
 
 function columnToLetter(column)
@@ -155,7 +131,7 @@ function comparison(spread, indicator, Verizon, activeRow, file, step, m, subtyp
           
           var value = indicator.compCol + ((k-1)*subtype)+g;
           var col = columnToLetter(value);
-          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+step.elements[m].url+'","'+step.elements[m].tab+'!';
+          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+Verizon.url+'","'+Verizon.tab+'!';
           formula = formula + col+(indicator.compRow+j);
           formula = formula +'"),"Yes","No")';
           formula.toString();
@@ -176,7 +152,7 @@ function comparison(spread, indicator, Verizon, activeRow, file, step, m, subtyp
                         
           var value = indicator.compCol + ((k-1)*subtype)+g;
           var col = columnToLetter(value);
-          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+step.elements[m].url+'","'+step.elements[m].tab+'!';
+          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+Verizon.url+'","'+Verizon.tab+'!';
           formula = formula + col+(indicator.compRow+j);
           formula = formula +'"),"Yes","No")';
           formula.toString();
@@ -198,7 +174,7 @@ function comparison(spread, indicator, Verizon, activeRow, file, step, m, subtyp
             
           var value = indicator.compCol + ((k-1)*subtype)+g;
           var col = columnToLetter(value);
-          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+step.elements[m].url+'","'+step.elements[m].tab+'!';
+          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+Verizon.url+'","'+Verizon.tab+'!';
           formula = formula + col+(indicator.compRow+j);
           formula = formula +'"),"Yes","No")';
           formula.toString();
@@ -212,6 +188,18 @@ function comparison(spread, indicator, Verizon, activeRow, file, step, m, subtyp
       }
     }
   }
+  
+  // adding the formating so that the cell turns red if the answer is no
+  var colMax =columnToLetter(2+(Verizon.numberOfServices+2)*subtype);
+  var rowMax =activeRow+indicator.elements.length;
+  
+  var range = spread.getRange(activeRow, 2, indicator.elements.length, 2+(Verizon.numberOfServices+2)*subtype)
+  
+  var rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo('No').setBackground("#fa7661").setRanges([range]).build();
+  var rules = spread.getConditionalFormatRules();
+  rules.push(rule);
+  spread.setConditionalFormatRules(rules);
+  
   
   activeRow = activeRow=activeRow+indicator.elements.length;
   return activeRow;
@@ -769,11 +757,9 @@ function importSteps() {
           "label": "Is your answer the same as the previous year?"
         },
         {
-         "type": "comparison",
-         "label": "Element ",
-         "compShort": "S01",
-         "url": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-         "tab": "2018 Outcome Ranges"
+          "type": "comparison",
+          "label": "Element ",
+          "compShort": "S01"
         },
         {
           "type": "miniheader",
@@ -833,6 +819,47 @@ function importSteps() {
       ]
     },
     {
+      "label": "Step 3.5: Year-on-year analysis",
+      "labelShort": "S03.5",
+      "c1": 50,
+      "c2": 168,
+      "c3": 82,
+      "elements": [
+        {
+          "type": "header",
+          "filler": " "
+        },
+        {
+          "type": "miniheader",
+          "label": "Is your answer the same as the previous year?"
+        },
+        {
+          "type": "comparison",
+          "label": "Element ",
+          "compShort": "S03"
+        },
+        {
+          "type": "miniheader",
+          "label": "If no, please select the reason why and provide comments for that element."
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Select reason if 'no' for ",
+          "dropdown": [
+            "not selected",
+            "I do not agree with last year's score",
+            "the policy appears revised or changed"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " ",
+          "nameLabel": "Comments"
+        }
+      ]
+    },
+    {
       "label": "Step 4: First Horizontal Review",
       "labelShort": "S04",
       "c1": 168,
@@ -865,6 +892,47 @@ function importSteps() {
           "type": "sources",
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
+        }
+      ]
+    },
+    {
+      "label": "Step 4.5: Year-on-year analysis",
+      "labelShort": "S04.5",
+      "c1": 188,
+      "c2": 214,
+      "c3": 208,
+      "elements": [
+        {
+          "type": "header",
+          "filler": " "
+        },
+        {
+          "type": "miniheader",
+          "label": "Is your answer the same as the previous year?"
+        },
+        {
+          "type": "comparison",
+          "label": "Element ",
+          "compShort": "S04"
+        },
+        {
+          "type": "miniheader",
+          "label": "If no, please select the reason why and provide comments for that element."
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Select reason if 'no' for ",
+          "dropdown": [
+            "not selected",
+            "I do not agree with last year's score",
+            "the policy appears revised or changed"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " ",
+          "nameLabel": "Comments"
         }
       ]
     },
@@ -950,6 +1018,47 @@ function importSteps() {
           "type": "sources",
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
+        }
+      ]
+    },
+    {
+      "label": "Step 7.5: Year-on-year analysis",
+      "labelShort": "S07.5",
+      "c1": 240,
+      "c2": 200,
+      "c3": 58,
+      "elements": [
+        {
+          "type": "header",
+          "filler": " "
+        },
+        {
+          "type": "miniheader",
+          "label": "Is your answer the same as the previous year?"
+        },
+        {
+          "type": "comparison",
+          "label": "Element ",
+          "compShort": "S07"
+        },
+        {
+          "type": "miniheader",
+          "label": "If no, please select the reason why and provide comments for that element."
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Select reason if 'no' for ",
+          "dropdown": [
+            "not selected",
+            "I do not agree with last year's score",
+            "the policy appears revised or changed"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " ",
+          "nameLabel": "Comments"
         }
       ]
     }
