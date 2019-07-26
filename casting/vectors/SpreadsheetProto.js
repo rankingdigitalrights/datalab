@@ -15,27 +15,69 @@ function main() {
   //var Steps = importResearchSteps();
   var Steps = importSteps();
   
-  
   // MAKING ALL THE NECESSARY TABS
   // 1. the governance tabs
   populate(file, Indicators.governance, Verizon, Steps);
 
   // 2. setting up freedom
-  populate(file, Indicators.freedom, Verizon, Steps);
+  //populate(file, Indicators.freedom, Verizon, Steps);
   
   // 3. the privacy tabs
-  populate(file, Indicators.privacy, Verizon, Steps);
+  //populate(file, Indicators.privacy, Verizon, Steps);
   
   
-  
-  
-  
-  
+ 
   Logger.log('end main');
   return;
 }
 
 
+function holding() {
+   //testing year on year
+  var spread = file.insertSheet();
+  spread.setName('testing');
+  
+  var compRow=2;
+  var compCol=3;
+  var sheet='2018 Outcome Ranges';
+  
+  var url ='https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553';
+  
+  for(var i=0; i<Indicators.governance.indicators[0].elements.length; i++) {
+    for(var j=0; j< (Verizon.numberOfServices+2)*2; j++) {
+      var cell = spread.getRange(i+1, j+1);
+      var string = '=IF('+columnToLetter(compCol)+compRow+'=IMPORTRANGE("'+url+'", "'+sheet+'!B'+(compCol+j)+'"),"YES","NO")';
+      string.toString();
+      Logger.log(string);
+      cell.setFormula(string);
+    }   
+  }
+  //=IF(B43=IMPORTRANGE("https://docs.google.com/spreadsheets/d/1QrGg07QwH-U6UqOtZ730lfnZ6Svo8UrZdsgfvzu4p2Q/edit","G1!B66"),"Yes","No")
+  
+}
+
+
+function columnToLetter(column)
+{
+  var temp, letter = '';
+  while (column > 0)
+  {
+    temp = (column - 1) % 26;
+    letter = String.fromCharCode(temp + 65) + letter;
+    column = (column - temp - 1) / 26;
+  }
+  return letter;
+}
+
+function letterToColumn(letter)
+{
+  var column = 0, length = letter.length;
+  for (var i = 0; i < length; i++)
+  {
+    column += (letter.charCodeAt(i) - 64) * Math.pow(26, length - i - 1);
+  }
+  return column;
+}
 
 function populate(file, indicatortype, Verizon, Steps) {
     
@@ -71,6 +113,14 @@ function populate(file, indicatortype, Verizon, Steps) {
         if(Steps.researchSteps[j].elements[k].type == "sources") {
           activeRow = sourcesStep(spread, indicatortype.indicators[i], Verizon, activeRow, file, Steps.researchSteps[j], k, subtype, indicatortype);
         }
+        
+        if(Steps.researchSteps[j].elements[k].type == "miniheader") {
+          activeRow = miniheader(Steps.researchSteps[j], k, activeRow, spread);
+        }
+        
+        if(Steps.researchSteps[j].elements[k].type == "comparison") {
+          activeRow = comparison(spread, indicatortype.indicators[i], Verizon, activeRow, file, Steps.researchSteps[j], k, subtype, indicatortype);
+        }
       }
     }
 
@@ -78,7 +128,108 @@ function populate(file, indicatortype, Verizon, Steps) {
 }
 
 
+function comparison(spread, indicator, Verizon, activeRow, file, step, m, subtype, indicatortype) {
+  
+  // sets up column with discription
+  for(var j=0; j<indicator.elements.length; j++) {
+    var activeCol = 1;
+    for(var k=0; k<(Verizon.numberOfServices+3); k++) { // (((Verizon.numberOfServices+2)*subtype)+1)
+      if(k==0) {
+         var cell =spread.getRange(activeRow+j, activeCol);
+         cell.setValue(step.elements[m].label + indicator.elements[j].labelShort);
+         cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+        activeCol=activeCol+1;
+        }
+      
+      // names the cells into which answers will be put
+      else {
+        if(k==1) {
+          // overall company
+          for(var g=0; g<subtype;g++) {
+          var thisCell = spread.getRange(activeRow+j, activeCol);
 
+          // setting up formula that compares values
+          var compCellName = ('RDR2019DC'+Verizon.id+step.elements[m].compShort+indicator.elements[j].labelShort);
+          if(subtype!=1) { compCellName=compCellName+indicatortype.components[g].labelShort;}
+          compCellName=compCellName.toString();
+          
+          var value = indicator.compCol + ((k-1)*subtype)+g;
+          var col = columnToLetter(value);
+          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+step.elements[m].url+'","'+step.elements[m].tab+'!';
+          formula = formula + col+(indicator.compRow+j);
+          formula = formula +'"),"Yes","No")';
+          formula.toString();
+                    
+          thisCell.setFormula(formula);  
+            
+          activeCol=activeCol+1;
+          }
+        }
+                
+        else if (k==2) {
+          for(var g=0; g<subtype;g++) {
+                    var thisCell = spread.getRange(activeRow+j, activeCol);
+          var thisCell = spread.getRange(activeRow+j, activeCol);
+          var compCellName = ('RDR2019DC'+Verizon.id+'opCom'+step.elements[m].compShort+indicator.elements[j].labelShort);
+          if(subtype!=1) { compCellName=compCellName+indicatortype.components[g].labelShort;}
+          compCellName=compCellName.toString();
+                        
+          var value = indicator.compCol + ((k-1)*subtype)+g;
+          var col = columnToLetter(value);
+          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+step.elements[m].url+'","'+step.elements[m].tab+'!';
+          formula = formula + col+(indicator.compRow+j);
+          formula = formula +'"),"Yes","No")';
+          formula.toString();
+                    
+          thisCell.setFormula(formula); 
+            
+
+          activeCol=activeCol+1;
+          }
+        }
+        
+        else {
+          for(var g=0; g<subtype;g++) {
+            var thisCell = spread.getRange(activeRow+j, activeCol);
+            var compCellName = ('RDR2019DC'+Verizon.services[k-3].id+step.elements[m].compShort+indicator.elements[j].labelShort);
+          if(subtype!=1) { compCellName=compCellName+indicatortype.components[g].labelShort;}
+          compCellName=compCellName.toString();  
+          
+            
+          var value = indicator.compCol + ((k-1)*subtype)+g;
+          var col = columnToLetter(value);
+          var formula = 'IF('+compCellName+'=IMPORTRANGE("'+step.elements[m].url+'","'+step.elements[m].tab+'!';
+          formula = formula + col+(indicator.compRow+j);
+          formula = formula +'"),"Yes","No")';
+          formula.toString();
+                    
+          thisCell.setFormula(formula);
+            
+
+          activeCol=activeCol+1;
+          }
+        }   
+      }
+    }
+  }
+  
+  activeRow = activeRow=activeRow+indicator.elements.length;
+  return activeRow;
+}
+
+
+
+
+function miniheader(step, m, activeRow, spread) {
+  var cell = spread.getRange(activeRow,1);
+  cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+  cell.setValue(step.elements[m].label);
+  cell.setFontWeight('bold');
+  cell.setWrap(true);
+  activeRow=activeRow+1;
+  return activeRow;
+  
+}
 
 
 
@@ -603,6 +754,49 @@ function importSteps() {
       "c3": 212
     },
     {
+      "label": "Step 1.5: Year-on-year analysis",
+      "labelShort": "S01.5",
+      "c1": 168,
+      "c2": 168,
+      "c3": 50,
+      "elements": [
+        {
+          "type": "header",
+          "filler": " "
+        },
+        {
+          "type": "miniheader",
+          "label": "Is your answer the same as the previous year?"
+        },
+        {
+         "type": "comparison",
+         "label": "Element ",
+         "compShort": "S01",
+         "url": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
+         "tab": "2018 Outcome Ranges"
+        },
+        {
+          "type": "miniheader",
+          "label": "If no, please select the reason why and provide comments for that element."
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Select reason if 'no' for ",
+          "dropdown": [
+            "not selected",
+            "I do not agree with last year's score",
+            "the policy appears revised or changed"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " ",
+          "nameLabel": "Comments"
+        }
+      ]
+    },
+    {
       "label": "Step 3: Score Consensus",
       "labelShort": "S03",
       "c1": 50,
@@ -641,7 +835,7 @@ function importSteps() {
     {
       "label": "Step 4: First Horizontal Review",
       "labelShort": "S04",
-      "c1":168,
+      "c1": 168,
       "c2": 50,
       "c3": 80,
       "elements": [
@@ -672,7 +866,7 @@ function importSteps() {
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
         }
-        ]
+      ]
     },
     {
       "label": "Step 5: Company Feedback",
@@ -685,12 +879,12 @@ function importSteps() {
           "type": "header",
           "filler": "Your Name"
         }
-        ]
-    }, 
+      ]
+    },
     {
       "label": "Step 6: Second Horizontal Review",
       "labelShort": "S06",
-      "c1":162,
+      "c1": 162,
       "c2": 168,
       "c3": 50,
       "elements": [
@@ -721,20 +915,20 @@ function importSteps() {
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
         }
-        ]
+      ]
     },
     {
-          "label": "Step 7: Final Review",
-          "labelShort": "S07",
-          "c1": 50,
-          "c2":149,
-          "c3": 168,
-          "elements": [
-            {
-              "type": "header",
-              "filler": "Your Name"
-            },
-            {
+      "label": "Step 7: Final Review",
+      "labelShort": "S07",
+      "c1": 50,
+      "c2": 149,
+      "c3": 168,
+      "elements": [
+        {
+          "type": "header",
+          "filler": "Your Name"
+        },
+        {
           "type": "elementDropDown",
           "label": "Consolidated answer for ",
           "dropdown": [
@@ -757,9 +951,8 @@ function importSteps() {
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
         }
-            
-            ]
-        }
+      ]
+    }
   ]
 };
   
