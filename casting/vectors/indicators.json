@@ -18,6 +18,8 @@
                 "labelShort": "G1",
                 "labelLong": "Policy Commitment",
                 "description": "The company should publicly commit to respect users’ human rights to freedom of expression and privacy.",
+                "compCol": 2,
+                "compRow": 3,
                 "elements": [{
                     "labelShort": "G1.1",
                     "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including freedom of expression and privacy?"
@@ -27,6 +29,8 @@
                 "labelShort": "G2",
                 "labelLong": "Governance and management oversight",
                 "description": "The company’s senior leadership should exercise oversight over how its policies and practices affect freedom of expression and privacy.",
+                "compCol": 2,
+                "compRow": 16,
                 "elements": [{
                         "labelShort": "G2.1",
                         "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect freedom of expression and privacy?"
@@ -45,6 +49,8 @@
                 "labelShort": "G3",
                 "labelLong": "Internal implementation",
                 "description": "The company should have mechanisms in place to implement its commitments to freedom of expression and privacy within the company.",
+                "compCol": 2,
+                "compRow": 37,
                 "elements": [{
                         "labelShort": "G3.1",
                         "description": "Does the company clearly disclose that it provides employee training on freedom of expression and privacy issues?"
@@ -59,6 +65,8 @@
                 "labelShort": "G4",
                 "labelLong": "Impact assessment",
                 "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                "compCol": 2,
+                "compRow": 54,
                 "elements": [{
                         "labelShort": "G4.1",
                         "description": "As part of its decision-making, does the company consider how laws affect freedom of expression and privacy in jurisdictions where it operates?"
@@ -109,6 +117,8 @@
                 "labelShort": "G5",
                 "labelLong": "Stakeholder engagement",
                 "description": "The company should engage with a range of stakeholders on freedom of expression and privacy issues.",
+                "compCol": 2,
+                "compRow": 92,
                 "elements": [{
                         "labelShort": "G5.1",
                         "description": "Is the company a member of a multi-stakeholder initiative whose focus includes a commitment to uphold freedom of expression and privacy based on international human rights principles?"
@@ -127,6 +137,8 @@
                 "labelShort": "G6",
                 "labelLong": "Remedy",
                 "description": "The company should have grievance and remedy mechanisms to address users’ freedom of expression and privacy concerns.",
+                "compCol": 2,
+                "compRow": 112,
                 "elements": [{
                         "labelShort": "G6.1",
                         "description": "Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression or privacy has been adversely affected by the company’s policies or practices?"
