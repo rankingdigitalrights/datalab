@@ -26,10 +26,10 @@ function main() {
   populateByCategory(file, Indicators.governance, CompanyObj, Steps);
 
   // 2. setting up freedom
-  populateByCategory(file, Indicators.freedom, CompanyObj, Steps);
+  //populateByCategory(file, Indicators.freedom, CompanyObj, Steps);
 
   // 3. the privacy tabs
-  populateByCategory(file, Indicators.privacy, CompanyObj, Steps);
+  //populateByCategory(file, Indicators.privacy, CompanyObj, Steps);
 
   Logger.log('end main');
   return;
@@ -93,7 +93,10 @@ function populateByCategory(file, indicatortype, CompanyObj, Steps) {
     // setting up all the steps for all the indicators
     for (var j = 0; j < Steps.researchSteps.length; j++) {
       for (var k = 0; k < Steps.researchSteps[j].components.length; k++) {
-
+        
+        // stores first row of a step
+        if(k==0) { var firstRow = activeRow +1;}
+        
         if (Steps.researchSteps[j].components[k].type == "header") {
           activeRow = addStepHeader(sheet, indicatortype.indicators[i], CompanyObj, activeRow, file, Steps.researchSteps[j], k, numberOfComponents);
         }
@@ -120,6 +123,19 @@ function populateByCategory(file, indicatortype, CompanyObj, Steps) {
 
         else if (Steps.researchSteps[j].components[k].type == "comparison") {
           activeRow = comparison(sheet, indicatortype.indicators[i], CompanyObj, activeRow, file, Steps.researchSteps[j], k, numberOfComponents, indicatortype);
+        }
+        
+        if(k==Steps.researchSteps[j].components.length-1) {
+          
+          var lastRow = activeRow;
+          var maxCol =1+(CompanyObj.numberOfServices+2)*numberOfComponents;
+          
+          var range = sheet.getRange(firstRow, 2, lastRow-firstRow, maxCol-1);
+          
+          var name = ('RDR2019DC'+CompanyObj.id+Steps.researchSteps[j].labelShort+indicatortype.indicators[i].labelShort);
+          name = name.toString();
+          
+          file.setNamedRange(name, range);
         }
       }
     }
