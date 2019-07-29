@@ -3,7 +3,7 @@
     {
       "label": "Step 1: Data Collection",
       "labelShort": "S01",
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -42,7 +42,7 @@
       "c1": 168,
       "c2": 168,
       "c3": 50,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": " "
@@ -83,7 +83,7 @@
       "c1": 186,
       "c2": 136,
       "c3": 177,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -142,7 +142,7 @@
       "c1": 50,
       "c2": 147,
       "c3": 168,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -178,7 +178,7 @@
       "c1": 50,
       "c2": 168,
       "c3": 82,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": " "
@@ -219,7 +219,7 @@
       "c1": 168,
       "c2": 50,
       "c3": 80,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -255,7 +255,7 @@
       "c1": 188,
       "c2": 214,
       "c3": 208,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": " "
@@ -296,7 +296,7 @@
       "c1": "143",
       "c2": "237",
       "c3": "88",
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -342,7 +342,7 @@
       "c1": 162,
       "c2": 168,
       "c3": 50,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -378,7 +378,7 @@
       "c1": 50,
       "c2": 149,
       "c3": 168,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": "Your Name"
@@ -414,7 +414,7 @@
       "c1": 240,
       "c2": 200,
       "c3": 58,
-      "elements": [
+      "components": [
         {
           "type": "header",
           "filler": " "
