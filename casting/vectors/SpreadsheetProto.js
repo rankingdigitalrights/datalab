@@ -62,8 +62,9 @@ function letterToColumn(letter) {
 // ## END Helper functions  ## //
 
 // ## BEGIN High-level functions | main components ## //
-// TODO: Explain in a few sentences what the whole function is doing
-// List the parameters and where their values are coming from
+// Populate creates the sheets for each indicator type and then fills them by going through the step jason and adding
+// the inidividual steps by calling helper functions
+// the parameters are the file to which to add the sheets, the indicatortype, the company object, and the steps
 
 function populateByCategory(file, indicatortype, CompanyObj, Steps) {
 
@@ -156,57 +157,45 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
     // ~ k = 0 -> Labels
     // ~ k = 1 Group
     // ~ k = 2 OpCom
+    
 
-    for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) { // address hard 3 with company JSON
+    // sets up label column
+    var cell = sheet.getRange(activeRow + j, activeCol);
+    cell.setValue(step.components[m].label + indicator.elements[j].labelShort);
+    cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+    activeCol = activeCol + 1;
+    
+    // setting up overall company column(s)
+    for (var g = 0; g < numberOfComponents; g++) {
+       var thisCell = sheet.getRange(activeRow + j, activeCol);
 
-      // TODO: this shall happen only once per Indicator
-      // right now this is n = 35*5
+        // setting up formula that compares values
+        var compCellName = ('RDR2019DC' + CompanyObj.id + step.components[m].compShort + indicator.elements[j].labelShort);
+        if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
+        compCellName = compCellName.toString();
 
-      if (k == 0) {
-        var cell = sheet.getRange(activeRow + j, activeCol);
-        cell.setValue(step.components[m].label + indicator.elements[j].labelShort);
-        cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+        var value = indicator.compCol + g;
+        var col = columnToLetter(value);
+        var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
+        formula = formula + col + (indicator.compRow + j);
+        formula = formula + '"),"Yes","No")';
+        formula.toString();
+
+        thisCell.setFormula(formula);
+
         activeCol = activeCol + 1;
-      }
-
-      // names the cells into which answers will be put
-      else {
-        if (k == 1) {
-          // overall company
-          // g = ComponentElementPosition
-
-          // TODO: refactor naming logic to function()
-
-          for (var g = 0; g < numberOfComponents; g++) {
-            var thisCell = sheet.getRange(activeRow + j, activeCol);
-
-            // setting up formula that compares values
-            var compCellName = ('RDR2019DC' + CompanyObj.id + step.components[m].compShort + indicator.elements[j].labelShort);
-            if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
-            compCellName = compCellName.toString();
-
-            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g;
-            var col = columnToLetter(value);
-            var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
-            formula = formula + col + (indicator.compRow + j);
-            formula = formula + '"),"Yes","No")';
-            formula.toString();
-
-            thisCell.setFormula(formula);
-
-            activeCol = activeCol + 1;
-          }
-        }
-
-        else if (k == 2) {
-          for (var g = 0; g < numberOfComponents; g++) {
+     }
+    
+    
+    // for opCom
+    for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = sheet.getRange(activeRow + j, activeCol);
             var thisCell = sheet.getRange(activeRow + j, activeCol);
             var compCellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.components[m].compShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
             compCellName = compCellName.toString();
 
-            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g;
+            var value = indicator.compCol + numberOfComponents + g;
             var col = columnToLetter(value);
             var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
             formula = formula + col + (indicator.compRow + j);
@@ -218,17 +207,17 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
 
             activeCol = activeCol + 1;
           }
-        }
 
-        else {
+    // for the remaining services
+    for (var k = 0; k < (CompanyObj.numberOfServices); k++) { // address hard 3 with company JSON
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = sheet.getRange(activeRow + j, activeCol);
-            var compCellName = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.components[m].compShort + indicator.elements[j].labelShort);
+            var compCellName = ('RDR2019DC' + CompanyObj.services[k].id + step.components[m].compShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
             compCellName = compCellName.toString();
 
 
-            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g;
+            var value = indicator.compCol + ((k + 2) * numberOfComponents) + g;
             var col = columnToLetter(value);
             var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
             formula = formula + col + (indicator.compRow + j);
@@ -240,8 +229,6 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
 
             activeCol = activeCol + 1;
           }
-        }
-      }
     }
   }
 
@@ -393,20 +380,16 @@ function addStepHeader(spread, indicator, CompanyObj, activeRow, file, step, k, 
 
 function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, step, m, numberOfComponents, indicatortype) {
   var rule = SpreadsheetApp.newDataValidation().requireValueInList(step.components[m].dropdown).build();
-
   var activeCol = 1;
-  for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
-    if (k == 0) {
-      var cell = spread.getRange(activeRow, activeCol);
-      cell.setValue(step.components[m].label);
-      cell.setBackgroundRGB(step.c1, step.c2, step.c3);
-      activeCol = activeCol + 1;
-    }
-
-    // names the cells into which answers will be put
-    else {
-      if (k == 1) {
-        // overall company
+  
+  // making the label column
+  var cell = spread.getRange(activeRow, activeCol);
+  cell.setValue(step.components[m].label);
+  cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+  activeCol = activeCol + 1;
+  
+  
+  // overall company
         for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, activeCol);
           var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort);
@@ -420,10 +403,9 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
           thisCell.setFontWeight('bold'); // bolds the answers
           activeCol = activeCol + 1;
         }
-      }
-
-      else if (k == 2) {
-        for (var g = 0; g < numberOfComponents; g++) {
+  
+  // opCom
+          for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, activeCol);
           var thisCell = spread.getRange(activeRow, activeCol);
           var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort);
@@ -437,23 +419,24 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
           thisCell.setFontWeight('bold'); // bolds the answers
           activeCol = activeCol + 1;
         }
-      }
-
-      else {
+  
+  // all the services
+  for (var k = 3; k < (CompanyObj.numberOfServices); k++) {
         for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, activeCol);
-          var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort);
+          
+          var trial = ('RDR2019DC' + CompanyObj.services[k].id + step.labelShort);
           if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
           trial = trial.toString();
           file.setNamedRange(trial, thisCell); // names cells
+          
+          
           thisCell.setDataValidation(rule); // creates dropdown list
           thisCell.setValue('not selected'); // sets default for drop down list
           thisCell.setFontWeight('bold'); // bolds the answers
           activeCol = activeCol + 1;
         }
       }
-    }
-  }
 
   activeRow = activeRow + 1;
   return activeRow;
@@ -468,19 +451,15 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
   // sets up column with discription
   for (var j = 0; j < indicator.elements.length; j++) {
     var activeCol = 1;
-    for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
-      if (k == 0) {
-        var cell = spread.getRange(activeRow + j, activeCol);
+    
+    // label column
+         var cell = spread.getRange(activeRow + j, activeCol);
         cell.setValue(step.components[m].label + indicator.elements[j].labelShort);
         cell.setBackgroundRGB(step.c1, step.c2, step.c3);
         activeCol = activeCol + 1;
-      }
-
-      // names the cells into which answers will be put
-      else {
-        if (k == 1) {
-          // overall company
-          for (var g = 0; g < numberOfComponents; g++) {
+    
+    // overall company
+     for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j, activeCol);
             var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) {
@@ -493,10 +472,9 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
             thisCell.setFontWeight('bold'); // bolds the answers
             activeCol = activeCol + 1;
           }
-        }
-
-        else if (k == 2) {
-          for (var g = 0; g < numberOfComponents; g++) {
+    
+    // opCom
+              for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j, activeCol);
             var thisCell = spread.getRange(activeRow + j, activeCol);
             var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort);
@@ -510,24 +488,22 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
             thisCell.setFontWeight('bold'); // bolds the answers
             activeCol = activeCol + 1;
           }
-        }
+    
+    for (var k = 0; k < (CompanyObj.numberOfServices); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
 
-        else {
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j, activeCol);
-            var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort);
-            if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-            trial = trial.toString();
-            file.setNamedRange(trial, thisCell); // names cells
+            
+            nameCellServices(file, thisCell, CompanyObj.services[k].id, step.labelShort,  indicator.elements[j].labelShort, indicatortype.components[g].labelShort, numberOfComponents, indicatortype, g);
+            
             thisCell.setDataValidation(rule); // creates dropdown list
             thisCell.setValue('not selected'); // sets default for drop down list
             thisCell.setFontWeight('bold'); // bolds the answers
             activeCol = activeCol + 1;
           }
-        }
-      }
+        
     }
-  }
+    }
 
   activeRow = activeRow = activeRow + indicator.elements.length;
   return activeRow;
@@ -552,7 +528,7 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
       else {
         if (k == 1) {
           for (var g = 0; g < numberOfComponents; g++) {
-            var thisCell = spread.getRange(activeRow + j + g, k + 1);
+            var thisCell = spread.getRange(activeRow + j, k + 1 + g);
             thisCell.setWrap(true);
             var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
@@ -562,7 +538,7 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
         }
         else if (k == 2) {
           for (var g = 0; g < numberOfComponents; g++) {
-            var thisCell = spread.getRange(activeRow + j + g, k + 1);
+            var thisCell = spread.getRange(activeRow + j + g, k + 1); //ISSUE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             thisCell.setWrap(true);
             var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
@@ -575,10 +551,9 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j + g, k + 1);
             thisCell.setWrap(true);
-            var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
-            if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-            trial = trial.toString();
-            file.setNamedRange(trial, thisCell);
+            
+            nameCellServices(file, thisCell, CompanyObj.services[k - 3].id, step.labelShort,  indicator.elements[j].labelShort, step.components[m].nameLabel, numberOfComponents, indicatortype, g);
+
           }
 
         }
@@ -632,19 +607,26 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
         for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, k + 1 + g);
           thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-          var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
-          if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell);
+
+          nameCellServices(file, thisCell, CompanyObj.services[k - 3].id, step.labelShort,  indicator.labelShort, step.components[m].nameLabel, numberOfComponents, indicatortype, g);
+          
         }
       }
-
 
     }
   }
 
   activeRow = activeRow + 1;
   return activeRow;
+}
+
+
+// names the cell for a company service
+function nameCellServices(file, thisCell, id, stepLabel, indicatorLabel, stepNameLabel, numberOfComponents, indicatortype, g){
+  var name = ('RDR2019DC' + id + stepLabel + indicatorLabel + stepNameLabel);
+  if (numberOfComponents != 1) { name = name + indicatortype.components[g].labelShort; }
+  name = name.toString();
+  file.setNamedRange(name, thisCell);
 }
 
 
@@ -671,3 +653,4 @@ function importResearchSteps() {
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
+
