@@ -28,10 +28,10 @@ function main() {
   populateByCategory(file, Indicators.governance, CompanyObj, Steps);
 
   // 2. setting up freedom
-  //populateByCategory(file, Indicators.freedom, CompanyObj, Steps);
+  populateByCategory(file, Indicators.freedom, CompanyObj, Steps);
 
   // 3. the privacy tabs
-  //populateByCategory(file, Indicators.privacy, CompanyObj, Steps);
+  populateByCategory(file, Indicators.privacy, CompanyObj, Steps);
 
   Logger.log('end main');
   return;
@@ -286,7 +286,7 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
   var activeCol = 1;
 
   spread.setColumnWidth(1, 300);
-  for (var i = 2; i <= 10; i++) { spread.setColumnWidth(i, 300 / numberOfComponents); } // sets column width
+  for (var i = 2; i <= 20; i++) { spread.setColumnWidth(i, 300 / numberOfComponents); } // sets column width
 
   var trial = (activeRow + ':' + activeRow);
   trial = trial.toString();
@@ -305,12 +305,14 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
     cell.setValue(CompanyObj.groupLabel); // adds text
     cell.setBackgroundRGB(252, 111, 125); // sets color
     cell.setFontWeight('bold'); // makes text bold
+    cell.setWrap(true);
 
     if (indicatortype.hasComponents == true) {
       var currentCell = spread.getRange(activeRow + 1, activeCol);
       currentCell.setValue(indicatortype.components[i].labelLong);
       currentCell.setBackgroundRGB(252, 111, 125); // sets color
       currentCell.setFontWeight('bold'); // makes text bold
+      currentCell.setWrap(true);
     }
 
     activeCol = activeCol + 1;
@@ -328,12 +330,14 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
       spread.hideColumns(activeCol);
       cell.setValue('N/A');
     }
+    cell.setWrap(true);
 
     if (indicatortype.hasComponents == true) {
       var currentCell = spread.getRange(activeRow + 1, activeCol);
       currentCell.setValue(indicatortype.components[i].labelLong);
       currentCell.setBackgroundRGB(252, 111, 125); // sets color
       currentCell.setFontWeight('bold'); // makes text bold
+      currentCell.setWrap(true);
     }
 
     activeCol = activeCol + 1;
@@ -346,12 +350,14 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
       cell.setValue(CompanyObj.services[i].label.current);
       cell.setBackgroundRGB(252, 111, 125);
       cell.setFontWeight('bold');
+      cell.setWrap(true);
 
       if (indicatortype.hasComponents == true) {
         var currentCell = spread.getRange(activeRow + 1, activeCol);
         currentCell.setValue(indicatortype.components[j].labelLong);
         currentCell.setBackgroundRGB(252, 111, 125); // sets color
         currentCell.setFontWeight('bold'); // makes text bold
+        currentCell.setWrap(true);
       }
       activeCol = activeCol + 1;
     }
@@ -672,8 +678,68 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
 //---------------------------JSON INFO----------------------------------------------
 // all these function read in a jason file and them parse them so they are usable
 function importJsonCompany() {
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/verizon.json");
-  var jsonObj = JSON.parse(response);
+  var jsonObj = {
+  "collection": "companies",
+  "id": "igo1",
+  "label": {
+    "current": "Google",
+    "legacy": null
+  },
+  "type": "internet",
+  "groupLabel": "Google (Group)",
+  "opCom": false,
+  "opComLabel": null,
+  "prevScored": false,
+  "firstIndex": 2019,
+  "url": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
+  "tab": "2018 Outcome Ranges",
+  "numberOfServices": 5,
+  "services": [
+    {
+      "id":"igo1s",
+      "type": "search",
+      "label": {
+        "current": "Search",
+        "legacy": null
+      }
+    },
+    {
+      "id":"igo1gm",
+      "type": "email",
+      "label": {
+        "current": "Gmail",
+        "legacy": null
+      }
+    },
+    {
+      "id":"igo1yt",
+      "type": "photoVideo",
+      "label": {
+        "current": "YouTube",
+        "legacy": null
+      }
+    },
+    {
+      "id":"igo1am",
+      "type": "mobileEcosystem",
+      "label": {
+        "current": "Android mobile ecosystem",
+        "legacy": null
+      }
+    }, 
+    {
+      "id":"igo1gd",
+      "type": "cloud",
+      "label": {
+        "current": "Google Drive",
+        "legacy": null
+      }
+    }
+    ]
+};
+  
+  //var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/verizon.json");
+  //var jsonObj = JSON.parse(response);
   return jsonObj;
 }
 
@@ -689,3 +755,4 @@ function importResearchSteps() {
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
+
