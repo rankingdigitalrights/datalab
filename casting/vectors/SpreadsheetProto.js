@@ -1,5 +1,7 @@
 // This is the main caller
 
+// This is the main caller
+
 function main() {
   Logger.log('begin main');
 
@@ -547,38 +549,46 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
         var cell = spread.getRange(activeRow + j, k + 1);
         cell.setValue(step.components[m].label + indicator.elements[j].labelShort + step.components[m].label2);
         cell.setBackgroundRGB(step.c1, step.c2, step.c3); // colors cell
+        activeCol = activeCol + 1;
+
       }
 
       else {
         if (k == 1) {
           for (var g = 0; g < numberOfComponents; g++) {
-            var thisCell = spread.getRange(activeRow + j + g, k + 1);
+            var thisCell = spread.getRange(activeRow + j, activeCol);
             thisCell.setWrap(true);
             var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
             trial = trial.toString();
             file.setNamedRange(trial, thisCell);
+            activeCol = activeCol + 1;
+
           }
         }
         else if (k == 2) {
           for (var g = 0; g < numberOfComponents; g++) {
-            var thisCell = spread.getRange(activeRow + j + g, k + 1);
+            var thisCell = spread.getRange(activeRow + j, activeCol);
             thisCell.setWrap(true);
             var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
             trial = trial.toString();
             file.setNamedRange(trial, thisCell);
+                    activeCol = activeCol + 1;
+
           }
         }
 
         else {
           for (var g = 0; g < numberOfComponents; g++) {
-            var thisCell = spread.getRange(activeRow + j + g, k + 1);
+            thisCell = spread.getRange(activeRow + j, activeCol);
             thisCell.setWrap(true);
             var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
             trial = trial.toString();
             file.setNamedRange(trial, thisCell);
+              activeCol = activeCol + 1;
+
           }
 
         }
@@ -599,6 +609,8 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
       var cell = spread.getRange(activeRow, activeCol);
       cell.setValue(step.components[m].label);
       cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+                          activeCol = activeCol + 1;
+
 
     }
     else {
@@ -606,36 +618,43 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
       if (k == 1) {
         // main company
         for (var g = 0; g < numberOfComponents; g++) {
-          var thisCell = spread.getRange(activeRow, k + 1 + g);
+          var thisCell = spread.getRange(activeRow, 1 + k + g);
           thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
           var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
           if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
           trial = trial.toString();
           file.setNamedRange(trial, thisCell);
+                              activeCol = activeCol + 1;
+
         }
       }
 
       else if (k == 2) {
         // opCom
         for (var g = 0; g < numberOfComponents; g++) {
-          var thisCell = spread.getRange(activeRow, k + 1 + g);
+          var thisCell = spread.getRange(activeRow, 1 + numberOfComponents + g);
           thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
           var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
           if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
           trial = trial.toString();
           file.setNamedRange(trial, thisCell);
+                              activeCol = activeCol + 1;
+
         }
       }
 
       else {
         // services
         for (var g = 0; g < numberOfComponents; g++) {
-          var thisCell = spread.getRange(activeRow, k + 1 + g);
-          thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
+          var thisCell = spread.getRange(activeRow, activeCol); 
+          
+           thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
           var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
           if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
           trial = trial.toString();
           file.setNamedRange(trial, thisCell);
+                                        activeCol = activeCol + 1;
+
         }
       }
 
@@ -650,11 +669,10 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
 
 
 
-
 //---------------------------JSON INFO----------------------------------------------
 // all these function read in a jason file and them parse them so they are usable
 function importJsonCompany() {
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/etisalat.json");
+  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/verizon.json");
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
