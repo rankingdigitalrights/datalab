@@ -25,13 +25,10 @@ function main() {
 
   // MAKING ALL THE NECESSARY TABS and filling them
   // 1. the governance tabs
-  populateByCategory(file, Indicators.governance, CompanyObj, Steps);
-
-  // 2. setting up freedom
-  populateByCategory(file, Indicators.freedom, CompanyObj, Steps);
-
-  // 3. the privacy tabs
-  populateByCategory(file, Indicators.privacy, CompanyObj, Steps);
+  
+  for(i=0; i<Indicators.indicatorType.length;i++) {
+    populateByCategory(file, Indicators.indicatorType[i], CompanyObj, Steps);
+  }
 
   Logger.log('end main');
   return;
