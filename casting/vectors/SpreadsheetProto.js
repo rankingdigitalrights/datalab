@@ -74,15 +74,17 @@ function populateByCategory(file, indicatortype, CompanyObj, Steps) {
   // - create a new Sheet
   // - name the Sheet
   // -
+  
+  // iterates over each indicator in the current type
   for (var i = 0; i < indicatortype.indicators.length; i++) {
-    var sheet = file.insertSheet();
-    sheet.setName(indicatortype.indicators[i].labelShort);
+    var sheet = file.insertSheet(); // creates sheet
+    sheet.setName(indicatortype.indicators[i].labelShort); // sets name of sheet to indicator
 
     // ## BEGIN of XY Section
     // TODO What is happing here
     // setting active row and an active column
 
-    // TODO checks whether 
+    // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
     var numberOfComponents = 1;
     if (indicatortype.hasComponents == true) { numberOfComponents = indicatortype.components.length; } // if indicator has components add them
 
@@ -96,9 +98,10 @@ function populateByCategory(file, indicatortype, CompanyObj, Steps) {
     for (var j = 0; j < Steps.researchSteps.length; j++) {
       for (var k = 0; k < Steps.researchSteps[j].components.length; k++) {
         
-        // stores first row of a step
+        // stores first row of a step to use later in naming a step
         if(k==0) { var firstRow = activeRow +1;}
         
+        // all these functions make the type of substep that the step object specifies at this point
         if (Steps.researchSteps[j].components[k].type == "header") {
           activeRow = addStepHeader(sheet, indicatortype.indicators[i], CompanyObj, activeRow, file, Steps.researchSteps[j], k, numberOfComponents);
         }
@@ -127,17 +130,18 @@ function populateByCategory(file, indicatortype, CompanyObj, Steps) {
           activeRow = comparison(sheet, indicatortype.indicators[i], CompanyObj, activeRow, file, Steps.researchSteps[j], k, numberOfComponents, indicatortype);
         }
         
+        // if there are no more substeps, we store the final row and name the step
         if(k==Steps.researchSteps[j].components.length-1) {
           
           var lastRow = activeRow;
-          var maxCol =1+(CompanyObj.numberOfServices+2)*numberOfComponents;
+          var maxCol =1+(CompanyObj.numberOfServices+2)*numberOfComponents; // calculates the max column
           
           var range = sheet.getRange(firstRow, 2, lastRow-firstRow, maxCol-1);
           
           var name = ('RDR2019DC'+CompanyObj.id+Steps.researchSteps[j].labelShort+indicatortype.indicators[i].labelShort);
           name = name.toString();
           
-          file.setNamedRange(name, range);
+          file.setNamedRange(name, range); // names an entire step
         }
       }
     }
@@ -158,27 +162,20 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
     // ~ k = 0 -> Labels
     // ~ k = 1 Group
     // ~ k = 2 OpCom
+    
+    
+    // sets up labels in the first column of the row
+    var cell = sheet.getRange(activeRow + j, activeCol);
+    cell.setValue(step.components[m].label + indicator.elements[j].labelShort);
+    cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+    activeCol = activeCol + 1;
 
-    for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) { // address hard 3 with company JSON
+    for (var k = 1; k < (CompanyObj.numberOfServices + 3); k++) { // address hard 3 with company JSON
 
-      // TODO: this shall happen only once per Indicator
-      // right now this is n = 35*5
-
-      if (k == 0) {
-        var cell = sheet.getRange(activeRow + j, activeCol);
-        cell.setValue(step.components[m].label + indicator.elements[j].labelShort);
-        cell.setBackgroundRGB(step.c1, step.c2, step.c3);
-        activeCol = activeCol + 1;
-      }
-
-      // names the cells into which answers will be put
-      else {
+      // setting up company column(s)
         if (k == 1) {
-          // overall company
-          // g = ComponentElementPosition
 
-          // TODO: refactor naming logic to function()
-
+          // sets up as many columns as the indicator has components
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = sheet.getRange(activeRow + j, activeCol);
 
@@ -187,7 +184,8 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
             if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
             compCellName = compCellName.toString();
 
-            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g;
+            // sets up formula that compares values
+            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g; // calculates which column
             var col = columnToLetter(value);
             var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
             formula = formula + col + (indicator.compRow + j);
@@ -197,18 +195,26 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
             thisCell.setFormula(formula);
 
             activeCol = activeCol + 1;
-          }
-        }
+          } // close numberOfComponents for loop
+        } // close k==1 if statement
 
+      
+      // setting up opCom column(s)
         else if (k == 2) {
+          
+          // loops through the number of components
           for (var g = 0; g < numberOfComponents; g++) {
+            
+            // sets cell
             var thisCell = sheet.getRange(activeRow + j, activeCol);
-            var thisCell = sheet.getRange(activeRow + j, activeCol);
+            
+            // creating the name of cell it will be compared to
             var compCellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.components[m].compShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
             compCellName = compCellName.toString();
 
-            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g;
+            // creating formula that compares the two cells
+            var value = indicator.compCol + ((k - 1) * numberOfComponents) + g; // finds comparisson column
             var col = columnToLetter(value);
             var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
             formula = formula + col + (indicator.compRow + j);
@@ -219,17 +225,26 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
 
 
             activeCol = activeCol + 1;
-          }
-        }
+          } // close numberOfComponents for loop
+        } // close k==2 if statement
 
+      
+      // setting up services column(s9
         else {
+          
+          // looping thourough the number of components
           for (var g = 0; g < numberOfComponents; g++) {
+            
+            // setting cell
             var thisCell = sheet.getRange(activeRow + j, activeCol);
+            
+            // finding the name of cell that it will be compared too
             var compCellName = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.components[m].compShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) { compCellName = compCellName + indicatortype.components[g].labelShort; }
             compCellName = compCellName.toString();
 
 
+            // creating formula that will be placed in cell
             var value = indicator.compCol + ((k - 1) * numberOfComponents) + g;
             var col = columnToLetter(value);
             var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.url + '","' + CompanyObj.tab + '!';
@@ -243,7 +258,6 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
             activeCol = activeCol + 1;
           }
         }
-      }
     }
   }
 
@@ -265,13 +279,13 @@ function comparison(sheet, indicator, CompanyObj, activeRow, file, step, m, numb
 
 
 
-
+// function just creates a single row in which in the first column a label is added
 function addInstruction(step, m, activeRow, spread) {
   var cell = spread.getRange(activeRow, 1);
-  cell.setBackgroundRGB(step.c1, step.c2, step.c3);
-  cell.setValue(step.components[m].label);
-  cell.setFontWeight('bold');
-  cell.setWrap(true);
+  cell.setBackgroundRGB(step.c1, step.c2, step.c3); // setting background color
+  cell.setValue(step.components[m].label); // adding text
+  cell.setFontWeight('bold'); // bolding text
+  cell.setWrap(true); // wrapping text
   activeRow = activeRow + 1;
   return activeRow;
 
@@ -307,17 +321,18 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
     cell.setFontWeight('bold'); // makes text bold
     cell.setWrap(true);
 
+    // if it has components it adds the label in the next row
     if (indicatortype.hasComponents == true) {
       var currentCell = spread.getRange(activeRow + 1, activeCol);
       currentCell.setValue(indicatortype.components[i].labelLong);
       currentCell.setBackgroundRGB(252, 111, 125); // sets color
       currentCell.setFontWeight('bold'); // makes text bold
       currentCell.setWrap(true);
-    }
+    } // close hasComponents if statement
 
     activeCol = activeCol + 1;
 
-  }
+  } // close numberOfComponents for loop
 
   for (var i = 0; i < numberOfComponents; i++) {
     // setting up OpComCompany regardless of whether it has one
@@ -326,12 +341,16 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
     cell.setValue(CompanyObj.opComLabel);
     cell.setBackgroundRGB(252, 111, 125);
     cell.setFontWeight('bold');
+    
+    // hides opCom column(s) if opCom == false
     if (CompanyObj.opCom == false) {
       spread.hideColumns(activeCol);
       cell.setValue('N/A');
     }
+    
     cell.setWrap(true);
 
+    // if the indicator has components it adds them in the next row
     if (indicatortype.hasComponents == true) {
       var currentCell = spread.getRange(activeRow + 1, activeCol);
       currentCell.setValue(indicatortype.components[i].labelLong);
@@ -352,6 +371,7 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
       cell.setFontWeight('bold');
       cell.setWrap(true);
 
+      // if the indicator has components it adds them in the next row
       if (indicatortype.hasComponents == true) {
         var currentCell = spread.getRange(activeRow + 1, activeCol);
         currentCell.setValue(indicatortype.components[j].labelLong);
@@ -365,6 +385,7 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
 
   spread.setFrozenRows(activeRow); // freezes rows
 
+  // if the indicator does indeed have components, it freezes the additional row in which they are
   if (indicatortype.hasComponents == true) {
     spread.setFrozenRows(activeRow + 1);
     var range = ((activeRow + 1) + ':' + (activeRow + 1));
@@ -379,16 +400,19 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
 }
 
 
-
+// a step header is a row in which in the first column the name and description of the step is listed
+// and in the remaining colums a filler is added
 function addStepHeader(spread, indicator, CompanyObj, activeRow, file, step, k, numberOfComponents) {
   activeRow = activeRow + 1;
 
+  // sets up labels in the first column
   var cell = spread.getRange(activeRow, 1);
   cell.setBackgroundRGB(step.c1, step.c2, step.c3);
   var text = step.label;
   cell.setValue(text);
   cell.setFontWeight('bold');
 
+  // for remaining company, opCom, and services columns it adds the filler
   for (var i = 1; i < (((CompanyObj.numberOfServices + 2) * numberOfComponents) + 1); i++) {
     var cell = spread.getRange(activeRow, i + 1);
     cell.setValue(step.components[k].filler);
@@ -399,28 +423,33 @@ function addStepHeader(spread, indicator, CompanyObj, activeRow, file, step, k, 
 
 }
 
+
+// this function adds an element drop down list to a single row
 function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, step, m, numberOfComponents, indicatortype) {
   var rule = SpreadsheetApp.newDataValidation().requireValueInList(step.components[m].dropdown).build();
 
   var activeCol = 1;
-  for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
-    if (k == 0) {
+  
+  // sets up the labels
       var cell = spread.getRange(activeRow, activeCol);
       cell.setValue(step.components[m].label);
       cell.setBackgroundRGB(step.c1, step.c2, step.c3);
       activeCol = activeCol + 1;
-    }
+  
+  for (var k = 1; k < (CompanyObj.numberOfServices + 3); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
 
     // names the cells into which answers will be put
-    else {
       if (k == 1) {
         // overall company
         for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, activeCol);
+          
+          // creating the name for the cell
           var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort);
           if (numberOfComponents != 1) {
             trial = trial + indicatortype.components[g].labelShort;
           }
+          
           trial = trial.toString();
           file.setNamedRange(trial, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
@@ -430,14 +459,17 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
         }
       }
 
+    // setting up the opCom row
       else if (k == 2) {
         for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, activeCol);
-          var thisCell = spread.getRange(activeRow, activeCol);
+          
+          // creating the name of the cell
           var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort);
           if (numberOfComponents != 1) {
             trial = trial + indicatortype.components[g].labelShort;
           }
+          
           trial = trial.toString();
           file.setNamedRange(trial, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
@@ -447,11 +479,15 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
         }
       }
 
+    // taking care of all the service columns
       else {
         for (var g = 0; g < numberOfComponents; g++) {
           var thisCell = spread.getRange(activeRow, activeCol);
+          
+          // creating the name of the cell
           var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort);
           if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
+          
           trial = trial.toString();
           file.setNamedRange(trial, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
@@ -460,7 +496,6 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
           activeCol = activeCol + 1;
         }
       }
-    }
   }
 
   activeRow = activeRow + 1;
@@ -468,6 +503,7 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
 }
 
 
+// addelementDropDown creates a dropdown list in each column for each subindicator
 function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step, m, numberOfComponents, indicatortype) {
 
   var rule = SpreadsheetApp.newDataValidation().requireValueInList(step.components[m].dropdown).build();
@@ -476,24 +512,29 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
   // sets up column with discription
   for (var j = 0; j < indicator.elements.length; j++) {
     var activeCol = 1;
-    for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
-      if (k == 0) {
+    
+    // setting up the labels
         var cell = spread.getRange(activeRow + j, activeCol);
         cell.setValue(step.components[m].label + indicator.elements[j].labelShort);
         cell.setBackgroundRGB(step.c1, step.c2, step.c3);
         activeCol = activeCol + 1;
-      }
+    
+    for (var k = 1; k < (CompanyObj.numberOfServices + 3); k++) { // (((CompanyObj.numberOfServices+2)*numberOfComponents)+1)
 
-      // names the cells into which answers will be put
-      else {
+      // creates column(s) for overall company
         if (k == 1) {
-          // overall company
+          
+          // loops through the number of components
           for (var g = 0; g < numberOfComponents; g++) {
+            
             var thisCell = spread.getRange(activeRow + j, activeCol);
+            
+            // creating the future name of the cell
             var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) {
               trial = trial + indicatortype.components[g].labelShort;
             }
+            
             trial = trial.toString();
             file.setNamedRange(trial, thisCell); // names cells
             thisCell.setDataValidation(rule); // creates dropdown list
@@ -503,14 +544,19 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
           }
         }
 
+      // setting up opCom column(s)
         else if (k == 2) {
+          
+          // loops through the number of components
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j, activeCol);
-            var thisCell = spread.getRange(activeRow + j, activeCol);
+            
+            // creates name
             var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) {
               trial = trial + indicatortype.components[g].labelShort;
             }
+            
             trial = trial.toString();
             file.setNamedRange(trial, thisCell); // names cells
             thisCell.setDataValidation(rule); // creates dropdown list
@@ -520,11 +566,15 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
           }
         }
 
+      // creating all the service columns
         else {
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j, activeCol);
+            
+            // creating name of future namedRange
             var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
+            
             trial = trial.toString();
             file.setNamedRange(trial, thisCell); // names cells
             thisCell.setDataValidation(rule); // creates dropdown list
@@ -533,7 +583,6 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
             activeCol = activeCol + 1;
           }
         }
-      }
     }
   }
 
@@ -542,28 +591,33 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
 }
 
 
+// this function creates a cell for comments for each subindicator and names the ranges
 function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numberOfComponents, indicatortype) {
 
 
   for (var i = 0; i < indicator.elements.length; i++) { spread.setRowHeight(activeRow + i, 50); } // increases height of row
 
+  // loops through subindicators
   for (var j = 0; j < indicator.elements.length; j++) {
     var activeCol = 1;
-    for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) {
-      if (k == 0) {
-        // first column label
-        var cell = spread.getRange(activeRow + j, k + 1);
-        cell.setValue(step.components[m].label + indicator.elements[j].labelShort + step.components[m].label2);
-        cell.setBackgroundRGB(step.c1, step.c2, step.c3); // colors cell
-        activeCol = activeCol + 1;
-
-      }
-
-      else {
+    
+    // adding the labels
+    var cell = spread.getRange(activeRow + j, activeCol);
+    cell.setValue(step.components[m].label + indicator.elements[j].labelShort + step.components[m].label2);
+    cell.setBackgroundRGB(step.c1, step.c2, step.c3); // colors cell
+    activeCol = activeCol + 1;
+    
+    for (var k = 1; k < (CompanyObj.numberOfServices + 3); k++) {
+      
+      // setting up the columns for the overall company
         if (k == 1) {
+          
+          // looping through the number of components
           for (var g = 0; g < numberOfComponents; g++) {
             var thisCell = spread.getRange(activeRow + j, activeCol);
             thisCell.setWrap(true);
+            
+            // creating name of namedRange
             var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
             trial = trial.toString();
@@ -572,10 +626,17 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
 
           }
         }
+      
+      // setting up opCom column(s)
         else if (k == 2) {
+          
+          // looping through the number of components
           for (var g = 0; g < numberOfComponents; g++) {
+            
             var thisCell = spread.getRange(activeRow + j, activeCol);
             thisCell.setWrap(true);
+            
+            // creating and setting name of namedRange
             var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
             trial = trial.toString();
@@ -585,10 +646,14 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
           }
         }
 
+      // setting up columns for all the services
         else {
           for (var g = 0; g < numberOfComponents; g++) {
+            
             thisCell = spread.getRange(activeRow + j, activeCol);
             thisCell.setWrap(true);
+            
+            // creating and setting name of namedRange
             var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
             if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
             trial = trial.toString();
@@ -598,7 +663,7 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
           }
 
         }
-      }
+      
     }
   }
 
@@ -607,19 +672,17 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
   return activeRow;
 }
 
+// the sources step adds a single row in which the sources of each column can be listed
 function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, numberOfComponents, indicatortype) {
   var activeCol = 1;
-  for (var k = 0; k < (CompanyObj.numberOfServices + 3); k++) {
-    if (k == 0) {
-      // first column description
-      var cell = spread.getRange(activeRow, activeCol);
-      cell.setValue(step.components[m].label);
-      cell.setBackgroundRGB(step.c1, step.c2, step.c3);
-                          activeCol = activeCol + 1;
-
-
-    }
-    else {
+  
+  // adding label
+   var cell = spread.getRange(activeRow, activeCol);
+   cell.setValue(step.components[m].label);
+   cell.setBackgroundRGB(step.c1, step.c2, step.c3);
+   activeCol = activeCol + 1;
+  
+  for (var k = 1; k < (CompanyObj.numberOfServices + 3); k++) {
 
       if (k == 1) {
         // main company
@@ -660,12 +723,9 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
           trial = trial.toString();
           file.setNamedRange(trial, thisCell);
                                         activeCol = activeCol + 1;
-
         }
       }
 
-
-    }
   }
 
   activeRow = activeRow + 1;
@@ -678,68 +738,8 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
 //---------------------------JSON INFO----------------------------------------------
 // all these function read in a jason file and them parse them so they are usable
 function importJsonCompany() {
-  var jsonObj = {
-  "collection": "companies",
-  "id": "igo1",
-  "label": {
-    "current": "Google",
-    "legacy": null
-  },
-  "type": "internet",
-  "groupLabel": "Google (Group)",
-  "opCom": false,
-  "opComLabel": null,
-  "prevScored": false,
-  "firstIndex": 2019,
-  "url": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-  "tab": "2018 Outcome Ranges",
-  "numberOfServices": 5,
-  "services": [
-    {
-      "id":"igo1s",
-      "type": "search",
-      "label": {
-        "current": "Search",
-        "legacy": null
-      }
-    },
-    {
-      "id":"igo1gm",
-      "type": "email",
-      "label": {
-        "current": "Gmail",
-        "legacy": null
-      }
-    },
-    {
-      "id":"igo1yt",
-      "type": "photoVideo",
-      "label": {
-        "current": "YouTube",
-        "legacy": null
-      }
-    },
-    {
-      "id":"igo1am",
-      "type": "mobileEcosystem",
-      "label": {
-        "current": "Android mobile ecosystem",
-        "legacy": null
-      }
-    }, 
-    {
-      "id":"igo1gd",
-      "type": "cloud",
-      "label": {
-        "current": "Google Drive",
-        "legacy": null
-      }
-    }
-    ]
-};
-  
-  //var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/verizon.json");
-  //var jsonObj = JSON.parse(response);
+  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/verizon.json");
+  var jsonObj = JSON.parse(response);
   return jsonObj;
 }
 
@@ -755,4 +755,3 @@ function importResearchSteps() {
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
-
