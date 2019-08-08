@@ -451,6 +451,11 @@ function addScoring(file,activeRow, activeCol, sheet, currentStep, element, curr
   var averageCell = sheet.getRange(activeRow, activeCol+1);
   averageCell.setFormula(indicatorAverageFormula);
   
+  // naming the cell
+  var cellName = ('RDR2019SC' + CompanyObj.id +currentStep.labelShort + currentIndicator.labelShort+'AverageScore');
+      cellName = cellName.toString();
+      file.setNamedRange(cellName, currentCell);
+  
   
   return activeRow;
 }
