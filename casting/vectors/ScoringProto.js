@@ -226,7 +226,11 @@ function importSources(activeRow, activeCol, sheet, currentStep, element, curren
 }
 
 function addScoring(file,activeRow, activeCol, sheet, currentStep, element, currentIndicator, CompanyObj, numberOfComponents, indicatorType) {
-    for(var h=0; h<currentIndicator.elements.length;h++) {
+  
+  var firstRow = activeRow;
+  var lastRow = activeRow+currentIndicator.elements.length;
+  
+  for(var h=0; h<currentIndicator.elements.length;h++) {
     var tempCol = activeCol;
     var currentCell = sheet.getRange(activeRow,tempCol);
     var label = 'Points for '+currentIndicator.elements[h].labelShort;
@@ -312,12 +316,146 @@ function addScoring(file,activeRow, activeCol, sheet, currentStep, element, curr
       
     }
         
-    
     activeRow=activeRow+1;
   }
   
+  
+  // adding in the averages
+  activeRow=activeRow+1;
+  currentCell = sheet.getRange(activeRow, activeCol);
+  currentCell.setValue("Level Score");
+  currentCell.setFontWeight('bold');
+  
+  var tempCol=activeCol;
+  tempCol=tempCol+1;
+  
+  var indicatorAverageFormula='=AVERAGE('; // variable used for indicator average later
+  
+  // overall company averages
+  for(k=0; k<numberOfComponents; k++) {
+    
+    var currentCell=sheet.getRange(activeRow, tempCol);
+    var formula = 'AVERAGE(';
+    
+    for(var t=0; t<currentIndicator.elements.length; t++) {
+      
+      // finding the cell names that are used in calculating a company specific average
+      var cellName = ('RDR2019SC' + CompanyObj.id + currentStep.labelShort + currentIndicator.elements[t].labelShort);
+      if (numberOfComponents != 1) { cellName = cellName + indicatorType.components[k].labelShort;}
+      cellName = cellName.toString();
+      
+      formula = formula+cellName; // adding the name of the cell to the formula
+      if(t!=currentIndicator.elements.length-1) {formula=formula+',';}// only add comma when not at the end
+    }
+    
+    formula=formula+')';
+    formula=formula.toString();
+    
+    currentCell.setFormula(formula); // setting the formula
+    
+    // naming the cell
+      var cellName = ('RDR2019SC' + CompanyObj.id +currentStep.labelShort + currentIndicator.labelShort+'LevelScore');
+      if (numberOfComponents != 1) { cellName = cellName + indicatorType.components[k].labelShort;}
+      cellName = cellName.toString();
+      file.setNamedRange(cellName, currentCell);  
+    
+    indicatorAverageFormula=indicatorAverageFormula+cellName+','; // adding name to the formula
+    
+    
+    tempCol=tempCol+1;
+  }
+  
+  // now calculating the average for the op Com
+    for(k=0; k<numberOfComponents; k++) {
+    
+    var currentCell=sheet.getRange(activeRow, tempCol);
+    var formula = 'AVERAGE(';
+    
+    for(var t=0; t<currentIndicator.elements.length; t++) {
+      
+      // getting the name of cells used in level score average
+      var cellName = ('RDR2019SC' + CompanyObj.id + 'opCom'+ currentStep.labelShort + currentIndicator.elements[t].labelShort);
+      if (numberOfComponents != 1) { cellName = cellName + indicatorType.components[k].labelShort;}
+      cellName = cellName.toString();
+      
+      formula = formula+cellName; // adding string to formula
+      if(t!=currentIndicator.elements.length-1) {formula=formula+',';}
+    }
+    
+    formula=formula+')';
+    formula=formula.toString();
+    
+    currentCell.setFormula(formula);
+      
+      // setting the name of level score cell
+       var cellName = ('RDR2019SC' + CompanyObj.id +'opCom'+currentStep.labelShort + currentIndicator.labelShort+'LevelScore');
+      if (numberOfComponents != 1) { cellName = cellName + indicatorType.components[k].labelShort;}
+      cellName = cellName.toString();
+      file.setNamedRange(cellName, currentCell);
+      
+            indicatorAverageFormula=indicatorAverageFormula+cellName+',';
+
+    
+    tempCol=tempCol+1;
+  }
+  
+  
+  // looping through the services now
+    for(var g=0;g<CompanyObj.services.length;g++) {
+      
+      for(k=0; k<numberOfComponents; k++) {
+      currentCell = sheet.getRange(activeRow,tempCol);
+      
+         var formula = 'AVERAGE(';
+        
+        for(var t=0; t<currentIndicator.elements.length; t++) {
+          // getting the name of the cell needed to add to level score formula
+      var cellName = ('RDR2019SC' + CompanyObj.services[g].id + currentStep.labelShort + currentIndicator.elements[t].labelShort);
+      if (numberOfComponents != 1) { cellName = cellName + indicatorType.components[k].labelShort;}
+      cellName = cellName.toString();
+      
+      formula = formula+cellName;
+      if(t!=currentIndicator.elements.length-1) {formula=formula+',';}
+    }
+    
+    formula=formula+')';
+    formula=formula.toString();
+    
+    currentCell.setFormula(formula);
+        
+        // naming the level cell score
+      var cellName = ('RDR2019SC' + CompanyObj.services[g].id +currentStep.labelShort + currentIndicator.labelShort+'LevelScore');
+      if (numberOfComponents != 1) { cellName = cellName + indicatorType.components[k].labelShort;}
+      cellName = cellName.toString();
+      file.setNamedRange(cellName, currentCell);
+        
+     indicatorAverageFormula=indicatorAverageFormula+cellName+','; // adding it to the formula
+
+    tempCol=tempCol+1;
+         
+    }
+      
+    }
+  
+  
+  // setting up label for Average Score
+  activeRow=activeRow+2;
+  currentCell = sheet.getRange(activeRow, activeCol);
+  currentCell.setValue("Indicator Average");
+  currentCell.setFontWeight('bold');
+  
+  indicatorAverageFormula=indicatorAverageFormula+')';
+  indicatorAverageFormula=indicatorAverageFormula.toString();
+  
+  // plopping in the formula
+  var averageCell = sheet.getRange(activeRow, activeCol+1);
+  averageCell.setFormula(indicatorAverageFormula);
+  
+  
   return activeRow;
 }
+
+
 
 // ------------------IMPORT FUNCTIONS------------------------------------------------
 function importJsonCompany() {
