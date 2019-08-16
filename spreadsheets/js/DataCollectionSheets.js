@@ -28,8 +28,8 @@ function importJsonCompany() {
 }
 
 function importResearchSteps() {
-  // var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchStepsSubset.json");
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps.json");
+  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchStepsSubset.json");
+  // var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps.json");
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
@@ -185,10 +185,10 @@ function populateByCategory(file, indicatortype, CompanyObj, Steps, CompanyNumbe
 
           var range = sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1);
 
-          var name = ('RDR2019DC' + CompanyObj.id + Steps.researchSteps[j].labelShort + indicatortype.indicators[i].labelShort);
-          name = name.toString();
+          var stepNamedRange = ('RDR2019DC' + CompanyObj.id + Steps.researchSteps[j].labelShort + indicatortype.indicators[i].labelShort);
+          stepNamedRange = stepNamedRange.toString();
 
-          file.setNamedRange(name, range); // names an entire step
+          file.setNamedRange(stepNamedRange, range); // names an entire step
         }
       }
     }
@@ -349,9 +349,9 @@ function addTopHeader(spread, indicatortype, CompanyObj, activeRow, file, number
   spread.setColumnWidth(1, 300);
   for (var i = 2; i <= 20; i++) { spread.setColumnWidth(i, 300 / numberOfComponents); } // sets column width
 
-  var trial = (activeRow + ':' + activeRow);
-  trial = trial.toString();
-  spread.getRange(trial).setHorizontalAlignment('center'); // alligns header row
+  var cellName = (activeRow + ':' + activeRow);
+  cellName = cellName.toString();
+  spread.getRange(cellName).setHorizontalAlignment('center'); // alligns header row
 
 
 
@@ -492,13 +492,13 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
         var thisCell = spread.getRange(activeRow, activeCol);
 
         // creating the name for the cell
-        var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort);
+        var cellName = ('RDR2019DC' + CompanyObj.id + step.labelShort);
         if (numberOfComponents != 1) {
-          trial = trial + indicatortype.components[g].labelShort;
+          cellName = cellName + indicatortype.components[g].labelShort;
         }
 
-        trial = trial.toString();
-        file.setNamedRange(trial, thisCell); // names cells
+        cellName = cellName.toString();
+        file.setNamedRange(cellName, thisCell); // names cells
         thisCell.setDataValidation(rule); // creates dropdown list
         thisCell.setValue('not selected'); // sets default for drop down list
         thisCell.setFontWeight('bold'); // bolds the answers
@@ -512,13 +512,13 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
         var thisCell = spread.getRange(activeRow, activeCol);
 
         // creating the name of the cell
-        var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort);
+        var cellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort);
         if (numberOfComponents != 1) {
-          trial = trial + indicatortype.components[g].labelShort;
+          cellName = cellName + indicatortype.components[g].labelShort;
         }
 
-        trial = trial.toString();
-        file.setNamedRange(trial, thisCell); // names cells
+        cellName = cellName.toString();
+        file.setNamedRange(cellName, thisCell); // names cells
         thisCell.setDataValidation(rule); // creates dropdown list
         thisCell.setValue('not selected'); // sets default for drop down list
         thisCell.setFontWeight('bold'); // bolds the answers
@@ -532,11 +532,11 @@ function addBinaryEvaluation(spread, indicator, CompanyObj, activeRow, file, ste
         var thisCell = spread.getRange(activeRow, activeCol);
 
         // creating the name of the cell
-        var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort);
-        if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
+        var cellName = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort);
+        if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
 
-        trial = trial.toString();
-        file.setNamedRange(trial, thisCell); // names cells
+        cellName = cellName.toString();
+        file.setNamedRange(cellName, thisCell); // names cells
         thisCell.setDataValidation(rule); // creates dropdown list
         thisCell.setValue('not selected'); // sets default for drop down list
         thisCell.setFontWeight('bold'); // bolds the answers
@@ -577,13 +577,13 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
           var thisCell = spread.getRange(activeRow + j, activeCol);
 
           // creating the future name of the cell
-          var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort);
+          var cellName = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort);
           if (numberOfComponents != 1) {
-            trial = trial + indicatortype.components[g].labelShort;
+            cellName = cellName + indicatortype.components[g].labelShort;
           }
 
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell); // names cells
+          cellName = cellName.toString();
+          file.setNamedRange(cellName, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
           thisCell.setValue('not selected'); // sets default for drop down list
           thisCell.setFontWeight('bold'); // bolds the answers
@@ -599,13 +599,13 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
           var thisCell = spread.getRange(activeRow + j, activeCol);
 
           // creates name
-          var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort);
+          var cellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort);
           if (numberOfComponents != 1) {
-            trial = trial + indicatortype.components[g].labelShort;
+            cellName = cellName + indicatortype.components[g].labelShort;
           }
 
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell); // names cells
+          cellName = cellName.toString();
+          file.setNamedRange(cellName, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
           thisCell.setValue('not selected'); // sets default for drop down list
           thisCell.setFontWeight('bold'); // bolds the answers
@@ -619,11 +619,11 @@ function addElementDropDown(spread, indicator, CompanyObj, activeRow, file, step
           var thisCell = spread.getRange(activeRow + j, activeCol);
 
           // creating name of future namedRange
-          var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort);
-          if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
+          var cellName = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort);
+          if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
 
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell); // names cells
+          cellName = cellName.toString();
+          file.setNamedRange(cellName, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
           thisCell.setValue('not selected'); // sets default for drop down list
           thisCell.setFontWeight('bold'); // bolds the answers
@@ -665,10 +665,10 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
           thisCell.setWrap(true);
 
           // creating name of namedRange
-          var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
-          if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell);
+          var cellName = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
+          if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
+          cellName = cellName.toString();
+          file.setNamedRange(cellName, thisCell);
           activeCol = activeCol + 1;
 
         }
@@ -684,10 +684,10 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
           thisCell.setWrap(true);
 
           // creating and setting name of namedRange
-          var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
-          if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell);
+          var cellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
+          if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
+          cellName = cellName.toString();
+          file.setNamedRange(cellName, thisCell);
           activeCol = activeCol + 1;
 
         }
@@ -701,10 +701,10 @@ function comments(spread, indicator, CompanyObj, activeRow, file, step, m, numbe
           thisCell.setWrap(true);
 
           // creating and setting name of namedRange
-          var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
-          if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-          trial = trial.toString();
-          file.setNamedRange(trial, thisCell);
+          var cellName = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.elements[j].labelShort + step.components[m].nameLabel);
+          if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
+          cellName = cellName.toString();
+          file.setNamedRange(cellName, thisCell);
           activeCol = activeCol + 1;
 
         }
@@ -736,10 +736,10 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
       for (var g = 0; g < numberOfComponents; g++) {
         var thisCell = spread.getRange(activeRow, 1 + k + g);
         thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-        var trial = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
-        if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-        trial = trial.toString();
-        file.setNamedRange(trial, thisCell);
+        var cellName = ('RDR2019DC' + CompanyObj.id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
+        if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
+        cellName = cellName.toString();
+        file.setNamedRange(cellName, thisCell);
         activeCol = activeCol + 1;
 
       }
@@ -750,10 +750,10 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
       for (var g = 0; g < numberOfComponents; g++) {
         var thisCell = spread.getRange(activeRow, 1 + numberOfComponents + g);
         thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-        var trial = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
-        if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-        trial = trial.toString();
-        file.setNamedRange(trial, thisCell);
+        var cellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
+        if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
+        cellName = cellName.toString();
+        file.setNamedRange(cellName, thisCell);
         activeCol = activeCol + 1;
 
       }
@@ -765,10 +765,10 @@ function sourcesStep(spread, indicator, CompanyObj, activeRow, file, step, m, nu
         var thisCell = spread.getRange(activeRow, activeCol);
 
         thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-        var trial = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
-        if (numberOfComponents != 1) { trial = trial + indicatortype.components[g].labelShort; }
-        trial = trial.toString();
-        file.setNamedRange(trial, thisCell);
+        var cellName = ('RDR2019DC' + CompanyObj.services[k - 3].id + step.labelShort + indicator.labelShort + step.components[m].nameLabel);
+        if (numberOfComponents != 1) { cellName = cellName + indicatortype.components[g].labelShort; }
+        cellName = cellName.toString();
+        file.setNamedRange(cellName, thisCell);
         activeCol = activeCol + 1;
       }
     }
