@@ -1,0 +1,78 @@
+{
+  "researchSteps": [{
+      "label": "Step 1: Data Collection",
+      "labelShort": "S01",
+      "components": [{
+          "type": "header",
+          "filler": "Your Name"
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Element ",
+          "dropdown": [
+            "not selected",
+            "yes",
+            "partial",
+            "no",
+            "no disclosure found",
+            "N/A"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " (explain score)",
+          "nameLabel": "Comments"
+        },
+        {
+          "type": "sources",
+          "label": "Sources (reference, specific page, section, etc.)",
+          "nameLabel": "Sources"
+        }
+      ],
+      "c1": 223,
+      "c2": 135,
+      "c3": 212
+    },
+    {
+      "label": "Step 1.5: Year-on-year analysis",
+      "labelShort": "S01.5",
+      "c1": 168,
+      "c2": 168,
+      "c3": 50,
+      "components": [{
+          "type": "header",
+          "filler": " "
+        },
+        {
+          "type": "miniheader",
+          "label": "Is your answer the same as the previous year?"
+        },
+        {
+          "type": "comparison",
+          "label": "Element ",
+          "compShort": "S01"
+        },
+        {
+          "type": "miniheader",
+          "label": "If no, please select the reason why and provide comments for that element."
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Select reason if 'no' for ",
+          "dropdown": [
+            "not selected",
+            "I do not agree with last year's score",
+            "the policy appears revised or changed"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " ",
+          "nameLabel": "Comments"
+        }
+      ]
+    }
+  ]
+}

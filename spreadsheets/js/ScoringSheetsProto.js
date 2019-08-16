@@ -143,7 +143,7 @@ function importElementDropDown( activeRow, activeCol, sheet, currentStep, elemen
        compCellName = compCellName.toString();
       
       // adding formula
-      var formula = '=IMPORTRANGE("'+CompanyObj.urlDC+'","'+compCellName+'")';
+      var formula = '=IMPORTRANGE("'+CompanyObj.urlCurrentDataCollectionSheet+'","'+compCellName+'")';
       formula=formula.toString();
       currentCell.setFormula(formula);
       
@@ -160,7 +160,7 @@ function importElementDropDown( activeRow, activeCol, sheet, currentStep, elemen
        if (numberOfComponents != 1) { compCellName = compCellName + indicatorType.components[k].labelShort; }
        compCellName = compCellName.toString();
       
-      var formula = '=IMPORTRANGE("'+CompanyObj.urlDC+'","'+compCellName+'")';
+      var formula = '=IMPORTRANGE("'+CompanyObj.urlCurrentDataCollectionSheet+'","'+compCellName+'")';
       formula=formula.toString();
       currentCell.setFormula(formula);
       
@@ -178,7 +178,7 @@ function importElementDropDown( activeRow, activeCol, sheet, currentStep, elemen
        if (numberOfComponents != 1) { compCellName = compCellName + indicatorType.components[k].labelShort; }
        compCellName = compCellName.toString();
       
-      var formula = '=IMPORTRANGE("'+CompanyObj.urlDC+'","'+compCellName+'")';
+      var formula = '=IMPORTRANGE("'+CompanyObj.urlCurrentDataCollectionSheet+'","'+compCellName+'")';
       formula=formula.toString();
       currentCell.setFormula(formula);
       
@@ -248,7 +248,7 @@ function addScoring(file,activeRow, activeCol, sheet, currentStep, element, curr
        if (numberOfComponents != 1) { compCellName = compCellName + indicatorType.components[k].labelShort; }
        compCellName = compCellName.toString();
       
-      var formula = '=IMPORTRANGE("'+CompanyObj.urlDC+'","'+compCellName+'")';
+      var formula = '=IMPORTRANGE("'+CompanyObj.urlCurrentDataCollectionSheet+'","'+compCellName+'")';
       formula=formula.toString();
       currentCell.setFormula(formula);
       
@@ -277,7 +277,7 @@ function addScoring(file,activeRow, activeCol, sheet, currentStep, element, curr
        if (numberOfComponents != 1) { compCellName = compCellName + indicatorType.components[k].labelShort; }
        compCellName = compCellName.toString();
       
-      var formula = '=IMPORTRANGE("'+CompanyObj.urlDC+'","'+compCellName+'")';
+      var formula = '=IMPORTRANGE("'+CompanyObj.urlCurrentDataCollectionSheet+'","'+compCellName+'")';
       formula=formula.toString();
       currentCell.setFormula(formula);
       
@@ -301,7 +301,7 @@ function addScoring(file,activeRow, activeCol, sheet, currentStep, element, curr
        if (numberOfComponents != 1) { compCellName = compCellName + indicatorType.components[k].labelShort; }
        compCellName = compCellName.toString();
       
-      var formula = '=IMPORTRANGE("'+CompanyObj.urlDC+'","'+compCellName+'")';
+      var formula = '=IMPORTRANGE("'+CompanyObj.urlCurrentDataCollectionSheet+'","'+compCellName+'")';
       formula=formula.toString();
       currentCell.setFormula(formula);
         

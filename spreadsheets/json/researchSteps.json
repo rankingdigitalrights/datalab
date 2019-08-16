@@ -1,10 +1,8 @@
 {
-  "researchSteps": [
-    {
+  "researchSteps": [{
       "label": "Step 1: Data Collection",
       "labelShort": "S01",
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -42,8 +40,7 @@
       "c1": 168,
       "c2": 168,
       "c3": 50,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": " "
         },
@@ -83,8 +80,7 @@
       "c1": 186,
       "c2": 136,
       "c3": 177,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -134,7 +130,7 @@
           "label2": " If no, comments on ",
           "nameLabel": "Comments2"
         }
-        ]
+      ]
     },
     {
       "label": "Step 3: Score Consensus",
@@ -142,8 +138,7 @@
       "c1": 50,
       "c2": 147,
       "c3": 168,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -178,8 +173,7 @@
       "c1": 50,
       "c2": 168,
       "c3": 82,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": " "
         },
@@ -219,8 +213,7 @@
       "c1": 168,
       "c2": 50,
       "c3": 80,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -255,8 +248,7 @@
       "c1": 188,
       "c2": 214,
       "c3": 208,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": " "
         },
@@ -296,8 +288,7 @@
       "c1": "143",
       "c2": "237",
       "c3": "88",
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -333,8 +324,8 @@
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
         }
-        
-        ]
+
+      ]
     },
     {
       "label": "Step 6: Second Horizontal Review",
@@ -342,8 +333,7 @@
       "c1": 162,
       "c2": 168,
       "c3": 50,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -378,8 +368,7 @@
       "c1": 50,
       "c2": 149,
       "c3": 168,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": "Your Name"
         },
@@ -414,8 +403,7 @@
       "c1": 240,
       "c2": 200,
       "c3": 58,
-      "components": [
-        {
+      "components": [{
           "type": "header",
           "filler": " "
         },

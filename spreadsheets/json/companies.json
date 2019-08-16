@@ -6,7 +6,9 @@
             "id": "mes1",
             "label": {
                 "current": "Etisalat",
-                "legacy": [null]
+                "legacy": [
+                    null
+                ]
             },
             "type": "telecom",
             "groupLabel": "Etisalat",
@@ -14,6 +16,8 @@
             "opComLabel": "Etisalat UAE",
             "prevScored": true,
             "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
+            "tabPrevYearsOutcome": "2018 Outcome Ranges",
             "numberOfServices": 3,
             "services": [{
                     "id": "mes1bb",
@@ -26,11 +30,11 @@
                 {
                     "id": "mes1mprep",
                     "type": "mobile",
-                    "subtype": "postpaid",
                     "label": {
                         "current": "Postpaid mobile",
                         "legacy": null
-                    }
+                    },
+                    "subtype": "postpaid"
                 },
                 {
                     "id": "mes1mpostp",
@@ -41,7 +45,8 @@
                         "legacy": null
                     }
                 }
-            ]
+            ],
+            "urlCurrentDataCollectionSheet": null
         },
         {
             "id": "ivm1",
@@ -56,8 +61,10 @@
             "groupLabel": "Verizon Media",
             "opCom": false,
             "opComLabel": null,
-            "prevScored": false,
-            "firstIndex": 2019,
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
+            "tabPrevYearsOutcome": "2018 Outcome Ranges",
             "numberOfServices": 2,
             "services": [{
                     "id": "ivm1ym",
@@ -75,7 +82,116 @@
                         "legacy": null
                     }
                 }
-            ]
+            ],
+            "urlCurrentDataCollectionSheet": "https://docs.google.com/spreadsheets/d/19a1JJ_eqvKkS9mkhvhZKsj-5pRiuMTqJl-qa0fC2gLk/edit?pli=1#gid=409890464"
+        },
+        {
+            "id": "igo1",
+            "label": {
+                "current": "Google",
+                "legacy": null
+            },
+            "type": "internet",
+            "groupLabel": "Google (Group)",
+            "opCom": false,
+            "opComLabel": null,
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
+            "tabPrevYearsOutcome": "2018 Outcome Ranges",
+            "numberOfServices": 5,
+            "services": [{
+                    "id": "igo1s",
+                    "type": "search",
+                    "label": {
+                        "current": "Search",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "igo1gm",
+                    "type": "email",
+                    "label": {
+                        "current": "Gmail",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "igo1yt",
+                    "type": "photoVideo",
+                    "label": {
+                        "current": "YouTube",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "igo1am",
+                    "type": "mobileEcosystem",
+                    "label": {
+                        "current": "Android mobile ecosystem",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "igo1gd",
+                    "type": "cloud",
+                    "label": {
+                        "current": "Google Drive",
+                        "legacy": null
+                    }
+                }
+            ],
+            "urlCurrentDataCollectionSheet": null
+        },
+        {
+            "id": "ifb1",
+            "label": {
+                "current": "Facebook",
+                "legacy": null
+            },
+            "type": "internet",
+            "groupLabel": "Facebook (Group)",
+            "opCom": false,
+            "opComLabel": null,
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
+            "tabPrevYearsOutcome": "2018 Outcome Ranges",
+            "numberOfServices": 5,
+            "services": [{
+                    "id": "ifb1fb",
+                    "type": "socialNetworkBlogs",
+                    "label": {
+                        "current": "Facebook",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "ifb1is",
+                    "type": "photoVideo",
+                    "label": {
+                        "current": "Instagram",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "ifb1wa",
+                    "type": "messagingVoip",
+                    "label": {
+                        "current": "WhatsApp",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "ifb1fm",
+                    "type": "messagingVoip",
+                    "label": {
+                        "current": "Messenger",
+                        "legacy": null
+                    }
+                }
+            ],
+            "urlCurrentDataCollectionSheet": null
         }
     ]
 }

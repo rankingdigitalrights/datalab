@@ -174,7 +174,7 @@
                 "labelLong": "Access to terms of service",
                 "description": "The company should provide terms of service (ToS) that are easy to find and easy to understand.",
                 "compCol": 2,
-                "compRow": 128,
+                "compRow": 138,
                 "elements": [{
                         "labelShort": "F1.1",
                         "description": "Are the company’s terms of service (ToS) easy to find?"
