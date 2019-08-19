@@ -1,0 +1,56 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+# library(googlesheets)
+# devtools::install_github("tidyverse/googlesheets4")
+library(googlesheets4)
+library(tidyverse)
+library(googledrive)
+# library(googlesheets4)
+# 
+# (deaths <- drive_get("deaths"))
+```
+
+```{r}
+# token <- googlesheets::gs_auth()
+
+```
+
+```{r}
+# spreadsheetID <- gs_key("1EBq-jrwx_P_908aMaVaOup08p0Ii2UsJ-upPRM3EK5Y")
+# token <- googlesheets4::sheets_auth()
+# save(token, file = "googleAuthToken.RData")
+googlesheets4::sheets_auth()
+```
+
+```{r}
+# spreadsheetObj <- gs_read_cellfeed(spreadhsheetID)
+ss_id <- "1o_JbAOKooSXfwvecPuJha-LIE9ltOAa8kl3k7nTy1Fk" 
+ss_meta <- googlesheets4::sheets_get(ss_id)
+```
+
+```{r}
+ss_obj <- googlesheets4::read_sheet(ss_meta$spreadsheet_id, sheet = "F3",
+                                    col_types = c("c")) # c = exact value from cell (i.e. Formula)
+```
+
+```{r}
+head(ss_obj)
+```
+
+
+```{r}
+ss_meta$named_ranges %>% 
+  arrange(sheet_name, start_column, start_row) %>%
+  head(10)
+```
+
+## Test: Results for G1
+```{r}
+ss_meta[["named_ranges"]] %>% 
+  filter(str_detect(name, "Comments"))
+```
+

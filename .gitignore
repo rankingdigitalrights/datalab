@@ -3,3 +3,4 @@ GS_token.rds
 .Rhistory
 .Rproj.user
 *.Rproj
+*.RData
