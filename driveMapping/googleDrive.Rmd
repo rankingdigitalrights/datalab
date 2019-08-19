@@ -1,0 +1,18 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(googledrive)
+```
+
+```{r}
+filesystem <- googledrive::drive_ls()
+save(filesystem, file = str_c("drive_fs_", lubridate::today(), ".RData"))
+```
+
+```{r}
+filesystem$drive_resource[1]
+```
+
