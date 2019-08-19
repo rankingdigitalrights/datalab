@@ -6,34 +6,33 @@
     "legacy": [
       "Oath",
       "Yahoo"
-      ]
+    ]
   },
   "type": "internet",
   "groupLabel": "Verizon Media",
   "opCom": false,
   "opComLabel": null,
-  "prevScored": false,
-  "firstIndex": 2019,
-  "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-  "urlCurrentDataCollectionSheet": "https://docs.google.com/spreadsheets/d/19a1JJ_eqvKkS9mkhvhZKsj-5pRiuMTqJl-qa0fC2gLk/edit?pli=1#gid=409890464",
-  "tab": "2018 Outcome Ranges",
+  "prevScored": true,
+  "firstIndex": 2015,
+  "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+  "tabPrevYearsOutcome": "OathOutcome",
   "numberOfServices": 2,
-  "services": [
-    {
-      "id":"ivm1ym",
+  "services": [{
+      "id": "ivm1ym",
       "type": "mail",
       "label": {
         "current": "Yahoo Mail",
         "legacy": null
-        }
+      }
     },
     {
-      "id":"ivm1t",
+      "id": "ivm1t",
       "type": "photoVideo",
       "label": {
         "current": "Tumblr",
         "legacy": null
-        }
+      }
     }
-  ]
+  ],
+  "urlCurrentDataCollectionSheet": "https://docs.google.com/spreadsheets/d/1o_JbAOKooSXfwvecPuJha-LIE9ltOAa8kl3k7nTy1Fk/edit#gid=1411994675"
 }
