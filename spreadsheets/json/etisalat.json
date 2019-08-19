@@ -12,32 +12,31 @@
   "prevScored": true,
   "firstIndex": 2015,
   "numberOfServices": 3,
-  "services": [
-    {
-      "id":"mes1bb",
+  "services": [{
+      "id": "mes1bb",
       "type": "broadband",
       "label": {
         "current": "Fixed-line broadband",
         "legacy": null
-        }
+      }
     },
     {
-      "id":"mes1mprep",
+      "id": "mes1mprep",
       "type": "mobile",
       "subtype": "postpaid",
       "label": {
         "current": "Postpaid mobile",
         "legacy": null
-        }
+      }
     },
     {
-      "id":"mes1mpostp",
+      "id": "mes1mpostp",
       "type": "mobile",
       "subtype": "prepaid",
       "label": {
         "current": "Prepaid mobile",
         "legacy": null
-        }
+      }
     }
   ]
 }
