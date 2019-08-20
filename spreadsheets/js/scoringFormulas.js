@@ -1,7 +1,7 @@
 function elementScore(range) {
     // proof of concept
     var cell = range.getA1Notation();
-    var formula = '=IF(' + cell + '=Validation!$B1,Validation!$B2,IF(' + cell + '=Validation!$C1,Validation!$C2,IF(' + cell + '=Validation!$D1,Validation!$D2,IF(' + cell + '=Validation!$E1,Validation!$E2,IF(' + cell + '=Validation!$F1,Validation!$F2,IF(' + cell + '=Validation!$G1, Validation!$G2,"checkx"))))))'
+    var formula = '=IF(' + cell + '=Points!$B1,Points!$B2,IF(' + cell + '=Points!$C1,Points!$C2,IF(' + cell + '=Points!$D1,Points!$D2,IF(' + cell + '=Points!$E1,Points!$E2,IF(' + cell + '=Points!$F1,Points!$F2,IF(' + cell + '=Points!$G1, Points!$G2,"checkx"))))))'
     return formula;
 }
 

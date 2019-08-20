@@ -23,10 +23,10 @@ function mainScoringSheet() {
 
   // creates Outcome  page
   var sheet = file.getActiveSheet();
-  var validation = sheet.setName('Validation');
-  validation.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"]);
-  validation.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"]);
-  validation.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"]);
+  var pointsTab = sheet.setName('Points');
+  pointsTab.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"]);
+  pointsTab.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"]);
+  pointsTab.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"]);
 
   sheet = file.insertSheet('Outcome');
 
