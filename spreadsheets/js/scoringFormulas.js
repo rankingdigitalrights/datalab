@@ -19,3 +19,7 @@ function serviceScore(serviceCells) {
     formula = formula +  '), "---", AVERAGE(' + serviceCells + ')))';
     return formula;
 }
+
+function indicatorScore(indicatorRange) {
+
+}

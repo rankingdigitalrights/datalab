@@ -19,7 +19,7 @@ function mainScoringSheet() {
   var ResearchStepsObj = importResearchSteps();
 
   // creating a blank spreadsheet
-  var file = SpreadsheetApp.create(companyFileName + 'Scoring' + '_' + 'Prototype');
+  var file = SpreadsheetApp.create(companyFileName + '_' + 'Scoring' + '_' + 'Prototype');
 
   // creates Outcome  page
   var sheet = file.getActiveSheet();
@@ -30,23 +30,23 @@ function mainScoringSheet() {
 
   sheet = file.insertSheet('Outcome');
 
-  // outermost for loop will be the steps
+  // For all Research Steps
   for (var currentStep = 0; currentStep < ResearchStepsObj.researchSteps.length; currentStep++) {
     var activeRow = 1;
     var activeCol = 1; // this will need to be a complicated formula later!
 
     sheet.setColumnWidth(activeCol, 200);
 
-    // looping through all the indicator categories
+    // For all Indicator Categories
     for (var currentIndicatorCat = 0; currentIndicatorCat < IndicatorsObj.indicatorType.length; currentIndicatorCat++) {
 
-      // loop going through all the indicators
+      // For all Indicators
       for (var currentIndicator = 0; currentIndicator < IndicatorsObj.indicatorType[currentIndicatorCat].indicators.length; currentIndicator++) {
 
         var numberOfSubComponents = 1;
         if (IndicatorsObj.indicatorType[currentIndicatorCat].hasSubComponents == true) { numberOfSubComponents = IndicatorsObj.indicatorType[currentIndicatorCat].components.length; }
 
-        // for loop going through all the elements of the current research step
+        // for all components of the current Research Step
         for (var currentStepComponent = 0; currentStepComponent < ResearchStepsObj.researchSteps[currentStep].components.length; currentStepComponent++) {
 
           if (currentStepComponent == 0) {
@@ -95,7 +95,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
   for (var g = 0; g < numberOfSubComponents; g++) {
     var currentCell = sheet.getRange(activeRow, activeCol);
     var label = 'Group\n' + companyObj.label.current;
-    if (numberOfSubComponents > 1) { label = label + '-' + indicatorType.components[g].labelLong; }
+    if (numberOfSubComponents > 1) { label = label + '\n' + indicatorType.components[g].labelLong; }
     label = label.toString();
     currentCell.setValue(label);
     currentCell.setWrap(true);
@@ -121,7 +121,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
     for (var g = 0; g < numberOfSubComponents; g++) {
       var currentCell = sheet.getRange(activeRow, activeCol);
       var label = companyObj.services[k].label.current + '\n';
-      if (numberOfSubComponents > 1) { label = label + '-' + indicatorType.components[g].labelLong; }
+      if (numberOfSubComponents > 1) { label = label + '\n' + indicatorType.components[g].labelLong; }
       label = label.toString();
       currentCell.setValue(label);
       currentCell.setWrap(true);
