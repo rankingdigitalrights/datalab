@@ -1,5 +1,3 @@
-
-
 function onOpen() 
 {
   var ui = SpreadsheetApp.getActive().getUi();
