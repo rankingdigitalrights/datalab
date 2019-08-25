@@ -22,13 +22,15 @@ var spreadsheetName = "verizonPrototypeFullOutcomeTestPermissions";
 var spreadsheetID = "1nTZ7I0X2Dw_9ctREsQ8enpmr4c5vVBrpt8XyxwBUICc";
 var indicatorString = ["G1", "G2", "G3", "G4", "G5", "G6"];
 var indicatorArray = ["G1", "G2", "G3", "G4", "G5", "G6"];
+var editorsArray = ["ilja.sperling@gmail.com"]
 
 // MAIN CALLER 
 
 function mainPermissionsCaller() {
- // clearAllProtections(spreadsheetName);
- // iteratorDummySetProtectedRanges(spreadsheetName);
- StepWiseProtect(spreadsheetName, indicatorArray, permissionRangesJSON)
+  // clearAllProtections(spreadsheetName);
+  // iteratorDummySetProtectedRanges(spreadsheetName);
+  // StepWiseProtect(spreadsheetName, indicatorArray, permissionRangesJSON);
+  StepWiseProtectSheetUnprotectRanges(spreadsheetName, indicatorArray, permissionRangesJSON);
 }
 
 
@@ -44,14 +46,14 @@ function clearAllProtections(spreadsheetName) {
   var ss = connectToSpreadsheetByName(spreadsheetName);
   Logger.log(ss.getName());
   var protectionsRanges = ss.getProtections(SpreadsheetApp.ProtectionType.RANGE);
-  for (var i = 0; i < protectionsRanges.length; i++) {
+  for (var i in protectionsRanges) {
     var protectionRange = protectionsRanges[i];
     if (protectionRange.canEdit()) {
       protectionRange.remove();
     }
   }
   var protectionsSheets = ss.getProtections(SpreadsheetApp.ProtectionType.SHEET);
-  for (var i = 0; i < protectionsSheets.length; i++) {
+  for (var i in protectionsSheets) {
     var protectionSheet = protectionsSheets[i];
     if (protectionSheet.canEdit()) {
       protectionSheet.remove();
@@ -60,9 +62,13 @@ function clearAllProtections(spreadsheetName) {
 }
 
 // --- PROTECTIONS --- //
+
+// --- V1 --- //
+
 // step-wise caller
 // turn into for (i in ranges) DO {}
 // this works
+
 function StepWiseProtect(spreadsheetName, indicatorArray, ranges) {
   // Logger.log("ranges: " + permissionRangesJSON.g5ranges.step1);
   Logger.log("to be connected to: " + spreadsheetName);
@@ -72,7 +78,7 @@ function StepWiseProtect(spreadsheetName, indicatorArray, ranges) {
   for each (var indicator in indicatorArray) {
     Logger.log(indicator)
     for each (var step in permissionRangesJSON.steps) {
-      Logger.log(indicator  + " / " + step.range);
+      Logger.log(indicator + " / " + step.range);
       setStepProtection(thisSpreadsheet, indicator, step);
     }
   }
@@ -88,13 +94,14 @@ function setStepProtection(thisSpreadsheet, indicator, step) { // params step, i
   Logger.log("now in: " + currentSheet.getName());
   var me = Session.getEffectiveUser();
   var editors = thisSpreadsheet.getEditors();
-  // Logger.log(editors);
+  Logger.log("Current Editors: " + editors + " and " + me);
 
   var range = currentSheet.getRange(step.range + indicator);
   if (range.canEdit()) {
     var description = (indicator + 'Step' + step.step);
     var protection = range.protect().setDescription(description);
-    protection.addEditor(me);
+    // protection.addEditor(me);
+    protection.addEditors([me, editorsArray]);
     protection.removeEditors(protection.getEditors());
     if (protection.canDomainEdit()) {
       protection.setDomainEdit(false);
@@ -103,12 +110,53 @@ function setStepProtection(thisSpreadsheet, indicator, step) { // params step, i
   } else {
     Logger.log("Step " + step.step + " is already protected")
   }
-
+  Logger.log("New Editors: " + editors);
   // var range = currentSheet.getRange(permissionRangesJSON.g5ranges.step1_5);
   // var protection = range.protect().setDescription('G5 Step 1.5 Protected');
 
 }
 
+
+// --- better Logic: protect Sheet, unportect ranges --- //
+
+function StepWiseProtectSheetUnprotectRanges(spreadsheetName, indicatorArray, ranges) {
+
+  Logger.log("to be connected to: " + spreadsheetName);
+  var thisSpreadsheet = connectToSpreadsheetByName(spreadsheetName);
+  Logger.log("remote connected to: " + thisSpreadsheet.getName());
+
+  for each(var indicator in indicatorArray) {
+    var sheet = thisSpreadsheet.getSheetByName(indicator);
+    Logger.log(sheet.getName());
+    SingleProtectSheetUnprotectRanges(sheet, indicator, ranges)
+  }
+}
+
+// Protect the whole sheet, unprotect [ranges], then remove all other users from the list of editors.
+
+function SingleProtectSheetUnprotectRanges(sheet, indicator, ranges) {
+  
+  var protection = sheet.protect().setDescription('Full protected ' + indicator);
+
+  var unprotected = [];
+
+  for each (var step in permissionRangesJSON.steps) {
+    Logger.log(indicator + " / " + step.range);
+    // setStepProtection(thisSpreadsheet, indicator, step);
+    unprotected.push(sheet.getRange(step.range + indicator));
+  }
+
+  protection.setUnprotectedRanges(unprotected);
+
+  // Ensure the current user is an editor before removing others. Otherwise, if the user's edit
+  // permission comes from a group, the script will throw an exception upon removing the group.
+  var me = Session.getEffectiveUser();
+  protection.addEditors([me, editorsArray]);
+  protection.removeEditors(protection.getEditors());
+  if (protection.canDomainEdit()) {
+    protection.setDomainEdit(false);
+  }
+}
 
 //this works
 function mainStepWiseProtect() {
@@ -126,7 +174,7 @@ function mainStepWiseUnProtect() {
 function mainStepWiseUnProtect(spreadsheetName, IndicatorString) {
   // Logger.log(permissionRangesJSON.g5ranges.step1)
   var Spreadsheet = connectToSpreadsheetByName(spreadsheetName)
-  removeStepProtection(Spreadsheet, IndicatorString , permissionRangesJSON.g5ranges.step1);
+  removeStepProtection(Spreadsheet, IndicatorString, permissionRangesJSON.g5ranges.step1);
 }
 
 // # TODO
@@ -150,7 +198,7 @@ function removeStepProtection(spreadsheetName, IndicatorString, Step) { // param
 // MAIN CALLER
 
 function mainWholeSheetProtect() {
-  wholeSheetProtect(spreadsheetName, indicatorString);
+  wholeSheetProtect(spreadsheetName, indicatorString[4]);
 }
 
 function mainWholeSheetUnProtect() {
@@ -169,7 +217,7 @@ function wholeSheetProtect(spreadsheetName, indicatorString) {
 function wholeSheetUnProtect(spreadsheetName, indicatorString) {
   var ss = connectToSpreadsheetByName(spreadsheetName);
   var protections = ss.getProtections(SpreadsheetApp.ProtectionType.SHEET);
-  if(protections.length > 0) {
+  if (protections.length > 0) {
     Logger.log("Getting ready to unprotect " + protections.length + " Sheets")
   } else {
     Logger.log("No Sheet-level protections found")
