@@ -22,7 +22,7 @@ var spreadsheetName = "verizonPrototypeFullOutcomeTestPermissions";
 var spreadsheetID = "1nTZ7I0X2Dw_9ctREsQ8enpmr4c5vVBrpt8XyxwBUICc";
 var indicatorString = ["G1", "G2", "G3", "G4", "G5", "G6"];
 var indicatorArray = ["G1", "G2", "G3", "G4", "G5", "G6"];
-var editorsArray = ["ilja.sperling@gmail.com"]
+var editorsArray = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
 
 // MAIN CALLER 
 
@@ -30,7 +30,15 @@ function mainPermissionsCaller() {
   // clearAllProtections(spreadsheetName);
   // iteratorDummySetProtectedRanges(spreadsheetName);
   // StepWiseProtect(spreadsheetName, indicatorArray, permissionRangesJSON);
-  StepWiseProtectSheetUnprotectRanges(spreadsheetName, indicatorArray, permissionRangesJSON);
+  // Logger.log(permissionRangesJSON.steps.step1);
+  
+  StepWiseProtectSheetUnprotectRanges(
+    spreadsheetName,
+    indicatorArray,
+    permissionRangesJSON,                                      
+    editorsArray
+  );
+  
 }
 
 
@@ -42,8 +50,8 @@ function mainClearAllProtections() {
 
 // WORKS // removes Sheet-level protection and specific protected ranges //
 
-function clearAllProtections(spreadsheetName) {
-  var ss = connectToSpreadsheetByName(spreadsheetName);
+function clearAllProtections(spreadsheet) {
+  var ss = connectToSpreadsheetByName(spreadsheet);
   Logger.log(ss.getName());
   var protectionsRanges = ss.getProtections(SpreadsheetApp.ProtectionType.RANGE);
   for (var i in protectionsRanges) {
@@ -62,6 +70,64 @@ function clearAllProtections(spreadsheetName) {
 }
 
 // --- PROTECTIONS --- //
+
+// --- V2 --- //
+
+// --- better Logic: protect Sheet, unportect ranges --- //
+
+function StepWiseProtectSheetUnprotectRanges(spreadsheet, indicators, ranges, editors) {
+
+  Logger.log("to be connected to: " + spreadsheet);
+  var thisSpreadsheet = connectToSpreadsheetByName(spreadsheet);
+  Logger.log("remote connected to: " + thisSpreadsheet.getName());
+
+  for each(var indicator in indicators) {
+    var sheet = thisSpreadsheet.getSheetByName(indicator);
+    Logger.log(sheet.getName());
+    SingleProtectSheetUnprotectRanges(sheet, indicator, ranges, editors)
+  }
+}
+
+// Protect the whole sheet, unprotect [ranges], then remove all other users from the list of editors.
+
+function SingleProtectSheetUnprotectRanges(sheet, indicator, ranges, editors) {
+  Logger.log("In Single Step " + indicator);
+  var protection = sheet.protect().setDescription('Full protected ' + indicator);
+
+  var unprotected = [];
+
+  for each (var step in ranges.steps) {
+    Logger.log(indicator + " / " + step.range);
+    Logger.log("formula : " + step.range + indicator);
+    // setStepProtection(thisSpreadsheet, indicator, step);
+    unprotected.push(sheet.getRange(step.range + indicator));
+  }
+
+  protection.setUnprotectedRanges(unprotected);
+
+  // Ensure the current user is an editor before removing others. Otherwise, if the user's edit
+  // permission comes from a group, the script will throw an exception upon removing the group.
+  var me = Session.getEffectiveUser();
+  Logger.log("me: " + me);
+  Logger.log("editorsObj: " + editors);
+  Logger.log("editorsArray: " + [editors]);
+  protection.addEditor(me);
+  // protection.removeEditors(protection.getEditors());
+  protection.addEditors(editorsArray);
+  if (protection.canDomainEdit()) {
+    protection.setDomainEdit(false);
+  }
+}
+
+//this works
+function mainStepWiseProtect() {
+  StepWiseProtect(spreadsheetName)
+}
+
+// this is not operational yet
+function mainStepWiseUnProtect() {
+  StepWiseUnProtect(spreadsheetName)
+}
 
 // --- V1 --- //
 
@@ -101,7 +167,7 @@ function setStepProtection(thisSpreadsheet, indicator, step) { // params step, i
     var description = (indicator + 'Step' + step.step);
     var protection = range.protect().setDescription(description);
     // protection.addEditor(me);
-    protection.addEditors([me, editorsArray]);
+    protection.addEditors(editorsArray);
     protection.removeEditors(protection.getEditors());
     if (protection.canDomainEdit()) {
       protection.setDomainEdit(false);
@@ -114,58 +180,6 @@ function setStepProtection(thisSpreadsheet, indicator, step) { // params step, i
   // var range = currentSheet.getRange(permissionRangesJSON.g5ranges.step1_5);
   // var protection = range.protect().setDescription('G5 Step 1.5 Protected');
 
-}
-
-
-// --- better Logic: protect Sheet, unportect ranges --- //
-
-function StepWiseProtectSheetUnprotectRanges(spreadsheetName, indicatorArray, ranges) {
-
-  Logger.log("to be connected to: " + spreadsheetName);
-  var thisSpreadsheet = connectToSpreadsheetByName(spreadsheetName);
-  Logger.log("remote connected to: " + thisSpreadsheet.getName());
-
-  for each(var indicator in indicatorArray) {
-    var sheet = thisSpreadsheet.getSheetByName(indicator);
-    Logger.log(sheet.getName());
-    SingleProtectSheetUnprotectRanges(sheet, indicator, ranges)
-  }
-}
-
-// Protect the whole sheet, unprotect [ranges], then remove all other users from the list of editors.
-
-function SingleProtectSheetUnprotectRanges(sheet, indicator, ranges) {
-  
-  var protection = sheet.protect().setDescription('Full protected ' + indicator);
-
-  var unprotected = [];
-
-  for each (var step in permissionRangesJSON.steps) {
-    Logger.log(indicator + " / " + step.range);
-    // setStepProtection(thisSpreadsheet, indicator, step);
-    unprotected.push(sheet.getRange(step.range + indicator));
-  }
-
-  protection.setUnprotectedRanges(unprotected);
-
-  // Ensure the current user is an editor before removing others. Otherwise, if the user's edit
-  // permission comes from a group, the script will throw an exception upon removing the group.
-  var me = Session.getEffectiveUser();
-  protection.addEditors([me, editorsArray]);
-  protection.removeEditors(protection.getEditors());
-  if (protection.canDomainEdit()) {
-    protection.setDomainEdit(false);
-  }
-}
-
-//this works
-function mainStepWiseProtect() {
-  StepWiseProtect(spreadsheetName)
-}
-
-// this is not operational yet
-function mainStepWiseUnProtect() {
-  StepWiseUnProtect(spreadsheetName)
 }
 
 
