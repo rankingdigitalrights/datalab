@@ -6,8 +6,16 @@ function importJsonConfig() {
   return jsonObj;
 }
 
-function importJsonIndicator() {
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/indicators.json");
+function importJsonIndicator(subset) {
+  var response;
+
+  if (subset) {
+    // response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchStepsSubset.json");    
+    response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/indicatorsSubset.json");
+  } else {
+    response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/indicators.json");
+  }
+
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
@@ -20,14 +28,14 @@ function importJsonCompany() {
 
 function importResearchSteps(subset) {
   var response;
-  
-  if(subset) {
+
+  if (subset) {
     // response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchStepsSubset.json");    
     response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps3.json");
   } else {
-   response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps.json");
+    response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps.json");
   }
-  
+
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }

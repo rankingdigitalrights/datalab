@@ -10,8 +10,6 @@ var companyFileName = "verizon"
 
 // later move to central config //
 
-var indexPrefix = "RDR2019";
-
 // --------------- This is the main caller ---------------- //
 
 function mainCreateScoringSheet(subset) {
