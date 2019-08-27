@@ -4,17 +4,7 @@ var compObj = {
     "tab" : "FacebookOutcome"
   }
   
-function insertSheetIfNotExist(Spreadsheet, SheetName) {
-  var Sheet;
-  if(!Spreadsheet.getSheetByName(SheetName)) {
-      Sheet = Spreadsheet.insertSheet(SheetName);
-    } else {
-      Sheet = Spreadsheet.getSheetByName(SheetName);
-    };
-  return Sheet;
-}
-
-  function addPrevYearOutcomeSheet() {
+function addPrevYearOutcomeSheet() {
     var Spreadsheet = SpreadsheetApp.openById("1ethBvdQaqwwUuiIBs67_tO18IS7gPC1KPo15JgCtL14");
     Logger.log(Spreadsheet.getName());
     var thisSheet = insertSheetIfNotExist(Spreadsheet, "Formula");
@@ -35,7 +25,7 @@ function insertSheetIfNotExist(Spreadsheet, SheetName) {
 
 // External test
 
-function mainTest() {
+function mainImportTest() {
   callingExternalFunctionTest();
 }
   

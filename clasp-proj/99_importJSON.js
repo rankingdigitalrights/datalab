@@ -18,10 +18,16 @@ function importJsonCompany() {
   return jsonObj;
 }
 
-function importResearchSteps() {
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps3.json");
-  // var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchStepsSubset.json");
-  // var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps.json");
+function importResearchSteps(subset) {
+  var response;
+  
+  if(subset) {
+    // response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchStepsSubset.json");    
+    response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps3.json");
+  } else {
+   response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/researchSteps.json");
+  }
+  
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }

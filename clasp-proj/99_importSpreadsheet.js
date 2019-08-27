@@ -30,6 +30,19 @@ function connectToSpreadsheetByID(ID) {
 
 }
 
+
+// Help Function to overwrite Sheet in Spreadsheet if it is already existing
+
+function insertSheetIfNotExist(Spreadsheet, SheetName) {
+  var Sheet;
+  if(!Spreadsheet.getSheetByName(SheetName)) {
+      Sheet = Spreadsheet.insertSheet(SheetName);
+    } else {
+      Sheet = Spreadsheet.getSheetByName(SheetName);
+    };
+  return Sheet;
+}
+
 // Main Test Caller //
 
 function mainTestConnectionByName() {

@@ -14,11 +14,11 @@
   "opComLabel": null,
   "prevScored": true,
   "firstIndex": 2015,
-  "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+  
   "tabPrevYearsOutcome": "OathOutcome",
   "numberOfServices": 2,
   "services": [{
-      "id": "ivm1ym",
+      "id": "ym1",
       "type": "mail",
       "label": {
         "current": "Yahoo Mail",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "id": "ivm1t",
+      "id": "tl1",
       "type": "photoVideo",
       "label": {
         "current": "Tumblr",
@@ -34,5 +34,7 @@
       }
     }
   ],
-  "urlCurrentDataCollectionSheet": "https://docs.google.com/spreadsheets/d/1o_JbAOKooSXfwvecPuJha-LIE9ltOAa8kl3k7nTy1Fk/edit#gid=1411994675"
+  "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+  "urlCurrentDataCollectionSheet": "1nTZ7I0X2Dw_9ctREsQ8enpmr4c5vVBrpt8XyxwBUICc",
+  "urlCurrentCompanyScoringSheet": null
 }
