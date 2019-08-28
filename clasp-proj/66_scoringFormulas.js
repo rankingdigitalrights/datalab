@@ -20,6 +20,19 @@ function serviceScore(serviceCells) {
     return formula;
 }
 
-function indicatorScore(indicatorRange) {
+function componentScore(componentCells) {
+    var formula = '=AVERAGE(';
+    formula = formula + componentCells;
+    formula = formula + ')'
+    return formula
+}
 
+function indicatorScore(indicatorAverageElements) {
+
+    // =IF(AND(B49="N/A",F49="N/A"),"N/A",SUM(IF(B49<>"N/A",B49*LevelsI!$B$2),IF(F49<>"N/A",F49*LevelsI!$D$2)))
+
+    var formula = '=AVERAGE(';
+    formula = formula + indicatorAverageElements;
+    formula = formula + ')'
+    return formula
 }

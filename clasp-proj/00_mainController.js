@@ -1,7 +1,8 @@
 var indexPrefix = "RDR2019";
 
 function mainMainCaller() {
-  var subset = true;
-  mainCreateDCSheet(subset);
-  // mainCreateScoringSheet(subset);
+  var stepsSubset = true;
+  var indicatorSubset = true;
+  // mainCreateDCSheet(stepsSubset, indicatorSubset);
+  mainCreateScoringSheet(stepsSubset, indicatorSubset);
 }

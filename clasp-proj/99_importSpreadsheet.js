@@ -6,8 +6,9 @@
 function connectToSpreadsheetByName(Name) {
   var Spreadsheets = DriveApp.getFilesByName(Name);
   if (!Spreadsheets.hasNext()) {
-    Logger.log("Nothing here. Check Spreadsheet Name!");
-    return null;
+    Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.");
+    Spreadsheets = SpreadsheetApp.create(Name);
+    return Spreadsheets;
   } else {
     // while (Spreadsheet.hasNext()) {
     // Nope. Only do for first Spreadsheet element

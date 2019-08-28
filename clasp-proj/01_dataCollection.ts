@@ -2,20 +2,25 @@
 
 // --- for easier use, define company name here (based on lookup from config or according json file) --- //
 
-var companyFileName = "verizonLabels"
+// --- CONFIG --- //
+
+var companyFileName = "verizon"
+
+var sheetMode = "DC" // TODO
+
 var importedOutcomeTabName = "2018 Outcome";
 
 // --------------- This is the main caller ---------------- //
 
-function mainCreateDCSheet(subset) {
+function mainCreateDCSheet(stepsSubset, indicatorSubset) {
   Logger.log('begin main DC');
 
   //importing the JSON objects which contain the parameters
   // TODO: parameterize for easier usability
   var configObj = importJsonConfig();
   var CompanyObj = importJsonCompany();
-  var IndicatorsObj = importJsonIndicator(subset);
-  var ResearchStepsObj = importResearchSteps(subset);
+  var IndicatorsObj = importJsonIndicator(indicatorSubset);
+  var ResearchStepsObj = importResearchSteps(stepsSubset);
 
   // creating a blank spreadsheet
   var file = SpreadsheetApp.create(companyFileName + '_DC_' + 'Prototype');
@@ -129,11 +134,11 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
         }
 
         else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "comments") {
-          activeRow = comments(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices);
+          activeRow = addComments(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices);
         }
 
         else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "sources") {
-          activeRow = sourcesStep(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices);
+          activeRow = addSources(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices);
         }
 
         else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "miniheader") { // rename to something more explicit
@@ -141,7 +146,7 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
         }
 
         else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "comparison") {
-          activeRow = comparison(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices);
+          activeRow = addComparisonYonY(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices);
         }
 
         // if there are no more substeps, we store the final row and name the step
@@ -154,8 +159,11 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
 
           var range = sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1);
 
-          var stepNamedRange = ('RDR2019DC' + CompanyObj.id + ResearchStepsObj.researchSteps[currentStep].labelShort + indicatorClass.indicators[i].labelShort);
-          stepNamedRange = stepNamedRange.toString();
+          // cell name formula; output defined in 44_rangeNamingHelper.js
+        
+          var component = "";
+
+          var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', ResearchStepsObj.researchSteps[currentStep].labelShort, indicatorClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step");
 
           file.setNamedRange(stepNamedRange, range); // names an entire step
         }
@@ -194,7 +202,7 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
   currentSheet.setColumnWidth(1, 300);
   for (var i = 2; i <= 20; i++) { currentSheet.setColumnWidth(i, 300 / numberOfIndicatorCatSubComponents); } // sets column width
 
-  var cellName = (activeRow + ':' + activeRow);
+  var cellName = (activeRow + ':' + activeCol);
   cellName = cellName.toString();
   currentSheet.getRange(cellName).setHorizontalAlignment('center'); // alligns header row
 
@@ -226,9 +234,11 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
 
   } // close numberOfIndicatorCatSubComponents for loop
 
-  for (var i = 0; i < numberOfIndicatorCatSubComponents; i++) {
-    // setting up OpComCompany regardless of whether it has one
+      // setting up OpComCompany regardless of whether it has one
     // will just hide the column if it doesn't exist
+
+  for (var i = 0; i < numberOfIndicatorCatSubComponents; i++) {
+
     var cell = currentSheet.getRange(activeRow, activeCol);
     cell.setValue(CompanyObj.opComLabel);
     cell.setBackgroundRGB(252, 111, 125);
@@ -254,7 +264,7 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
     activeCol = activeCol + 1;
   }
 
-  // for remaining collumns
+  // for remaining collumns (services)
   for (var i = 0; i < CompanyNumberOfServices; i++) {
     for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
       var cell = currentSheet.getRange(activeRow, activeCol);
@@ -341,20 +351,14 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
           var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol);
 
-          // creating the future name of the cell
-          // var cellName = ('RDR2019DC' + CompanyObj.id + currentStep.labelShort + currentIndicator.elements[currentElementNr].labelShort);
-          // if (numberOfIndicatorCatSubComponents != 1) {
-          //   cellName = cellName + indicatorClass.components[k].labelShort;
-          // }
-
-          // cellName = cellName.toString();
+          // cell name formula; output defined in 44_rangeNamingHelper.js
 
           var component = "";
           if (numberOfIndicatorCatSubComponents != 1) {
             component = indicatorClass.components[k].labelShort;
           }
 
-          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'group')
+          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'group', currentStep.components[currentStepComponent].nameLabel)
 
 
           file.setNamedRange(cellName, thisCell); // names cells
@@ -372,12 +376,14 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
         for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
           var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol);
 
+          // cell name formula; output defined in 44_rangeNamingHelper.js
+
           var component = "";
           if (numberOfIndicatorCatSubComponents != 1) {
             component = indicatorClass.components[k].labelShort;
           }
           
-          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'opCom')
+          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'opCom', currentStep.components[currentStepComponent].nameLabel)
 
           file.setNamedRange(cellName, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
@@ -392,17 +398,16 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
         for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
           var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol);
 
-          // // creating name of future namedRange
-          // var cellName = ('RDR2019DC' + CompanyObj.services[serviceNr - 3].id + currentStep.labelShort + currentIndicator.elements[currentElementNr].labelShort);
-          // if (numberOfIndicatorCatSubComponents != 1) { cellName = cellName + indicatorClass.components[k].labelShort; }
+          // cell name formula; output defined in 44_rangeNamingHelper.js
 
-          var g = serviceNr - 3;
+          var g = serviceNr - 3; // helper for Services
+
           var component = "";
           if (numberOfIndicatorCatSubComponents != 1) {
             component = indicatorClass.components[k].labelShort;
           }
 
-          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
+          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[currentStepComponent].nameLabel)
 
           file.setNamedRange(cellName, thisCell); // names cells
           thisCell.setDataValidation(rule); // creates dropdown list
@@ -421,7 +426,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
-function comments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
+function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
 
 
   for (var i = 0; i < currentIndicator.elements.length; i++) { currentSheet.setRowHeight(activeRow + i, 50); } // increases height of row
@@ -446,13 +451,15 @@ function comments(currentSheet, currentIndicator, CompanyObj, activeRow, file, c
           var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol);
           thisCell.setWrap(true);
 
-          // creating name of namedRange
+          // cell name formula; output defined in 44_rangeNamingHelper.js
+
           var component = "";
           if (numberOfIndicatorCatSubComponents != 1) {
             component = indicatorClass.components[k].labelShort;
           }
 
-          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'group', currentStep.components[currentStepComponent].nameLabel))
+          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'group', currentStep.components[currentStepComponent].nameLabel);
+
           file.setNamedRange(cellName, thisCell);
           activeCol = activeCol + 1;
 
@@ -468,13 +475,15 @@ function comments(currentSheet, currentIndicator, CompanyObj, activeRow, file, c
           var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol);
           thisCell.setWrap(true);
 
-          // creating and setting name of namedRange
+          // cell name formula; output defined in 44_rangeNamingHelper.js
+
           var component = "";
           if (numberOfIndicatorCatSubComponents != 1) {
             component = indicatorClass.components[k].labelShort;
           }
 
-          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'opCom', currentStep.components[currentStepComponent].nameLabel))
+          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'opCom', currentStep.components[currentStepComponent].nameLabel);
+
           file.setNamedRange(cellName, thisCell);
           activeCol = activeCol + 1;
 
@@ -488,13 +497,16 @@ function comments(currentSheet, currentIndicator, CompanyObj, activeRow, file, c
           thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol);
           thisCell.setWrap(true);
 
-          // creating and setting name of namedRange
+          // cell name formula; output defined in 44_rangeNamingHelper.js
+
+          var g = serviceNr - 3; // helper for Services
+
           var component = "";
           if (numberOfIndicatorCatSubComponents != 1) {
             component = indicatorClass.components[k].labelShort;
           }
 
-          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'opCom', currentStep.components[currentStepComponent].nameLabel))
+          var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[currentStepComponent].nameLabel);
           
           file.setNamedRange(cellName, thisCell);
           activeCol = activeCol + 1;
@@ -531,13 +543,15 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
       for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
         var thisCell = currentSheet.getRange(activeRow, activeCol);
 
-        // creating the name for the cell
-        var cellName = ('RDR2019DC' + CompanyObj.id + currentStep.labelShort);
+        // cell name formula; output defined in 44_rangeNamingHelper.js
+
+        var component = "";
         if (numberOfIndicatorCatSubComponents != 1) {
-          cellName = cellName + indicatorClass.components[k].labelShort;
+          component = indicatorClass.components[k].labelShort;
         }
 
-        cellName = cellName.toString();
+        var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "group", currentStep.components[currentStepComponent].nameLabel)
+
         file.setNamedRange(cellName, thisCell); // names cells
         thisCell.setDataValidation(rule); // creates dropdown list
         thisCell.setValue('not selected'); // sets default for drop down list
@@ -551,13 +565,15 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
       for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
         var thisCell = currentSheet.getRange(activeRow, activeCol);
 
-        // creating the name of the cell
-        var cellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + currentStep.labelShort);
+        // cell name formula; output defined in 44_rangeNamingHelper.js
+
+        var component = "";
         if (numberOfIndicatorCatSubComponents != 1) {
-          cellName = cellName + indicatorClass.components[k].labelShort;
+          component = indicatorClass.components[k].labelShort;
         }
 
-        cellName = cellName.toString();
+        var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "opCom", currentStep.components[currentStepComponent].nameLabel)
+
         file.setNamedRange(cellName, thisCell); // names cells
         thisCell.setDataValidation(rule); // creates dropdown list
         thisCell.setValue('not selected'); // sets default for drop down list
@@ -571,11 +587,16 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
       for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
         var thisCell = currentSheet.getRange(activeRow, activeCol);
 
-        // creating the name of the cell
-        var cellName = ('RDR2019DC' + CompanyObj.services[serviceNr - 3].id + currentStep.labelShort);
-        if (numberOfIndicatorCatSubComponents != 1) { cellName = cellName + indicatorClass.components[k].labelShort; }
+        // cell name formula; output defined in 44_rangeNamingHelper.js
 
-        cellName = cellName.toString();
+        var g = serviceNr - 3;
+        var component = "";
+        if (numberOfIndicatorCatSubComponents != 1) {
+          component = indicatorClass.components[k].labelShort;
+        }
+
+        var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[currentStepComponent].nameLabel)
+
         file.setNamedRange(cellName, thisCell); // names cells
         thisCell.setDataValidation(rule); // creates dropdown list
         thisCell.setValue('not selected'); // sets default for drop down list
@@ -591,7 +612,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
 
 // ## TODO Component Level functions ## //
 
-function comparison(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
+function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
 
   // sets up column with discription
   for (var currentElementNr = 0; currentElementNr < currentIndicator.elements.length; currentElementNr++) {
@@ -617,16 +638,18 @@ function comparison(sheet, currentIndicator, CompanyObj, activeRow, file, curren
         for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
           var thisCell = sheet.getRange(activeRow + currentElementNr, activeCol);
 
-          // setting up formula that compares values
-          var compCellName = ('RDR2019DC' + CompanyObj.id + currentStep.components[currentStepComponent].comparisonLabelShort + currentIndicator.elements[currentElementNr].labelShort);
-          if (numberOfIndicatorCatSubComponents != 1) { compCellName = compCellName + indicatorClass.components[k].labelShort; }
-          compCellName = compCellName.toString();
+          var component = "";
+          if (numberOfIndicatorCatSubComponents != 1) {
+            component = indicatorClass.components[k].labelShort;
+          }
+
+          var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].compShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "group")
 
           // sets up formula that compares values
           var value = currentIndicator.compCol + ((serviceNr - 1) * numberOfIndicatorCatSubComponents) + k; // calculates which column
           var col = columnToLetter(value);
           // TODO
-          var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + col + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")';
+          var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")';
           // var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.urlPreviousYearResults + '","' + CompanyObj.tabPrevYearsOutcome + '!';
           // formula = formula + col + (currentIndicator.compRow + currentElementNr);
           // formula = formula + '"),"Yes","No")';
@@ -649,15 +672,19 @@ function comparison(sheet, currentIndicator, CompanyObj, activeRow, file, curren
           var thisCell = sheet.getRange(activeRow + currentElementNr, activeCol);
 
           // creating the name of cell it will be compared to
-          var compCellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + currentStep.components[currentStepComponent].comparisonLabelShort + currentIndicator.elements[currentElementNr].labelShort);
-          if (numberOfIndicatorCatSubComponents != 1) { compCellName = compCellName + indicatorClass.components[k].labelShort; }
-          compCellName = compCellName.toString();
+
+          var component = "";
+          if (numberOfIndicatorCatSubComponents != 1) {
+            component = indicatorClass.components[k].labelShort;
+          }
+
+          var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].compShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "opCom")
 
           // creating formula that compares the two cells
           var value = currentIndicator.compCol + ((serviceNr - 1) * numberOfIndicatorCatSubComponents) + k; // finds comparisson column
           var col = columnToLetter(value);
           // TODO
-          var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + col + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")';
+          var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")';
           formula.toString();
 
           thisCell.setFormula(formula);
@@ -678,16 +705,19 @@ function comparison(sheet, currentIndicator, CompanyObj, activeRow, file, curren
           var thisCell = sheet.getRange(activeRow + currentElementNr, activeCol);
 
           // finding the name of cell that it will be compared too
-          var compCellName = ('RDR2019DC' + CompanyObj.services[serviceNr - 3].id + currentStep.components[currentStepComponent].comparisonLabelShort + currentIndicator.elements[currentElementNr].labelShort);
-          if (numberOfIndicatorCatSubComponents != 1) { compCellName = compCellName + indicatorClass.components[k].labelShort; }
-          compCellName = compCellName.toString();
+          var g = serviceNr - 3;
+          var component = "";
+          if (numberOfIndicatorCatSubComponents != 1) {
+            component = indicatorClass.components[k].labelShort;
+          }
 
+          var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].compShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
 
           // creating formula that will be placed in cell
           var value = currentIndicator.compCol + ((serviceNr - 1) * numberOfIndicatorCatSubComponents) + k; // calculates which column
           var col = columnToLetter(value);
           // TODO
-          var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + col + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")';
+          var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")';
           formula.toString();
 
           thisCell.setFormula(formula);
@@ -716,7 +746,7 @@ function comparison(sheet, currentIndicator, CompanyObj, activeRow, file, curren
 }
 
 // the sources step adds a single row in which the sources of each column can be listed
-function sourcesStep(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
+function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
   var activeCol = 1;
 
   // adding label
@@ -727,14 +757,23 @@ function sourcesStep(currentSheet, currentIndicator, CompanyObj, activeRow, file
 
   for (var serviceNr = 1; serviceNr < (CompanyNumberOfServices + 3); serviceNr++) {
 
+    // TODO: fix cell reference for OpCom
+
     if (serviceNr == 1) {
       // main company
       for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
         var thisCell = currentSheet.getRange(activeRow, 1 + serviceNr + k);
         thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-        var cellName = ('RDR2019DC' + CompanyObj.id + currentStep.labelShort + currentIndicator.labelShort + currentStep.components[currentStepComponent].nameLabel);
-        if (numberOfIndicatorCatSubComponents != 1) { cellName = cellName + indicatorClass.components[k].labelShort; }
-        cellName = cellName.toString();
+
+        // cell name formula; output defined in 44_rangeNamingHelper.js
+        
+        var component = "";
+        if (numberOfIndicatorCatSubComponents != 1) {
+          component = indicatorClass.components[k].labelShort;
+        }
+
+        var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'group', currentStep.components[currentStepComponent].nameLabel);
+
         file.setNamedRange(cellName, thisCell);
         activeCol = activeCol + 1;
 
@@ -746,9 +785,16 @@ function sourcesStep(currentSheet, currentIndicator, CompanyObj, activeRow, file
       for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
         var thisCell = currentSheet.getRange(activeRow, 1 + numberOfIndicatorCatSubComponents + k);
         thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-        var cellName = ('RDR2019DC' + CompanyObj.id + 'opCom' + currentStep.labelShort + currentIndicator.labelShort + currentStep.components[currentStepComponent].nameLabel);
-        if (numberOfIndicatorCatSubComponents != 1) { cellName = cellName + indicatorClass.components[k].labelShort; }
-        cellName = cellName.toString();
+
+        // cell name formula; output defined in 44_rangeNamingHelper.js
+        
+        var component = "";
+        if (numberOfIndicatorCatSubComponents != 1) {
+          component = indicatorClass.components[k].labelShort;
+        }
+
+        var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', currentStep.components[currentStepComponent].nameLabel);
+
         file.setNamedRange(cellName, thisCell);
         activeCol = activeCol + 1;
 
@@ -761,9 +807,18 @@ function sourcesStep(currentSheet, currentIndicator, CompanyObj, activeRow, file
         var thisCell = currentSheet.getRange(activeRow, activeCol);
 
         thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
-        var cellName = ('RDR2019DC' + CompanyObj.services[serviceNr - 3].id + currentStep.labelShort + currentIndicator.labelShort + currentStep.components[currentStepComponent].nameLabel);
-        if (numberOfIndicatorCatSubComponents != 1) { cellName = cellName + indicatorClass.components[k].labelShort; }
-        cellName = cellName.toString();
+
+        // cell name formula; output defined in 44_rangeNamingHelper.js
+
+        var g = serviceNr - 3; // helper for Services
+
+        var component = "";
+        if (numberOfIndicatorCatSubComponents != 1) {
+          component = indicatorClass.components[k].labelShort;
+        }
+
+        var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[currentStepComponent].nameLabel);
+
         file.setNamedRange(cellName, thisCell);
         activeCol = activeCol + 1;
       }

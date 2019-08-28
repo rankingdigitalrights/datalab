@@ -1,23 +1,12 @@
-// Company Group Element Score
-function dummydummydummy () {
-var cellName = ('RDR2019SC' + CompanyObj.id + currentStep.labelShort + currentIndicator.elements[currentElementNr].labelShort);
-      if (numberOfIndicatorCatSubComponents != 1) {
-          cellName = cellName + indicatorClass.components[k].labelShort
-        }
+// To change the cell naming logic, re-arrange the vars in the function body (not in the siganture)
 
-      cellName = cellName.toString();
-      file.setNamedRange(cellName, currentCell);
+function defineNamedRangeStringImport (index, sheetMode, step, indicatorElement, component, company, service, suffix) {
 
-// Company Group Element Score
-}
-
-function defineNamedRangeStringImport(index, track, step, indicatorElement, component, company, service, suffix) {
-    
-    // if (numberOfIndicatorCatSubComponents != 1) { compCellName = compCellName + indicatorClass.components[k].labelShort; }
-
-    var compCellName = index + track + step + indicatorElement + component;
-    compCellName = compCellName + company + service
-    if (suffix) {compCellName + suffix} 
-    compCellName = compCellName.toString();
-    return compCellName
+  var compCellName = index + sheetMode + step + indicatorElement + component
+  compCellName = compCellName + company + service
+  if (suffix) {
+    compCellName = compCellName + suffix
+  }
+  compCellName = compCellName.toString()
+  return compCellName
 }
