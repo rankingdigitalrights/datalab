@@ -8,6 +8,8 @@ var companyFileName = "verizon"
 
 var sheetMode = "DC" // TODO
 
+var filenameSuffix = "v4"
+
 var importedOutcomeTabName = "2018 Outcome";
 
 // --------------- This is the main caller ---------------- //
@@ -23,7 +25,7 @@ function mainCreateDCSheet(stepsSubset, indicatorSubset) {
   var ResearchStepsObj = importResearchSteps(stepsSubset);
 
   // creating a blank spreadsheet
-  var file = SpreadsheetApp.create(companyFileName + '_DC_' + 'Prototype');
+  var file = SpreadsheetApp.create(companyFileName + '_DC_' + 'Prototype' + '_' + filenameSuffix);
 
   // add previous year's outcome sheet
 

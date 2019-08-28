@@ -130,7 +130,7 @@ function mainCreateScoringSheet (stepsSubset, indicatorSubset) {
           }
         }
 
-        activeRow++
+        activeRow = activeRow + 1
 
         // ADD SCORING AFTER ALL OTHER COMPONENTS
         activeRow = addElementScores(file, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, currentStepComponent, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat])
@@ -465,7 +465,7 @@ function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelSh
     activeRow = activeRow + 1
   }
 
-  return activeRow + 1
+  return activeRow + 2
 }
 
 function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements) {
@@ -474,7 +474,6 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
 
   // set up labels
 
-  activeRow = activeRow + 1
   var currentCell = sheet.getRange(activeRow, activeCol)
   currentCell.setValue('Level Scores')
   currentCell.setFontWeight('bold')
@@ -629,11 +628,11 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
 
 function addCompositeScores(file, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements) {
 
+  activeRow = activeRow + 1
+
   // --- // --- Averages --- // --- //
 
   // --- Composite Company --- //
-
-  activeRow = activeRow + 2
 
   var currentCell = sheet.getRange(activeRow, activeCol)
   currentCell.setValue("Composite Scores")
@@ -670,15 +669,16 @@ function addCompositeScores(file, activeRow, activeCol, sheet, currentSteplabelS
   Logger.log("composite company score added for " + currentIndicator.labelShort)
 
   return activeRow + 1
-
 }
 
 function addIndicatorScore(file, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements) {
 
+  activeRow = activeRow + 1
+  
   // --- INDICATOR SCORE --- //
 
   // setting up label for Average Score
-  activeRow = activeRow + 2
+  
   var currentCell = sheet.getRange(activeRow, activeCol)
   currentCell.setValue("Indicator Score")
   currentCell.setFontWeight('bold')
