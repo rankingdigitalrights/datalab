@@ -21,6 +21,9 @@ function serviceScore(serviceCells) {
 }
 
 function componentScore(componentCells) {
+    // <> = NE = notEqual(A,B) -> TRUE -> A!=B
+    // =IF(AND(B29="N/A",C29="N/A"),"N/A",AVERAGE(IF(B29<>"N/A",B29),IF(C29<>"N/A",C29)))
+
     var formula = '=AVERAGE(';
     formula = formula + componentCells;
     formula = formula + ')'
@@ -29,7 +32,7 @@ function componentScore(componentCells) {
 
 function indicatorScore(indicatorAverageElements) {
 
-    // =IF(AND(B49="N/A",F49="N/A"),"N/A",SUM(IF(B49<>"N/A",B49*LevelsI!$B$2),IF(F49<>"N/A",F49*LevelsI!$D$2)))
+    // =IF(AND(B31="N/A",F31="N/A"),"N/A",SUM(IF(B31<>"N/A",B31*LevelsI!$B$2),IF(F31<>"N/A",F31*LevelsI!$D$2)))
 
     var formula = '=AVERAGE(';
     formula = formula + indicatorAverageElements;
