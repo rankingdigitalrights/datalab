@@ -20,8 +20,8 @@ function importJsonIndicator(subset) {
   return jsonObj;
 }
 
-function importJsonCompany() {
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/" + companyFileName + ".json");
+function importJsonCompany(companyShortName) {
+  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/" + companyShortName + ".json");
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }

@@ -6,12 +6,6 @@
 
 // --- CONFIG --- //
 
-var companyFileName = "verizon"
-
-var sheetMode = "SC"
-
-var filenameSuffix = "v4"
-
 var firstScoringStep = 0
 
 var companyHasOpCom
@@ -19,13 +13,15 @@ var companyHasOpCom
 
 // --------------- This is the main caller ---------------- //
 
-function mainCreateScoringSheet (stepsSubset, indicatorSubset) {
+function mainCreateScoringSheet (stepsSubset, indicatorSubset, companyShortName, filenameVersion) {
   Logger.log('begin main Scoring')
+
+  var sheetMode = "SC"
 
   // importing the JSON objects which contain the parameters
   // TODO: parameterize for easier usability
   var configObj = importJsonConfig()
-  var CompanyObj = importJsonCompany()
+  var CompanyObj = importJsonCompany(companyShortName)
   var IndicatorsObj = importJsonIndicator(indicatorSubset)
   var ResearchStepsObj = importResearchSteps(stepsSubset)
   Logger.log("Obj: " + ResearchStepsObj)
@@ -34,17 +30,19 @@ function mainCreateScoringSheet (stepsSubset, indicatorSubset) {
 
   companyHasOpCom = CompanyObj.opCom
 
-  Logger.log(companyFileName + "opCom? - " + companyHasOpCom)
+  Logger.log(companyShortName + "opCom? - " + companyHasOpCom)
 
   // Mode A: creating a blank spreadsheet
-  // var file = SpreadsheetApp.create(companyFileName + '_' + 'Scoring' + '_' + 'Prototype_v3')
+  // var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
 
   // Mode B: instead of creating a new sheet on every run, re-use
   // THIS IS DANGEROUS //
   // HIDDEN CACHE ADVENTURES ARE WAITING FOR YOU //
   // i.e. Named Ranges are not reset upon casting
 
-  var file = connectToSpreadsheetByName(companyFileName + '_' + sheetMode + '_' + 'Prototype' + '_' + filenameSuffix)
+  var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
+
+  var file = connectToSpreadsheetByName(filename)
 
   // creates Outcome  page
   var sheet = file.getActiveSheet()
@@ -134,13 +132,13 @@ function mainCreateScoringSheet (stepsSubset, indicatorSubset) {
         activeRow = activeRow + 1
 
         // ADD SCORING AFTER ALL OTHER COMPONENTS
-        activeRow = addElementScores(file, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, currentStepComponent, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat])
+        activeRow = addElementScores(file, sheetMode, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, currentStepComponent, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat])
 
-        activeRow = addLevelScores(file, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, currentStepComponent, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat], indicatorAverageCompanyElements, indicatorAverageServicesElements)
+        activeRow = addLevelScores(file, sheetMode, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, currentStepComponent, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat], indicatorAverageCompanyElements, indicatorAverageServicesElements)
 
-        activeRow = addCompositeScores(file, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat], indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements)
+        activeRow = addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements)
 
-        activeRow = addIndicatorScore(file, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, currentStepComponent, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, numberOfIndicatorCatSubComponents, IndicatorsObj.indicatorClass[currentIndicatorCat], indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements)
+        activeRow = addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, ResearchStepsObj.researchSteps[currentStep].labelShort, IndicatorsObj.indicatorClass[currentIndicatorCat].indicators[currentIndicator], CompanyObj, indicatorAverageElements)
       }
     }
   }
@@ -343,19 +341,15 @@ function importSources (activeRow, activeCol, sheet, currentStep, element, curre
   return activeRow
 }
 
-
 // --- Core function: SCORING --- //
 
-function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass) {
+function addElementScores (file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass) {
 
-  Logger.log("In Scoring for " + currentIndicator.labelShort)
+  Logger.log("In Element Scoring for " + currentIndicator.labelShort)
 
-  var firstRow = activeRow + 1
-  var lastRow = activeRow + currentIndicator.elements.length
+  // for each indicator.Element
 
-  // for each indicator element
-
-  // set up labels column
+  // labels column
   for (var currentElementNr = 0; currentElementNr < currentIndicator.elements.length; currentElementNr++) {
     var tempCol = activeCol
     var currentCell = sheet.getRange(activeRow, tempCol)
@@ -363,37 +357,28 @@ function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelSh
     rowLabel = rowLabel.toString()
     currentCell.setValue(rowLabel)
     currentCell.setWrap(true)
-
     tempCol = tempCol + 1
 
     // for each Indicator Sub Component (G: FC, PC)
-
-    // set score
-
     for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
-      currentCell = sheet.getRange(activeRow, tempCol)
 
+      // add score
+      currentCell = sheet.getRange(activeRow, tempCol)
       // Formula by calculating offset --> Refactor to generic method(currentCell,)
       var up = currentIndicator.elements.length * 2 + 2
-
       var range = sheet.getRange(activeRow - up, tempCol)
       // currentCell.setValue(range.getA1Notation())
       var elementScore = elementScoreFormula(range)
       currentCell.setFormula(elementScore)
-
-      // NAMING the cell
+      currentCell.setNumberFormat("0.##")
 
       // cell name formula; output defined in 44_rangeNamingHelper.js
-
       var component = ""
       if (numberOfIndicatorCatSubComponents != 1) {
         component = indicatorClass.components[k].labelShort
       }
-
       var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, 'group', currentStepComponent.nameLabel)
-
       file.setNamedRange(cellName, currentCell)
-
       tempCol = tempCol + 1
     }
 
@@ -409,16 +394,13 @@ function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelSh
         // currentCell.setValue(range.getA1Notation())
         elementScore = elementScoreFormula(range)
         currentCell.setFormula(elementScore)
-
+        currentCell.setNumberFormat("0.##")
         // cell name formula; output defined in 44_rangeNamingHelper.js
-
         component = ""
         if (numberOfIndicatorCatSubComponents != 1) {
           component = indicatorClass.components[k].labelShort
         }
-
         cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "opCom", currentStepComponent.nameLabel)
-
         file.setNamedRange(cellName, currentCell)
 
       } else {
@@ -436,7 +418,6 @@ function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelSh
 
       for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
         currentCell = sheet.getRange(activeRow, tempCol)
-
         // Formula by calculating offset --> Refactor
         up = currentIndicator.elements.length * 2 + 2
         range = sheet.getRange(activeRow - up, tempCol)
@@ -444,18 +425,14 @@ function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelSh
         // var elementScore = '=LEN(' + range.getA1Notation() + ')'
         elementScore = elementScoreFormula(range)
         currentCell.setFormula(elementScore)
-
+        currentCell.setNumberFormat("0.##")
         // cell name formula; output defined in 44_rangeNamingHelper.js
-
         component = ""
         if (numberOfIndicatorCatSubComponents != 1) {
           component = indicatorClass.components[k].labelShort
         }
-
         cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStepComponent.nameLabel)
-
         file.setNamedRange(cellName, currentCell)
-
         tempCol = tempCol + 1
       }
 
@@ -466,10 +443,10 @@ function addElementScores (file, activeRow, activeCol, sheet, currentSteplabelSh
     activeRow = activeRow + 1
   }
 
-  return activeRow + 2
+  return activeRow + 1
 }
 
-function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements) {
+function addLevelScores (file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements) {
 
   // --- adding the level averages --- //
 
@@ -501,28 +478,21 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
       if (numberOfIndicatorCatSubComponents != 1) {
         component = indicatorClass.components[k].labelShort
       }
-
       var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "group", currentStepComponent.nameLabel)
-
       serviceCells.push(cellName)
     }
 
     var levelFormula = levelScoreFormula(serviceCells)
     currentCell.setFormula(levelFormula)
-    currentCell.setNumberFormat("0.00")
-
+    currentCell.setNumberFormat("0.##")
     // naming the group level cell score
     var component = ""
     if (numberOfIndicatorCatSubComponents != 1) {
       component = indicatorClass.components[k].labelShort
     }
-
     var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.labelShort, component, CompanyObj.id, "group", currentStepComponent.nameLabel)
-
     file.setNamedRange(cellName, currentCell)
-
     indicatorAverageCompanyElements.push(cellName); // adding name to the formula
-
     tempCol = tempCol + 1
   }
 
@@ -538,14 +508,11 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
       for (var currentElementNr = 0; currentElementNr < currentIndicator.elements.length; currentElementNr++) {
 
         // finding the cell names that are used in calculating a company specific average
-
         var component = ""
         if (numberOfIndicatorCatSubComponents != 1) {
           component = indicatorClass.components[k].labelShort
         }
-
         var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "opCom", currentStepComponent.nameLabel)
-
         if (companyHasOpCom == true) {
           serviceCells.push(cellName)
         }
@@ -553,8 +520,7 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
 
       var levelFormula = levelScoreFormula(serviceCells)
       currentCell.setFormula(levelFormula)
-      currentCell.setNumberFormat("0.00")
-
+      currentCell.setNumberFormat("0.##")
       // naming the opCom level cell score
       var component = ""
       if (numberOfIndicatorCatSubComponents != 1) {
@@ -562,9 +528,7 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
       }
 
       var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.labelShort, component, CompanyObj.id, "opCom", currentStepComponent.nameLabel)
-
       file.setNamedRange(cellName, currentCell)
-
       indicatorAverageCompanyElements.push(cellName)
 
     } else {
@@ -584,26 +548,20 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
 
     for (k = 0; k < numberOfIndicatorCatSubComponents; k++) {
       currentCell = sheet.getRange(activeRow, tempCol)
-
       var serviceCells = []
-
       for (var currentElementNr = 0; currentElementNr < currentIndicator.elements.length; currentElementNr++) {
-
         // finding the cell names that are used in calculating a company specific average
-
         var component = ""
         if (numberOfIndicatorCatSubComponents != 1) {
           component = indicatorClass.components[k].labelShort
         }
-
         var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStepComponent.nameLabel)
-
         serviceCells.push(cellName)
       }
 
       var levelFormula = levelScoreFormula(serviceCells)
       currentCell.setFormula(levelFormula)
-      currentCell.setNumberFormat("0.00")
+      currentCell.setNumberFormat("0.##")
 
       // naming the service level cell score
       var component = ""
@@ -627,55 +585,49 @@ function addLevelScores (file, activeRow, activeCol, sheet, currentSteplabelShor
   return activeRow + 1
 }
 
-function addCompositeScores(file, activeRow, activeCol, sheet, currentSteplabelShort, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements) {
+function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements) {
 
   activeRow = activeRow + 1
-
-  // --- Composite Company --- //
 
   var currentCell = sheet.getRange(activeRow, activeCol)
   currentCell.setValue("Composite Scores")
   currentCell.setFontWeight('bold')
   currentCell = sheet.getRange(activeRow, activeCol + 1)
 
-  var component = "A"
+  // --- Composite Company --- //
+
+  var scoringComponent = "A"
 
   currentCell.setFormula(compositeScoreFormula(indicatorAverageCompanyElements))
-  
-  currentCell.setNumberFormat("0.##")
 
-  var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.labelShort, component, CompanyObj.id, "", "Cmp")
-
+  var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.labelShort, scoringComponent, CompanyObj.id, "", "Cmp")
   file.setNamedRange(cellName, currentCell)
-  
-  if (indicatorClass.labelShort !== "G") {
-    indicatorAverageElements.push(cellName)
-    currentCell.setFontWeight('bold')
-  }
+
+  // apply scoring Logic
+  currentCell = checkScoringLogic(currentIndicator, scoringComponent, currentCell, cellName, indicatorAverageElements)
 
   Logger.log("composite company score added for " + currentIndicator.labelShort)
 
   // --- Composite Services --- //
 
-  component = "B"
+  scoringComponent = "B"
 
-  var secondCompositeCell = sheet.getRange(activeRow, activeCol + 1 + (2 * numberOfIndicatorCatSubComponents))
+  var servicesCompositeCell = sheet.getRange(activeRow, activeCol + 1 + (2 * numberOfIndicatorCatSubComponents)) // 2 := group + opCom cols
 
-  secondCompositeCell.setFormula(compositeScoreFormula(indicatorAverageServicesElements))
+  servicesCompositeCell.setFormula(compositeScoreFormula(indicatorAverageServicesElements))
 
-  secondCompositeCell.setFontWeight('bold')
-  secondCompositeCell.setNumberFormat("0.##")
+  cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.labelShort, scoringComponent, CompanyObj.id, "", "Cmp")
 
-  cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentSteplabelShort, currentIndicator.labelShort, component, CompanyObj.id, "", "Cmp")
+  file.setNamedRange(cellName, servicesCompositeCell)
+  // apply scoring Logic
+  currentCell = checkScoringLogic(currentIndicator, scoringComponent, servicesCompositeCell, cellName, indicatorAverageElements)
 
-  file.setNamedRange(cellName, secondCompositeCell)
-  indicatorAverageElements.push(cellName)
   Logger.log("composite company score added for " + currentIndicator.labelShort)
 
   return activeRow + 1
 }
 
-function addIndicatorScore(file, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements) {
+function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentIndicator, CompanyObj, indicatorAverageElements) {
 
   activeRow = activeRow + 1
   
