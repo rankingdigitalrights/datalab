@@ -11,6 +11,8 @@ function defineNamedRangeStringImport (index, sheetMode, step, indicatorElement,
   return compCellName
 }
 
+// RDR2019DC S01 G1 iVM1 Step
+
 function clearAllNamedRangesFromSheet(sheet) {
   var namedRanges = sheet.getNamedRanges();
   for(var i=0; i < namedRanges.length; i++) {
