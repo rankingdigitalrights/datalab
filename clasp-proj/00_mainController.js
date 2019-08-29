@@ -13,8 +13,8 @@ function mainMainCaller() {
 function mainPermissions() {
 	var sheetMode = 'DC'
 	var protectSteps = ["S02"] // always use array
-	// var unprotectSteps = ["S01", "S01.5"] // always use array
-	var unprotectSteps = ["S02"] // always use array
+	var unprotectSteps = ["S01", "S01.5"] // always use array
+	// var unprotectSteps = ["S02"] // always use array
 	var allowedEditors = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"] // always use array
 
 	mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameVersion, protectSteps, unprotectSteps, allowedEditors)

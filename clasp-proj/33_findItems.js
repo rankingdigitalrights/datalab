@@ -11,10 +11,12 @@ function findResearchStep(ResearchStepsObj, stepsQuery) {
 				var foundStep = ResearchStepsObj.researchSteps[step].labelShort
 				stepsSubset.push(foundStep)
 				Logger.log("found " + foundStep)
-			} else {
-				Logger.log("Step for unprotection not found")
-			}
+			} 
 		}
+    }
+
+    if (stepsSubset.length === 0) {
+        Logger.log("No steps found. Check spelling or variable names.")
     }
     
     return stepsSubset

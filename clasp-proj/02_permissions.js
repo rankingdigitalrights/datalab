@@ -93,9 +93,9 @@ function clearAllProtections(filename) {
 
 function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, editorsArray) {
 
-	// Logger.log("to be connected to: " + filename)
+	Logger.log("to be connected to: " + filename)
 	var thisSpreadsheet = connectToSpreadsheetByName(filename)
-	// Logger.log("remote connected to: " + thisSpreadsheet.getName())
+	Logger.log("remote connected to: " + thisSpreadsheet.getName())
 
 	// for each indicator (= sheet)
 	for (var indicator in indicatorArray) {
@@ -115,9 +115,9 @@ function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filena
 function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, indicator, steps, editorsArray) {
 
 	// Logger.log("In Single Step " + indicator)
-	var protection = sheet.protect().setDescription('Full protected ' + indicator)
+	var protection = sheet.protect().setDescription(steps + " open")
 
-	var unprotected = []
+	var unprotectedRanges = []
 	var rangeName
 	var range
 
@@ -126,20 +126,14 @@ function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, co
 		// Logger.log(rangeName)
 		range = sheet.getRange(rangeName)
 
-		unprotected.push(range)
+		unprotectedRanges.push(range)
 		
 	}
 
-	protection.setUnprotectedRanges(unprotected);
+	protection.setUnprotectedRanges(unprotectedRanges);
 
-	// Ensure the current user is an editor before removing others. Otherwise, if the user's edit
-	// permission comes from a group, the script will throw an exception upon removing the group.
-	// var me = Session.getEffectiveUser();
-	// Logger.log("me: " + me);
-	// Logger.log("editorsObj: " + editorsArray);
-	// Logger.log("editorsArray: " + [editorsArray]);
-	protection.addEditor(me);
-	// protection.removeEditors(protection.getEditors());
+	protection.removeEditors(protection.getEditors());
+
 	protection.addEditors(editorsArray);
 	if (protection.canDomainEdit()) {
 		protection.setDomainEdit(false);
