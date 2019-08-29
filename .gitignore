@@ -4,3 +4,4 @@ GS_token.rds
 .Rproj.user
 *.Rproj
 *.RData
+*.html

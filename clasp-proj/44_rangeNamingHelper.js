@@ -10,3 +10,11 @@ function defineNamedRangeStringImport (index, sheetMode, step, indicatorElement,
   compCellName = compCellName.toString()
   return compCellName
 }
+
+function clearAllNamedRangesFromSheet(sheet) {
+  var namedRanges = sheet.getNamedRanges();
+  for(var i=0; i < namedRanges.length; i++) {
+      namedRanges[i].remove();
+  } 
+  return sheet
+}
