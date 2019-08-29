@@ -9,3 +9,12 @@ function mainMainCaller () {
   // mainCreateDCSheet(DCstepsSubset, indicatorSubset, companyShortName, filenameVersion)
   mainCreateScoringSheet(SCstepsSubset, indicatorSubset, companyShortName, filenameVersion)
 }
+
+function mainPermissions () {
+  var protectStep = 1
+  var unprotectStep = false
+  var allowedEditors = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
+
+  mainPermissionsCaller(companyShortName, filenameVersion, protectStep, unprotectStep, allowedEditors)
+}
+

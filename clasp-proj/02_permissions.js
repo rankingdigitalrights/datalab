@@ -4,69 +4,81 @@
 var permissionRangesJSON = {
   "steps": {
     "step1": {
-      "range": "RDR2019DCivm1S01",
+      "range": "RDR2019DCS01ivm1",
       "step": 1
     },
     "step1_5": {
-      "range": "RDR2019DCivm1S01.5",
+      "range": "RDR2019DCS01.5ivm1",
       "step": 1.5
     },
     "step2": {
-      "range": "RDR2019DCivm1S02",
+      "range": "RDR2019DCS02ivm1",
       "step": 2
     }
   }
 }
-
-var spreadsheetName = "verizonPrototypeFullOutcomeTestPermissions";
-var spreadsheetID = "1nTZ7I0X2Dw_9ctREsQ8enpmr4c5vVBrpt8XyxwBUICc";
-var indicatorString = ["G1", "G2", "G3", "G4", "G5", "G6"];
-var indicatorArray = ["G1", "G2", "G3", "G4", "G5", "G6"];
-var editorsArray = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
-
 // MAIN CALLER 
 
-function mainPermissionsCaller() {
-  // clearAllProtections(spreadsheetName);
-  // iteratorDummySetProtectedRanges(spreadsheetName);
-  // StepWiseProtect(spreadsheetName, indicatorArray, permissionRangesJSON);
-  // Logger.log(permissionRangesJSON.steps.step1);
+function mainPermissionsCaller(companyShortName, filenameVersion, protectStep, unprotectStep, allowedEditors) {
+
+  var sheetMode = 'DC'
+
+  // var companyShortName = "verizon_DC_Prototype_v4";
+  var spreadsheetID = "1wsYA33ld17K8mJzclNF3LZNI8XDc07lln2bVfv5hOZs";
+  var indicatorString = ["G1", "G2", "G3", "G4", "G5", "G6"];
+  var indicatorArray = ["G1", "G2", "G3", "G4", "G5", "G6"];
+  var editorsArray = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
   
-  StepWiseProtectSheetUnprotectRanges(
-    spreadsheetName,
-    indicatorArray,
-    permissionRangesJSON,                                      
-    editorsArray
-  );
+  var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion);
+
+  clearAllProtections(filename)
+
+  // StepWiseProtectSheetUnprotectRanges(
+  //   spreadsheetName,
+  //   indicatorArray,
+  //   permissionRangesJSON,                                      
+  //   editorsArray
+  // );
   
 }
 
 
-// --- functions -- //
+// removes Sheet-level protection and specific protected ranges //
 
-function mainClearAllProtections() {
-  clearAllProtections(spreadsheetName);
-}
+function clearAllProtections(filename) {
+  var thisSpreadsheet = connectToSpreadsheetByName(filename);
+  Logger.log("remote connected to " + thisSpreadsheet.getName());
+  
+  var success;
 
-// WORKS // removes Sheet-level protection and specific protected ranges //
-
-function clearAllProtections(spreadsheet) {
-  var ss = connectToSpreadsheetByName(spreadsheet);
-  Logger.log(ss.getName());
-  var protectionsRanges = ss.getProtections(SpreadsheetApp.ProtectionType.RANGE);
-  for (var i in protectionsRanges) {
-    var protectionRange = protectionsRanges[i];
-    if (protectionRange.canEdit()) {
-      protectionRange.remove();
+  // remove protected ranges
+  var protectionsRanges = thisSpreadsheet.getProtections(SpreadsheetApp.ProtectionType.RANGE);
+  if (protectionsRanges.length === 0) { Logger.log('no protected RANGES found') } else {
+    success = [];
+    for (var i in protectionsRanges) {
+      var protectionRange = protectionsRanges[i];
+      success.push(protectionRange.getDescription())
+      if (protectionRange.canEdit()) {
+        protectionRange.remove();
+      }
     }
+    Logger.log(success + " RANGES unprotected")
   }
-  var protectionsSheets = ss.getProtections(SpreadsheetApp.ProtectionType.SHEET);
-  for (var i in protectionsSheets) {
-    var protectionSheet = protectionsSheets[i];
-    if (protectionSheet.canEdit()) {
-      protectionSheet.remove();
+
+  // unprotect sheets
+  var protectionsSheets = thisSpreadsheet.getProtections(SpreadsheetApp.ProtectionType.SHEET);
+  if (protectionsSheets.length === 0) { Logger.log('no protected SHEETS found') } else {
+    success = [];
+    for (var i in protectionsSheets) {
+      var protectionSheet = protectionsSheets[i];
+      if (protectionSheet.canEdit()) {
+        protectionSheet.remove();
+        success++
+      }
     }
+    Logger.log(success + "SHEETS unprotected")
   }
+
 }
 
 // --- PROTECTIONS --- //
@@ -224,7 +236,7 @@ function mainWholeSheetUnProtect() {
 function wholeSheetProtect(spreadsheetName, indicatorString) {
   var ss = connectToSpreadsheetByName(spreadsheetName);
   var sheet = ss.getSheetByName(indicatorString);
-  var protection = sheet.protect().setDescription(indicatorString + ' Sheet Protection');
+  sheet.protect().setDescription(indicatorString + ' Sheet Protection');
   Logger.log(indicatorString + ' Protected');
 }
 
@@ -241,26 +253,6 @@ function wholeSheetUnProtect(spreadsheetName, indicatorString) {
     if (protection.canEdit()) {
       protection.remove();
       Logger.log(protection.getDescription() + " removed.")
-    }
-  }
-}
-
-
-// saved for later; not in use right now 
-function iteratorDummySetProtectedRanges(spreadsheetName) {
-  //set permissions
-  var ss = connectToSpreadsheetByName(spreadsheetName);
-  Logger.log(ss);
-  var ranges = ["A1:K", "F1:F", "H1:H", "Y1:Y", "AD1:AF"];
-
-  for (var j in ranges) {
-    var protection = ss.getRange(ranges[j]).protect();
-
-    var me = Session.getEffectiveUser();
-    protection.addEditor(me);
-    protection.removeEditors(protection.getEditors());
-    if (protection.canDomainEdit()) {
-      protection.setDomainEdit(false);
     }
   }
 }
