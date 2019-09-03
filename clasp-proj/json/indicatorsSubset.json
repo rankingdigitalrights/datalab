@@ -15,6 +15,56 @@
                 }
             ],
             "indicators": [{
+                    "labelShort": "G1",
+                    "labelLong": "Policy Commitment",
+                    "description": "The company should publicly commit to respect users’ human rights to freedom of expression and privacy.",
+                    "scoringScope": "company",
+                    "compCol": 2,
+                    "compRow": 3,
+                    "elements": [{
+                        "labelShort": "G1.1",
+                        "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including freedom of expression and privacy?"
+                    }]
+                },
+                {
+                    "labelShort": "G2",
+                    "labelLong": "Governance and management oversight",
+                    "description": "The company’s senior leadership should exercise oversight over how its policies and practices affect freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "compCol": 2,
+                    "compRow": 16,
+                    "elements": [{
+                            "labelShort": "G2.1",
+                            "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect freedom of expression and privacy?"
+                        },
+                        {
+                            "labelShort": "G2.2",
+                            "description": "Does the company clearly disclose that an executive-level committee, team, program or officer oversees how company practices affect freedom of expression and privacy?"
+                        },
+                        {
+                            "labelShort": "G2.3",
+                            "description": "Does the company clearly disclose that a management-level committee, team, program or officer oversees how company practices affect freedom of expression and privacy?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "G3",
+                    "labelLong": "Internal implementation",
+                    "description": "The company should have mechanisms in place to implement its commitments to freedom of expression and privacy within the company.",
+                    "scoringScope": "full",
+                    "compCol": 2,
+                    "compRow": 37,
+                    "elements": [{
+                            "labelShort": "G3.1",
+                            "description": "Does the company clearly disclose that it provides employee training on freedom of expression and privacy issues?"
+                        },
+                        {
+                            "labelShort": "G3.2",
+                            "description": "Does the company clearly disclose that it maintains an employee whistleblower program through which employees can report concerns related to how the company treats its users’ freedom of expression and privacy rights?"
+                        }
+                    ]
+                },
+                {
                     "labelShort": "G4",
                     "labelLong": "Impact assessment",
                     "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
@@ -201,6 +251,133 @@
                             "description": "Does the company provide clear examples to help the user understand what the rules are and how they are enforced?"
                         }
                     ]
+                },
+                {
+                    "labelShort": "F4",
+                    "labelLong": "Data about terms of service enforcement",
+                    "description": "The company should clearly disclose and regularly publish data about the volume and nature of actions taken to restrict content or accounts that violate the company’s rules.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 207,
+                    "elements": [{
+                            "labelShort": "F4.1",
+                            "description": "Does the company clearly disclose data about the volume and nature of content and accounts restricted for violating the company’s rules?"
+                        },
+                        {
+                            "labelShort": "F4.2",
+                            "description": "Does the company report this data at least once a year?"
+                        },
+                        {
+                            "labelShort": "F4.3",
+                            "description": "Can the data published by the company be exported as a structured datafile?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F5",
+                    "labelLong": "Process for responding to third-party requests for content or account restriction",
+                    "description": "The company should clearly disclose its process for responding to government requests(including judicial orders) and private requests to remove, filter, or restrict content or accounts.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 225,
+                    "elements": [{
+                            "labelShort": "F5.1",
+                            "description": "Does the company clearly explain its process for responding to non-judicial government requests?"
+                        },
+                        {
+                            "labelShort": "F5.2",
+                            "description": "Does the company clearly explain its process for responding to court orders?"
+                        },
+                        {
+                            "labelShort": "F5.3",
+                            "description": "Does the company clearly explain its process for responding to government requests from foreign jurisdictions?"
+                        },
+                        {
+                            "labelShort": "F5.4",
+                            "description": "Does the company clearly explain its process for responding to private requests?"
+                        },
+                        {
+                            "labelShort": "F5.5",
+                            "description": "Do the company’s explanations clearly disclose the legal basis under which it may comply with government requests?"
+                        },
+                        {
+                            "labelShort": "F5.6",
+                            "description": "Do the company’s explanations clearly disclose the basis under which it may comply with private requests?"
+                        },
+                        {
+                            "labelShort": "F5.7",
+                            "description": "Does the company clearly disclose that it carries out due diligence on government requests before deciding how to respond?"
+                        },
+                        {
+                            "labelShort": "F5.8",
+                            "description": "Does the company clearly disclose that it carries out due diligence on private requests before deciding how to respond?"
+                        },
+                        {
+                            "labelShort": "F5.9",
+                            "description": "Does the company commit to push back on inappropriate or overbroad requests made by governments?"
+                        },
+                        {
+                            "labelShort": "F5.10",
+                            "description": "Does the company commit to push back on inappropriate or overbroad private requests?"
+                        },
+                        {
+                            "labelShort": "F5.11",
+                            "description": "Does the company provide clear guidance or examples of implementation of its process of responding to government requests?"
+                        },
+                        {
+                            "labelShort": "F5.12",
+                            "description": "Does the company provide clear guidance or examples of implementation of its process of responding to private requests?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F6",
+                    "labelLong": "Data about government requests for content or account restriction",
+                    "description": "The company should regularly publish data about government requests(including judicial orders) to remove, filter, or restrict content or accounts.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 270,
+                    "elements": [{
+                            "labelShort": "F6.1",
+                            "description": "Does the company break out the number of requests it receives by country?"
+                        },
+                        {
+                            "labelShort": "F6.2",
+                            "description": "Does the company list the number of accounts affected?"
+                        },
+                        {
+                            "labelShort": "F6.3",
+                            "description": "Does the company list the number of pieces of content or URLs affected?"
+                        },
+                        {
+                            "labelShort": "F6.4",
+                            "description": "Does the company list the types of subject matter associated with the requests it receives?"
+                        },
+                        {
+                            "labelShort": "F6.5",
+                            "description": "Does the company list the number of requests that come from different legal authorities?"
+                        },
+                        {
+                            "labelShort": "F6.6",
+                            "description": "Does the company list the number of requests it knowingly receives from government officials to restrict content or accounts through unofficial processes?"
+                        },
+                        {
+                            "labelShort": "F6.7",
+                            "description": "Does the company list the number of requests it complied with?"
+                        },
+                        {
+                            "labelShort": "F6.8",
+                            "description": "Does the company publish the original requests or disclose that it provides copies to a public third-party archive?"
+                        },
+                        {
+                            "labelShort": "F6.9",
+                            "description": "Does the company report this data at least once a year?"
+                        },
+                        {
+                            "labelShort": "F6.10",
+                            "description": "Can the data be exported as a structured datafile?"
+                        }
+                    ]
                 }
             ]
         },
@@ -287,6 +464,101 @@
                         {
                             "labelShort": "P3.5",
                             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether third-party apps made available through its app store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the app?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P4",
+                    "labelLong": "Sharing of user information",
+                    "description": "The company should clearly disclose what user information it shares and with whom.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 498,
+                    "elements": [{
+                            "labelShort": "P4.1",
+                            "description": "For each type of user information the company collects, does the company clearly disclose whether it shares that user information?"
+                        },
+                        {
+                            "labelShort": "P4.2",
+                            "description": "For each type of user information the company shares, does the company clearly disclose the types of third parties with which it shares that user information?"
+                        },
+                        {
+                            "labelShort": "P4.3",
+                            "description": "Does the company clearly disclose that it may share user information with government(s) or legal authorities?"
+                        },
+                        {
+                            "labelShort": "P4.4",
+                            "description": "For each type of user information the company shares, does the company clearly disclose the names of all third parties with which it shares user information?"
+                        },
+                        {
+                            "labelShort": "P4.5",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party appsmade available through its app storedisclose what user information the apps share?"
+                        },
+                        {
+                            "labelShort": "P4.6",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party appsmade available through its app storedisclose the types of third parties with whom they share user information?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P5",
+                    "labelLong": "Purpose for collecting and sharing user information",
+                    "description": "The company should clearly disclose why it collects and shares user information.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 525,
+                    "elements": [{
+                            "labelShort": "P5.1",
+                            "description": "For each type of user information the company collects, does the company clearly disclose its purpose for collection?"
+                        },
+                        {
+                            "labelShort": "P5.2",
+                            "description": "Does the company clearly disclose whether it combines user information from various company services and if so, why?"
+                        },
+                        {
+                            "labelShort": "P5.3",
+                            "description": "For each type of user information the company shares, does the company clearly disclose its purpose for sharing?"
+                        },
+                        {
+                            "labelShort": "P5.4",
+                            "description": "Does the company clearly disclose that it limits its use of user information to the purpose for which it was collected?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P6",
+                    "labelLong": "Retention of user information",
+                    "description": "The company should clearly disclose how long it retains user information.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 546,
+                    "elements": [{
+                            "labelShort": "P6.1",
+                            "description": "For each type of user information the company collects, does the company clearly disclose how long it retains that user information?"
+                        },
+                        {
+                            "labelShort": "P6.2",
+                            "description": "Does the company clearly disclose what de-identified user information it retains?"
+                        },
+                        {
+                            "labelShort": "P6.3",
+                            "description": "Does the company clearly disclose the process for de-identifying user information?"
+                        },
+                        {
+                            "labelShort": "P6.4",
+                            "description": "Does the company clearly disclose that it deletes all user information after users terminate their account?"
+                        },
+                        {
+                            "labelShort": "P6.5",
+                            "description": "Does the company clearly disclose the time frame in which it will delete user information after users terminate their account?"
+                        },
+                        {
+                            "labelShort": "P6.6",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose how long they retains user information?"
+                        },
+                        {
+                            "labelShort": "P6.7",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store state that all user information is deleted when users terminate their accounts or delete the app?"
                         }
                     ]
                 }
