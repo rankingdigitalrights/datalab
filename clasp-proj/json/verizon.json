@@ -1,6 +1,6 @@
 {
   "collection": "companies",
-  "id": "ivm1",
+  "id": "iVM1",
   "label": {
     "current": "Verizon Media",
     "legacy": [
@@ -14,11 +14,13 @@
   "opComLabel": null,
   "prevScored": true,
   "firstIndex": 2015,
-  
+  "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
   "tabPrevYearsOutcome": "OathOutcome",
+  "urlCurrentDataCollectionSheet": "1wsYA33ld17K8mJzclNF3LZNI8XDc07lln2bVfv5hOZs",
+  "urlCurrentCompanyScoringSheet": "1Oa8EaJqipzmV-IZ3m1aj5_LD5Qmv6u2dNIfdGt0xmWI",
   "numberOfServices": 2,
   "services": [{
-      "id": "ym1",
+      "id": "mYM1",
       "type": "mail",
       "label": {
         "current": "Yahoo Mail",
@@ -26,15 +28,12 @@
       }
     },
     {
-      "id": "tl1",
+      "id": "pTR1",
       "type": "photoVideo",
       "label": {
         "current": "Tumblr",
         "legacy": null
       }
     }
-  ],
-  "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
-  "urlCurrentDataCollectionSheet": "1nTZ7I0X2Dw_9ctREsQ8enpmr4c5vVBrpt8XyxwBUICc",
-  "urlCurrentCompanyScoringSheet": null
+  ]
 }

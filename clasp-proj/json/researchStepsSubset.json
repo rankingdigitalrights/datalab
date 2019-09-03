@@ -1,5 +1,6 @@
 {
-  "researchSteps": [{
+  "researchSteps": [
+    {
       "label": "Step 1: Data Collection",
       "labelShort": "S01",
       "components": [{
@@ -51,7 +52,140 @@
         {
           "type": "comparison",
           "label": "Element ",
-          "compShort": "S01"
+          "comparisonLabelShort": "S01"
+        },
+        {
+          "type": "miniheader",
+          "label": "If no, please select the reason why and provide comments for that element."
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Select reason if 'no' for ",
+          "dropdown": [
+            "not selected",
+            "I do not agree with last year's score",
+            "the policy appears revised or changed"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " ",
+          "nameLabel": "Comments"
+        }
+      ]
+    },
+    {
+      "label": "Step 2: Review",
+      "labelShort": "S02",
+      "c1": 186,
+      "c2": 136,
+      "c3": 177,
+      "components": [{
+          "type": "header",
+          "filler": "Your Name"
+        },
+        {
+          "type": "miniElementDropDown",
+          "label": "Do you agree with the answer(s) in Step 1?",
+          "dropdown": [
+            "not selected",
+            "yes",
+            "no"
+          ]
+        },
+        {
+          "type": "elementDropDown",
+          "label": "If 'no': suggested answer for ",
+          "dropdown": [
+            "not selected",
+            "yes",
+            "partial",
+            "no",
+            "no disclosure found",
+            "N/A"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " (required if 'no', optional if 'yes')",
+          "nameLabel": "Comments"
+        },
+        {
+          "type": "miniheader",
+          "label": "Do you agree with the year-on-year analysis in Step 1.5?"
+        },
+        {
+          "type": "elementDropDown",
+          "label": "In Step 1.5 for ",
+          "dropdown": [
+            "not selected",
+            "yes",
+            "no"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "If no, comments on ",
+          "label2": " If no, comments on ",
+          "nameLabel": "Comments2"
+        }
+      ]
+    },
+    {
+      "label": "Step 3: Score Consensus",
+      "labelShort": "S03",
+      "c1": 50,
+      "c2": 147,
+      "c3": 168,
+      "components": [{
+          "type": "header",
+          "filler": "Your Name"
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Consolidated answer for ",
+          "dropdown": [
+            "not selected",
+            "yes",
+            "partial",
+            "no",
+            "no disclosure found",
+            "N/A"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " (explain score)",
+          "nameLabel": "Comments"
+        },
+        {
+          "type": "sources",
+          "label": "Sources (reference, specific page, section, etc.)",
+          "nameLabel": "Sources"
+        }
+      ]
+    },
+    {
+      "label": "Step 3.5: Year-on-year analysis",
+      "labelShort": "S03.5",
+      "c1": 50,
+      "c2": 168,
+      "c3": 82,
+      "components": [{
+          "type": "header",
+          "filler": " "
+        },
+        {
+          "type": "miniheader",
+          "label": "Is your answer the same as the previous year?"
+        },
+        {
+          "type": "comparison",
+          "label": "Element ",
+          "comparisonLabelShort": "S03"
         },
         {
           "type": "miniheader",

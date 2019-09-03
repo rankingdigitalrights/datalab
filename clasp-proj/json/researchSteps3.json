@@ -1,0 +1,39 @@
+{
+  "researchSteps": [
+    {
+      "label": "Step 3: Score Consensus",
+      "labelShort": "S03",
+      "c1": 50,
+      "c2": 147,
+      "c3": 168,
+      "components": [{
+          "type": "header",
+          "filler": "Your Name"
+        },
+        {
+          "type": "elementDropDown",
+          "label": "Consolidated answer for ",
+          "dropdown": [
+            "not selected",
+            "yes",
+            "partial",
+            "no",
+            "no disclosure found",
+            "N/A"
+          ]
+        },
+        {
+          "type": "comments",
+          "label": "Comments for ",
+          "label2": " (explain score)",
+          "nameLabel": "Comments"
+        },
+        {
+          "type": "sources",
+          "label": "Sources (reference, specific page, section, etc.)",
+          "nameLabel": "Sources"
+        }
+      ]
+    }
+  ]
+}
