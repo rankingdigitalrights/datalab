@@ -1,0 +1,38 @@
+{
+  "collection": "companies",
+  "id": "tMT1",
+  "label": {
+    "current": "MTN",
+    "legacy": [null]
+  },
+  "type": "telecom",
+  "groupLabel": "MTN (Group)",
+  "opCom": true,
+  "opComLabel": "MTN South Africa (Operating Company)",
+  "prevScored": true,
+  "firstIndex": 2015,
+  "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
+  "tabPrevYearsOutcome": "MTNOutcome",
+  "urlCurrentDataCollectionSheet": null,
+  "urlCurrentCompanyScoringSheet": null,
+  "numberOfServices": 2,
+  "services": [{
+      "id": "bbES1",
+      "type": "broadband",
+      "label": {
+        "current": "Fixed-line broadband",
+        "legacy": null
+      }
+    },
+    {
+      "id": "mbES2",
+      "type": "mobile",
+      "subtype": "postpaid",
+      "label": {
+        "current": "Postpaid mobile",
+        "legacy": null
+      }
+    }
+    }
+  ]
+}

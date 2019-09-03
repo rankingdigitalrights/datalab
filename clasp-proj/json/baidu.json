@@ -1,0 +1,44 @@
+{
+    "collection": "companies",
+    "id": "iBA1",
+    "label": {
+        "current": "Baidu",
+        "legacy": null
+    },
+    "type": "internet",
+    "groupLabel": "Baidu (Group)",
+    "opCom": false,
+    "opComLabel": null,
+    "prevScored": true,
+    "firstIndex": 2015,
+    "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1bAVVenbXBzWLTwYahqp-8DbHMx5S2YS7a4VhTe8RjFE",
+    "tabPrevYearsOutcome": "BaiduOutcome",
+    "urlCurrentDataCollectionSheet": null,
+    "urlCurrentCompanyScoringSheet": null,
+    "numberOfServices": 3,
+    "services": [{
+            "id": "seBA1",
+            "type": "search",
+            "label": {
+                "current": "Baidu Search",
+                "legacy": null
+            }
+        },
+        {
+            "id": "clBA2",
+            "type": "cloud",
+            "label": {
+                "current": "Baidu Cloud",
+                "legacy": null
+            }
+        },
+        {
+            "id": "mvBA3",
+            "type": "messagingVoip",
+            "label": {
+                "current": "Baidu PostBar",
+                "legacy": null
+            }
+        }
+    ]
+}
