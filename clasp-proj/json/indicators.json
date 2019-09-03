@@ -68,6 +68,7 @@
                     "labelShort": "G4",
                     "labelLong": "Impact assessment",
                     "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
                     "compCol": 2,
                     "compRow": 54,
                     "elements": [{
@@ -120,6 +121,7 @@
                     "labelShort": "G5",
                     "labelLong": "Stakeholder engagement",
                     "description": "The company should engage with a range of stakeholders on freedom of expression and privacy issues.",
+                    "scoringScope": "company",
                     "compCol": 2,
                     "compRow": 92,
                     "elements": [{
@@ -140,6 +142,7 @@
                     "labelShort": "G6",
                     "labelLong": "Remedy",
                     "description": "The company should have grievance and remedy mechanisms to address users’ freedom of expression and privacy concerns.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 112,
                     "elements": [{
@@ -176,6 +179,7 @@
                     "labelShort": "F1",
                     "labelLong": "Access to terms of service",
                     "description": "The company should provide terms of service (ToS) that are easy to find and easy to understand.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 138,
                     "elements": [{
@@ -196,6 +200,7 @@
                     "labelShort": "F2",
                     "labelLong": "Changes to terms of service",
                     "description": "The company should clearly disclose that it provides notice and documentation to users when it changes its terms of service.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 156,
                     "elements": [{
@@ -220,6 +225,7 @@
                     "labelShort": "F3",
                     "labelLong": "Process for terms of service enforcement",
                     "description": "The company should clearly explain the circumstances under which it may restrict content or user accounts.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 177,
                     "elements": [{
@@ -378,6 +384,150 @@
                             "description": "Can the data be exported as a structured datafile?"
                         }
                     ]
+                },
+                {
+                    "labelShort": "F7",
+                    "labelLong": "Data about private requests for content or account restriction",
+                    "description": "The company should regularly publish data about private requests to remove, filter, or restrict access to content or accounts.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 309,
+                    "elements": [{
+                            "labelShort": "F7.1",
+                            "description": "Does the company break out the number of requests it receives by country?"
+                        },
+                        {
+                            "labelShort": "F7.2",
+                            "description": "Does the company list the number of accounts affected?"
+                        },
+                        {
+                            "labelShort": "F7.3",
+                            "description": "Does the company list the number of pieces of content or URLs affected?"
+                        },
+                        {
+                            "labelShort": "F7.4",
+                            "description": "Does the company list the reasons for removal associated with the requests it receives?"
+                        },
+                        {
+                            "labelShort": "F7.5",
+                            "description": "Does the company describe the types of parties from which it receives requests?"
+                        },
+                        {
+                            "labelShort": "F7.6",
+                            "description": "Does the company list the number of requests it complied with?"
+                        },
+                        {
+                            "labelShort": "F7.7",
+                            "description": "Does the company publish the original requests or disclose that it provides copies to a public third-party archive?"
+                        },
+                        {
+                            "labelShort": "F7.8",
+                            "description": "Does the company report this data at least once a year?"
+                        },
+                        {
+                            "labelShort": "F7.9",
+                            "description": "Can the data be exported as a structured datafile?"
+                        },
+                        {
+                            "labelShort": "F7.10",
+                            "description": "Does the company clearly disclose that its reporting covers all types of private requests that it receives?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F8",
+                    "labelLong": "User notification about content and account restriction",
+                    "description": "The company should clearly disclose that it notifies users when it restricts content or accounts.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 348,
+                    "elements": [{
+                            "labelShort": "F8.1",
+                            "description": "If the company hosts user-generated content, does the company clearly disclose that it notifies users who generated the content when it is restricted?"
+                        },
+                        {
+                            "labelShort": "F8.2",
+                            "description": "Does the company clearly disclose that it notifies users who attempt to access content that has been restricted?"
+                        },
+                        {
+                            "labelShort": "F8.3",
+                            "description": "In its notification, does the company clearly provide a reason for the content restriction (legal or otherwise)?"
+                        },
+                        {
+                            "labelShort": "F8.4",
+                            "description": "Does the company clearly disclose that it notifies users when it restricts their account?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F9",
+                    "labelLong": "Network management (telecommunications companies)",
+                    "description": "The company should clearly disclose that it does not prioritize, block, or delay certain types of traffic, applications, protocols, or content for any reason beyond assuring quality of service and reliability of the network.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 369,
+                    "elements": [{
+                            "labelShort": "F9.1",
+                            "description": "Does the company clearly disclose that it does not prioritize, block, or delay certain types of traffic, applications, protocols, or content for reasons beyond assuring quality of service and reliability of the network?"
+                        },
+                        {
+                            "labelShort": "F9.2",
+                            "description": "If the company does engage in these practices, does it clearly disclose its purpose for doing so?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F10",
+                    "labelLong": "Network shutdown (telecommunications companies)",
+                    "description": "The company should explain the circumstances under which it may shut down or restrict access to the network or to specific protocols, services, or applications on the network.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 384,
+                    "elements": [{
+                            "labelShort": "F10.1",
+                            "description": "Does the company clearly explain why it may shut down service to a particular area or group of users"
+                        },
+                        {
+                            "labelShort": "F10.2",
+                            "description": "Does the company explain why it may restrict access to specific applications or protocols (e.g., VoIP, messaging) in a particular area or to a specific group of users"
+                        },
+                        {
+                            "labelShort": "F10.3",
+                            "description": "Does the company clearly explain its process for responding to requests to shut down a network or restrict access to a service"
+                        },
+                        {
+                            "labelShort": "F10.4",
+                            "description": "Does the company commit to push back on requests to shut down a network or restrict access to a service"
+                        },
+                        {
+                            "labelShort": "F10.5",
+                            "description": "Does the company commit to notify users directly when it shuts down the network or restricts access to a service"
+                        },
+                        {
+                            "labelShort": "F10.6",
+                            "description": "Does the company report on the number of network shutdown requests it receives"
+                        },
+                        {
+                            "labelShort": "F10.7",
+                            "description": "Does the company clearly identify the specific legal authority that makes the request?"
+                        },
+                        {
+                            "labelShort": "F10.8",
+                            "description": "Does the company list the number of requests it complied with?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F11",
+                    "labelLong": "Identity policy",
+                    "description": "The company should not require users to verify their identity with their government-issued identification, or other forms of identification that could be connected to their offline identity.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 417,
+                    "elements": [{
+                        "labelShort": "F11.1",
+                        "description": "Does the company require users to verify their identity with their government-issued identification, or with other forms of identification that could be connected to their offline identity?"
+                    }]
                 }
             ]
         },
@@ -391,6 +541,7 @@
                     "labelShort": "P1",
                     "labelLong": "Access to privacy policies",
                     "description": "The company should offer privacy policies that are easy to find and easy to understand.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 429,
                     "elements": [{
@@ -415,6 +566,7 @@
                     "labelShort": "P2",
                     "labelLong": "Changes to privacy policies",
                     "description": "The company should clearly disclose that it provides notice and documentation to users when it changes its privacy policies.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 450,
                     "elements": [{
@@ -443,6 +595,7 @@
                     "labelShort": "P3",
                     "labelLong": "Collection of user information ",
                     "description": "The company should disclose what user information it collects and how.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 474,
                     "elements": [{
@@ -561,6 +714,369 @@
                             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store state that all user information is deleted when users terminate their accounts or delete the app?"
                         }
                     ]
+                },
+                {
+                    "labelShort": "P7",
+                    "labelLong": "Users’ control over their own user information",
+                    "description": "The company should clearly disclose to users what options they have to control the company’s collection, retention and use of their user information.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 576,
+                    "elements": [{
+                            "labelShort": "P7.1",
+                            "description": "For each type of user information the company collects, does the company clearly disclose whether users can control the company’s collection of this user information?"
+                        },
+                        {
+                            "labelShort": "P7.2",
+                            "description": "For each type of user information the company collects, does the company clearly disclose whether users can delete this user information?"
+                        },
+                        {
+                            "labelShort": "P7.3",
+                            "description": "Does the company clearly disclose that it provides users with options to control how their user information is used for targeted advertising?"
+                        },
+                        {
+                            "labelShort": "P7.4",
+                            "description": "Does the company clearly disclose that targeted advertising is off by default?"
+                        },
+                        {
+                            "labelShort": "P7.5",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it provides users with options to control the device’s geolocation functions?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P8",
+                    "labelLong": "Users’ access to their own user information",
+                    "description": "Companies should allow users to obtain all of their user information the company holds.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 600,
+                    "elements": [{
+                            "labelShort": "P8.1",
+                            "description": "Does the company clearly disclose that users can obtain a copy of their user information?"
+                        },
+                        {
+                            "labelShort": "P8.2",
+                            "description": "Does the company clearly disclose what user information users can obtain?"
+                        },
+                        {
+                            "labelShort": "P8.3",
+                            "description": "Does the company clearly disclose that users can obtain their user information in a structured data format?"
+                        },
+                        {
+                            "labelShort": "P8.4",
+                            "description": "Does the company clearly disclose that users can obtain all public-facing and private user information a company holds about them?"
+                        },
+                        {
+                            "labelShort": "P8.5",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose that users can obtain all of the user information about them the app holds?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P9",
+                    "labelLong": "Collection of user information from third parties (internet and mobile ecosystem companies)",
+                    "description": "The company should clearly disclose its practices with regard to user information it collects from third-party websites or apps through technical means.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 624,
+                    "elements": [{
+                            "labelShort": "P9.1",
+                            "description": "Does the company clearly disclose what user information it collects from third-party websites through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.2",
+                            "description": "Does the company clearly explain how it collects user information from third parties through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.3",
+                            "description": "Does the company clearly disclose its purpose for collecting user information from third parties through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.4",
+                            "description": "Does the company clearly disclose how long it retains the user information it collects from third parties through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.5",
+                            "description": "Does the company clearly disclose that it respects user-generated signals to opt-out of data collection?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P10",
+                    "labelLong": "Process for responding to third-party requests for user information",
+                    "description": "The company should clearly explain its process for responding to requests from governments and other third parties for user information.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 648,
+                    "elements": [{
+                            "labelShort": "P10.1",
+                            "description": "Does the company clearly explain its process for responding to non-judicial government requests?"
+                        },
+                        {
+                            "labelShort": "P10.2",
+                            "description": "Does the company clearly explain its process for responding to court orders?"
+                        },
+                        {
+                            "labelShort": "P10.3",
+                            "description": "Does the company clearly explain its process for responding to government requests from foreign jurisdictions?"
+                        },
+                        {
+                            "labelShort": "P10.4",
+                            "description": "Does the company clearly explain its process for responding to requests made by private parties?"
+                        },
+                        {
+                            "labelShort": "P10.5",
+                            "description": "Do the company’s explanations clearly disclose the legal basis under which it may comply with government requests?"
+                        },
+                        {
+                            "labelShort": "P10.6",
+                            "description": "Do the company’s explanations clearly disclose the basis under which it may comply with requests from private parties?"
+                        },
+                        {
+                            "labelShort": "P10.7",
+                            "description": "Does the company disclose that it carries out due diligence on government requests before deciding how to respond?"
+                        },
+                        {
+                            "labelShort": "P10.8",
+                            "description": "Does the company disclose that it carries out due diligence on private requests before deciding how to respond?"
+                        },
+                        {
+                            "labelShort": "P10.9",
+                            "description": "Does the company commit to push back on inappropriate or overbroad government requests?"
+                        },
+                        {
+                            "labelShort": "P10.10",
+                            "description": "Does the company commit to push back on inappropriate or overbroad private requests?"
+                        },
+                        {
+                            "labelShort": "P10.11",
+                            "description": "Does the company provide clear guidance or examples of implementation of its process for government requests?"
+                        },
+                        {
+                            "labelShort": "P10.12",
+                            "description": "Does the company provide clear guidance or examples of implementation of its process for private requests?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P11",
+                    "labelLong": "Data about third-party requests for user information",
+                    "description": "The company should regularly publish data about government and other third-party requests for user information.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 693,
+                    "elements": [{
+                            "labelShort": "P11.1",
+                            "description": "Does the company list the number of requests it receives by country?"
+                        },
+                        {
+                            "labelShort": "P11.2",
+                            "description": "Does the company list the number of requests it receives for stored user information and for real-time communications access?"
+                        },
+                        {
+                            "labelShort": "P11.3",
+                            "description": "Does the company list the number of accounts affected?"
+                        },
+                        {
+                            "labelShort": "P11.4",
+                            "description": "Does the company list whether a demand sought communications content or non-content or both?"
+                        },
+                        {
+                            "labelShort": "P11.5",
+                            "description": "Does the company identify the specific legal authority or type of legal process through which law enforcement and national security demands are made?"
+                        },
+                        {
+                            "labelShort": "P11.6",
+                            "description": "Does the company include requests that come from court orders?"
+                        },
+                        {
+                            "labelShort": "P11.7",
+                            "description": "Does the company list the number of requests it receives from private parties?"
+                        },
+                        {
+                            "labelShort": "P11.8",
+                            "description": "Does the company list the number of requests it complied with, broken down by category of demand?"
+                        },
+                        {
+                            "labelShort": "P11.9",
+                            "description": "Does the company list what types of government requests it is prohibited by law from disclosing?"
+                        },
+                        {
+                            "labelShort": "P11.10",
+                            "description": "Does the company report this data at least once per year?"
+                        },
+                        {
+                            "labelShort": "P11.11",
+                            "description": "Can the data reported by the company be exported as a structured data file?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P12",
+                    "labelLong": "User notification about third-party requests for user information",
+                    "description": "The company should notify users to the extent legally possible when their user information has been requested by governments and other third parties?",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 735,
+                    "elements": [{
+                            "labelShort": "P12.1",
+                            "description": "Does the company clearly disclose that it notifies users when government entities (including courts or other judicial bodies) request their user information?"
+                        },
+                        {
+                            "labelShort": "P12.2",
+                            "description": "Does the company clearly disclose that it notifies users when private parties request their user information?"
+                        },
+                        {
+                            "labelShort": "P12.3",
+                            "description": "Does the company clearly disclose situations when it might not notify users, including a description of the types of government requests it is prohibited by law from disclosing to users?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P13",
+                    "labelLong": "Security oversight",
+                    "description": "The company should clearly disclose information about its institutional processes to ensure the security of its products and services.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 753,
+                    "elements": [{
+                            "labelShort": "P13.1",
+                            "description": "Does the company clearly disclose that it has systems in place to limit and monitor employee access to user information?"
+                        },
+                        {
+                            "labelShort": "P13.2",
+                            "description": "Does the company clearly disclose that it has a security team that conducts audits on the company’s products and services?"
+                        },
+                        {
+                            "labelShort": "P13.3",
+                            "description": "Does the company clearly disclose that it commissions third-party security audits on its products and services?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P14",
+                    "labelLong": "Addressing security vulnerabilities ",
+                    "description": "The company should address security vulnerabilities when they are discovered.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 771,
+                    "elements": [{
+                            "labelShort": "P14.1",
+                            "description": "Does the company clearly disclose that it has a mechanism through which security researchers can submit vulnerabilities they discover?"
+                        },
+                        {
+                            "labelShort": "P14.2",
+                            "description": "Does the company clearly disclose the timeframe in which it will review reports of vulnerabilities?"
+                        },
+                        {
+                            "labelShort": "P14.3",
+                            "description": "Does the company commit not to pursue legal action against researchers who report vulnerabilities within the terms of the company’s reporting mechanism?"
+                        },
+                        {
+                            "labelShort": "P14.4",
+                            "description": "(For mobile ecosystems) Does the company clearly disclose that software updates, security patches, add-ons, or extensions are downloaded over an encrypted channel?"
+                        },
+                        {
+                            "labelShort": "P14.5",
+                            "description": "(For mobile ecosystems and telecommunications companies) Does the company clearly disclose what, if any, modifications it has made to a mobile operating system?"
+                        },
+                        {
+                            "labelShort": "P14.6",
+                            "description": "(For mobile ecosystems and telecommunications companies) Does the company clearly disclose what, if any, effect such modifications have on the company’s ability to send security updates to users?"
+                        },
+                        {
+                            "labelShort": "P14.7",
+                            "description": "(For mobile ecosystems) Does the company clearly disclose the date through which it will continue to provide security updates for the device/OS?"
+                        },
+                        {
+                            "labelShort": "P14.8",
+                            "description": "(For mobile ecosystems) Does the company commit to provide security updates for the operating system and other critical software for a minimum of five years after release?"
+                        },
+                        {
+                            "labelShort": "P14.9",
+                            "description": "(For mobile ecosystems and telecommunications companies) If the company uses an operating system adapted from an existing system, does the company commit to provide security patches within one month of a vulnerability being announced to the public?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P15",
+                    "labelLong": "Data breaches",
+                    "description": "The company should publicly disclose information about its processes for responding to data breaches.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 807,
+                    "elements": [{
+                            "labelShort": "P15.1",
+                            "description": "Does the company clearly disclose that it will notify the relevant authorities without undue delay when a data breach occurs?"
+                        },
+                        {
+                            "labelShort": "P15.2",
+                            "description": "Does the company clearly disclose its process for notifying data subjects who might be affected by a data breach?"
+                        },
+                        {
+                            "labelShort": "P15.3",
+                            "description": "Does the company clearly disclose what kinds of steps it will take to address the impact of a data breach on its users?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P16",
+                    "labelLong": "Encryption of user communication and private content (internet and mobile ecosystem companies)",
+                    "description": "The company should encrypt user communication and private content so users can control who has access to it.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 825,
+                    "elements": [{
+                            "labelShort": "P16.1",
+                            "description": "Does the company clearly disclose that the transmission of user communications is encrypted by default?"
+                        },
+                        {
+                            "labelShort": "P16.2",
+                            "description": "Does the company clearly disclose that transmissions of user communications are encrypted using unique keys?"
+                        },
+                        {
+                            "labelShort": "P16.3",
+                            "description": "Does the company clearly disclose that users can secure their private content using end-to-end encryption, or full disk encryption (where applicable)?"
+                        },
+                        {
+                            "labelShort": "P16.4",
+                            "description": "Does the company clearly disclose that end-to-end encryption, or full disk encryption, is enabled by default?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P17",
+                    "labelLong": "Account Security (internet and mobile ecosystem companies)",
+                    "description": "The company should help users keep their accounts secure.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 846,
+                    "elements": [{
+                            "labelShort": "P17.1",
+                            "description": "Does the company clearly disclose that it deploys advanced authentication methods to prevent fraudulent access?"
+                        },
+                        {
+                            "labelShort": "P17.2",
+                            "description": "Does the company clearly disclose that users can view their recent account activity?"
+                        },
+                        {
+                            "labelShort": "P17.3",
+                            "description": "Does the company clearly disclose that it notifies users about unusual account activity and possible unauthorized access to their account?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P18",
+                    "labelLong": "Inform and educate users about potential risks",
+                    "description": "The company should publish information to help users defend themselves against cyber risks.",
+                    "scoringScope": "services",
+                    "compCol": 2,
+                    "compRow": 864,
+                    "elements": [{
+                        "labelShort": "P18.1",
+                        "description": "Does the company publish practical materials that educate users on how to protect themselves from cyber risks relevant to their products or services?"
+                    }]
                 }
             ]
         }
