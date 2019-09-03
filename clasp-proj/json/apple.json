@@ -1,0 +1,44 @@
+{
+    "collection": "companies",
+    "id": "iAP1",
+    "label": {
+        "current": "Apple",
+        "legacy": null
+    },
+    "type": "internet",
+    "groupLabel": "Apple (Group)",
+    "opCom": false,
+    "opComLabel": null,
+    "prevScored": true,
+    "firstIndex": 2015,
+    "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
+    "tabPrevYearsOutcome": "AppleOutcome",
+    "urlCurrentDataCollectionSheet": "1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
+    "urlCurrentCompanyScoringSheet": null,
+    "numberOfServices": 3,
+    "services": [{
+            "id": "meAP1",
+            "type": "mobileEcosystem",
+            "label": {
+                "current": "iOS mobile ecosystem",
+                "legacy": null
+            }
+        },
+        {
+            "id": "mAP2",
+            "type": "messagingVoip",
+            "label": {
+                "current": "iMessage",
+                "legacy": null
+            }
+        },
+        {
+            "id": "cAP3",
+            "type": "cloud",
+            "label": {
+                "current": "iCloud",
+                "legacy": null
+            }
+        }
+    ]
+}
