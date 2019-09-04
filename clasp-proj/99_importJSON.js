@@ -20,8 +20,9 @@ function importJsonIndicator(subset) {
   return jsonObj;
 }
 
-function importJsonCompany(companyShortName) {
-  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/" + companyShortName + ".json");
+function importJsonCompany(companyShort) {
+  Logger.log("local name received: " + companyShort)
+  var response = UrlFetchApp.fetch("https://fubits.keybase.pub/stage/" + companyShort + ".json");
   var jsonObj = JSON.parse(response);
   return jsonObj;
 }
@@ -47,3 +48,13 @@ function debugJSON() {
   Logger.log(ResearchStepsObj.researchSteps.length);
 }
 
+function importLocalJSON() {
+  var fileName = "mtn.json";
+  var files = DriveApp.getFilesByName(fileName);
+  if (files.hasNext()) {
+    var file = files.next();
+    var content = file.getAs('application/json')
+    var json = JSON.parse(content.getDataAsString())
+    Logger.log(json.id);
+  }
+}

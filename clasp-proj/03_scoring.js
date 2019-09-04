@@ -13,8 +13,9 @@ var companyHasOpCom
 
 // --------------- This is the main caller ---------------- //
 
-function mainCreateScoringSheet (stepsSubset, indicatorSubset, companyShortName, filenameVersion) {
+function createSCSheet(stepsSubset, indicatorSubset, companyShortName, filenameVersion) {
   Logger.log('begin main Scoring')
+  Logger.log("Name received: " + companyShortName)
 
   var sheetMode = "SC"
 
@@ -40,9 +41,9 @@ function mainCreateScoringSheet (stepsSubset, indicatorSubset, companyShortName,
   // HIDDEN CACHE ADVENTURES ARE WAITING FOR YOU //
   // i.e. Named Ranges are not reset upon casting
 
-  var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
+  var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
 
-  var file = connectToSpreadsheetByName(filename)
+  var file = connectToSpreadsheetByName(spreadsheetName)
 
   // creates Outcome  page
   var sheet = file.getActiveSheet()
@@ -328,7 +329,7 @@ function importComments(activeRow, activeCol, sheet, currentStep, element, curre
   return activeRow
 }
 
-function importSources (activeRow, activeCol, sheet, currentStep, element, currentIndicator, CompanyObj) {
+function importSources(activeRow, activeCol, sheet, currentStep, element, currentIndicator, CompanyObj) {
 
   // setting up the columnLabel
   var currentCell = sheet.getRange(activeRow, activeCol)
@@ -343,7 +344,7 @@ function importSources (activeRow, activeCol, sheet, currentStep, element, curre
 
 // --- Core function: SCORING --- //
 
-function addElementScores (file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass) {
+function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass) {
 
   Logger.log("In Element Scoring for " + currentIndicator.labelShort)
 
@@ -446,7 +447,7 @@ function addElementScores (file, sheetMode, activeRow, activeCol, sheet, current
   return activeRow + 1
 }
 
-function addLevelScores (file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements) {
+function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClass, indicatorAverageCompanyElements, indicatorAverageServicesElements) {
 
   // --- adding the level averages --- //
 
@@ -630,11 +631,11 @@ function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, curren
 function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentIndicator, CompanyObj, indicatorAverageElements) {
 
   activeRow = activeRow + 1
-  
+
   // --- INDICATOR SCORE --- //
 
   // setting up label for Average Score
-  
+
   var currentCell = sheet.getRange(activeRow, activeCol)
   currentCell.setValue("Indicator Score")
   currentCell.setFontWeight('bold')

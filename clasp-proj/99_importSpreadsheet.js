@@ -15,13 +15,13 @@ function mainTestConnectionByID() {
 }
 
 function connectToSpreadsheetByName(spreadsheetName) {
-  var Spreadsheets = DriveApp.getFilesByName(Name)
+  var Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
   var Spreadsheet
   if (!Spreadsheets.hasNext()) {
     Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.")
     Logger.log("received: " + spreadsheetName)
 
-    var folderName = 'SpreadsheetCreationTEST'
+    // var folderName = 'SpreadsheetCreationTEST'
     var folderID = createFolderIfNotExist(parentFolderID, folderName)
 
     var resource = {
@@ -31,14 +31,12 @@ function connectToSpreadsheetByName(spreadsheetName) {
     }
 
     Logger.log(resource.parents.id)
-    
-    
     var fileJson = Drive.Files.insert(resource)
-// Logger.log(fileJson)
+
     var fileId = fileJson.id
     Logger.log("new Speadsheet fileID: " + fileId)
     var Spreadsheet = connectToSpreadsheetByID(fileId)
-    // Spreadsheets = SpreadsheetApp.create(spreadsheetName);
+
     return Spreadsheet
 
   } else {
@@ -47,7 +45,6 @@ function connectToSpreadsheetByName(spreadsheetName) {
     var thisSpreadsheet = Spreadsheets.next();
     Logger.log("Folder " + thisSpreadsheet.getName() + " exists")
     Logger.log("locally connected to: " + thisSpreadsheet.getName());
-    Logger.log("it's a " + thisSpreadsheet.getMimeType());
     return SpreadsheetApp.open(thisSpreadsheet);
     // }
   }
@@ -59,8 +56,7 @@ function connectToSpreadsheetByName(spreadsheetName) {
 function connectToSpreadsheetByID(ID) {
   var thisSpreadsheet = SpreadsheetApp.openById(ID);
   Logger.log("locally connected to: " + thisSpreadsheet.getName());
-  Logger.log("it's a " + thisSpreadsheet.getMimeType());
-  return SpreadsheetApp.open(thisSpreadsheet);
+  return thisSpreadsheet;
 
 }
 

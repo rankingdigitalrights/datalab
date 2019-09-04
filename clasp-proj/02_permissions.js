@@ -1,18 +1,15 @@
 // MAIN CALLER 
 var me = Session.getEffectiveUser();
 
-function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameVersion, protectSteps, unprotectSteps, allowedEditors) {
+function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameVersion, protectSteps, unprotectSteps, allowedEditors, stepsSubset, indicatorSubset) {
 
 	var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
 
 	clearAllProtections(filename)
 
-	var indicatorArray = ["G1", "G2", "G3", "G4", "G5", "G6"]
-	var editorsArray = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
-
 	var CompanyObj = importJsonCompany(companyShortName)
-	var IndicatorsObj = importJsonIndicator()
-	var ResearchStepsObj = importResearchSteps()
+	var IndicatorsObj = importJsonIndicator(indicatorSubset)
+	var ResearchStepsObj = importResearchSteps(stepsSubset)
 
 	var companyId = CompanyObj.id
 	// identify steps for unprotection
@@ -36,9 +33,9 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenam
 
 	// Logger.log(indicatorArray)
 
-	
 
-	indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, editorsArray)
+
+	indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, allowedEditors)
 
 }
 
@@ -46,9 +43,8 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenam
 
 // Component: removes Sheet-level protection and specific protected ranges 
 function clearAllProtections(filename) {
+	Logger.log("Unprotection Mode")
 	var thisSpreadsheet = connectToSpreadsheetByName(filename)
-	// Logger.log("remote connected to " + thisSpreadsheet.getName())
-
 	var success
 
 	// remove protected ranges
@@ -91,7 +87,9 @@ function clearAllProtections(filename) {
 
 // --- better Logic: protect Sheet, unportect ranges --- //
 
-function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, editorsArray) {
+function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, allowedEditors) {
+
+	Logger.log("Protection Mode")
 
 	Logger.log("to be connected to: " + filename)
 	var thisSpreadsheet = connectToSpreadsheetByName(filename)
@@ -104,15 +102,18 @@ function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filena
 		// Logger.log(sheet.getName())
 		// Logger.log("sending: " + thisIndicator)
 
-		singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, thisIndicator, unprotectStepsObj, editorsArray)
+		singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, thisIndicator, unprotectStepsObj, allowedEditors)
 
 	}
-	// Logger.log("all steps processed")
+	thisSpreadsheet.addViewers(allowedEditors);
+	var thisFile = DriveApp.getFileById(thisSpreadsheet.getId())
+	thisFile.addViewers(allowedEditors)
+	Logger.log("all steps processed")
 }
 
 // Protect the whole sheet, unprotect [ranges], then remove all other users from the list of editors.
 
-function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, indicator, steps, editorsArray) {
+function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, indicator, steps, allowedEditors) {
 
 	// Logger.log("In Single Step " + indicator)
 	var protection = sheet.protect().setDescription(steps + " open")
@@ -127,14 +128,14 @@ function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, co
 		range = sheet.getRange(rangeName)
 
 		unprotectedRanges.push(range)
-		
+
 	}
 
 	protection.setUnprotectedRanges(unprotectedRanges);
 
 	protection.removeEditors(protection.getEditors());
 
-	protection.addEditors(editorsArray);
+	protection.addEditors(allowedEditors);
 	if (protection.canDomainEdit()) {
 		protection.setDomainEdit(false);
 	}
