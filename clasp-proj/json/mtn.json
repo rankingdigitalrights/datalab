@@ -17,7 +17,7 @@
   "urlCurrentCompanyScoringSheet": null,
   "numberOfServices": 2,
   "services": [{
-      "id": "bbES1",
+      "id": "bbMT1",
       "type": "broadband",
       "label": {
         "current": "Fixed-line broadband",
@@ -25,7 +25,7 @@
       }
     },
     {
-      "id": "mbES2",
+      "id": "mbMT2",
       "type": "mobile",
       "subtype": "postpaid",
       "label": {
