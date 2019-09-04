@@ -3,16 +3,49 @@
 // Connect by Spreadsheet name //
 // Universal Method: Connect to Spreadsheet File and return Obj as open Spreadsheet
 
-function connectToSpreadsheetByName(Name) {
-  var Spreadsheets = DriveApp.getFilesByName(Name);
+// Main Test Caller //
+
+function mainTestConnectionByName() {
+  var spreadsheetName="verizon test"
+    connectToSpreadsheetByName(spreadsheetName);
+  }
+
+function mainTestConnectionByID() {
+    connectToSpreadsheetByID(spreadsheetID);
+}
+
+function connectToSpreadsheetByName(spreadsheetName) {
+  var Spreadsheets = DriveApp.getFilesByName(Name)
+  var Spreadsheet
   if (!Spreadsheets.hasNext()) {
-    Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.");
-    Spreadsheets = SpreadsheetApp.create(Name);
-    return Spreadsheets;
+    Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.")
+    Logger.log("received: " + spreadsheetName)
+
+    var folderName = 'SpreadsheetCreationTEST'
+    var folderID = createFolderIfNotExist(parentFolderID, folderName)
+
+    var resource = {
+      title: spreadsheetName,
+      mimeType: MimeType.GOOGLE_SHEETS,
+      parents: [{id: folderID}]
+    }
+
+    Logger.log(resource.parents.id)
+    
+    
+    var fileJson = Drive.Files.insert(resource)
+// Logger.log(fileJson)
+    var fileId = fileJson.id
+    Logger.log("new Speadsheet fileID: " + fileId)
+    var Spreadsheet = connectToSpreadsheetByID(fileId)
+    // Spreadsheets = SpreadsheetApp.create(spreadsheetName);
+    return Spreadsheet
+
   } else {
     // while (Spreadsheet.hasNext()) {
     // Nope. Only do for first Spreadsheet element
     var thisSpreadsheet = Spreadsheets.next();
+    Logger.log("Folder " + thisSpreadsheet.getName() + " exists")
     Logger.log("locally connected to: " + thisSpreadsheet.getName());
     Logger.log("it's a " + thisSpreadsheet.getMimeType());
     return SpreadsheetApp.open(thisSpreadsheet);
@@ -44,12 +77,19 @@ function insertSheetIfNotExist(Spreadsheet, SheetName) {
   return Sheet;
 }
 
-// Main Test Caller //
-
-function mainTestConnectionByName() {
-    connectToSpreadsheetByName(spreadsheetName);
-  }
-
-function mainTestConnectionByID() {
-    connectToSpreadsheetByID(spreadsheetID);
+function createFolderIfNotExist(ParentFolderID, FolderName) {
+  var Parent =  DriveApp.getFolderById(ParentFolderID)
+  var Children = Parent.getFoldersByName(FolderName)
+  var Folder
+  var FolderID
+  if(!Children.hasNext()) {
+    Logger.log("Folder does not exist. Creating a new one")
+    Folder = Parent.createFolder(FolderName)
+    FolderID = Folder.getId()
+  } else {
+    Folder = Children.next()
+      FolderID = Folder.getId()
+    }
+    Logger.log(Folder)
+  return FolderID;
 }
