@@ -1,13 +1,18 @@
 var indexPrefix = 'RDR2019'
 var companyShortName = "verizon" // in alignment with <company>.json
-var filenameVersion = "v4"
+var filenameVersion = "v5"
+var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
 
-function mainMainCaller() {
-	var DCstepsSubset = false
-	var SCstepsSubset = true
+function mainCreateDataCollectionSheet() {
+	var stepsSubset = false
 	var indicatorSubset = false
-	// mainCreateDCSheet(DCstepsSubset, indicatorSubset, companyShortName, filenameVersion)
-	mainCreateScoringSheet(SCstepsSubset, indicatorSubset, companyShortName, filenameVersion)
+	mainCreateDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameVersion)
+}
+
+function mainCreateScoringSheet() {
+	var stepsSubset = true
+	var indicatorSubset = false
+	mainCreateScoringSheet(stepsSubset, indicatorSubset, companyShortName, filenameVersion)
 }
 
 function mainPermissions() {
