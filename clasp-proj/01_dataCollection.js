@@ -8,21 +8,32 @@ var importedOutcomeTabName = "2018 Outcome"
 
 // --------------- This is the main caller ---------------- //
 
-function createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameVersion) {
+// TODO
+
+/**
+ * 
+ * @param {boolean} stepsSubset Parameter: subset reserachSteps.json?
+ * @param {boolean} indicatorSubset Parameter: subset indicators.json?
+ * @param {string} companyShortName small caps short company name for <company>.json
+ * @param {string} filenameSuffix arbitary String for versioning ("v8") or declaring ("test")
+ */
+
+function createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix) {
     Logger.log('begin main data collection')
-    Logger.log("Name received: " + companyShortName)
+    Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
 
     var sheetMode = "DC" // TODO
 
-    //importing the JSON objects which contain the parameters
-    // TODO: parameterize for easier usability
-    var configObj = importJsonConfig()
-    var CompanyObj = importJsonCompany(companyShortName)
-    var IndicatorsObj = importJsonIndicator(indicatorSubset)
-    var ResearchStepsObj = importResearchSteps(stepsSubset)
+    // importing the JSON objects which contain the parameters
+    // Refactored to fetching from Google Drive
+    
+    var configObj = importLocalJSON("config")
+    var CompanyObj = importLocalJSON(companyShortName)
+    var IndicatorsObj = importLocalJSON("indicators", indicatorSubset)
+    var ResearchStepsObj = importLocalJSON("researchSteps", stepsSubset)
 
     // creating a blank spreadsheet
-    var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
+    var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
     //   var file = SpreadsheetApp.create(spreadsheetName)
     var file = connectToSpreadsheetByName(spreadsheetName)
 
@@ -56,6 +67,7 @@ function createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameV
     }
 
     Logger.log('end main')
+    Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
     return
 }
 

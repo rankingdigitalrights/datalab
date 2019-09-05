@@ -1,11 +1,11 @@
 // find research Step by labelShort
 
-function findResearchStep(ResearchStepsObj, stepsQuery) {
+function findResearchStepShort(ResearchStepsObj, stepsQuery) {
 
     var stepsSubset = []
 
-    for (searchedStep in stepsQuery) {
-		for (step in ResearchStepsObj.researchSteps) {
+    for (var searchedStep in stepsQuery) {
+		for (var step in ResearchStepsObj.researchSteps) {
 			// Logger.log("Starting search for steps")
 			if (ResearchStepsObj.researchSteps[step].labelShort == stepsQuery[searchedStep]) {
 				var foundStep = ResearchStepsObj.researchSteps[step].labelShort
@@ -20,4 +20,20 @@ function findResearchStep(ResearchStepsObj, stepsQuery) {
     }
     
     return stepsSubset
+}
+
+// Testing subsetting of ResearchSteopObj
+function mainSubsettingTesting() {
+	var fileName = "researchSteps"
+	var subset = true
+
+    var firstScoringStep = 3
+    
+	var fullStepsObj = importLocalJSON(fileName, subset)
+    
+    var subsetLength = fullStepsObj.researchSteps.length - 1
+    Logger.log("length: " + subsetLength)
+    var fullStepsObjSubset = fullStepsObj.researchSteps.slice(firstScoringStep,subsetLength)
+  
+  Logger.log(fullStepsObjSubset)
 }

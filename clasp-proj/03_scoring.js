@@ -1,47 +1,49 @@
 // --- Spreadsheet Casting: Company Scoring Sheet --- //
-
 // Works only for a single ATOMIC step right now //
-
-// --- for easier use, define company name here (based on lookup from config or according json file) --- //
 
 // --- CONFIG --- //
 
-var firstScoringStep = 0
+var firstScoringStep = 3
 
 var companyHasOpCom
+
 // later move to central config //
 
 // --------------- This is the main caller ---------------- //
 
-function createSCSheet(stepsSubset, indicatorSubset, companyShortName, filenameVersion) {
+function createSCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix) {
   Logger.log('begin main Scoring')
   Logger.log("Name received: " + companyShortName)
 
   var sheetMode = "SC"
 
-  // importing the JSON objects which contain the parameters
-  // TODO: parameterize for easier usability
-  var configObj = importJsonConfig()
-  var CompanyObj = importJsonCompany(companyShortName)
-  var IndicatorsObj = importJsonIndicator(indicatorSubset)
-  var ResearchStepsObj = importResearchSteps(stepsSubset)
-  Logger.log("Obj: " + ResearchStepsObj)
-  Logger.log("Obj.length: " + ResearchStepsObj.researchSteps.length)
-  Logger.log("Obj: " + IndicatorsObj)
+    // importing the JSON objects which contain the parameters
+    // TODO: parameterize for easier usability
+    // var configObj = importLocalJSON("config")
+    var CompanyObj = importLocalJSON(companyShortName)
+    var IndicatorsObj = importLocalJSON("indicators", indicatorSubset)
+    var ResearchStepsObj = importLocalJSON("researchSteps", stepsSubset)
+
+
+  Logger.log("ResearchStepsObj: " + ResearchStepsObj)
+  Logger.log("ResearchStepsObj.length: " + ResearchStepsObj.researchSteps.length)
+  Logger.log("IndicatorsObj: " + IndicatorsObj)
+
+  var maxScoringStep = 5 // TODO turn into parameter
 
   companyHasOpCom = CompanyObj.opCom
 
   Logger.log(companyShortName + "opCom? - " + companyHasOpCom)
 
   // Mode A: creating a blank spreadsheet
-  // var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
+  // var filename = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
 
   // Mode B: instead of creating a new sheet on every run, re-use
   // THIS IS DANGEROUS //
   // HIDDEN CACHE ADVENTURES ARE WAITING FOR YOU //
   // i.e. Named Ranges are not reset upon casting
 
-  var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
+  var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
 
   var file = connectToSpreadsheetByName(spreadsheetName)
 
@@ -61,7 +63,7 @@ function createSCSheet(stepsSubset, indicatorSubset, companyShortName, filenameV
   sheet = clearAllNamedRangesFromSheet(sheet)
 
   // For all Research Steps
-  for (var currentStep = firstScoringStep; currentStep < ResearchStepsObj.researchSteps.length; currentStep++) {
+  for (var currentStep = firstScoringStep; currentStep < maxScoringStep - 1; currentStep++) {
 
     Logger.log("currentStep: " + currentStep)
 

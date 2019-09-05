@@ -1,9 +1,9 @@
 // MAIN CALLER 
 var me = Session.getEffectiveUser();
 
-function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameVersion, protectSteps, unprotectSteps, allowedEditors, stepsSubset, indicatorSubset) {
+function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, stepsSubset, indicatorSubset) {
 
-	var filename = spreadSheetFileName(companyShortName, sheetMode, filenameVersion)
+	var filename = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
 
 	clearAllProtections(filename)
 
@@ -13,11 +13,11 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenam
 
 	var companyId = CompanyObj.id
 	// identify steps for unprotection
-	var unprotectStepsObj = findResearchStep(ResearchStepsObj, unprotectSteps)
+	var unprotectStepsObj = findResearchStepShort(ResearchStepsObj, unprotectSteps)
 	// Logger.log("received " + unprotectStepsObj.length + " steps")
 
 	// identify steps for protection
-	var protectStepsObj = findResearchStep(ResearchStepsObj, protectSteps)
+	var protectStepsObj = findResearchStepShort(ResearchStepsObj, protectSteps)
 	// Logger.log("received " + protectStepsObj.length + " steps")
 
 	// reduce indicatorObj to array[Strings]
