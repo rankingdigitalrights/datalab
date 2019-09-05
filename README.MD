@@ -2,7 +2,7 @@
 
 This is the repository for RDR's tech team projects. Currently, it contains
 
-+ [spreadsheet automation](/clasp-proj/) [README](/clasp-proj/README.MD)
++ [spreadsheet automation](/clasp-proj/) [[README](/clasp-proj/README.MD)]
 + data processing [R scripts](/spreadsheets/) for the 2018 and 2019 CSVs
 + Google Drive file and folder [mapping](/driveMapping/) (*early WIP*)
 
