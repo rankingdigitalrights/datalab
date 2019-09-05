@@ -2,6 +2,8 @@
 
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
+> Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
+
 ## TOC
 
 + [Intro](#intro)
@@ -12,15 +14,15 @@
 
 This is the project folder for RDR's spreadsheet development.
 
-The current scope of the Spreadsheet development is to automate the generating ("castiong") of spreadsheets for company-level data collection and for scoring with as few manual effort as possible.
+The current scope of the Spreadsheet development is to automate the generating ("castiong") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
 
 The environment utilises [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is excecuted through the [browser](https://script.google.com/home/my) and runs online on Google's servers.
 
 While you can edit and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing and collaboration, and so on, it is recommend **to use Git, [`clasp`](https://github.com/google/clasp), and an IDE** of choice (i.e. VSCode for easier interaction with NodeJS/npm). This enables you to edit code locally with a proper development environment, store your code in a git* repository, and push/pull the code to GAS to execute online.
 
-Following the proof-of-concept, the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file.
+Following the proof-of-concept, the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file. However, executing the code with any other account than `rdresearch` is not authorised currently (leads to error: `admin_policy_enforced`; probable scope: https://www.googleapis.com/auth/script.external_request)
 
-> Convention: Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. This can be simpaly ignored as clasp auto-converts the file type.
+> Conventions: Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. This can be simpaly ignored as clasp auto-converts the file type.
 
 ## Quick Start
 
@@ -33,10 +35,12 @@ Following the proof-of-concept, the `project` has been migrated to the `rdresear
 5. Double-check `folderName` if you need a specfic folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `parentFolderID`)
 6. Edit the `main<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
 7. in the submenu (grey), choose the function to run, and click play. 
-8. wait for the script to finish. Hit `Ctrl + Enter` to see the log.
+8. wait for the script to finish. Optionally, hit `Ctrl + Enter` to see the log.
 9. Open the output folder in Google Drive (should be under `My Drive`) and inspect the output
 
-> if you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to update the file IDs in the respective company `JSON` files, i.e. `urlCurrentDataCollectionSheet` or `urlCurrentCompanyScoringSheet`. Otherwise, you will have to update `IMPORTRANGE=ID` by hand.
+> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to update the file IDs in the respective company `JSON` files, i.e. `urlCurrentDataCollectionSheet` or `urlCurrentCompanyScoringSheet`. Otherwise, you will have to update `IMPORTRANGE=ID` by hand.
+
+> If you run into runtime issues (e.g. endless loop), you can inspect and interrupt current executions under [My Executions](https://script.google.com/u/3/home/executions)
 
 <hr/>
 
@@ -53,13 +57,14 @@ To provide contributers with a cognitive model of this project, it is helpful to
 2019 September
 
 + ...
++ introduced `FeatureRequest` and `bugs` as GitHub Issues (for easier tracking, assigning and elaborating)
 + migrated project to rdresearch
-+ introduced `importLocalJSON()` from Google Drive (not fully implemented yet; also needs reliable mechanism for synching JSONs with git [unless we move JSON SSOT to Google Drive which is ok])
++ implemented `importLocalJSON()` to import JSONs from Google Drive. TODO: needs reliable mechanism for synching JSONs with git [unless we move JSON SSOT to Google Drive which is ok])
 + added output to specific folder functionality
 
 2019 August
 
-+ added permission chnages module
++ added permission changes module
 + refactored scoring and data collection modules into rough single units of responsiblity
 + refactored generic tasks (e.g. importJSONxxx(), nameRange(comp,step,ind)) into helper modules
 + added scoring sheet module
@@ -92,9 +97,13 @@ The basic structure is now modular, with core modules starting with `0x`.
 
     > `01_dataCollection` - core module for the creation of a single company-level data collection spreadsheet
 
-    Extensive documentation was created by G.W. [Google Doc]()
+    Extensive documentation was created by G.W. [Google Doc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit). Due to refactoring and restucturing it probably needs to be updated.
 
 + Company Scoring Spreadsheets
+
+    >
+
+
 + Permissions
 
 ### Helper Modules
@@ -123,7 +132,18 @@ The basic structure is now modular, with core modules starting with `0x`.
 + npm types/gas
 + .claspignore
 + .gitignore
++ typescript.json
 
 ### FAQ
 
 ### Learnings
+
+### To be explored
+
++ Collaboration:
+
+    "If you are working on a script project with other developers, you can collaborate on Apps Script projects with shared drives. Files in a shared drive are owned by the group, rather than individuals. This makes development and maintenance of the project easier." [GAS Best practices](https://developers.google.com/apps-script/guides/support/best-practices#consider_collaborating_with_shared_drives)
+
++ Refactoring:
+
+    start with VSCode [refactoring](https://code.visualstudio.com/docs/editor/refactoring)
