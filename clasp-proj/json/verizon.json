@@ -20,7 +20,7 @@
   "urlCurrentCompanyScoringSheet": "1Oa8EaJqipzmV-IZ3m1aj5_LD5Qmv6u2dNIfdGt0xmWI",
   "numberOfServices": 2,
   "services": [{
-      "id": "mYM1",
+      "id": "maYM1",
       "type": "mail",
       "label": {
         "current": "Yahoo Mail",
@@ -28,7 +28,7 @@
       }
     },
     {
-      "id": "pTR1",
+      "id": "pvTR1",
       "type": "photoVideo",
       "label": {
         "current": "Tumblr",
