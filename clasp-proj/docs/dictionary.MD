@@ -1,5 +1,8 @@
 # Dictionary / Definitions of Service Classes and ID prefixes
 
+> (Go back to [README](../README.MD))
+> (Go back to [Documentation](documentation.MD))
+
 1. Purpose: **Binding** document for ensuring consistend named ranges within an Index set.
 2. Scope: 2019 RDR Index / 2019-2020 Pilot
 

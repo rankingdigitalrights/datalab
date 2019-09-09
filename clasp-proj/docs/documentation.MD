@@ -1,7 +1,7 @@
 # Documentation
 
 > (Go back to [README](../README.MD))
-
+> [JSON Dictionary](dictionary.MD)
 ## TOC
 
 + [Intro](#intro)
@@ -114,7 +114,7 @@ As modules were created and eventually refactored and synchronised, most modules
 + **Guidelines**
 
   + use 1-letter category `prefix` for companies and 2-letter `prefix`for services
-  + **Authorative**: [Dictionary](/docs/dictionary.MD)
+  + **Authorative**: [Dictionary](dictionary.MD)
   + use a GUI JSON editor for validation of JSON syntax (i.e. VSCode + [JSON Editor](https://marketplace.visualstudio.com/items?itemName=nickdemayo.vscode-json-editor) `plugin`, or [JSON Editor Online](https://jsoneditoronline.org/))
 
 #### Config
