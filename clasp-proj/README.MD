@@ -82,5 +82,3 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 > To keep things readable, the documention is kept and maintained in a dedicated document.
 
 + [**Documentation**](docs/documentation.MD)
-
-https://github.com/rankingdigitalrights/datalab/blob/master/clasp-proj/docs/documentation.MD
