@@ -51,7 +51,7 @@
 				{
 					"type": "comparison",
 					"label": "Element ",
-					"compShort": "S01"
+					"comparisonLabelShort": "S01"
 				},
 				{
 					"type": "miniheader",
@@ -184,7 +184,7 @@
 				{
 					"type": "comparison",
 					"label": "Element ",
-					"compShort": "S03"
+					"comparisonLabelShort": "S03"
 				},
 				{
 					"type": "miniheader",
@@ -259,7 +259,7 @@
 				{
 					"type": "comparison",
 					"label": "Element ",
-					"compShort": "S04"
+					"comparisonLabelShort": "S04"
 				},
 				{
 					"type": "miniheader",
@@ -413,7 +413,7 @@
 				{
 					"type": "comparison",
 					"label": "Element ",
-					"compShort": "S07"
+					"comparisonLabelShort": "S07"
 				},
 				{
 					"type": "miniheader",

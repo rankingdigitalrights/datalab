@@ -20,9 +20,10 @@ var importedOutcomeTabName = "2018 Outcome"
 
 function createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix) {
     Logger.log('begin main data collection')
-    Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
 
     var sheetMode = "DC" // TODO
+
+    Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
@@ -50,7 +51,8 @@ function createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameS
     cell.setValue(externalFormula.toString())
 
     // creates sources page
-    file.insertSheet('2019 Sources'); // <-- will need to make this dynamic at some point
+    var sourcesSheet = insertSheetIfNotExist(file, '2019 Sources'); // make this dynamic
+    sourcesSheet.clear()
 
 
     // INSERT FUNCTION MAKING SOURCES PAGE
@@ -71,30 +73,6 @@ function createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameS
     return
 }
 
-// ## BEGIN Helper functions  ## //
-
-// functions to convert column numbers to letters and vice versa
-// for easier translation of column number to column letter in formulas
-function columnToLetter(column) {
-    var temp, letter = ''
-    while (column > 0) {
-        temp = (column - 1) % 26
-        letter = String.fromCharCode(temp + 65) + letter
-        column = (column - temp - 1) / 26
-    }
-    return letter
-}
-
-function letterToColumn(letter) {
-    var column = 0, length = letter.length
-    for (var i = 0; i < length; i++) {
-        column += (letter.charCodeAt(i) - 64) * Math.pow(26, length - i - 1)
-    }
-    return column
-}
-
-// ## END Helper functions  ## //
-
 // ## BEGIN High-level functions | main components ## //
 // TODO: Explain in a few sentences what the whole function is doing
 // List the parameters and where their values are coming from
@@ -109,11 +87,11 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
 
     // iterates over each indicator in the current type
     for (var i = 0; i < indicatorClass.indicators.length; i++) {
-        var sheet = file.insertSheet(); // creates sheet
-        sheet.setName(indicatorClass.indicators[i].labelShort); // sets name of sheet to indicator
 
-        // ## BEGIN of XY Section
-        // TODO What is happing here
+        Logger.log("indicator :" + indicatorClass.indicators[i].labelShort)
+
+        var sheet = insertSheetIfNotExist(file, indicatorClass.indicators[i].labelShort); // creates sheet
+        sheet.clear();
         // setting active row and an active column
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
@@ -128,8 +106,11 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
 
         // setting up all the steps for all the indicators
         for (var currentStep = 0; currentStep < ResearchStepsObj.researchSteps.length; currentStep++) {
-            for (var currentStepComponent = 0; currentStepComponent < ResearchStepsObj.researchSteps[currentStep].components.length; currentStepComponent++) {
 
+            Logger.log("step : " + ResearchStepsObj.researchSteps[currentStep].labelShort)
+
+            for (var currentStepComponent = 0; currentStepComponent < ResearchStepsObj.researchSteps[currentStep].components.length; currentStepComponent++) {
+                Logger.log("step.component : " + ResearchStepsObj.researchSteps[currentStep].labelShort + " : " + ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type)
                 // stores first row of a step to use later in naming a step
                 if (currentStepComponent == 0) { var firstRow = activeRow + 1; }
 
@@ -159,7 +140,7 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
                 }
 
                 else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "comparison") {
-                    activeRow = addComparisonYonY(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices)
+                    activeRow = addComparisonYonY(sheet, indicatorClass.indicators[i], CompanyObj, activeRow, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices)
                 }
 
                 // if there are no more substeps, we store the final row and name the step
@@ -182,15 +163,8 @@ function populateByCategory(file, indicatorClass, CompanyObj, ResearchStepsObj, 
                 }
             }
         }
-
     }
-    // ## END of Section XY ## 
 }
-
-
-
-
-
 
 // function just creates a single row in which in the first column a label is added
 function addInstruction(currentStep, currentStepComponent, activeRow, currentSheet) {
@@ -201,11 +175,7 @@ function addInstruction(currentStep, currentStepComponent, activeRow, currentShe
     cell.setWrap(true); // wrapping text
     activeRow = activeRow + 1
     return activeRow
-
 }
-
-
-
 
 // header of sheet function------------------------------------------------
 function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file, numberOfIndicatorCatSubComponents, CompanyNumberOfServices) {
@@ -213,33 +183,34 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
     var activeCol = 1
 
     currentSheet.setColumnWidth(1, 300)
-    for (var i = 2; i <= 20; i++) { currentSheet.setColumnWidth(i, 300 / numberOfIndicatorCatSubComponents); } // sets column width
+
+    // TODO: this formatting and its ineffcient
+    for (var i = 2; i <= 20; i++) { currentSheet.setColumnWidth(i, 300 / numberOfIndicatorCatSubComponents); } // sets column width | TODO replace 20
 
     var cellName = (activeRow + ':' + activeCol)
     cellName = cellName.toString()
     currentSheet.getRange(cellName).setHorizontalAlignment('center'); // alligns header row
-
-
 
     // -----------------------SETTING UP THE HEADER ROW------------------------
     // first collum is blank
     currentSheet.getRange(activeRow, activeCol).setValue('')
     activeCol = activeCol + 1
 
-    // overall Company column(s)
+    // Company (group) column(s)
     for (var i = 0; i < numberOfIndicatorCatSubComponents; i++) {
         var cell = currentSheet.getRange(activeRow, activeCol)
         cell.setValue(CompanyObj.groupLabel); // adds text
         cell.setBackgroundRGB(252, 111, 125); // sets color
         cell.setFontWeight('bold'); // makes text bold
         cell.setWrap(true)
+        cell.setVerticalAlignment("top")
 
         // if it has components it adds the label in the next row
         if (indicatorClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(indicatorClass.components[i].labelLong)
             currentCell.setBackgroundRGB(252, 111, 125); // sets color
-            currentCell.setFontWeight('bold'); // makes text bold
+            currentCell.setFontStyle('italic');
             currentCell.setWrap(true)
         } // close hasSubComponents if statement
 
@@ -256,6 +227,8 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
         cell.setValue(CompanyObj.opComLabel)
         cell.setBackgroundRGB(252, 111, 125)
         cell.setFontWeight('bold')
+        cell.setWrap(true)
+        cell.setVerticalAlignment("top")
 
         // hides opCom column(s) if opCom == false
         if (CompanyObj.opCom == false) {
@@ -263,14 +236,12 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
             cell.setValue('N/A')
         }
 
-        cell.setWrap(true)
-
         // if the indicator has components it adds them in the next row
         if (indicatorClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(indicatorClass.components[i].labelLong)
             currentCell.setBackgroundRGB(252, 111, 125); // sets color
-            currentCell.setFontWeight('bold'); // makes text bold
+            currentCell.setFontStyle('italic')
             currentCell.setWrap(true)
         }
 
@@ -285,13 +256,14 @@ function addTopHeader(currentSheet, indicatorClass, CompanyObj, activeRow, file,
             cell.setBackgroundRGB(252, 111, 125)
             cell.setFontWeight('bold')
             cell.setWrap(true)
+            cell.setVerticalAlignment("top")
 
             // if the indicator has components it adds them in the next row
             if (indicatorClass.hasSubComponents == true) {
                 var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
                 currentCell.setValue(indicatorClass.components[k].labelLong)
                 currentCell.setBackgroundRGB(252, 111, 125); // sets color
-                currentCell.setFontWeight('bold'); // makes text bold
+                currentCell.setFontStyle('italic')
                 currentCell.setWrap(true)
             }
             activeCol = activeCol + 1
@@ -538,6 +510,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
 
 // this function adds an element drop down list to a single row
 function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
+
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[currentStepComponent].dropdown).build()
 
     var activeCol = 1
@@ -625,7 +598,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
 
 // ## TODO Component Level functions ## //
 
-function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
+function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, indicatorClass, CompanyNumberOfServices) {
 
     // sets up column with discription
     for (var currentElementNr = 0; currentElementNr < currentIndicator.elements.length; currentElementNr++) {
@@ -656,7 +629,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, file,
                         component = indicatorClass.components[k].labelShort
                     }
 
-                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].compShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "group")
+                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].comparisonLabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "group")
 
                     // sets up formula that compares values
                     var value = currentIndicator.compCol + ((serviceNr - 1) * numberOfIndicatorCatSubComponents) + k; // calculates which column
@@ -691,7 +664,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, file,
                         component = indicatorClass.components[k].labelShort
                     }
 
-                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].compShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "opCom")
+                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].comparisonLabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, "opCom")
 
                     // creating formula that compares the two cells
                     var value = currentIndicator.compCol + ((serviceNr - 1) * numberOfIndicatorCatSubComponents) + k; // finds comparisson column
@@ -724,7 +697,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, file,
                         component = indicatorClass.components[k].labelShort
                     }
 
-                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].compShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
+                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[currentStepComponent].comparisonLabelShort, currentIndicator.elements[currentElementNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
 
                     // creating formula that will be placed in cell
                     var value = currentIndicator.compCol + ((serviceNr - 1) * numberOfIndicatorCatSubComponents) + k; // calculates which column
