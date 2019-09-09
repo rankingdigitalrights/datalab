@@ -1,5 +1,4 @@
 {
-  "collection": "companies",
   "id": "tES1",
   "label": {
     "current": "Etisalat",
@@ -16,16 +15,18 @@
   "urlCurrentDataCollectionSheet": null,
   "urlCurrentCompanyScoringSheet": null,
   "numberOfServices": 3,
-  "services": [{
-      "id": "bbES1",
-      "type": "broadband",
+  "services": [
+    {
+      "id": "mbES1",
+      "type": "mobile",
+      "subtype": "prepaid",
       "label": {
-        "current": "Fixed-line broadband",
+        "current": "Prepaid mobile",
         "legacy": null
       }
     },
     {
-      "id": "mbES1",
+      "id": "mbES2",
       "type": "mobile",
       "subtype": "postpaid",
       "label": {
@@ -34,11 +35,10 @@
       }
     },
     {
-      "id": "mbES2",
-      "type": "mobile",
-      "subtype": "prepaid",
+      "id": "bbES1",
+      "type": "broadband",
       "label": {
-        "current": "Prepaid mobile",
+        "current": "Fixed-line broadband",
         "legacy": null
       }
     }

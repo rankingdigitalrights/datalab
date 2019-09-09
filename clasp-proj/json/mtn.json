@@ -1,5 +1,4 @@
 {
-  "collection": "companies",
   "id": "tMT1",
   "label": {
     "current": "MTN",
@@ -15,12 +14,13 @@
   "tabPrevYearsOutcome": "MTNOutcome",
   "urlCurrentDataCollectionSheet": null,
   "urlCurrentCompanyScoringSheet": null,
-  "numberOfServices": 2,
+  "numberOfServices": 3,
   "services": [{
-      "id": "bbMT1",
-      "type": "broadband",
+      "id": "mbMT1",
+      "type": "mobile",
+      "subtype": "prepaid",
       "label": {
-        "current": "Fixed-line broadband",
+        "current": "Prepaid mobile",
         "legacy": null
       }
     },
@@ -30,6 +30,14 @@
       "subtype": "postpaid",
       "label": {
         "current": "Postpaid mobile",
+        "legacy": null
+      }
+    },
+    {
+      "id": "bbMT1",
+      "type": "broadband",
+      "label": {
+        "current": "Fixed-line broadband",
         "legacy": null
       }
     }

@@ -1,5 +1,4 @@
 {
-    "collection": "companies",
     "id": "iFB1",
     "label": {
         "current": "Facebook",
@@ -25,7 +24,7 @@
             }
         },
         {
-            "id": "pvFB2",
+            "id": "pvFB1",
             "type": "photoVideo",
             "label": {
                 "current": "Instagram",
@@ -33,7 +32,7 @@
             }
         },
         {
-            "id": "mvFB3",
+            "id": "mvFB1",
             "type": "messagingVoip",
             "label": {
                 "current": "WhatsApp",
@@ -41,7 +40,7 @@
             }
         },
         {
-            "id": "mvFB4",
+            "id": "mvFB2",
             "type": "messagingVoip",
             "label": {
                 "current": "Messenger",

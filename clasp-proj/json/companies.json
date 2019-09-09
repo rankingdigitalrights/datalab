@@ -2,13 +2,56 @@
     "collection": "companies",
     "indexYear": 2019,
     "indexType": "RDR",
-    "companies": [{
-            "id": "mes1",
+    "companies": [
+
+        {
+            "id": "iBA1",
+            "label": {
+                "current": "Baidu",
+                "legacy": null
+            },
+            "type": "internet",
+            "groupLabel": "Baidu (Group)",
+            "opCom": false,
+            "opComLabel": null,
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1bAVVenbXBzWLTwYahqp-8DbHMx5S2YS7a4VhTe8RjFE",
+            "tabPrevYearsOutcome": "BaiduOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 3,
+            "services": [{
+                    "id": "seBA1",
+                    "type": "search",
+                    "label": {
+                        "current": "Baidu Search",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "clBA2",
+                    "type": "cloud",
+                    "label": {
+                        "current": "Baidu Cloud",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mvBA3",
+                    "type": "messagingVoip",
+                    "label": {
+                        "current": "Baidu PostBar",
+                        "legacy": null
+                    }
+                }
+            ]
+        },
+        {
+            "id": "tES1",
             "label": {
                 "current": "Etisalat",
-                "legacy": [
-                    null
-                ]
+                "legacy": [null]
             },
             "type": "telecom",
             "groupLabel": "Etisalat",
@@ -16,40 +59,137 @@
             "opComLabel": "Etisalat UAE",
             "prevScored": true,
             "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-            "tabPrevYearsOutcome": "2018 Outcome Ranges",
+            "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "EtisalatOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
-                    "id": "mes1bb",
-                    "type": "broadband",
-                    "label": {
-                        "current": "Fixed-line broadband",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "mes1mprep",
-                    "type": "mobile",
-                    "label": {
-                        "current": "Postpaid mobile",
-                        "legacy": null
-                    },
-                    "subtype": "postpaid"
-                },
-                {
-                    "id": "mes1mpostp",
+                    "id": "mbES1",
                     "type": "mobile",
                     "subtype": "prepaid",
                     "label": {
                         "current": "Prepaid mobile",
                         "legacy": null
                     }
+                },
+                {
+                    "id": "mbES2",
+                    "type": "mobile",
+                    "subtype": "postpaid",
+                    "label": {
+                        "current": "Postpaid mobile",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "bbES1",
+                    "type": "broadband",
+                    "label": {
+                        "current": "Fixed-line broadband",
+                        "legacy": null
+                    }
                 }
-            ],
-            "urlCurrentDataCollectionSheet": null
+            ]
         },
         {
-            "id": "ivm1",
+            "id": "iFB1",
+            "label": {
+                "current": "Facebook",
+                "legacy": null
+            },
+            "type": "internet",
+            "groupLabel": "Facebook (Group)",
+            "opCom": false,
+            "opComLabel": null,
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "FacebookOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 4,
+            "services": [{
+                    "id": "snFB1",
+                    "type": "socialNetworkBlogs",
+                    "label": {
+                        "current": "Facebook",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "pvFB1",
+                    "type": "photoVideo",
+                    "label": {
+                        "current": "Instagram",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mvFB1",
+                    "type": "messagingVoip",
+                    "label": {
+                        "current": "WhatsApp",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mvFB2",
+                    "type": "messagingVoip",
+                    "label": {
+                        "current": "Messenger",
+                        "legacy": null
+                    }
+                }
+            ]
+        },
+        {
+            "id": "tMT1",
+            "label": {
+                "current": "MTN",
+                "legacy": [null]
+            },
+            "type": "telecom",
+            "groupLabel": "MTN (Group)",
+            "opCom": true,
+            "opComLabel": "MTN South Africa (Operating Company)",
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
+            "tabPrevYearsOutcome": "MTNOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 3,
+            "services": [{
+                    "id": "mbMT1",
+                    "type": "mobile",
+                    "subtype": "prepaid",
+                    "label": {
+                        "current": "Prepaid mobile",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mbMT2",
+                    "type": "mobile",
+                    "subtype": "postpaid",
+                    "label": {
+                        "current": "Postpaid mobile",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "bbMT1",
+                    "type": "broadband",
+                    "label": {
+                        "current": "Fixed-line broadband",
+                        "legacy": null
+                    }
+                }
+            ]
+        },
+        {
+            "id": "iVM1",
             "label": {
                 "current": "Verizon Media",
                 "legacy": [
@@ -63,11 +203,13 @@
             "opComLabel": null,
             "prevScored": true,
             "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-            "tabPrevYearsOutcome": "2018 Outcome Ranges",
+            "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "OathOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 2,
             "services": [{
-                    "id": "ivm1ym",
+                    "id": "maYM1",
                     "type": "mail",
                     "label": {
                         "current": "Yahoo Mail",
@@ -75,123 +217,15 @@
                     }
                 },
                 {
-                    "id": "ivm1t",
+                    "id": "pvTR1",
                     "type": "photoVideo",
                     "label": {
                         "current": "Tumblr",
                         "legacy": null
                     }
                 }
-            ],
-            "urlCurrentDataCollectionSheet": "https://docs.google.com/spreadsheets/d/19a1JJ_eqvKkS9mkhvhZKsj-5pRiuMTqJl-qa0fC2gLk/edit?pli=1#gid=409890464"
-        },
-        {
-            "id": "igo1",
-            "label": {
-                "current": "Google",
-                "legacy": null
-            },
-            "type": "internet",
-            "groupLabel": "Google (Group)",
-            "opCom": false,
-            "opComLabel": null,
-            "prevScored": true,
-            "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-            "tabPrevYearsOutcome": "2018 Outcome Ranges",
-            "numberOfServices": 5,
-            "services": [{
-                    "id": "igo1s",
-                    "type": "search",
-                    "label": {
-                        "current": "Search",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "igo1gm",
-                    "type": "email",
-                    "label": {
-                        "current": "Gmail",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "igo1yt",
-                    "type": "photoVideo",
-                    "label": {
-                        "current": "YouTube",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "igo1am",
-                    "type": "mobileEcosystem",
-                    "label": {
-                        "current": "Android mobile ecosystem",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "igo1gd",
-                    "type": "cloud",
-                    "label": {
-                        "current": "Google Drive",
-                        "legacy": null
-                    }
-                }
-            ],
-            "urlCurrentDataCollectionSheet": null
-        },
-        {
-            "id": "ifb1",
-            "label": {
-                "current": "Facebook",
-                "legacy": null
-            },
-            "type": "internet",
-            "groupLabel": "Facebook (Group)",
-            "opCom": false,
-            "opComLabel": null,
-            "prevScored": true,
-            "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U/edit#gid=693339553",
-            "tabPrevYearsOutcome": "2018 Outcome Ranges",
-            "numberOfServices": 5,
-            "services": [{
-                    "id": "ifb1fb",
-                    "type": "socialNetworkBlogs",
-                    "label": {
-                        "current": "Facebook",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "ifb1is",
-                    "type": "photoVideo",
-                    "label": {
-                        "current": "Instagram",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "ifb1wa",
-                    "type": "messagingVoip",
-                    "label": {
-                        "current": "WhatsApp",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "ifb1fm",
-                    "type": "messagingVoip",
-                    "label": {
-                        "current": "Messenger",
-                        "legacy": null
-                    }
-                }
-            ],
-            "urlCurrentDataCollectionSheet": null
+            ]
         }
+
     ]
 }
