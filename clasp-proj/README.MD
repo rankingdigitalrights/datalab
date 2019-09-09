@@ -22,11 +22,11 @@ The environment utilises [Google Apps Script](https://developers.google.com/apps
 While you can edit and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing and collaboration, and so on, it is recommend **to use Git, [`clasp`](https://github.com/google/clasp), and an IDE** of choice (i.e. VSCode for easier interaction with NodeJS/npm). This enables you to edit code locally with a proper development environment, store your code in a git* repository, and push/pull the code to GAS to execute online.
 
 > **TL;DR:**
-> + develop locally
-> + execute & operate online
-> + feed in JSONs
+ + define in JSONs
+ + develop locally
+ + execute & operate online
 
-Following the proof-of-concept, the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file. However, executing the code with any other account than `rdresearch` is not authorised currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`)
+Following the initial proof-of-concept with G.W., the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file. However, executing the code with any other account than `rdresearch` is not authorised currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`)
 
 > Conventions: Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js` and ignore implications as clasp auto-converts between file types.
 
@@ -53,6 +53,8 @@ Following the proof-of-concept, the `project` has been migrated to the `rdresear
 ### Changelog
 
 > Keep track of new developments here, document your progress, also explicitly indicate breaking changes
+
+**Current dev goal**: replicate a subset of 2019 DC & SC to identify shortcomings
 
 2019 September
 

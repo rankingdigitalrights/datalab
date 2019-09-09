@@ -14,9 +14,6 @@
 + [Clasp & IDE]()
 + FAQ
 + Issues
-+ 
-
-
 
 ## Intro
 
@@ -28,56 +25,87 @@ To provide contributers with a cognitive model of this project, it is helpful to
 
 The core idea is that,
     
-a) based on a set of parameters (indicators, research steps, companies) **currently** provided as JSON files
+a) based on a set of `parameters` (indicators, research steps, companies) **currently** provided as JSON files
 
-b) for **each company** you 
+b) for each `company` you 
 
-c) first create the data collection spreadsheet with `mainCreateDataCollectionSheet`, which is generated in `parentFolderID/folderName` of `rdresearch`.
+c) first create the `data collection spreadsheet` with `mainCreateDataCollectionSheet()`, which will be located in `parentFolderID/folderName` of `@rdresearch`'s Drive.
 
-> The file ID of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `<company>.json` / `companies.company.urlCurrentDataCollectionSheet`.
+> The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `<company>.json` / `companies.company.urlCurrentDataCollectionSheet`.
 
-d) to set step-wise editing permissions for the data collection sheet, run `mainPermissions()`.
+d) to set step-wise editing `permissions` for the data collection sheet, run `mainPermissions()`.
 
-e) you create the company scoring sheet with `mainCreateScoringSheet()`.
+e) you create the `company scoring sheet` with `mainCreateScoringSheet()`.
+
+In the near future, all outputs should be tracked in a `Master Spreadsheet`.
+
+Eventually, all control should be moved to a `Master Spreadsheet`.
 
 ### Main Modules
 
-The basic structure is now modular, with core modules starting with `0x`. 
+The basic structure is now modular, with core modules starting with `0x`.
+
+As modules were created and eventually refactored and synchronised, most modules and methods operate on the same set of parameters. Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` while working on `01_dataCollection.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**)  as it make brake e.g. `03_scoring.js`.
+
+**Modules**:
 
 + Main Controller
-    
-    > `00_mainController` - supposed to be the central touchpoint for any activity.
+  
+  > `00_mainController` - supposed to be the central touchpoint for any activity.
 
-    Here you define the `company`, the `Index prefix`, and the target output folder, and then config and run the respective modules for creating data collection (DC) spreadsheets or the company-level scoring (SC) spreadsheets from the main controller. The third module is setting permissions for the data collection sheets.
+  Here you define the `company`, the `Index prefix`, and the target output folder, and then config and run the respective modules for creating data collection (DC) spreadsheets or the company-level scoring (SC) spreadsheets from the main controller. The third module is setting permissions for the data collection sheets.
 
-    Each main method call has parameter for using subsets of indicators or subsets of research steps. Right now, these subsets are hardcoded in JSON files which are assigned in `99_importJSON`
+  Each main method call has parameter for using subsets of indicators or subsets of research steps. Right now, these subsets are hardcoded in JSON files which are assigned in `99_importJSON`
 
 + Data Collection Spreadsheets
 
-    > `01_dataCollection` - core module for the creation of a single company-level data collection spreadsheet
+  > `01_dataCollection` - core module for the creation of a single company-level data collection spreadsheet
 
-    Extensive documentation was created by G.W. [Google Doc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit). Due to refactoring and restucturing it probably needs to be updated.
+  Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restucturing it probably needs to be updated.
+
+  > `02_permissions.js` - core module for setting / removing step-wise permission for `data collection spreadheets`
+
+  + currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; unprotecting / assigning editors de-facto not effective with external users (due to missing scope permission). Aas we are currently using `rdresearch`, alol non-OTI accounts are external...
+  + in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
 
 + Company Scoring Spreadsheets
 
-    >
+  > `03_scoring.js` (TBD)
 
-
-+ Permissions
+  > Best, add `DC fileID` to `<company>.json` before casting `SC`
 
 ### Helper Modules
 
 + importJSON
 + scoringFormula
++ rangeNaming
 + cellFormatting
-+ fileName
++ fileNaming
++ importSpreadsheet
++ driveOperations
++ findItems
 
 ### JSON
 
-+ research steps
-+ indicators
-+ companies
-+ config (not operational yet)
++ Git --> Drive
+
+  + research steps
+  + indicators
+  + companies
+  + config (not operational yet)
+
++ Git-only
+
+  + `00_vectors.js` & `var = companiesObj {}`
+  + tbd: `ssh` into `git`
+
+#### Research Steps
+
++ subsets
+
+#### Indicators
+
++ subsets
 
 #### Companies JSON
 
@@ -88,6 +116,11 @@ The basic structure is now modular, with core modules starting with `0x`.
   + use 1-letter category `prefix` for companies and 2-letter `prefix`for services
   + **Authorative**: [Dictionary](/docs/dictionary.MD)
   + use a GUI JSON editor for validation of JSON syntax (i.e. VSCode + [JSON Editor](https://marketplace.visualstudio.com/items?itemName=nickdemayo.vscode-json-editor) `plugin`, or [JSON Editor Online](https://jsoneditoronline.org/))
+
+#### Config
+
+> should define Index, methodology / sets, companies, folders, maybe map editors to companies
+
 
 <hr/>
 
@@ -120,7 +153,7 @@ The basic structure is now modular, with core modules starting with `0x`.
 
 ## FAQ
 
-> Q: Can we...?<br>
+> Q: Can we...?\
 > A: Njet.
 
 + general source for GAS discussions: 
