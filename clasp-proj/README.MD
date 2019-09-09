@@ -79,4 +79,6 @@ Following the proof-of-concept, the `project` has been migrated to the `rdresear
 
 > To keep things readable, the documention is kept and maintained in a dedicated document.
 
-+ [**Documentation**](/docs/documentation.MD)
++ [**Documentation**](docs/documentation.MD)
+
+https://github.com/rankingdigitalrights/datalab/blob/master/clasp-proj/docs/documentation.MD

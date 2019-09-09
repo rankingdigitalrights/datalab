@@ -30,7 +30,7 @@ The core idea is that,
     
 a) based on a set of parameters (indicators, research steps, companies) **currently** provided as JSON files
 
-b) for each company you 
+b) for **each company** you 
 
 c) first create the data collection spreadsheet with `mainCreateDataCollectionSheet`, which is generated in `parentFolderID/folderName` of `rdresearch`.
 
