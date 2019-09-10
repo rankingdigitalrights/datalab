@@ -1,6 +1,6 @@
 # RDR Spreadsheet Engineering
 
-[![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
+[![clasp](/docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 > Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
 
