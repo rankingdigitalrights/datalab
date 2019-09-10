@@ -15,7 +15,10 @@
 
 This is the project folder for RDR's spreadsheet development.
 
-The current scope of the Spreadsheet development is to automate the generating ("castiong") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
+![The development environment](/docs/img/dev_environment.jpg)
+(*The Development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
+
+The current scope of the Spreadsheet development is to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
 
 The environment utilises [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is excecuted through the [browser](https://script.google.com/home/my) and runs online on Google's servers.
 
