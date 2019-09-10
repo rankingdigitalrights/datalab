@@ -23,6 +23,7 @@
                     "compRow": 3,
                     "elements": [{
                         "labelShort": "G1.1",
+                        "labelLogical": "G0101",
                         "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including freedom of expression and privacy?"
                     }]
                 },
@@ -35,6 +36,7 @@
                     "compRow": 16,
                     "elements": [{
                             "labelShort": "G2.1",
+                            "labelLogical": "G0201",
                             "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect freedom of expression and privacy?"
                         },
                         {
