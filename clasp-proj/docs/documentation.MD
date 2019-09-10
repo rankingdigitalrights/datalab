@@ -1,7 +1,7 @@
 # Documentation
 
-> (Go back to [README](../README.MD))
-> [JSON Dictionary](dictionary.MD)
+> -> Go back to [README](../README.MD)\
+> -> Jump to [JSON Dictionary](dictionary.MD)
 ## TOC
 
 + [Intro](#intro)
@@ -117,6 +117,10 @@ As modules were created and eventually refactored and synchronised, most modules
   + **Authorative**: [Dictionary](dictionary.MD)
   + use a GUI JSON editor for validation of JSON syntax (i.e. VSCode + [JSON Editor](https://marketplace.visualstudio.com/items?itemName=nickdemayo.vscode-json-editor) `plugin`, or [JSON Editor Online](https://jsoneditoronline.org/))
 
+![VSCode with JSON Editor Plugin](img/vscode_json_editor.jpg)
+(*Screenshot: VSCode with JSON Editor Plugin: JSON file is opened on the left, the visual editor on the right.*)
+
+
 #### Config
 
 > should define Index, methodology / sets, companies, folders, maybe map editors to companies
@@ -143,6 +147,9 @@ As modules were created and eventually refactored and synchronised, most modules
 + [SO/corey-g](https://stackoverflow.com/users/1491380/corey-g) (former GAS engineer)
 
 ### Clasp & IDE
+
+![VSCode with tripartite window split](img/vscode_setup.jpg)
+(*Screenshot: VSCode with tripartie Layout: `01_dataCollection.js` on the left; `99_importJSON.js` helper module on the top right; `00_mainController.js` on the bottom right. Terminal with `clasp push` on the bottom.*)
 
 + npm clasp
 + npm types/gas
