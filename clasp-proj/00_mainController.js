@@ -1,21 +1,20 @@
-var companyShortName = "facebook" // in alignment with <company>.json
+var companyShortName = "baidu" // in alignment with <company>.json
 
 var indexPrefix = 'RDR2019'
-var filenameSuffix = "v8"
+var filenameSuffix = "v9"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-// var parentFolderID = "1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r" // "Spreadsheet creation TEST"
-var folderName = 'SpreadsheetCreationTEST'
+var folderName = 'SpreadsheetCreationTEST' // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
 
 function mainCreateDataCollectionSheet() {
-	var stepsSubset = false
-	var indicatorSubset = false
+	var stepsSubset = true
+	var indicatorSubset = true
 	createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix)
 	// TODO return ID and add to control Spreadsheet
 }
 
 function mainCreateScoringSheet() {
 	var stepsSubset = true
-	var indicatorSubset = false
+	var indicatorSubset = true
 	createSCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix)
 	// TODO return ID and add to controll Spreadsheet
 }
