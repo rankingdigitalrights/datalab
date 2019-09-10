@@ -1,6 +1,6 @@
 # RDR Spreadsheet Engineering
 
-[![clasp](/docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
+[![clasp](docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 > Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
 
@@ -15,7 +15,7 @@
 
 This is the project folder for RDR's spreadsheet development.
 
-![The development environment](/docs/img/dev_environment.jpg)
+![The development environment](docs/img/dev_environment.jpg)
 (*The Development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
 
 The current scope of the Spreadsheet development is to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
