@@ -1,5 +1,18 @@
 // MAIN CALLER 
-var me = Session.getEffectiveUser();
+var me = Session.getEffectiveUser() // TODO move inside logic
+
+/**
+ * 
+ * @param {*} indexPrefix 
+ * @param {*} companyShortName 
+ * @param {*} sheetMode 
+ * @param {*} filenameSuffix 
+ * @param {*} protectSteps 
+ * @param {*} unprotectSteps 
+ * @param {*} allowedEditors 
+ * @param {*} stepsSubset 
+ * @param {*} indicatorSubset 
+ */
 
 function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, stepsSubset, indicatorSubset) {
 

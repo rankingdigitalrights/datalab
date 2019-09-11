@@ -3,6 +3,16 @@
 
 // --- BEGIN setCompanyHeader() --- //
 
+/**
+ * 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentIndicator 
+ * @param {*} indicatorClasses 
+ * @param {*} companyObj 
+ */
+
 function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicatorClasses, companyObj) {
 
     var currentCell = sheet.getRange(activeRow, activeCol)
@@ -88,6 +98,19 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
     return activeRow
 }
 
+/**
+ * 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentStep 
+ * @param {*} element 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} indicatorClasses 
+ */
+
 function importElementResults(activeRow, activeCol, sheet, currentStep, element, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClasses) {
 
     Logger.log('in results section for ' + currentIndicator.labelShort)
@@ -166,6 +189,17 @@ function importElementResults(activeRow, activeCol, sheet, currentStep, element,
     return activeRow
 }
 
+/**
+ * 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentStep 
+ * @param {*} element 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ */
+
 function importComments(activeRow, activeCol, sheet, currentStep, element, currentIndicator, CompanyObj) {
     for (var currentElementNr = 0; currentElementNr < currentIndicator.elements.length; currentElementNr++) {
 
@@ -183,6 +217,17 @@ function importComments(activeRow, activeCol, sheet, currentStep, element, curre
     return activeRow
 }
 
+/**
+ * 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentStep 
+ * @param {*} element 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ */
+
 function importSources(activeRow, activeCol, sheet, currentStep, element, currentIndicator, CompanyObj) {
 
     // setting up the columnLabel
@@ -197,6 +242,21 @@ function importSources(activeRow, activeCol, sheet, currentStep, element, curren
 }
 
 // --- Core function: SCORING --- //
+
+/**
+ * 
+ * @param {*} file 
+ * @param {*} sheetMode 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentSteplabelShort 
+ * @param {*} currentStepComponent 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} indicatorClasses 
+ */
 
 function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClasses) {
 
@@ -300,6 +360,23 @@ function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentS
 
     return activeRow + 1
 }
+
+/**
+ * 
+ * @param {*} file 
+ * @param {*} sheetMode 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentSteplabelShort 
+ * @param {*} currentStepComponent 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} indicatorClasses 
+ * @param {*} indicatorAverageCompanyElements 
+ * @param {*} indicatorAverageServicesElements 
+ */
 
 function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentStepComponent, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorClasses, indicatorAverageCompanyElements, indicatorAverageServicesElements) {
 
@@ -440,6 +517,22 @@ function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentSte
     return activeRow + 1
 }
 
+/**
+ * 
+ * @param {*} file 
+ * @param {*} sheetMode 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentSteplabelShort 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} indicatorAverageCompanyElements 
+ * @param {*} indicatorAverageServicesElements 
+ * @param {*} indicatorAverageElements 
+ */
+
 function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentIndicator, CompanyObj, numberOfIndicatorCatSubComponents, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements) {
 
     activeRow = activeRow + 1
@@ -481,6 +574,19 @@ function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, curren
 
     return activeRow + 1
 }
+
+/**
+ * 
+ * @param {*} file 
+ * @param {*} sheetMode 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} sheet 
+ * @param {*} currentSteplabelShort 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} indicatorAverageElements 
+ */
 
 function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, currentSteplabelShort, currentIndicator, CompanyObj, indicatorAverageElements) {
 

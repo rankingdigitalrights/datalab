@@ -1,14 +1,10 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
-// --- for easier use, define company name here (based on lookup from config or according json file) --- //
-
 // --- CONFIG --- //
 
 var importedOutcomeTabName = "2018 Outcome"
 
-// --------------- This is the main caller ---------------- //
-
-// TODO
+// --- //  This is the main caller // --- //
 
 /**
  * 

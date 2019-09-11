@@ -3,6 +3,18 @@
 
 // Indicator Guidance for researchers
 
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentClass 
+ * @param {*} thisIndicator 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} hasOpCom 
+ * @param {*} numberOfColumns 
+ */
+
 function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeRow, activeCol, numberOfIndicatorCatSubComponents, hasOpCom, numberOfColumns) {
 
     // TODO probably move all formatting params to JSON
@@ -69,6 +81,18 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 }
 
 // Company + Services Header
+
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentClass 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} file 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} companyNumberOfServices 
+ */
+
 function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, numberOfIndicatorCatSubComponents, companyNumberOfServices) {
 
     var activeCol = 1
@@ -167,6 +191,15 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
 
 }
 
+/**
+ * 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} activeRow 
+ * @param {*} activeCol 
+ * @param {*} currentSheet 
+ */
+
 // function just creates a single row in which in the first column a label is added
 function addInstruction(currentStep, currentStepComponent, activeRow, activeCol, currentSheet) {
     var cell = currentSheet.getRange(activeRow, activeCol)
@@ -176,6 +209,20 @@ function addInstruction(currentStep, currentStepComponent, activeRow, activeCol,
     cell.setWrap(true); // wrapping text
     return activeRow + 1
 }
+
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} file 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} companyNumberOfServices 
+ */
+
 
 // a step header is a row in which in the first column the name and description of the step is listed
 // and in the remaining colums a filler is added
@@ -199,6 +246,20 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
     return activeRow + 1
 
 }
+
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} file 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} currentClass 
+ * @param {*} companyNumberOfServices 
+ */
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
 function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices) {
@@ -301,6 +362,20 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} file 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} currentClass 
+ * @param {*} companyNumberOfServices 
+ */
+
 function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices) {
 
 
@@ -399,6 +474,21 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
 }
 
 // this function adds an element drop down list to a single row
+
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} file 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} currentClass 
+ * @param {*} companyNumberOfServices 
+ */
+
 function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[currentStepComponent].dropdown).build()
@@ -486,6 +576,19 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
 }
 
 // ## TODO Component Level functions ## //
+
+/**
+ * 
+ * @param {*} sheet 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} currentClass 
+ * @param {*} companyNumberOfServices 
+ */
 
 function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices) {
 
@@ -621,6 +724,21 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 }
 
 // the sources step adds a single row in which the sources of each column can be listed
+
+/**
+ * 
+ * @param {*} currentSheet 
+ * @param {*} currentIndicator 
+ * @param {*} CompanyObj 
+ * @param {*} activeRow 
+ * @param {*} file 
+ * @param {*} currentStep 
+ * @param {*} currentStepComponent 
+ * @param {*} numberOfIndicatorCatSubComponents 
+ * @param {*} currentClass 
+ * @param {*} companyNumberOfServices 
+ */
+
 function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices) {
     var activeCol = 1
 

@@ -30,6 +30,12 @@ function mainAllCompaniesScoringSheets() {
 // --- // single Company-level calls // --- //
 
 // --- Data Collection --- // 
+/**
+ * 
+ * @param {*} company 
+ * @param {*} stepsSubset 
+ * @param {*} indicatorSubset 
+ */
 function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubset) {
 
 	createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix)
