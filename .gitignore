@@ -5,3 +5,4 @@ GS_token.rds
 *.Rproj
 *.RData
 *.html
+.vscode/settings.json

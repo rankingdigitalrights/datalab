@@ -20,16 +20,17 @@ This is the project folder for RDR's spreadsheet development.
 
 The current scope of the Spreadsheet development is to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
 
-The environment utilises [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is excecuted through the [browser](https://script.google.com/home/my) and runs online on Google's servers.
+The environment utilizes [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is executed through the [browser](https://script.google.com/home/my) and runs online on Google's servers.
 
 While you can edit and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing and collaboration, and so on, it is recommend **to use Git, [`clasp`](https://github.com/google/clasp), and an IDE** of choice (i.e. VSCode for easier interaction with NodeJS/npm). This enables you to edit code locally with a proper development environment, store your code in a git* repository, and push/pull the code to GAS to execute online.
 
 > **TL;DR:**
- + define in JSONs
- + develop locally
- + execute & operate online
 
-Following the initial proof-of-concept with G.W., the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file. However, executing the code with any other account than `rdresearch` is not authorised currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`)
++ define in JSONs
++ develop locally
++ execute & operate online
+
+Following the initial proof-of-concept with G.W., the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file. However, executing the code with any other account than `rdresearch` is not authorized currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`)
 
 > Conventions: Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js` and ignore implications as clasp auto-converts between file types.
 
@@ -41,7 +42,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 2. open [My Projects](https://script.google.com/home/my) to get an overview of your GAS projects or go directly to the [`Spreadsheet Automation` project](https://script.google.com/a/opentechinstitute.org/d/1ZrUTGLLDXMZxkDB8BRaBpPb-p4ObTJrKI8FfJUN6cL10Iggc0TTalSC5)
 3. `00_mainController.gs` should open automatically. If not, open this script. This is the **main interface** to config and run all modules.
 4. edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))
-5. double-check `folderName` if you need a specfic folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `parentFolderID`)
+5. double-check `folderName` if you need a specific folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `parentFolderID`)
 6. edit the `main<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
 7. in the submenu (grey), choose the function to run, and click play. 
 8. wait for the script to finish. Optionally, hit `Ctrl + Enter` to see the log.
@@ -61,6 +62,8 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 2019 September
 
++ Company JSON is now fetched locally (from a global var in `00_vectors.js`) <-- new **SSOT**
++ added Indicator Instructions to `DC`
 + added header formatting patterns; refactoring to `function` TBD
 + split up `data collection` into main and helpers to reduce strain
 + introduced `FeatureRequest` and `bugs` as GitHub Issues (for easier tracking, assigning and elaborating)
@@ -71,7 +74,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 2019 August
 
 + added permission changes module
-+ refactored scoring and data collection modules into rough single units of responsiblity
++ refactored scoring and data collection modules into rough single units of responsibility
 + refactored generic tasks (e.g. importJSONxxx(), nameRange(comp,step,ind)) into helper modules
 + added scoring sheet module
 + enabled NodeJS/clasp + GAS API integration, and full integration with git
@@ -79,10 +82,10 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 2019 July
 
 + initial groundbreaking work by tech intern G.W. based on initiative requirements from L.G. and prototype architecture from I.S.
-+ G.W. created and completed the basic data collection module (99% of the core features), explored the core scoring sheet patterns (i.e. the collection of named ranges for indicator scoring), and created a thorugh documentation of the data collection module
++ G.W. created and completed the basic data collection module (99% of the core features), explored the core scoring sheet patterns (i.e. the collection of named ranges for indicator scoring), and created a through documentation of the data collection module
 
 ### Documentation
 
-> To keep things readable, the documention is kept and maintained in a dedicated document.
+> To keep things readable, the documentation is kept and maintained in a dedicated document.
 
 + [**Documentation**](docs/documentation.MD)
