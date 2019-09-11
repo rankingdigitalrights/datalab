@@ -1,9 +1,10 @@
 {
-    "indicatorClass": [{
+    "indicatorClasses": [{
             "labelShort": "G",
             "labelLong": "Governance",
             "description": "Indicators in this category seek evidence that the company has governance processes in place to ensure that it respects the human rights to freedom of expression and privacy. Both rights are part of the Universal Declaration of Human Rights and are enshrined in the International Covenant on Civil and Political Rights. They apply online as well as offline. In order for a company to perform well in this section, the company’s disclosure should at least follow, and ideally surpass, the UN Guiding Principles on Business and Human Rights and other industry-specific human rights standards focused on freedom of expression and privacy such as the Global Network Initiative.",
             "researchGuidance": "TBD",
+            "classColor" : "red",
             "hasSubComponents": true,
             "components": [{
                     "labelShort": "FC",
@@ -70,6 +71,7 @@
                     "labelShort": "G4",
                     "labelLong": "Impact assessment",
                     "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
                     "compCol": 2,
                     "compRow": 54,
                     "elements": [{
@@ -122,6 +124,7 @@
                     "labelShort": "G5",
                     "labelLong": "Stakeholder engagement",
                     "description": "The company should engage with a range of stakeholders on freedom of expression and privacy issues.",
+                    "scoringScope": "company",
                     "compCol": 2,
                     "compRow": 92,
                     "elements": [{
@@ -142,6 +145,7 @@
                     "labelShort": "G6",
                     "labelLong": "Remedy",
                     "description": "The company should have grievance and remedy mechanisms to address users’ freedom of expression and privacy concerns.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 112,
                     "elements": [{
@@ -173,11 +177,13 @@
             "labelLong": "Freedom of Expression",
             "description": "Indicators in this category seek evidence that the company demonstrates it respects the right to freedom of expression, as articulated in the Universal Declaration of Human Rights, the International Covenant on Civil and Political Rights and other international human rights instruments. The company’s disclosed policies and practices demonstrate how it works to avoid contributing to actions that may interfere with this right, except where such actions are lawful, proportionate and for a justifiable purpose. Companies that perform well on this indicator demonstrate a strong public commitment to transparency not only in terms of how they respond to government and others’ demands, but also how they determine, communicate, and enforce private rules and commercial practices that affect users’ freedom of expression.",
             "researchGuidance": "TBD",
+            "classColor" : "green",
             "hasSubComponents": false,
             "indicators": [{
                     "labelShort": "F1",
                     "labelLong": "Access to terms of service",
                     "description": "The company should provide terms of service (ToS) that are easy to find and easy to understand.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 138,
                     "elements": [{
@@ -198,6 +204,7 @@
                     "labelShort": "F2",
                     "labelLong": "Changes to terms of service",
                     "description": "The company should clearly disclose that it provides notice and documentation to users when it changes its terms of service.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 156,
                     "elements": [{
@@ -222,6 +229,7 @@
                     "labelShort": "F3",
                     "labelLong": "Process for terms of service enforcement",
                     "description": "The company should clearly explain the circumstances under which it may restrict content or user accounts.",
+                    "scoringScope": "services",
                     "compCol": 2,
                     "compRow": 177,
                     "elements": [{
@@ -388,6 +396,7 @@
             "labelLong": "Privacy",
             "description": "Indicators in this category seek evidence that in its disclosed policies and practices, the company demonstrates concrete ways in which it respects the right to privacy of users, as articulated in the Universal Declaration of Human Rights, the International Covenant on Civil and Political Rights and other international human rights instruments. The company’s disclosed policies and practices demonstrate how it works to avoid contributing to actions that may interfere with users’ privacy, except where such actions are lawful, proportionate and for a justifiable purpose. They will also demonstrate a strong commitment to protect and defend users’ digital security. Companies that perform well on these indicators demonstrate a strong public commitment to transparency not only in terms of how they respond to government and others’ demands, but also how they determine, communicate, and enforce private rules and commercial practices that affect users’ privacy.",
             "researchGuidance": "TBD",
+            "classColor" : "blue",
             "hasSubComponents": false,
             "indicators": [{
                     "labelShort": "P1",
