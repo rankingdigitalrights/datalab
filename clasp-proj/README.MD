@@ -61,7 +61,8 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 2019 September
 
-+ ...
++ added header formatting patterns; refactoring to `function` TBD
++ split up `data collection` into main and helpers to reduce strain
 + introduced `FeatureRequest` and `bugs` as GitHub Issues (for easier tracking, assigning and elaborating)
 + migrated project to rdresearch
 + implemented `importLocalJSON()` to import JSONs from Google Drive. TODO: needs reliable mechanism for synching JSONs with git [unless we move JSON SSOT to Google Drive which is ok])
