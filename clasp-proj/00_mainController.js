@@ -1,23 +1,48 @@
-var companyShortName = "baidu" // in alignment with <company>.json
+var companyShortName = "apple" // in alignment with <company>.json
 
 var indexPrefix = 'RDR2019'
-var filenameSuffix = "v9"
+var filenameSuffix = "v14"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
 var folderName = 'SpreadsheetCreationTEST' // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
 
-function mainCreateDataCollectionSheet() {
+// var companies = ["apple", "baidu", "etisalat", "mtn", "verizon"] // will be / needs to be
+function mainAllCompaniesDataCollectionSheets() {
+
 	var stepsSubset = true
 	var indicatorSubset = true
-	createDCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix)
+
+	  companiesVector.companies.forEach(function (thisCompany) {
+		mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
+	  })
+  }
+
+function mainAllCompaniesScoringSheets() {
+
+	var stepsSubset = true
+	var indicatorSubset = true
+
+	companiesVector.companies.forEach(function (thisCompany) {
+		mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)
+	})
+}
+
+
+// --- // single Company-level calls // --- //
+
+// --- Data Collection --- // 
+function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubset) {
+
+	createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix)
 	// TODO return ID and add to control Spreadsheet
 }
 
-function mainCreateScoringSheet() {
-	var stepsSubset = true
-	var indicatorSubset = true
-	createSCSheet(stepsSubset, indicatorSubset, companyShortName, filenameSuffix)
+// --- Scoring --- //
+function mainCreateSingleScoringSheet(company, stepsSubset, indicatorSubset) {
+	createSpreadsheetSC(stepsSubset, indicatorSubset, company, filenameSuffix)
 	// TODO return ID and add to controll Spreadsheet
 }
+
+// now defunct
 
 function mainPermissions() {
 	var sheetMode = 'DC'
