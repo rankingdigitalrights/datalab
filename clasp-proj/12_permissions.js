@@ -24,9 +24,9 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenam
 
 	var indicatorArray = []
 
-	for (thisClass in IndicatorsObj.indicatorClass) {
-		for (indicator in IndicatorsObj.indicatorClass[thisClass].indicators) {
-			var thisIndicator = IndicatorsObj.indicatorClass[thisClass].indicators[indicator].labelShort
+	for (thisClass in IndicatorsObj.indicatorClasses) {
+		for (indicator in IndicatorsObj.indicatorClasses[thisClass].indicators) {
+			var thisIndicator = IndicatorsObj.indicatorClasses[thisClass].indicators[indicator].labelShort
 			indicatorArray.push(thisIndicator)
 		}
 	}
