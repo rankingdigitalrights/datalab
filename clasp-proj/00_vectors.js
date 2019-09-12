@@ -13,14 +13,14 @@ var companiesVector = {
                 "legacy": null
             },
             "type": "internet",
-            "groupLabel": "Apple (Group)",
+            "groupLabel": "Apple",
             "opCom": false,
             "opComLabel": null,
             "prevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
             "tabPrevYearsOutcome": "AppleOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1w1SIk2HSNEcxsVJ7_GsUb3Lz-4yU_sf-ta3MYZvZg6U",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
@@ -56,14 +56,14 @@ var companiesVector = {
                 "legacy": null
             },
             "type": "internet",
-            "groupLabel": "Baidu (Group)",
+            "groupLabel": "Baidu",
             "opCom": false,
             "opComLabel": null,
             "prevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1bAVVenbXBzWLTwYahqp-8DbHMx5S2YS7a4VhTe8RjFE",
             "tabPrevYearsOutcome": "BaiduOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1_1sISyiOsxmZxFJMwPOAk3GqyPANAQjJVFXKEL4uo8M",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
@@ -75,7 +75,7 @@ var companiesVector = {
                     }
                 },
                 {
-                    "id": "clBA2",
+                    "id": "clBA1",
                     "type": "cloud",
                     "label": {
                         "current": "Baidu Cloud",
@@ -83,7 +83,7 @@ var companiesVector = {
                     }
                 },
                 {
-                    "id": "mvBA3",
+                    "id": "mvBA1",
                     "type": "messagingVoip",
                     "label": {
                         "current": "Baidu PostBar",
@@ -106,7 +106,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "EtisalatOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1feKixujoMkGJ6e8Du1XE0Ijuwrnk8sdOHc9ekyJaIY4",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
@@ -144,14 +144,14 @@ var companiesVector = {
                 "legacy": null
             },
             "type": "internet",
-            "groupLabel": "Facebook (Group)",
+            "groupLabel": "Facebook",
             "opCom": false,
             "opComLabel": null,
             "prevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "FacebookOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1Z4srxxhugrnqcalxhVkLebBPO7zasjQGZ0SBMkdxkPc",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 4,
             "services": [{
@@ -195,14 +195,14 @@ var companiesVector = {
                 "legacy": [null]
             },
             "type": "telecom",
-            "groupLabel": "MTN (Group)",
+            "groupLabel": "MTN",
             "opCom": true,
-            "opComLabel": "MTN South Africa (Operating Company)",
+            "opComLabel": "MTN South Africa",
             "prevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
             "tabPrevYearsOutcome": "MTNOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1YgpHJzPijqf7sSVu03iwQZzOH1T6qZWYhrk0IS41peY",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
@@ -250,7 +250,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "OathOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "197N-0ZPfrKRld-DB0DaXnKhhPwHU5E8AlbBgbV9qG90",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 2,
             "services": [{
@@ -262,7 +262,7 @@ var companiesVector = {
                     }
                 },
                 {
-                    "id": "pvTR1",
+                    "id": "pvYM1",
                     "type": "photoVideo",
                     "label": {
                         "current": "Tumblr",
