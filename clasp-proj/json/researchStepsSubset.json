@@ -3,6 +3,10 @@
     {
       "label": "Step 1: Data Collection",
       "labelShort": "S01",
+      "c1": 223,
+      "c2": 135,
+      "c3": 212,
+      "legacyColor": "#ddd9c3",
       "components": [{
           "type": "header",
           "filler": "Your Name"
@@ -30,10 +34,7 @@
           "label": "Sources (reference, specific page, section, etc.)",
           "nameLabel": "Sources"
         }
-      ],
-      "c1": 223,
-      "c2": 135,
-      "c3": 212
+      ]
     },
     {
       "label": "Step 1.5: Year-on-year analysis",
@@ -41,6 +42,7 @@
       "c1": 168,
       "c2": 168,
       "c3": 50,
+      "legacyColor": "#ead1dc",
       "components": [{
           "type": "header",
           "filler": " "
@@ -81,6 +83,7 @@
       "c1": 186,
       "c2": 136,
       "c3": 177,
+      "legacyColor": "#c6d9f0",
       "components": [{
           "type": "header",
           "filler": "Your Name"
@@ -139,6 +142,7 @@
       "c1": 50,
       "c2": 147,
       "c3": 168,
+      "legacyColor": "#dbe5f1",
       "components": [{
           "type": "header",
           "filler": "Your Name"
@@ -174,6 +178,7 @@
       "c1": 50,
       "c2": 168,
       "c3": 82,
+      "legacyColor": "#dbe5f1",
       "components": [{
           "type": "header",
           "filler": " "

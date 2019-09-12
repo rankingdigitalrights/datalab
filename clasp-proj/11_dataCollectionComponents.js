@@ -37,9 +37,9 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     cell.setVerticalAlignment("middle")
     cell.setFontFamily("Oswald")
     cell.setWrap(true)
+
     currentSheet.setRowHeight(row, 40)
     currentSheet.getRange(row, col, maxRow, maxColHeadings).merge()
-
     currentSheet.getRange(row, col, maxRow, numberOfColumns).setBackground("lightgrey")
 
     row += 1
@@ -51,8 +51,9 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     cell.setHorizontalAlignment("left")
     cell.setVerticalAlignment("middle")
     cell.setFontFamily("Roboto Mono")
-    cell.setFontColor("chocolate")
     cell.setWrap(true)
+    cell.setFontColor("chocolate")
+
     currentSheet.setRowHeight(row, 40)
     currentSheet.getRange(row, col, maxRow, maxColHeadings).merge()
     currentSheet.getRange(row, col, maxRow, numberOfColumns).setBackground("WhiteSmoke")
@@ -60,7 +61,8 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     row += 1
 
     cell = currentSheet.getRange(row, col)
-    cell.setValue("Elements for " + thisIndicator.labelShort + ":")
+    // cell.setValue("Elements for " + thisIndicator.labelShort + ":")
+    cell.setValue("Elements:")
     cell.setFontWeight("bold")
     cell.setHorizontalAlignment("right")
     cell.setFontFamily("Roboto Mono")
@@ -69,12 +71,14 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 
     thisIndicator.elements.forEach (function (element) {
         cell = currentSheet.getRange(row, col)
-        cell.setValue("    •    " + element.labelShort + ": " + element.description)
+        cell.setValue(element.labelShort + ": " + element.description)
         cell.setFontSize(9)
         cell.setHorizontalAlignment("left")
         cell.setFontFamily("Roboto")
         row += 1
     })
+
+    currentSheet.getRange(row-1, col-1, maxRow, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null);
 
     activeRow = row
     return activeRow
@@ -118,7 +122,7 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
         if (currentClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
-            currentCell.setBackgroundRGB(252, 111, 125); // sets color
+            currentCell.setBackground("#fff2cc"); // sets color
             currentCell.setWrap(true)
         } // close hasSubComponents if statement
 
@@ -148,7 +152,7 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
         if (currentClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
-            currentCell.setBackgroundRGB(252, 111, 125); // sets color
+            currentCell.setBackground("#fff2cc"); // sets color
             currentCell.setWrap(true)
         }
 
@@ -169,7 +173,7 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
             if (currentClass.hasSubComponents == true) {
                 var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
                 currentCell.setValue(currentClass.components[k].labelLong)
-                currentCell.setBackgroundRGB(252, 111, 125); // sets color
+                currentCell.setBackground("#b7e1cd"); // sets color
                 currentCell.setWrap(true)
             }
             activeCol = activeCol + 1
@@ -203,8 +207,9 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
 // function just creates a single row in which in the first column a label is added
 function addInstruction(currentStep, currentStepComponent, activeRow, activeCol, currentSheet) {
     var cell = currentSheet.getRange(activeRow, activeCol)
-    cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3); // setting background color
+    // cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3); // setting background color
     cell.setValue(currentStep.components[currentStepComponent].label); // adding text
+    cell.setBackground(currentStep.legacyColor)
     cell.setFontWeight('bold'); // bolding text
     cell.setWrap(true); // wrapping text
     return activeRow + 1
@@ -232,9 +237,9 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
 
     // sets up labels in the first column
     var cell = currentSheet.getRange(activeRow, 1)
-    cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3)
     var text = currentStep.label
     cell.setValue(text)
+    cell.setBackground(currentStep.legacyColor)
     cell.setFontWeight('bold')
 
     // for remaining company, opCom, and services columns it adds the filler
@@ -274,7 +279,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
         // setting up the labels
         var cell = currentSheet.getRange(activeRow + currentElementNr, activeCol)
         cell.setValue(currentStep.components[currentStepComponent].label + currentIndicator.elements[currentElementNr].labelShort)
-        cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3)
+        cell.setBackground(currentStep.legacyColor)
         activeCol = activeCol + 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*numberOfIndicatorCatSubComponents)+1)
@@ -388,7 +393,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
         // adding the labels
         var cell = currentSheet.getRange(activeRow + currentElementNr, activeCol)
         cell.setValue(currentStep.components[currentStepComponent].label + currentIndicator.elements[currentElementNr].labelShort + currentStep.components[currentStepComponent].label2)
-        cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3); // colors cell
+        cell.setBackground(currentStep.legacyColor); // colors cell
         activeCol = activeCol + 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
@@ -498,7 +503,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
     // sets up the labels
     var cell = currentSheet.getRange(activeRow, activeCol)
     cell.setValue(currentStep.components[currentStepComponent].label)
-    cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3)
+    cell.setBackground(currentStep.legacyColor)
     activeCol = activeCol + 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*numberOfIndicatorCatSubComponents)+1)
@@ -604,7 +609,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
         // sets up labels in the first column of the row
         var cell = sheet.getRange(activeRow + currentElementNr, activeCol)
         cell.setValue(currentStep.components[currentStepComponent].label + currentIndicator.elements[currentElementNr].labelShort)
-        cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3)
+        cell.setBackground(currentStep.legacyColor)
         activeCol = activeCol + 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard 3 with company JSON
@@ -745,7 +750,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
     // adding label
     var cell = currentSheet.getRange(activeRow, activeCol)
     cell.setValue(currentStep.components[currentStepComponent].label)
-    cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3)
+    cell.setBackground(currentStep.legacyColor)
     activeCol = activeCol + 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
