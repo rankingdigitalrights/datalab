@@ -1,10 +1,12 @@
 {
-	"researchSteps": [{
+	"researchSteps": [
+		{
 			"label": "Step 1: Data Collection",
 			"labelShort": "S01",
 			"c1": 223,
 			"c2": 135,
 			"c3": 212,
+			"legacyColor": "#ddd9c3",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -40,6 +42,7 @@
 			"c1": 168,
 			"c2": 168,
 			"c3": 50,
+			"legacyColor": "#ead1dc",
 			"components": [{
 					"type": "header",
 					"filler": " "
@@ -80,6 +83,7 @@
 			"c1": 186,
 			"c2": 136,
 			"c3": 177,
+			"legacyColor": "#c6d9f0",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -138,6 +142,7 @@
 			"c1": 50,
 			"c2": 147,
 			"c3": 168,
+			"legacyColor": "#dbe5f1",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -173,6 +178,7 @@
 			"c1": 50,
 			"c2": 168,
 			"c3": 82,
+			"legacyColor": "#dbe5f1",
 			"components": [{
 					"type": "header",
 					"filler": " "
@@ -213,6 +219,7 @@
 			"c1": 168,
 			"c2": 50,
 			"c3": 80,
+			"legacyColor": "#f2dcdb",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -248,6 +255,7 @@
 			"c1": 188,
 			"c2": 214,
 			"c3": 208,
+			"legacyColor": "#f2dcdb",
 			"components": [{
 					"type": "header",
 					"filler": " "
@@ -288,6 +296,7 @@
 			"c1": "143",
 			"c2": "237",
 			"c3": "88",
+			"legacyColor": "#d9ead3",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -332,6 +341,7 @@
 			"c1": 162,
 			"c2": 168,
 			"c3": 50,
+			"legacyColor": "#d9d2e9",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -367,6 +377,7 @@
 			"c1": 50,
 			"c2": 149,
 			"c3": 168,
+			"legacyColor": "#fff2cc",
 			"components": [{
 					"type": "header",
 					"filler": "Your Name"
@@ -402,6 +413,7 @@
 			"c1": 240,
 			"c2": 200,
 			"c3": 58,
+			"legacyColor": "#fff2cc",
 			"components": [{
 					"type": "header",
 					"filler": " "

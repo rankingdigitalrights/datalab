@@ -22,12 +22,11 @@ var companyHasOpCom // TODO: move inside module
  */
 
 function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameSuffix) {
-    Logger.log('begin main Scoring')
-
+    
     var sheetMode = "SC"
 
     var companyShortName = companyObj.label.current
-
+    Logger.log('begin main Scoring for ' + companyShortName)
     Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
 
     // importing the JSON objects which contain the parameters
@@ -63,8 +62,8 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     var file = connectToSpreadsheetByName(spreadsheetName)
 
     // creates Outcome  page
-    var sheet = file.getActiveSheet()
-    sheet = insertSheetIfNotExist(file, 'Points')
+    var sheet = file.getSheets()[0]
+    sheet.setName('Points')
     sheet.clear()
 
     // Scoring Scheme / Validation
@@ -82,11 +81,14 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
 
         Logger.log("currentStep: " + currentStep)
 
-        // add Step to top-left cell
+        // -- // add Step Header to top-left cell // -- //
+        // TODO: refactor to components
         var activeRow = 1
         var activeCol = 1
 
-        sheet.getRange(activeRow, activeCol).setValue(ResearchStepsObj.researchSteps[currentStep].labelShort).setFontWeight("bold")
+        sheet.getRange(activeRow, activeCol).setValue(companyShortName).setFontWeight("bold").setBackground("#b7e1cd").setFontSize(14)
+
+        sheet.getRange(activeRow, activeCol+1).setValue(ResearchStepsObj.researchSteps[currentStep].labelShort).setFontWeight("bold").setFontSize(14)
 
         sheet.setColumnWidth(activeCol, 200)
 
@@ -103,7 +105,7 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
             // For all Indicators
             for (var currentIndicator = 0; currentIndicator < IndicatorsObj.indicatorClasses[currentIndicatorCat].indicators.length; currentIndicator++) {
 
-                Logger.log('beginn Indicator: ' + IndicatorsObj.indicatorClasses[currentIndicatorCat].indicators[currentIndicator].labelShort)
+                Logger.log('begin Indicator: ' + IndicatorsObj.indicatorClasses[currentIndicatorCat].indicators[currentIndicator].labelShort)
 
                 // variable used for indicator average later
 

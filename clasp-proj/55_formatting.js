@@ -1,7 +1,7 @@
-function styleScoringIndicatorHeader(currentCell, label) {
+function styleScoringIndicatorHeader(currentCell, label, colorHex) {
     currentCell.setValue(label);
     currentCell.setWrap(true);
-    currentCell.setBackgroundRGB(157, 179, 176);
+    currentCell.setBackground(colorHex);
     currentCell.setVerticalAlignment("top");
     currentCell.setHorizontalAlignment('center');
     return currentCell;

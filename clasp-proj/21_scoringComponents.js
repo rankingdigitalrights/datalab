@@ -17,10 +17,10 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
 
     var currentCell = sheet.getRange(activeRow, activeCol)
     currentCell.setValue(currentIndicator.labelShort)
-    currentCell.setBackgroundRGB(237, 179, 102)
-    currentCell.setFontWeight('bold')
-    currentCell.setVerticalAlignment("middle")
-    currentCell.setHorizontalAlignment('center')
+        .setBackground("#ffe599")
+        .setFontWeight('bold')
+        .setVerticalAlignment("middle")
+        .setHorizontalAlignment('center')
     activeCol = activeCol + 1
 
     // adding the company and subcompanies, etc
@@ -39,6 +39,8 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
 
     // group 
 
+    var thisColor = "#d9d9d9" // grey
+
     for (var g = 0; g < numberOfIndicatorCatSubComponents; g++) {
         var currentCell = sheet.getRange(activeRow, activeCol)
         var columnLabel = 'Group\n' + companyObj.label.current
@@ -48,7 +50,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
         }
         columnLabel = columnLabel.toString()
 
-        currentCell = styleScoringIndicatorHeader(currentCell, columnLabel)
+        currentCell = styleScoringIndicatorHeader(currentCell, columnLabel, thisColor)
 
         activeCol = activeCol + 1
     }
@@ -70,7 +72,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
         }
         columnLabel = columnLabel.toString()
 
-        currentCell = styleScoringIndicatorHeader(currentCell, columnLabel)
+        currentCell = styleScoringIndicatorHeader(currentCell, columnLabel, thisColor)
 
         activeCol = activeCol + 1
     }
@@ -87,7 +89,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, currentIndicator, indicat
             }
             columnLabel = columnLabel.toString()
 
-            currentCell = styleScoringIndicatorHeader(currentCell, columnLabel)
+            currentCell = styleScoringIndicatorHeader(currentCell, columnLabel, thisColor)
 
             activeCol = activeCol + 1
         }
