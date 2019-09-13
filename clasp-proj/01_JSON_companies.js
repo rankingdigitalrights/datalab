@@ -1,6 +1,3 @@
-// (for company in companiesVector)
-// var thisCompany = companiesVector[company]
-
 var companiesVector = {
     "collection": "companies",
     "indexYear": 2019,
@@ -20,7 +17,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
             "tabPrevYearsOutcome": "AppleOutcome",
-            "urlCurrentDataCollectionSheet": "1w1SIk2HSNEcxsVJ7_GsUb3Lz-4yU_sf-ta3MYZvZg6U",
+            "urlCurrentDataCollectionSheet": "1axSXH55ySvYWer_fYF_kanmYpruyP-l5KklU0RMoIvk",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
@@ -202,7 +199,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
             "tabPrevYearsOutcome": "MTNOutcome",
-            "urlCurrentDataCollectionSheet": "1YgpHJzPijqf7sSVu03iwQZzOH1T6qZWYhrk0IS41peY",
+            "urlCurrentDataCollectionSheet": "13G2gwE5awijq9G8CUHZlDIa968i5wr8Tzw5ui4iRcLs",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
