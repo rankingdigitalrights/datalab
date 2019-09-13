@@ -26,3 +26,9 @@ function letterToColumn(letter) {
     }
     return column
 }
+
+function textUnderline(cell) {
+    var style = SpreadsheetApp.newTextStyle().setUnderline(true).build();
+    cell.setTextStyle(style);
+    return cell
+}

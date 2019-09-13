@@ -14,7 +14,7 @@
  * @param {*} suffix 
  */
 
- // RDR2019DC S01 G1 iVM1 Step
+// RDR2019DC S01 G1 iVM1 Step
 
 function defineNamedRangeStringImport(index, sheetMode, step, indicatorElement, component, company, service, suffix) {
 
