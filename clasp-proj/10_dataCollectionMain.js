@@ -38,6 +38,8 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     //   var file = SpreadsheetApp.create(spreadsheetName)
     var file = connectToSpreadsheetByName(spreadsheetName)
 
+    var fileID = file.getId()
+    Logger.log("File ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
@@ -48,7 +50,6 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     firstSheet.setName(importedOutcomeTabName); // <-- will need to make this dynamic at some point
     var cell = firstSheet.getActiveCell()
     cell.setValue(externalFormula.toString())
-
     // --- // creates sources page // --- //
     var sourcesSheet = insertSheetIfNotExist(file, '2019 Sources'); // make this dynamic
     sourcesSheet.clear()
@@ -73,10 +74,11 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     Logger.log('end main')
     Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
-    return
+    return fileID
 }
 
 // ## BEGIN High-level functions | main components ## //
+
 // TODO: Explain in a few sentences what the whole function is doing
 // List the parameters and where their values are coming from
 
@@ -91,6 +93,8 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
 
     // iterates over each indicator in the current type
     // each indicator == distinct Sheet do
+
+    var lastRow
 
     for (var i = 0; i < thisIndClassLength; i++) {
 
@@ -124,6 +128,8 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
         var activeCol = 1
 
         activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, numberOfIndicatorCatSubComponents, hasOpCom, numberOfColumns) // sets up indicator guidance
+        
+        var dataStartRow = activeRow
 
         activeRow = addTopHeader(sheet, currentClass, CompanyObj, activeRow, file, numberOfIndicatorCatSubComponents, companyNumberOfServices) // sets up header
 
@@ -143,46 +149,48 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
 
             for (var currentStepComponent = 0; currentStepComponent < currentStepClength; currentStepComponent++) {
 
-                Logger.log("step.component : " + ResearchStepsObj.researchSteps[currentStep].labelShort + " : " + ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type)
+                var thisStepComponent = ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type
+
+                Logger.log("step.component : " + ResearchStepsObj.researchSteps[currentStep].labelShort + " : " + thisStepComponent)
 
                 // stores first row of a step to use later in naming a step
                 if (currentStepComponent == 0) { var firstRow = activeRow + 1; }
 
                 // all these functions make the type of substep that the step object specifies at this point
-                if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "header") {
+                if (thisStepComponent == "header") {
 
                     activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, companyNumberOfServices)
 
                 }
 
-                else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "elementDropDown") { //resultsDropDown
+                else if (thisStepComponent == "elementDropDown") { //resultsDropDown
                     activeRow = addScoringOptions(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
-                else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "miniElementDropDown") { //reviewDropDown
+                else if (thisStepComponent == "miniElementDropDown") { //reviewDropDown
                     activeRow = addBinaryEvaluation(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
-                else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "comments") {
+                else if (thisStepComponent == "comments") {
                     activeRow = addComments(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
-                else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "sources") {
+                else if (thisStepComponent == "sources") {
                     activeRow = addSources(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
-                else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "miniheader") { // rename to something more explicit
+                else if (thisStepComponent == "miniheader") { // rename to something more explicit
                     activeRow = addInstruction(ResearchStepsObj.researchSteps[currentStep], currentStepComponent, activeRow, activeCol, sheet)
                 }
 
-                else if (ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type == "comparison") {
+                else if (thisStepComponent == "comparison") {
                     activeRow = addComparisonYonY(sheet, thisIndicator, CompanyObj, activeRow, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
                 // if there are no more substeps, we store the final row and name the step
                 if (currentStepComponent == currentStepClength - 1) {
 
-                    var lastRow = activeRow
+                    lastRow = activeRow
                     var maxCol = 1 + (companyNumberOfServices + 2) * numberOfIndicatorCatSubComponents; // calculates the max column
 
                     // we don't want the researchs' names, so move firstRow by 1
@@ -200,5 +208,10 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
             }
         }
     // --- // END Main Step-Wise Procedure // --- //
+
+    // set font for whole data range
+    sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns).setFontFamily("Roboto").setWrap(true)
+
     }
+
 }
