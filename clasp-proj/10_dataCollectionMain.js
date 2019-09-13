@@ -139,56 +139,57 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
 
     // --- // Main Step-Wise Procedure // --- //
 
-        for (var currentStep = 0; currentStep < stepsLength; currentStep++) {
+        for (var stepNr = 0; stepNr < stepsLength; stepNr++) {
 
-            Logger.log("step : " + ResearchStepsObj.researchSteps[currentStep].labelShort)
+            var currentStep = ResearchStepsObj.researchSteps[stepNr]
+            Logger.log("step : " + currentStep.labelShort)
 
-            var currentStepClength = ResearchStepsObj.researchSteps[currentStep].components.length
+            var currentStepClength = currentStep.components.length
 
             // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
 
-            for (var currentStepComponent = 0; currentStepComponent < currentStepClength; currentStepComponent++) {
+            for (var stepCNr = 0; stepCNr < currentStepClength; stepCNr++) {
 
-                var thisStepComponent = ResearchStepsObj.researchSteps[currentStep].components[currentStepComponent].type
+                var thisStepComponent = currentStep.components[stepCNr].type
 
-                Logger.log("step.component : " + ResearchStepsObj.researchSteps[currentStep].labelShort + " : " + thisStepComponent)
+                Logger.log("step.component : " + currentStep.labelShort + " : " + thisStepComponent)
 
                 // stores first row of a step to use later in naming a step
-                if (currentStepComponent == 0) { var firstRow = activeRow + 1; }
+                if (stepCNr == 0) { var firstRow = activeRow + 1; }
 
                 // all these functions make the type of substep that the step object specifies at this point
                 if (thisStepComponent == "header") {
 
-                    activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, companyNumberOfServices)
+                    activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, numberOfIndicatorCatSubComponents, companyNumberOfServices)
 
                 }
 
                 else if (thisStepComponent == "elementDropDown") { //resultsDropDown
-                    activeRow = addScoringOptions(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
+                    activeRow = addScoringOptions(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
                 else if (thisStepComponent == "miniElementDropDown") { //reviewDropDown
-                    activeRow = addBinaryEvaluation(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
+                    activeRow = addBinaryEvaluation(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
                 else if (thisStepComponent == "comments") {
-                    activeRow = addComments(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
+                    activeRow = addComments(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
                 else if (thisStepComponent == "sources") {
-                    activeRow = addSources(sheet, thisIndicator, CompanyObj, activeRow, file, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
+                    activeRow = addSources(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
                 else if (thisStepComponent == "miniheader") { // rename to something more explicit
-                    activeRow = addInstruction(ResearchStepsObj.researchSteps[currentStep], currentStepComponent, activeRow, activeCol, sheet)
+                    activeRow = addInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
                 }
 
                 else if (thisStepComponent == "comparison") {
-                    activeRow = addComparisonYonY(sheet, thisIndicator, CompanyObj, activeRow, ResearchStepsObj.researchSteps[currentStep], currentStepComponent, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
+                    activeRow = addComparisonYonY(sheet, thisIndicator, CompanyObj, activeRow, currentStep, stepCNr, numberOfIndicatorCatSubComponents, currentClass, companyNumberOfServices)
                 }
 
                 // if there are no more substeps, we store the final row and name the step
-                if (currentStepComponent == currentStepClength - 1) {
+                if (stepCNr == currentStepClength - 1) {
 
                     lastRow = activeRow
                     var maxCol = 1 + (companyNumberOfServices + 2) * numberOfIndicatorCatSubComponents; // calculates the max column
@@ -199,9 +200,9 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
-                    var component = ""
+                    const component = ""
 
-                    var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', ResearchStepsObj.researchSteps[currentStep].labelShort, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
+                    var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
 
                     file.setNamedRange(stepNamedRange, range); // names an entire step
                 }

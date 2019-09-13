@@ -59,7 +59,7 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     firstSheet.clear()
 
     // Scoring Scheme / Validation
-    // TODO Refactor to module
+    // TODO Refactor to module and values to i.e. config.JSON
     firstSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
     firstSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
     firstSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
