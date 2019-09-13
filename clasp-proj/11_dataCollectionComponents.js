@@ -29,10 +29,11 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     var maxColHeadings = (2 + bridgeOpCom) *  (numberOfIndicatorCatSubComponents) + 1
     var maxRow = 1
 
+    // Indicator Label row
     var cell = currentSheet.getRange(row, col)
     cell.setValue(thisIndicator.labelShort + ". " + thisIndicator.labelLong + ": " + thisIndicator.description)
     cell.setFontWeight("bold")
-    cell.setFontSize(12)
+    cell.setFontSize(14)
     cell.setHorizontalAlignment("left")
     cell.setVerticalAlignment("middle")
     cell.setFontFamily("Oswald")
@@ -44,6 +45,7 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 
     row += 1
 
+    // Instruction
     cell = currentSheet.getRange(row, col)
     cell.setValue("Please read the indicator-specific guidance and discussions before starting the research:")
     cell.setFontWeight("bold")
@@ -59,6 +61,8 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     currentSheet.getRange(row, col, maxRow, numberOfColumns).setBackground("WhiteSmoke")
 
     row += 1
+
+    // Indicator elements
 
     cell = currentSheet.getRange(row, col)
     // cell.setValue("Elements for " + thisIndicator.labelShort + ":")
@@ -112,18 +116,16 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
     // Company (group) column(s)
     for (var i = 0; i < numberOfIndicatorCatSubComponents; i++) {
         var cell = currentSheet.getRange(activeRow, activeCol)
-        cell.setValue(CompanyObj.groupLabel); // adds text
-        cell.setBackground("#fff2cc"); // sets color
-        cell.setFontWeight('bold'); // makes text bold
-        cell.setWrap(true)
+        cell.setValue(CompanyObj.groupLabel)
+        cell.setBackground("#fff2cc") // sets color
+        cell.setFontWeight('bold') // makes text bold
         cell.setVerticalAlignment("top")
 
         // if it has components it adds the label in the next row
         if (currentClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
-            currentCell.setBackground("#fff2cc"); // sets color
-            currentCell.setWrap(true)
+            currentCell.setBackground("#fff2cc") // sets color
         } // close hasSubComponents if statement
 
         activeCol = activeCol + 1
@@ -139,7 +141,6 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
         cell.setValue(CompanyObj.opComLabel)
         cell.setBackground("#fff2cc")
         cell.setFontWeight('bold')
-        cell.setWrap(true)
         cell.setVerticalAlignment("top")
 
         // hides opCom column(s) if opCom == false
@@ -153,7 +154,6 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
             currentCell.setBackground("#fff2cc"); // sets color
-            currentCell.setWrap(true)
         }
 
         activeCol = activeCol + 1
@@ -166,15 +166,14 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
             cell.setValue(CompanyObj.services[i].label.current)
             cell.setBackground("#b7e1cd")
             cell.setFontWeight('bold')
-            cell.setWrap(true)
             cell.setVerticalAlignment("top")
+
 
             // if the indicator has components it adds them in the next row
             if (currentClass.hasSubComponents == true) {
                 var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
                 currentCell.setValue(currentClass.components[k].labelLong)
                 currentCell.setBackground("#b7e1cd"); // sets color
-                currentCell.setWrap(true)
             }
             activeCol = activeCol + 1
         }
@@ -211,7 +210,6 @@ function addInstruction(currentStep, currentStepComponent, activeRow, activeCol,
     cell.setValue(currentStep.components[currentStepComponent].label); // adding text
     cell.setBackground(currentStep.legacyColor)
     cell.setFontWeight('bold'); // bolding text
-    cell.setWrap(true); // wrapping text
     return activeRow + 1
 }
 
@@ -241,6 +239,7 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
     cell.setValue(text)
     cell.setBackground(currentStep.legacyColor)
     cell.setFontWeight('bold')
+    cell = textUnderline(cell)
 
     // for remaining company, opCom, and services columns it adds the filler
     for (var i = 1; i < (((companyNumberOfServices + 2) * numberOfIndicatorCatSubComponents) + 1); i++) {
@@ -404,7 +403,6 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                 // looping through the number of components
                 for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
                     var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol)
-                    thisCell.setWrap(true)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -428,7 +426,6 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                 for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
 
                     var thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol)
-                    thisCell.setWrap(true)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -450,7 +447,6 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                 for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
 
                     thisCell = currentSheet.getRange(activeRow + currentElementNr, activeCol)
-                    thisCell.setWrap(true)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -633,12 +629,8 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     var col = columnToLetter(value)
                     // TODO
                     var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")'
-                    // var formula = 'IF(' + compCellName + '=IMPORTRANGE("' + CompanyObj.urlPreviousYearResults + '","' + CompanyObj.tabPrevYearsOutcome + '!'
-                    // formula = formula + col + (currentIndicator.compRow + currentElementNr)
-                    // formula = formula + '"),"Yes","No")'
-                    formula.toString()
 
-                    thisCell.setValue(formula)
+                    thisCell.setFormula(formula.toString())
 
                     activeCol = activeCol + 1
                 } // close numberOfIndicatorCatSubComponents for loop
@@ -668,9 +660,8 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     var col = columnToLetter(value)
                     // TODO
                     var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")'
-                    formula.toString()
 
-                    thisCell.setFormula(formula)
+                    thisCell.setFormula(formula.toString())
 
 
                     activeCol = activeCol + 1
@@ -701,9 +692,8 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     var col = columnToLetter(value)
                     // TODO
                     var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + currentElementNr) + ',"Yes","No")'
-                    formula.toString()
 
-                    thisCell.setFormula(formula)
+                    thisCell.setFormula(formula.toString())
 
 
                     activeCol = activeCol + 1
@@ -761,7 +751,6 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
             // main company
             for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
                 var thisCell = currentSheet.getRange(activeRow, 1 + serviceNr + k)
-                thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -782,7 +771,6 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
             // opCom
             for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
                 var thisCell = currentSheet.getRange(activeRow, 1 + numberOfIndicatorCatSubComponents + k)
-                thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -803,8 +791,6 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
             // services
             for (var k = 0; k < numberOfIndicatorCatSubComponents; k++) {
                 var thisCell = currentSheet.getRange(activeRow, activeCol)
-
-                thisCell.setWrap(true); // sets wrap so that text doesn't bleed off the side
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
