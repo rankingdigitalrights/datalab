@@ -1,28 +1,41 @@
-var companyShortName = "apple" // in alignment with <company>.json
-
-var indexPrefix = 'RDR2019'
-var filenameSuffix = "v14"
+var indexPrefix = "RDR2019"
+var filenameSuffix = "v15"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var folderName = 'SpreadsheetCreationTEST' // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
+var folderName = "SpreadsheetCreationTEST" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
+var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI"
 
-// var companies = ["apple", "baidu", "etisalat", "mtn", "verizon"] // will be / needs to be
+// create Data Collection spreadsheets for all companies
+
 function mainAllCompaniesDataCollectionSheets() {
+
+	var companies = companiesVector.companies
+		.slice(0,1) // uncomment for using less companies
 
 	var stepsSubset = true
 	var indicatorSubset = true
 
-	  companiesVector.companies.forEach(function (thisCompany) {
-		mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
-	  })
-  }
+	companies.forEach(function (thisCompany) {
+		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
+		Logger.log("received fileID: " + fileID)
+		addFileIDtoControl("DC", thisCompany.label.current, fileID, Controlsheet)
+	})
+
+}
+
+// create Data Collection spreadsheets for all companies
 
 function mainAllCompaniesScoringSheets() {
 
+	var companies = companiesVector.companies
+		.slice(4,5) // uncomment for using less companies
+
 	var stepsSubset = true
 	var indicatorSubset = true
 
-	companiesVector.companies.forEach(function (thisCompany) {
-		mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)
+	companies.forEach(function (thisCompany) {
+		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)
+		Logger.log("received fileID: " + fileID)
+		addFileIDtoControl("SC", thisCompany.label.current, fileID, Controlsheet)
 	})
 }
 
@@ -30,23 +43,24 @@ function mainAllCompaniesScoringSheets() {
 // --- // single Company-level calls // --- //
 
 // --- Data Collection --- // 
-/**
- * 
- * @param {*} company 
- * @param {*} stepsSubset 
- * @param {*} indicatorSubset 
- */
+
 function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubset) {
 
-	createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix)
+	var fileID = createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix)
+	return fileID
 	// TODO return ID and add to control Spreadsheet
 }
 
 // --- Scoring --- //
+
 function mainCreateSingleScoringSheet(company, stepsSubset, indicatorSubset) {
-	createSpreadsheetSC(stepsSubset, indicatorSubset, company, filenameSuffix)
+	var fileID = createSpreadsheetSC(stepsSubset, indicatorSubset, company, filenameSuffix)
+	return fileID
 	// TODO return ID and add to controll Spreadsheet
 }
+
+
+// --- // Permissions // --- //
 
 // now defunct
 

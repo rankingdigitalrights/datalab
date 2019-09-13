@@ -40,11 +40,13 @@ function connectToSpreadsheetByName(spreadsheetName) {
     return Spreadsheet
 
   } else {
+
     // while (Spreadsheet.hasNext()) {
     // Nope. Only do for first Spreadsheet element
     var thisSpreadsheet = Spreadsheets.next();
     Logger.log("Folder " + thisSpreadsheet.getName() + " exists")
     Logger.log("locally connected to: " + thisSpreadsheet.getName());
+
     return SpreadsheetApp.open(thisSpreadsheet);
     // }
   }
@@ -73,3 +75,21 @@ function insertSheetIfNotExist(Spreadsheet, SheetName) {
   return Sheet;
 }
 
+
+function addFileIDtoControl(mode, company, fileID, Controlsheet) {
+
+  var spreadsheet = connectToSpreadsheetByID(Controlsheet)
+  var sheet = insertSheetIfNotExist(spreadsheet, mode)
+  sheet.appendRow([mode, company, fileID])
+  Logger.log("Entry added to Control")
+
+}
+
+function importRange(url, range) {
+
+  var formula = '=IMPORTRANGE("' + url + '","' + range + '")'
+  formula = formula.toString()
+  
+return formula
+
+}
