@@ -159,9 +159,7 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
 
                 // all these functions make the type of substep that the step object specifies at this point
                 if (thisStepComponent == "header") {
-
                     activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, numberOfIndicatorCatSubComponents, companyNumberOfServices)
-
                 }
 
                 else if (thisStepComponent == "elementDropDown") { //resultsDropDown
