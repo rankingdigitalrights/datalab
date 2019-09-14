@@ -5,6 +5,10 @@
       "userSymbol": "Drive",
       "serviceId": "drive",
       "version": "v2"
+    }, {
+      "userSymbol": "AppsActivity",
+      "serviceId": "appsactivity",
+      "version": "v1"
     }]
   },
   "exceptionLogging": "STACKDRIVER"
