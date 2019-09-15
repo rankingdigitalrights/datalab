@@ -1,155 +1,223 @@
+// --- // function to fetch Google Drive activity for all Data Collection Spreadsheets // --- //
+
+/*
+fetches atomic events for each spreadsheet from a defined folder of subfolders and adds the results to respective Sheets in an Output Spreadsheet
+*/
+
+/*
+Google Drive API documentation for Activities:
+https://developers.google.com/drive/activity/v1/reference/activities/list
+*/
+
 function getUsersActivityDC() {
 
-  var resultsSS = connectToSpreadsheetByName("TestingActivityDC")
+  // connect to Output Spreadsheet
+  var resultsSpreadsheet = connectToSpreadsheetByName("ActivityDCNamed")
 
-  var overviewSheet = "2019 DC"
+  // define name of Overview Sheet
+  var overviewSheetName = "2019 DC"
 
-  // check if overview sheet exists
-  var resultsSheet = resultsSS.getSheetByName(overviewSheet);
+  // check if Overview Sheet exists
+  var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName);
   // if not - process 
-  if (!resultsSheet) {
-    resultsSheet = insertSheetIfNotExist(resultsSS, overviewSheet)
-    resultsSheet.clear()
-    resultsSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
+  if (!overViewSheet) {
+    overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName)
+    overViewSheet.clear()
+    overViewSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
   }
 
+  // fetch target folder with Spreadsheets of interest
   var folderOfInterest = DriveApp.getFoldersByName("2019 RDR Research Data Collection").next()
-  Logger.log(folderOfInterest)
+
+  // as Data Collection is structured into subfolders
+  // fetch all subfolders with Spreadsheets of interest
   var subFoldersOfInterest = folderOfInterest.getFolders()
 
-  var sheets = resultsSS.getSheets()
+  // fetch Sheet names from resultsSpreadsheet to check which Spreadsheets have been processed already
+  var sheets = resultsSpreadsheet.getSheets()
 
-  // as long as there are subfolders
+  // for each Subfolder
   while (subFoldersOfInterest.hasNext()) {
     // enter subfolder
     var thisFolder = subFoldersOfInterest.next()
-    // fetch all SS
+    // fetch all Spreadsheets
     var spreadsheets = thisFolder.getFilesByType("application/vnd.google-apps.ritz")
-    // for each SS of this subfolder
+    // for each Spreadsheet of this subfolder
     while (spreadsheets.hasNext()) {
-      // enter SS
+      // enter Spreadsheet
       var spreadsheet = spreadsheets.next()
+      // get Spreadsheet Name
+
       var thisCompany = spreadsheet.getName()
 
       // check if company is already in results
-      var testGet = resultsSS.getSheetByName(thisCompany);
+      var testGet = resultsSpreadsheet.getSheetByName(thisCompany);
 
       // if not - process 
       if (!testGet) {
 
         Logger.log(thisCompany + " yet missing")
 
-        // add to overview
-        resultsSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
+        // add general Spreadsheet info to Overview Sheet
+        overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
 
-        // create Sheet
-        resultsSheet = insertSheetIfNotExist(resultsSS, thisCompany)
+        // create a Results Sheet for this Spreadsheet
+        var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany)
         resultsSheet.clear()
+        resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
 
-        var fileId = spreadsheet.getId();
+        var fileId = spreadsheet.getId()
 
-        var pageToken;
+        var pageToken
 
-        // for fileID fetch all activities
+        // for fileID := Spreadsheet.fileId() fetch all activities from Google Drive
+        // for each page of results
+
+        var entry = 0 // for continious activity numbery across multiple results pages
+
         do {
           var result = AppsActivity.Activities.list({
             'drive.fileId': fileId,
             'source': 'drive.google.com',
             'pageToken': pageToken
-          });
+          })
           var activities = result.activities;
+
+          // for each distinct activity
           for (var i = 0; i < activities.length; i++) {
-            // event blocks
-            var events = activities[i].singleEvents;
-            resultsSheet.appendRow([events.toString()])
+
+            entry += 1
+
+            // pull out activity
+
+            var events = activities[i].singleEvents
+
+            // for all atomic events of this activity
             for (var j = 0; j < events.length; j++) {
-              // single events
-              var event = events[j];
-              resultsSheet.appendRow([event.toString()])
+              // pull out atomic event
+              var event = events[j]
+              // add event data to resultsSheet
+              // vars: entry, activityNr, eventNr, time (POSIX), file, primary Action, secondary Action, user
+              resultsSheet.appendRow([entry, i + 1, j + 1, event.eventTimeMillis, event.target.name, event.primaryEventType, event.additionalEventTypes.toString(), event.user])
             }
+
           }
           pageToken = result.nextPageToken;
         } while (pageToken)
 
-      } else { Logger.log(thisCompany + " already processed") }
-    }
-  }
+      } else {
+        Logger.log(thisCompany + " already processed")
+      }
+    } // end spreadsheet
+
+  } // end subfolder
+
 }
+
+// --- // function to fetch Google Drive activity for all Scoring Spreadsheets (Companies, Summary Scores, Year-on-Year Comparison // --- //
+
+/* 
+fetches atomic events for each spreadsheet from a defined folder and adds the results to respective Sheets in an Output Spreadsheet
+*/
+
+/*
+Google Drive API documentation for Activities:
+https://developers.google.com/drive/activity/v1/reference/activities/list 
+*/
 
 function getUsersActivitySC() {
 
-  var resultsSS = connectToSpreadsheetByName("TestingActivitySC")
+  // connect to Output Spreadsheet
+  var resultsSpreadsheet = connectToSpreadsheetByName("ActivitySCNamed")
 
-  var overviewSheet = "2019 SC"
+  // define name of Overview Sheet
+  var overviewSheetName = "2019 SC"
 
-  //check if overview sheet exists
-  var resultsSheet = resultsSS.getSheetByName(overviewSheet);
+  // check if Overview Sheet exists
+  var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
   // if not - process 
-  if (!resultsSheet) {
-    resultsSheet = insertSheetIfNotExist(resultsSS, overviewSheet)
-    resultsSheet.clear()
-    resultsSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
+  if (!overViewSheet) {
+    overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName)
+    overViewSheet.clear()
+    overViewSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
   }
 
+  // fetch target folder with Spreadsheets of interest
   var folderOfInterest = DriveApp.getFoldersByName("2019 Scoring").next()
   Logger.log(folderOfInterest)
-  // var subFoldersOfInterest = folderOfInterest.getFolders()
 
-  var sheets = resultsSS.getSheets()
+  // fetch Sheet names from resultsSpreadsheet to check which Spreadsheets have been processed already
+  var sheets = resultsSpreadsheet.getSheets()
 
-  // as long as there are subfolders
-  // while (subFoldersOfInterest.hasNext()) {
-  // enter subfolder
+  // enter folder
   var thisFolder = folderOfInterest
-  // fetch all SS
+  // fetch all Spreadsheets
   var spreadsheets = thisFolder.getFilesByType("application/vnd.google-apps.ritz")
-  // for each SS of this subfolder
+
+  // for each Spreadsheet of this folder
   while (spreadsheets.hasNext()) {
-    // enter SS
+    // enter Spreadsheet
     var spreadsheet = spreadsheets.next()
+    // get Spreadsheet Name
     var thisCompany = spreadsheet.getName()
 
     // check if company is already in results
-    var testGet = resultsSS.getSheetByName(thisCompany);
+    var testGet = resultsSpreadsheet.getSheetByName(thisCompany)
 
     // if not - process 
     if (!testGet) {
 
       Logger.log(thisCompany + " yet missing")
 
-      // add to overview
-      resultsSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
+      // add general Spreadsheet info to Overview Sheet
+      overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
 
-      // create Sheet
-      resultsSheet = insertSheetIfNotExist(resultsSS, thisCompany)
+      // create a Results Sheet for this Spreadsheet
+      var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany)
       resultsSheet.clear()
+      resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
 
-      var fileId = spreadsheet.getId();
+      var fileId = spreadsheet.getId()
 
       var pageToken;
 
-      // for fileID fetch all activities
+      // for fileID := Spreadsheet.fileId() fetch all activities from Google Drive
+      // for each page of results
+
+      var entry = 0 // for continious activity numbery across multiple results pages
       do {
         var result = AppsActivity.Activities.list({
           'drive.fileId': fileId,
           'source': 'drive.google.com',
           'pageToken': pageToken
-        });
+        })
+
         var activities = result.activities;
+
+        // for each distinct activity
         for (var i = 0; i < activities.length; i++) {
-          // event blocks
+
+          entry += 1
+
+          // pull out activity
           var events = activities[i].singleEvents;
-          resultsSheet.appendRow([events.toString()])
+
+          // for all atomic events of this activity
           for (var j = 0; j < events.length; j++) {
-            // single events
+            // pull out atomic event
             var event = events[j];
-            resultsSheet.appendRow([event.toString()])
+            // add event data to resultsSheet
+            // vars: activityNr, eventNr, time (POSIX), file, primary Action, secondary Action, user
+            resultsSheet.appendRow([entry, i + 1, j + 1, event.eventTimeMillis, event.target.name, event.primaryEventType, event.additionalEventTypes.toString(), event.user])
           }
         }
         pageToken = result.nextPageToken;
       } while (pageToken)
 
-      // resultsSheet.appendRow([Object.keys(users)])
-    } else { Logger.log(thisCompany + " already processed") }
-  }
+    } else {
+      Logger.log(thisCompany + " already processed")
+    } // end spreadsheet
+
+  } // end folder
+
 }
