@@ -1,7 +1,7 @@
 var indexPrefix = "RDR2019"
-var filenameSuffix = "v15"
+var filenameSuffix = "MLS"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var folderName = "SpreadsheetCreationTEST" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
+var folderName = "Spreadsheets Test" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
 var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI"
 
 // create Data Collection spreadsheets for all companies
@@ -9,7 +9,7 @@ var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI"
 function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
-		.slice(0,1) // uncomment for using less companies
+		// .slice(0,1) // uncomment for using less companies
 
 	var stepsSubset = true
 	var indicatorSubset = true
@@ -27,7 +27,7 @@ function mainAllCompaniesDataCollectionSheets() {
 function mainAllCompaniesScoringSheets() {
 
 	var companies = companiesVector.companies
-		.slice(4,5) // uncomment for using less companies
+		// .slice(4,5) // uncomment for using less companies
 
 	var stepsSubset = true
 	var indicatorSubset = true

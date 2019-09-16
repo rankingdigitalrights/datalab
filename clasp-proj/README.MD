@@ -36,17 +36,20 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 ## Quick Start
 
+> **Not up-to-date!**
+
 > IMPORTANT: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` in your IDE or copy/paste code from your browser into git. If you `push` \ `pull` all targets' files will be overwritten
 
 1. log-in as `rdresearch`
 2. open [My Projects](https://script.google.com/home/my) to get an overview of your GAS projects or go directly to the [`Spreadsheet Automation` project](https://script.google.com/a/opentechinstitute.org/d/1ZrUTGLLDXMZxkDB8BRaBpPb-p4ObTJrKI8FfJUN6cL10Iggc0TTalSC5)
 3. `00_mainController.gs` should open automatically. If not, open this script. This is the **main interface** to config and run all modules.
-4. edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))
+4. ~~edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))~~ (now vectorized; control over `.slice(0,1)`)
 5. double-check `folderName` if you need a specific folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `parentFolderID`)
-6. edit the `main<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
+6. edit the variables in the `main<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
 7. in the submenu (grey), choose the function to run, and click play. 
 8. wait for the script to finish. Optionally, hit `Ctrl + Enter` to see the log.
 9. open the output folder in Google Drive (should be under `My Drive`) and inspect the output
+10. if DC: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the companies.json (`company.urlCurrentDataCollectionSheet`)
 
 > If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to update the file IDs in the respective company `JSON` files, i.e. `urlCurrentDataCollectionSheet` or `urlCurrentCompanyScoringSheet`. Otherwise, you will have to update `IMPORTRANGE=ID` by hand.
 
