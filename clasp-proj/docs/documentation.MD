@@ -19,33 +19,41 @@
 
 > Following the initial development of the data collection spreadsheets by G.W. and I.S., the whole project has been extended and fundamentally restructured and refactored. There's still a lot of clean-up and refactoring tbd, but so far, the core modules and features are maintainable, naming of the ranges is centralized, the project can output to specific folders (within allowed scope) and so on.
 
-To provide contributors with a cognitive model of this project, it is helpful to distinguish between the development environment (the source code stored on `git`, edited locally with an editor, `clasp` for syncing with Google), the execution / runtime environment (Google Apps Script online editor), and the output environment (Google Drive). Currently, the `JSON` files build the fourth component as they are stored on a stage server. This has to be changed yet.
+To provide contributors with a cognitive model of this project, it is helpful to distinguish between 
+
++ the development environment (the source code stored on `git`, edited locally with an editor, `clasp` for syncing with Google),
++ the execution / runtime environment (Google Apps Script online editor),
++ and the output environment (Google Drive).
+
+Currently, the `JSON` files build the fourth component as they are stored on a stage server. This has to be changed yet, and has been changed for the companies vector.
 
 ## Architecture / Ecosystem
 
 The core idea is that,
     
-a) based on a set of `parameters` (indicators, research steps, companies) **currently** provided as JSON files
+a) based on a set of `parameter vectors` (indicators, research steps, companies) **currently** provided as JSON files and JSON objects (`01_JSON_companies.js`)
 
-b) for each `company` you 
+b) for each `company` you
 
-c) first create the `data collection spreadsheet` with `mainCreateDataCollectionSheet()`, which will be located in `parentFolderID/folderName` of `@rdresearch`'s Drive.
++ first create the `data collection spreadsheet` with `mainAllCompaniesDataCollectionSheets()`, which will be located in `parentFolderID/folderName` of `@rdresearch`'s Drive.
 
-> The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `<company>.json` / `companies.company.urlCurrentDataCollectionSheet`.
+  > The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `01_JSON_companies.js/<company>` Object.
 
-d) to set step-wise editing `permissions` for the data collection sheet, run `mainPermissions()`.
++ currently defunct: ~~to set step-wise editing `permissions` for the data collection sheet, run `mainPermissions()`~~
 
-e) you create the `company scoring sheet` with `mainCreateScoringSheet()`.
++ then create the `company scoring sheet` with `mainCreateScoringSheet()`.
 
-In the near future, all outputs should be tracked in a `Master Spreadsheet`.
+  > ~~In the near future~~ Currently, all outputs are tracked in a `00_Test`.
 
 Eventually, all control should be moved to a `Master Spreadsheet`.
 
 ### Main Modules
 
-The basic structure is now modular, with core modules starting with `0x`.
+The basic structure is now modular, with control modules starting with `0x` and core modules being in `1x` (DC), and `2x` (SC).
 
-As modules were created and eventually refactored and synchronized, most modules and methods operate on the same set of parameters. Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` while working on `01_dataCollection.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**)  as it make brake e.g. `03_scoring.js`.
+Core modules have been split into a main high-level caller (`x0`) and lower-level helper (`x1`, `x2` and so on) to upheld readability and enable affordable maintenance.
+
+As modules were subsequently introduced, and eventually refactored, most modules and methods operate on the same set of parameters. Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` JSON while working on `10_dataCollectionMain.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**)  as it might (or rather **will**) break e.g. `21_scoringComponents.js`.
 
 **Modules**:
 
@@ -53,24 +61,30 @@ As modules were created and eventually refactored and synchronized, most modules
   
   > `00_mainController` - supposed to be the central touchpoint for any activity.
 
-  Here you define the `company`, the `Index prefix`, and the target output folder, and then config and run the respective modules for creating data collection (DC) spreadsheets or the company-level scoring (SC) spreadsheets from the main controller. The third module is setting permissions for the data collection sheets.
+  Here you define some global variables such as the `Index prefix`, and the target output folder, or whether to use subsets, and then run the respective modules for creating sets of data collection (DC) spreadsheets or sets of company-level scoring (SC) spreadsheets from the main controller. The third module is setting permissions for the data collection sheets, which is currently not maintained.
 
-  Each main method call has parameter for using subsets of indicators or subsets of research steps. Right now, these subsets are hardcoded in JSON files which are assigned in `99_importJSON`
+  Each main method call picks up the global parameters for using subsets of indicators or subsets of research steps. Right now, these subsets are hardcoded in JSON files which are then assigned in `99_importJSON`.
+
+  To subset companies, currently you have to stick to `companies.slice(indexOfFirstCompany,length)` in the respective caller.
 
 + Data Collection Spreadsheets
 
-  > `01_dataCollection` - core module for the creation of a single company-level data collection spreadsheet
+  > `10_dataCollectionMain.js` - core module for the creation of a single company-level data collection spreadsheet
 
-  Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restructuring it probably needs to be updated.
+  > `11_dataCollectionComponents.js` - lower-level helper functions for the data collection production
 
-  > `02_permissions.js` - core module for setting / removing step-wise permission for `data collection spreadsheets`
+  Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restructuring it needs to be updated.
+
+  > `12_permissions.js` - core module for setting / removing step-wise permission for `data collection spreadsheets` - currently not operational
 
   + currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; un-protecting / assigning editors de-facto not effective with external users (due to missing scope permission). As we are currently using `rdresearch`, and all non-OTI accounts are external...
   + in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
 
 + Company Scoring Spreadsheets
 
-  > `03_scoring.js` (TBD)
+  > `20_scoringMain.js` (TBD)
+
+  > `21_scoringComponents.js` (TBD)
 
   > Best, add `DC fileID` to `<company>.json` before casting `SC`
 
@@ -91,25 +105,30 @@ As modules were created and eventually refactored and synchronized, most modules
 
   + research steps
   + indicators
-  + companies
   + config (not operational yet)
 
 + Git-only
 
-  + `00_vectors.js` & `var = companiesObj {}`
+  + `01_JSON_companies.js` & `var = companiesObj {}`
   + tbd: `ssh` into `git`
 
 #### Research Steps
 
+> currently redundant, therefore no SSOT. Need to introduce parameterized subsetting functions
+
++ all
 + subsets
 
 #### Indicators
 
+> currently redundant, therefore no SSOT. Need to introduce parameterized subsetting functions
+
++ all
 + subsets
 
 #### Companies JSON
 
-> perliminary: make sure that **services are listed in order** of previous Index' listing (i.e. prepaid, postpaid, broadband)
+> perliminary: make sure that **services children are listed in order** of previous Index' listing (i.e. prepaid, postpaid, broadband)
 
 + **Guidelines**
 
@@ -120,13 +139,11 @@ As modules were created and eventually refactored and synchronized, most modules
 ![VSCode with JSON Editor Plugin](img/vscode_json_editor.jpg)
 (*Screenshot: VSCode with JSON Editor Plugin: JSON file is opened on the left, the visual editor on the right.*)
 
-
 #### Config
 
 > should define Index, methodology / sets, companies, folders, maybe map editors to companies
 
-
-<hr/>
+---
 
 ## Environment & Recommended Setup
 
@@ -152,7 +169,7 @@ As modules were created and eventually refactored and synchronized, most modules
 (*Screenshot: VSCode with tripartite Layout: `01_dataCollection.js` on the left; `99_importJSON.js` helper module on the top right; `00_mainController.js` on the bottom right. Terminal with `clasp push` on the bottom.*)
 
 + npm clasp
-+ npm types/gas
++ npm types/@google-apps-script
 + .claspignore
 + .gitignore
 + typescript.json
@@ -171,6 +188,10 @@ As modules were created and eventually refactored and synchronized, most modules
 
 ### Learnings
 
++ if you update existing files, named ranges are not removed by sheet.clear()
++ max. runtime is 30 minutes / 1800 seconds. If your script breaks due to runtime error, you can see the log (Ctrl+Enter in the online editor) to see which company was processed last, delete the output for this company, and re-run the script with a subset, starting with the unfinished company.
++ also, you can run multiple scripts in parallel...
+
 ### To be explored
 
 + Collaboration:
@@ -180,5 +201,5 @@ As modules were created and eventually refactored and synchronized, most modules
 + Refactoring:
 
   + start with VSCode [refactoring](https://code.visualstudio.com/docs/editor/refactoring)
-  + see array vs cell-based operations https://stackoverflow.com/questions/35289183/long-processing-time-likely-due-to-getvalue-and-cell-inserts
-  + array in general https://stackoverflow.com/questions/49020131/how-much-faster-are-arrays-than-accessing-google-sheets-cells-within-google-scri
+  + see [array vs cell-based operations](https://stackoverflow.com/questions/35289183/long-processing-time-likely-due-to-getvalue-and-cell-inserts)
+  + [arrays in GAS in general](https://stackoverflow.com/questions/49020131/how-much-faster-are-arrays-than-accessing-google-sheets-cells-within-google-scri)

@@ -53,10 +53,10 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 9. open the output folder in Google Drive (should be under `My Drive`) and inspect the output
 10. if you created new data collection sheets: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the 
 
-> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Test` spreadsheet and update them for the respective `01_JSON_companies.js/<company>` (param `company.urlCurrentDataCollectionSheet`), i.e.
+> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Test` spreadsheet and update them for the respective `01_JSON_companies.js/<company>`, i.e. params
 
-+ `urlCurrentDataCollectionSheet`
-+ `urlCurrentCompanyScoringSheet`
++ `companies.<company>.urlCurrentDataCollectionSheet`
++ `companies.<company>.urlCurrentCompanyScoringSheet`
 
 Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by hand.
 
