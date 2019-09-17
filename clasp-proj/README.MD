@@ -13,59 +13,74 @@
 
 ## Intro
 
-This is the project folder for RDR's spreadsheet development.
+This is the project folder for RDR's spreadsheet automation development.
 
 ![The development environment](docs/img/dev_environment.jpg)
-(*The Development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
+(*The development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
 
 The current scope of the Spreadsheet development is to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
 
-The environment utilizes [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is executed through the [browser](https://script.google.com/home/my) and runs online on Google's servers.
+The environment utilizes [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is executed through the [browser](https://script.google.com/home/my) and runs online on Google's servers. Output is stored in Google Drive. 
 
-While you can edit and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing and collaboration, and so on, it is recommend **to use Git, [`clasp`](https://github.com/google/clasp), and an IDE** of choice (i.e. VSCode for easier interaction with NodeJS/npm). This enables you to edit code locally with a proper development environment, store your code in a git* repository, and push/pull the code to GAS to execute online.
+While you *can edit* and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing, collaboration, issue-tracking, and so on, it is recommend **to use Git, [`clasp`](https://github.com/google/clasp), and an IDE** of choice (i.e. VSCode for easier integration with NodeJS/npm). This setup enables you to edit code locally with a proper development environment, store your code in a git* repository, and push/pull the code to GAS to execute online.
 
 > **TL;DR:**
-
-+ define in JSONs
-+ develop locally
-+ execute & operate online
+>
+> + define in JSONs
+> + develop locally
+> + execute & operate online
 
 Following the initial proof-of-concept with G.W., the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google file. However, executing the code with any other account than `rdresearch` is not authorized currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`)
 
-> Conventions: Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js` and ignore implications as clasp auto-converts between file types.
+## Conventions
+
++ Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js` and ignore implications as clasp auto-converts between file types.
+
++ **IMPORTANT**: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` from your IDE or copy/paste code from your browser into git. If you `push` \ `pull`, all targets' files will be overwritten.
+
+---
 
 ## Quick Start
 
-> **Not up-to-date!**
-
-> IMPORTANT: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` in your IDE or copy/paste code from your browser into git. If you `push` \ `pull` all targets' files will be overwritten
-
 1. log-in as `rdresearch`
 2. open [My Projects](https://script.google.com/home/my) to get an overview of your GAS projects or go directly to the [`Spreadsheet Automation` project](https://script.google.com/a/opentechinstitute.org/d/1ZrUTGLLDXMZxkDB8BRaBpPb-p4ObTJrKI8FfJUN6cL10Iggc0TTalSC5)
-3. `00_mainController.gs` should open automatically. If not, open this script. This is the **main interface** to config and run all modules.
-4. ~~edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))~~ (now vectorized; control over `.slice(0,1)`)
+3. `00_mainController.gs` should open automatically. If not, open the script. This is the **main interface** to config and run all **core** modules.
+4. ~~edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))~~ (now vectorized; subset with `.slice(0,1)`)
 5. double-check `folderName` if you need a specific folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `parentFolderID`)
-6. edit the variables in the `main<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
-7. in the submenu (grey), choose the function to run, and click play. 
-8. wait for the script to finish. Optionally, hit `Ctrl + Enter` to see the log.
+6. edit the `subset` variables in the `mainAllCompanies<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
+7. in the sub-menu (grey), choose the function to run, and click play.
+8. wait for the script to finish. When done, optionally hit `Ctrl + Enter` to inspect the log.
 9. open the output folder in Google Drive (should be under `My Drive`) and inspect the output
-10. if DC: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the companies.json (`company.urlCurrentDataCollectionSheet`)
+10. if you created new data collection sheets: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the 
 
-> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to update the file IDs in the respective company `JSON` files, i.e. `urlCurrentDataCollectionSheet` or `urlCurrentCompanyScoringSheet`. Otherwise, you will have to update `IMPORTRANGE=ID` by hand.
+> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Test` spreadsheet and update them for the respective `01_JSON_companies.js/<company>` (param `company.urlCurrentDataCollectionSheet`), i.e.
 
-> If you run into runtime issues (e.g. endless loop), you can inspect and interrupt current executions under [My Executions](https://script.google.com/u/3/home/executions)
++ `urlCurrentDataCollectionSheet`
++ `urlCurrentCompanyScoringSheet`
 
-<hr/>
+Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by hand.
 
-### Changelog
+> If you run into runtime issues (e.g. endless loop), you can inspect and **terminate** current executions under [My Executions](https://script.google.com/u/3/home/executions). The status in the online editor is just a front-end gimmick and is actually not at all connected to the execution itself, i.e. you can refresh or close the browser and/or start a new execution, and it will not impact the one already running.
 
-> Keep track of new developments here, document your progress, also explicitly indicate breaking changes
+---
 
-**Current dev goal**: replicate a subset of 2019 DC & SC to identify shortcomings
+## Changelog
+
+> Keep track of new developments here, document your progress, also explicitly indicate **breaking** changes
+
+**Current dev goals**:
+
++ review the generated subset of 2019 DC & SC to identify shortcomings
++ prototype aggregation of scores (e.g. Summary Scores, Custom Tables)
 
 2019 September
 
-+ Company JSON is now fetched locally (from a global var in `00_vectors.js`) <-- new **SSOT**
++ added Drive activity parser, that can return atomic activity events (only when document is changed) for sets of spreadsheets (i.e. time, operation, user). Apart from stats, this could be used for triggering actions.
++ **new Dev Capacity** JS/GAS: added first [`polyfill`](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill): `array.proto.includes`. More to come with further refactoring.
++ implemented layout/formatting options for DC & SC; also: Roboto as default Font Family for better readability; TBD: needs to be refactored into single function
++ introduced coloring based on indicator category
++ **new Feature** `FileID`s of new spreadsheet files are now returned and added to `00_Test` spreadsheet in root of `2019 Back-end testing` folder
++ **new SSOT**: Company JSON is now fetched locally (from a global var in `01_JSON_companies.js`)
 + added Indicator Instructions to `DC`
 + added header formatting patterns; refactoring to `function` TBD
 + split up `data collection` into main and helpers to reduce strain
@@ -89,6 +104,6 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 ### Documentation
 
-> To keep things readable, the documentation is kept and maintained in a dedicated document.
+> To keep things readable, the documentation is maintained in a separate document.
 
 + [**Documentation**](docs/documentation.MD)
