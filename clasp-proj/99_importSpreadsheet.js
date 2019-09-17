@@ -80,7 +80,8 @@ function addFileIDtoControl(mode, company, fileID, Controlsheet) {
 
   var spreadsheet = connectToSpreadsheetByID(Controlsheet)
   var sheet = insertSheetIfNotExist(spreadsheet, mode)
-  sheet.appendRow([mode, company, fileID])
+  var formula = '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
+  sheet.appendRow([mode, company, fileID, formula])
   Logger.log("Entry added to Control")
 
 }
