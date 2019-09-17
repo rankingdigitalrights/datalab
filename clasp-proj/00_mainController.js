@@ -1,8 +1,18 @@
+// --- // Main Config // --- //
+
 var indexPrefix = "RDR2019"
 var filenameSuffix = "MLS"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
 var folderName = "Spreadsheets Test" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
-var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI"
+
+var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Test
+
+// --- // Subset params // --- //
+
+var stepsSubset = true // true := use subset
+var indicatorSubset = true // true := use subset
+
+// --- // MAIN CALLER // --- //
 
 // create Data Collection spreadsheets for all companies
 
@@ -10,9 +20,6 @@ function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
 		// .slice(0,1) // uncomment for using less companies
-
-	var stepsSubset = true
-	var indicatorSubset = true
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
@@ -22,15 +29,12 @@ function mainAllCompaniesDataCollectionSheets() {
 
 }
 
-// create Data Collection spreadsheets for all companies
+// create Scoring spreadsheets for all companies
 
 function mainAllCompaniesScoringSheets() {
 
 	var companies = companiesVector.companies
 		// .slice(4,5) // uncomment for using less companies
-
-	var stepsSubset = true
-	var indicatorSubset = true
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)
@@ -39,6 +43,8 @@ function mainAllCompaniesScoringSheets() {
 	})
 }
 
+/* ---------------------------------------------------- */
+/* do not run these by hand */
 
 // --- // single Company-level calls // --- //
 
@@ -48,7 +54,6 @@ function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubs
 
 	var fileID = createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix)
 	return fileID
-	// TODO return ID and add to control Spreadsheet
 }
 
 // --- Scoring --- //
@@ -56,7 +61,6 @@ function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubs
 function mainCreateSingleScoringSheet(company, stepsSubset, indicatorSubset) {
 	var fileID = createSpreadsheetSC(stepsSubset, indicatorSubset, company, filenameSuffix)
 	return fileID
-	// TODO return ID and add to controll Spreadsheet
 }
 
 
