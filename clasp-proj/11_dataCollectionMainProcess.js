@@ -1,0 +1,156 @@
+// ## BEGIN High-level functions | main components ## //
+
+// TODO: Explain in a few sentences what the whole function is doing
+// List the parameters and where their values are coming from
+
+
+function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, colWidth, hasOpCom) {
+
+    // for each indicator
+    // - create a new Sheet
+    // - name the Sheet
+    // -
+    var thisIndClassLength = currentClass.indicators.length
+
+    // iterates over each indicator in the current type
+    // each indicator == distinct Sheet do
+
+    var lastRow
+
+    for (var i = 0; i < thisIndClassLength; i++) {
+
+        var thisIndicator = currentClass.indicators[i]
+        Logger.log("indicator :" + thisIndicator.labelShort)
+
+        var sheet = insertSheetIfNotExist(file, thisIndicator.labelShort)
+            .clear()
+            .setTabColor(currentClass.classColor)
+
+        // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
+        var nrOfIndSubComps = 1
+        if (currentClass.hasSubComponents == true) {
+            nrOfIndSubComps = currentClass.components.length
+        }
+
+        // general formatting of sheet
+        // TODO: think about where to refactor to
+        sheet.setColumnWidth(1, colWidth)
+
+        var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
+
+        // TODO: this formatting is ineffcient
+        for (var col = 2; col <= numberOfColumns; col++) {
+            sheet.setColumnWidth(col, colWidth / nrOfIndSubComps)
+        }
+
+        // start sheet in first top left cell
+        var activeRow = 1
+        var activeCol = 1
+
+        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns) // sets up indicator guidance
+
+        var dataStartRow = activeRow
+
+        var mainStepsLength = ResearchStepsObj.researchSteps.length
+
+        // --- // Begin Main Step-Wise Procedure // --- //
+
+        // for each main step
+        for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
+
+            var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
+            // setting up all the substeps for all the indicators
+
+            Logger.log("main step : " + thisMainStep.step)
+            var subStepsLength = thisMainStep.substeps.length
+
+            activeRow = addCompanyHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStep.step) // sets up header
+
+            var beginStep = activeRow
+            var endStep = activeRow
+
+            // --- // Begin sub-Step-Wise Procedure // --- //
+
+            // for each substep
+            for (var subStepNr = 0; subStepNr < subStepsLength; subStepNr++) {
+
+                var currentStep = thisMainStep.substeps[subStepNr]
+                Logger.log("substep : " + currentStep.labelShort)
+
+                var currentStepClength = currentStep.components.length
+
+                // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
+
+                // stores first row of a step to use later in naming a step
+                var firstRow = activeRow + 1
+
+                // Begin step component procedure
+                for (var stepCNr = 0; stepCNr < currentStepClength; stepCNr++) {
+
+                    var thisStepComponent = currentStep.components[stepCNr].type
+
+                    Logger.log("step.component : " + currentStep.labelShort + " : " + thisStepComponent)
+
+                    // create the type of substep component that is specified in the json
+                    // TODO: refactor to switch()
+
+                    if (thisStepComponent == "header") {
+                        activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    } else if (thisStepComponent == "elementDropDown") { //resultsDropDown
+                        activeRow = addScoringOptions(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    } else if (thisStepComponent == "miniElementDropDown") { //reviewDropDown
+                        activeRow = addBinaryEvaluation(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    } else if (thisStepComponent == "comments") {
+                        activeRow = addComments(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    } else if (thisStepComponent == "sources") {
+                        activeRow = addSources(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    } else if (thisStepComponent == "miniheader") { // rename to something more explicit
+                        activeRow = addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
+                    } else if (thisStepComponent == "comparison") {
+                        activeRow = addComparisonYonY(sheet, thisIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    }
+
+                    // if there are no more substeps, we store the final row and name the step
+                    if (stepCNr == currentStepClength - 1) {
+
+                        lastRow = activeRow
+                        groupEnd = activeRow
+
+                        var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps; // calculates the max column
+
+                        // we don't want the researchs' names, so move firstRow by 1
+                        var range = sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1)
+
+                        // cell name formula; output defined in 44_rangeNamingHelper.js
+                        const component = ""
+                        var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
+
+                        file.setNamedRange(stepNamedRange, range); // names an entire step
+
+                        range.shiftRowGroupDepth(1);
+                        endStep = activeRow
+                    }
+                    
+                } // END step component procedure
+
+                endStep = activeRow
+            } // --- // END Sub-Step-Wise Procedure // --- //
+            
+            activeRow += 1
+        
+        // group whole step and make main step header row the anchor
+        var rangeStep = sheet.getRange(beginStep + 1, 1, endStep - beginStep, numberOfColumns)
+        Logger.log("collapsing whole step for range :" + rangeStep.getA1Notation())
+        rangeStep.shiftRowGroupDepth(1);
+
+        } // --- // END Main-Step-Wise Procedure // --- //
+
+
+        // set font for whole data range
+        sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns).setFontFamily("Roboto").setWrap(true)
+
+        // collapse all groups
+        // sheet.collapseAllRowGroups();
+
+    } // End of Indicator Sheet
+} // End of populating process

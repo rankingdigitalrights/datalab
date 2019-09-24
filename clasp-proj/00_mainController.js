@@ -1,9 +1,9 @@
 // --- // Main Config // --- //
 
 var indexPrefix = "RDR2019"
-var filenameSuffix = "MLS"
+var filenameSuffix = "Pilot"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var folderName = "Spreadsheets Test" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
+var folderName = "Pilot Drafts" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
 
 var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Test
 
@@ -19,7 +19,7 @@ var indicatorSubset = true // true := use subset
 function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
-		// .slice(0,1) // uncomment for using less companies
+		.slice(0,1) // uncomment for using less companies
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
@@ -52,7 +52,9 @@ function mainAllCompaniesScoringSheets() {
 
 function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubset) {
 
-	var fileID = createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix)
+	var stepsObject = researchStepsVector
+	var indicatorsObject = indicatorsVector
+	var fileID = createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix, stepsObject, indicatorsObject)
 	return fileID
 }
 

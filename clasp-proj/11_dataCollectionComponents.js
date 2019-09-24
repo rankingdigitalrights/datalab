@@ -83,6 +83,18 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
         row += 1
     })
 
+    row += 1
+    var indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
+
+    cell = currentSheet.getRange(row, col - 1, 1, 2)
+        .setValues([["Link to Research Guidance:", indicatorLink]])
+    cell = currentSheet.getRange(row, col - 1)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("right")
+        .setFontFamily("Roboto Mono")
+
+    row += 2
+
     currentSheet.getRange(row - 1, col - 1, maxRow, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
 
     activeRow = row
@@ -102,7 +114,7 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
  * @param {*} companyNumberOfServices 
  */
 
-function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) {
+function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, mainStepNr) {
 
     var activeCol = 1
 
@@ -110,9 +122,9 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
     currentSheet.getRange(rowRange).setHorizontalAlignment('center') // alligns header row
 
     // -----------------------SETTING UP THE HEADER ROW------------------------
-    // first celll is blank
-    // currentSheet.getRange(activeRow, activeCol).setValue('')
-    activeCol = activeCol + 1
+    // first cell is blank
+    currentSheet.getRange(activeRow, activeCol).setValue("Step: " + mainStepNr).setFontWeight('bold')
+    activeCol += 1
 
     // Company (group) column(s)
     for (var i = 0; i < nrOfIndSubComps; i++) {
@@ -129,7 +141,7 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
             currentCell.setBackground("#fff2cc") // sets color
         } // close hasSubComponents if statement
 
-        activeCol = activeCol + 1
+        activeCol += 1
 
     } // close nrOfIndSubComps for loop
 
@@ -157,10 +169,10 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
                 .setBackground("#fff2cc") // sets color
         }
 
-        activeCol = activeCol + 1
+        activeCol += 1
     }
 
-    // for remaining collumns (services)
+    // for remaining columns (services)
     for (var i = 0; i < companyNumberOfServices; i++) {
         for (var k = 0; k < nrOfIndSubComps; k++) {
             var cell = currentSheet.getRange(activeRow, activeCol)
@@ -176,19 +188,19 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
                     .setValue(currentClass.components[k].labelLong)
                     .setBackground("#b7e1cd") // sets color
             }
-            activeCol = activeCol + 1
+            activeCol += 1
         }
     }
 
-    currentSheet.setFrozenRows(activeRow) // freezes rows
-
     // if the indicator does indeed have components, it freezes the additional row in which they are
     if (currentClass.hasSubComponents == true) {
-        currentSheet.setFrozenRows(activeRow + 1)
         rowRange = ((activeRow + 1) + ':' + (activeRow + 1)).toString()
         currentSheet.getRange(rowRange).setHorizontalAlignment('center')
         activeRow = activeRow + 1
+    }
 
+    if (centralConfig.freezeHead) {
+        currentSheet.setFrozenRows(activeRow) // freezes rows
     }
 
     return activeRow
@@ -205,7 +217,7 @@ function addTopHeader(currentSheet, currentClass, CompanyObj, activeRow, file, n
  */
 
 // function just creates a single row in which in the first column a label is added
-function addInstruction(currentStep, stepCNr, activeRow, activeCol, currentSheet) {
+function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, currentSheet) {
     var cell = currentSheet.getRange(activeRow, activeCol)
         // cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3) // setting background color
         .setValue(currentStep.components[stepCNr].label) // adding text
@@ -230,7 +242,7 @@ function addInstruction(currentStep, stepCNr, activeRow, activeCol, currentSheet
 
 // a step header is a row in which in the first column the name and description of the step is listed
 // and in the remaining colums a filler is added
-function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, companyNumberOfServices) {
+function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     activeRow = activeRow + 1
 
@@ -241,6 +253,9 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
         .setBackground(currentStep.legacyColor)
         .setFontWeight('bold')
     cell = textUnderline(cell)
+
+    // TODO
+    // activeRow = addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
 
     var thisFiller = currentStep.components[stepCNr].filler
     const thisFirstCol = 2
@@ -286,7 +301,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
             .setValue(currentStep.components[stepCNr].label + thisElement.labelShort)
             .setBackground(currentStep.legacyColor)
             .setNote(noteString)
-        activeCol = activeCol + 1
+        activeCol += 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
 
@@ -312,7 +327,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                     thisCell.setDataValidation(rule) // creates dropdown list
                     thisCell.setValue('not selected') // sets default for drop down list
                         .setFontWeight('bold') // bolds the answers
-                    activeCol = activeCol + 1
+                    activeCol += 1
                 }
             }
 
@@ -336,7 +351,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                     thisCell.setDataValidation(rule) // creates dropdown list
                         .setValue('not selected') // sets default for drop down list
                         .setFontWeight('bold') // bolds the answers
-                    activeCol = activeCol + 1
+                    activeCol += 1
                 }
             }
 
@@ -360,7 +375,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                     thisCell.setDataValidation(rule) // creates dropdown list
                         .setValue('not selected') // sets default for drop down list
                         .setFontWeight('bold') // bolds the answers
-                    activeCol = activeCol + 1
+                    activeCol += 1
                 }
             }
         }
@@ -390,9 +405,9 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
 
-    for (var i = 0; i < currentIndicator.elements.length; i++) {
-        currentSheet.setRowHeight(activeRow + i, 50)
-    } // increases height of row
+    // for (var i = 0; i < currentIndicator.elements.length; i++) {
+    //     currentSheet.setRowHeight(activeRow + i, 50)
+    // } // increases height of row
 
     // loops through subindicators
     for (var elemNr = 0; elemNr < currentIndicator.elements.length; elemNr++) {
@@ -402,7 +417,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
         var cell = currentSheet.getRange(activeRow + elemNr, activeCol)
         cell.setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort + currentStep.components[stepCNr].label2)
         cell.setBackground(currentStep.legacyColor) // colors cell
-        activeCol = activeCol + 1
+        activeCol += 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
 
@@ -423,7 +438,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', currentStep.components[stepCNr].nameLabel)
 
                     file.setNamedRange(cellName, thisCell)
-                    activeCol = activeCol + 1
+                    activeCol += 1
 
                 }
             }
@@ -446,7 +461,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', currentStep.components[stepCNr].nameLabel)
 
                     file.setNamedRange(cellName, thisCell)
-                    activeCol = activeCol + 1
+                    activeCol += 1
 
                 }
             }
@@ -469,7 +484,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[stepCNr].nameLabel)
 
                     file.setNamedRange(cellName, thisCell)
-                    activeCol = activeCol + 1
+                    activeCol += 1
 
                 }
 
@@ -509,7 +524,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
     var cell = currentSheet.getRange(activeRow, activeCol)
         .setValue(currentStep.components[stepCNr].label)
         .setBackground(currentStep.legacyColor)
-    activeCol = activeCol + 1
+    activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*nrOfIndSubComps)+1)
 
@@ -532,7 +547,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                 thisCell.setDataValidation(rule) // creates dropdown list
                     .setValue('not selected') // sets default for drop down list
                     .setFontWeight('bold') // bolds the answers
-                activeCol = activeCol + 1
+                activeCol += 1
             }
         }
 
@@ -554,7 +569,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                 thisCell.setDataValidation(rule) // creates dropdown list
                     .setValue('not selected') // sets default for drop down list
                     .setFontWeight('bold') // bolds the answers
-                activeCol = activeCol + 1
+                activeCol += 1
             }
         }
 
@@ -577,7 +592,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                 thisCell.setDataValidation(rule) // creates dropdown list
                     .setValue('not selected') // sets default for drop down list
                     .setFontWeight('bold') // bolds the answers
-                activeCol = activeCol + 1
+                activeCol += 1
             }
         }
     }
@@ -615,7 +630,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
         var cell = sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort)
             .setBackground(currentStep.legacyColor)
-        activeCol = activeCol + 1
+        activeCol += 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard 3 with company JSON
 
@@ -641,7 +656,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 
                     thisCell.setFormula(formula.toString())
 
-                    activeCol = activeCol + 1
+                    activeCol += 1
                 } // close nrOfIndSubComps for loop
             } // close serviceNr==1 if statement
 
@@ -674,7 +689,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     thisCell.setFormula(formula.toString())
 
 
-                    activeCol = activeCol + 1
+                    activeCol += 1
                 } // close nrOfIndSubComps for loop
             } // close serviceNr==2 if statement
 
@@ -706,7 +721,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     thisCell.setFormula(formula.toString())
 
 
-                    activeCol = activeCol + 1
+                    activeCol += 1
                 }
             }
         }
@@ -751,7 +766,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
     var cell = currentSheet.getRange(activeRow, activeCol)
         .setValue(currentStep.components[stepCNr].label)
         .setBackground(currentStep.legacyColor)
-    activeCol = activeCol + 1
+    activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
 
@@ -772,7 +787,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'group', currentStep.components[stepCNr].nameLabel)
 
                 file.setNamedRange(cellName, thisCell)
-                activeCol = activeCol + 1
+                activeCol += 1
 
             }
         } else if (serviceNr == 2) {
@@ -790,7 +805,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', currentStep.components[stepCNr].nameLabel)
 
                 file.setNamedRange(cellName, thisCell)
-                activeCol = activeCol + 1
+                activeCol += 1
 
             }
         } else {
@@ -810,7 +825,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[stepCNr].nameLabel)
 
                 file.setNamedRange(cellName, thisCell)
-                activeCol = activeCol + 1
+                activeCol += 1
             }
         }
 
