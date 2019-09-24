@@ -19,8 +19,6 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     var sheetMode = "DC" // TODO
     var sourcesTabName = "Sources"
-    var colWidth = 280 //TODO: Move to central  style config
-
     var companyShortName = companyObj.label.current
 
     Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
@@ -37,6 +35,8 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     // var ResearchStepsObj = importLocalJSON("researchSteps", stepsSubset)
     var ResearchStepsObj = researchStepsVector
 
+    var localColWidth = configObj.serviceColWidth
+    Logger.log("configObj.localColWidth" + localColWidth)
     // creating a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
     //   var file = SpreadsheetApp.create(spreadsheetName)
@@ -77,7 +77,7 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
         Logger.log("Starting " + currentClass.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.length + " Steps")
-        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, colWidth, hasOpCom)
+        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom)
 
         Logger.log("Completed " + currentClass.labelLong)
     }

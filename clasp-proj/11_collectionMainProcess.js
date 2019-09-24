@@ -4,7 +4,7 @@
 // List the parameters and where their values are coming from
 
 
-function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, colWidth, hasOpCom) {
+function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom) {
 
     // for each indicator
     // - create a new Sheet
@@ -14,6 +14,8 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
     // iterates over each indicator in the current type
     // each indicator == distinct Sheet do
+
+    Logger.log("colWidth received: " + localColWidth)
 
     var lastRow
 
@@ -34,14 +36,15 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
         // general formatting of sheet
         // TODO: think about where to refactor to
-        sheet.setColumnWidth(1, colWidth)
+        sheet.setColumnWidth(1, localColWidth)
 
         var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
 
+        var localColWidth = localColWidth / nrOfIndSubComps
+        Logger.log("colWidth in Class: " + localColWidth)
         // TODO: this formatting is ineffcient
-        for (var col = 2; col <= numberOfColumns; col++) {
-            sheet.setColumnWidth(col, colWidth / nrOfIndSubComps)
-        }
+        sheet.setColumnWidths(2, numberOfColumns - 1, localColWidth)
+    
 
         // start sheet in first top left cell
         var activeRow = 1
@@ -94,54 +97,72 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
                     // create the type of substep component that is specified in the json
                     // TODO: refactor to switch()
 
-                    if (thisStepComponent == "header") {
-                        activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
-                    } else if (thisStepComponent == "elementDropDown") { //resultsDropDown
-                        activeRow = addScoringOptions(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
-                    } else if (thisStepComponent == "miniElementDropDown") { //reviewDropDown
-                        activeRow = addBinaryEvaluation(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
-                    } else if (thisStepComponent == "comments") {
-                        activeRow = addComments(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
-                    } else if (thisStepComponent == "sources") {
-                        activeRow = addSources(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
-                    } else if (thisStepComponent == "miniheader") { // rename to something more explicit
-                        activeRow = addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
-                    } else if (thisStepComponent == "comparison") {
-                        activeRow = addComparisonYonY(sheet, thisIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                    switch (thisStepComponent) {
+
+                        case "header":
+                            activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            break
+
+                        case "elementResults":
+                            activeRow = addScoringOptions(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            break
+
+                        case "binaryReview":
+                            activeRow = addBinaryEvaluation(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            break
+
+                        case "elementComments":
+                            activeRow = addComments(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            break
+
+                        case "sources":
+                            activeRow = addSources(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            break
+
+                        case "extraQuestion":
+                            activeRow = addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
+                            break
+
+                        case "comparison":
+                            activeRow = addComparisonYonY(sheet, thisIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            break
+
+                        default:
+                            sheet.appendRow(["!!!You missed a component!!!"])
+                            break
                     }
+                } // END substep component procedure
 
-                    // if there are no more substeps, we store the final row and name the step
-                    if (stepCNr == currentStepClength - 1) {
+                // if there are no more substeps, we store the final row and name the step
+                // if (stepCNr == currentStepClength - 1) {
 
-                        lastRow = activeRow
-                        groupEnd = activeRow
+                lastRow = activeRow
 
-                        var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps; // calculates the max column
+                var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps; // calculates the max column
 
-                        // we don't want the researchs' names, so move firstRow by 1
-                        var range = sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1)
+                // we don't want the researchs' names, so move firstRow by 1
+                var range = sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1)
 
-                        // cell name formula; output defined in 44_rangeNamingHelper.js
-                        const component = ""
-                        var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
+                // cell name formula; output defined in 44_rangeNamingHelper.js
+                const component = ""
+                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
 
-                        file.setNamedRange(stepNamedRange, range); // names an entire step
+                file.setNamedRange(stepNamedRange, range); // names an entire step
 
-                        range.shiftRowGroupDepth(1);
-                        endStep = activeRow
-                    }
-                    
-                } // END step component procedure
+                // GROUP for substep
+                var substepRange = range.shiftRowGroupDepth(1).collapseGroups()
+                endStep = activeRow
+                // }
 
                 endStep = activeRow
             } // --- // END Sub-Step-Wise Procedure // --- //
-            
+
             activeRow += 1
-        
-        // group whole step and make main step header row the anchor
-        var rangeStep = sheet.getRange(beginStep + 1, 1, endStep - beginStep, numberOfColumns)
-        Logger.log("collapsing whole step for range :" + rangeStep.getA1Notation())
-        rangeStep.shiftRowGroupDepth(1);
+
+            // group whole step and make main step header row the anchor
+            var rangeStep = sheet.getRange(beginStep + 1, 1, endStep - beginStep - 1, numberOfColumns)
+            Logger.log("grouping whole step for range :" + rangeStep.getA1Notation())
+            rangeStep.shiftRowGroupDepth(1);
 
         } // --- // END Main-Step-Wise Procedure // --- //
 
@@ -151,6 +172,15 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
         // collapse all groups
         // sheet.collapseAllRowGroups();
+
+        // hides opCom column(s) if opCom == false
+        if (CompanyObj.opCom == false) {
+            sheet.hideColumns(3)
+        }
+
+        if (thisIndicator.scoringScope != "full") {
+            sheet.hideColumns(2,2)
+        }
 
     } // End of Indicator Sheet
 } // End of populating process

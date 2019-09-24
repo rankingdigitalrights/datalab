@@ -19,7 +19,7 @@ var indicatorSubset = true // true := use subset
 function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
-		.slice(0,1) // uncomment for using less companies
+		.slice(3,4) // uncomment for using less companies; slice(start,end)
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)

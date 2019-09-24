@@ -27,7 +27,12 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
         bridgeOpCom = 0
     }
 
-    var maxColHeadings = (2 + bridgeOpCom) * (nrOfIndSubComps) + 1
+    var bridgeGroup = 2
+    if (thisIndicator.scoringScope == "full") {
+        bridgeGroup = 0
+    }
+
+    var maxColHeadings = (2 + bridgeOpCom + bridgeGroup) * (nrOfIndSubComps) + 1
     var maxRow = 1
 
     // Indicator Label row
@@ -65,7 +70,7 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 
     // Indicator elements
 
-    cell = currentSheet.getRange(row, col)
+    cell = currentSheet.getRange(row, 1)
     // cell.setValue("Elements for " + thisIndicator.labelShort + ":")
         .setValue("Elements:")
         .setFontWeight("bold")
@@ -75,7 +80,7 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     col += 1
 
     thisIndicator.elements.forEach(function (element) {
-        cell = currentSheet.getRange(row, col)
+        cell = currentSheet.getRange(row, maxColHeadings - 1)
             .setValue(element.labelShort + ": " + element.description)
             .setFontSize(9)
             .setHorizontalAlignment("left")
@@ -86,12 +91,13 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     row += 1
     var indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
 
-    cell = currentSheet.getRange(row, col - 1, 1, 2)
-        .setValues([["Link to Research Guidance:", indicatorLink]])
-    cell = currentSheet.getRange(row, col - 1)
+    cell = currentSheet.getRange(row, 1)
+        .setValue("Link to Research Guidance:")
         .setFontWeight("bold")
         .setHorizontalAlignment("right")
         .setFontFamily("Roboto Mono")
+    cell = currentSheet.getRange(row, maxColHeadings-1) // TODO
+        .setValue(indicatorLink)
 
     row += 2
 
@@ -102,17 +108,6 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 }
 
 // Company + Services Header
-
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentClass 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} file 
- * @param {*} nrOfIndSubComps 
- * @param {*} companyNumberOfServices 
- */
 
 function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, mainStepNr) {
 
@@ -156,9 +151,8 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
             .setFontWeight('bold')
             .setVerticalAlignment("top")
 
-        // hides opCom column(s) if opCom == false
+        // hiding leveled up to main process; set N/A if no OpCom
         if (CompanyObj.opCom == false) {
-            currentSheet.hideColumns(activeCol)
             cell.setValue('N/A')
         }
 

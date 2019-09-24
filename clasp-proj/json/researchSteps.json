@@ -12,7 +12,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Element ",
 					"dropdown": [
 						"not selected",
@@ -24,7 +24,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (explain score)",
 					"nameLabel": "Comments"
@@ -48,7 +48,7 @@
 					"filler": " "
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "Is your answer the same as the previous year?"
 				},
 				{
@@ -57,11 +57,11 @@
 					"comparisonLabelShort": "S01"
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "If no, please select the reason why and provide comments for that element."
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Select reason if 'no' for ",
 					"dropdown": [
 						"not selected",
@@ -70,7 +70,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " ",
 					"nameLabel": "Comments"
@@ -89,7 +89,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "miniElementDropDown",
+					"type": "binaryReview",
 					"label": "Do you agree with the answer(s) in Step 1?",
 					"dropdown": [
 						"not selected",
@@ -98,7 +98,7 @@
 					]
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "If 'no': suggested answer for ",
 					"dropdown": [
 						"not selected",
@@ -110,17 +110,17 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (required if 'no', optional if 'yes')",
 					"nameLabel": "Comments"
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "Do you agree with the year-on-year analysis in Step 1.5?"
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "In Step 1.5 for ",
 					"dropdown": [
 						"not selected",
@@ -129,7 +129,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "If no, comments on ",
 					"nameLabel": "Comments2"
 				}
@@ -147,7 +147,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Consolidated answer for ",
 					"dropdown": [
 						"not selected",
@@ -159,7 +159,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (explain score)",
 					"nameLabel": "Comments"
@@ -183,7 +183,7 @@
 					"filler": " "
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "Is your answer the same as the previous year?"
 				},
 				{
@@ -192,11 +192,11 @@
 					"comparisonLabelShort": "S03"
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "If no, please select the reason why and provide comments for that element."
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Select reason if 'no' for ",
 					"dropdown": [
 						"not selected",
@@ -205,7 +205,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " ",
 					"nameLabel": "Comments"
@@ -224,7 +224,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Consolidated answer for ",
 					"dropdown": [
 						"not selected",
@@ -236,7 +236,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (explain score)",
 					"nameLabel": "Comments"
@@ -260,7 +260,7 @@
 					"filler": " "
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "Is your answer the same as the previous year?"
 				},
 				{
@@ -269,11 +269,11 @@
 					"comparisonLabelShort": "S04"
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "If no, please select the reason why and provide comments for that element."
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Select reason if 'no' for ",
 					"dropdown": [
 						"not selected",
@@ -282,7 +282,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " ",
 					"nameLabel": "Comments"
@@ -301,7 +301,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "miniElementDropDown",
+					"type": "binaryReview",
 					"label": "Does company feedback merit a change??",
 					"dropdown": [
 						"not selected",
@@ -310,7 +310,7 @@
 					]
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "If 'yes': suggested answer for ",
 					"dropdown": [
 						"not selected",
@@ -322,7 +322,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (required if 'yes', optional if 'no')",
 					"nameLabel": "Comments"
@@ -346,7 +346,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Consolidated answer for ",
 					"dropdown": [
 						"not selected",
@@ -358,7 +358,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (explain score)",
 					"nameLabel": "Comments"
@@ -382,7 +382,7 @@
 					"filler": "Your Name"
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Consolidated answer for ",
 					"dropdown": [
 						"not selected",
@@ -394,7 +394,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " (explain score)",
 					"nameLabel": "Comments"
@@ -418,7 +418,7 @@
 					"filler": " "
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "Is your answer the same as the previous year?"
 				},
 				{
@@ -427,11 +427,11 @@
 					"comparisonLabelShort": "S07"
 				},
 				{
-					"type": "miniheader",
+					"type": "extraQuestion",
 					"label": "If no, please select the reason why and provide comments for that element."
 				},
 				{
-					"type": "elementDropDown",
+					"type": "elementResults",
 					"label": "Select reason if 'no' for ",
 					"dropdown": [
 						"not selected",
@@ -440,7 +440,7 @@
 					]
 				},
 				{
-					"type": "comments",
+					"type": "elementComments",
 					"label": "Comments for ",
 					"label2": " ",
 					"nameLabel": "Comments"

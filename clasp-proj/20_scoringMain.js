@@ -131,13 +131,13 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
 
                     switch (stepComponent) {
 
-                        case "elementDropDown":
+                        case "elementResults":
                             activeRow = importElementData(activeRow, activeCol, sheet, thisStep, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
 
                             Logger.log(stepComponent + " added for: " + thisIndicator.labelShort)
                             break
 
-                        case "comments":
+                        case "elementComments":
                             activeRow = importElementData(activeRow, activeCol, sheet, thisStep, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
 
                             Logger.log(stepComponent + " added for: " + thisIndicator.labelShort)

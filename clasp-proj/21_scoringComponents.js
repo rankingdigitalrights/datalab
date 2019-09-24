@@ -101,7 +101,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCompNr,
     var stepCompType = currentStep.components[stepCompNr].type
 
     // if type = scores, omit suffix from range name
-    if (stepCompType == "elementDropDown") {
+    if (stepCompType == "elementResults") {
         stepCompType = false
     }
 
@@ -211,7 +211,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCompNr, Ind
 
     Logger.log('in ' + stepCompType + ' section for ' + Indicator.labelShort)
 
-    if (stepCompType == "elementDropDown") {
+    if (stepCompType == "elementResults") {
         stepCompType = false
     }
 
