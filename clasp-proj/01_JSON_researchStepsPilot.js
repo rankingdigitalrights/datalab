@@ -256,7 +256,7 @@ var researchStepsVector = {
         {
             "step": 5,
             "substeps": [{
-                "label": "Step 5: Post-company review scores",
+                "label": "Step 5: Score consolidation and horizontal review",
                 "labelShort": "S05",
                 "c1": 162,
                 "c2": 168,
