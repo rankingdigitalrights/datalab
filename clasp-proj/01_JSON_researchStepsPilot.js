@@ -95,7 +95,7 @@ var researchStepsVector = {
                         {
                             "type": "elementComments",
                             "label": "Comments for ",
-                            "label2": " (required if 'no', optional if 'yes')",
+                            "label2": "\n(required if 'no', optional if 'yes')",
                             "nameLabel": "Comments"
                         },
                         {
