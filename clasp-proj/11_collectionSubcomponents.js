@@ -20,22 +20,17 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 
     var row = activeRow
     var col = activeCol
-    var thisRowAsRange
 
     var bridgeOpCom = 1
-    if (hasOpCom) {
-        bridgeOpCom = 0
-    }
+    if (hasOpCom) bridgeOpCom = 0
 
     var bridgeGroup = 2
-    if (thisIndicator.scoringScope == "full") {
-        bridgeGroup = 0
-    }
+    if (thisIndicator.scoringScope == "full") bridgeGroup = 0
 
     var maxColHeadings = (2 + bridgeOpCom + bridgeGroup) * (nrOfIndSubComps) + 1
     var maxRow = 1
 
-    // Indicator Label row
+    // Indicator Heading
     var cell = currentSheet.getRange(row, col)
         .setValue(thisIndicator.labelShort + ". " + thisIndicator.labelLong + ": " + thisIndicator.description)
         .setFontWeight("bold")
@@ -46,12 +41,12 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
         .setWrap(true)
 
     currentSheet.setRowHeight(row, 40)
-    currentSheet.getRange(row, col, maxRow, maxColHeadings).merge()
-    currentSheet.getRange(row, col, maxRow, numberOfColumns).setBackground("lightgrey")
+    currentSheet.getRange(row, col, 1, maxColHeadings).merge()
+    currentSheet.getRange(row, col, 1, numberOfColumns).setBackground("lightgrey")
 
     row += 1
 
-    // Instruction
+    // General Instruction
     cell = currentSheet.getRange(row, col)
         .setValue("Please read the indicator-specific guidance and discussions before starting the research:")
         .setFontWeight("bold")
@@ -63,28 +58,28 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
         .setFontColor("chocolate")
 
     currentSheet.setRowHeight(row, 40)
-    currentSheet.getRange(row, col, maxRow, maxColHeadings).merge()
-    currentSheet.getRange(row, col, maxRow, numberOfColumns).setBackground("WhiteSmoke")
+    currentSheet.getRange(row, col, 1, maxColHeadings).merge()
+    currentSheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
 
     row += 1
 
-    // Indicator elements
-
+    // Element Instructions
     cell = currentSheet.getRange(row, 1)
-    // cell.setValue("Elements for " + thisIndicator.labelShort + ":")
         .setValue("Elements:")
         .setFontWeight("bold")
         .setHorizontalAlignment("right")
+        .setVerticalAlignment("top")
         .setFontFamily("Roboto Mono")
 
     col += 1
 
     thisIndicator.elements.forEach(function (element) {
-        cell = currentSheet.getRange(row, maxColHeadings - 1)
+        cell = currentSheet.getRange(row, col)
             .setValue(element.labelShort + ": " + element.description)
-            .setFontSize(9)
-            .setHorizontalAlignment("left")
+            .setFontSize(10)
             .setFontFamily("Roboto")
+            .setHorizontalAlignment("left")
+        cell = currentSheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
         row += 1
     })
 
@@ -96,12 +91,12 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
         .setFontWeight("bold")
         .setHorizontalAlignment("right")
         .setFontFamily("Roboto Mono")
-    cell = currentSheet.getRange(row, maxColHeadings-1) // TODO
+    cell = currentSheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
         .setValue(indicatorLink)
 
     row += 2
 
-    currentSheet.getRange(row - 1, col - 1, maxRow, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
+    currentSheet.getRange(row - 1, col - 1, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
 
     activeRow = row
     return activeRow
@@ -117,24 +112,30 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
     currentSheet.getRange(rowRange).setHorizontalAlignment('center') // alligns header row
 
     // -----------------------SETTING UP THE HEADER ROW------------------------
-    // first cell is blank
-    currentSheet.getRange(activeRow, activeCol).setValue("Step: " + mainStepNr).setFontWeight('bold')
+    // first cell: Main Step Label
+    currentSheet.getRange(activeRow, activeCol)
+        .setValue("Step: " + mainStepNr)
+        .setFontFamily("Roboto Mono")
+        .setFontWeight('bold')
+        .setFontSize(12)
+        // .setHorizontalAlignment("left")
+        .setVerticalAlignment("top")
     activeCol += 1
 
     // Company (group) column(s)
     for (var i = 0; i < nrOfIndSubComps; i++) {
         var cell = currentSheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.groupLabel)
-            .setBackground("#fff2cc") // sets color
-            .setFontWeight('bold') // makes text bold
+            .setBackground("#fff2cc")
+            .setFontWeight('bold')
             .setVerticalAlignment("top")
 
         // if it has components it adds the label in the next row
         if (currentClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
-            currentCell.setBackground("#fff2cc") // sets color
-        } // close hasSubComponents if statement
+            currentCell.setBackground("#fff2cc")
+        }
 
         activeCol += 1
 
@@ -160,7 +161,7 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
         if (currentClass.hasSubComponents == true) {
             var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
                 .setValue(currentClass.components[i].labelLong)
-                .setBackground("#fff2cc") // sets color
+                .setBackground("#fff2cc")
         }
 
         activeCol += 1
@@ -180,7 +181,7 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
             if (currentClass.hasSubComponents == true) {
                 var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
                     .setValue(currentClass.components[k].labelLong)
-                    .setBackground("#b7e1cd") // sets color
+                    .setBackground("#b7e1cd")
             }
             activeCol += 1
         }
@@ -194,7 +195,7 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
     }
 
     if (centralConfig.freezeHead) {
-        currentSheet.setFrozenRows(activeRow) // freezes rows
+        currentSheet.setFrozenRows(activeRow) // freezes rows; define in config.json
     }
 
     return activeRow
@@ -214,9 +215,9 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
 function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, currentSheet) {
     var cell = currentSheet.getRange(activeRow, activeCol)
         // cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3) // setting background color
-        .setValue(currentStep.components[stepCNr].label) // adding text
+        .setValue(currentStep.components[stepCNr].label)
         .setBackground(currentStep.legacyColor)
-        .setFontWeight('bold') // bolding text
+        .setFontWeight('bold')
     return activeRow + 1
 }
 
@@ -246,7 +247,7 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
     cell.setValue(text)
         .setBackground(currentStep.legacyColor)
         .setFontWeight('bold')
-    cell = textUnderline(cell)
+    // cell = textUnderline(cell)
 
     // TODO
     // activeRow = addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
@@ -511,13 +512,14 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
 function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
-
+    var thisStepComponent = currentStep.components[stepCNr]
     var activeCol = 1
 
     // sets up the labels
     var cell = currentSheet.getRange(activeRow, activeCol)
-        .setValue(currentStep.components[stepCNr].label)
+        .setValue(thisStepComponent.label)
         .setBackground(currentStep.legacyColor)
+    if(thisStepComponent.type === "binaryReview") {cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")}
     activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*nrOfIndSubComps)+1)
@@ -535,7 +537,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "group", currentStep.components[stepCNr].nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "group", thisStepComponent.nameLabel)
 
                 file.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
@@ -557,7 +559,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "opCom", currentStep.components[stepCNr].nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "opCom", thisStepComponent.nameLabel)
 
                 file.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
@@ -580,7 +582,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[stepCNr].nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, thisStepComponent.nameLabel)
 
                 file.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list

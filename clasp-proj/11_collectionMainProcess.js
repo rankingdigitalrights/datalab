@@ -168,7 +168,10 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
 
         // set font for whole data range
-        sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns).setFontFamily("Roboto").setWrap(true)
+        sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
+            .setFontFamily("Roboto")
+            .setWrap(true)
+            .setVerticalAlignment("top")
 
         // collapse all groups
         // sheet.collapseAllRowGroups();
