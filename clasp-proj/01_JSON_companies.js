@@ -45,7 +45,53 @@ var companiesVector = {
                     }
                 }
             ]
-        },        
+        },
+        {
+            "id": "tAT1",
+            "label": {
+                "current": "AT&T",
+                "full": "AT&T Inc.",
+                "legacy": [null]
+            },
+            "type": "telecom",
+            "groupLabel": "AT&T",
+            "opCom": false,
+            "opComLabel": null,
+            "prevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": null,
+            "tabPrevYearsOutcome": "ATTOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 1,
+            "services": [{
+                    "id": "mbAT1",
+                    "type": "mobile",
+                    "subtype": "prepaid",
+                    "label": {
+                        "current": "Prepaid mobile",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "mbAT2",
+                    "type": "mobile",
+                    "subtype": "postpaid",
+                    "label": {
+                        "current": "Postpaid mobile",
+                        "legacy": null
+                    }
+                },
+                {
+                    "id": "bbAT1",
+                    "type": "broadband",
+                    "label": {
+                        "current": "Fixed-line broadband",
+                        "legacy": null
+                    }
+                }
+            ]
+        },
         {
             "id": "iBA1",
             "label": {
