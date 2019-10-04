@@ -1,4 +1,5 @@
 // --- // Main Config // --- //
+// --- Branch: PILOT --- //
 
 var indexPrefix = "RDR2019"
 var filenameSuffix = "Pilot"
@@ -19,7 +20,9 @@ var indicatorSubset = true // true := use subset
 function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
-		.slice(3,4) // uncomment for using less companies; slice(start,end)
+		// .slice(0,1) // Apple
+		// .slice(1,2) // ATT
+		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
