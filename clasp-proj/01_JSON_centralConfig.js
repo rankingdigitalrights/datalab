@@ -5,6 +5,6 @@ var centralConfig = {
 	// "firstScoringStep": 3 // regular index
 	"firstScoringStep": 0, // Pilot
 	"maxScoringStep": 1,
-	"includeScoring": false
+	"includeScoring": false,
 	"pilotMode": true
 }
