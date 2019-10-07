@@ -21,7 +21,7 @@ function getUsersActivityDC() {
   var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName);
   // if not - process 
   if (!overViewSheet) {
-    overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName)
+    overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
     overViewSheet.clear()
     overViewSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
   }
@@ -62,7 +62,7 @@ function getUsersActivityDC() {
         overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
 
         // create a Results Sheet for this Spreadsheet
-        var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany)
+        var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
         resultsSheet.clear()
         resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
 
@@ -137,7 +137,7 @@ function getUsersActivitySC() {
   var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
   // if not - process 
   if (!overViewSheet) {
-    overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName)
+    overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
     overViewSheet.clear()
     overViewSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
   }
@@ -173,7 +173,7 @@ function getUsersActivitySC() {
       overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
 
       // create a Results Sheet for this Spreadsheet
-      var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany)
+      var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
       resultsSheet.clear()
       resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
 

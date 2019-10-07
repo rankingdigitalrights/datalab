@@ -1,12 +1,6 @@
 // --- Spreadsheet Casting: Company Scoring Sheet --- //
 // Works only for a single ATOMIC step right now //
 
-// --- CONFIG --- //
-
-var firstScoringStep = 3 // TODO: move to config
-
-var companyHasOpCom // TODO: move inside module
-
 // --------------- This is the main caller ---------------- //
 /**
  * 
@@ -17,7 +11,7 @@ var companyHasOpCom // TODO: move inside module
  */
 
 function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameSuffix) {
-    
+
     var sheetMode = "SC"
 
     var companyShortName = companyObj.label.current
@@ -27,17 +21,17 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var configObj = importLocalJSON("config")
-    // var CompanyObj = importLocalJSON(companyShortName)
+    var configObj = centralConfig // var configObj = importLocalJSON("config")
     var CompanyObj = companyObj // TODO this a JSON Obj now; adapt in scope
-    var IndicatorsObj = importLocalJSON("indicators", indicatorSubset)
-    var ResearchStepsObj = importLocalJSON("researchSteps", stepsSubset)
+    var IndicatorsObj = indicatorsVector
+    var ResearchStepsObj = researchStepsVector
 
-    var maxScoringStep = 5 // TODO turn into parameter
+    var firstScoringStep = configObj.firstScoringStep
+    var maxScoringStep = configObj.maxScoringStep
 
-    companyHasOpCom = CompanyObj.opCom
+    var companyHasOpCom = CompanyObj.opCom
 
-    Logger.log(companyShortName + "opCom? - " + companyHasOpCom)
+    Logger.log(companyShortName + " opCom? - " + companyHasOpCom)
 
     // Mode A: creating a blank spreadsheet
     // var filename = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
@@ -64,112 +58,153 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     firstSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
     firstSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
 
-    var sheet = insertSheetIfNotExist(file, 'Outcome')
-    sheet.clear()
-    sheet = clearAllNamedRangesFromSheet(sheet)
+    var sheet = insertSheetIfNotExist(file, 'Outcome for CompFeedback', true)
+    if (sheet != null) {
+        sheet.clear()
+        sheet = clearAllNamedRangesFromSheet(sheet)
+    }
 
-    firstSheet.hideSheet() // hide points - only possible after 2nd sheet exists
+    firstSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
 
     var lastRow
-    var numberOfColumns = (CompanyObj.numberOfServices + 2) * IndicatorsObj.indicatorClasses[0].components.length + 1
+
+    // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is need for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
+
+    var globalNrOfComponents = 1
+
+    if (IndicatorsObj.indicatorClasses[0].components) {
+        globalNrOfComponents = IndicatorsObj.indicatorClasses[0].components.length
+    }
+
+    var numberOfColumns = (CompanyObj.numberOfServices + 2) * globalNrOfComponents + 1
 
     // For all Research Steps
-    // obvs limited to fixed Nr atm
-    for (var stepNr = firstScoringStep; stepNr < maxScoringStep - 1; stepNr++) {
+    // for each main step
+    for (var mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
-        var thisStep = ResearchStepsObj.researchSteps[stepNr]
-        Logger.log("stepNr: " + stepNr)
+        var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
+        // setting up all the substeps for all the indicators
 
-        var activeRow = 1
-        var activeCol = 1
+        Logger.log("main step : " + thisMainStep.step)
+        // var subStepsLength = thisMainStep.substeps.length
+        var subStepsLength = 1
+        Logger.log("main step has # subsetps: " + thisMainStep.step)
 
-        // -- // add Step Header to top-left cell // -- //
-        // TODO: refactor to components
-        sheet.getRange(activeRow, activeCol).setValue(companyShortName).setFontWeight("bold").setBackground("#b7e1cd").setFontSize(14)
+        // --- // Begin sub-Step-Wise Procedure // --- //
+        // for each substep
+        // obvs limited to fixed Nr atm
+        for (var subStepNr = 0; subStepNr < subStepsLength; subStepNr++) {
 
-        sheet.getRange(activeRow, activeCol+1).setValue(thisStep.labelShort).setFontWeight("bold").setFontSize(14)
+            var currentStep = thisMainStep.substeps[subStepNr]
+            Logger.log("substep : " + currentStep.labelShort)
 
-        sheet.setColumnWidth(activeCol, 200)
+            var currentStepClength = currentStep.components.length
 
-        // For all Indicator Categories
-        for (var indCatNr = 0; indCatNr < IndicatorsObj.indicatorClasses.length; indCatNr++) {
+            var activeRow = 1
+            var activeCol = 1
 
-            var thisCategory = IndicatorsObj.indicatorClasses[indCatNr]
-            // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
-            var nrOfIndSubComps = 1
+            // -- // add Step Header to top-left cell // -- //
+            // TODO: refactor to components
+            sheet.getRange(activeRow, activeCol).setValue(companyShortName).setFontWeight("bold").setBackground("#b7e1cd").setFontSize(14)
 
-            if (thisCategory.hasSubComponents == true) {
-                nrOfIndSubComps = thisCategory.components.length
-            }
+            sheet.getRange(activeRow, activeCol + 1).setValue(currentStep.labelShort).setFontWeight("bold").setFontSize(14)
 
-            // For all Indicators
-            for (var indicatNr = 0; indicatNr < thisCategory.indicators.length; indicatNr++) {
+            sheet.setColumnWidth(activeCol, 200)
 
-                var thisIndicator = thisCategory.indicators[indicatNr]
+            // For all Indicator Categories
+            for (var indCatNr = 0; indCatNr < IndicatorsObj.indicatorClasses.length; indCatNr++) {
 
-                Logger.log('begin Indicator: ' + thisIndicator.labelShort)
+                var thisCategory = IndicatorsObj.indicatorClasses[indCatNr]
+                // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
+                Logger.log("begin Indicator Category: " + thisCategory.labelLong)
+                var nrOfIndSubComps = 1
 
-                // variable used for indicator average later
-
-                var indicatorAverageCompanyElements = []
-                var indicatorAverageServicesElements = []
-                var indicatorAverageElements = []
-
-                // set up header / TODO: remove from steps JSON. Not a component. This is Layout
-
-                activeRow = activeRow + 1
-                activeRow = setCompanyHeader(activeRow, activeCol, sheet, thisIndicator, nrOfIndSubComps, thisCategory, CompanyObj)
-                Logger.log("Header row printed for " + thisIndicator.labelShort)
-
-                // for all components of the current Research Step
-                for (var stepCompNr = 0; stepCompNr < thisStep.components.length; stepCompNr++) {
-
-                    Logger.log("beginn stepCompNr: " + stepCompNr)
-
-                    var stepComponent = thisStep.components[stepCompNr].type
-
-
-                    switch (stepComponent) {
-
-                        case "elementResults":
-                            activeRow = importElementData(activeRow, activeCol, sheet, thisStep, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
-
-                            Logger.log(stepComponent + " added for: " + thisIndicator.labelShort)
-                            break
-
-                        case "elementComments":
-                            activeRow = importElementData(activeRow, activeCol, sheet, thisStep, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
-
-                            Logger.log(stepComponent + " added for: " + thisIndicator.labelShort)
-
-                            break
-
-                        case "sources":
-                            activeRow = importSources(activeRow, activeCol, sheet, thisStep, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
-                            Logger.log("sources added for: " + thisIndicator.labelShort)
-                            break
-
-                        default:
-                            sheet.appendRow(["!!!You missed a component!!!"])
-                            break
-                    }
+                if (thisCategory.hasSubComponents == true) {
+                    nrOfIndSubComps = thisCategory.components.length
                 }
 
-                activeRow = activeRow + 1
+                // For all Indicators
+                for (var indicatNr = 0; indicatNr < thisCategory.indicators.length; indicatNr++) {
 
-                // ADD SCORING AFTER ALL OTHER COMPONENTS
-                activeRow = addElementScores(file, sheetMode, activeRow, activeCol, sheet, thisStep.labelShort, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
+                    var thisIndicator = thisCategory.indicators[indicatNr]
 
-                activeRow = addLevelScores(file, sheetMode, activeRow, activeCol, sheet, thisStep.labelShort, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory, indicatorAverageCompanyElements, indicatorAverageServicesElements)
+                    Logger.log('begin Indicator: ' + thisIndicator.labelShort)
 
-                activeRow = addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, thisStep.labelShort, thisIndicator, CompanyObj, nrOfIndSubComps, indicatorAverageCompanyElements, indicatorAverageServicesElements, indicatorAverageElements)
+                    // variable used for indicator average later
 
-                activeRow = addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, thisStep.labelShort, thisIndicator, CompanyObj, indicatorAverageElements)
-            }
-        }
+                    var indyLevelScoresCompany = []
+                    var indyLevelScoresServices = []
+                    var indyCompositeScores = []
+
+                    // set up header / TODO: remove from steps JSON. Not a component. This is Layout
+
+                    activeRow = activeRow + 1
+                    activeRow = setCompanyHeader(activeRow, activeCol, sheet, thisIndicator, nrOfIndSubComps, thisCategory, CompanyObj)
+                    Logger.log(' - company header added for ' + thisIndicator.labelShort)
+
+                    // for all components of the current Research Step
+                    for (var stepCompNr = 0; stepCompNr < currentStep.components.length; stepCompNr++) {
+
+                        var stepComponent = currentStep.components[stepCompNr].type
+                        Logger.log(" - beginn stepCompNr: " + stepCompNr + ' - ' + stepComponent)
+
+
+                        switch (stepComponent) {
+
+                            case "elementResults":
+                                activeRow = importElementData(activeRow, activeCol, sheet, currentStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
+                                Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                                break
+
+                            case "elementComments":
+                                activeRow = importElementData(activeRow, activeCol, sheet, currentStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom,nrOfIndSubComps, thisCategory)
+                                Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                                break
+
+                            case "sources":
+                                activeRow = importSources(activeRow, activeCol, sheet, currentStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
+                                Logger.log(' - ' + "sources added for: " + thisIndicator.labelShort)
+                                break
+                            
+                            // case "sources":
+                            //     activeRow = importSources(activeRow, activeCol, sheet, currentStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
+                            //     Logger.log(' - ' + "sources added for: " + thisIndicator.labelShort)
+                            //     break
+
+                            default:
+                                sheet.appendRow(["!!!You missed a component!!!\nThis means either \n a) a research step component is not covered by a switch-case statement, or \n b) there is a runtime error"])
+                                break
+                        }
+                    }
+                    activeRow = activeRow + 1
+
+                    // ADD SCORING AFTER ALL OTHER COMPONENTS
+
+                    if(configObj.includeScoring) {
+                    activeRow = addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentStep.labelShort, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
+                    Logger.log(' - ' + 'element scores added for ' + thisIndicator.labelShort)
+
+                    activeRow = addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentStep.labelShort, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, indyLevelScoresCompany, indyLevelScoresServices)
+                    Logger.log(' - ' + "level scores added for " + thisIndicator.labelShort)
+
+                    activeRow = addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, currentStep.labelShort, thisIndicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores)
+                    Logger.log(' - ' + "composite scores added for " + thisIndicator.labelShort)
+
+                    activeRow = addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, currentStep.labelShort, thisIndicator, CompanyObj, indyCompositeScores)
+                    Logger.log(' - ' + "indicator score added for " + thisIndicator.labelShort)
+
+                } else {
+                    activeRow -= 1
+                }
+
+                } // END INDICATOR
+            } // END INDICATOR CATEGORY
+        } // END SUB STEP
+    } // END MAIN STEP
+
+    Logger.log("Formatting Sheet")
     lastRow = activeRow
     sheet.getRange(1, 1, lastRow, numberOfColumns).setFontFamily("Roboto")
 
-    }
     return fileID
 }

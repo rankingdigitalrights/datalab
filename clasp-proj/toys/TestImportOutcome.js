@@ -7,7 +7,7 @@ var compObj = {
 function addPrevYearOutcomeSheet() {
     var Spreadsheet = SpreadsheetApp.openById("1ethBvdQaqwwUuiIBs67_tO18IS7gPC1KPo15JgCtL14");
     Logger.log(Spreadsheet.getName());
-    var thisSheet = insertSheetIfNotExist(Spreadsheet, "Formula");
+    var thisSheet = insertSheetIfNotExist(Spreadsheet, "Formula", true);
 
   
     var externalFormula = '=IMPORTRANGE("' + compObj.prevURL + '","' + compObj.tab + '!' + 'A:Z' + '")';
@@ -17,7 +17,7 @@ function addPrevYearOutcomeSheet() {
     var cell = open.getActiveCell();
     cell.setValue(externalFormula.toString());
     
-    var nextSheet = insertSheetIfNotExist(Spreadsheet, "ImportFormula");
+    var nextSheet = insertSheetIfNotExist(Spreadsheet, "ImportFormula", true);
     open = nextSheet.activate();
     cell = open.getActiveCell();
     cell.setValue(internalFormula);

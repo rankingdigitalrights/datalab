@@ -6,12 +6,12 @@
 // Main Test Caller //
 
 function mainTestConnectionByName() {
-  var spreadsheetName="verizon test"
-    connectToSpreadsheetByName(spreadsheetName);
-  }
+  var spreadsheetName = "verizon test"
+  connectToSpreadsheetByName(spreadsheetName);
+}
 
 function mainTestConnectionByID() {
-    connectToSpreadsheetByID(spreadsheetID);
+  connectToSpreadsheetByID(spreadsheetID);
 }
 
 function connectToSpreadsheetByName(spreadsheetName) {
@@ -27,7 +27,9 @@ function connectToSpreadsheetByName(spreadsheetName) {
     var resource = {
       title: spreadsheetName,
       mimeType: MimeType.GOOGLE_SHEETS,
-      parents: [{id: folderID}]
+      parents: [{
+        id: folderID
+      }]
     }
 
     Logger.log(resource.parents.id)
@@ -44,7 +46,7 @@ function connectToSpreadsheetByName(spreadsheetName) {
     // while (Spreadsheet.hasNext()) {
     // Nope. Only do for first Spreadsheet element
     var thisSpreadsheet = Spreadsheets.next();
-    Logger.log("Folder " + thisSpreadsheet.getName() + " exists")
+    Logger.log("File " + thisSpreadsheet.getName() + " exists")
     Logger.log("locally connected to: " + thisSpreadsheet.getName());
 
     return SpreadsheetApp.open(thisSpreadsheet);
@@ -65,13 +67,18 @@ function connectToSpreadsheetByID(ID) {
 
 // Help Function to overwrite Sheet in Spreadsheet if it is already existing
 
-function insertSheetIfNotExist(Spreadsheet, SheetName) {
+function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
   var Sheet;
-  if(!Spreadsheet.getSheetByName(SheetName)) {
-      Sheet = Spreadsheet.insertSheet(SheetName);
+  if (!Spreadsheet.getSheetByName(SheetName)) {
+    Sheet = Spreadsheet.insertSheet(SheetName);
+  } else {
+    if (updateSheet) {
+      Sheet = Spreadsheet.getSheetByName(SheetName)
     } else {
-      Sheet = Spreadsheet.getSheetByName(SheetName);
-    };
+      Sheet = null
+      Logger.log("Sheet already exists")
+    }
+  }
   return Sheet;
 }
 
@@ -79,7 +86,7 @@ function insertSheetIfNotExist(Spreadsheet, SheetName) {
 function addFileIDtoControl(mode, company, fileID, Controlsheet) {
 
   var spreadsheet = connectToSpreadsheetByID(Controlsheet)
-  var sheet = insertSheetIfNotExist(spreadsheet, mode)
+  var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
   var formula = '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
   sheet.appendRow([mode, company, fileID, formula])
   Logger.log("Entry added to Control")
@@ -87,10 +94,7 @@ function addFileIDtoControl(mode, company, fileID, Controlsheet) {
 }
 
 function importRange(url, range) {
-
   var formula = '=IMPORTRANGE("' + url + '","' + range + '")'
   formula = formula.toString()
-  
-return formula
-
+  return formula
 }

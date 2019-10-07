@@ -20,7 +20,7 @@ var indicatorSubset = true // true := use subset
 function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
-		// .slice(0,1) // Apple
+		.slice(0,1) // Apple
 		// .slice(1,2) // ATT
 		// .slice(3,4) //
 
@@ -37,7 +37,9 @@ function mainAllCompaniesDataCollectionSheets() {
 function mainAllCompaniesScoringSheets() {
 
 	var companies = companiesVector.companies
-		// .slice(4,5) // uncomment for using less companies
+		.slice(0,1) // Apple
+		// .slice(1,2) // ATT
+		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)

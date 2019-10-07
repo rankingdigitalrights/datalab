@@ -14,6 +14,7 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementResults",
+                            "id": "",
                             "label": "Element ",
                             "dropdown": [
                                 "not selected",
@@ -26,14 +27,14 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementComments",
+                            "id": "MC",
                             "label": "Comments for ",
-                            "label2": " (explain score)",
-                            "nameLabel": "Comments"
+                            "label2": " (explain score)"
                         },
                         {
                             "type": "sources",
-                            "label": "Sources (reference, specific page, section, etc.)",
-                            "nameLabel": "Sources"
+                            "id": "MS",
+                            "label": "Sources (reference, specific page, section, etc.)"
                         }
                     ]
                 },
@@ -50,9 +51,9 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementComments",
+                            "id": "MN",
                             "label": "Notes for ",
-                            "label2": " ",
-                            "nameLabel": "Notes"
+                            "label2": " "
                         }
                     ]
                 }
@@ -73,6 +74,7 @@ var researchStepsVector = {
                         },
                         {
                             "type": "binaryReview",
+                            "id": "MR",
                             "label": "Do you agree with the answer(s) in Step 1?",
                             "dropdown": [
                                 "not selected",
@@ -82,6 +84,7 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementResults",
+                            "id": "MA",
                             "label": "If 'no': suggested answer for ",
                             "dropdown": [
                                 "not selected",
@@ -94,14 +97,14 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementComments",
+                            "id": "MC",
                             "label": "Comments for ",
-                            "label2": "\n(required if 'no', optional if 'yes')",
-                            "nameLabel": "Comments"
+                            "label2": "\n(required if 'no', optional if 'yes')"
                         },
                         {
                             "type": "sources",
-                            "label": "Sources (reference, specific page, section, etc.)",
-                            "nameLabel": "Sources"
+                            "id": "MS",
+                            "label": "Sources (reference, specific page, section, etc.)"
                         }
                     ]
                 },
@@ -118,9 +121,9 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementComments",
+                            "id": "MN",
                             "label": "Notes for ",
-                            "label2": " ",
-                            "nameLabel": "Notes"
+                            "label2": " "
                         }
                     ]
                 }
@@ -141,6 +144,7 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementResults",
+                            "id": "",
                             "label": "Consolidated answer for ",
                             "dropdown": [
                                 "not selected",
@@ -153,14 +157,14 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementComments",
+                            "id": "MC",
                             "label": "Comments for ",
-                            "label2": " (explain score)",
-                            "nameLabel": "Comments"
+                            "label2": " (explain score)"
                         },
                         {
                             "type": "sources",
-                            "label": "Sources (reference, specific page, section, etc.)",
-                            "nameLabel": "Sources"
+                            "id": "MS",
+                            "label": "Sources (reference, specific page, section, etc.)"
                         }
                     ]
                 },
@@ -170,16 +174,16 @@ var researchStepsVector = {
                     "c1": 50,
                     "c2": 168,
                     "c3": 82,
-                    "legacyColor": "#dbe5f1",
+                    "legacyColor": "#ead1dc",
                     "components": [{
                             "type": "header",
                             "filler": " "
                         },
                         {
                             "type": "elementComments",
+                            "id": "MN",
                             "label": "Notes for ",
-                            "label2": " ",
-                            "nameLabel": "Notes"
+                            "label2": " "
                         }
                     ]
                 }
@@ -200,6 +204,7 @@ var researchStepsVector = {
                         },
                         {
                             "type": "binaryReview",
+                            "id": "MR",
                             "label": "Does company feedback merit a change??",
                             "dropdown": [
                                 "not selected",
@@ -221,14 +226,14 @@ var researchStepsVector = {
                         },
                         {
                             "type": "elementComments",
+                            "id": "MC",
                             "label": "Comments for ",
-                            "label2": " (required if 'yes', optional if 'no')",
-                            "nameLabel": "Comments"
+                            "label2": " (required if 'yes', optional if 'no')"
                         },
                         {
                             "type": "sources",
-                            "label": "Sources (reference, specific page, section, etc.)",
-                            "nameLabel": "Sources"
+                            "id": "MS",
+                            "label": "Sources (reference, specific page, section, etc.)"
                         }
                     ]
                 },
@@ -238,16 +243,16 @@ var researchStepsVector = {
                     "c1": 50,
                     "c2": 168,
                     "c3": 82,
-                    "legacyColor": "#dbe5f1",
+                    "legacyColor": "#ead1dc",
                     "components": [{
                             "type": "header",
                             "filler": " "
                         },
                         {
                             "type": "elementComments",
+                            "id": "MN",
                             "label": "Notes for ",
-                            "label2": " ",
-                            "nameLabel": "Notes"
+                            "label2": " "
                         }
                     ]
                 }
@@ -268,6 +273,7 @@ var researchStepsVector = {
                     },
                     {
                         "type": "elementResults",
+                        "id": "",
                         "label": "Consolidated answer for ",
                         "dropdown": [
                             "not selected",
@@ -280,14 +286,14 @@ var researchStepsVector = {
                     },
                     {
                         "type": "elementComments",
+                        "id": "MC",
                         "label": "Comments for ",
-                        "label2": " (explain score)",
-                        "nameLabel": "Comments"
+                        "label2": " (explain score)"
                     },
                     {
                         "type": "sources",
-                        "label": "Sources (reference, specific page, section, etc.)",
-                        "nameLabel": "Sources"
+                        "id": "MS",
+                        "label": "Sources (reference, specific page, section, etc.)"
                     }
                 ]
             }]
@@ -307,6 +313,7 @@ var researchStepsVector = {
                     },
                     {
                         "type": "elementResults",
+                        "id": "",
                         "label": "Element ",
                         "dropdown": [
                             "not selected",
@@ -319,14 +326,14 @@ var researchStepsVector = {
                     },
                     {
                         "type": "elementComments",
+                        "id": "MC",
                         "label": "Comments for ",
-                        "label2": " (explain score)",
-                        "nameLabel": "Comments"
+                        "label2": " (explain score)"
                     },
                     {
                         "type": "sources",
-                        "label": "Sources (reference, specific page, section, etc.)",
-                        "nameLabel": "Sources"
+                        "id": "MS",
+                        "label": "Sources (reference, specific page, section, etc.)"
                     }
                 ]
             }]

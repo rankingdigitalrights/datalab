@@ -6,14 +6,6 @@ var importedOutcomeTabName = "2018 Outcome"
 
 // --- //  This is the main caller // --- //
 
-/**
- * 
- * @param {boolean} stepsSubset Parameter: subset reserachSteps.json?
- * @param {boolean} indicatorSubset Parameter: subset indicators.json?
- * @param {string} companyShortName small caps short company name for <company>.json
- * @param {string} filenameSuffix arbitary String for versioning ("v8") or declaring ("test")
- */
-
 function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameSuffix) {
     Logger.log('begin main data collection')
 
@@ -26,18 +18,14 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    // var configObj = importLocalJSON("config")
-    var configObj = centralConfig
-    // var CompanyObj = importLocalJSON(companyShortName)
+    var configObj = centralConfig // var configObj = importLocalJSON("config")
     var CompanyObj = companyObj // TODO this a JSON Obj now; adapt in scope
-    // var IndicatorsObj = importLocalJSON("indicators", indicatorSubset)
     var IndicatorsObj = indicatorsVector
-    // var ResearchStepsObj = importLocalJSON("researchSteps", stepsSubset)
     var ResearchStepsObj = researchStepsVector
 
     var localColWidth = configObj.serviceColWidth
-    Logger.log("configObj.localColWidth" + localColWidth)
-    // creating a blank spreadsheet
+      
+    // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
     //   var file = SpreadsheetApp.create(spreadsheetName)
     var file = connectToSpreadsheetByName(spreadsheetName)
@@ -53,7 +41,7 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     var firstSheet = file.getActiveSheet()
 
     if (centralConfig.YearOnYear) {
-        firstSheet.setName(importedOutcomeTabName) // <-- will need to make this dynamic at some point
+        firstSheet.setName(importedOutcomeTabName)
         var cell = firstSheet.getActiveCell()
         cell.setValue(externalFormula.toString())
     } else {
@@ -61,14 +49,24 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     }
 
     // --- // creates sources page // --- //
-    var sourcesSheet = insertSheetIfNotExist(file, sourcesTabName); // make this dynamic
+    var sourcesSheet = insertSheetIfNotExist(file, sourcesTabName, true)
     sourcesSheet.clear()
+    sourcesSheet.appendRow(["Source reference number","Document title","URL","Date of document\n(if applicable)","Date accessed","Saved source link (DEPRECATE)","Internet Archive", "Has this policy changed from the previous year's Index?"])
+    sourcesSheet.getRange(1,1,1,sourcesSheet.getLastColumn())
+        .setFontWeight("bold")
+        .setFontFamily("Roboto")
+        .setVerticalAlignment("top")
+        .setHorizontalAlignment("center")
+        .setWrap(true)
+        .setFontSize(12)
+    sourcesSheet.setColumnWidths(1,sourcesSheet.getLastColumn(), 200)
 
     var hasOpCom = CompanyObj.opCom
 
     // fetch number of Services once
     var companyNumberOfServices = CompanyObj.services.length
 
+    // --- // MAIN TASK // --- //
     // for each Indicator Class do
 
     for (var i = 0; i < IndicatorsObj.indicatorClasses.length; i++) {
@@ -76,13 +74,18 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
         var currentClass = IndicatorsObj.indicatorClasses[i]
 
         Logger.log("Starting " + currentClass.labelLong)
-        Logger.log("Passing over " + ResearchStepsObj.length + " Steps")
+        Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
         populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom)
 
         Logger.log("Completed " + currentClass.labelLong)
     }
 
-    Logger.log('end main')
+    Logger.log('end DC main')
+
+    // --- // PROTO // --- //
+    // Feedback Collector comes here
+    addNotesSheet(file, IndicatorsObj, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom)
+    
     Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID
 }

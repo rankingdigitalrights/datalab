@@ -17,7 +17,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
             "tabPrevYearsOutcome": "AppleOutcome",
-            "urlCurrentDataCollectionSheet": "1ezOlgxbQeAcJWr7X1u5rRM3QM-Da7Sv7pqDwoPveGCM",
+            "urlCurrentDataCollectionSheet": "1TRMdgha9uZ3uUKe8B-14Yz2ttJfhD2bMimF-2w7YLqs",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{

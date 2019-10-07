@@ -13,9 +13,7 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
     var thisIndClassLength = currentClass.indicators.length
 
     // iterates over each indicator in the current type
-    // each indicator == distinct Sheet do
-
-    Logger.log("colWidth received: " + localColWidth)
+    // for each indicator = distinct Sheet do
 
     var lastRow
 
@@ -24,9 +22,13 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         var thisIndicator = currentClass.indicators[i]
         Logger.log("indicator :" + thisIndicator.labelShort)
 
-        var sheet = insertSheetIfNotExist(file, thisIndicator.labelShort)
-            .clear()
-            .setTabColor(currentClass.classColor)
+        var sheet = insertSheetIfNotExist(file, thisIndicator.labelShort, false)
+
+        if (sheet === null) {
+            continue
+        }
+        
+        sheet.clear().setTabColor(currentClass.classColor)
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
         var nrOfIndSubComps = 1
@@ -41,8 +43,6 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
 
         var localColWidth = localColWidth / nrOfIndSubComps
-        Logger.log("colWidth in Class: " + localColWidth)
-        // TODO: this formatting is ineffcient
         sheet.setColumnWidths(2, numberOfColumns - 1, localColWidth)
     
 
@@ -50,7 +50,8 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         var activeRow = 1
         var activeCol = 1
 
-        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns) // sets up indicator guidance
+        // adds up indicator guidance
+        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns) 
 
         var dataStartRow = activeRow
 
@@ -140,7 +141,8 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
                 var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps; // calculates the max column
 
-                // we don't want the researchs' names, so move firstRow by 1
+                // we don't want the researchers' names as part of the range
+                // so move firstRow by 1
                 var range = sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js

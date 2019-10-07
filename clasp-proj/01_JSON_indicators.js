@@ -6,23 +6,23 @@ var indicatorsVector = {
             "researchGuidance": "TBD",
             "classColor" : "#ffe599",
             "hasSubComponents": false,
-            "components": [{
-                    "labelShort": "FC",
-                    "labelLong": "Freedom of Expression"
-                },
-                {
-                    "labelShort": "PC",
-                    "labelLong": "Privacy"
-                }
-            ],
+            // "components": [{
+            //         "labelShort": "FC",
+            //         "labelLong": "Freedom of Expression"
+            //     },
+            //     {
+            //         "labelShort": "PC",
+            //         "labelLong": "Privacy"
+            //     }
+            // ],
             "indicators": [
                 {
                     "labelShort": "G2",
                     "labelLong": "Governance and management oversight",
                     "description": "The company’s senior leadership should exercise oversight over how its policies and practices affect freedom of expression and privacy.",
                     "scoringScope": "full",
-                    "compCol": 2,
-                    "compRow": 16,
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 16,
                     "elements": [{
                             "labelShort": "G2.1",
                             "labelLogical": "G0201",
@@ -43,8 +43,8 @@ var indicatorsVector = {
                     "labelLong": "Impact assessment",
                     "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
                     "scoringScope": "full",
-                    "compCol": 2,
-                    "compRow": 54,
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
                     "elements": [{
                             "labelShort": "G4.1",
                             "description": "As part of its decision-making, does the company consider how laws affect freedom of expression and privacy in jurisdictions where it operates?"
@@ -105,8 +105,8 @@ var indicatorsVector = {
                     "labelLong": "Access to terms of service",
                     "description": "The company should provide terms of service (ToS) that are easy to find and easy to understand.",
                     "scoringScope": "services",
-                    "compCol": 2,
-                    "compRow": 138,
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 138,
                     "elements": [{
                             "labelShort": "F1.1",
                             "description": "Are the company’s terms of service (ToS) easy to find?"
@@ -134,8 +134,9 @@ var indicatorsVector = {
                     "labelShort": "P1",
                     "labelLong": "Access to privacy policies",
                     "description": "The company should offer privacy policies that are easy to find and easy to understand.",
-                    "compCol": 2,
-                    "compRow": 429,
+                    "scoringScope": "services",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
                     "elements": [{
                             "labelShort": "P1.1",
                             "description": "Are the company’s privacy policies easy to find?"

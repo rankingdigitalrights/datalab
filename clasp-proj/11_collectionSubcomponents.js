@@ -283,6 +283,8 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
 
+    var stepCompType = currentStep.components[stepCNr].id
+
     // row labels
     for (var elemNr = 0; elemNr < currentIndicator.elements.length; elemNr++) {
         var activeCol = 1
@@ -315,7 +317,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, thisElement.labelShort, component, CompanyObj.id, 'group', currentStep.components[stepCNr].nameLabel)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, thisElement.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
 
                     file.setNamedRange(cellName, thisCell) // names cells
@@ -340,7 +342,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, thisElement.labelShort, component, CompanyObj.id, 'opCom', currentStep.components[stepCNr].nameLabel)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, thisElement.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
                     file.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
@@ -364,7 +366,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[stepCNr].nameLabel)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                     file.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
@@ -400,6 +402,8 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
 
+    var stepCompType = currentStep.components[stepCNr].id
+
     // for (var i = 0; i < currentIndicator.elements.length; i++) {
     //     currentSheet.setRowHeight(activeRow + i, 50)
     // } // increases height of row
@@ -430,7 +434,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', currentStep.components[stepCNr].nameLabel)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompType)
 
                     file.setNamedRange(cellName, thisCell)
                     activeCol += 1
@@ -453,7 +457,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', currentStep.components[stepCNr].nameLabel)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
                     file.setNamedRange(cellName, thisCell)
                     activeCol += 1
@@ -476,7 +480,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[stepCNr].nameLabel)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                     file.setNamedRange(cellName, thisCell)
                     activeCol += 1
@@ -513,6 +517,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
     var thisStepComponent = currentStep.components[stepCNr]
+    var stepCompType = currentStep.components[stepCNr].id
     var activeCol = 1
 
     // sets up the labels
@@ -537,7 +542,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "group", thisStepComponent.nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 file.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
@@ -559,7 +564,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "opCom", thisStepComponent.nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 file.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
@@ -582,7 +587,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, thisStepComponent.nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 file.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
@@ -645,10 +650,10 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group")
 
                     // sets up formula that compares values
-                    var value = currentIndicator.compCol + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
+                    var value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     var col = columnToLetter(value)
                     // TODO
-                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + elemNr) + ',"Yes","No")'
+                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.y2yCompRow + elemNr) + ',"Yes","No")'
 
                     thisCell.setFormula(formula.toString())
 
@@ -676,11 +681,11 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom")
 
                     // creating formula that compares the two cells
-                    var value = currentIndicator.compCol + ((serviceNr - 1) * nrOfIndSubComps) + k
+                    var value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k
                     // finds comparisson column
                     var col = columnToLetter(value)
                     // TODO
-                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + elemNr) + ',"Yes","No")'
+                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.y2yCompRow + elemNr) + ',"Yes","No")'
 
                     thisCell.setFormula(formula.toString())
 
@@ -709,10 +714,10 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                     var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
 
                     // creating formula that will be placed in cell
-                    var value = currentIndicator.compCol + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
+                    var value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     var col = columnToLetter(value)
                     // TODO
-                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.compRow + elemNr) + ',"Yes","No")'
+                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.y2yCompRow + elemNr) + ',"Yes","No")'
 
                     thisCell.setFormula(formula.toString())
 
@@ -758,6 +763,9 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
     var activeCol = 1
 
+    var stepCompType = currentStep.components[stepCNr].id
+
+
     // adding label
     var cell = currentSheet.getRange(activeRow, activeCol)
         .setValue(currentStep.components[stepCNr].label)
@@ -780,7 +788,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'group', currentStep.components[stepCNr].nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
                 file.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -798,7 +806,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', currentStep.components[stepCNr].nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
                 file.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -818,7 +826,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, currentStep.components[stepCNr].nameLabel)
+                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 file.setNamedRange(cellName, thisCell)
                 activeCol += 1
