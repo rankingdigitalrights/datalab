@@ -3,7 +3,7 @@ function elementScoreFormula(range) {
     var cell = range.getA1Notation()
     /* legacy Formula */
     // var formula = '=IF(' + cell + '=Points!$B1,Points!$B2,IF(' + cell + '=Points!$C1,Points!$C2,IF(' + cell + '=Points!$D1,Points!$D2,IF(' + cell + '=Points!$E1,Points!$E2,IF(' + cell + '=Points!$F1,Points!$F2,IF(' + cell + '=Points!$G1, Points!$G2,"checkx"))))))'
-    var formula = '=HLOOKUP(' + cell + 'B138,Points!$B$1:$G$2,2,FALSE)'
+    var formula = '=HLOOKUP(' + cell + ',Points!$B$1:$G$2,2,FALSE)'
     return formula
 }
 
