@@ -6,7 +6,7 @@ var filenameSuffix = "Pilot"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
 var folderName = "Pilot Drafts" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
 
-var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Test
+var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Test
 
 // --- // Subset params // --- //
 
@@ -27,7 +27,7 @@ function mainAllCompaniesDataCollectionSheets() {
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
 		Logger.log("received fileID: " + fileID)
-		addFileIDtoControl("DC", thisCompany.label.current, fileID, Controlsheet)
+		addFileIDtoControl("DC", thisCompany.label.current, fileID, controlSpreadsheet)
 	})
 
 }
@@ -44,7 +44,7 @@ function mainAllCompaniesScoringSheets() {
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)
 		Logger.log("received fileID: " + fileID)
-		addFileIDtoControl("SC", thisCompany.label.current, fileID, Controlsheet)
+		addFileIDtoControl("SC", thisCompany.label.current, fileID, controlSpreadsheet)
 	})
 }
 

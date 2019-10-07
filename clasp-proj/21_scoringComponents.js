@@ -133,7 +133,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
                 currentCell.setFormula(formula)
 
             } else {
-                currentCell.setValue(' ╳ ').setHorizontalAlignment('center')
+                currentCell.setValue(' ⨯ ').setHorizontalAlignment('center')
             }
             tempCol += 1
         }
@@ -222,7 +222,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
             currentCell.setFormula(formula)
 
         } else {
-            currentCell.setValue(' ╳ ').setHorizontalAlignment('center')
+            currentCell.setValue(' ⨯ ').setHorizontalAlignment('center')
         }
         tempCol += 1
     }
@@ -319,7 +319,7 @@ function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentS
 
             } else {
 
-                currentCell.setValue(' ╳ ').setHorizontalAlignment('center')
+                currentCell.setValue(' ⨯ ').setHorizontalAlignment('center')
 
             }
 
@@ -450,7 +450,7 @@ function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentSte
 
         } else {
 
-            currentCell.setValue(' ╳ ').setHorizontalAlignment('center')
+            currentCell.setValue(' ⨯ ').setHorizontalAlignment('center')
 
         }
         tempCol += 1

@@ -83,9 +83,9 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
 }
 
 
-function addFileIDtoControl(mode, company, fileID, Controlsheet) {
+function addFileIDtoControl(mode, company, fileID, controlSpreadsheet) {
 
-  var spreadsheet = connectToSpreadsheetByID(Controlsheet)
+  var spreadsheet = connectToSpreadsheetByID(controlSpreadsheet)
   var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
   var formula = '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
   sheet.appendRow([mode, company, fileID, formula])
