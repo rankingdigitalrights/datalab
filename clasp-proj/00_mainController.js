@@ -9,7 +9,7 @@ var Controlsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Test
 
 // --- // Subset params // --- //
 
-var stepsSubset = true // true := use subset
+var stepsSubset = false // true := use subset
 var indicatorSubset = true // true := use subset
 
 // --- // MAIN CALLER // --- //
@@ -19,7 +19,7 @@ var indicatorSubset = true // true := use subset
 function mainAllCompaniesDataCollectionSheets() {
 
 	var companies = companiesVector.companies
-		// .slice(0,1) // uncomment for using less companies
+		.slice(0,1) // uncomment for using less companies
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
@@ -34,7 +34,7 @@ function mainAllCompaniesDataCollectionSheets() {
 function mainAllCompaniesScoringSheets() {
 
 	var companies = companiesVector.companies
-		// .slice(4,5) // uncomment for using less companies
+		.slice(0,1) // uncomment for using less companies
 
 	companies.forEach(function (thisCompany) {
 		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)

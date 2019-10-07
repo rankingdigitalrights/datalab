@@ -33,7 +33,7 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     var IndicatorsObj = importLocalJSON("indicators", indicatorSubset)
     var ResearchStepsObj = importLocalJSON("researchSteps", stepsSubset)
 
-    var maxScoringStep = 5 // TODO turn into parameter
+    var maxScoringStep = 4 // TODO turn into parameter
 
     companyHasOpCom = CompanyObj.opCom
 
@@ -65,8 +65,13 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     firstSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
 
     var sheet = insertSheetIfNotExist(file, 'Outcome')
-    sheet.clear()
-    sheet = clearAllNamedRangesFromSheet(sheet)
+    if (!sheet) {
+        sheet = file.getSheetByName('Outcome')
+        sheet.clear()
+        sheet = clearAllNamedRangesFromSheet(sheet)
+    }
+
+
 
     firstSheet.hideSheet() // hide points - only possible after 2nd sheet exists
 
@@ -75,7 +80,7 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     // For all Research Steps
     // obvs limited to fixed Nr atm
-    for (var stepNr = firstScoringStep; stepNr < maxScoringStep - 1; stepNr++) {
+    for (var stepNr = firstScoringStep; stepNr < maxScoringStep; stepNr++) {
 
         var thisStep = ResearchStepsObj.researchSteps[stepNr]
         Logger.log("stepNr: " + stepNr)
@@ -141,7 +146,6 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
                             activeRow = importElementData(activeRow, activeCol, sheet, thisStep, stepCompNr, thisIndicator, CompanyObj, nrOfIndSubComps, thisCategory)
 
                             Logger.log(stepComponent + " added for: " + thisIndicator.labelShort)
-
                             break
 
                         case "sources":

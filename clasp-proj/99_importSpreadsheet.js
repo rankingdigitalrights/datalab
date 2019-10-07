@@ -70,7 +70,8 @@ function insertSheetIfNotExist(Spreadsheet, SheetName) {
   if(!Spreadsheet.getSheetByName(SheetName)) {
       Sheet = Spreadsheet.insertSheet(SheetName);
     } else {
-      Sheet = Spreadsheet.getSheetByName(SheetName);
+      Sheet = null
+      Logger.log(SheetName + " Sheet already exists. Skipping.")
     };
   return Sheet;
 }
@@ -80,10 +81,13 @@ function addFileIDtoControl(mode, company, fileID, Controlsheet) {
 
   var spreadsheet = connectToSpreadsheetByID(Controlsheet)
   var sheet = insertSheetIfNotExist(spreadsheet, mode)
+  if (sheet) {
   var formula = '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
   sheet.appendRow([mode, company, fileID, formula])
   Logger.log("Entry added to Control")
-
+  } else {
+    Logger.log(Controlsheet + " Sheet already exists. Skipping")
+  }
 }
 
 function importRange(url, range) {

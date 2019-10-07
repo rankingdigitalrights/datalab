@@ -52,8 +52,9 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     cell.setValue(externalFormula.toString())
     // --- // creates sources page // --- //
     var sourcesSheet = insertSheetIfNotExist(file, '2019 Sources'); // make this dynamic
-    sourcesSheet.clear()
-
+    if (sourcesSheet) {
+        sourcesSheet.clear()
+    }
     var hasOpCom = CompanyObj.opCom
 
     // fetch number of Services once
@@ -102,7 +103,12 @@ function populateSheetByCategory(file, currentClass, CompanyObj, ResearchStepsOb
 
         Logger.log("indicator :" + thisIndicator.labelShort)
 
-        var sheet = insertSheetIfNotExist(file, thisIndicator.labelShort); // creates sheet
+        var sheet = insertSheetIfNotExist(file, thisIndicator.labelShort);
+        if (sheet == null) {
+            continue
+        }
+
+        // creates sheet
         sheet.clear(); // empties sheet if existing
         sheet.setTabColor(currentClass.classColor)
 
