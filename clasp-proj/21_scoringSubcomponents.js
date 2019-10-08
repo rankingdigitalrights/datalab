@@ -3,27 +3,31 @@
 // IMPORT
 
 // --- BEGIN setCompanyHeader() --- //
-function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComps, indicatorCat, companyObj) {
+function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComps, indicatorCat, companyObj, blocks) {
 
     Logger.log(' - ' + 'in company header ' + Indicator.labelShort)
 
     var currentCell = sheet.getRange(activeRow, activeCol)
-    currentCell.setValue(Indicator.labelShort)
-        .setBackground(indicatorCat.classColor)
-        .setFontWeight('bold')
-        .setVerticalAlignment("middle")
-        .setHorizontalAlignment('center')
-    activeCol += 1
+    var columnLabel
+
+    // skip first Column for subsequent steps    
+    if (blocks === 1) {
+        currentCell.setValue(Indicator.labelShort)
+            .setBackground(indicatorCat.classColor)
+            .setFontWeight('bold')
+            .setVerticalAlignment("middle")
+            .setHorizontalAlignment('center')
+        activeCol += 1
+    }
 
     // --- // Company Elements // --- //
 
     // group 
-
-    var thisColor = "#d9d9d9" // grey
+    var thisColor = "#d9d9d9" // grey TODO: outsource to config
 
     for (var g = 0; g < nrOfIndSubComps; g++) {
-        var currentCell = sheet.getRange(activeRow, activeCol)
-        var columnLabel = 'Group\n' + companyObj.label.current
+        currentCell = sheet.getRange(activeRow, activeCol)
+        columnLabel = 'Group\n' + companyObj.label.current
 
         if (nrOfIndSubComps > 1) {
             columnLabel = columnLabel + '\n' + indicatorCat.components[g].labelLong
@@ -35,10 +39,9 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
     }
 
     // opcom
-
     for (var g = 0; g < nrOfIndSubComps; g++) {
-        var currentCell = sheet.getRange(activeRow, activeCol)
-        var columnLabel = 'OpCom\n'
+        currentCell = sheet.getRange(activeRow, activeCol)
+        columnLabel = 'OpCom\n'
 
         if (companyObj.opCom == true) {
             columnLabel = columnLabel + companyObj.opComLabel
@@ -56,11 +59,10 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
     }
 
     // --- // --- Services --- // --- //
-
     for (k = 0; k < companyObj.numberOfServices; k++) {
         for (var g = 0; g < nrOfIndSubComps; g++) {
-            var currentCell = sheet.getRange(activeRow, activeCol)
-            var columnLabel = companyObj.services[k].label.current
+            currentCell = sheet.getRange(activeRow, activeCol)
+            columnLabel = companyObj.services[k].label.current
 
             if (nrOfIndSubComps > 1) {
                 columnLabel = columnLabel + '\n' + indicatorCat.components[g].labelLong
@@ -76,7 +78,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
 }
 
 // generic : imports both,element level evaluation results and comments
-function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat) {
+function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks) {
 
     var stepCompType = currentStep.components[stepCNr].id
 
@@ -85,19 +87,24 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
     Logger.log(' - ' + 'in ' + currentStep.components[stepCNr].type + ' ' + Indicator.labelShort)
 
     var urlDC = CompanyObj.urlCurrentDataCollectionSheet
-    // for each element
 
+    // for each element
     for (var elemNr = 0; elemNr < Indicator.elements.length; elemNr++) {
-        // row label
 
         var tempCol = activeCol
         var currentCell = sheet.getRange(activeRow, tempCol)
-        var rowLabel = currentStep.components[stepCNr].label + Indicator.elements[elemNr].labelShort
-        currentCell.setValue(rowLabel.toString())
-        currentCell.setWrap(true)
-        tempCol += 1
+
+        // row label / first Column
+        // skip first Column for subsequent steps    
+        if (blocks === 1) {
+            var rowLabel = currentStep.components[stepCNr].label + Indicator.elements[elemNr].labelShort
+            currentCell.setValue(rowLabel.toString())
+            currentCell.setWrap(true)
+            tempCol += 1
+        }
+
         var component = ""
-        
+
         // result cells
         // for Group + Indicator Subcomponents
         for (var k = 0; k < nrOfIndSubComps; k++) {
@@ -167,7 +174,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
 
 // --- // Begin Sources // --- //
 
-function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat) {
+function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks) {
 
     var stepCompType = currentStep.components[stepCNr].id
 
@@ -179,13 +186,18 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
 
     var urlDC = CompanyObj.urlCurrentDataCollectionSheet
 
-    // row label
     var tempCol = activeCol
     var currentCell = sheet.getRange(activeRow, activeCol)
-    var rowLabel = currentStep.components[stepCNr].label
-    currentCell.setValue(rowLabel.toString())
-    currentCell.setWrap(true)
-    tempCol += 1
+
+    // row label / first Column
+    // skip first Column for subsequent steps    
+    if (blocks === 1) {
+        var rowLabel = currentStep.components[stepCNr].label
+        currentCell.setValue(rowLabel.toString())
+        currentCell.setWrap(true)
+        tempCol += 1
+    }
+
     var component = ""
 
     // result cells
@@ -256,21 +268,26 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
 
 // --- // Core function: SCORING // --- //
 
-function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat) {
+function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks) {
 
     Logger.log(' - ' + "in element scoring for " + ' ' + Indicator.labelShort)
 
     var scoringSuffix = "SE"
     // for each indicator.Element
 
-    // labels column
     for (var elemNr = 0; elemNr < Indicator.elements.length; elemNr++) {
+
         var tempCol = activeCol
         var currentCell = sheet.getRange(activeRow, tempCol)
-        var rowLabel = 'Points for ' + Indicator.elements[elemNr].labelShort
-        currentCell.setValue(rowLabel.toString())
-        currentCell.setWrap(true)
-        tempCol += 1
+
+        // row label / first Column
+        // skip first Column for subsequent steps    
+        if (blocks === 1) {
+            var rowLabel = 'Points for ' + Indicator.elements[elemNr].labelShort
+            currentCell.setValue(rowLabel.toString())
+            currentCell.setWrap(true)
+            tempCol += 1
+        }
 
         // for each Indicator Sub Component (G: FC, PC)
         for (var k = 0; k < nrOfIndSubComps; k++) {
@@ -360,21 +377,24 @@ function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentS
 
 // --- // Level Scoring // --- //
 
-function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, indyLevelScoresCompany, indyLevelScoresServices) {
+function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, indyLevelScoresCompany, indyLevelScoresServices, blocks) {
 
     Logger.log(' - ' + "in level scoring for " + ' ' + Indicator.labelShort)
     // --- adding the level averages --- //
 
     var scoringSuffix = "SL"
 
-    // set up labels
-
     var currentCell = sheet.getRange(activeRow, activeCol)
-    currentCell.setValue('Level Scores')
-    currentCell.setFontWeight('bold')
 
     var tempCol = activeCol
-    tempCol += 1
+
+    // row label / first Column
+    // skip first Column for subsequent steps    
+    if (blocks === 1) {
+        currentCell.setValue('Level Scores')
+        currentCell.setFontWeight('bold')
+        tempCol += 1
+    }    
 
     // --- Level Average Scores --- //
 
@@ -495,7 +515,7 @@ function addLevelScores(file, sheetMode, activeRow, activeCol, sheet, currentSte
     return activeRow + 1
 }
 
-function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, Indicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores) {
+function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, Indicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks) {
 
     Logger.log(' - ' + "in composite scoring for " + Indicator.labelShort)
 
@@ -504,8 +524,12 @@ function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, curren
     activeRow += 1
 
     var currentCell = sheet.getRange(activeRow, activeCol)
-        .setValue("Composite Scores")
-        .setFontWeight('bold')
+
+    // row label / first Column
+    // skip first Column for subsequent steps    
+    if (blocks === 1) {
+        currentCell.setValue("Composite Scores").setFontWeight('bold')
+    }
 
     // --- Composite Company --- //
 
@@ -540,7 +564,7 @@ function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, curren
     return activeRow + 1
 }
 
-function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, Indicator, CompanyObj, indyCompositeScores) {
+function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, Indicator, CompanyObj, indyCompositeScores, blocks) {
 
     Logger.log(' - ' + "in indicator scoring for " + ' ' + Indicator.labelShort)
 
@@ -553,8 +577,13 @@ function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, current
     // setting up label for Average Score
 
     var currentCell = sheet.getRange(activeRow, activeCol)
-    currentCell.setValue("Indicator Score")
-    currentCell.setFontWeight('bold')
+
+    // row label / first Column
+    // skip first Column for subsequent steps    
+    if (blocks === 1) {
+        currentCell.setValue("Indicator Score")
+        currentCell.setFontWeight('bold')
+    }
     currentCell = sheet.getRange(activeRow, activeCol + 1)
 
     Logger.log(' - ' + "Indicator Scoring Ranges - indyCompositeScores[]:\n --- " + indyCompositeScores)

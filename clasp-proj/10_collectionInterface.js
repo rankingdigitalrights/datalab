@@ -24,6 +24,7 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     var ResearchStepsObj = researchStepsVector
 
     var localColWidth = configObj.serviceColWidth
+    var doCollapse = configObj.collapseGroups
       
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
@@ -75,7 +76,7 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
         Logger.log("Starting " + currentClass.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
-        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom)
+        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom, doCollapse)
 
         Logger.log("Completed " + currentClass.labelLong)
     }

@@ -4,7 +4,7 @@
 // List the parameters and where their values are coming from
 
 
-function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom) {
+function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom, doCollapse) {
 
     // for each indicator
     // - create a new Sheet
@@ -152,7 +152,8 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
                 file.setNamedRange(stepNamedRange, range); // names an entire step
 
                 // GROUP for substep
-                var substepRange = range.shiftRowGroupDepth(1).collapseGroups()
+                var substepRange = range.shiftRowGroupDepth(1)
+                if (doCollapse) {substepRange.collapseGroups()}
                 endStep = activeRow
                 // }
 

@@ -1,7 +1,8 @@
 var researchStepsVector = {
     "researchSteps": [{
             "step": 1,
-            "substeps": [{
+            "substeps": [
+                {
                     "label": "Step 1: Data Collection",
                     "labelShort": "S01",
                     "c1": 223,
@@ -110,7 +111,7 @@ var researchStepsVector = {
                 },
                 {
                     "label": "Step 2a: Notes/comments from researchers",
-                    "labelShort": "S01a",
+                    "labelShort": "S02a",
                     "c1": 168,
                     "c2": 168,
                     "c3": 50,
@@ -296,6 +297,25 @@ var researchStepsVector = {
                         "label": "Sources (reference, specific page, section, etc.)"
                     }
                 ]
+            },
+            {
+                "label": "Step 5a: Notes/comments from researchers",
+                "labelShort": "S05a",
+                "c1": 50,
+                "c2": 168,
+                "c3": 82,
+                "legacyColor": "#ead1dc",
+                "components": [{
+                        "type": "header",
+                        "filler": " "
+                    },
+                    {
+                        "type": "elementComments",
+                        "id": "MN",
+                        "label": "Notes for ",
+                        "label2": " "
+                    }
+                ]
             }]
         },
         {
@@ -334,6 +354,25 @@ var researchStepsVector = {
                         "type": "sources",
                         "id": "MS",
                         "label": "Sources (reference, specific page, section, etc.)"
+                    }
+                ]
+            },
+            {
+                "label": "Step 6a: Notes/comments from researchers",
+                "labelShort": "S06a",
+                "c1": 50,
+                "c2": 168,
+                "c3": 82,
+                "legacyColor": "#ead1dc",
+                "components": [{
+                        "type": "header",
+                        "filler": " "
+                    },
+                    {
+                        "type": "elementComments",
+                        "id": "MN",
+                        "label": "Notes for ",
+                        "label2": " "
                     }
                 ]
             }]
