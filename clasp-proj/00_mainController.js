@@ -19,15 +19,18 @@ var indicatorSubset = true // true := use subset
 
 function mainAllCompaniesDataCollectionSheets() {
 
+	var mainSheetMode = "DC"
+
 	var companies = companiesVector.companies
 		.slice(0,1) // Apple
 		// .slice(1,2) // ATT
 		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
-		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset)
+		
+		var fileID = mainCreateSingleDataCollectionSheet(thisCompany, stepsSubset, indicatorSubset, mainSheetMode)
 		Logger.log("received fileID: " + fileID)
-		addFileIDtoControl("DC", thisCompany.label.current, fileID, controlSpreadsheet)
+		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
 	})
 
 }
@@ -36,15 +39,17 @@ function mainAllCompaniesDataCollectionSheets() {
 
 function mainAllCompaniesScoringSheets() {
 
+	var mainSheetMode = "SC"
+
 	var companies = companiesVector.companies
 		.slice(0,1) // Apple
 		// .slice(1,2) // ATT
 		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
-		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset)
+		var fileID = mainCreateSingleScoringSheet(thisCompany, stepsSubset, indicatorSubset, mainSheetMode)
 		Logger.log("received fileID: " + fileID)
-		addFileIDtoControl("SC", thisCompany.label.current, fileID, controlSpreadsheet)
+		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
 	})
 }
 
@@ -55,18 +60,15 @@ function mainAllCompaniesScoringSheets() {
 
 // --- Data Collection --- // 
 
-function mainCreateSingleDataCollectionSheet(company, stepsSubset, indicatorSubset) {
-
-	var stepsObject = researchStepsVector
-	var indicatorsObject = indicatorsVector
-	var fileID = createSpreadsheetDC(stepsSubset, indicatorSubset, company, filenameSuffix, stepsObject, indicatorsObject)
+function mainCreateSingleDataCollectionSheet(companyObj, stepsSubset, indicatorSubset, mainSheetMode) {
+	var fileID = createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameSuffix, mainSheetMode)
 	return fileID
 }
 
 // --- Scoring --- //
 
-function mainCreateSingleScoringSheet(company, stepsSubset, indicatorSubset) {
-	var fileID = createSpreadsheetSC(stepsSubset, indicatorSubset, company, filenameSuffix)
+function mainCreateSingleScoringSheet(companyObj, stepsSubset, indicatorSubset, mainSheetMode) {
+	var fileID = createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameSuffix, mainSheetMode)
 	return fileID
 }
 

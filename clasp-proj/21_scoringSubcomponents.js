@@ -1,6 +1,27 @@
 // ---------------------HELPER FUNCTIONS---------------------------------------------
 
-// IMPORT
+function setSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubStepLabel, blocks) {
+
+    // -- // add Step Header to top-left cell // -- //
+    // TODO: refactor to components
+    
+    if (blocks == 1) {
+        sheet.getRange(activeRow, activeCol)
+            .setValue(companyShortName)
+            .setFontWeight("bold")
+            .setBackground("#b7e1cd")
+            .setFontSize(14)
+        sheet.setColumnWidth(activeCol, 200)
+        activeCol += 1
+    }
+
+    sheet.getRange(activeRow, activeCol)
+            .setValue(thisSubStepLabel)
+            .setFontWeight("bold")
+            .setFontSize(14)
+
+    return activeRow += 1
+}
 
 // --- BEGIN setCompanyHeader() --- //
 function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComps, indicatorCat, companyObj, blocks) {
