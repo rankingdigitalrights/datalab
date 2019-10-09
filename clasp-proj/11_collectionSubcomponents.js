@@ -2,18 +2,6 @@
 
 // Indicator Guidance for researchers
 
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentClass 
- * @param {*} thisIndicator 
- * @param {*} activeRow 
- * @param {*} activeCol 
- * @param {*} nrOfIndSubComps 
- * @param {*} hasOpCom 
- * @param {*} numberOfColumns 
- */
-
 function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns) {
 
     // TODO probably move all formatting params to JSON
@@ -104,17 +92,18 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 
 // Company + Services Header
 
-function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, mainStepNr) {
+function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStepNr, mainStepColor) {
 
     var activeCol = 1
 
     var rowRange = (activeRow + ':' + activeRow).toString()
-    currentSheet.getRange(rowRange).setHorizontalAlignment('center') // alligns header row
+    currentSheet.getRange(rowRange).setHorizontalAlignment('center') // aligns header row
 
     // -----------------------SETTING UP THE HEADER ROW------------------------
     // first cell: Main Step Label
     currentSheet.getRange(activeRow, activeCol)
-        .setValue("Step: " + mainStepNr)
+        .setValue("Step: " + thisMainStepNr)
+        .setBackground(mainStepColor)
         .setFontFamily("Roboto Mono")
         .setFontWeight('bold')
         .setFontSize(12)
@@ -202,42 +191,19 @@ function addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, fil
 
 }
 
-/**
- * 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} activeRow 
- * @param {*} activeCol 
- * @param {*} currentSheet 
- */
-
 // function just creates a single row in which in the first column a label is added
 function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, currentSheet) {
     var cell = currentSheet.getRange(activeRow, activeCol)
         // cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3) // setting background color
         .setValue(currentStep.components[stepCNr].label)
-        .setBackground(currentStep.legacyColor)
+        .setBackground(currentStep.subStepColor)
         .setFontWeight('bold')
     return activeRow + 1
 }
 
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentIndicator 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} file 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} nrOfIndSubComps 
- * @param {*} companyNumberOfServices 
- */
-
-
-// a step header is a row in which in the first column the name and description of the step is listed
-// and in the remaining colums a filler is added
-function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+// TODO - obsolete description - a step header is a row in which in the first column the name and description of the step is listed
+// and in the remaining columns a placeholderText is added
+function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     activeRow = activeRow + 1
 
@@ -245,17 +211,17 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
     var cell = currentSheet.getRange(activeRow, 1)
     var text = currentStep.label
     cell.setValue(text)
-        .setBackground(currentStep.legacyColor)
+        .setBackground(currentStep.subStepColor)
         .setFontWeight('bold')
     // cell = textUnderline(cell)
 
     // TODO
-    // activeRow = addCompanyHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
+    // activeRow = addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
 
-    var thisFiller = currentStep.components[stepCNr].filler
+    var thisFiller = currentStep.components[stepCNr].placeholderText
     const thisFirstCol = 2
     const thisLastCol = ((companyNumberOfServices + 2) * nrOfIndSubComps)
-    // for remaining company, opCom, and services columns it adds the filler
+    // for remaining company, opCom, and services columns it adds the placeholderText
     var thisRange = currentSheet.getRange(activeRow, thisFirstCol, 1, thisLastCol)
     thisRange.setValue(thisFiller)
     thisRange.setFontStyle("italic")
@@ -263,20 +229,6 @@ function addStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, fi
     return activeRow + 1
 
 }
-
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentIndicator 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} file 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} nrOfIndSubComps 
- * @param {*} currentClass 
- * @param {*} companyNumberOfServices 
- */
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
 function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
@@ -296,7 +248,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
         // setting up the labels
         var cell = currentSheet.getRange(activeRow + elemNr, activeCol)
             .setValue(currentStep.components[stepCNr].label + thisElement.labelShort)
-            .setBackground(currentStep.legacyColor)
+            .setBackground(currentStep.subStepColor)
             .setNote(noteString)
         activeCol += 1
 
@@ -385,20 +337,6 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentIndicator 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} file 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} nrOfIndSubComps 
- * @param {*} currentClass 
- * @param {*} companyNumberOfServices 
- */
-
 function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
 
@@ -415,7 +353,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
         // adding the labels
         var cell = currentSheet.getRange(activeRow + elemNr, activeCol)
         cell.setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort + currentStep.components[stepCNr].label2)
-        cell.setBackground(currentStep.legacyColor) // colors cell
+        cell.setBackground(currentStep.subStepColor) // colors cell
         activeCol += 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
@@ -499,20 +437,6 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
 
 // this function adds an element drop down list to a single row
 
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentIndicator 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} file 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} nrOfIndSubComps 
- * @param {*} currentClass 
- * @param {*} companyNumberOfServices 
- */
-
 function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
@@ -523,7 +447,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
     // sets up the labels
     var cell = currentSheet.getRange(activeRow, activeCol)
         .setValue(thisStepComponent.label)
-        .setBackground(currentStep.legacyColor)
+        .setBackground(currentStep.subStepColor)
     if(thisStepComponent.type === "binaryReview") {cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")}
     activeCol += 1
 
@@ -603,19 +527,6 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
 
 // ## TODO Component Level functions ## //
 
-/**
- * 
- * @param {*} sheet 
- * @param {*} currentIndicator 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} nrOfIndSubComps 
- * @param {*} currentClass 
- * @param {*} companyNumberOfServices 
- */
-
 function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     // sets up column with discription
@@ -630,7 +541,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
         // sets up labels in the first column of the row
         var cell = sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort)
-            .setBackground(currentStep.legacyColor)
+            .setBackground(currentStep.subStepColor)
         activeCol += 1
 
         for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard 3 with company JSON
@@ -746,20 +657,6 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 
 // the sources step adds a single row in which the sources of each column can be listed
 
-/**
- * 
- * @param {*} currentSheet 
- * @param {*} currentIndicator 
- * @param {*} CompanyObj 
- * @param {*} activeRow 
- * @param {*} file 
- * @param {*} currentStep 
- * @param {*} stepCNr 
- * @param {*} nrOfIndSubComps 
- * @param {*} currentClass 
- * @param {*} companyNumberOfServices 
- */
-
 function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
     var activeCol = 1
 
@@ -769,7 +666,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
     // adding label
     var cell = currentSheet.getRange(activeRow, activeCol)
         .setValue(currentStep.components[stepCNr].label)
-        .setBackground(currentStep.legacyColor)
+        .setBackground(currentStep.subStepColor)
     activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {

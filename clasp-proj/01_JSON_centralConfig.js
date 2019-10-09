@@ -3,12 +3,13 @@ var centralConfig = {
 	"freezeHead" : false,
 	"serviceColWidth": 280,
 	// "firstScoringStep": 3 // regular index
-	"firstScoringStep": 0, // Pilot
+	"firstScoringStep": 1, // Pilot
 	// "maxScoringStep": false, // otherwise number
 	"includeScoring": true,
 	"pilotMode": false, // if true then disable scoring
-	"collapseGroups": false,
+	"collapseAllGroups": false,
 	"notesSheetname": "Comments",
 	"scoringSheetname": "Outcome",
-	"feedbackSheetname": "Feedback"
+	"feedbackSheetname": "Feedback",
+	"feedbackStep": 4
 }

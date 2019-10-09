@@ -99,7 +99,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
 }
 
 // generic : imports both,element level evaluation results and comments
-function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks) {
+function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, isLocalImport) {
 
     var stepCompType = currentStep.components[stepCNr].id
 
@@ -140,7 +140,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
             var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.labelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompType)
 
             // adding formula
-            var formula = importRange(urlDC, compCellName)
+            var formula = importRange(urlDC, compCellName, isLocalImport)
             currentCell.setFormula(formula)
             tempCol += 1
         }
@@ -157,7 +157,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
                 // setting up formula that compares values
                 var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.labelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                var formula = importRange(urlDC, compCellName)
+                var formula = importRange(urlDC, compCellName, isLocalImport)
                 currentCell.setFormula(formula)
 
             } else {
@@ -179,7 +179,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
                 // setting up formula that compares values
                 var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.labelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                var formula = importRange(urlDC, compCellName)
+                var formula = importRange(urlDC, compCellName, isLocalImport)
                 currentCell.setFormula(formula)
 
                 tempCol += 1
@@ -195,7 +195,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
 
 // --- // Begin Sources // --- //
 
-function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks) {
+function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, isLocalImport) {
 
     var stepCompType = currentStep.components[stepCNr].id
 
@@ -234,7 +234,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
         var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.labelShort, Indicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
         // adding formula
-        var formula = importRange(urlDC, compCellName)
+        var formula = importRange(urlDC, compCellName, isLocalImport)
         currentCell.setFormula(formula)
         tempCol += 1
     }
@@ -251,7 +251,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
             // setting up formula that compares values
             var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.labelShort, Indicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-            var formula = importRange(urlDC, compCellName)
+            var formula = importRange(urlDC, compCellName, isLocalImport)
             currentCell.setFormula(formula)
 
         } else {
@@ -273,7 +273,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
             // setting up formula that compares values
             var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.labelShort, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-            var formula = importRange(urlDC, compCellName)
+            var formula = importRange(urlDC, compCellName, isLocalImport)
             currentCell.setFormula(formula)
 
             tempCol += 1

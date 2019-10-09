@@ -6,10 +6,11 @@ var importedOutcomeTabName = "2018 Outcome"
 
 // --- //  This is the main caller // --- //
 
-function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameSuffix) {
+function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
     Logger.log('begin main data collection')
 
-    var sheetMode = "DC" // TODO
+    var sheetMode = mainSheetMode
+    
     var sourcesTabName = "Sources"
     var companyShortName = companyObj.label.current
 
@@ -24,7 +25,7 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     var ResearchStepsObj = researchStepsVector
 
     var localColWidth = configObj.serviceColWidth
-    var doCollapse = configObj.collapseGroups
+    var doCollapseAll = configObj.collapseAllGroups
       
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
@@ -50,19 +51,22 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     }
 
     // --- // creates sources page // --- //
-    var sourcesSheet = insertSheetIfNotExist(file, sourcesTabName, true)
-    sourcesSheet.clear()
-    sourcesSheet.appendRow(["Source reference number","Document title","URL","Date of document\n(if applicable)","Date accessed","Saved source link (DEPRECATE)","Internet Archive", "Has this policy changed from the previous year's Index?"])
-    sourcesSheet.getRange(1,1,1,sourcesSheet.getLastColumn())
-        .setFontWeight("bold")
-        .setFontFamily("Roboto")
-        .setVerticalAlignment("top")
-        .setHorizontalAlignment("center")
-        .setWrap(true)
-        .setFontSize(12)
-    sourcesSheet.setColumnWidths(1,sourcesSheet.getLastColumn(), 200)
+    var sourcesSheet = insertSheetIfNotExist(file, sourcesTabName, false)
+    if (sourcesSheet !== null) {
+        sourcesSheet.clear()
+        sourcesSheet.appendRow(["Source reference number", "Document title", "URL", "Date of document\n(if applicable)", "Date accessed", "Saved source link (DEPRECATE)", "Internet Archive", "Has this policy changed from the previous year's Index?"])
+        sourcesSheet.getRange(1, 1, 1, sourcesSheet.getLastColumn())
+            .setFontWeight("bold")
+            .setFontFamily("Roboto")
+            .setVerticalAlignment("top")
+            .setHorizontalAlignment("center")
+            .setWrap(true)
+            .setFontSize(12)
+        sourcesSheet.setColumnWidths(1, sourcesSheet.getLastColumn(), 200)
 
-    var hasOpCom = CompanyObj.opCom
+    }
+
+    var companyHasOpCom = CompanyObj.opCom
 
     // fetch number of Services once
     var companyNumberOfServices = CompanyObj.services.length
@@ -76,7 +80,7 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
         Logger.log("Starting " + currentClass.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
-        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom, doCollapse)
+        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, companyHasOpCom, doCollapseAll)
 
         Logger.log("Completed " + currentClass.labelLong)
     }
@@ -85,8 +89,16 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     // --- // PROTO // --- //
     // Feedback Collector comes here
-    addNotesSheet(file, IndicatorsObj, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom)
-    
+    var pointsSheet = insertSheetIfNotExist(file, "Points", true)
+    pointsSheet.clear()
+    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
+    pointsSheet.hideSheet()
+
+    var isLocalImport = true
+    addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom, isLocalImport)
+
     Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID
 }

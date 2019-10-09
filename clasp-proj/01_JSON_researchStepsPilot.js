@@ -1,17 +1,16 @@
 var researchStepsVector = {
     "researchSteps": [{
             "step": 1,
+            "stepColor": "#ddd9c3",
             "substeps": [
                 {
                     "label": "Step 1: Data Collection",
                     "labelShort": "S01",
-                    "c1": 223,
-                    "c2": 135,
-                    "c3": 212,
-                    "legacyColor": "#ddd9c3",
+                    "subStepColor": "#ddd9c3",
+                    "doCollapse": false,
                     "components": [{
                             "type": "header",
-                            "filler": "Your Name"
+                            "placeholderText": "Your Name"
                         },
                         {
                             "type": "elementResults",
@@ -42,13 +41,11 @@ var researchStepsVector = {
                 {
                     "label": "Step 1a: Notes/comments from researchers",
                     "labelShort": "S01a",
-                    "c1": 168,
-                    "c2": 168,
-                    "c3": 50,
-                    "legacyColor": "#ead1dc",
+                    "subStepColor": "#ead1dc",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": " "
+                            "placeholderText": " "
                         },
                         {
                             "type": "elementComments",
@@ -62,16 +59,15 @@ var researchStepsVector = {
         },
         {
             "step": 2,
+            "stepColor": "#c6d9f0",
             "substeps": [{
                     "label": "Step 2: Secondary review",
                     "labelShort": "S02",
-                    "c1": 186,
-                    "c2": 136,
-                    "c3": 177,
-                    "legacyColor": "#c6d9f0",
+                    "subStepColor": "#c6d9f0",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": "Your Name"
+                            "placeholderText": "Your Name"
                         },
                         {
                             "type": "binaryReview",
@@ -112,13 +108,11 @@ var researchStepsVector = {
                 {
                     "label": "Step 2a: Notes/comments from researchers",
                     "labelShort": "S02a",
-                    "c1": 168,
-                    "c2": 168,
-                    "c3": 50,
-                    "legacyColor": "#ead1dc",
+                    "subStepColor": "#ead1dc",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": " "
+                            "placeholderText": " "
                         },
                         {
                             "type": "elementComments",
@@ -132,16 +126,15 @@ var researchStepsVector = {
         },
         {
             "step": 3,
+            "stepColor": "#dbe5f1",
             "substeps": [{
                     "label": "Step 3: Score Consensus",
                     "labelShort": "S03",
-                    "c1": 50,
-                    "c2": 147,
-                    "c3": 168,
-                    "legacyColor": "#dbe5f1",
+                    "subStepColor": "#dbe5f1",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": "Your Name"
+                            "placeholderText": "Your Name"
                         },
                         {
                             "type": "elementResults",
@@ -172,13 +165,11 @@ var researchStepsVector = {
                 {
                     "label": "Step 3a: Notes/comments from researchers",
                     "labelShort": "S03a",
-                    "c1": 50,
-                    "c2": 168,
-                    "c3": 82,
-                    "legacyColor": "#ead1dc",
+                    "subStepColor": "#ead1dc",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": " "
+                            "placeholderText": " "
                         },
                         {
                             "type": "elementComments",
@@ -192,16 +183,15 @@ var researchStepsVector = {
         },
         {
             "step": 4,
+            "stepColor": "#d9ead3",
             "substeps": [{
                     "label": "Step 4: Company Notes",
                     "labelShort": "S04",
-                    "c1": "143",
-                    "c2": "237",
-                    "c3": "88",
-                    "legacyColor": "#d9ead3",
+                    "subStepColor": "#d9ead3",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": "Your Name"
+                            "placeholderText": "Your Name"
                         },
                         {
                             "type": "binaryReview",
@@ -241,13 +231,11 @@ var researchStepsVector = {
                 {
                     "label": "Step 4a: Notes/comments from researchers",
                     "labelShort": "S04a",
-                    "c1": 50,
-                    "c2": 168,
-                    "c3": 82,
-                    "legacyColor": "#ead1dc",
+                    "subStepColor": "#ead1dc",
+                    "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "filler": " "
+                            "placeholderText": " "
                         },
                         {
                             "type": "elementComments",
@@ -261,16 +249,15 @@ var researchStepsVector = {
         },
         {
             "step": 5,
+            "stepColor": "#d9d2e9",
             "substeps": [{
                 "label": "Step 5: Score consolidation and horizontal review",
                 "labelShort": "S05",
-                "c1": 162,
-                "c2": 168,
-                "c3": 50,
-                "legacyColor": "#d9d2e9",
+                "subStepColor": "#d9d2e9",
+                "doCollapse": true,
                 "components": [{
                         "type": "header",
-                        "filler": "Your Name"
+                        "placeholderText": "Your Name"
                     },
                     {
                         "type": "elementResults",
@@ -301,13 +288,11 @@ var researchStepsVector = {
             {
                 "label": "Step 5a: Notes/comments from researchers",
                 "labelShort": "S05a",
-                "c1": 50,
-                "c2": 168,
-                "c3": 82,
-                "legacyColor": "#ead1dc",
+                "subStepColor": "#ead1dc",
+                "doCollapse": true,
                 "components": [{
                         "type": "header",
-                        "filler": " "
+                        "placeholderText": " "
                     },
                     {
                         "type": "elementComments",
@@ -320,16 +305,15 @@ var researchStepsVector = {
         },
         {
             "step": 6,
+            "stepColor": "#ddd9c3",
             "substeps": [{
                 "label": "Step 6: Final Scores",
                 "labelShort": "S06",
-                "c1": 223,
-                "c2": 135,
-                "c3": 212,
-                "legacyColor": "#ddd9c3",
+                "subStepColor": "#ddd9c3",
+                "doCollapse": true,
                 "components": [{
                         "type": "header",
-                        "filler": "Your Name"
+                        "placeholderText": "Your Name"
                     },
                     {
                         "type": "elementResults",
@@ -360,13 +344,11 @@ var researchStepsVector = {
             {
                 "label": "Step 6a: Notes/comments from researchers",
                 "labelShort": "S06a",
-                "c1": 50,
-                "c2": 168,
-                "c3": 82,
-                "legacyColor": "#ead1dc",
+                "doCollapse": true,
+                "subStepColor": "#ead1dc",
                 "components": [{
                         "type": "header",
-                        "filler": " "
+                        "placeholderText": " "
                     },
                     {
                         "type": "elementComments",

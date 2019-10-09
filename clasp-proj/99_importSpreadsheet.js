@@ -92,9 +92,15 @@ function addFileIDtoControl(mode, company, fileID, controlSpreadsheet) {
   Logger.log("Entry added to Control")
 
 }
+function importRange(url, range, isLocalImport) {
 
-function importRange(url, range) {
-  var formula = '=IMPORTRANGE("' + url + '","' + range + '")'
-  formula = formula.toString()
+  var formula
+
+  if (isLocalImport) {
+    formula = '=' + range
+  } else {
+    formula = '=IMPORTRANGE("' + url + '","' + range + '")'
+    formula = formula.toString()
+  }
   return formula
 }

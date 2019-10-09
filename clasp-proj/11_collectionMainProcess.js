@@ -4,7 +4,7 @@
 // List the parameters and where their values are coming from
 
 
-function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom, doCollapse) {
+function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom, doCollapseAll) {
 
     // for each indicator
     // - create a new Sheet
@@ -27,7 +27,7 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         if (sheet === null) {
             continue
         }
-        
+
         sheet.clear().setTabColor(currentClass.classColor)
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
@@ -44,14 +44,14 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
         var localColWidth = localColWidth / nrOfIndSubComps
         sheet.setColumnWidths(2, numberOfColumns - 1, localColWidth)
-    
+
 
         // start sheet in first top left cell
         var activeRow = 1
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns) 
+        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns)
 
         var dataStartRow = activeRow
 
@@ -63,12 +63,14 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
 
             var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
+            var thisMainStepColor = thisMainStep.stepColor
             // setting up all the substeps for all the indicators
 
             Logger.log("main step : " + thisMainStep.step)
             var subStepsLength = thisMainStep.substeps.length
 
-            activeRow = addCompanyHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStep.step) // sets up header
+
+            activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStep.step, thisMainStepColor) // sets up header
 
             var beginStep = activeRow
             var endStep = activeRow
@@ -101,7 +103,7 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
                     switch (thisStepComponent) {
 
                         case "header":
-                            activeRow = addStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
+                            activeRow = addSubStepHeader(sheet, thisIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices)
                             break
 
                         case "elementResults":
@@ -151,9 +153,15 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
                 file.setNamedRange(stepNamedRange, range); // names an entire step
 
-                // GROUP for substep
+                // GROUPING for substep
                 var substepRange = range.shiftRowGroupDepth(1)
-                if (doCollapse) {substepRange.collapseGroups()}
+
+                // COLLAPSE substep GROUP per researchSteps substep setting
+                if (!doCollapseAll) {
+                    if (currentStep.doCollapse) {
+                        substepRange.collapseGroups()
+                    }
+                }
                 endStep = activeRow
                 // }
 
@@ -177,15 +185,18 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
             .setVerticalAlignment("top")
 
         // collapse all groups
-        // sheet.collapseAllRowGroups();
+        if (doCollapseAll) {
+            sheet.collapseAllRowGroups()
+        }
 
         // hides opCom column(s) if opCom == false
+        // TODO: make dynamic
         if (CompanyObj.opCom == false) {
             sheet.hideColumns(3)
         }
 
         if (thisIndicator.scoringScope != "full") {
-            sheet.hideColumns(2,2)
+            sheet.hideColumns(2, 2)
         }
 
     } // End of Indicator Sheet

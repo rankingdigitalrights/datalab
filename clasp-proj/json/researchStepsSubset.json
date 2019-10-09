@@ -6,10 +6,10 @@
       "c1": 223,
       "c2": 135,
       "c3": 212,
-      "legacyColor": "#ddd9c3",
+      "subStepColor": "#ddd9c3",
       "components": [{
           "type": "header",
-          "filler": "Your Name"
+          "placeholderText": "Your Name"
         },
         {
           "type": "elementResults",
@@ -42,10 +42,10 @@
       "c1": 168,
       "c2": 168,
       "c3": 50,
-      "legacyColor": "#ead1dc",
+      "subStepColor": "#ead1dc",
       "components": [{
           "type": "header",
-          "filler": " "
+          "placeholderText": " "
         },
         {
           "type": "extraQuestion",
@@ -83,10 +83,10 @@
       "c1": 186,
       "c2": 136,
       "c3": 177,
-      "legacyColor": "#c6d9f0",
+      "subStepColor": "#c6d9f0",
       "components": [{
           "type": "header",
-          "filler": "Your Name"
+          "placeholderText": "Your Name"
         },
         {
           "type": "binaryReview",
@@ -141,10 +141,10 @@
       "c1": 50,
       "c2": 147,
       "c3": 168,
-      "legacyColor": "#dbe5f1",
+      "subStepColor": "#dbe5f1",
       "components": [{
           "type": "header",
-          "filler": "Your Name"
+          "placeholderText": "Your Name"
         },
         {
           "type": "elementResults",
@@ -177,10 +177,10 @@
       "c1": 50,
       "c2": 168,
       "c3": 82,
-      "legacyColor": "#dbe5f1",
+      "subStepColor": "#dbe5f1",
       "components": [{
           "type": "header",
-          "filler": " "
+          "placeholderText": " "
         },
         {
           "type": "extraQuestion",
