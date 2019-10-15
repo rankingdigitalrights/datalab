@@ -1,4 +1,5 @@
 // find research Step by labelShort
+// TODO adapt to updated Research Steps JSON structure
 
 function findResearchStepShort(ResearchStepsObj, stepsQuery) {
 

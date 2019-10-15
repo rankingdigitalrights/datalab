@@ -5,8 +5,9 @@ var centralConfig = {
 	// "firstScoringStep": 3 // regular index
 	"firstScoringStep": 1, // Pilot
 	// "maxScoringStep": false, // otherwise number
-	"includeScoring": true,
-	"pilotMode": false, // if true then disable scoring
+	"enrichDC": false,
+	"includeScoring": false,
+	"pilotMode": true, // if true then disable scoring
 	"collapseAllGroups": false,
 	"notesSheetname": "Comments",
 	"scoringSheetname": "Outcome",

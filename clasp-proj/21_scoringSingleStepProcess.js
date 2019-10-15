@@ -4,10 +4,11 @@ function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pi
 
     // var subStepsLength = thisMainStep.substeps.length
     var subStepsLength = 1
-    // var sheetName = 'Outcome_' + thisSubStep.labelShort
+    // var sheetName = 'Outcome_' + thisSubStep.subStepID
 
 
     var thisSubStep = thisMainStep.substeps[subStepNr]
+    var thisSubStepID = thisSubStep.subStepID
     var thisSubStepLabel = thisSubStep.labelShort
 
     Logger.log("Inserting Sheet " + sheetName)
@@ -31,7 +32,7 @@ function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pi
 
 
     Logger.log("--- Main Step has " + thisMainStep.substeps.length + ' Substeps')
-    Logger.log("--- Beginning Substep " + thisSubStepLabel)
+    Logger.log("--- Beginning Substep " + thisSubStepID)
 
     // set up header / TODO: remove from steps JSON. Not a component. This is Layout
 
@@ -74,6 +75,13 @@ function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pi
 
                 switch (stepComponent) {
 
+                    case "header":
+                        if (pilotMode) {
+                        activeRow = importSources(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
+                        Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                        }
+                        break
+
                     case "elementResults":
                         activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
                         Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
@@ -105,16 +113,16 @@ function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pi
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
             if (configObj.includeScoring) {
-                activeRow = addElementScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepLabel, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks)
+                activeRow = addElementScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks)
                 Logger.log(' - ' + 'element scores added for ' + thisIndicator.labelShort)
 
-                activeRow = addLevelScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepLabel, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, indyLevelScoresCompany, indyLevelScoresServices, blocks)
+                activeRow = addLevelScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, indyLevelScoresCompany, indyLevelScoresServices, blocks)
                 Logger.log(' - ' + "level scores added for " + thisIndicator.labelShort)
 
-                activeRow = addCompositeScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepLabel, thisIndicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
+                activeRow = addCompositeScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, thisIndicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
                 Logger.log(' - ' + "composite scores added for " + thisIndicator.labelShort)
 
-                activeRow = addIndicatorScore(file, sheetMode, activeRow, firstCol, sheet, thisSubStepLabel, thisIndicator, CompanyObj, indyCompositeScores, blocks)
+                activeRow = addIndicatorScore(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, thisIndicator, CompanyObj, indyCompositeScores, blocks)
                 Logger.log(' - ' + "indicator score added for " + thisIndicator.labelShort)
 
                 activeRow = activeRow + 1

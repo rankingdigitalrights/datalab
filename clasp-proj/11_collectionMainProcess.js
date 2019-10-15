@@ -149,7 +149,7 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""
-                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.labelShort, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
+                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentClass.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
 
                 file.setNamedRange(stepNamedRange, range); // names an entire step
 

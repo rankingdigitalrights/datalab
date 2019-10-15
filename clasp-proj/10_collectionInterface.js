@@ -87,6 +87,8 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     Logger.log('end DC main')
 
+    if (configObj.enrichDC) {
+
     // --- // PROTO // --- //
     // Feedback Collector comes here
     var pointsSheet = insertSheetIfNotExist(file, "Points", true)
@@ -97,7 +99,10 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     pointsSheet.hideSheet()
 
     var isLocalImport = true
-    addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom, isLocalImport)
+    addSetOfScoringSteps(file, "SC", configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom, isLocalImport)
+    
+    Logger.log("Extra Sheet added")
+    }
 
     Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID
