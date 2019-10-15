@@ -1,5 +1,5 @@
 // please refer to naming conventions
-// https://github.com/rankingdigitalrights/datalab/blob/master/clasp-proj/docs/dictionary.MD
+// https://github.com/rankingdigitalrights/datalab/blob/pilot-fork/clasp-proj/docs/dictionary.MD
 
 var companiesVector = {
     "collection": "companies",
