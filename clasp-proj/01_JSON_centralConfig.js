@@ -5,12 +5,13 @@ var centralConfig = {
 	// "firstScoringStep": 3 // regular index
 	"firstScoringStep": 1, // Pilot
 	// "maxScoringStep": false, // otherwise number
-	"enrichDC": false,
-	"includeScoring": false,
-	"pilotMode": true, // if true then disable scoring
+	"integrateOutputs": true, // add any scoring component? scoring, feedback, comments/notes
+	"includeScoring": true,
+	"pilotMode": false, // if true then disable scoring
 	"collapseAllGroups": false,
 	"notesSheetname": "Comments",
 	"scoringSheetname": "Outcome",
 	"feedbackSheetname": "Feedback",
-	"feedbackStep": 4
+	"feedbackStep": 4,
+	"prevYearOutcomeTab": "2018 Outcome"
 }

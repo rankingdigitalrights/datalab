@@ -1,16 +1,12 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
-// --- CONFIG --- //
-
-var importedOutcomeTabName = "2018 Outcome"
-
 // --- //  This is the main caller // --- //
 
 function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
     Logger.log('begin main data collection')
 
     var sheetMode = mainSheetMode
-    
+
     var sourcesTabName = "Sources"
     var companyShortName = companyObj.label.current
 
@@ -26,7 +22,9 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     var localColWidth = configObj.serviceColWidth
     var doCollapseAll = configObj.collapseAllGroups
-      
+    var integrateOutputs = configObj.integrateOutputs
+    var importedOutcomeTabName = configObj.prevYearOutcomeTab
+
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
     //   var file = SpreadsheetApp.create(spreadsheetName)
@@ -39,31 +37,45 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
     // Formula for importing previous year's outcome
     var externalFormula = '=IMPORTRANGE("' + configObj.prevIndexSSID + '","' + CompanyObj.tabPrevYearsOutcome + '!' + 'A:Z' + '")'
 
-    // first Sheet already exist, so set it to active and rename
-    var firstSheet = file.getActiveSheet()
+    // if an empty Sheet exists, track and delete later
+    var emptySheet = file.getSheetByName("Sheet1")
+    var hasEmptySheet
 
-    if (centralConfig.YearOnYear) {
-        firstSheet.setName(importedOutcomeTabName)
-        var cell = firstSheet.getActiveCell()
-        cell.setValue(externalFormula.toString())
+    if (emptySheet) {
+        hasEmptySheet = true
     } else {
-        firstSheet.setName(sourcesTabName)
+        hasEmptySheet = false
+    }
+
+    // if set in configObj, import previous Index Outcome
+    if (centralConfig.YearOnYear) {
+        newSheet = insertSheetIfNotExist(file, importedOutcomeTabName, false)
+        if (newSheet !== null) {
+            fillPrevOutcomeSheet(newSheet, importedOutcomeTabName)
+        }
     }
 
     // --- // creates sources page // --- //
-    var sourcesSheet = insertSheetIfNotExist(file, sourcesTabName, false)
-    if (sourcesSheet !== null) {
-        sourcesSheet.clear()
-        sourcesSheet.appendRow(["Source reference number", "Document title", "URL", "Date of document\n(if applicable)", "Date accessed", "Saved source link (DEPRECATE)", "Internet Archive", "Has this policy changed from the previous year's Index?"])
-        sourcesSheet.getRange(1, 1, 1, sourcesSheet.getLastColumn())
-            .setFontWeight("bold")
-            .setFontFamily("Roboto")
-            .setVerticalAlignment("top")
-            .setHorizontalAlignment("center")
-            .setWrap(true)
-            .setFontSize(12)
-        sourcesSheet.setColumnWidths(1, sourcesSheet.getLastColumn(), 200)
 
+    newSheet = insertSheetIfNotExist(file, sourcesTabName, false)
+    if (newSheet !== null) {
+        fillSourceSheet(newSheet, sourcesTabName)
+    }
+
+    // if scoring sheet is integrated into DC, create Points sheet
+
+    if (integrateOutputs) {
+
+        var pointsSheet = insertSheetIfNotExist(file, "Points", false)
+        if (pointsSheet !== null) {
+            fillPointsSheet(pointsSheet, "Points")
+            pointsSheet.hideSheet()
+        }
+    }
+
+    // if existing, remove first empty sheet
+    if (hasEmptySheet) {
+        file.deleteSheet(emptySheet)
     }
 
     var companyHasOpCom = CompanyObj.opCom
@@ -87,21 +99,12 @@ function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameS
 
     Logger.log('end DC main')
 
-    if (configObj.enrichDC) {
+    if (integrateOutputs) {
+        Logger.log("Adding Extra Sheet (Scoring / Feedback / Notes")
+        var isLocalImport = integrateOutputs
+        addSetOfScoringSteps(file, "SC", configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom, isLocalImport)
 
-    // --- // PROTO // --- //
-    // Feedback Collector comes here
-    var pointsSheet = insertSheetIfNotExist(file, "Points", true)
-    pointsSheet.clear()
-    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
-    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
-    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
-    pointsSheet.hideSheet()
-
-    var isLocalImport = true
-    addSetOfScoringSteps(file, "SC", configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom, isLocalImport)
-    
-    Logger.log("Extra Sheet added")
+        Logger.log("Extra Sheet added")
     }
 
     Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)

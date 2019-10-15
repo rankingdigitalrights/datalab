@@ -20,20 +20,36 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
     for (var i = 0; i < thisIndClassLength; i++) {
 
         var thisIndicator = currentClass.indicators[i]
-        Logger.log("indicator :" + thisIndicator.labelShort)
+        Logger.log('indicator :' + thisIndicator.labelShort)
+        var thisIndScoringScope = thisIndicator.scoringScope
+        Logger.log('Scoring Scope: ' + thisIndicator.labelShort + ' ' + thisIndScoringScope)
 
         var sheet = insertSheetIfNotExist(file, thisIndicator.labelShort, false)
 
         if (sheet === null) {
-            continue
+            continue // skips this i if sheet already exists
         }
 
-        sheet.clear().setTabColor(currentClass.classColor)
+        sheet.clear()
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
         var nrOfIndSubComps = 1
         if (currentClass.hasSubComponents == true) {
             nrOfIndSubComps = currentClass.components.length
+        }
+
+        // checks how many company group/opcom columns to hide for this Indicator
+        // (based on Scoring Scope)
+
+        var bridgeCompColumnsNr = 2
+        var bridgeOpCom
+
+        if (thisIndicator.scoringScope == "full") {
+            if (hasOpCom) {
+                bridgeCompColumnsNr = 0
+            } else {
+                bridgeCompColumnsNr = 1
+            }
         }
 
         // general formatting of sheet
@@ -51,7 +67,7 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns)
+        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr)
 
         var dataStartRow = activeRow
 
@@ -191,13 +207,18 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
         // hides opCom column(s) if opCom == false
         // TODO: make dynamic
-        if (CompanyObj.opCom == false) {
-            sheet.hideColumns(3)
+
+        if (thisIndScoringScope == "full") {
+            if (!hasOpCom) {
+                sheet.hideColumns(3)
+            }
+        } else {
+            sheet.hideColumns(2, bridgeCompColumnsNr)
         }
 
-        if (thisIndicator.scoringScope != "full") {
-            sheet.hideColumns(2, 2)
-        }
+        // color Indicator Sheet (Tab) in Class Color when done
+        sheet.setTabColor(currentClass.classColor)
 
     } // End of Indicator Sheet
+
 } // End of populating process

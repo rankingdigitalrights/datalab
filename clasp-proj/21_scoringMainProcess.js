@@ -21,16 +21,15 @@ function addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, Researc
 
     // --- // MAIN Procedure // --- //
     // For all Research Steps
-    // For each main step
+    
     var sheetName
-    var subStepNr
+    var subStepNr = 0
 
     // TODO: refactor to global helper function
     if (pilotMode) {
         subStepNr = 1
         sheetName = configObj.notesSheetname
     } else {
-        subStepNr = 0
         if (configObj.includeScoring) {
             sheetName = configObj.scoringSheetname
         } else {
@@ -43,6 +42,8 @@ function addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, Researc
     var lastCol = 1
     var blocks = 1
 
+    // For each Main Research Step
+    
     for (var mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
         var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
@@ -51,8 +52,10 @@ function addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, Researc
 
         // setting up all the substeps for all the indicators
         
-        lastCol = addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, companyHasOpCom, blocks, isLocalImport)
+        lastCol = scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, companyHasOpCom, blocks, isLocalImport)
+
         blocks++
 
     } // END MAIN STEP
+
 }

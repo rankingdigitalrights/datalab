@@ -1,3 +1,6 @@
+// please refer to naming conventions
+// https://github.com/rankingdigitalrights/datalab/blob/master/clasp-proj/docs/dictionary.MD
+
 var companiesVector = {
     "collection": "companies",
     "indexYear": 2019,
@@ -63,7 +66,7 @@ var companiesVector = {
             "tabPrevYearsOutcome": "ATTOutcome",
             "urlCurrentDataCollectionSheet": null,
             "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 1,
+            "numberOfServices": 3,
             "services": [{
                     "id": "mbAT1",
                     "type": "mobile",

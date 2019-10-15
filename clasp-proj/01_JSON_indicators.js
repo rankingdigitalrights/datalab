@@ -6,6 +6,7 @@ var indicatorsVector = {
             "researchGuidance": "TBD",
             "classColor" : "#ffe599",
             "hasSubComponents": false,
+            // preserving for legacy
             // "components": [{
             //         "labelShort": "FC",
             //         "labelLong": "Freedom of Expression"
@@ -104,7 +105,7 @@ var indicatorsVector = {
                     "labelShort": "F1",
                     "labelLong": "Access to terms of service",
                     "description": "The company should provide terms of service (ToS) that are easy to find and easy to understand.",
-                    "scoringScope": "services",
+                    "scoringScope": "full", // "services"
                     "y2yCompColumn": 2,
                     "y2yCompRow": 138,
                     "elements": [{
@@ -134,7 +135,7 @@ var indicatorsVector = {
                     "labelShort": "P1",
                     "labelLong": "Access to privacy policies",
                     "description": "The company should offer privacy policies that are easy to find and easy to understand.",
-                    "scoringScope": "services",
+                    "scoringScope": "full", // "services"
                     "y2yCompColumn": 2,
                     "y2yCompRow": 429,
                     "elements": [{

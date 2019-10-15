@@ -41,6 +41,7 @@ function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameS
     var fileID = file.getId()
 
     // creates Outcome  page
+    // TODO: redundant --> refactor to function 
     var firstSheet = file.getSheets()[0]
     firstSheet.setName('Points')
     firstSheet.clear()

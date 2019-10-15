@@ -2,20 +2,14 @@
 
 // Indicator Guidance for researchers
 
-function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns) {
+function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr) {
 
     // TODO probably move all formatting params to JSON
 
     var row = activeRow
     var col = activeCol
 
-    var bridgeOpCom = 1
-    if (hasOpCom) bridgeOpCom = 0
-
-    var bridgeGroup = 2
-    if (thisIndicator.scoringScope == "full") bridgeGroup = 0
-
-    var maxColHeadings = (2 + bridgeOpCom + bridgeGroup) * (nrOfIndSubComps) + 1
+    var maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
     var maxRow = 1
 
     // Indicator Heading

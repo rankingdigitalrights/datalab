@@ -1,6 +1,8 @@
 // --- // Main Config // --- //
 // --- Branch: PILOT --- //
 
+// TODO: Move global parameters to configObj
+
 var indexPrefix = "RDR2019"
 var filenameSuffix = "Pilot"
 var parentFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
@@ -22,9 +24,11 @@ function mainAllCompaniesDataCollectionSheets() {
 	var mainSheetMode = "DC"
 
 	var companies = companiesVector.companies
-		.slice(0,1) // Apple
+		// .slice(0,1) // Apple
 		// .slice(1,2) // ATT
-		// .slice(3,4) //
+		// .slice(2,3) // Baidu
+		// .slice(3,4) // Etisalat
+		// .slice(1,4) // ATT, Baidu, Etisalat
 
 	companies.forEach(function (thisCompany) {
 		

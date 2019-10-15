@@ -1,4 +1,6 @@
-function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, companyHasOpCom, blocks, isLocalImport) {
+function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, companyHasOpCom, blocks, isLocalImport) {
+
+    Logger.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
     var companyShortName = CompanyObj.label.current
 
@@ -75,31 +77,33 @@ function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pi
 
                 switch (stepComponent) {
 
+                    // import researcher name from x.0 step
                     case "header":
                         if (pilotMode) {
-                        activeRow = importSources(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
-                        Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+
+                        activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport, pilotMode)
+                        Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
                         }
                         break
 
                     case "elementResults":
                         activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
-                        Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                        Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
                         break
 
                     case "elementComments":
                         activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
-                        Logger.log(' - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                        Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
                         break
 
                     case "sources":
-                        activeRow = importSources(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
-                        Logger.log(' - ' + "sources added for: " + thisIndicator.labelShort)
+                        activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
+                        Logger.log(' - SC - ' + "sources added for: " + thisIndicator.labelShort)
                         break
 
                     // case "sources":
-                    //     activeRow = importSources(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
-                    //     Logger.log(' - ' + "sources added for: " + thisIndicator.labelShort)
+                    //     activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
+                    //     Logger.log(' - SC - ' + "sources added for: " + thisIndicator.labelShort)
                     //     break
 
                     // default:
@@ -139,7 +143,13 @@ function addSingleScoringStep(file, sheetName, subStepNr, lastCol, configObj, pi
 
     Logger.log("Formatting Sheet")
     lastRow = activeRow
-    sheet.getRange(1, 1, lastRow, lastCol).setFontFamily("Roboto")
+
+    sheet.getRange(1, 1, lastRow, lastCol)
+        .setFontFamily("Roboto")
+        .setVerticalAlignment("top")
+        .setWrap(true)
+
+
     var hookFirstDataCol = firstCol
     if (blocks === 1) {
         hookFirstDataCol = firstCol + 1

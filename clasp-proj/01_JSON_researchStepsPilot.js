@@ -49,7 +49,10 @@ var researchStepsVector = {
                     "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "placeholderText": " "
+                            "label": "Researcher",
+                            "id": "MI",
+                            "importNameFrom": "S01",
+                            "placeholderText": ""
                         },
                         {
                             "type": "elementComments",
@@ -120,7 +123,10 @@ var researchStepsVector = {
                     "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "placeholderText": " "
+                            "label": "Researcher",
+                            "id": "MI",
+                            "importNameFrom": "S02",
+                            "placeholderText": ""
                         },
                         {
                             "type": "elementComments",
@@ -181,7 +187,10 @@ var researchStepsVector = {
                     "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "placeholderText": " "
+                            "label": "Researcher",
+                            "id": "MI",
+                            "importNameFrom": "S03",
+                            "placeholderText": ""
                         },
                         {
                             "type": "elementComments",
@@ -251,7 +260,10 @@ var researchStepsVector = {
                     "doCollapse": true,
                     "components": [{
                             "type": "header",
-                            "placeholderText": " "
+                            "label": "Researcher",
+                            "id": "MI",
+                            "importNameFrom": "S04",
+                            "placeholderText": ""
                         },
                         {
                             "type": "elementComments",
@@ -312,7 +324,10 @@ var researchStepsVector = {
                 "doCollapse": true,
                 "components": [{
                         "type": "header",
-                        "placeholderText": " "
+                        "label": "Researcher",
+                        "id": "MI",
+                        "importNameFrom": "S05",
+                        "placeholderText": ""
                     },
                     {
                         "type": "elementComments",
@@ -372,7 +387,10 @@ var researchStepsVector = {
                 "subStepColor": "#ead1dc",
                 "components": [{
                         "type": "header",
-                        "placeholderText": " "
+                        "label": "Researcher",
+                        "id": "MI",
+                        "importNameFrom": "S06",
+                        "placeholderText": ""
                     },
                     {
                         "type": "elementComments",

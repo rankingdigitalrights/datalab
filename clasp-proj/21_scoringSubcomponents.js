@@ -195,9 +195,15 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
 
 // --- // Begin Sources // --- //
 
-function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, isLocalImport) {
+function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, isLocalImport, pilotMode) {
 
     var stepCompType = currentStep.components[stepCNr].id
+
+    var currentSubStepID = currentStep.subStepID
+    // TODO - PILOT: adjusting substep number for Researcher Name import
+    if (pilotMode) {
+        currentSubStepID = currentStep.components[stepCNr].importNameFrom
+    }
 
     Logger.log(' - ' + 'in ' + stepCompType + ' ' + Indicator.labelShort)
 
@@ -214,7 +220,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
     // skip first Column for subsequent steps    
     if (blocks === 1) {
         var rowLabel = currentStep.components[stepCNr].label
-        currentCell.setValue(rowLabel.toString())
+        currentCell.setValue(rowLabel)
         currentCell.setWrap(true)
         tempCol += 1
     }
@@ -231,7 +237,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
         }
 
         // setting up formula that compares values
-        var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Indicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
+        var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
         // adding formula
         var formula = importRange(urlDC, compCellName, isLocalImport)
@@ -249,7 +255,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
 
         if (companyHasOpCom) {
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Indicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
             var formula = importRange(urlDC, compCellName, isLocalImport)
             currentCell.setFormula(formula)
@@ -271,7 +277,7 @@ function importSources(activeRow, activeCol, sheet, currentStep, stepCNr, Indica
             }
 
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
             var formula = importRange(urlDC, compCellName, isLocalImport)
             currentCell.setFormula(formula)
