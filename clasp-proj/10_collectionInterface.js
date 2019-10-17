@@ -2,13 +2,18 @@
 
 // --- //  This is the main caller // --- //
 
-function createSpreadsheetDC(stepsSubset, indicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
+function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
     Logger.log('begin main data collection')
 
     var sheetMode = mainSheetMode
 
     var sourcesTabName = "Sources"
-    var companyShortName = companyObj.label.current
+    var companyShortName
+    if (companyObj.label.altFilename) {
+        companyShortName = companyObj.label.altFilename
+    } else {
+        companyShortName = companyObj.label.current
+    }
 
     Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
 

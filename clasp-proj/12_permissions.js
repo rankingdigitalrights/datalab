@@ -10,19 +10,19 @@ var me = Session.getEffectiveUser() // TODO move inside logic
  * @param {*} protectSteps 
  * @param {*} unprotectSteps 
  * @param {*} allowedEditors 
- * @param {*} stepsSubset 
- * @param {*} indicatorSubset 
+ * @param {*} useStepsSubset 
+ * @param {*} useIndicatorSubset 
  */
 
-function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, stepsSubset, indicatorSubset) {
+function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset) {
 
 	var filename = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
 
 	clearAllProtections(filename)
 
 	var CompanyObj = importJsonCompany(companyShortName)
-	var IndicatorsObj = importJsonIndicator(indicatorSubset)
-	var ResearchStepsObj = importResearchSteps(stepsSubset)
+	var IndicatorsObj = importJsonIndicator(useIndicatorSubset)
+	var ResearchStepsObj = importResearchSteps(useStepsSubset)
 
 	var companyId = CompanyObj.id
 	// identify steps for unprotection

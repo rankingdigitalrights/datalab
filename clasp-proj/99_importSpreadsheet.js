@@ -21,8 +21,8 @@ function connectToSpreadsheetByName(spreadsheetName) {
     Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.")
     Logger.log("received: " + spreadsheetName)
 
-    // var folderName = 'SpreadsheetCreationTEST'
-    var folderID = createFolderIfNotExist(parentFolderID, folderName)
+    // var targetFolderName = 'SpreadsheetCreationTEST'
+    var folderID = createFolderIfNotExist(rootFolderID, targetFolderName)
 
     var resource = {
       title: spreadsheetName,

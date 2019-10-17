@@ -35,7 +35,7 @@ a) based on a set of `parameter vectors` (indicators, research steps, companies)
 
 b) for each `company` you
 
-+ first create the `data collection spreadsheet` with `mainAllCompaniesDataCollectionSheets()`, which will be located in `parentFolderID/folderName` of `@rdresearch`'s Drive.
++ first create the `data collection spreadsheet` with `mainAllCompaniesDataCollectionSheets()`, which will be located in `rootFolderID/targetFolderName` of `@rdresearch`'s Drive.
 
   > The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `01_JSON_companies.js/<company>` Object.
 

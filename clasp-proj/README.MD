@@ -46,7 +46,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 2. open [My Projects](https://script.google.com/home/my) to get an overview of your GAS projects or go directly to the [`Spreadsheet Automation` project](https://script.google.com/a/opentechinstitute.org/d/1ZrUTGLLDXMZxkDB8BRaBpPb-p4ObTJrKI8FfJUN6cL10Iggc0TTalSC5)
 3. `00_mainController.gs` should open automatically. If not, open the script. This is the **main interface** to config and run all **core** modules.
 4. ~~edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))~~ (now vectorized; subset with `.slice(0,1)`)
-5. double-check `folderName` if you need a specific folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `parentFolderID`)
+5. double-check `targetFolderName` if you need a specific folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `rootFolderID`)
 6. edit the `subset` variables in the `mainAllCompanies<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
 7. in the sub-menu (grey), choose the function to run, and click play.
 8. wait for the script to finish. When done, optionally hit `Ctrl + Enter` to inspect the log.

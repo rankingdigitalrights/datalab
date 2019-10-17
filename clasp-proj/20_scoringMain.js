@@ -4,13 +4,13 @@
 // --------------- This is the Main Scoring Process Caller ---------------- //
 /**
  * 
- * @param {boolean} stepsSubset Parameter: subset reserachSteps.json?
- * @param {boolean} indicatorSubset Parameter: subset indicators.json?
+ * @param {boolean} useStepsSubset Parameter: subset reserachSteps.json?
+ * @param {boolean} useIndicatorSubset Parameter: subset indicators.json?
  * @param {string} companyShortName small caps short company name for <company>.json
  * @param {string} filenameSuffix arbitary String for versioning ("v8") or declaring ("test")
  */
 
-function createSpreadsheetSC(stepsSubset, indicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
+function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 

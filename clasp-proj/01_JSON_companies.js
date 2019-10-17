@@ -5,11 +5,11 @@ var companiesVector = {
     "collection": "companies",
     "indexYear": 2019,
     "indexType": "RDR",
-    "companies": [
-        {
+    "companies": [{
             "id": "iAP1",
             "label": {
                 "current": "Apple",
+                "altFilename": null,
                 "legacy": null
             },
             "type": "internet",
@@ -53,6 +53,7 @@ var companiesVector = {
             "id": "tAT1",
             "label": {
                 "current": "AT&T",
+                "altFilename": "ATT",
                 "full": "AT&T Inc.",
                 "legacy": [null]
             },
@@ -99,6 +100,7 @@ var companiesVector = {
             "id": "iBA1",
             "label": {
                 "current": "Baidu",
+                "altFilename": null,
                 "legacy": null
             },
             "type": "internet",
@@ -142,6 +144,7 @@ var companiesVector = {
             "id": "tES1",
             "label": {
                 "current": "Etisalat",
+                "altFilename": null,
                 "legacy": [null]
             },
             "type": "telecom",
@@ -187,6 +190,7 @@ var companiesVector = {
             "id": "iFB1",
             "label": {
                 "current": "Facebook",
+                "altFilename": null,
                 "legacy": null
             },
             "type": "internet",
@@ -238,6 +242,7 @@ var companiesVector = {
             "id": "tMT1",
             "label": {
                 "current": "MTN",
+                "altFilename": null,
                 "legacy": [null]
             },
             "type": "telecom",
@@ -283,6 +288,7 @@ var companiesVector = {
             "id": "iVM1",
             "label": {
                 "current": "Verizon Media",
+                "altFilename": "Verizon",
                 "legacy": [
                     "Oath",
                     "Yahoo"
