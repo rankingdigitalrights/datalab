@@ -257,26 +257,531 @@ var indicatorsVector = {
             "classColor" : "#a4c2f4",
             "hasSubComponents": false,
             "indicators": [{
-                    "labelShort": "F1",
+                    "labelShort": "F1a",
                     "labelLong": "Access to terms of service",
-                    "description": "The company should provide terms of service (ToS) that are easy to find and easy to understand.",
+                    "description": "",
                     "scoringScope": "full", // "services"
                     "y2yCompColumn": 2,
                     "y2yCompRow": 138,
                     "elements": [{
-                            "labelShort": "F1.1",
-                            "description": "Are the company’s terms of service (ToS) easy to find?"
+                            "labelShort": "F1a.1",
+                            "description": "Are the company’s terms of service easy to find?"
                         },
                         {
-                            "labelShort": "F1.2",
-                            "description": "Are the ToS available in the language(s) most commonly spoken by the company’s users?"
+                            "labelShort": "F1a.2",
+                            "description": "Are the terms of service available in the language(s) most commonly spoken by the company’s users?"
                         },
                         {
-                            "labelShort": "F1.3",
-                            "description": "Are the ToS presented in an understandable manner?"
+                            "labelShort": "F1a.3",
+                            "description": "Are the terms of service presented in an understandable manner?"
                         }
                     ]
-                }
+                },
+                {
+                    "labelShort": "F1b",
+                    "labelLong": "Access to advertising content policies",
+                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F1b.1",
+                            "description": "Are the company’s advertising content policies easy to find?"
+                        },
+                        {
+                            "labelShort": "F1b.2",
+                            "description": "Are the company’s advertising content policies available in the language(s) most commonly spoken by the company’s users?"
+                        },
+                        {
+                            "labelShort": "F1b.3",
+                            "description": "Are the company’s advertising content policies presented in an understandable manner?"
+                        },
+                        {
+                            "labelShort": "F1b.4",
+                            "description": "(For mobile ecosystems): Does the company disclose that it requires apps made available through its app store which display targeted advertising to provide users with a link to an advertising content policy?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F1c",
+                    "labelLong": "Access to advertising targeting policies",
+                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F1c.1",
+                            "description": "Are the company’s advertising targeting policies easy to find?"
+                        },
+                        {
+                            "labelShort": "F1c.2",
+                            "description": "Are the advertising targeting policies available in the language(s) most commonly spoken by the company’s users?"
+                        },
+                        {
+                            "labelShort": "F1c.3",
+                            "description": "Are the advertising targeting policies presented in an understandable manner?"
+                        },
+                        {
+                            "labelShort": "F1c.4",
+                            "description": "(For mobile ecosystems): Does the company disclose that it requires apps made available through its app store which display targeted advertising to provide users with a link to an advertising targeting policy?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F1d",
+                    "labelLong": "Access to algorithmic system use policies",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F1d.1",
+                            "description": "Are the company’s advertising content policies easy to find?"
+                        },
+                        {
+                            "labelShort": "F1d.2",
+                            "description": "Are the algorithmic system use policies available in the language(s) most commonly spoken by the company’s users?"
+                        },
+                        {
+                            "labelShort": "F1d.3",
+                            "description": "Are the algorithmic system use policies presented in an understandable manner?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F2a",
+                    "labelLong": "Changes to terms of service",
+                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F2a.1",
+                            "description": "Does the company clearly disclose that it notifies users about changes to its terms of service?"
+                        },
+                        {
+                            "labelShort": "F2a.2",
+                            "description": "Does the company clearly disclose how it will directly notify users of changes?"
+                        },
+                        {
+                            "labelShort": "F2a.3",
+                            "description": "Does the company clearly disclose the timeframe within which it provides notification prior to changes coming into effect?"
+                        },
+                        {
+                            "labelShort": "F2a.4",
+                            "description": "Does the company maintain a public archive or change log?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F2c",
+                    "labelLong": "Changes to advertising targeting policies",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F2c.1",
+                            "description": "Does the company clearly disclose that it notifies users about changes to its advertising targeting policies?"
+                        },
+                        {
+                            "labelShort": "F2c.2",
+                            "description": "Does the company clearly disclose how it will directly notify users of changes?"
+                        },
+                        {
+                            "labelShort": "F2c.3",
+                            "description": "Does the company clearly disclose the time frame within which it provides notification prior to changes coming into effect?"
+                        },
+                        {
+                            "labelShort": "F2c.4",
+                            "description": "Does the company maintain a public archive or change log?"
+                        },
+                        {
+                            "labelShort": "F2c.5",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it requires apps made available through its app store to notify users when the apps change their advertising targeting policies?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F2d",
+                    "labelLong": "Changes to algorithmic system use policies",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F2d.1",
+                            "description": "Does the company clearly disclose that it notifies users about changes to its algorithmic system use policies?"
+                        },
+                        {
+                            "labelShort": "F2d.2",
+                            "description": "Does the company clearly disclose how it will directly notify users of changes?"
+                        },
+                        {
+                            "labelShort": "F2d.3",
+                            "description": "Does the company clearly disclose the timeframe within which it provides notification prior to changes coming into effect?"
+                        },
+                        {
+                            "labelShort": "F2d.4",
+                            "description": "Does the company maintain a public archive or change log?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F3a",
+                    "labelLong": "Process for terms of service enforcement",
+                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F3a.1",
+                            "description": "Does the company clearly disclose what types of content or activities it does not permit?"
+                        },
+                        {
+                            "labelShort": "F3a.2",
+                            "description": "Does the company clearly disclose why it may restrict a user’s account?"
+                        },
+                        {
+                            "labelShort": "F3a.3",
+                            "description": "Does the company clearly disclose information about the processes and technologies it uses to identify content or accounts that violate the company’s rules?"
+                        },
+                        {
+                            "labelShort": "F3a.4",
+                            "description": "Does the company clearly disclose whether any government authorities receive priority consideration when flagging content to be restricted for violating the company’s rules?"
+                        },
+                        {
+                            "labelShort": "F3a.5",
+                            "description": "Does the company clearly disclose whether any private entities receive priority consideration when flagging content to be restricted for violating the company’s rules?"
+                        },
+                        {
+                            "labelShort": "F3a.6",
+                            "description": "Does the company clearly disclose its process for enforcing its rules?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F3b",
+                    "labelLong": "Advertising content rules and enforcement",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F3b.1",
+                            "description": "Does the company clearly disclose what types of advertising content are prohibited?"
+                        },
+                        {
+                            "labelShort": "F3b.2",
+                            "description": "Does the company clearly disclose that all advertising content must be clearly labelled as such?"
+                        },
+                        {
+                            "labelShort": "F3b.3",
+                            "description": "Does the company clearly disclose information about the processes and technologies it uses to identify advertising content or accounts that violate the company’s rules?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F3c",
+                    "labelLong": "Advertising targeting rules and enforcement",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F3c.1",
+                            "description": "Does the company clearly disclose whether users will be shown advertising content based on their browsing history, location information, social media use, demographic characteristics, or other user information?"
+                        },
+                        {
+                            "labelShort": "F3c.2",
+                            "description": "Does the company clearly disclose what types of targeting parameters are not permitted?"
+                        },
+                        {
+                            "labelShort": "F3c.3",
+                            "description": "Does the company clearly disclose that it does not permit advertisers to target specific individuals?"
+                        },
+                        {
+                            "labelShort": "F3c.4",
+                            "description": "Does the company clearly disclose that algorithmically generated advertising audience categories are evaluated by human reviewers before they can be used?"
+                        },
+                        {
+                            "labelShort": "F3c.5",
+                            "description": "Does the company clearly disclose its guidelines for evaluating algorithmically generated advertising audience categories to ensure they do not contribute to human rights harms?"
+                        },
+                        {
+                            "labelShort": "F3c.6",
+                            "description": "Does the company clearly disclose information about the processes and technologies it uses to identify advertising content or accounts that violate the company’s rules?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F4a",
+                    "labelLong": "Data about content restrictions to enforce terms of service",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F4a.1",
+                            "description": "Does the company list the total number of pieces of content it restricted to enforce its terms of service?"
+                        },
+                        {
+                            "labelShort": "F4a.2",
+                            "description": "Does the company break down the number of pieces of content it restricted based on which rule was violated?"
+                        },
+                        {
+                            "labelShort": "F4a.3",
+                            "description": "Does the company break down the number of pieces of content it restricted based on the nature of the restriction?"
+                        },
+                        {
+                            "labelShort": "F4a.4",
+                            "description": "Does the company disclose the number of times content was flagged, broken down by which type of entity submitted the flag (such as company staff, artificial intelligence, or users)?"
+                        },
+                        {
+                            "labelShort": "F4a.5",
+                            "description": "Does the company disclose the number of pieces of content it restricted in an entirely automated manner, without a human-submitted flag or any other direct human input?"
+                        },
+                        {
+                            "labelShort": "F4a.6",
+                            "description": "Does the company break down the number of pieces of content it restricted based on the format of content? (e.g. text, image, video, live video)"
+                        },
+                        {
+                            "labelShort": "F4a.7",
+                            "description": "Does the company publish this data at least four times a year?"
+                        },
+                        {
+                            "labelShort": "F4a.8",
+                            "description": "Can the data be accessed through a robust programmatic interface or exported as a structured data file?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F4b",
+                    "labelLong": "Data about account restrictions to enforce terms of service",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F4b.1",
+                            "description": "Does the company list the total number of accounts it restricted to enforce its terms of service?"
+                        },
+                        {
+                            "labelShort": "F4b.2",
+                            "description": "Does the company break down the number of accounts it restricted based on which rule was violated?"
+                        },
+                        {
+                            "labelShort": "F4b.3",
+                            "description": "Does the company break down the number of accounts it restricted based on the nature of the restriction?"
+                        },
+                        {
+                            "labelShort": "F4b.4",
+                            "description": "Does the company disclose the number of times accounts were flagged, broken down by which type of entity submitted the flag (such as company staff, artificial intelligence, or users)?"
+                        },
+                        {
+                            "labelShort": "F4b.5",
+                            "description": "Does the company disclose the number of accounts it restricted in an entirely automated manner, without a human-submitted flag or any other direct human input?"
+                        },
+                        {
+                            "labelShort": "F4b.6",
+                            "description": "Does the company publish this data at least four times a year?"
+                        },
+                        {
+                            "labelShort": "F4b.7",
+                            "description": "Can the data be accessed through a robust programmatic interface or exported as a structured data file?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F4c",
+                    "labelLong": "Data about advertising content policy enforcement",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F4c.1",
+                            "description": "Does the company list the total number of pieces of advertising content it restricted to enforce its advertising content policies?"
+                        },
+                        {
+                            "labelShort": "F4c.2",
+                            "description": "Does the company break down the number of pieces of advertising content it restricted based on which rule was violated?"
+                        },
+                        {
+                            "labelShort": "F4c.3",
+                            "description": "Does the company break down the number of pieces of advertising content it restricted based on the nature of the restriction?"
+                        },
+                        {
+                            "labelShort": "F4c.4",
+                            "description": "Does the company disclose the number of times advertising content was flagged, broken down by which type of entity submitted the flag (such as company staff, artificial intelligence, or users)?"
+                        },
+                        {
+                            "labelShort": "F4c.5",
+                            "description": "Does the company disclose the number of pieces of advertising content it restricted in an entirely automated manner, without a human-submitted flag or any other direct human input?"
+                        },
+                        {
+                            "labelShort": "F4c.6",
+                            "description": "Does the company break down the number of pieces of advertising content it restricted based on the format of content? (e.g. text, image, video, live video)"
+                        },
+                        {
+                            "labelShort": "F4c.7",
+                            "description": "Does the company publish this data at least four times a year?"
+                        },
+                        {
+                            "labelShort": "F4c.8",
+                            "description": "Can the data be accessed through a robust programmatic interface or exported as a structured data file?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F4d",
+                    "labelLong": " Data about advertising targeting policy enforcement",
+                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F4d.1",
+                            "description": "Does the company list the total number of pieces of advertising content it restricted to enforce its advertising targeting policies?"
+                        },
+                        {
+                            "labelShort": "F4d.2",
+                            "description": "Does the company break down the number of pieces of advertising content it restricted based on which rule was violated?"
+                        },
+                        {
+                            "labelShort": "F4d.3",
+                            "description": "Does the company break down the number of pieces of advertising content it restricted based on the nature of the restriction?"
+                        },
+                        {
+                            "labelShort": "F4d.4",
+                            "description": "Does the company disclose the number of times advertising content was flagged, broken down by which type of entity submitted the flag (such as company staff, artificial intelligence, or users)?"
+                        },
+                        {
+                            "labelShort": "F4d.5",
+                            "description": "Does the company disclose the number of pieces of advertising content it restricted in an entirely automated manner, without a human-submitted flag or any other direct human input?"
+                        },
+                        {
+                            "labelShort": "F4d.6",
+                            "description": "Does the company break down the number of pieces of advertising content it restricted based on the format of content? (e.g. text, image, video, live video)"
+                        },
+                        {
+                            "labelShort": "F4d.7",
+                            "description": "Does the company publish this data at least four times a year?"
+                        },
+                        {
+                            "labelShort": "F4d.8",
+                            "description": "Can the data be accessed through a robust programmatic interface or exported as a structured data file?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F12",
+                    "labelLong": "Algorithmic content curation, recommendation, and/or ranking systems",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F12.1",
+                            "description": "Does the company disclose whether it uses algorithmic decision-making systems to curate, recommend, and/or rank the content that users can access through its platform?"
+                        },
+                        {
+                            "labelShort": "F12.2",
+                            "description": "Does the company clearly disclose how the algorithmic content curation, recommendation, and/or ranking system works, including the variables that influence it?"
+                        },
+                        {
+                            "labelShort": "F12.3",
+                            "description": "Does the company disclose what options users have to control the variables that the algorithmic content curation, recommendation, and/or ranking system takes into account?"
+                        },
+                        {
+                            "labelShort": "F12.4",
+                            "description": "Does the company disclose whether automated content curation, recommendation, and/or ranking systems is on or off by default?"
+                        },
+                        {
+                            "labelShort": "F12.5",
+                            "description": "Does the company disclose that users can opt in to automated content curation, recommendation, and/or ranking systems?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F13",
+                    "labelLong": " Automated software agents (“bots”)",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F13.1",
+                            "description": "Does the company clearly disclose a definition of a “bot” ?"
+                        },
+                        {
+                            "labelShort": "F13.2",
+                            "description": "Does the company clearly disclose guidelines governing the use of bots to generate content, disseminate content, or perform other actions?"
+                        },
+                        {
+                            "labelShort": "F13.3",
+                            "description": "Does the company clearly disclose that it requires users to clearly label all content and accounts that are produced, disseminated or operated with the assistance of a bot?"
+                        },
+                        {
+                            "labelShort": "F13.4",
+                            "description": "Does the company clearly disclose how it enforces its bot policy?"
+                        },
+                        {
+                            "labelShort": "F13.5",
+                            "description": "Does the company clearly disclose data about the volume and nature of user content and accounts restricted for violating the company’s bot policy?"
+                        },
+                        {
+                            "labelShort": "F13.6",
+                            "description": "Does the company clearly disclose data about the volume and nature of advertising content and accounts restricted for violating the company’s bot policy?"
+                        },
+                        {
+                            "labelShort": "F13.7",
+                            "description": "Does the company clearly disclose that it removes bots from engagement metrics shown to users, such as sums of accounts that have taken a particular action?"
+                        },
+                        {
+                            "labelShort": "F13.8",
+                            "description": "Does the company regularly publish data about the total number of bots on the platform?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F14",
+                    "labelLong": "Informing and educating users about risks",
+                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F14.1",
+                            "description": "Does the company publish practical materials that educate users on how to protect themselves from advertisers’ attempts to mislead them?"
+                        },
+                        {
+                            "labelShort": "F14.2",
+                            "description": "DDoes the company publish practical materials that educate users on how to protect themselves from any potential undue psychological influence of the company’s use of algorithms, machine learning and automated decision-making?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F3b",
+                    "labelLong": "Advertising content rules and enforcement",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F3b.1",
+                            "description": "Does the company clearly disclose what types of advertising content are prohibited?"
+                        },
+                        {
+                            "labelShort": "F3b.2",
+                            "description": "Does the company clearly disclose that all advertising content must be clearly labelled as such?"
+                        },
+                        {
+                            "labelShort": "F3b.3",
+                            "description": "Does the company clearly disclose information about the processes and technologies it uses to identify advertising content or accounts that violate the company’s rules?"
+                        }
+                    ]
+                },
             ]
         },
         {
