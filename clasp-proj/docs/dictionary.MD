@@ -57,31 +57,52 @@
 **Definitions**:
 
 + Broadband
-  > bb
+  > id: bb
+  > type: broadband
 
 + Cloud
-  > cl
+  > id: cl
+  > type: cloud
 
 + eMail
-  > ma
+  > id: ma
+  > type: email
 
 + Mobile Pre/Postpaid
-  > mb
+  > id: mb
+  > type: mobile
+  > subtype: [prepaid, postpaid]
 
 + Mobile Ecosystems
-  > me
+  > id: me
+  > type: mobileEcosystem
 
 + Messaging & VOIP
-  > mv
+  > id: mv
+  > type: 
 
 + Search Engines
-  > se
+  > id: se
+  > type: search
 
 + Social Networks & Blogs
-  > sn
+  > id: sn
+  > type: socialNetworkBlogs
 
 + Photo / Video
-  > pv
+  > id: pv
+  > type: photoVideo
 
 + [add new service class here]
-  > tba
+  > id: tba
+  > type: 
+
+> New for Pilot:
+
++ e-Commerce
+  > id: ec
+  > type: eCommerce
+
++ PDA
+  > id: eb (~ebook, TBC)
+  > type: pda (?TBC?)
