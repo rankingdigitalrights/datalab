@@ -64,7 +64,7 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
         currentCell = sheet.getRange(activeRow, activeCol)
         columnLabel = 'OperatingCo\n'
 
-        if (companyObj.opCom == true) {
+        if (companyObj.hasOpCom == true) {
             columnLabel = columnLabel + companyObj.opComLabel
         } else {
             columnLabel = columnLabel + " N/A "
@@ -295,9 +295,18 @@ function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indi
 
 // --- // Core function: SCORING // --- //
 
-function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks) {
+function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks,fullScoring) {
 
     Logger.log(' - ' + "in element scoring for " + ' ' + Indicator.labelShort)
+
+    // for cell reference between score and imported result
+
+    var verticalDim
+    if (fullScoring) {
+        verticalDim = 2
+    } else {
+        verticalDim = 1
+    }
 
     var scoringSuffix = "SE"
     // for each indicator.Element
@@ -316,13 +325,14 @@ function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentS
             tempCol += 1
         }
 
+        var up = Indicator.elements.length * verticalDim + verticalDim
+
         // for each Indicator Sub Component (G: FC, PC)
         for (var k = 0; k < nrOfIndSubComps; k++) {
 
             // add score
             currentCell = sheet.getRange(activeRow, tempCol)
             // Formula by calculating offset --> Refactor to generic method(currentCell,)
-            var up = Indicator.elements.length * 2 + 2
             // Logger.log("var up: " + up)
             var range = sheet.getRange(activeRow - up, tempCol)
             // currentCell.setValue(range.getA1Notation())
@@ -347,7 +357,7 @@ function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentS
             if (companyHasOpCom) {
 
                 // Formula by calculating offset --> Refactor
-                up = Indicator.elements.length * 2 + 2
+
                 range = sheet.getRange(activeRow - up, tempCol)
                 // currentCell.setValue(range.getA1Notation())
                 elementScore = elementScoreFormula(range)
@@ -377,7 +387,7 @@ function addElementScores(file, sheetMode, activeRow, activeCol, sheet, currentS
             for (var k = 0; k < nrOfIndSubComps; k++) {
                 currentCell = sheet.getRange(activeRow, tempCol)
                 // Formula by calculating offset --> Refactor
-                up = Indicator.elements.length * 2 + 2
+
                 range = sheet.getRange(activeRow - up, tempCol)
                 // currentCell.setValue(range.getA1Notation())
                 // var elementScore = '=LEN(' + range.getA1Notation() + ')'
@@ -552,16 +562,20 @@ function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, curren
 
     var currentCell = sheet.getRange(activeRow, activeCol)
 
+    var tempCol = activeCol
+
     // row label / first Column
     // skip first Column for subsequent steps    
     if (blocks === 1) {
-        currentCell.setValue("Composite Scores").setFontWeight('bold')
-    }
+        currentCell.setValue('Composite Scores')
+        currentCell.setFontWeight('bold')
+        tempCol += 1
+    }    
 
     // --- Composite Company --- //
 
     var scoringComponent = "A"
-    currentCell = sheet.getRange(activeRow, activeCol + 1)
+    currentCell = sheet.getRange(activeRow, tempCol)
     currentCell.setFormula(compositeScoreFormula(indyLevelScoresCompany))
 
     var cellName = defineNamedRangeStringImport(indexPrefix, sheetMode, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
@@ -576,7 +590,7 @@ function addCompositeScores(file, sheetMode, activeRow, activeCol, sheet, curren
 
     scoringComponent = "B"
 
-    var servicesCompositeCell = sheet.getRange(activeRow, activeCol + 1 + (2 * nrOfIndSubComps)) // 2 := group + opCom cols
+    var servicesCompositeCell = sheet.getRange(activeRow, tempCol + (2 * nrOfIndSubComps)) // 2 := group + opCom cols
 
     servicesCompositeCell.setFormula(compositeScoreFormula(indyLevelScoresServices))
 
@@ -599,19 +613,19 @@ function addIndicatorScore(file, sheetMode, activeRow, activeCol, sheet, current
 
     activeRow += 1
 
-    // --- INDICATOR SCORE --- //
-
-    // setting up label for Average Score
-
     var currentCell = sheet.getRange(activeRow, activeCol)
+
+    var tempCol = activeCol
 
     // row label / first Column
     // skip first Column for subsequent steps    
     if (blocks === 1) {
         currentCell.setValue("Indicator Score")
         currentCell.setFontWeight('bold')
-    }
-    currentCell = sheet.getRange(activeRow, activeCol + 1)
+        tempCol += 1
+    }  
+
+    currentCell = sheet.getRange(activeRow, tempCol)
 
     Logger.log(' - ' + "Indicator Scoring Ranges - indyCompositeScores[]:\n --- " + indyCompositeScores)
 

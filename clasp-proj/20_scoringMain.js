@@ -10,7 +10,7 @@
  * @param {string} filenameSuffix arbitary String for versioning ("v8") or declaring ("test")
  */
 
-function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenameSuffix, mainSheetMode) {
+function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenamePrefix,filenameSuffix, mainSheetMode) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
@@ -21,22 +21,28 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, fil
 
     var sheetMode = mainSheetMode
 
-    var companyShortName = companyObj.label.current
+    var companyShortName
+    if (companyObj.label.altFilename) {
+        companyShortName = companyObj.label.altFilename
+    } else {
+        companyShortName = companyObj.label.current
+    }
+    
     Logger.log('begin main Scoring for ' + companyShortName)
     Logger.log("creating " + sheetMode + ' Spreadsheet for ' + companyShortName)
               
-    var companyHasOpCom = CompanyObj.opCom
+    var companyHasOpCom = CompanyObj.hasOpCom
     Logger.log(companyShortName + " opCom? - " + companyHasOpCom)
 
     // Mode A: creating a blank spreadsheet
-    // var filename = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
+    // var filename = spreadSheetFileName(filenamePrefix, sheetMode, companyShortName, filenameSuffix)
 
     // Mode B: instead of creating a new sheet on every run, re-use
     // THIS IS DANGEROUS //
     // HIDDEN CACHE ADVENTURES ARE WAITING FOR YOU //
     // i.e. Named Ranges are not reset upon casting
 
-    var spreadsheetName = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
+    var spreadsheetName = spreadSheetFileName(filenamePrefix, sheetMode, companyShortName, filenameSuffix)
     var file = connectToSpreadsheetByName(spreadsheetName)
     var fileID = file.getId()
 
@@ -54,6 +60,8 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, fil
 
     // --- // Main Procedure // --- //
 
+    // TODO: iterate
+    
     addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom)
 
     firstSheet.hideSheet() // hide points - only possible after a 2nd sheet exists

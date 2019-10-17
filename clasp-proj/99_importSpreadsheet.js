@@ -21,8 +21,8 @@ function connectToSpreadsheetByName(spreadsheetName) {
     Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.")
     Logger.log("received: " + spreadsheetName)
 
-    // var targetFolderName = 'SpreadsheetCreationTEST'
-    var folderID = createFolderIfNotExist(rootFolderID, targetFolderName)
+    // var outputFolderName = 'SpreadsheetCreationTEST'
+    var folderID = createFolderIfNotExist(rootFolderID, outputFolderName)
 
     var resource = {
       title: spreadsheetName,
@@ -83,12 +83,12 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
 }
 
 
-function addFileIDtoControl(mode, company, fileID, controlSpreadsheet) {
+function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheet) {
 
   var spreadsheet = connectToSpreadsheetByID(controlSpreadsheet)
   var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
   var formula = '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
-  sheet.appendRow([mode, company, fileID, formula])
+  sheet.appendRow([mode, companyShortName, fileID, formula])
   Logger.log("Entry added to Control")
 
 }

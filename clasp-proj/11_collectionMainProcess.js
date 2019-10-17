@@ -4,7 +4,7 @@
 // List the parameters and where their values are coming from
 
 
-function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom, doCollapseAll) {
+function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll) {
 
     // for each indicator
     // - create a new Sheet
@@ -30,8 +30,6 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
             continue // skips this i if sheet already exists
         }
 
-        sheet.clear()
-
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
         var nrOfIndSubComps = 1
         if (currentClass.hasSubComponents == true) {
@@ -41,25 +39,34 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         // checks how many company group/opcom columns to hide for this Indicator
         // (based on Scoring Scope)
 
-        var bridgeCompColumnsNr = 2
+        var bridgeCompColumnsNr = 2 // default:: no company columns
         var bridgeOpCom
 
         if (thisIndicator.scoringScope == "full") {
             if (hasOpCom) {
                 bridgeCompColumnsNr = 0
             } else {
+                // if (companyNumberOfServices > 1) {
                 bridgeCompColumnsNr = 1
+                // }
             }
         }
 
+
+
         // general formatting of sheet
         // TODO: think about where to refactor to
-        sheet.setColumnWidth(1, localColWidth)
+        sheet.setColumnWidth(1, serviceColWidth)
 
         var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
 
-        var localColWidth = localColWidth / nrOfIndSubComps
-        sheet.setColumnWidths(2, numberOfColumns - 1, localColWidth)
+        var serviceColWidth = serviceColWidth / nrOfIndSubComps
+
+        if (CompanyObj.services.length == 1) {
+            serviceColWidth = serviceColWidth * 1.33
+        }
+
+        sheet.setColumnWidths(2, numberOfColumns - 1, serviceColWidth)
 
 
         // start sheet in first top left cell
@@ -67,13 +74,13 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr)
+        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices)
+
+        // --- // Begin Main Step-Wise Procedure // --- //
 
         var dataStartRow = activeRow
 
         var mainStepsLength = ResearchStepsObj.researchSteps.length
-
-        // --- // Begin Main Step-Wise Procedure // --- //
 
         // for each main step
         for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
@@ -184,12 +191,16 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
                 endStep = activeRow
             } // --- // END Sub-Step-Wise Procedure // --- //
 
+            if (mainStepNr < mainStepsLength - 1) {
+                sheet.getRange(activeRow, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
+            }
+
             activeRow += 1
 
             // group whole step and make main step header row the anchor
             var rangeStep = sheet.getRange(beginStep + 1, 1, endStep - beginStep - 1, numberOfColumns)
             Logger.log("grouping whole step for range :" + rangeStep.getA1Notation())
-            rangeStep.shiftRowGroupDepth(1);
+            rangeStep.shiftRowGroupDepth(1)
 
         } // --- // END Main-Step-Wise Procedure // --- //
 

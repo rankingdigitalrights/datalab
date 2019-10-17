@@ -2,7 +2,7 @@
 
 // Indicator Guidance for researchers
 
-function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr) {
+function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices) {
 
     // TODO probably move all formatting params to JSON
 
@@ -10,11 +10,20 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     var col = activeCol
 
     var maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
+    if (companyNumberOfServices == 1) {
+        maxColHeadings -= 1
+    }
+
     var maxRow = 1
 
+    var indTitle = thisIndicator.labelShort + ". " + thisIndicator.labelLong
+    if (thisIndicator.description.length > 1) {
+        indTitle = indTitle  + ": " + thisIndicator.description
+    }
+
     // Indicator Heading
-    var cell = currentSheet.getRange(row, col)
-        .setValue(thisIndicator.labelShort + ". " + thisIndicator.labelLong + ": " + thisIndicator.description)
+    var cell = sheet.getRange(row, col)
+        .setValue(indTitle)
         .setFontWeight("bold")
         .setFontSize(14)
         .setHorizontalAlignment("left")
@@ -22,34 +31,35 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
         .setFontFamily("Oswald")
         .setWrap(true)
 
-    currentSheet.setRowHeight(row, 40)
-    currentSheet.getRange(row, col, 1, maxColHeadings).merge()
-    currentSheet.getRange(row, col, 1, numberOfColumns).setBackground("lightgrey")
+    sheet.setRowHeight(row, 40)
+    sheet.getRange(row, col, 1, numberOfColumns).merge()
+    sheet.getRange(row, col, 1, numberOfColumns).setBackground("lightgrey")
 
     row += 1
 
     // General Instruction
-    cell = currentSheet.getRange(row, col)
-        .setValue("▶ Please read the indicator-specific guidance and discussions before starting the research:")
+    cell = sheet.getRange(row, col)
+        .setValue("▶ Please read the indicator-specific guidance and discussions before starting the research!")
         .setFontWeight("bold")
         .setFontSize(9)
         .setHorizontalAlignment("left")
         .setVerticalAlignment("middle")
         .setFontFamily("Roboto Mono")
         .setWrap(true)
-        .setFontColor("chocolate")
+        .setFontColor("#ea4335")
+        // .setFontColor("chocolate")
 
     
-    currentSheet.setRowHeight(row, 40)
-    currentSheet.getRange(row, col, 1, maxColHeadings).merge()
-    currentSheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
+    sheet.setRowHeight(row, 40)
+    sheet.getRange(row, col, 1, numberOfColumns).merge()
+    sheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
 
     row += 1
 
     var tempStartRow = row // for grouping
 
     // Element Instructions
-    cell = currentSheet.getRange(row, 1)
+    cell = sheet.getRange(row, 1)
         .setValue("Elements:")
         .setFontWeight("bold")
         .setHorizontalAlignment("right")
@@ -59,36 +69,41 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
     col += 1
 
     thisIndicator.elements.forEach(function (element) {
-        cell = currentSheet.getRange(row, col)
+        cell = sheet.getRange(row, col)
             .setValue(element.labelShort + ": " + element.description)
             .setFontSize(10)
             .setFontFamily("Roboto")
             .setHorizontalAlignment("left")
-        cell = currentSheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+        cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
         row += 1
     })
 
     row += 1
     var indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
 
+    // TODO: Parameterize
 
-    cell = currentSheet.getRange(row, 1)
+    cell = sheet.getRange(row, 1)
         .setValue("Link to Research Guidance:")
         .setFontWeight("bold")
         .setHorizontalAlignment("right")
         .setFontFamily("Roboto Mono")
-    cell = currentSheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+
+    cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
         .setValue(indicatorLink)
 
-    var tempLastRow = row // for grouping
+    // var tempLastRow = row // for grouping
 
-    var rangeStep = currentSheet.getRange(tempStartRow, 1, thisIndicator.elements.length)
+    var rangeStep = sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns)
     rangeStep.shiftRowGroupDepth(1);
 
+    row += 1
 
-    row += 2
+    sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns).setBackground("WhiteSmoke")
 
-    currentSheet.getRange(row - 1, col - 1, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
+    sheet.getRange(row, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
+
+    row += 1
 
     activeRow = row
     return activeRow
@@ -96,16 +111,16 @@ function addIndicatorGuidance(currentSheet, currentClass, thisIndicator, activeR
 
 // Company + Services Header
 
-function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStepNr, mainStepColor) {
+function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStepNr, mainStepColor) {
 
     var activeCol = 1
 
     var rowRange = (activeRow + ':' + activeRow).toString()
-    currentSheet.getRange(rowRange).setHorizontalAlignment('center') // aligns header row
+    sheet.getRange(rowRange).setHorizontalAlignment('center') // aligns header row
 
     // -----------------------SETTING UP THE HEADER ROW------------------------
     // first cell: Main Step Label
-    currentSheet.getRange(activeRow, activeCol)
+    sheet.getRange(activeRow, activeCol)
         .setValue("Step: " + thisMainStepNr)
         .setBackground(mainStepColor)
         .setFontFamily("Roboto Mono")
@@ -117,7 +132,7 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
 
     // Company (group) column(s)
     for (var i = 0; i < nrOfIndSubComps; i++) {
-        var cell = currentSheet.getRange(activeRow, activeCol)
+        var cell = sheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.groupLabel)
             .setBackground("#fff2cc")
             .setFontWeight('bold')
@@ -125,7 +140,7 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
 
         // if it has components it adds the label in the next row
         if (currentClass.hasSubComponents == true) {
-            var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
+            var currentCell = sheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
             currentCell.setBackground("#fff2cc")
         }
@@ -139,20 +154,20 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
 
     for (var i = 0; i < nrOfIndSubComps; i++) {
 
-        var cell = currentSheet.getRange(activeRow, activeCol)
+        var cell = sheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.opComLabel)
             .setBackground("#fff2cc")
             .setFontWeight('bold')
             .setVerticalAlignment("top")
 
         // hiding refactored to main process; set N/A if no OpCom
-        if (CompanyObj.opCom == false) {
+        if (CompanyObj.hasOpCom == false) {
             cell.setValue('Operating Company (N/A)')
         }
 
         // if the indicator has components it adds them in the next row
         if (currentClass.hasSubComponents == true) {
-            var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
+            var currentCell = sheet.getRange(activeRow + 1, activeCol)
                 .setValue(currentClass.components[i].labelLong)
                 .setBackground("#fff2cc")
         }
@@ -163,7 +178,7 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
     // for remaining columns (services)
     for (var i = 0; i < companyNumberOfServices; i++) {
         for (var k = 0; k < nrOfIndSubComps; k++) {
-            var cell = currentSheet.getRange(activeRow, activeCol)
+            var cell = sheet.getRange(activeRow, activeCol)
                 .setValue(CompanyObj.services[i].label.current)
                 .setBackground("#b7e1cd")
                 .setFontWeight('bold')
@@ -172,7 +187,7 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
 
             // if the indicator has components it adds them in the next row
             if (currentClass.hasSubComponents == true) {
-                var currentCell = currentSheet.getRange(activeRow + 1, activeCol)
+                var currentCell = sheet.getRange(activeRow + 1, activeCol)
                     .setValue(currentClass.components[k].labelLong)
                     .setBackground("#b7e1cd")
             }
@@ -183,12 +198,12 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
     // if the indicator does indeed have components, it freezes the additional row in which they are
     if (currentClass.hasSubComponents == true) {
         rowRange = ((activeRow + 1) + ':' + (activeRow + 1)).toString()
-        currentSheet.getRange(rowRange).setHorizontalAlignment('center')
+        sheet.getRange(rowRange).setHorizontalAlignment('center')
         activeRow = activeRow + 1
     }
 
     if (centralConfig.freezeHead) {
-        currentSheet.setFrozenRows(activeRow) // freezes rows; define in config.json
+        sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
     }
 
     return activeRow
@@ -196,8 +211,8 @@ function addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, fi
 }
 
 // function just creates a single row in which in the first column a label is added
-function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, currentSheet) {
-    var cell = currentSheet.getRange(activeRow, activeCol)
+function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) {
+    var cell = sheet.getRange(activeRow, activeCol)
         // cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3) // setting background color
         .setValue(currentStep.components[stepCNr].label)
         .setBackground(currentStep.subStepColor)
@@ -207,12 +222,12 @@ function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, current
 
 // TODO - obsolete description - a step header is a row in which in the first column the name and description of the step is listed
 // and in the remaining columns a placeholderText is added
-function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     activeRow = activeRow + 1
 
     // sets up labels in the first column
-    var cell = currentSheet.getRange(activeRow, 1)
+    var cell = sheet.getRange(activeRow, 1)
     var text = currentStep.label
     cell.setValue(text)
         .setBackground(currentStep.subStepColor)
@@ -220,13 +235,13 @@ function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow,
     // cell = textUnderline(cell)
 
     // TODO
-    // activeRow = addMainStepHeader(currentSheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
+    // activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
 
     var thisFiller = currentStep.components[stepCNr].placeholderText
     var thisFirstCol = 2
     var thisLastCol = ((companyNumberOfServices + 2) * nrOfIndSubComps)
     // for remaining company, opCom, and services columns it adds the placeholderText
-    var thisRange = currentSheet.getRange(activeRow, thisFirstCol, 1, thisLastCol)
+    var thisRange = sheet.getRange(activeRow, thisFirstCol, 1, thisLastCol)
     thisRange.setValue(thisFiller)
     thisRange.setFontStyle("italic")
 
@@ -246,7 +261,7 @@ function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow,
         if (serviceNr == 1) {
             // main company
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                thisCell = currentSheet.getRange(activeRow, 1 + serviceNr + k)
+                thisCell = sheet.getRange(activeRow, 1 + serviceNr + k)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -264,7 +279,7 @@ function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow,
         } else if (serviceNr == 2) {
             // opCom
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                thisCell = currentSheet.getRange(activeRow, 1 + nrOfIndSubComps + k)
+                thisCell = sheet.getRange(activeRow, 1 + nrOfIndSubComps + k)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -282,7 +297,7 @@ function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow,
         } else {
             // services
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                thisCell = currentSheet.getRange(activeRow, activeCol)
+                thisCell = sheet.getRange(activeRow, activeCol)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -307,7 +322,7 @@ function addSubStepHeader(currentSheet, currentIndicator, CompanyObj, activeRow,
 }
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
-function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
 
@@ -322,7 +337,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
         var noteString = thisElement.labelShort + ": " + thisElement.description
 
         // setting up the labels
-        var cell = currentSheet.getRange(activeRow + elemNr, activeCol)
+        var cell = sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(currentStep.components[stepCNr].label + thisElement.labelShort)
             .setBackground(currentStep.subStepColor)
             .setNote(noteString)
@@ -336,7 +351,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                 // loops through the number of components
                 for (var k = 0; k < nrOfIndSubComps; k++) {
 
-                    var thisCell = currentSheet.getRange(activeRow + elemNr, activeCol)
+                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -361,7 +376,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
                 // loops through the number of components
                 for (var k = 0; k < nrOfIndSubComps; k++) {
-                    var thisCell = currentSheet.getRange(activeRow + elemNr, activeCol)
+                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -375,7 +390,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
                     file.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
                         .setFontWeight('bold') // bolds the answers
-                    if (CompanyObj.opCom == false) {
+                    if (CompanyObj.hasOpCom == false) {
                         thisCell.setValue('N/A') // if no OpCom, pre-select N/A
                     } else {
                         thisCell.setValue('not selected') // sets default for drop down list
@@ -388,7 +403,7 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
             // creating all the service columns
             else {
                 for (var k = 0; k < nrOfIndSubComps; k++) {
-                    var thisCell = currentSheet.getRange(activeRow + elemNr, activeCol)
+                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -418,13 +433,13 @@ function addScoringOptions(currentSheet, currentIndicator, CompanyObj, activeRow
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
-function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addComments(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
 
     var stepCompType = currentStep.components[stepCNr].id
 
     // for (var i = 0; i < currentIndicator.elements.length; i++) {
-    //     currentSheet.setRowHeight(activeRow + i, 50)
+    //     sheet.setRowHeight(activeRow + i, 50)
     // } // increases height of row
 
     // loops through subindicators
@@ -432,7 +447,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
         var activeCol = 1
 
         // adding the labels
-        var cell = currentSheet.getRange(activeRow + elemNr, activeCol)
+        var cell = sheet.getRange(activeRow + elemNr, activeCol)
         cell.setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort + currentStep.components[stepCNr].label2)
         cell.setBackground(currentStep.subStepColor) // colors cell
         activeCol += 1
@@ -444,7 +459,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
 
                 // looping through the number of components
                 for (var k = 0; k < nrOfIndSubComps; k++) {
-                    var thisCell = currentSheet.getRange(activeRow + elemNr, activeCol)
+                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -467,7 +482,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
                 // looping through the number of components
                 for (var k = 0; k < nrOfIndSubComps; k++) {
 
-                    var thisCell = currentSheet.getRange(activeRow + elemNr, activeCol)
+                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -488,7 +503,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
             else {
                 for (var k = 0; k < nrOfIndSubComps; k++) {
 
-                    thisCell = currentSheet.getRange(activeRow + elemNr, activeCol)
+                    thisCell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -518,7 +533,7 @@ function addComments(currentSheet, currentIndicator, CompanyObj, activeRow, file
 
 // this function adds an element drop down list to a single row
 
-function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
     var thisStepComponent = currentStep.components[stepCNr]
@@ -526,7 +541,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
     var activeCol = 1
 
     // sets up the labels
-    var cell = currentSheet.getRange(activeRow, activeCol)
+    var cell = sheet.getRange(activeRow, activeCol)
         .setValue(thisStepComponent.label)
         .setBackground(currentStep.subStepColor)
     if(thisStepComponent.type === "binaryReview") {cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")}
@@ -538,7 +553,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
         if (serviceNr == 1) {
             // overall company
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                var thisCell = currentSheet.getRange(activeRow, activeCol)
+                var thisCell = sheet.getRange(activeRow, activeCol)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -560,7 +575,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
         // setting up the opCom row
         else if (serviceNr == 2) {
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                var thisCell = currentSheet.getRange(activeRow, activeCol)
+                var thisCell = sheet.getRange(activeRow, activeCol)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -582,7 +597,7 @@ function addBinaryEvaluation(currentSheet, currentIndicator, CompanyObj, activeR
         // taking care of all the service columns
         else {
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                var thisCell = currentSheet.getRange(activeRow, activeCol)
+                var thisCell = sheet.getRange(activeRow, activeCol)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -738,14 +753,14 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 
 // the sources step adds a single row in which the sources of each column can be listed
 
-function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addSources(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
     var activeCol = 1
 
     var stepCompType = currentStep.components[stepCNr].id
 
 
     // adding label
-    var cell = currentSheet.getRange(activeRow, activeCol)
+    var cell = sheet.getRange(activeRow, activeCol)
         .setValue(currentStep.components[stepCNr].label)
         .setBackground(currentStep.subStepColor)
     activeCol += 1
@@ -757,7 +772,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
         if (serviceNr == 1) {
             // main company
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                var thisCell = currentSheet.getRange(activeRow, 1 + serviceNr + k)
+                var thisCell = sheet.getRange(activeRow, 1 + serviceNr + k)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -775,7 +790,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
         } else if (serviceNr == 2) {
             // opCom
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                var thisCell = currentSheet.getRange(activeRow, 1 + nrOfIndSubComps + k)
+                var thisCell = sheet.getRange(activeRow, 1 + nrOfIndSubComps + k)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 
@@ -793,7 +808,7 @@ function addSources(currentSheet, currentIndicator, CompanyObj, activeRow, file,
         } else {
             // services
             for (var k = 0; k < nrOfIndSubComps; k++) {
-                var thisCell = currentSheet.getRange(activeRow, activeCol)
+                var thisCell = sheet.getRange(activeRow, activeCol)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
 

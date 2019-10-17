@@ -3,10 +3,11 @@
 
 // TODO: Move global parameters to configObj
 
-var indexPrefix = "RDR2019"
-var filenameSuffix = "Pilot"
+var indexPrefix = "RDR19P"
+var filenamePrefix = "2019 Pilot -"
+var filenameSuffix = "Testing"
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var targetFolderName = "Pilot Drafts" // ID: 1RV4i1j8-aCMn0pYeIiz2SOdfDo9T_h6r
+var outputFolderName = "Pilot TEST"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Pilot_Dashboard
 
@@ -24,15 +25,13 @@ function mainAllCompaniesDataCollectionSheets() {
 	var mainSheetMode = "DC"
 
 	var companies = companiesVector.companies
-		// .slice(0,1) // Apple
-		.slice(1,2) // ATT
-		// .slice(2,3) // Baidu
-		// .slice(3,4) // Etisalat
-		// .slice(1,4) // ATT, Baidu, Etisalat
+		// .slice(0,1) // Amazon
+		// .slice(5,6) // Microsoft
+		.slice(8,9) // Telefonica
 
 	companies.forEach(function (thisCompany) {
 		
-		var fileID = createSpreadsheetDC(useStepsSubset, useIndicatorSubset, thisCompany, filenameSuffix, mainSheetMode)
+		var fileID = createSpreadsheetDC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
 		Logger.log("received fileID: " + fileID)
 		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
 	})
@@ -72,7 +71,7 @@ function mainAllCompaniesScoringSheets() {
 // --- Scoring --- //
 
 function mainCreateSingleScoringSheet(companyObj, useStepsSubset, useIndicatorSubset, mainSheetMode) {
-	var fileID = createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenameSuffix, mainSheetMode)
+	var fileID = createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenamePrefix,filenameSuffix, mainSheetMode)
 	return fileID
 }
 

@@ -1,7 +1,9 @@
     // --- // creates sources page // --- //
 
     function fillSourceSheet(thisSheet) {
-        thisSheet.appendRow(["Source reference number", "Document title", "URL", "Date of document\n(if applicable)", "Date accessed", "Saved source link (DEPRECATE)", "Internet Archive", "Has this policy changed from the previous year's Index?"])
+
+        var webArchiveLink = '=HYPERLINK("https://archive.org/web/", "Internet Archive")'
+        thisSheet.appendRow(["Source reference number", "Document title", "URL", "Date of document\n(if applicable)", "Date accessed", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
         thisSheet.getRange(1, 1, 1, thisSheet.getLastColumn())
             .setFontWeight("bold")
             .setFontFamily("Roboto")

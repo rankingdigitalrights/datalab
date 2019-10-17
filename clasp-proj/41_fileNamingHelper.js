@@ -1,15 +1,8 @@
 // --- // central file naming logic // --- //
 
-/**
- * 
- * @param {*} company 
- * @param {*} sheetMode 
- * @param {*} filenameSuffix 
- */
+function spreadSheetFileName (filenamePrefix, sheetMode, companyShortName, filenameSuffix) {
 
-function spreadSheetFileName (company, sheetMode, filenameSuffix) {
-
-    var filename = company + "_" + sheetMode + "_" + "Prototype" + "_" + filenameSuffix
+    var filename = filenamePrefix + ' ' + companyShortName + ' ' + sheetMode + ' ' + filenameSuffix
 
     return filename
 }

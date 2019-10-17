@@ -9,17 +9,17 @@
  * @param {*} step 
  * @param {*} indicatorElement 
  * @param {*} component 
- * @param {*} company 
+ * @param {*} companyId 
  * @param {*} service 
  * @param {*} suffix 
  */
 
 // RDR2019DC S01 G1 iVM1 Step
 
-function defineNamedRangeStringImport(index, sheetMode, step, indicatorElement, component, company, service, suffix) {
+function defineNamedRangeStringImport(index, sheetMode, step, indicatorElement, component, companyId, service, suffix) {
 
   var compCellName = index + sheetMode + step + indicatorElement
-  compCellName = compCellName + company + service + component
+  compCellName = compCellName + companyId + service + component
   if (suffix) {
     compCellName = compCellName + suffix
   }

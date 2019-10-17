@@ -14,9 +14,9 @@ var me = Session.getEffectiveUser() // TODO move inside logic
  * @param {*} useIndicatorSubset 
  */
 
-function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset) {
+function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenamePrefix, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset) {
 
-	var filename = spreadSheetFileName(companyShortName, sheetMode, filenameSuffix)
+	var filename = spreadSheetFileName(filenamePrefix, sheetMode, companyShortName, filenameSuffix)
 
 	clearAllProtections(filename)
 
@@ -152,5 +152,14 @@ function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, co
 	if (protection.canDomainEdit()) {
 		protection.setDomainEdit(false);
 	}
+}
+
+// Protect the whole sheet, unprotect [ranges], then remove all other users from the list of editors.
+
+function singleSheetProtect(sheet, sheetName) {
+
+	// Logger.log("In Single Step " + indicator)
+	var protection = sheet.protect().setDescription(sheetName + " protected")
+
 }
 

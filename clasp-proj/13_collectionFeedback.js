@@ -1,6 +1,6 @@
 // for each indicator
 // 
-function addNotesSheet(file, IndicatorsObj, CompanyObj, ResearchStepsObj, companyNumberOfServices, localColWidth, hasOpCom) {
+function addNotesSheet(file, IndicatorsObj, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom) {
 
     var targetSheet = insertSheetIfNotExist(file, "CommentsTab", true)
     targetSheet.clear()

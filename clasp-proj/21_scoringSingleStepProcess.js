@@ -1,11 +1,11 @@
-function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, companyHasOpCom, blocks, isLocalImport) {
+function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, fullScoring, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, isLocalImport, dataColWidth) {
 
     Logger.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
     var companyShortName = CompanyObj.label.current
 
     // var subStepsLength = thisMainStep.substeps.length
-    var subStepsLength = 1
+    // var subStepsLength = 1
     // var sheetName = 'Outcome_' + thisSubStep.subStepID
 
 
@@ -64,7 +64,7 @@ function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilot
             var indyLevelScoresCompany = []
             var indyLevelScoresServices = []
             var indyCompositeScores = []
-            
+
             activeRow = setCompanyHeader(activeRow, firstCol, sheet, thisIndicator, nrOfIndSubComps, thisCategory, CompanyObj, blocks)
             Logger.log(' - company header added for ' + thisIndicator.labelShort)
 
@@ -81,34 +81,34 @@ function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilot
                     case "header":
                         if (pilotMode) {
 
-                        activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport, pilotMode)
-                        Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                            activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, hasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport, pilotMode)
+                            Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
                         }
                         break
 
                     case "elementResults":
-                        activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
+                        activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, hasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
                         Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
                         break
 
                     case "elementComments":
-                        activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
-                        Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                        if (fullScoring || pilotMode) {
+                            activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, hasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
+                            Logger.log(' - SC - ' + stepComponent + " added for: " + thisIndicator.labelShort)
+                        }
                         break
 
                     case "sources":
-                        activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
-                        Logger.log(' - SC - ' + "sources added for: " + thisIndicator.labelShort)
+                        if (fullScoring) {
+                            activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, hasOpCom, nrOfIndSubComps, thisCategory, blocks, isLocalImport)
+                            Logger.log(' - SC - ' + "sources added for: " + thisIndicator.labelShort)
+                        }
+
                         break
 
-                    // case "sources":
-                    //     activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory)
-                    //     Logger.log(' - SC - ' + "sources added for: " + thisIndicator.labelShort)
-                    //     break
-
-                    // default:
-                    //     sheet.appendRow(["!!!You missed a component!!!\nThis means either \n a) a research step component is not covered by a switch-case statement, or \n b) there is a runtime error"])
-                    //     break
+                        // default:
+                        //     sheet.appendRow(["!!!You missed a component!!!\nThis means either \n a) a research step component is not covered by a switch-case statement, or \n b) there is a runtime error"])
+                        //     break
                 }
             }
 
@@ -117,10 +117,10 @@ function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilot
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
             if (configObj.includeScoring) {
-                activeRow = addElementScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, blocks)
+                activeRow = addElementScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisIndicator, CompanyObj, hasOpCom, nrOfIndSubComps, thisCategory, blocks, fullScoring)
                 Logger.log(' - ' + 'element scores added for ' + thisIndicator.labelShort)
 
-                activeRow = addLevelScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisIndicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, thisCategory, indyLevelScoresCompany, indyLevelScoresServices, blocks)
+                activeRow = addLevelScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisIndicator, CompanyObj, hasOpCom, nrOfIndSubComps, thisCategory, indyLevelScoresCompany, indyLevelScoresServices, blocks)
                 Logger.log(' - ' + "level scores added for " + thisIndicator.labelShort)
 
                 activeRow = addCompositeScores(file, sheetMode, activeRow, firstCol, sheet, thisSubStepID, thisIndicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
@@ -135,11 +135,9 @@ function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilot
     } // END INDICATOR CATEGORY
     // activeRow += 2
     lastCol = numberOfColumns * blocks + 1
-    Logger.log(blocks + ". block" + " - " + firstCol + ":" + lastCol)
+    // Logger.log(blocks + ". block" + " - " + firstCol + ":" + lastCol)
     // firstCol = lastCol + 2
     // } // END SUB STEP
-
-
 
     Logger.log("Formatting Sheet")
     lastRow = activeRow
@@ -154,7 +152,13 @@ function scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilot
     if (blocks === 1) {
         hookFirstDataCol = firstCol + 1
     }
-    sheet.setColumnWidths(hookFirstDataCol, numberOfColumns, 100)
+    sheet.setColumnWidths(hookFirstDataCol, numberOfColumns, dataColWidth)
     sheet.setColumnWidth(lastCol, 25)
+
+    if (!hasOpCom) {
+        var opComCol = hookFirstDataCol + 1
+        sheet.hideColumns(opComCol)
+    }
+
     return lastCol += 1
 } // END MAIN Step & function
