@@ -52,21 +52,19 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
             }
         }
 
-
-
         // general formatting of sheet
         // TODO: think about where to refactor to
         sheet.setColumnWidth(1, serviceColWidth)
 
         var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
 
-        var serviceColWidth = serviceColWidth / nrOfIndSubComps
+        var thisColWidth = serviceColWidth / nrOfIndSubComps
 
         if (CompanyObj.services.length == 1) {
-            serviceColWidth = serviceColWidth * 1.33
+            thisColWidth = serviceColWidth * 1.33
         }
 
-        sheet.setColumnWidths(2, numberOfColumns - 1, serviceColWidth)
+        sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
 
 
         // start sheet in first top left cell
