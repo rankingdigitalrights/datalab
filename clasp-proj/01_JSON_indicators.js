@@ -4,7 +4,7 @@ var indicatorsVector = {
             "labelLong": "Governance",
             "description": "Indicators in this category seek evidence that the company has governance processes in place to ensure that it respects the human rights to freedom of expression and privacy. Both rights are part of the Universal Declaration of Human Rights and are enshrined in the International Covenant on Civil and Political Rights. They apply online as well as offline. In order for a company to perform well in this section, the company’s disclosure should at least follow, and ideally surpass, the UN Guiding Principles on Business and Human Rights and other industry-specific human rights standards focused on freedom of expression and privacy such as the Global Network Initiative.",
             "researchGuidance": "TBD",
-            "classColor" : "#ffe599",
+            "classColor": "#ffe599",
             "hasSubComponents": false,
             // preserving for legacy
             // "components": [{
@@ -16,24 +16,22 @@ var indicatorsVector = {
             //         "labelLong": "Privacy"
             //     }
             // ],
-            "indicators": [
-                {
+            "indicators": [{
                     "labelShort": "G1",
                     "labelLong": "Policy Commitments",
-                    "description": "The company’s senior leadership should exercise oversight over how its policies and practices affect freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 16,
                     "elements": [{
-                            "labelShort": "G1.3",
-                            "description": "Does the company disclose an explicit, clearly articulated policy document outlining their human rights commitments governing the development and use of algorithmic decision-making systems?"
-                        }
-                    ]
+                        "labelShort": "G1.3",
+                        "description": "Does the company disclose an explicit, clearly articulated policy document outlining their human rights commitments governing the development and use of algorithmic decision-making systems?"
+                    }]
                 },
                 {
                     "labelShort": "G4a",
                     "labelLong": "Impact assessment: Government regulations",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -86,7 +84,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "G4b",
                     "labelLong": "Impact assessment: Processes for company policy enforcement",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -131,7 +129,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "G4c",
                     "labelLong": "Impact assessment: Targeted advertising",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -172,7 +170,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "G4d",
                     "labelLong": "Impact assessment: Algorithmic decision-making systems",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -213,7 +211,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "G6b",
                     "labelLong": "Process for content moderation appeals",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -254,7 +252,7 @@ var indicatorsVector = {
             "labelLong": "Freedom of Expression",
             "description": "Indicators in this category seek evidence that the company demonstrates it respects the right to freedom of expression, as articulated in the Universal Declaration of Human Rights, the International Covenant on Civil and Political Rights and other international human rights instruments. The company’s disclosed policies and practices demonstrate how it works to avoid contributing to actions that may interfere with this right, except where such actions are lawful, proportionate and for a justifiable purpose. Companies that perform well on this indicator demonstrate a strong public commitment to transparency not only in terms of how they respond to government and others’ demands, but also how they determine, communicate, and enforce private rules and commercial practices that affect users’ freedom of expression.",
             "researchGuidance": "TBD",
-            "classColor" : "#a4c2f4",
+            "classColor": "#a4c2f4",
             "hasSubComponents": false,
             "indicators": [{
                     "labelShort": "F1a",
@@ -280,7 +278,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "F1b",
                     "labelLong": "Access to advertising content policies",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -305,7 +303,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "F1c",
                     "labelLong": "Access to advertising targeting policies",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -351,7 +349,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "F2a",
                     "labelLong": "Changes to terms of service",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -369,6 +367,31 @@ var indicatorsVector = {
                         },
                         {
                             "labelShort": "F2a.4",
+                            "description": "Does the company maintain a public archive or change log?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "F2b",
+                    "labelLong": "Changes to advertising content policies",
+                    "description": "",
+                    "scoringScope": "full",
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 54,
+                    "elements": [{
+                            "labelShort": "F2b.1",
+                            "description": "Does the company clearly disclose that it notifies users about changes to its advertising content policies?"
+                        },
+                        {
+                            "labelShort": "F2b.2",
+                            "description": "Does the company clearly disclose how it will directly notify users of changes?"
+                        },
+                        {
+                            "labelShort": "F2b.3",
+                            "description": "Does the company clearly disclose the time frame within which it provides notification prior to changes coming into effect?"
+                        },
+                        {
+                            "labelShort": "F2b.4",
                             "description": "Does the company maintain a public archive or change log?"
                         }
                     ]
@@ -430,7 +453,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "F3a",
                     "labelLong": "Process for terms of service enforcement",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -636,7 +659,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "F4d",
                     "labelLong": " Data about advertising targeting policy enforcement",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -747,7 +770,7 @@ var indicatorsVector = {
                 {
                     "labelShort": "F14",
                     "labelLong": "Informing and educating users about risks",
-                    "description": "The company should conduct regular, comprehensive, and credible due diligence, such as human rights impact assessments, to identify how all aspects of its business impact freedom of expression and privacy.",
+                    "description": "",
                     "scoringScope": "full",
                     "y2yCompColumn": 2,
                     "y2yCompRow": 54,
@@ -768,33 +791,342 @@ var indicatorsVector = {
             "labelLong": "Privacy",
             "description": "Indicators in this category seek evidence that in its disclosed policies and practices, the company demonstrates concrete ways in which it respects the right to privacy of users, as articulated in the Universal Declaration of Human Rights, the International Covenant on Civil and Political Rights and other international human rights instruments. The company’s disclosed policies and practices demonstrate how it works to avoid contributing to actions that may interfere with users’ privacy, except where such actions are lawful, proportionate and for a justifiable purpose. They will also demonstrate a strong commitment to protect and defend users’ digital security. Companies that perform well on these indicators demonstrate a strong public commitment to transparency not only in terms of how they respond to government and others’ demands, but also how they determine, communicate, and enforce private rules and commercial practices that affect users’ privacy.",
             "researchGuidance": "TBD",
-            "classColor" : "#dd7e6b",
+            "classColor": "#dd7e6b",
             "hasSubComponents": false,
-            "indicators": [{
-                    "labelShort": "P1",
-                    "labelLong": "Access to privacy policies",
-                    "description": "The company should offer privacy policies that are easy to find and easy to understand.",
+            "indicators": [
+
+                {
+                    "labelShort": "P1b",
+                    "labelLong": "Access to algorithmic system development policies",
+                    "description": "",
                     "scoringScope": "full", // "services"
                     "y2yCompColumn": 2,
                     "y2yCompRow": 429,
                     "elements": [{
-                            "labelShort": "P1.1",
-                            "description": "Are the company’s privacy policies easy to find?"
+                            "labelShort": "P1b.1",
+                            "description": "Are the company’s algorithmic system development policies easy to find?"
                         },
                         {
-                            "labelShort": "P1.2",
-                            "description": "Are the privacy policies available in the language(s) most commonly spoken by the company’s users?"
+                            "labelShort": "P1b.2",
+                            "description": "Are the algorithmic system development policies available in the language(s) most commonly spoken by the company’s users?"
                         },
                         {
-                            "labelShort": "P1.3",
-                            "description": "Are the policies presented in an understandable manner?"
+                            "labelShort": "P1b.3",
+                            "description": "Are the algorithmic system development policies presented in an understandable manner?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P2a",
+                    "labelLong": "Changes to privacy policies",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P2a.1",
+                            "description": "Does the company clearly disclose that it notifies users about changes to its privacy policies?"
                         },
                         {
-                            "labelShort": "P1.4",
-                            "description": "(For mobile ecosystems): Does the company require apps made available through its app store to provide users with a privacy policy?"
+                            "labelShort": "P2a.2",
+                            "description": "Does the company clearly disclose how it will directly notify users of changes?"
+                        },
+                        {
+                            "labelShort": "P2a.3",
+                            "description": "Does the company clearly disclose the time frame within which it provides notification prior to changes coming into effect?"
+                        },
+                        {
+                            "labelShort": "P2a.4",
+                            "description": "Does the company maintain a public archive or change log?"
+                        },
+                        {
+                            "labelShort": "P2a.5",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it requires apps made available through its app store to notify users when the apps change their privacy policies?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P2b",
+                    "labelLong": "Changes to algorithmic system development policies",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P2b.1",
+                            "description": "Does the company clearly disclose that it notifies users about changes to its algorithmic system development policies?"
+                        },
+                        {
+                            "labelShort": "P2b.2",
+                            "description": "Does the company clearly disclose how it will directly notify users of changes?"
+                        },
+                        {
+                            "labelShort": "P2b.3",
+                            "description": "Does the company clearly disclose the time frame within which it provides notification prior to changes coming into effect?"
+                        },
+                        {
+                            "labelShort": "P2b.4",
+                            "description": "Does the company maintain a public archive or change log?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P3a",
+                    "labelLong": "Collection of user information",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P3a.1",
+                            "description": "Does the company clearly disclose what types of user information it collects?"
+                        },
+                        {
+                            "labelShort": "P3a.2",
+                            "description": "For each type of user information the company collects, does the company clearly disclose how it collects that user information?"
+                        },
+                        {
+                            "labelShort": "P3a.3",
+                            "description": "Does the company clearly disclose that it limits collection of user information to what is directly relevant and necessary to accomplish the purpose of its service?"
+                        },
+                        {
+                            "labelShort": "P3a.4",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose what user information the apps collect?"
+                        },
+                        {
+                            "labelShort": "P3a.5",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether third-party apps made available through its app store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the app?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P3b",
+                    "labelLong": "Inference of user information",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P3b.1",
+                            "description": "Does the company clearly disclose all the types of user information it infers on the basis of collected user information?"
+                        },
+                        {
+                            "labelShort": "P3b.2",
+                            "description": "For each type of user information the company infers, does the company clearly disclose how it infers that user information?"
+                        },
+                        {
+                            "labelShort": "P3b.3",
+                            "description": "Does the company clearly disclose that it limits inference of user information to what is directly relevant and necessary to accomplish the purpose of its service?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P5",
+                    "labelLong": "Purpose for collecting, inferring and sharing user information",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P5.1",
+                            "description": "For each type of user information the company collects, does the company clearly disclose its purpose for collection?"
+                        },
+                        {
+                            "labelShort": "P5.2",
+                            "description": "For each type of user information the company infers, does the company clearly disclose its purpose for the inference?"
+                        },
+                        {
+                            "labelShort": "P5.3",
+                            "description": "Does the company clearly disclose whether it combines user information from various company services and if so, why?"
+                        },
+                        {
+                            "labelShort": "P5.4",
+                            "description": "For each type of user information the company shares, does the company clearly disclose its purpose for sharing?"
+                        },
+                        {
+                            "labelShort": "P5.5",
+                            "description": "Does the company clearly disclose that it limits its use of user information to the purpose for which it was collected or inferred?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P7",
+                    "labelLong": "Users’ control over their own user information",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P7.1",
+                            "description": "For each type of user information the company collects, does the company clearly disclose whether users can control the company’s collection of this user information?"
+                        },
+                        {
+                            "labelShort": "P7.2",
+                            "description": "For each type of user information the company collects, does the company clearly disclose whether users can delete this user information?"
+                        },
+                        {
+                            "labelShort": "P7.3",
+                            "description": "For each type of user information the company infers on the basis of collected information, does the company clearly disclose whether users can control if the company can attempt to infer this user information?"
+                        },
+                        {
+                            "labelShort": "P7.4",
+                            "description": "For each type of user information the company infers on the basis of collected information, does the company clearly disclose whether users can delete this user information?"
+                        },
+                        {
+                            "labelShort": "P7.5",
+                            "description": "Does the company clearly disclose that it provides users with options to control how their user information is used for targeted advertising?"
+                        },
+                        {
+                            "labelShort": "P7.6",
+                            "description": "Does the company clearly disclose whether the display of targeted advertising is on or off by default?"
+                        },
+                        {
+                            "labelShort": "P7.7",
+                            "description": "Does the company disclose that users can opt in to being shown targeted advertising?"
+                        },
+                        {
+                            "labelShort": "P7.8",
+                            "description": "Does the company clearly disclose that it provides users with options to control how their user information is used for the development of algorithmic systems?"
+                        },
+                        {
+                            "labelShort": "P7.9",
+                            "description": "Does the company clearly disclose whether it uses user information to develop algorithmic systems by default, or not?"
+                        },
+                        {
+                            "labelShort": "P7.10",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it provides users with options to control the device’s geolocation functions?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P8",
+                    "labelLong": "Users’ access to their own user information",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P8.1",
+                            "description": "Does the company clearly disclose that users can obtain a copy of their user information?"
+                        },
+                        {
+                            "labelShort": "P8.2",
+                            "description": "Does the company clearly disclose what user information users can obtain?"
+                        },
+                        {
+                            "labelShort": "P8.3",
+                            "description": "Does the company clearly disclose that users can obtain their user information in a structured data format?"
+                        },
+                        {
+                            "labelShort": "P8.4",
+                            "description": "Does the company clearly disclose that users can obtain all public-facing and private user information a company has collected holds about them?"
+                        },
+                        {
+                            "labelShort": "P8.5",
+                            "description": "Does the company clearly disclose that users can obtain all the information that a company has inferred about them?"
+                        },
+                        {
+                            "labelShort": "P8.6",
+                            "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose that users can obtain all of the user information about them the app holds?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P9",
+                    "labelLong": "Collection of user information from third parties (internet and mobile ecosystem companies)",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P9.1",
+                            "description": "Does the company clearly disclose what user information it collects from third-parties through non-technical means?"
+                        },
+                        {
+                            "labelShort": "P9.2",
+                            "description": "Does the company clearly explain how it collects user information from third parties through non-technical means?"
+                        },
+                        {
+                            "labelShort": "P9.3",
+                            "description": "Does the company clearly disclose its purpose for collecting user information from third parties through non-technical means?"
+                        },
+                        {
+                            "labelShort": "P9.4",
+                            "description": "Does the company clearly disclose how long it retains the user information it collects from third parties through non-technical means?"
+                        },
+                        {
+                            "labelShort": "P9.5",
+                            "description": "Does the company clearly disclose what user information it collects from third-party websites through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.6",
+                            "description": "Does the company clearly explain how it collects user information from third parties through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.7",
+                            "description": "Does the company clearly disclose its purpose for collecting user information from third parties through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.8",
+                            "description": "Does the company clearly disclose how long it retains the user information it collects from third parties through technical means?"
+                        },
+                        {
+                            "labelShort": "P9.9",
+                            "description": "Does the company clearly disclose that it respects user-generated signals to opt-out of data collection?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P18",
+                    "labelLong": "Inform and educate users about potential risks",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P18.1",
+                            "description": "Does the company publish practical materials that educate users on how to protect themselves from cybersecurity risks relevant to their products or services?"
+                        },
+                        {
+                            "labelShort": "P18.2",
+                            "description": "Does the company publish practical materials that educate users on how to protect themselves from the privacy risks associated with the company’s targeted advertising practices?"
+                        },
+                        {
+                            "labelShort": "P18.3",
+                            "description": "Does the company publish practical materials that educate users on how to protect themselves from the privacy risks associated with the inclusion of their user information in the development and optimization of algorithmic systems?"
+                        }
+                    ]
+                },
+                {
+                    "labelShort": "P19",
+                    "labelLong": "User access to advertising targeting metadata",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P19.1",
+                            "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which the company has assigned them?"
+                        },
+                        {
+                            "labelShort": "P19.2",
+                            "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which each piece of advertising content they see while using the product or service was targeted?"
+                        },
+                        {
+                            "labelShort": "P19.3",
+                            "description": "Does the company clearly disclose how users can access the list of advertisers who have attempted to influence them through the company’s on-platform targeted advertising technologies?"
+                        },
+                        {
+                            "labelShort": "P19.4",
+                            "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which each piece of advertising content they see off-platform was targeted through the company’s advertising network?"
+                        },
+                        {
+                            "labelShort": "P19.5",
+                            "description": "Does the company clearly disclose how users can access the list of advertisers who have attempted to influence them through the company’s off-platform advertising network?"
                         }
                     ]
                 }
+
             ]
         }
     ]

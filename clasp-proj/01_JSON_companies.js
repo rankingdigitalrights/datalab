@@ -4,184 +4,96 @@
 var companiesVector = {
     "collection": "companies",
     "indexYear": 2019,
-    "indexType": "RDR",
-    "companies": [{
+    "indexType": "RDR Pilot",
+    "companies": [
+        {
+            "id": "iAZ1",
+            "label": {
+                "current": "Amazon",
+                "altFilename": null,
+                "legacy": [null]
+            },
+            "type": "internet",
+            "groupLabel": "Amazon",
+            "hasOpCom": false,
+            "opComLabel": null,
+            "isPrevScored": false,
+            "firstIndex": null,
+            "urlPreviousYearResults": null,
+            "tabPrevYearsOutcome": null,
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 2,
+            "services": [{
+                    "id": "ecAZ1",
+                    "type": "eCommerce",
+                    "label": {
+                        "current": "Amazon e-commerce",
+                        "legacy": [null]
+                    }
+                },
+                {
+                    "id": "ebAZ1",
+                    "type": "pda",
+                    "label": {
+                        "current": "Amazon PDA",
+                        "legacy": [null]
+                    }
+                }]
+        },
+        {
             "id": "iAP1",
             "label": {
                 "current": "Apple",
                 "altFilename": null,
-                "legacy": null
+                "legacy": [null]
             },
             "type": "internet",
             "groupLabel": "Apple",
-            "opCom": false,
+            "hasOpCom": false,
             "opComLabel": null,
-            "prevScored": true,
+            "isPrevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
             "tabPrevYearsOutcome": "AppleOutcome",
-            "urlCurrentDataCollectionSheet": "1YdjwsfldMjQkdR4ED5K2Iiu3M3Wcf7Pm-u9ySHpVnlI",
+            "urlCurrentDataCollectionSheet": null,
             "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 3,
+            "numberOfServices": 1,
             "services": [{
                     "id": "meAP1",
                     "type": "mobileEcosystem",
                     "label": {
-                        "current": "iOS mobile ecosystem",
-                        "legacy": null
+                        "current": "iOS (mobile ecosystem)",
+                        "legacy": ["iOS mobile ecosystem"]
                     }
-                },
-                {
-                    "id": "mvAP1",
-                    "type": "messagingVoip",
-                    "label": {
-                        "current": "iMessage",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "clAP1",
-                    "type": "cloud",
-                    "label": {
-                        "current": "iCloud",
-                        "legacy": null
-                    }
-                }
-            ]
+                }]
         },
         {
-            "id": "tAT1",
+            "id": "tDT1",
             "label": {
-                "current": "AT&T",
-                "altFilename": "ATT",
-                "full": "AT&T Inc.",
+                "current": "Deutsche Telekom",
+                "altFilename": "DeutscheTelekom",
                 "legacy": [null]
             },
             "type": "telecom",
-            "groupLabel": "AT&T",
-            "opCom": false,
+            "groupLabel": "DT",
+            "hasOpCom": false,
             "opComLabel": null,
-            "prevScored": true,
-            "firstIndex": 2015,
+            "isPrevScored": true,
+            "firstIndex": 2019,
             "urlPreviousYearResults": null,
-            "tabPrevYearsOutcome": "ATTOutcome",
+            "tabPrevYearsOutcome": null,
             "urlCurrentDataCollectionSheet": null,
             "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 3,
-            "services": [{
-                    "id": "mbAT1",
-                    "type": "mobile",
-                    "subtype": "prepaid",
-                    "label": {
-                        "current": "Prepaid mobile",
-                        "legacy": null
-                    }
-                },
+            "numberOfServices": 1,
+            "services": [
                 {
-                    "id": "mbAT2",
+                    "id": "mbDT2",
                     "type": "mobile",
                     "subtype": "postpaid",
                     "label": {
-                        "current": "Postpaid mobile",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "bbAT1",
-                    "type": "broadband",
-                    "label": {
-                        "current": "Fixed-line broadband",
-                        "legacy": null
-                    }
-                }
-            ]
-        },
-        {
-            "id": "iBA1",
-            "label": {
-                "current": "Baidu",
-                "altFilename": null,
-                "legacy": null
-            },
-            "type": "internet",
-            "groupLabel": "Baidu",
-            "opCom": false,
-            "opComLabel": null,
-            "prevScored": true,
-            "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1bAVVenbXBzWLTwYahqp-8DbHMx5S2YS7a4VhTe8RjFE",
-            "tabPrevYearsOutcome": "BaiduOutcome",
-            "urlCurrentDataCollectionSheet": "12FtlXSzG_9-ZwNL_pCwLiiW6BjFmdUsEKU3oBVVWGzo",
-            "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 3,
-            "services": [{
-                    "id": "seBA1",
-                    "type": "search",
-                    "label": {
-                        "current": "Baidu Search",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "clBA1",
-                    "type": "cloud",
-                    "label": {
-                        "current": "Baidu Cloud",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "mvBA1",
-                    "type": "messagingVoip",
-                    "label": {
-                        "current": "Baidu PostBar",
-                        "legacy": null
-                    }
-                }
-            ]
-        },
-        {
-            "id": "tES1",
-            "label": {
-                "current": "Etisalat",
-                "altFilename": null,
-                "legacy": [null]
-            },
-            "type": "telecom",
-            "groupLabel": "Etisalat",
-            "opCom": true,
-            "opComLabel": "Etisalat UAE",
-            "prevScored": true,
-            "firstIndex": 2015,
-            "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
-            "tabPrevYearsOutcome": "EtisalatOutcome",
-            "urlCurrentDataCollectionSheet": "1bEoTnARzol1Vs2DEx052ieAyoKRlsWsLfapxWuEjBNU",
-            "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 3,
-            "services": [{
-                    "id": "mbES1",
-                    "type": "mobile",
-                    "subtype": "prepaid",
-                    "label": {
-                        "current": "Prepaid mobile",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "mbES2",
-                    "type": "mobile",
-                    "subtype": "postpaid",
-                    "label": {
-                        "current": "Postpaid mobile",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "bbES1",
-                    "type": "broadband",
-                    "label": {
-                        "current": "Fixed-line broadband",
-                        "legacy": null
+                        "current": "DT (post paid mobile)",
+                        "legacy": ["Postpaid mobile"]
                     }
                 }
             ]
@@ -191,134 +103,193 @@ var companiesVector = {
             "label": {
                 "current": "Facebook",
                 "altFilename": null,
-                "legacy": null
+                "legacy": [null]
             },
             "type": "internet",
             "groupLabel": "Facebook",
-            "opCom": false,
+            "hasOpCom": false,
             "opComLabel": null,
-            "prevScored": true,
+            "isPrevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "FacebookOutcome",
-            "urlCurrentDataCollectionSheet": "1TpQ9wqQzUWMjyAHrqN55YH0PWrqyKeeDUOM4EFtLtMo",
+            "urlCurrentDataCollectionSheet": null,
             "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 4,
+            "numberOfServices": 1,
             "services": [{
                     "id": "snFB1",
                     "type": "socialNetworkBlogs",
                     "label": {
-                        "current": "Facebook",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "pvFB1",
-                    "type": "photoVideo",
-                    "label": {
-                        "current": "Instagram",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "mvFB1",
-                    "type": "messagingVoip",
-                    "label": {
-                        "current": "WhatsApp",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "mvFB2",
-                    "type": "messagingVoip",
-                    "label": {
-                        "current": "Messenger",
-                        "legacy": null
+                        "current": "Facebook (SNS)",
+                        "legacy": ["Facebook"]
                     }
                 }
             ]
         },
         {
-            "id": "tMT1",
+            "id": "tGO1",
             "label": {
-                "current": "MTN",
+                "current": "Google",
+                "altFilename": null,
+                "legacy": [null]
+            },
+            "type": "internet",
+            "groupLabel": "Google",
+            "hasOpCom": false,
+            "opComLabel": null,
+            "isPrevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
+            "tabPrevYearsOutcome": "GoogleOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 3,
+            "services": [{
+                    "id": "seGO1",
+                    "type": "search",
+                    "label": {
+                        "current": "Google (search)",
+                        "legacy": ["Search"]
+                    }
+                },
+                {
+                    "id": "pvGO1",
+                    "type": "photoVideo",
+                    "label": {
+                        "current": "YouTube",
+                        "legacy": [null]
+                    }
+                },
+                {
+                    "id": "meGO1",
+                    "type": "mobileEcosystem",
+                    "label": {
+                        "current": "Android",
+                        "legacy": ["Android mobile ecosystem"]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "iMS1",
+            "label": {
+                "current": "Microsoft",
+                "altFilename": null,
+                "legacy": [null]
+            },
+            "type": "internet",
+            "groupLabel": "Microsoft",
+            "hasOpCom": false,
+            "opComLabel": null,
+            "isPrevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "MicrosoftOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 2,
+            "services": [{
+                    "id": "seMS1",
+                    "type": "search",
+                    "label": {
+                        "current": "Bing (search)",
+                        "legacy": ["Bing"]
+                    }
+                },
+                {
+                    "id": "clMS1",
+                    "type": "cloud",
+                    "label": {
+                        "current": "OneDrive",
+                        "legacy": [null]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "iTW1",
+            "label": {
+                "current": "Twitter",
+                "altFilename": null,
+                "legacy": [null]
+            },
+            "type": "internet",
+            "groupLabel": "Twitter",
+            "hasOpCom": false,
+            "opComLabel": null,
+            "isPrevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "TwitterOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 1,
+            "services": [{
+                    "id": "snTW1",
+                    "type": "socialNetworkBlogs",
+                    "label": {
+                        "current": "Twitter (SNS)",
+                        "legacy": ["Twitter"]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "tVF1",
+            "label": {
+                "current": "Vodafone",
                 "altFilename": null,
                 "legacy": [null]
             },
             "type": "telecom",
-            "groupLabel": "MTN",
-            "opCom": true,
-            "opComLabel": "MTN South Africa",
-            "prevScored": true,
+            "groupLabel": "Vodafone",
+            "hasOpCom": false,
+            "opComLabel": null,
+            "isPrevScored": true,
             "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
-            "tabPrevYearsOutcome": "MTNOutcome",
-            "urlCurrentDataCollectionSheet": "19HkhE67bGu2meiO4N0Ha-4_mPHjOVSzh5Y0hm9sMlao",
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "VodafoneOutcome",
+            "urlCurrentDataCollectionSheet": null,
             "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 3,
-            "services": [{
-                    "id": "mbMT1",
-                    "type": "mobile",
-                    "subtype": "prepaid",
-                    "label": {
-                        "current": "Prepaid mobile",
-                        "legacy": null
-                    }
-                },
+            "numberOfServices": 1,
+            "services": [
                 {
-                    "id": "mbMT2",
+                    "id": "mbVF2",
                     "type": "mobile",
                     "subtype": "postpaid",
                     "label": {
-                        "current": "Postpaid mobile",
-                        "legacy": null
-                    }
-                },
-                {
-                    "id": "bbMT1",
-                    "type": "broadband",
-                    "label": {
-                        "current": "Fixed-line broadband",
-                        "legacy": null
+                        "current": "Vodafone (post paid mobile)",
+                        "legacy": ["Postpaid mobile"]
                     }
                 }
             ]
         },
         {
-            "id": "iVM1",
+            "id": "tTF1",
             "label": {
-                "current": "Verizon Media",
-                "altFilename": "Verizon",
-                "legacy": [
-                    "Oath",
-                    "Yahoo"
-                ]
+                "current": "Telefónica",
+                "altFilename": "Telefonica",
+                "legacy": [null]
             },
-            "type": "internet",
-            "groupLabel": "Verizon Media",
-            "opCom": false,
+            "type": "telecom",
+            "groupLabel": "Telefónica",
+            "hasOpCom": false,
             "opComLabel": null,
-            "prevScored": true,
+            "isPrevScored": true,
             "firstIndex": 2015,
-            "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
-            "tabPrevYearsOutcome": "OathOutcome",
-            "urlCurrentDataCollectionSheet": "1-RHvGX24Ys3FNA0mtry3Z6rqpGYvJpyXiAhqznStsDc",
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "TelefónicaOutcome",
+            "urlCurrentDataCollectionSheet": null,
             "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 2,
-            "services": [{
-                    "id": "maYM1",
-                    "type": "mail",
-                    "label": {
-                        "current": "Yahoo Mail",
-                        "legacy": null
-                    }
-                },
+            "numberOfServices": 1,
+            "services": [
                 {
-                    "id": "pvYM1",
-                    "type": "photoVideo",
+                    "id": "mbTF2",
+                    "type": "mobile",
+                    "subtype": "postpaid",
                     "label": {
-                        "current": "Tumblr",
-                        "legacy": null
+                        "current": "Telefónica (post paid mobile)",
+                        "legacy": ["Postpaid mobile"]
                     }
                 }
             ]
