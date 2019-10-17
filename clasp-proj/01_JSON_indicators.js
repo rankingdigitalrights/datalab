@@ -760,28 +760,7 @@ var indicatorsVector = {
                             "description": "DDoes the company publish practical materials that educate users on how to protect themselves from any potential undue psychological influence of the company’s use of algorithms, machine learning and automated decision-making?"
                         }
                     ]
-                },
-                {
-                    "labelShort": "F3b",
-                    "labelLong": "Advertising content rules and enforcement",
-                    "description": "",
-                    "scoringScope": "full",
-                    "y2yCompColumn": 2,
-                    "y2yCompRow": 54,
-                    "elements": [{
-                            "labelShort": "F3b.1",
-                            "description": "Does the company clearly disclose what types of advertising content are prohibited?"
-                        },
-                        {
-                            "labelShort": "F3b.2",
-                            "description": "Does the company clearly disclose that all advertising content must be clearly labelled as such?"
-                        },
-                        {
-                            "labelShort": "F3b.3",
-                            "description": "Does the company clearly disclose information about the processes and technologies it uses to identify advertising content or accounts that violate the company’s rules?"
-                        }
-                    ]
-                },
+                }
             ]
         },
         {
