@@ -4,7 +4,7 @@
 // List the parameters and where their values are coming from
 
 
-function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll) {
+function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance) {
 
     // for each indicator
     // - create a new Sheet
@@ -60,9 +60,9 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
         var thisColWidth = serviceColWidth / nrOfIndSubComps
 
-        if (CompanyObj.services.length == 1) {
-            thisColWidth = serviceColWidth * 1.33
-        }
+        // if (CompanyObj.services.length == 1) {
+        //     thisColWidth = serviceColWidth * 1.33
+        // }
 
         sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
 
@@ -72,7 +72,7 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices)
+        activeRow = addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance)
 
         // --- // Begin Main Step-Wise Procedure // --- //
 
@@ -204,11 +204,32 @@ function populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchSteps
 
 
         // set font for whole data range
-        sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
+        var sheetRange = sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
             .setFontFamily("Roboto")
+            .setFontSize(10)
             .setWrap(true)
             .setVerticalAlignment("top")
 
+        var condRuleNames = SpreadsheetApp.newConditionalFormatRule()
+            .whenTextEqualTo('Your Name')
+            .setFontColor('#ea4335')
+            .setBold(true)
+            .setRanges([sheetRange])
+            .build()
+        
+        var condRuleValues = SpreadsheetApp.newConditionalFormatRule()
+            .whenTextEqualTo('not selected')
+            // .setFontColor('#ea4335')
+            .setBackground('#f4cccc')
+            .setRanges([sheetRange])
+            .build()
+        
+        var rules = sheet.getConditionalFormatRules()        
+        rules.push(condRuleNames)
+        rules.push(condRuleValues)
+        sheet.setConditionalFormatRules(rules)
+        
+            
         // collapse all groups
         if (doCollapseAll) {
             sheet.collapseAllRowGroups()

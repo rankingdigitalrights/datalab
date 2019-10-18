@@ -1,8 +1,8 @@
 var centralConfig = {
 	"indexPrefix": "RDR2019",
-	"filenameSuffix": "Pilot Test",
+	"filenameSuffix": "Pilot",
 	"rootFolderID": "1_0ItAPEi3guFochAExacCl2bTN0abwax", // "2019 Back-end testing"
-	"outputFolderName": "Pilot Drafts", // ID: 1eZxqA2_ebOYs9oMnySKSzV5ybNwrEmMO
+	"outputFolderName": "2019 Pilot FINAL", // ID: 1eZxqA2_ebOYs9oMnySKSzV5ybNwrEmMO
 	"controlSpreadsheet": "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI", // 00_Pilot_Dashboard
 	"YearOnYear" : false,
 	"freezeHead" : false,
@@ -13,14 +13,15 @@ var centralConfig = {
 	"scoringSteps": [3, 6],
 	// "maxScoringStep": false, // otherwise number
 	"integrateOutputs": true, // add any scoring component? scoring, feedback, comments/notes
-	"includeScoring": true, // create regular Outcome?
+	"includeScoring": false, // create regular Outcome?
 	"isFullScoring": false, // include comments?
-	"pilotMode": false, // if true then disable scoring
+	"pilotMode": true, // if true then disable scoring
 	"collapseAllGroups": false,
 	"notesSheetname": "Researcher Comments",
 	"scoringSheetname": "Outcome",
 	"feedbackSheetname": "Raw ComFeedback",
 	"feedbackStep": 3,
 	"prevYearOutcomeTab": "2018 Outcome",
-	"includeDCResearchGuidance": false // TODO
+	"includeRGuidanceLink": false, // TODO
+	"collapseRGuidance": false
 }

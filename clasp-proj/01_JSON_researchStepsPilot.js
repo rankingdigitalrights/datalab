@@ -46,7 +46,7 @@ var researchStepsVector = {
                     "labelShort": "Step 1a",
                     "subStepID": "S01a",
                     "subStepColor": "#ddd9c3",
-                    "doCollapse": true,
+                    "doCollapse": false,
                     "components": [{
                             "type": "header",
                             "label": "Researcher",

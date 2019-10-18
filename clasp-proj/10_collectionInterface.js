@@ -31,6 +31,8 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
     var integrateOutputs = configObj.integrateOutputs
     var includeScoring = configObj.includeScoring
     var importedOutcomeTabName = configObj.prevYearOutcomeTab
+    var includeRGuidanceLink = configObj.includeRGuidanceLink
+    var collapseRGuidance = configObj.collapseRGuidance
 
 
     // connect to existing spreadsheet or creat a blank spreadsheet
@@ -100,7 +102,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
         Logger.log("Starting " + currentClass.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
 
-        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll)
+        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance)
 
         Logger.log("Completed " + currentClass.labelLong)
     }
@@ -115,6 +117,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
 
         Logger.log("Extra Sheet added")
     }
+
 
     Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID

@@ -69,5 +69,7 @@ function addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, Researc
     var thisSheet = file.getSheetByName(sheetName)
     thisSheet.setFrozenColumns(1)
     singleSheetProtect(thisSheet, sheetName)
+    file.setActiveSheet(thisSheet)
+    file.moveActiveSheet(1)
 
 }

@@ -5,11 +5,11 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "Testing"
+var filenameSuffix = ""
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var outputFolderName = "Pilot TEST"
+var outputFolderName = "Pilot FINAL"
 
-var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_Pilot_Dashboard
+var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
 // --- // Subset params // --- //
 
@@ -22,12 +22,22 @@ var useIndicatorSubset = true // true := use subset
 
 function mainAllCompaniesDataCollectionSheets() {
 
-	var mainSheetMode = "DC"
+	var mainSheetMode = "Input"
 
 	var companies = companiesVector.companies
+		// .slice(0,3) // Subset #1
+		// .slice(3,6) // Subset #2
+		// .slice(6,9) // Subset #3
+
 		// .slice(0,1) // Amazon
-		// .slice(5,6) // Microsoft
-		.slice(8,9) // Telefonica
+		// .slice(1,2) // Apple
+		// .slice(2,3) // Deutsche Telekom
+		// .slice(3,4) // Facebook
+		// .slice(4,5) // Google
+		.slice(5,6) // Microsoft
+		// .slice(6,7) // Telefonica
+		// .slice(7,8) // Twitter
+		// .slice(8,9) // Vodafone
 
 	companies.forEach(function (thisCompany) {
 		
@@ -42,7 +52,7 @@ function mainAllCompaniesDataCollectionSheets() {
 
 function mainAllCompaniesScoringSheets() {
 
-	var mainSheetMode = "SC"
+	var mainSheetMode = "Output"
 
 	var companies = companiesVector.companies
 		.slice(0,1) // Apple
@@ -59,16 +69,8 @@ function mainAllCompaniesScoringSheets() {
 /* ---------------------------------------------------- */
 /* do not run these by hand */
 
-// --- // single Company-level calls // --- //
-
-// --- Data Collection --- // 
-
-// function mainCreateSingleDataCollectionSheet(companyObj, useStepsSubset, useIndicatorSubset, mainSheetMode) {
-// 	var fileID = createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, filenameSuffix, mainSheetMode)
-// 	return fileID
-// }
-
 // --- Scoring --- //
+// TODO: deprecate //
 
 function mainCreateSingleScoringSheet(companyObj, useStepsSubset, useIndicatorSubset, mainSheetMode) {
 	var fileID = createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenamePrefix,filenameSuffix, mainSheetMode)

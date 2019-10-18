@@ -2,7 +2,7 @@
 
 // Indicator Guidance for researchers
 
-function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices) {
+function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance) {
 
     // TODO probably move all formatting params to JSON
 
@@ -10,7 +10,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
     var col = activeCol
 
     var maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
-    if (companyNumberOfServices == 1) {
+    if (companyNumberOfServices == 1 && !hasOpCom) {
         maxColHeadings -= 1
     }
 
@@ -18,7 +18,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
     var indTitle = thisIndicator.labelShort + ". " + thisIndicator.labelLong
     if (thisIndicator.description.length > 1) {
-        indTitle = indTitle  + ": " + thisIndicator.description
+        indTitle = indTitle + ": " + thisIndicator.description
     }
 
     // Indicator Heading
@@ -34,29 +34,38 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
     sheet.setRowHeight(row, 40)
     sheet.getRange(row, col, 1, numberOfColumns).merge()
     sheet.getRange(row, col, 1, numberOfColumns).setBackground("lightgrey")
+    sheet.setFrozenRows(1)
 
     row += 1
 
-    // General Instruction
-    cell = sheet.getRange(row, col)
-        .setValue("▶ Please read the indicator-specific guidance and discussions before starting the research!")
-        .setFontWeight("bold")
-        .setFontSize(9)
-        .setHorizontalAlignment("left")
-        .setVerticalAlignment("middle")
-        .setFontFamily("Roboto Mono")
-        .setWrap(true)
-        .setFontColor("#ea4335")
+    var tempStartRow
+
+    if (includeRGuidanceLink) {
+        // General Instruction
+        cell = sheet.getRange(row, col)
+            .setValue("▶ Please read the indicator-specific guidance and discussions before starting the research!")
+            .setFontWeight("bold")
+            .setFontSize(9)
+            .setHorizontalAlignment("left")
+            .setVerticalAlignment("middle")
+            .setFontFamily("Roboto Mono")
+            .setWrap(true)
+            .setFontColor("#ea4335")
         // .setFontColor("chocolate")
 
+
+        sheet.setRowHeight(row, 40)
+        sheet.getRange(row, col, 1, numberOfColumns).merge()
+        sheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
+
+        row += 1
+        tempStartRow = row // for grouping
+    } else {
+        tempStartRow = row // for grouping
+        row += 1
+    }
+
     
-    sheet.setRowHeight(row, 40)
-    sheet.getRange(row, col, 1, numberOfColumns).merge()
-    sheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
-
-    row += 1
-
-    var tempStartRow = row // for grouping
 
     // Element Instructions
     cell = sheet.getRange(row, 1)
@@ -78,24 +87,32 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
         row += 1
     })
 
-    row += 1
-    var indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
+    if (includeRGuidanceLink) {
+        row += 1
+        var indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
 
-    // TODO: Parameterize
+        // TODO: Parameterize
 
-    cell = sheet.getRange(row, 1)
-        .setValue("Link to Research Guidance:")
-        .setFontWeight("bold")
-        .setHorizontalAlignment("right")
-        .setFontFamily("Roboto Mono")
+        cell = sheet.getRange(row, 1)
+            .setValue("Link to Research Guidance:")
+            .setFontWeight("bold")
+            .setHorizontalAlignment("right")
+            .setFontFamily("Roboto Mono")
 
-    cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
-        .setValue(indicatorLink)
+        cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+            .setValue(indicatorLink)
 
-    // var tempLastRow = row // for grouping
+        // var tempLastRow = row // for grouping
+    } else {
+        row -= 1
+    }
 
     var rangeStep = sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns)
-    rangeStep.shiftRowGroupDepth(1);
+    rangeStep.shiftRowGroupDepth(1)
+
+    if(collapseRGuidance) {
+        rangeStep.collapseGroups()
+    }
 
     row += 1
 
@@ -395,7 +412,7 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file,
                     } else {
                         thisCell.setValue('not selected') // sets default for drop down list
                     }
-                    
+
                     activeCol += 1
                 }
             }
@@ -544,7 +561,7 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, fil
     var cell = sheet.getRange(activeRow, activeCol)
         .setValue(thisStepComponent.label)
         .setBackground(currentStep.subStepColor)
-    if(thisStepComponent.type === "binaryReview") {cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")}
+    if (thisStepComponent.type === "binaryReview") { cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center") }
     activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*nrOfIndSubComps)+1)

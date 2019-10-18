@@ -77,8 +77,8 @@ var companiesVector = {
             },
             "type": "telecom",
             "groupLabel": "DT",
-            "hasOpCom": false,
-            "opComLabel": null,
+            "hasOpCom": true,
+            "opComLabel": "DT Germany",
             "isPrevScored": true,
             "firstIndex": 2019,
             "urlPreviousYearResults": null,
@@ -207,6 +207,36 @@ var companiesVector = {
             ]
         },
         {
+            "id": "tTF1",
+            "label": {
+                "current": "Telefónica",
+                "altFilename": "Telefonica",
+                "legacy": [null]
+            },
+            "type": "telecom",
+            "groupLabel": "Telefónica",
+            "hasOpCom": true,
+            "opComLabel": "Telefónica Spain",
+            "isPrevScored": true,
+            "firstIndex": 2015,
+            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
+            "tabPrevYearsOutcome": "TelefónicaOutcome",
+            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentCompanyScoringSheet": null,
+            "numberOfServices": 1,
+            "services": [
+                {
+                    "id": "mbTF2",
+                    "type": "mobile",
+                    "subtype": "postpaid",
+                    "label": {
+                        "current": "Telefónica (post paid mobile)",
+                        "legacy": ["Postpaid mobile"]
+                    }
+                }
+            ]
+        },
+        {
             "id": "iTW1",
             "label": {
                 "current": "Twitter",
@@ -243,8 +273,8 @@ var companiesVector = {
             },
             "type": "telecom",
             "groupLabel": "Vodafone",
-            "hasOpCom": false,
-            "opComLabel": null,
+            "hasOpCom": true,
+            "opComLabel": "Vodafone UK",
             "isPrevScored": true,
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
@@ -259,36 +289,6 @@ var companiesVector = {
                     "subtype": "postpaid",
                     "label": {
                         "current": "Vodafone (post paid mobile)",
-                        "legacy": ["Postpaid mobile"]
-                    }
-                }
-            ]
-        },
-        {
-            "id": "tTF1",
-            "label": {
-                "current": "Telefónica",
-                "altFilename": "Telefonica",
-                "legacy": [null]
-            },
-            "type": "telecom",
-            "groupLabel": "Telefónica",
-            "hasOpCom": false,
-            "opComLabel": null,
-            "isPrevScored": true,
-            "firstIndex": 2015,
-            "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
-            "tabPrevYearsOutcome": "TelefónicaOutcome",
-            "urlCurrentDataCollectionSheet": null,
-            "urlCurrentCompanyScoringSheet": null,
-            "numberOfServices": 1,
-            "services": [
-                {
-                    "id": "mbTF2",
-                    "type": "mobile",
-                    "subtype": "postpaid",
-                    "label": {
-                        "current": "Telefónica (post paid mobile)",
                         "legacy": ["Postpaid mobile"]
                     }
                 }

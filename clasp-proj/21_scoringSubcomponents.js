@@ -19,6 +19,8 @@ function setSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubSt
             .setValue(thisSubStepLabel)
             .setFontWeight("bold")
             .setFontSize(14)
+    
+    sheet.setFrozenRows(1)
 
     return activeRow += 1
 }

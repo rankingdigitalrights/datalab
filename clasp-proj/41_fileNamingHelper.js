@@ -2,7 +2,7 @@
 
 function spreadSheetFileName (filenamePrefix, sheetMode, companyShortName, filenameSuffix) {
 
-    var filename = filenamePrefix + ' ' + companyShortName + ' ' + sheetMode + ' ' + filenameSuffix
+    var filename = filenamePrefix + ' ' + companyShortName + ' - ' + sheetMode + ' ' + filenameSuffix
 
     return filename
 }
