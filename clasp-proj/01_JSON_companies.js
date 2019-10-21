@@ -21,7 +21,7 @@ var companiesVector = {
             "firstIndex": null,
             "urlPreviousYearResults": null,
             "tabPrevYearsOutcome": null,
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1lCU-jarAjYnoNA8ftmTiP-l2c54pDNN-mh8mVEFRxyA",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 2,
             "services": [{
@@ -56,7 +56,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
             "tabPrevYearsOutcome": "AppleOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [{
@@ -83,7 +83,7 @@ var companiesVector = {
             "firstIndex": 2019,
             "urlPreviousYearResults": null,
             "tabPrevYearsOutcome": null,
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1oyYmRm2yTuZC9m1x5duA4H-bK4DpQTB_IXug9U-D-7U",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [
@@ -113,7 +113,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "FacebookOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1lFlbvFdEY-020fNGk5xWq76ArdV2ueczslTsrvrFzqM",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [{
@@ -141,7 +141,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
             "tabPrevYearsOutcome": "GoogleOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1ohGXAj0-oDJdJQch-Ql6bgT8GgzfAaB01RKIHcyHSxg",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 3,
             "services": [{
@@ -185,7 +185,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "MicrosoftOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1EXgZ4PKkRwo02BNPzjN42B0ddIJJUQ1iUevJTWyafgo",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 2,
             "services": [{
@@ -221,7 +221,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "TelefónicaOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [
@@ -251,7 +251,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "TwitterOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "128V3QkxP783D4GvqNVL0XX47O4LwwQSjntSp2gvgPO8",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [{
@@ -279,7 +279,7 @@ var companiesVector = {
             "firstIndex": 2015,
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "VodafoneOutcome",
-            "urlCurrentDataCollectionSheet": null,
+            "urlCurrentDataCollectionSheet": "1ro9p1zAENpexqOhgRon8zMMceb2p5nTat4MKzEGrd5o",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [
