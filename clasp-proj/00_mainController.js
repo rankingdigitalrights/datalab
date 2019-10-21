@@ -25,6 +25,7 @@ function mainAllCompaniesDataCollectionSheets() {
 	var mainSheetMode = "Input"
 
 	var companies = companiesVector.companies
+		.slice(0,0) // on purpose to prevent script from running.
 		// .slice(0,3) // Subset #1
 		// .slice(3,6) // Subset #2
 		// .slice(6,9) // Subset #3
@@ -34,7 +35,7 @@ function mainAllCompaniesDataCollectionSheets() {
 		// .slice(2,3) // Deutsche Telekom
 		// .slice(3,4) // Facebook
 		// .slice(4,5) // Google
-		.slice(5,6) // Microsoft
+		// .slice(5,6) // Microsoft
 		// .slice(6,7) // Telefonica
 		// .slice(7,8) // Twitter
 		// .slice(8,9) // Vodafone
