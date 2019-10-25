@@ -97,7 +97,7 @@ function getUsersActivityDC() {
               // pull out atomic event
               var event = events[j]
               // add event data to resultsSheet
-              // vars: entry, activityNr, eventNr, time (POSIX), file, primary Action, secondary Action, user
+              // vars: entry, activityNr, eventNr, time (POSIX), File, primary Action, secondary Action, user
               resultsSheet.appendRow([entry, i + 1, j + 1, event.eventTimeMillis, event.target.name, event.primaryEventType, event.additionalEventTypes.toString(), event.user])
             }
 
@@ -207,7 +207,7 @@ function getUsersActivitySC() {
             // pull out atomic event
             var event = events[j];
             // add event data to resultsSheet
-            // vars: activityNr, eventNr, time (POSIX), file, primary Action, secondary Action, user
+            // vars: activityNr, eventNr, time (POSIX), File, primary Action, secondary Action, user
             resultsSheet.appendRow([entry, i + 1, j + 1, event.eventTimeMillis, event.target.name, event.primaryEventType, event.additionalEventTypes.toString(), event.user])
           }
         }

@@ -15,8 +15,8 @@ function importLocalJSON(fileName, subset) {
   var files = DriveApp.getFilesByName(finalFilename + ".json")
 
   if (files.hasNext()) {
-    var file = files.next()
-    var content = file.getAs('application/json')
+    var File = files.next()
+    var content = File.getAs('application/json')
     var jsonObj = JSON.parse(content.getDataAsString())
     Logger.log(finalFilename + ".json imported")
     return jsonObj

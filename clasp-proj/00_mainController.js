@@ -1,20 +1,20 @@
 // --- // Main Config // --- //
 // --- Branch: PILOT --- //
 
-// TODO: Move global parameters to configObj
+// TODO: Move global parameters to config
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = ""
+var filenameSuffix = "Dev"
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var outputFolderName = "Pilot FINAL"
+var outputFolderName = "2019 Pilot Dev"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
 // --- // Subset params // --- //
 
 var useStepsSubset = true // true := use subset
-var useIndicatorSubset = true // true := use subset
+var useIndicatorSubset = false // true := use subset
 
 // --- // MAIN CALLER // --- //
 
@@ -25,12 +25,12 @@ function mainAllCompaniesDataCollectionSheets() {
 	var mainSheetMode = "Input"
 
 	var companies = companiesVector.companies
-		.slice(0,0) // on purpose to prevent script from running.
+		// .slice(0,0) // on purpose to prevent script from running.
 		// .slice(0,3) // Subset #1
 		// .slice(3,6) // Subset #2
 		// .slice(6,9) // Subset #3
 
-		// .slice(0,1) // Amazon
+		.slice(0,1) // Amazon
 		// .slice(1,2) // Apple
 		// .slice(2,3) // Deutsche Telekom
 		// .slice(3,4) // Facebook
@@ -56,35 +56,40 @@ function mainAllCompaniesScoringSheets() {
 	var mainSheetMode = "Output"
 
 	var companies = companiesVector.companies
-		.slice(0,1) // Apple
-		// .slice(1,2) // ATT
+		.slice(0,1) // Amazon
+		// .slice(1,2) // Apple
 		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
-		var fileID = mainCreateSingleScoringSheet(thisCompany, useStepsSubset, useIndicatorSubset, mainSheetMode)
+		var fileID = createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
 		Logger.log("received fileID: " + fileID)
 		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
 	})
 }
 
-/* ---------------------------------------------------- */
-/* do not run these by hand */
 
-// --- Scoring --- //
-// TODO: deprecate //
+// create Scoring spreadsheets for all companies
 
-function mainCreateSingleScoringSheet(companyObj, useStepsSubset, useIndicatorSubset, mainSheetMode) {
-	var fileID = createSpreadsheetSC(useStepsSubset, useIndicatorSubset, companyObj, filenamePrefix,filenameSuffix, mainSheetMode)
-	return fileID
+function mainSummaryScoresProto() {
+
+	var mainSheetMode = "Summary"
+
+	var companies = companiesVector.companies
+		// .slice(0,1) // Amazon
+		// .slice(1,2) // Apple
+		// .slice(3,4) //
+
+		var fileID = createAggregationSS(useStepsSubset, useIndicatorSubset, companies, filenamePrefix, filenameSuffix, mainSheetMode)
+		Logger.log("received fileID: " + fileID)
+		addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheet)
 }
-
 
 // --- // Permissions // --- //
 
-// now defunct
+// currently defunct
 
 function mainPermissions() {
-	var sheetMode = 'DC'
+	var mainSheetMode = 'DC'
 
 	// should be in sync with mainCreateDataCollectionSheet()
 	var useStepsSubset = false
@@ -97,7 +102,7 @@ function mainPermissions() {
 	var allowedEditors = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org",
 		"lisa.gutermuth@gmail.com"]
 
-	mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset)
+	mainPermissionsCaller(indexPrefix, companyShortName, mainSheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset)
 	// TODO to be connected with a main control spreadsheet
 	// so it should return updated states
 }

@@ -5,7 +5,7 @@ var me = Session.getEffectiveUser() // TODO move inside logic
  * 
  * @param {*} indexPrefix 
  * @param {*} companyShortName 
- * @param {*} sheetMode 
+ * @param {*} sheetModeID 
  * @param {*} filenameSuffix 
  * @param {*} protectSteps 
  * @param {*} unprotectSteps 
@@ -14,9 +14,9 @@ var me = Session.getEffectiveUser() // TODO move inside logic
  * @param {*} useIndicatorSubset 
  */
 
-function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenamePrefix, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset) {
+function mainPermissionsCaller(indexPrefix, companyShortName, sheetModeID, filenamePrefix, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset) {
 
-	var filename = spreadSheetFileName(filenamePrefix, sheetMode, companyShortName, filenameSuffix)
+	var filename = spreadSheetFileName(filenamePrefix, sheetModeID, companyShortName, filenameSuffix)
 
 	clearAllProtections(filename)
 
@@ -48,7 +48,7 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetMode, filenam
 
 
 
-	indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, allowedEditors)
+	indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetModeID, filename, companyId, indicatorArray, unprotectStepsObj, allowedEditors)
 
 }
 
@@ -100,7 +100,7 @@ function clearAllProtections(filename) {
 
 // --- better Logic: protect Sheet, unportect ranges --- //
 
-function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filename, companyId, indicatorArray, unprotectStepsObj, allowedEditors) {
+function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetModeID, filename, companyId, indicatorArray, unprotectStepsObj, allowedEditors) {
 
 	Logger.log("Protection Mode")
 
@@ -115,7 +115,7 @@ function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filena
 		// Logger.log(sheet.getName())
 		// Logger.log("sending: " + thisIndicator)
 
-		singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, thisIndicator, unprotectStepsObj, allowedEditors)
+		singleStepProtectSheetUnprotectRanges(indexPrefix, sheetModeID, sheet, companyId, thisIndicator, unprotectStepsObj, allowedEditors)
 
 	}
 	thisSpreadsheet.addViewers(allowedEditors);
@@ -126,7 +126,7 @@ function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetMode, filena
 
 // Protect the whole sheet, unprotect [ranges], then remove all other users from the list of editors.
 
-function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, companyId, indicator, steps, allowedEditors) {
+function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetModeID, sheet, companyId, indicator, steps, allowedEditors) {
 
 	// Logger.log("In Single Step " + indicator)
 	var protection = sheet.protect().setDescription(steps + " open")
@@ -136,7 +136,7 @@ function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetMode, sheet, co
 	var range
 
 	for (step in steps) {
-		rangeName = defineNamedRangeStringImport(indexPrefix, sheetMode, steps[step], indicator, "", companyId, "", "Step")
+		rangeName = defineNamedRangeStringImport(indexPrefix, sheetModeID, steps[step], indicator, "", companyId, "", "Step")
 		// Logger.log(rangeName)
 		range = sheet.getRange(rangeName)
 

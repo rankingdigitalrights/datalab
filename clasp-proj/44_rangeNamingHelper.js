@@ -5,7 +5,7 @@
 /**
  * 
  * @param {*} index 
- * @param {*} sheetMode 
+ * @param {*} sheetModeID 
  * @param {*} step 
  * @param {*} indicatorElement 
  * @param {*} component 
@@ -16,9 +16,9 @@
 
 // RDR2019DC S01 G1 iVM1 Step
 
-function defineNamedRangeStringImport(index, sheetMode, step, indicatorElement, component, companyId, service, suffix) {
+function defineNamedRangeStringImport(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
 
-  var compCellName = index + sheetMode + step + indicatorElement
+  var compCellName = index + sheetModeID + step + indicatorElement
   compCellName = compCellName + companyId + service + component
   if (suffix) {
     compCellName = compCellName + suffix

@@ -2,53 +2,51 @@
 
 // --- //  This is the main caller // --- //
 
-function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log('--- // --- begin main data collection --- // ---')
-
-    var sheetMode = mainSheetMode
 
     var sourcesTabName = "Sources"
 
     var companyShortName
-    if (companyObj.label.altFilename) {
-        companyShortName = companyObj.label.altFilename
+    if (CompanyObj.label.altFilename) {
+        companyShortName = CompanyObj.label.altFilename
     } else {
-        companyShortName = companyObj.label.current
+        companyShortName = CompanyObj.label.current
     }
 
-    Logger.log("--- // --- creating " + sheetMode + ' Spreadsheet for ' + companyShortName + " --- // ---")
+    Logger.log("--- // --- creating " + mainSheetMode + ' Spreadsheet for ' + companyShortName + " --- // ---")
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var configObj = centralConfig // var configObj = importLocalJSON("config")
-    var CompanyObj = companyObj // TODO this a JSON Obj now; adapt in scope
+    var Config = centralConfig // var Config = importLocalJSON("Config")
+    // var CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
 
-    var serviceColWidth = configObj.serviceColWidth
-    var doCollapseAll = configObj.collapseAllGroups
-    var integrateOutputs = configObj.integrateOutputs
-    var includeScoring = configObj.includeScoring
-    var importedOutcomeTabName = configObj.prevYearOutcomeTab
-    var includeRGuidanceLink = configObj.includeRGuidanceLink
-    var collapseRGuidance = configObj.collapseRGuidance
+    var serviceColWidth = Config.serviceColWidth
+    var doCollapseAll = Config.collapseAllGroups
+    var integrateOutputs = Config.integrateOutputs
+    var includeScoring = Config.integrateOutputsArray.includeScoring
+    var importedOutcomeTabName = Config.prevYearOutcomeTab
+    var includeRGuidanceLink = Config.includeRGuidanceLink
+    var collapseRGuidance = Config.collapseRGuidance
 
 
     // connect to existing spreadsheet or creat a blank spreadsheet
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, sheetMode, companyShortName, filenameSuffix)
-    //   var file = SpreadsheetApp.create(spreadsheetName)
-    var file = connectToSpreadsheetByName(spreadsheetName)
+    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
+    //   var File = SpreadsheetApp.create(spreadsheetName)
+    var File = connectToSpreadsheetByName(spreadsheetName)
 
-    var fileID = file.getId()
+    var fileID = File.getId()
     Logger.log("File ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    var externalFormula = '=IMPORTRANGE("' + configObj.prevIndexSSID + '","' + CompanyObj.tabPrevYearsOutcome + '!' + 'A:Z' + '")'
+    var externalFormula = '=IMPORTRANGE("' + Config.prevIndexSSID + '","' + CompanyObj.tabPrevYearsOutcome + '!' + 'A:Z' + '")'
 
     // if an empty Sheet exists, track and delete later
-    var emptySheet = file.getSheetByName("Sheet1")
+    var emptySheet = File.getSheetByName("Sheet1")
     var hasEmptySheet
 
     if (emptySheet) {
@@ -57,9 +55,9 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
         hasEmptySheet = false
     }
 
-    // if set in configObj, import previous Index Outcome
+    // if set in Config, import previous Index Outcome
     if (centralConfig.YearOnYear) {
-        newSheet = insertSheetIfNotExist(file, importedOutcomeTabName, false)
+        newSheet = insertSheetIfNotExist(File, importedOutcomeTabName, false)
         if (newSheet !== null) {
             fillPrevOutcomeSheet(newSheet, importedOutcomeTabName)
         }
@@ -67,7 +65,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
 
     // --- // creates sources page // --- //
 
-    newSheet = insertSheetIfNotExist(file, sourcesTabName, false)
+    newSheet = insertSheetIfNotExist(File, sourcesTabName, false)
     if (newSheet !== null) {
         fillSourceSheet(newSheet, sourcesTabName)
     }
@@ -75,7 +73,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
     // if scoring sheet is integrated into DC, create Points sheet
 
     if (integrateOutputs && includeScoring) {
-        var pointsSheet = insertSheetIfNotExist(file, "Points", false)
+        var pointsSheet = insertSheetIfNotExist(File, "Points", false)
         if (pointsSheet !== null) {
             fillPointsSheet(pointsSheet, "Points")
             pointsSheet.hideSheet()
@@ -84,7 +82,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
 
     // if existing, remove first empty sheet
     if (hasEmptySheet) {
-        file.deleteSheet(emptySheet)
+        File.deleteSheet(emptySheet)
     }
 
     var hasOpCom = CompanyObj.hasOpCom
@@ -102,7 +100,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
         Logger.log("Starting " + currentClass.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
 
-        populateDCSheetByCategory(file, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance)
+        populateDCSheetByCategory(File, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
 
         Logger.log("Completed " + currentClass.labelLong)
     }
@@ -111,14 +109,21 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
 
     // TODO: vectorize more output here
     if (integrateOutputs) {
-        Logger.log("Adding Extra Sheet (Scoring / Feedback / Notes")
-        var isLocalImport = integrateOutputs
-        addSetOfScoringSteps(file, "SC", configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, isLocalImport)
+        Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
+
+        // fetch params
+        var isPilotMode = Config.integrateOutputsArray.isPilotMode
+        var includeScoring = Config.integrateOutputsArray.isFullScoring
+        var hasFullScoring = Config.integrateOutputsArray.isFullScoring
+
+        var sheetModeID = "SC"
+
+        // TOOD apply parameterized function
+        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, isPilotMode, includeScoring, hasFullScoring)
 
         Logger.log("Extra Sheet added")
     }
 
-
-    Logger.log(sheetMode + ' Spreadsheet created for ' + companyShortName)
+    Logger.log(mainSheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID
 }

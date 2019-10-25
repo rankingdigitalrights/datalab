@@ -1,57 +1,45 @@
-function addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, ResearchStepsObj, CompanyObj, companyHasOpCom, isLocalImport) {
+// Interface for creating a single set of scoring content
+// Single set := either Outcome OR Comments OR Company Feedback
+
+function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
+
+
+
+    var sheetName = outputParams.sheetName
+    var subStepNr = outputParams.subStepNr
+    var hasFullScoring = outputParams.hasFullScoring
+
     // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
-
-    var pilotMode = configObj.pilotMode
-    var fullScoring = configObj.isFullScoring
-
-    var firstScoringStep = configObj.firstScoringStep - 1
-    var scoringSteps = configObj.scoringSteps
-    var maxScoringStep
-    
-    if(configObj.maxScoringStep) {
-        maxScoringStep = configObj.maxScoringStep - 1
-    } else {
-        maxScoringStep = ResearchStepsObj.researchSteps.length
-    }
-
     var globalNrOfComponents = 1
-
     if (IndicatorsObj.indicatorClasses[0].components) {
         globalNrOfComponents = IndicatorsObj.indicatorClasses[0].components.length
     }
 
     var numberOfColumns = (CompanyObj.numberOfServices + 2) * globalNrOfComponents + 1
 
-    // --- // MAIN Procedure // --- //
-    // For all Research Steps
-    
-    var sheetName
-    var subStepNr = 0
-    var dataColWidth = configObj.defaultDataColWidth.toString()
+    // minus for logical -> index
+    var firstScoringStep = outputParams.firstStepNr - 1
+    // var scoringSteps = Config.scoringSteps --> Array for iteration over particular steps
+    var maxScoringStep
 
-    // TODO: refactor to global helper function
-    if (pilotMode) {
-        subStepNr = 1
-        firstScoringStep = 0
-        sheetName = configObj.notesSheetname
-        dataColWidth = 200
+    if (outputParams.lastStepNr) {
+        maxScoringStep = outputParams.lastStepNr // for at least 1 iteration
     } else {
-        if (configObj.includeScoring) {
-            sheetName = configObj.scoringSheetname
+        if (Config.maxScoringStep) {
+            maxScoringStep = Config.maxScoringStep // for at least 1 iteration
         } else {
-            // otherwise feedback
-            fullScoring = true
-            firstScoringStep = configObj.feedbackStep - 1
-            maxScoringStep = firstScoringStep + 1 
-            sheetName = configObj.feedbackSheetname
+            maxScoringStep = ResearchStepsObj.researchSteps.length
         }
     }
+
+    var dataColWidth = outputParams.dataColWidth
 
     var lastCol = 1
     var blocks = 1
 
+    // --- // MAIN Procedure // --- //
     // For each Main Research Step
-    
+
     for (var mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
         var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
@@ -59,17 +47,21 @@ function addSetOfScoringSteps(file, sheetMode, configObj, IndicatorsObj, Researc
         // var subStepsLength = thisMainStep.substeps.length
 
         // setting up all the substeps for all the indicators
-        
-        lastCol = scoringSingleStep(file, sheetName, subStepNr, lastCol, configObj, pilotMode, fullScoring, IndicatorsObj, sheetMode, thisMainStep, CompanyObj, numberOfColumns, companyHasOpCom, blocks, isLocalImport, dataColWidth)
+
+        lastCol = scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScoring, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset)
 
         blocks++
 
     } // END MAIN STEP
 
-    var thisSheet = file.getSheetByName(sheetName)
+    // apply layouting
+
+    var thisSheet = File.getSheetByName(sheetName)
     thisSheet.setFrozenColumns(1)
     singleSheetProtect(thisSheet, sheetName)
-    file.setActiveSheet(thisSheet)
-    file.moveActiveSheet(1)
+
+    if (integrateOutputs) {
+        moveSheetToPos(File, thisSheet, 1)
+    }
 
 }

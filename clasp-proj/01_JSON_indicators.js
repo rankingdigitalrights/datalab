@@ -45,7 +45,7 @@ var indicatorsVector = {
                         },
                         {
                             "labelShort": "G4a.3",
-                            "description": "Does the company assess freedom of expression and informationrisks associated with existing products and services?"
+                            "description": "Does the company assess freedom of expression and information risks  associated with existing products and services?"
                         },
                         {
                             "labelShort": "G4a.4",
@@ -61,7 +61,7 @@ var indicatorsVector = {
                         },
                         {
                             "labelShort": "G4a.7",
-                            "description": "Does the company disclose that it conducts additional evaluation whenrever the company’s risk assessments identify concerns?"
+                            "description": "Does the company disclose that it conducts additional evaluation whenever the company’s risk assessments identify concerns?"
                         },
                         {
                             "labelShort": "G4a.8",

@@ -47,6 +47,15 @@ b) for each `company` you
 
 Eventually, all control should be moved to a `Master Spreadsheet`.
 
+### Code Conventions
+
+> naming
+
++ Objects (starts with `C`apital letter)
++ simpleVariables
+
+    + isBoolean; hasChildren (prefix with `verbs`)
+
 ### Main Modules
 
 The basic structure is now modular, with control modules starting with `0x` and core modules being in `1x` (DC), and `2x` (SC).

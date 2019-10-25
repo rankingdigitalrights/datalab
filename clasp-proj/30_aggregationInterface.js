@@ -1,38 +1,21 @@
-// --- Spreadsheet Casting: Company Scoring Sheet --- //
-// Works only for a single ATOMIC step right now //
-
-// --------------- This is the Main Scoring Process Caller ---------------- //
-
-function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
     var Config = centralConfig // var Config = importLocalJSON("Config")
-    var CompanyObj = thisCompany // TODO this a JSON Obj now; adapt in scope
+
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
 
     var sheetModeID = "SC"
 
-    var companyFilename
-    if (CompanyObj.label.altFilename) {
-        companyFilename = CompanyObj.label.altFilename
-    } else {
-        companyFilename = CompanyObj.label.current
-    }
-
-    Logger.log('begin main Scoring for ' + companyFilename)
-    Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
-
-    var hasOpCom = CompanyObj.hasOpCom
-    Logger.log(companyFilename + " opCom? - " + hasOpCom)
-
-    // define File name
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
-
-    // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
+    // connect to existing spreadsheet or creat a blank spreadsheet
+    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, "Scores PROTO", filenameSuffix)
+    //   var File = SpreadsheetApp.create(spreadsheetName)
     var File = connectToSpreadsheetByName(spreadsheetName)
+
     var fileID = File.getId()
+    Logger.log("File ID: " + fileID)
 
     // creates Outcome  page
     // TODO: redundant --> refactor to function 
@@ -65,7 +48,26 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
     var outputParams = Config.integrateOutputsArray.scoringParams
 
 
-    addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+    Companies.forEach(function(Company) {
+
+    var companyFilename
+    if (Company.label.altFilename) {
+        companyFilename = Company.label.altFilename
+    } else {
+        companyFilename = Company.label.current
+    }
+
+    outputParams.sheetName = companyFilename
+
+    Logger.log('begin main Scoring for ' + companyFilename)
+    Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
+
+    var hasOpCom = Company.hasOpCom
+    Logger.log(companyFilename + " opCom? - " + hasOpCom)
+
+    addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+
+    })
 
 
     if (pointsSheet) {

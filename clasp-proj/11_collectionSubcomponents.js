@@ -128,7 +128,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
 // Company + Services Header
 
-function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices, thisMainStepNr, mainStepColor) {
+function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, File, nrOfIndSubComps, companyNumberOfServices, thisMainStepNr, mainStepColor) {
 
     var activeCol = 1
 
@@ -239,7 +239,7 @@ function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) 
 
 // TODO - obsolete description - a step header is a row in which in the first column the name and description of the step is listed
 // and in the remaining columns a placeholderText is added
-function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     activeRow = activeRow + 1
 
@@ -252,7 +252,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, 
     // cell = textUnderline(cell)
 
     // TODO
-    // activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, file, nrOfIndSubComps, companyNumberOfServices) // sets up header
+    // activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, File, nrOfIndSubComps, companyNumberOfServices) // sets up header
 
     var thisFiller = currentStep.components[stepCNr].placeholderText
     var thisFirstCol = 2
@@ -289,7 +289,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, 
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
-                file.setNamedRange(cellName, thisCell)
+                File.setNamedRange(cellName, thisCell)
                 activeCol += 1
 
             }
@@ -307,7 +307,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, 
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                file.setNamedRange(cellName, thisCell)
+                File.setNamedRange(cellName, thisCell)
                 activeCol += 1
 
             }
@@ -327,7 +327,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, 
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                file.setNamedRange(cellName, thisCell)
+                File.setNamedRange(cellName, thisCell)
                 activeCol += 1
             }
         }
@@ -339,7 +339,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, file, 
 }
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
-function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
 
@@ -380,7 +380,7 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file,
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
 
-                    file.setNamedRange(cellName, thisCell) // names cells
+                    File.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
                     thisCell.setValue('not selected') // sets default for drop down list
                         .setFontWeight('bold') // bolds the answers
@@ -404,7 +404,7 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file,
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                    file.setNamedRange(cellName, thisCell) // names cells
+                    File.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
                         .setFontWeight('bold') // bolds the answers
                     if (CompanyObj.hasOpCom == false) {
@@ -433,7 +433,7 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file,
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                    file.setNamedRange(cellName, thisCell) // names cells
+                    File.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
                         .setValue('not selected') // sets default for drop down list
                         .setFontWeight('bold') // bolds the answers
@@ -450,7 +450,7 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, file,
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
-function addComments(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addComments(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
 
     var stepCompType = currentStep.components[stepCNr].id
@@ -487,7 +487,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, file, curre
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompType)
 
-                    file.setNamedRange(cellName, thisCell)
+                    File.setNamedRange(cellName, thisCell)
                     activeCol += 1
 
                 }
@@ -510,7 +510,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, file, curre
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                    file.setNamedRange(cellName, thisCell)
+                    File.setNamedRange(cellName, thisCell)
                     activeCol += 1
 
                 }
@@ -533,7 +533,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, file, curre
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                    file.setNamedRange(cellName, thisCell)
+                    File.setNamedRange(cellName, thisCell)
                     activeCol += 1
 
                 }
@@ -550,7 +550,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, file, curre
 
 // this function adds an element drop down list to a single row
 
-function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
     var thisStepComponent = currentStep.components[stepCNr]
@@ -581,7 +581,7 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, fil
 
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
-                file.setNamedRange(cellName, thisCell) // names cells
+                File.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
                     .setValue('not selected') // sets default for drop down list
                     .setFontWeight('bold') // bolds the answers
@@ -603,7 +603,7 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, fil
 
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
-                file.setNamedRange(cellName, thisCell) // names cells
+                File.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
                     .setValue('not selected') // sets default for drop down list
                     .setFontWeight('bold') // bolds the answers
@@ -626,7 +626,7 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, fil
 
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                file.setNamedRange(cellName, thisCell) // names cells
+                File.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
                     .setValue('not selected') // sets default for drop down list
                     .setFontWeight('bold') // bolds the answers
@@ -770,7 +770,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 
 // the sources step adds a single row in which the sources of each column can be listed
 
-function addSources(sheet, currentIndicator, CompanyObj, activeRow, file, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addSources(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
     var activeCol = 1
 
     var stepCompType = currentStep.components[stepCNr].id
@@ -800,7 +800,7 @@ function addSources(sheet, currentIndicator, CompanyObj, activeRow, file, curren
 
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
-                file.setNamedRange(cellName, thisCell)
+                File.setNamedRange(cellName, thisCell)
                 activeCol += 1
 
             }
@@ -818,7 +818,7 @@ function addSources(sheet, currentIndicator, CompanyObj, activeRow, file, curren
 
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                file.setNamedRange(cellName, thisCell)
+                File.setNamedRange(cellName, thisCell)
                 activeCol += 1
 
             }
@@ -838,7 +838,7 @@ function addSources(sheet, currentIndicator, CompanyObj, activeRow, file, curren
 
                 var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                file.setNamedRange(cellName, thisCell)
+                File.setNamedRange(cellName, thisCell)
                 activeCol += 1
             }
         }
