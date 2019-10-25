@@ -108,6 +108,10 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
     Logger.log('end DC main')
 
     // TODO: vectorize more output here
+
+    /* New Signature: addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+    */ 
+   
     if (integrateOutputs) {
         Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
 
