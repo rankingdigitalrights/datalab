@@ -1,4 +1,4 @@
-function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScoring, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset) {
+function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScoring, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources) {
 
     Logger.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -11,6 +11,11 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
     var thisSubStep = thisMainStep.substeps[subStepNr]
     var thisSubStepID = thisSubStep.subStepID
     var thisSubStepLabel = thisSubStep.labelShort
+
+    var includeSources
+    if (Config.includeSources) {
+        includeSources = true
+    }
 
     Logger.log("Inserting Sheet " + sheetName)
     var sheet = insertSheetIfNotExist(File, sheetName, true)
@@ -103,7 +108,7 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
                         break
 
                     case "sources":
-                        if (hasFullScoring) {
+                        if (includeSources) {
                             activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                             Logger.log(' - SC - ' + "sources added for: " + thisInd.labelShort)
                         }

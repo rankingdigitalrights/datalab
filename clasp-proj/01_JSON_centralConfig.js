@@ -24,7 +24,8 @@ var centralConfig = {
 			"firstStepNr": 1,
 			"sheetName": "Researcher Comments",
 			"dataColWidth": 200,
-			"hasFullScoring": false
+			"hasFullScoring": false,
+			"includeSources": false
 		},
 		"scoringParams" : {
 			"subStepNr": 0,
@@ -32,15 +33,17 @@ var centralConfig = {
 			"lastStepNr": 3,
 			"sheetName": "Outcome",
 			"dataColWidth": 200,
-			"hasFullScoring": true
+			"hasFullScoring": true,
+			"includeSources": true
 		},
 		"feedbackParams" : {
 			"subStepNr": 0,
 			"firstStepNr": 3,
 			"lastStepNr": 3,
-			"sheetName": "RawCompFeedback",
+			"sheetName": "Prototype",
 			"dataColWidth": 200,
-			"hasFullScoring": false
+			"hasFullScoring": false,
+			"includeSources": true
 		}
 	},	
 	"collapseAllGroups": false,

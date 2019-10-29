@@ -56,8 +56,8 @@ function mainAllCompaniesScoringSheets() {
 	var mainSheetMode = "Output"
 
 	var companies = companiesVector.companies
-		.slice(0,1) // Amazon
-		// .slice(1,2) // Apple
+		// .slice(0,1) // Amazon
+		.slice(1,2) // Apple
 		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
@@ -67,6 +67,23 @@ function mainAllCompaniesScoringSheets() {
 	})
 }
 
+// create Scoring spreadsheets for all companies
+
+function mainAllFeedbackSheets() {
+
+	var mainSheetMode = "Feedback"
+
+	var companies = companiesVector.companies
+		// .slice(0,1) // Amazon
+		.slice(5,6) // Microsoft
+		// .slice(3,4) //
+
+	companies.forEach(function (thisCompany) {
+		var fileID = createFeedbackForms(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+		Logger.log("received fileID: " + fileID)
+		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
+	})
+}
 
 // create Scoring spreadsheets for all companies
 

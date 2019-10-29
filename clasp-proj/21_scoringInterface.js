@@ -32,6 +32,10 @@ function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, Research
         }
     }
 
+    Logger.log("include Sources? " + outputParams.includeSources)
+
+    var includeSources = outputParams.includeSources
+
     var dataColWidth = outputParams.dataColWidth
 
     var lastCol = 1
@@ -48,7 +52,7 @@ function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, Research
 
         // setting up all the substeps for all the indicators
 
-        lastCol = scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScoring, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset)
+        lastCol = scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScoring, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources)
 
         blocks++
 
