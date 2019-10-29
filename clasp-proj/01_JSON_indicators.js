@@ -334,7 +334,7 @@ var indicatorsVector = {
                     "y2yCompRow": 54,
                     "elements": [{
                             "labelShort": "F1d.1",
-                            "description": "Are the company’s advertising content policies easy to find?"
+                            "description": "Are the company’s algorithmic system use policies easy to find?"
                         },
                         {
                             "labelShort": "F1d.2",
@@ -780,7 +780,7 @@ var indicatorsVector = {
                         },
                         {
                             "labelShort": "F14.2",
-                            "description": "DDoes the company publish practical materials that educate users on how to protect themselves from any potential undue psychological influence of the company’s use of algorithms, machine learning and automated decision-making?"
+                            "description": "Does the company publish practical materials that educate users on how to protect themselves from any potential undue psychological influence of the company’s use of algorithms, machine learning and automated decision-making?"
                         }
                     ]
                 }
