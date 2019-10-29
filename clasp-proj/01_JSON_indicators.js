@@ -794,7 +794,31 @@ var indicatorsVector = {
             "classColor": "#dd7e6b",
             "hasSubComponents": false,
             "indicators": [
-
+                {
+                    "labelShort": "P1a",
+                    "labelLong": "Access to privacy policies",
+                    "description": "",
+                    "scoringScope": "full", // "services"
+                    "y2yCompColumn": 2,
+                    "y2yCompRow": 429,
+                    "elements": [{
+                            "labelShort": "P1a.1",
+                            "description": "Are the company’s ​privacy policies​​easy to find​?"
+                        },
+                        {
+                            "labelShort": "P1a.2",
+                            "description": "Are the ​privacy policies​ available in the language(s) most commonly spoken by the company’s ​users​?"
+                        },
+                        {
+                            "labelShort": "P1a.3",
+                            "description": "Are the policies presented in an ​understandable manner​?"
+                        },
+                        {
+                            "labelShort": "P1a.4",
+                            "description": "(For ​mobile ecosystems​): Does the company disclose that it requires ​apps​ made available through its ​app store​ to provide users with a ​privacy policy​?"
+                        }
+                    ]
+                },
                 {
                     "labelShort": "P1b",
                     "labelLong": "Access to algorithmic system development policies",
