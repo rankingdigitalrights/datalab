@@ -11,6 +11,9 @@ var centralConfig = {
 	// "firstScoringStep": 3 // regular index
 	"firstScoringStep": 3, // Pilot
 	"scoringSteps": [3, 6],
+	"aggregationParams": {
+		// TBD
+	},
 	// "maxScoringStep": false, // otherwise number
 	"integrateOutputs": true, // DC: integrate any output component?
 	"integrateOutputsArray": {
@@ -18,23 +21,27 @@ var centralConfig = {
 		"isFullScoring": true, // scores or only comments?
 		"includeCompFeedback": false, // TODO
 		"includeNotes": true,
-		"isPilotMode": false, // if true then disable scoring
-		"pilotModeParams" : {
+		"isPilotMode": true, // if true then disable scoring
+		"researchNotesParams" : {
 			"subStepNr": 1,
 			"firstStepNr": 1,
 			"sheetName": "Researcher Comments",
 			"dataColWidth": 200,
-			"hasFullScoring": false,
-			"includeSources": false
+			"hasFullScores": false,
+			"includeSources": false,
+			"includeNames": true,
+			"includeResults": false
 		},
 		"scoringParams" : {
 			"subStepNr": 0,
 			"firstStepNr": 1,
-			"lastStepNr": 3,
+			"lastStepNr": 6,
 			"sheetName": "Outcome",
 			"dataColWidth": 200,
-			"hasFullScoring": true,
-			"includeSources": true
+			"hasFullScores": true,
+			"includeSources": true,
+			"includeNames": false,
+			"includeResults": true
 		},
 		"feedbackParams" : {
 			"subStepNr": 0,
@@ -42,8 +49,10 @@ var centralConfig = {
 			"lastStepNr": 3,
 			"sheetName": "Prototype",
 			"dataColWidth": 200,
-			"hasFullScoring": false,
-			"includeSources": true
+			"hasFullScores": false,
+			"includeSources": true,
+			"includeNames": false,
+			"includeResults": true
 		}
 	},	
 	"collapseAllGroups": false,
@@ -53,5 +62,10 @@ var centralConfig = {
 	"feedbackStep": 3,
 	"prevYearOutcomeTab": "2018 Outcome",
 	"includeRGuidanceLink": false, // TODO
-	"collapseRGuidance": false
+	"collapseRGuidance": false,
+	"summaryParams": { // should be in sync with scoringParams in Prod
+		"spreadsheetName": "Scores PROTO v3",
+		"sheetNameSimple": "Summary simple",
+		"splitPrePost": false
+	}
 }

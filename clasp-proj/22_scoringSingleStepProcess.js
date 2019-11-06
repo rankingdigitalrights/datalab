@@ -1,28 +1,19 @@
-function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScoring, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources) {
+function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
 
     Logger.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
     var companyShortName = CompanyObj.label.current
 
-    // var subStepsLength = thisMainStep.substeps.length
-    // var subStepsLength = 1
-    // var sheetName = 'Outcome_' + thisSubStep.subStepID
-
     var thisSubStep = thisMainStep.substeps[subStepNr]
     var thisSubStepID = thisSubStep.subStepID
     var thisSubStepLabel = thisSubStep.labelShort
 
-    var includeSources
-    if (Config.includeSources) {
-        includeSources = true
-    }
-
     Logger.log("Inserting Sheet " + sheetName)
-    var sheet = insertSheetIfNotExist(File, sheetName, true)
-    // if (sheet != null) {
-    //     sheet.clear()
-    //     sheet = clearAllNamedRangesFromSheet(sheet)
-    // }
+    var sheet = insertSheetIfNotExist(File, sheetName, false)
+    if (sheet == null) {
+        Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
+        return lastCol
+    }
 
     var firstCol = lastCol
     var activeCol = firstCol
@@ -55,6 +46,8 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
             nrOfIndSubComps = thisIndCat.components.length
         }
 
+        // TODO: Refactor to main caller
+        
         var thisIndCatLength
         if (useIndicatorSubset) {
             thisIndCatLength = 2
@@ -78,38 +71,44 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
             activeRow = setCompanyHeader(activeRow, firstCol, sheet, thisInd, nrOfIndSubComps, thisIndCat, CompanyObj, blocks)
             Logger.log(' - company header added for ' + thisInd.labelShort)
 
+            // --- // Main task // --- //
+
+            var StepComp
+            var stepCompType
+
             // for all components of the current Research Step
             for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
 
-                var stepComponent = thisSubStep.components[stepCompNr].type
-                Logger.log(" - begin stepCompNr: " + stepCompNr + ' - ' + stepComponent)
+                StepComp = thisSubStep.components[stepCompNr]
+                stepCompType = StepComp.type
+                Logger.log(" - begin stepCompNr: " + stepCompNr + ' - ' + stepCompType)
 
-                switch (stepComponent) {
+                switch (stepCompType) {
 
                     // import researcher name from x.0 step
                     case "header":
-                        if (isPilotMode) {
+                        if (includeNames) {
 
-                            activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs, isPilotMode)
-                            Logger.log(' - SC - ' + stepComponent + " added for: " + thisInd.labelShort)
+                            activeRow = importElementRow(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs, isPilotMode)
+                            Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
                         }
                         break
 
                     case "elementResults":
-                        if (!isPilotMode) {
-                            activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
-                            Logger.log(' - SC - ' + stepComponent + " added for: " + thisInd.labelShort)
+                        if (includeResults) {
+                            activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
+                            Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
                         }
                         break
 
                     case "elementComments":
-                        activeRow = importElementData(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
-                        Logger.log(' - SC - ' + stepComponent + " added for: " + thisInd.labelShort)
+                        activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
+                        Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
                         break
 
                     case "sources":
                         if (includeSources) {
-                            activeRow = importSingleRow(activeRow, firstCol, sheet, thisSubStep, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
+                            activeRow = importElementRow(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                             Logger.log(' - SC - ' + "sources added for: " + thisInd.labelShort)
                         }
 
@@ -117,12 +116,12 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
                 }
             }
 
-            activeRow = activeRow + 1
+            activeRow += 1
 
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
-            if (hasFullScoring) {
-                activeRow = addElementScores(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, hasFullScoring)
+            if (hasFullScores) {
+                activeRow = addElementScores(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, hasFullScores)
                 Logger.log(' - ' + 'element scores added for ' + thisInd.labelShort)
 
                 activeRow = addLevelScores(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, indyLevelScoresCompany, indyLevelScoresServices, blocks)

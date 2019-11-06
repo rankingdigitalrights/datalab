@@ -5,15 +5,15 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "Dev"
-var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
+var filenameSuffix = "Dev" // Dev, ""
+var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
 var outputFolderName = "2019 Pilot Dev"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
 // --- // Subset params // --- //
 
-var useStepsSubset = true // true := use subset
+var useStepsSubset = false // true := use subset
 var useIndicatorSubset = false // true := use subset
 
 // --- // MAIN CALLER // --- //
@@ -29,9 +29,8 @@ function mainAllCompaniesDataCollectionSheets() {
 		// .slice(0,3) // Subset #1
 		// .slice(3,6) // Subset #2
 		// .slice(6,9) // Subset #3
-
-		.slice(0,1) // Amazon
-		// .slice(1,2) // Apple
+		// .slice(0,1) // Amazon
+		.slice(1,2) // Apple
 		// .slice(2,3) // Deutsche Telekom
 		// .slice(3,4) // Facebook
 		// .slice(4,5) // Google
@@ -75,7 +74,8 @@ function mainAllFeedbackSheets() {
 
 	var companies = companiesVector.companies
 		// .slice(0,1) // Amazon
-		.slice(5,6) // Microsoft
+		.slice(1,2) // Apple
+		// .slice(5,6) // Microsoft
 		// .slice(3,4) //
 
 	companies.forEach(function (thisCompany) {
@@ -90,13 +90,14 @@ function mainAllFeedbackSheets() {
 function mainSummaryScoresProto() {
 
 	var mainSheetMode = "Summary"
+	var scoringStepNr = 3
 
-	var companies = companiesVector.companies
-		// .slice(0,1) // Amazon
+	var Companies = companiesVector.companies
+		// .slice(0,3) // Amazon
 		// .slice(1,2) // Apple
 		// .slice(3,4) //
 
-		var fileID = createAggregationSS(useStepsSubset, useIndicatorSubset, companies, filenamePrefix, filenameSuffix, mainSheetMode)
+		var fileID = createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
 		Logger.log("received fileID: " + fileID)
 		addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheet)
 }
