@@ -22,7 +22,7 @@ function setSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubSt
     
     sheet.setFrozenRows(1)
 
-    return activeRow += 1
+    return activeRow + 1
 }
 
 // --- BEGIN setCompanyHeader() --- //
@@ -96,18 +96,20 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
             activeCol += 1
         }
     }
-    activeRow += 1
-    return activeRow
+    return activeRow + 1
 }
 
 // generic : imports both,element level evaluation results and comments
-function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs) {
+function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs) {
 
-    var stepCompType = currentStep.components[stepCNr].id
+    var stepCompID = StepComp.id
 
-    Logger.log("Element Data Type: " + stepCompType)
+    var firstRow = activeRow
+    var firstCol = activeCol + 1
 
-    Logger.log(' - ' + 'in ' + currentStep.components[stepCNr].type + ' ' + Indicator.labelShort)
+    Logger.log("Element Data Type: " + stepCompID)
+
+    Logger.log(' - ' + 'in ' + StepComp.type + ' ' + Indicator.labelShort)
 
     var urlDC = CompanyObj.urlCurrentDataCollectionSheet
 
@@ -120,7 +122,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
         // row label / first Column
         // skip first Column for subsequent steps    
         if (blocks === 1) {
-            var rowLabel = currentStep.components[stepCNr].label + Indicator.elements[elemNr].labelShort
+            var rowLabel = StepComp.label + Indicator.elements[elemNr].labelShort
             currentCell.setValue(rowLabel.toString())
             currentCell.setWrap(true)
             tempCol += 1
@@ -139,7 +141,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
             }
 
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompType)
+            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompID)
 
             // adding formula
             var formula = importRange(urlDC, compCellName, integrateOutputs)
@@ -157,7 +159,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
 
             if (companyHasOpCom) {
                 // setting up formula that compares values
-                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompID)
 
                 var formula = importRange(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
@@ -179,7 +181,7 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
                 }
 
                 // setting up formula that compares values
-                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
 
                 var formula = importRange(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
@@ -191,26 +193,36 @@ function importElementData(activeRow, activeCol, sheet, currentStep, stepCNr, In
         activeRow += 1
     }
 
+    var thisBlock = sheet.getRange(firstRow, firstCol, activeRow - firstRow, tempCol - firstCol)
+
+    if (StepComp.clipWrap) {
+        thisBlock.setBackground("red")
+        thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
+    } else {
+        thisBlock.setBackground("green")
+        thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP)
+    }
+
     return activeRow
 }
 
 
 // --- // Begin Sources // --- //
 
-function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs, isPilotMode) {
+function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs, isPilotMode) {
 
-    var stepCompType = currentStep.components[stepCNr].id
+    var stepCompID = StepComp.id
 
-    var currentSubStepID = currentStep.subStepID
+    var currentSubStepID = thisSubStepID
     // TODO - PILOT: adjusting substep number for Researcher Name import
     if (isPilotMode) {
-        currentSubStepID = currentStep.components[stepCNr].importNameFrom
+        currentSubStepID = StepComp.importNameFrom
     }
 
-    Logger.log(' - ' + 'in ' + stepCompType + ' ' + Indicator.labelShort)
+    Logger.log(' - ' + 'in ' + stepCompID + ' ' + Indicator.labelShort)
 
-    if (stepCompType == "elementResults") {
-        stepCompType = false
+    if (stepCompID == "elementResults") {
+        stepCompID = false
     }
 
     var urlDC = CompanyObj.urlCurrentDataCollectionSheet
@@ -221,7 +233,7 @@ function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indi
     // row label / first Column
     // skip first Column for subsequent steps    
     if (blocks === 1) {
-        var rowLabel = currentStep.components[stepCNr].label
+        var rowLabel = StepComp.label
         currentCell.setValue(rowLabel)
         currentCell.setWrap(true)
         tempCol += 1
@@ -239,7 +251,7 @@ function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indi
         }
 
         // setting up formula that compares values
-        var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
+        var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, 'group', stepCompID)
 
         // adding formula
         var formula = importRange(urlDC, compCellName, integrateOutputs)
@@ -257,7 +269,7 @@ function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indi
 
         if (companyHasOpCom) {
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, 'opCom', stepCompID)
 
             var formula = importRange(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
@@ -279,7 +291,7 @@ function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indi
             }
 
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
 
             var formula = importRange(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
@@ -297,14 +309,14 @@ function importSingleRow(activeRow, activeCol, sheet, currentStep, stepCNr, Indi
 
 // --- // Core function: SCORING // --- //
 
-function addElementScores(File, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks,hasFullScoring) {
+function addElementScores(File, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks,hasFullScores) {
 
     Logger.log(' - ' + "in element scoring for " + ' ' + Indicator.labelShort)
 
     // for cell reference between score and imported result
 
     var verticalDim
-    if (hasFullScoring) {
+    if (hasFullScores) {
         verticalDim = 2
     } else {
         verticalDim = 1

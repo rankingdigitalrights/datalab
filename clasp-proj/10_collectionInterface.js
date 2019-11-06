@@ -1,7 +1,5 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
-// --- //  This is the main caller // --- //
-
 function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log('--- // --- begin main data collection --- // ---')
 
@@ -27,7 +25,6 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
     var serviceColWidth = Config.serviceColWidth
     var doCollapseAll = Config.collapseAllGroups
     var integrateOutputs = Config.integrateOutputs
-    var includeScoring = Config.integrateOutputsArray.includeScoring
     var importedOutcomeTabName = Config.prevYearOutcomeTab
     var includeRGuidanceLink = Config.includeRGuidanceLink
     var collapseRGuidance = Config.collapseRGuidance
@@ -72,19 +69,6 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     // if scoring sheet is integrated into DC, create Points sheet
 
-    if (integrateOutputs && includeScoring) {
-        var pointsSheet = insertSheetIfNotExist(File, "Points", false)
-        if (pointsSheet !== null) {
-            fillPointsSheet(pointsSheet, "Points")
-            pointsSheet.hideSheet()
-        }
-    }
-
-    // if existing, remove first empty sheet
-    if (hasEmptySheet) {
-        File.deleteSheet(emptySheet)
-    }
-
     var hasOpCom = CompanyObj.hasOpCom
 
     // fetch number of Services once
@@ -107,25 +91,52 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     Logger.log('end DC main')
 
-    // TODO: vectorize more output here
-
-    /* New Signature: addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
-    */ 
+    // --- // additional integrated Outputs // --- //
    
     if (integrateOutputs) {
         Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
 
         // fetch params
         var isPilotMode = Config.integrateOutputsArray.isPilotMode
+        var includeNotes = Config.integrateOutputsArray.includeNotes
         var includeScoring = Config.integrateOutputsArray.isFullScoring
-        var hasFullScoring = Config.integrateOutputsArray.isFullScoring
+        var hasFullScores = Config.integrateOutputsArray.isFullScoring
+        
 
         var sheetModeID = "SC"
 
-        // TOOD apply parameterized function
-        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, isPilotMode, includeScoring, hasFullScoring)
+        var outputParams
 
-        Logger.log("Extra Sheet added")
+        if (includeScoring) {
+
+            var pointsSheet = insertSheetIfNotExist(File, "Points", false)
+            if (pointsSheet !== null) { fillPointsSheet(pointsSheet, "Points") }
+
+            outputParams = Config.integrateOutputsArray.scoringParams
+            isPilotMode = false
+            addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+
+            if (pointsSheet !== null) {
+                moveSheetToPos(File, pointsSheet,1)
+                pointsSheet.hideSheet()
+            }
+
+        }
+
+        if(includeNotes) {
+            outputParams = Config.integrateOutputsArray.researchNotesParams
+
+            addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+
+            Logger.log("Extra Sheet --- Researcher Feedback --- added")
+        }
+    }
+
+
+    // clean up // 
+    // if existing, remove first empty sheet
+    if (hasEmptySheet) {
+        File.deleteSheet(emptySheet)
     }
 
     Logger.log(mainSheetMode + ' Spreadsheet created for ' + companyShortName)

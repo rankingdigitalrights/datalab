@@ -32,7 +32,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MC",
                             "label": "Comments for ",
-                            "label2": " (explain score)"
+                            "label2": " (explain score)",
+                            "clipWrap": true
                         },
                         {
                             "type": "sources",
@@ -58,7 +59,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MN",
                             "label": "Notes for ",
-                            "label2": ""
+                            "label2": "",
+                            "clipWrap": true
                         }
                     ]
                 }
@@ -106,7 +108,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MC",
                             "label": "Comments for ",
-                            "label2": "\n(required if 'no', optional if 'yes')"
+                            "label2": "\n(required if 'no', optional if 'yes')",
+                            "clipWrap": true
                         },
                         {
                             "type": "sources",
@@ -132,7 +135,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MN",
                             "label": "Notes for ",
-                            "label2": ""
+                            "label2": "",
+                            "clipWrap": true
                         }
                     ]
                 }
@@ -170,7 +174,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MC",
                             "label": "Comments for ",
-                            "label2": " (explain score)"
+                            "label2": " (explain score)",
+                            "clipWrap": true
                         },
                         {
                             "type": "sources",
@@ -196,7 +201,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MN",
                             "label": "Notes for ",
-                            "label2": ""
+                            "label2": "",
+                            "clipWrap": true
                         }
                     ]
                 }
@@ -243,7 +249,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MC",
                             "label": "Comments for ",
-                            "label2": " (required if 'yes', optional if 'no')"
+                            "label2": " (required if 'yes', optional if 'no')",
+                            "clipWrap": true
                         },
                         {
                             "type": "sources",
@@ -269,7 +276,8 @@ var researchStepsVector = {
                             "type": "elementComments",
                             "id": "MN",
                             "label": "Notes for ",
-                            "label2": ""
+                            "label2": "",
+                            "clipWrap": true
                         }
                     ]
                 }
@@ -307,7 +315,8 @@ var researchStepsVector = {
                         "type": "elementComments",
                         "id": "MC",
                         "label": "Comments for ",
-                        "label2": " (explain score)"
+                        "label2": " (explain score)",
+                        "clipWrap": true
                     },
                     {
                         "type": "sources",
@@ -333,7 +342,8 @@ var researchStepsVector = {
                         "type": "elementComments",
                         "id": "MN",
                         "label": "Notes for ",
-                        "label2": ""
+                        "label2": "",
+                        "clipWrap": true
                     }
                 ]
             }]
@@ -370,7 +380,8 @@ var researchStepsVector = {
                         "type": "elementComments",
                         "id": "MC",
                         "label": "Comments for ",
-                        "label2": " (explain score)"
+                        "label2": " (explain score)",
+                        "clipWrap": true
                     },
                     {
                         "type": "sources",
@@ -396,7 +407,8 @@ var researchStepsVector = {
                         "type": "elementComments",
                         "id": "MN",
                         "label": "Notes for ",
-                        "label2": ""
+                        "label2": "",
+                        "clipWrap": true
                     }
                 ]
             }]
