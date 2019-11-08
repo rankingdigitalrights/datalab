@@ -45,11 +45,11 @@ function connectToSpreadsheetByName(spreadsheetName) {
 
         // while (Spreadsheet.hasNext()) {
         // Nope. Only do for first Spreadsheet element
-        var thisSpreadsheet = Spreadsheets.next();
+        var thisSpreadsheet = Spreadsheets.next()
         Logger.log("File " + thisSpreadsheet.getName() + " exists")
         Logger.log("locally connected to: " + thisSpreadsheet.getName());
 
-        return SpreadsheetApp.open(thisSpreadsheet);
+        return SpreadsheetApp.open(thisSpreadsheet)
         // }
     }
 }
@@ -58,7 +58,7 @@ function connectToSpreadsheetByName(spreadsheetName) {
 // more accurate then by name //
 
 function connectToSpreadsheetByID(ID) {
-    var thisSpreadsheet = SpreadsheetApp.openById(ID);
+    var thisSpreadsheet = SpreadsheetApp.openById(ID)
     Logger.log("locally connected to: " + thisSpreadsheet.getName());
     return thisSpreadsheet;
 
@@ -70,7 +70,7 @@ function connectToSpreadsheetByID(ID) {
 function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
     var Sheet;
     if (!Spreadsheet.getSheetByName(SheetName)) {
-        Sheet = Spreadsheet.insertSheet(SheetName);
+        Sheet = Spreadsheet.insertSheet(SheetName)
     } else {
         if (updateSheet) {
             Sheet = Spreadsheet.getSheetByName(SheetName)
@@ -79,7 +79,7 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
             Logger.log("Sheet already exists")
         }
     }
-    return Sheet;
+    return Sheet
 }
 
 

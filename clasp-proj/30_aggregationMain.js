@@ -43,6 +43,8 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
         File.deleteSheet(emptySheet)
     }
 
+    var indicatorParams = countIndicatorLengths(IndicatorsObj)
+
     // --- // Main Procedure // --- //
 
     var integrateOutputs = false
@@ -51,36 +53,36 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
     outputParams.firstStepNr = scoringStepNr
     outputParams.lastStepNr = scoringStepNr
 
-    // --- // Individual Company Outcome Sheets // --- //
-    Companies.forEach(function (Company) {
+    // // --- // Individual Company Outcome Sheets // --- //
+    // Companies.forEach(function (Company) {
 
-        var companyFilename
-        if (Company.label.altFilename) {
-            companyFilename = Company.label.altFilename
-        } else {
-            companyFilename = Company.label.current
-        }
+    //     var companyFilename
+    //     if (Company.label.altFilename) {
+    //         companyFilename = Company.label.altFilename
+    //     } else {
+    //         companyFilename = Company.label.current
+    //     }
 
-        outputParams.sheetName = companyFilename
+    //     outputParams.sheetName = companyFilename
 
-        Logger.log('begin main Scoring for ' + companyFilename)
-        Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
+    //     Logger.log('begin main Scoring for ' + companyFilename)
+    //     Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
 
-        var hasOpCom = Company.hasOpCom
-        Logger.log(companyFilename + " opCom? - " + hasOpCom)
+    //     var hasOpCom = Company.hasOpCom
+    //     Logger.log(companyFilename + " opCom? - " + hasOpCom)
 
-        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+    //     addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
-    })
+    // })
     
     // --- // Core: Summary Sheet // --- //
 
     var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
 
-    var SummarySheet = insertSheetIfNotExist(File, summarySheetName, true)
-    SummarySheet.clear()
+    var summarySheet = insertSheetIfNotExist(File, summarySheetName, true)
+    summarySheet.clear()
 
-    fillSummaryScoresSheet(SummarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+    fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
 
     // --- // Side: testing Element Level // --- //
     

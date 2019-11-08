@@ -5,7 +5,7 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "Dev" // Dev, ""
+var filenameSuffix = "Dev" // Dev, "", Debug
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
 var outputFolderName = "2019 Pilot Dev"
 
@@ -29,6 +29,7 @@ function mainAllCompaniesDataCollectionSheets() {
 		// .slice(0,3) // Subset #1
 		// .slice(3,6) // Subset #2
 		// .slice(6,9) // Subset #3
+		
 		// .slice(0,1) // Amazon
 		.slice(1,2) // Apple
 		// .slice(2,3) // Deutsche Telekom
@@ -106,21 +107,21 @@ function mainSummaryScoresProto() {
 
 // currently defunct
 
-function mainPermissions() {
-	var mainSheetMode = 'DC'
+// function mainPermissions() {
+// 	var mainSheetMode = 'DC'
 
-	// should be in sync with mainCreateDataCollectionSheet()
-	var useStepsSubset = false
-	var useIndicatorSubset = false
+// 	// should be in sync with mainCreateDataCollectionSheet()
+// 	var useStepsSubset = false
+// 	var useIndicatorSubset = false
 
-	// always use [array] for all of these parameters
-	var protectSteps = ["S02"]
-	var unprotectSteps = ["S01", "S01.5"]
-	// var unprotectSteps = ["S02"]
-	var allowedEditors = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org",
-		"lisa.gutermuth@gmail.com"]
+// 	// always use [array] for all of these parameters
+// 	var protectSteps = ["S02"]
+// 	var unprotectSteps = ["S01", "S01.5"]
+// 	// var unprotectSteps = ["S02"]
+// 	var allowedEditors = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org",
+// 		"lisa.gutermuth@gmail.com"]
 
-	mainPermissionsCaller(indexPrefix, companyShortName, mainSheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset)
-	// TODO to be connected with a main control spreadsheet
-	// so it should return updated states
-}
+// 	mainPermissionsCaller(indexPrefix, companyShortName, mainSheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset)
+// 	// TODO to be connected with a main control spreadsheet
+// 	// so it should return updated states
+// }
