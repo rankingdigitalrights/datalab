@@ -3,8 +3,6 @@
 
 function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
 
-
-
     var sheetName = outputParams.sheetName
     var subStepNr = outputParams.subStepNr
     var hasFullScores = outputParams.hasFullScores
@@ -34,7 +32,6 @@ function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, Research
             firstScoringStep = 0
         }
     }
-
 
     var maxScoringStep
 

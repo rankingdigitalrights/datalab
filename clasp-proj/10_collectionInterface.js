@@ -52,6 +52,8 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         hasEmptySheet = false
     }
 
+    var newSheet
+
     // if set in Config, import previous Index Outcome
     if (centralConfig.YearOnYear) {
         newSheet = insertSheetIfNotExist(File, importedOutcomeTabName, false)
@@ -64,7 +66,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     newSheet = insertSheetIfNotExist(File, sourcesTabName, false)
     if (newSheet !== null) {
-        fillSourceSheet(newSheet, sourcesTabName)
+        fillSourceSheet(newSheet)
     }
 
     // if scoring sheet is integrated into DC, create Points sheet

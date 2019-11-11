@@ -20,19 +20,12 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
     var activeRow = 1
     var lastRow
 
-    // var lastCol = numberOfColumns
-
-    // --- // Begin sub-Step-Wise Procedure // --- //
-    // for each substep
-    // obvs limited to fixed Nr atm
-    // for (subStepNr; subStepNr < subStepsLength + subStepNr; subStepNr++) {
-
     Logger.log("--- Main Step has " + thisMainStep.substeps.length + ' Substeps')
     Logger.log("--- Beginning Substep " + thisSubStepID)
 
     // set up header / TODO: remove from steps JSON. Not a component. This is Layout
 
-    activeRow = setSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubStepLabel, blocks)
+    activeRow = setScoringSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubStepLabel, blocks)
 
     // For all Indicator Categories
     for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
@@ -47,7 +40,7 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
         }
 
         // TODO: Refactor to main caller
-        
+
         var thisIndCatLength
         if (useIndicatorSubset) {
             thisIndCatLength = 2
@@ -68,7 +61,7 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
             var indyLevelScoresServices = []
             var indyCompositeScores = []
 
-            activeRow = setCompanyHeader(activeRow, firstCol, sheet, thisInd, nrOfIndSubComps, thisIndCat, CompanyObj, blocks)
+            activeRow = setScoringCompanyHeader(activeRow, firstCol, sheet, thisInd, nrOfIndSubComps, thisIndCat, CompanyObj, blocks)
             Logger.log(' - company header added for ' + thisInd.labelShort)
 
             // --- // Main task // --- //
@@ -137,11 +130,8 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
             } // END SUBSTEP COMPONENTS
         } // END INDICATOR
     } // END INDICATOR CATEGORY
-    // activeRow += 2
+
     lastCol = numberOfColumns * blocks + 1
-    // Logger.log(blocks + ". block" + " - " + firstCol + ":" + lastCol)
-    // firstCol = lastCol + 2
-    // } // END SUB STEP
 
     Logger.log("Formatting Sheet")
     lastRow = activeRow
@@ -149,13 +139,10 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
     sheet.getRange(1, 1, lastRow, lastCol)
         .setFontFamily("Roboto")
         .setVerticalAlignment("top")
-        // .setWrap(true)
-
+    // .setWrap(true)
 
     var hookFirstDataCol = firstCol
-    if (blocks === 1) {
-        hookFirstDataCol = firstCol + 1
-    }
+    if (blocks === 1) { hookFirstDataCol = firstCol + 1 }
     sheet.setColumnWidths(hookFirstDataCol, numberOfColumns, dataColWidth)
     sheet.setColumnWidth(lastCol, 25)
 
@@ -165,4 +152,6 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
     }
 
     return lastCol += 1
-} // END MAIN Step & function
+}
+
+// END MAIN Step & function

@@ -803,7 +803,7 @@ var indicatorsVector = {
                     "y2yCompRow": 429,
                     "elements": [{
                             "labelShort": "P1a.1",
-                            "description": "Are the company’s ​privacy policies​​easy to find​?"
+                            "description": "Are the company’s ​privacy policies ​​easy to find​?"
                         },
                         {
                             "labelShort": "P1a.2",

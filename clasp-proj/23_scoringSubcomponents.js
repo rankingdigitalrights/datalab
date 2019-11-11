@@ -1,6 +1,6 @@
 // ---------------------HELPER FUNCTIONS---------------------------------------------
 
-function setSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubStepLabel, blocks) {
+function setScoringSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubStepLabel, blocks) {
 
     // -- // add Step Header to top-left cell // -- //
     // TODO: refactor to components
@@ -25,8 +25,8 @@ function setSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubSt
     return activeRow + 1
 }
 
-// --- BEGIN setCompanyHeader() --- //
-function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComps, indicatorCat, companyObj, blocks) {
+// --- BEGIN setScoringCompanyHeader() --- //
+function setScoringCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComps, indicatorCat, companyObj, blocks) {
 
     Logger.log(' - ' + 'in company header ' + Indicator.labelShort)
 
@@ -82,10 +82,10 @@ function setCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComp
     }
 
     // --- // --- Services --- // --- //
-    for (k = 0; k < companyObj.numberOfServices; k++) {
+    for (var s = 0; s < companyObj.numberOfServices; s++) {
         for (var g = 0; g < nrOfIndSubComps; g++) {
             currentCell = sheet.getRange(activeRow, activeCol)
-            columnLabel = companyObj.services[k].label.current
+            columnLabel = companyObj.services[s].label.current
 
             if (nrOfIndSubComps > 1) {
                 columnLabel = columnLabel + '\n' + indicatorCat.components[g].labelLong
@@ -171,7 +171,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
         }
 
         // for n Services + Indicator Subcomponents
-        for (var g = 0; g < CompanyObj.services.length; g++) {
+        for (var s = 0; s < CompanyObj.services.length; s++) {
 
             for (k = 0; k < nrOfIndSubComps; k++) {
                 currentCell = sheet.getRange(activeRow, tempCol)
@@ -181,7 +181,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
                 }
 
                 // setting up formula that compares values
-                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
+                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[s].id, stepCompID)
 
                 var formula = importRange(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
