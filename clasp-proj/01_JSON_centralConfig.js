@@ -67,5 +67,17 @@ var centralConfig = {
 		"spreadsheetName": "Scores PROTO v3",
 		"sheetNameSimple": "Summary simple",
 		"splitPrePost": false
-	}
+    },
+    "feedbackParams" : {
+        "subStepNr": 0,
+        "firstStepNr": 3,
+        "lastStepNr": 3,
+        "sheetName": "Prototype",
+        "dataColWidth": 300,
+        "hasFullScores": false,
+        "includeSources": true,
+        "includeNames": false,
+        "includeResults": true,
+        "sourcesSheetname": "Sources referenced"
+    }
 }

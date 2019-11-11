@@ -5,9 +5,9 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "Dev" // Dev, "", Debug
+var filenameSuffix = "QC" // Dev, "", Debug
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
-var outputFolderName = "2019 Pilot Dev"
+var outputFolderName = "2019 Pilot Feedback QC"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
@@ -41,7 +41,6 @@ function mainAllCompaniesDataCollectionSheets() {
 		// .slice(8,9) // Vodafone
 
 	companies.forEach(function (thisCompany) {
-		
 		var fileID = createSpreadsheetDC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
 		Logger.log("received fileID: " + fileID)
 		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
@@ -74,13 +73,10 @@ function mainAllFeedbackSheets() {
 	var mainSheetMode = "Feedback"
 
 	var companies = companiesVector.companies
-		// .slice(0,1) // Amazon
-		.slice(1,2) // Apple
-		// .slice(5,6) // Microsoft
-		// .slice(3,4) //
+		// .slice(1,2) // Apple
 
 	companies.forEach(function (thisCompany) {
-		var fileID = createFeedbackForms(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+		var fileID = createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
 		Logger.log("received fileID: " + fileID)
 		addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
 	})
@@ -102,26 +98,3 @@ function mainSummaryScoresProto() {
 		Logger.log("received fileID: " + fileID)
 		addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheet)
 }
-
-// --- // Permissions // --- //
-
-// currently defunct
-
-// function mainPermissions() {
-// 	var mainSheetMode = 'DC'
-
-// 	// should be in sync with mainCreateDataCollectionSheet()
-// 	var useStepsSubset = false
-// 	var useIndicatorSubset = false
-
-// 	// always use [array] for all of these parameters
-// 	var protectSteps = ["S02"]
-// 	var unprotectSteps = ["S01", "S01.5"]
-// 	// var unprotectSteps = ["S02"]
-// 	var allowedEditors = ["sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org",
-// 		"lisa.gutermuth@gmail.com"]
-
-// 	mainPermissionsCaller(indexPrefix, companyShortName, mainSheetMode, filenameSuffix, protectSteps, unprotectSteps, allowedEditors, useStepsSubset, useIndicatorSubset)
-// 	// TODO to be connected with a main control spreadsheet
-// 	// so it should return updated states
-// }

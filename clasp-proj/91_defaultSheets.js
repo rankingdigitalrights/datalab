@@ -3,7 +3,7 @@
     function fillSourceSheet(thisSheet) {
 
         var webArchiveLink = '=HYPERLINK("https://archive.org/web/", "Internet Archive")'
-        thisSheet.appendRow(["Source reference number", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
+        thisSheet.appendRow(["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
 
         var lastCol = thisSheet.getLastColumn()
         
@@ -20,8 +20,9 @@
             .setVerticalAlignment("top")
             .setWrap(true)
             .setFontSize(10)
-
-        thisSheet.setColumnWidths(1, lastCol, 200)
+        
+        thisSheet.setColumnWidths(1, 1, 100)
+        thisSheet.setColumnWidths(2, lastCol, 200)
         thisSheet.setFrozenRows(1)
     }
 
