@@ -110,3 +110,14 @@ function importRange(url, range, integrateOutputs) {
     }
     return formula
 }
+
+function getSheetByName(Spreadsheet, Sheetname) {
+    var Sheet
+    if (!Spreadsheet.getSheetByName(Sheetname)) {
+        Sheet = null
+        Logger.log("Sheet " + Sheetname + " not found.")
+    } else {
+        Sheet = Spreadsheet.getSheetByName(Sheetname)
+    }
+    return Sheet
+}

@@ -1,9 +1,5 @@
 // ## BEGIN High-level functions | main components ## //
 
-// TODO: Explain in a few sentences what the whole function is doing
-// List the parameters and where their values are coming from
-
-
 function populateDCSheetByCategory(File, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset) {
 
     // for each indicator

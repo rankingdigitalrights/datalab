@@ -17,14 +17,15 @@ var centralConfig = {
 	// "maxScoringStep": false, // otherwise number
 	"integrateOutputs": true, // DC: integrate any output component?
 	"integrateOutputsArray": {
-		"includeScoring": true, // create regular Outcome?
+		"includeScoring": false, // create regular Outcome?
 		"isFullScoring": true, // scores or only comments?
 		"includeCompFeedback": false, // TODO
 		"includeNotes": true,
 		"isPilotMode": true, // if true then disable scoring
 		"researchNotesParams" : {
 			"subStepNr": 1,
-			"firstStepNr": 1,
+            "firstStepNr": 1,
+            "lastStepNr": 6,
 			"sheetName": "Researcher Comments",
 			"dataColWidth": 200,
 			"hasFullScores": false,
@@ -45,8 +46,8 @@ var centralConfig = {
 		},
 		"feedbackParams" : {
 			"subStepNr": 0,
-			"firstStepNr": 3,
-			"lastStepNr": 3,
+			"firstStepNr": 1,
+			"lastStepNr": 6,
 			"sheetName": "Prototype",
 			"dataColWidth": 200,
 			"hasFullScores": false,

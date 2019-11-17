@@ -3,6 +3,7 @@
 
 function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
 
+    Logger.log("--- Begin addSetOfScoringSteps")
     var sheetName = outputParams.sheetName
     var subStepNr = outputParams.subStepNr
     var hasFullScores = outputParams.hasFullScores

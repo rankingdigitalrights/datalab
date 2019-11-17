@@ -101,7 +101,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         // fetch params
         var isPilotMode = Config.integrateOutputsArray.isPilotMode
         var includeNotes = Config.integrateOutputsArray.includeNotes
-        var includeScoring = Config.integrateOutputsArray.isFullScoring
+        var includeScoring = Config.integrateOutputsArray.includeScoring
         var hasFullScores = Config.integrateOutputsArray.isFullScoring
         
 
@@ -111,12 +111,16 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
         if (includeScoring) {
 
+            Logger.log("Extra Sheet --- Scores --- adding")
+
             var pointsSheet = insertSheetIfNotExist(File, "Points", false)
             if (pointsSheet !== null) { fillPointsSheet(pointsSheet, "Points") }
 
             outputParams = Config.integrateOutputsArray.scoringParams
             isPilotMode = false
             addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+
+            Logger.log("Extra Sheet --- Scores --- added")
 
             if (pointsSheet !== null) {
                 moveSheetToPos(File, pointsSheet,1)
@@ -126,6 +130,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         }
 
         if(includeNotes) {
+            Logger.log("Extra Sheet --- Researcher Feedback --- adding")
             outputParams = Config.integrateOutputsArray.researchNotesParams
 
             addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
