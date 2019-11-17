@@ -29,6 +29,130 @@ function skipIndicatorGuidance(thisIndicator, activeRow, includeRGuidanceLink) {
     return activeRow
 }
 
+function fixIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance) {
+
+    // TODO probably move all formatting params to JSON
+
+    var row = activeRow
+    var col = activeCol
+
+    var maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
+    if (companyNumberOfServices == 1 && !hasOpCom) {
+        maxColHeadings -= 1
+    }
+
+    var maxRow = 1
+
+    var indTitle = thisIndicator.labelShort + ". " + thisIndicator.labelLong
+    if (thisIndicator.description.length > 1) {
+        indTitle = indTitle + ": " + thisIndicator.description
+    }
+
+    // Indicator Heading
+    var cell = sheet.getRange(row, col)
+        .setValue(indTitle)
+        .setFontWeight("bold")
+        .setFontSize(14)
+        .setHorizontalAlignment("left")
+        .setVerticalAlignment("middle")
+        .setFontFamily("Oswald")
+        .setWrap(true)
+
+    sheet.setRowHeight(row, 40)
+    sheet.getRange(row, col, 1, numberOfColumns).merge()
+    sheet.getRange(row, col, 1, numberOfColumns).setBackground("lightgrey")
+    sheet.setFrozenRows(1)
+
+    row += 1
+
+    var tempStartRow
+
+    if (includeRGuidanceLink) {
+        // General Instruction
+        cell = sheet.getRange(row, col)
+            .setValue("▶ Please read the indicator-specific guidance and discussions before starting the research!")
+            .setFontWeight("bold")
+            .setFontSize(9)
+            .setHorizontalAlignment("left")
+            .setVerticalAlignment("middle")
+            .setFontFamily("Roboto Mono")
+            .setWrap(true)
+            .setFontColor("#ea4335")
+        // .setFontColor("chocolate")
+
+
+        sheet.setRowHeight(row, 40)
+        sheet.getRange(row, col, 1, numberOfColumns).merge()
+        sheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
+
+        row += 1
+        tempStartRow = row // for grouping
+    } else {
+        tempStartRow = row // for grouping
+        row += 1
+    }
+
+    
+
+    // Element Instructions
+    cell = sheet.getRange(row, 1)
+        .setValue("Elements:")
+        .setFontWeight("bold")
+        .setHorizontalAlignment("right")
+        .setVerticalAlignment("top")
+        .setFontFamily("Roboto Mono")
+
+    col += 1
+
+    thisIndicator.elements.forEach(function (element) {
+        cell = sheet.getRange(row, col)
+            .setValue(element.labelShort + ": " + element.description)
+            .setFontSize(10)
+            .setFontFamily("Roboto")
+            .setHorizontalAlignment("left")
+        cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+        row += 1
+    })
+
+    if (includeRGuidanceLink) {
+        row += 1
+        var indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
+
+        // TODO: Parameterize
+
+        cell = sheet.getRange(row, 1)
+            .setValue("Link to Research Guidance:")
+            .setFontWeight("bold")
+            .setHorizontalAlignment("right")
+            .setFontFamily("Roboto Mono")
+
+        cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+            .setValue(indicatorLink)
+
+        // var tempLastRow = row // for grouping
+    } else {
+        row -= 1
+    }
+
+    // var rangeStep = sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns)
+    // rangeStep.shiftRowGroupDepth(1)
+
+    // if(collapseRGuidance) {
+    //     rangeStep.collapseGroups()
+    // }
+
+    row += 1
+
+    sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns).setBackground("WhiteSmoke")
+
+    sheet.getRange(row, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
+
+    row += 1
+
+    activeRow = row
+    return activeRow
+}
+
 function skipMainStepHeader(thisIndCat, activeRow) {
 
     var activeCol = 1

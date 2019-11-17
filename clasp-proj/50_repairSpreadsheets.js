@@ -25,9 +25,11 @@ function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
     var fileID = File.getId()
     Logger.log("File ID: " + fileID)
 
-    var listSheetName = "BrokenRefs"
-    var ListSheet = insertSheetIfNotExist(File, listSheetName, true)
-    ListSheet.clear()
+
+    var ListSheetBroken = insertSheetIfNotExist(File, "BrokenRefs", true)
+    var ListSheetFixed = insertSheetIfNotExist(File, "FixedRefs", true)
+    ListSheetBroken.clear()
+    ListSheetFixed.clear()
     // if scoring sheet is integrated into DC, create Points sheet
 
     var hasOpCom = CompanyObj.hasOpCom
@@ -42,7 +44,7 @@ function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
         var currentClass = IndicatorsObj.indicatorClasses[i]
 
-        repairDCSheetByCategory(File, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, useIndicatorSubset, ListSheet)
+        repairDCSheetByCategory(File, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, ListSheetBroken, ListSheetFixed)
     }
 
 }

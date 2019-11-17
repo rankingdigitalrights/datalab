@@ -21,3 +21,15 @@ function listBrokenRefs(ListSheet, targetSheet, thisIndLabel) {
         ListSheet.appendRow([thisIndLabel, "OK"])
     }
 }
+
+function clearNamedRangesFromFile(File) {
+
+    var range = File.getSheets()[0].getRange(1,1)
+    Logger.log(range)
+    Logger.log(range.getA1Notation())
+    var namedRanges = File.getNamedRanges();
+    for (var i = 0; i < namedRanges.length; i++) {
+        // namedRanges[i].remove()
+        namedRanges[i].setRange(range)
+    }
+}

@@ -4,7 +4,7 @@
 // List the parameters and where their values are coming from
 
 
-function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, useIndicatorSubset, ListSheet) {
+function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, ListSheetBroken, ListSheetFixed) {
 
     // for each indicator
     // - create a new Sheet
@@ -35,6 +35,8 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
             Logger.log("Skip " + thisIndLabel)
             continue // skips this i if sheet already exists
         }
+
+        listBrokenRefs(ListSheetBroken, sheet, thisIndLabel)
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
         var nrOfIndSubComps = 1
@@ -68,7 +70,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = skipIndicatorGuidance(thisInd, activeRow, includeRGuidanceLink)
+        activeRow = fixIndicatorGuidance(sheet, thisIndCat, thisInd, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance)
 
         // --- // Begin Main Step-Wise Procedure // --- //
 
@@ -194,7 +196,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
         // rules.push(condRuleValues)
         // sheet.setConditionalFormatRules(rules)
         
-        listBrokenRefs(ListSheet, sheet, thisIndLabel)
+        listBrokenRefs(ListSheetFixed, sheet, thisIndLabel)
     } // End of Indicator Sheet
 
 } // End of populating process
