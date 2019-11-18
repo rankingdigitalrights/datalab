@@ -65,9 +65,9 @@ var centralConfig = {
 	"includeRGuidanceLink": false, // TODO
 	"collapseRGuidance": false,
 	"summaryParams": { // should be in sync with scoringParams in Prod
-		"spreadsheetName": "Scores PROTO v3",
-		"sheetNameSimple": "Summary simple",
-		"splitPrePost": false
+		"spreadsheetName": "Scores PROTO v4",
+		"sheetNameSimple": "Summary minimal",
+		"splitPrePost": false // TODO
     },
     "feedbackParams" : {
         "subStepNr": 0,

@@ -195,13 +195,16 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
 
     var thisBlock = sheet.getRange(firstRow, firstCol, activeRow - firstRow, tempCol - firstCol)
 
-    if (StepComp.clipWrap) {
-        thisBlock.setBackground("red")
-        thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-    } else {
-        thisBlock.setBackground("green")
-        thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP)
-    }
+    // for debugging blocks
+
+    // if (StepComp.clipWrap) {
+    //     thisBlock.setBackground("red")
+    //     thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
+    // } else {
+    //     thisBlock.setBackground("green")
+    //     thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP)
+    // }
+    thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
 
     return activeRow
 }

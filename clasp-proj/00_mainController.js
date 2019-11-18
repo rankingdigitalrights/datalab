@@ -7,7 +7,7 @@ var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
 var filenameSuffix = "Dev" // Dev, "", Debug, QC
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
-var outputFolderName = "2019 Pilot Feedback QC"
+var outputFolderName = "2019 Pilot Summary Dev"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
@@ -73,7 +73,7 @@ function mainAllFeedbackSheets() {
     var mainSheetMode = "Feedback"
 
     var companies = companiesVector.companies
-    .slice(1,2) // Apple
+    // .slice(1,2) // Apple
 
     companies.forEach(function (thisCompany) {
         var fileID = createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
@@ -86,6 +86,8 @@ function mainAllFeedbackSheets() {
 
 function mainSummaryScoresProto() {
 
+    // filename fragments defined in 
+    // Config.summaryParams.spreadsheetName
     var mainSheetMode = "Summary"
     var scoringStepNr = 3
 

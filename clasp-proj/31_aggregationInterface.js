@@ -14,6 +14,8 @@ function fillSummaryScoresSheet(Sheet, sheetModeID, Config, IndicatorsObj, thisS
     Companies.forEach(function (Company) {
         currentCol = addSingleCompanySummary(Sheet, thisSubStepID, IndicatorsObj, indicatorParams, currentRow, currentCol, Company)
     })
+
+    return Sheet
 }
 
 function addSingleCompanySummary(Sheet, thisSubStepID, IndicatorsObj, indicatorParams, currentRow, currentCol, Company) {

@@ -53,27 +53,28 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
     outputParams.firstStepNr = scoringStepNr
     outputParams.lastStepNr = scoringStepNr
 
-    // // --- // Individual Company Outcome Sheets // --- //
-    // Companies.forEach(function (Company) {
+    // --- // Individual Company Outcome Sheets // --- //
 
-    //     var companyFilename
-    //     if (Company.label.altFilename) {
-    //         companyFilename = Company.label.altFilename
-    //     } else {
-    //         companyFilename = Company.label.current
-    //     }
+    Companies.forEach(function (Company) {
 
-    //     outputParams.sheetName = companyFilename
+        var companyFilename
+        if (Company.label.altFilename) {
+            companyFilename = Company.label.altFilename
+        } else {
+            companyFilename = Company.label.current
+        }
 
-    //     Logger.log('begin main Scoring for ' + companyFilename)
-    //     Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
+        outputParams.sheetName = companyFilename
 
-    //     var hasOpCom = Company.hasOpCom
-    //     Logger.log(companyFilename + " opCom? - " + hasOpCom)
+        Logger.log('begin Scoring for ' + companyFilename)
+        Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
 
-    //     addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+        var hasOpCom = Company.hasOpCom
+        Logger.log(companyFilename + " opCom? - " + hasOpCom)
 
-    // })
+        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+
+    })
     
     // --- // Core: Summary Sheet // --- //
 
@@ -82,7 +83,7 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
     var summarySheet = insertSheetIfNotExist(File, summarySheetName, true)
     summarySheet.clear()
 
-    fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
+    summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
 
     // --- // Side: testing Element Level // --- //
     
@@ -93,11 +94,13 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
         pointsSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
     }
 
-    summarySheet = File.getSheetByName(summarySheetName)
+    // summarySheet = File.getSheetByName(summarySheetName)
     summarySheet.setFrozenColumns(1)
     summarySheet.setFrozenRows(2)
     moveSheetToPos(File, summarySheet, 1)
 
+    var connectorSheet = insertSheetConnector(File, Companies)
+    moveSheetToPos(File, connectorSheet, 1)
 
     return fileID
 }

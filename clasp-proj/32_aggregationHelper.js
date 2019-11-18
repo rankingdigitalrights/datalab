@@ -34,7 +34,7 @@ function insertIndicatorColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, 
 
     lastRow = currentRow + indicatorCells.length
     blockRange = Sheet.getRange(startRow, currentCol, lastRow - startRow, 1)
-    blockRange.setBorder(true, true, true, true, null, null, "black", null)
+    blockRange.setBorder(true, true, true, true, null, null, "black", null).setFontWeight("bold")
 
     IndicatorsObj.indicatorClasses.forEach(function (IndicatorClass) {
 
@@ -47,10 +47,9 @@ function insertIndicatorColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, 
 
         lastRow = currentRow + indicatorCells.length
         blockRange = Sheet.getRange(startRow, currentCol, lastRow - startRow, 1)
-        blockRange.setBorder(true, true, true, true, null, null, "black", null)
+        blockRange.setBorder(true, true, true, true, null, null, "black", null).setFontWeight("bold")
     })
 
-    var arrayLength = indicatorCells.length
     var column = Sheet.getRange(currentRow, currentCol, indicatorCells.length, 1)
     column.setValues(indicatorCells)
 
@@ -61,6 +60,7 @@ function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
 
     var topCell = Sheet.getRange(currentRow, currentCol)
     topCell.setValue(Company.label.current)
+    topCell.setFontWeight("bold").setFontSize(12)
 
     currentRow += 1
 
@@ -80,7 +80,7 @@ function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
     }
 
     var range = Sheet.getRange(currentRow, currentCol, 1, rowElems.length)
-    range.setValues([rowElems])
+    range.setValues([rowElems]).setFontWeight("bold").setWrap(true)
 
 
     return currentRow + 1
@@ -105,7 +105,8 @@ function addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, Indicato
 
     range = Sheet.getRange(currentRow, currentCol, 1, rowFormulas.length)
     range.setFormulas([rowFormulas])
-    range.setNumberFormat("0.##")
+        .setNumberFormat("0.##")
+        .setFontWeight("bold")
 
     return currentRow + 1
 }
