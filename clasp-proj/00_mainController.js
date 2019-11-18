@@ -5,7 +5,7 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "" // Dev, "", Debug, QC
+var filenameSuffix = "Dev" // Dev, "", Debug, QC
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
 var outputFolderName = "2019 Pilot Feedback QC"
 
@@ -73,7 +73,7 @@ function mainAllFeedbackSheets() {
     var mainSheetMode = "Feedback"
 
     var companies = companiesVector.companies
-    // .slice(1,2) // Apple
+    .slice(1,2) // Apple
 
     companies.forEach(function (thisCompany) {
         var fileID = createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)

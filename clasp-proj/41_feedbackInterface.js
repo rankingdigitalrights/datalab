@@ -47,13 +47,13 @@ function insertFeedbackSheet(File, sheetName, lastCol, isPilotMode, hasFullScore
 
     for (var i = 0; i < thisIndClassLength; i++) {
 
-        blockStartRow = activeRow
-
         thisInd = thisIndClass.indicators[i]
 
         Logger.log('begin Indicator: ' + thisInd.labelShort)
 
         activeRow = addIndicatorLabelRow(activeRow, firstCol, sheet, CompanyObj, nrOfIndSubComps, thisInd, numberOfColumns)
+
+        blockStartRow = activeRow
 
         // --- // Main task // --- //
 
@@ -99,6 +99,10 @@ function insertFeedbackSheet(File, sheetName, lastCol, isPilotMode, hasFullScore
 
         sheet.getRange(blockEndRow, firstCol, 1, lastCol)
             .setBorder(false, false, true, false, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
+
+        thisBlock = sheet.getRange(blockStartRow, 1, blockEndRow - blockStartRow + 1, numberOfColumns)
+
+        thisBlock.shiftRowGroupDepth(1)
 
     } // END INDICATOR
 
