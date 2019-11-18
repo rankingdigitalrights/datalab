@@ -1,11 +1,11 @@
-function insertFeedbackSheet(File, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel) {
+function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel) {
 
     Logger.log("--- Begin Feedback for Single Indicator Class: " + sheetName)
 
     var companyShortName = CompanyObj.label.current
 
     Logger.log("Inserting Sheet " + sheetName)
-    var sheet = insertSheetIfNotExist(File, sheetName, true)
+    var sheet = insertSheetIfNotExist(SS, sheetName, true)
     if (sheet !== null) { sheet.clear() }
 
     var firstCol = lastCol
@@ -79,7 +79,7 @@ function insertFeedbackSheet(File, sheetName, lastCol, isPilotMode, hasFullScore
                     break
 
                 case "elementComments":
-                    activeRow = importFeedbackElementBlock(File, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                    activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
                     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
                     break
 

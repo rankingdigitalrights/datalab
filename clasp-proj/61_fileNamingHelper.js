@@ -8,6 +8,7 @@ function spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, fi
 }
 
 function cleanCompanyName(Company) {
+    
     var companyName
     if (Company.label.altFilename) {
         companyFilename = Company.label.altFilename

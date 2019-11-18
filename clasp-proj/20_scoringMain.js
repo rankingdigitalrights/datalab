@@ -22,21 +22,17 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
     var hasOpCom = CompanyObj.hasOpCom
     Logger.log(companyFilename + " opCom? - " + hasOpCom)
 
-    // define File name
+    // define SS name
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
-    var File = connectToSpreadsheetByName(spreadsheetName)
-    var fileID = File.getId()
+    var SS = connectToSpreadsheetByName(spreadsheetName)
+    var fileID = SS.getId()
 
     // creates Outcome  page
 
     // Scoring Scheme / Validation
-    // TODO Refactor to module and values to i.e. Config.JSON
-    var pointsSheet = insertSheetIfNotExist(File, "Points", false)
-    if (pointsSheet !== null) {
-        fillPointsSheet(pointsSheet, "Points")
-    }
+    var pointsSheet = insertPointValidationSheet(SS, "Points")
 
     // --- // Main Procedure // --- //
 
@@ -44,18 +40,13 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
     var isPilotMode = false
     var outputParams = Config.integrateOutputsArray.scoringParams
 
+    addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
-    addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
-
-
-    if (pointsSheet) {
-        moveSheetToPos(File, pointsSheet, 1)
-        pointsSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
-    }
+    moveHideSheetifExists(SS, pointsSheet, 1)
 
     // clean up // 
     // if empty Sheet exists, delete
-    removeEmptySheet(File)
+    removeEmptySheet(SS)
 
     return fileID
 }

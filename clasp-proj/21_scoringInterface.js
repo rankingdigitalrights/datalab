@@ -1,7 +1,7 @@
 // Interface for creating a single set of scoring content
 // Single set := either Outcome OR Comments OR Company Feedback
 
-function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
+function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
 
     Logger.log("--- Begin addSetOfScoringSteps")
     var sheetName = outputParams.sheetName
@@ -63,7 +63,7 @@ function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, Research
 
         // setting up all the substeps for all the indicators
 
-        lastCol = scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
+        lastCol = scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
 
         blocks++
 
@@ -71,12 +71,9 @@ function addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, Research
 
     // apply layouting
 
-    var thisSheet = File.getSheetByName(sheetName)
+    var thisSheet = SS.getSheetByName(sheetName)
     thisSheet.setFrozenColumns(1)
     singleSheetProtect(thisSheet, sheetName)
 
-    if (integrateOutputs) {
-        moveSheetToPos(File, thisSheet, 1)
-    }
-
+    moveSheetifExists(SS, thisSheet, 1)
 }

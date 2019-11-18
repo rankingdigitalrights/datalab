@@ -1,7 +1,7 @@
 // --- // function to fetch Google Drive activity for all Data Collection Spreadsheets // --- //
 
 /*
-fetches atomic events for each spreadsheet from a defined folder of subfolders and adds the results to respective Sheets in an Output Spreadsheet
+fetches atomic events for each SS from a defined folder of subfolders and adds the results to respective Sheets in an Output Spreadsheet
 */
 
 /*
@@ -45,10 +45,10 @@ function getUsersActivityDC() {
     // for each Spreadsheet of this subfolder
     while (spreadsheets.hasNext()) {
       // enter Spreadsheet
-      var spreadsheet = spreadsheets.next()
+      var SS = spreadsheets.next()
       // get Spreadsheet Name
 
-      var thisCompany = spreadsheet.getName()
+      var thisCompany = SS.getName()
 
       // check if company is already in results
       var testGet = resultsSpreadsheet.getSheetByName(thisCompany);
@@ -59,14 +59,14 @@ function getUsersActivityDC() {
         Logger.log(thisCompany + " yet missing")
 
         // add general Spreadsheet info to Overview Sheet
-        overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
+        overViewSheet.appendRow([SS.getName(), SS.getId(), SS.getDateCreated(), SS.getLastUpdated()])
 
         // create a Results Sheet for this Spreadsheet
         var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
         resultsSheet.clear()
         resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
 
-        var fileId = spreadsheet.getId()
+        var fileId = SS.getId()
 
         var pageToken
 
@@ -108,7 +108,7 @@ function getUsersActivityDC() {
       } else {
         Logger.log(thisCompany + " already processed")
       }
-    } // end spreadsheet
+    } // end SS
 
   } // end subfolder
 
@@ -117,7 +117,7 @@ function getUsersActivityDC() {
 // --- // function to fetch Google Drive activity for all Scoring Spreadsheets (Companies, Summary Scores, Year-on-Year Comparison // --- //
 
 /* 
-fetches atomic events for each spreadsheet from a defined folder and adds the results to respective Sheets in an Output Spreadsheet
+fetches atomic events for each SS from a defined folder and adds the results to respective Sheets in an Output Spreadsheet
 */
 
 /*
@@ -157,9 +157,9 @@ function getUsersActivitySC() {
   // for each Spreadsheet of this folder
   while (spreadsheets.hasNext()) {
     // enter Spreadsheet
-    var spreadsheet = spreadsheets.next()
+    var SS = spreadsheets.next()
     // get Spreadsheet Name
-    var thisCompany = spreadsheet.getName()
+    var thisCompany = SS.getName()
 
     // check if company is already in results
     var testGet = resultsSpreadsheet.getSheetByName(thisCompany)
@@ -170,14 +170,14 @@ function getUsersActivitySC() {
       Logger.log(thisCompany + " yet missing")
 
       // add general Spreadsheet info to Overview Sheet
-      overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
+      overViewSheet.appendRow([SS.getName(), SS.getId(), SS.getDateCreated(), SS.getLastUpdated()])
 
       // create a Results Sheet for this Spreadsheet
       var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
       resultsSheet.clear()
       resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
 
-      var fileId = spreadsheet.getId()
+      var fileId = SS.getId()
 
       var pageToken;
 
@@ -216,7 +216,7 @@ function getUsersActivitySC() {
 
     } else {
       Logger.log(thisCompany + " already processed")
-    } // end spreadsheet
+    } // end SS
 
   } // end folder
 

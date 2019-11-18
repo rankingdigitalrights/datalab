@@ -1,4 +1,4 @@
-function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
+function scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
 
     Logger.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -9,7 +9,7 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
     var thisSubStepLabel = thisSubStep.labelShort
 
     Logger.log("Inserting Sheet " + sheetName)
-    var sheet = insertSheetIfNotExist(File, sheetName, false)
+    var sheet = insertSheetIfNotExist(SS, sheetName, false)
     if (sheet == null) {
         Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
         return lastCol
@@ -114,16 +114,16 @@ function scoringSingleStep(File, sheetName, subStepNr, lastCol, Config, isPilotM
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
             if (hasFullScores) {
-                activeRow = addElementScores(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, hasFullScores)
+                activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, hasFullScores)
                 Logger.log(' - ' + 'element scores added for ' + thisInd.labelShort)
 
-                activeRow = addLevelScores(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, indyLevelScoresCompany, indyLevelScoresServices, blocks)
+                activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, indyLevelScoresCompany, indyLevelScoresServices, blocks)
                 Logger.log(' - ' + "level scores added for " + thisInd.labelShort)
 
-                activeRow = addCompositeScores(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, thisInd, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
+                activeRow = addCompositeScores(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, thisInd, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
                 Logger.log(' - ' + "composite scores added for " + thisInd.labelShort)
 
-                activeRow = addIndicatorScore(File, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
+                activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
                 Logger.log(' - ' + "indicator score added for " + thisInd.labelShort)
 
                 activeRow = activeRow + 1

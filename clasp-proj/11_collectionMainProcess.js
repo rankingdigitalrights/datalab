@@ -1,6 +1,6 @@
 // ## BEGIN High-level functions | main components ## //
 
-function populateDCSheetByCategory(File, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset) {
+function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset) {
 
     // for each indicator
     // - create a new Sheet
@@ -26,7 +26,7 @@ function populateDCSheetByCategory(File, thisIndCat, CompanyObj, ResearchStepsOb
         var thisIndScoringScope = thisInd.scoringScope
         Logger.log('Scoring Scope: ' + thisInd.labelShort + ' ' + thisIndScoringScope)
 
-        var sheet = insertSheetIfNotExist(File, thisInd.labelShort, false)
+        var sheet = insertSheetIfNotExist(SS, thisInd.labelShort, false)
 
         if (sheet === null) {
             continue // skips this i if sheet already exists
@@ -93,7 +93,7 @@ function populateDCSheetByCategory(File, thisIndCat, CompanyObj, ResearchStepsOb
             var subStepsLength = thisMainStep.substeps.length
 
 
-            activeRow = addMainStepHeader(sheet, thisIndCat, CompanyObj, activeRow, File, nrOfIndSubComps, companyNumberOfServices, thisMainStep.step, thisMainStepColor) // sets up header
+            activeRow = addMainStepHeader(sheet, thisIndCat, CompanyObj, activeRow, SS, nrOfIndSubComps, companyNumberOfServices, thisMainStep.step, thisMainStepColor) // sets up header
 
             var beginStep = activeRow
             var endStep = activeRow
@@ -126,23 +126,23 @@ function populateDCSheetByCategory(File, thisIndCat, CompanyObj, ResearchStepsOb
                     switch (thisStepComponent) {
 
                         case "header":
-                            activeRow = addSubStepHeader(sheet, thisInd, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            activeRow = addSubStepHeader(sheet, thisInd, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
                             break
 
                         case "elementResults":
-                            activeRow = addScoringOptions(sheet, thisInd, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            activeRow = addScoringOptions(sheet, thisInd, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
                             break
 
                         case "binaryReview":
-                            activeRow = addBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            activeRow = addBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
                             break
 
                         case "elementComments":
-                            activeRow = addComments(sheet, thisInd, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            activeRow = addComments(sheet, thisInd, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
                             break
 
                         case "sources":
-                            activeRow = addSources(sheet, thisInd, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            activeRow = addSources(sheet, thisInd, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
                             break
 
                         case "extraQuestion":
@@ -174,7 +174,7 @@ function populateDCSheetByCategory(File, thisIndCat, CompanyObj, ResearchStepsOb
                 const component = ""
                 var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisIndCat.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
 
-                File.setNamedRange(stepNamedRange, range); // names an entire step
+                SS.setNamedRange(stepNamedRange, range); // names an entire step
 
                 // GROUPING for substep
                 var substepRange = range.shiftRowGroupDepth(1)

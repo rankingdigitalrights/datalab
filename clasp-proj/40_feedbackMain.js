@@ -20,12 +20,12 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
 
     var hasOpCom = CompanyObj.hasOpCom
 
-    // define File name
+    // define SS name
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
-    var File = connectToSpreadsheetByName(spreadsheetName)
-    var fileID = File.getId()
+    var SS = connectToSpreadsheetByName(spreadsheetName)
+    var fileID = SS.getId()
 
     // --- // Feedback Parameters // --- //
 
@@ -69,7 +69,7 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     var doOverwrite = true
     sheetName = outputParams.sourcesSheetname
 
-    var sourcesSheet = importSourcesSheet(File, sheetName, CompanyObj, doOverwrite)
+    var sourcesSheet = importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite)
 
     for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
 
@@ -79,12 +79,12 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
 
         sheetName = thisIndClass.labelLong
 
-        lastCol = insertFeedbackSheet(File, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel)
+        lastCol = insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel)
     }
 
     // clean up // 
     // if empty Sheet exists, delete
-    removeEmptySheet(File)
+    removeEmptySheet(SS)
 
     return fileID
 }

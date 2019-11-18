@@ -27,11 +27,11 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
-    //   var File = SpreadsheetApp.create(spreadsheetName)
-    var File = connectToSpreadsheetByName(spreadsheetName)
 
-    var fileID = File.getId()
-    Logger.log("File ID: " + fileID)
+    var SS = connectToSpreadsheetByName(spreadsheetName)
+
+    var fileID = SS.getId()
+    Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
@@ -41,15 +41,15 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     // if set in Config, import previous Index Outcome
     if (centralConfig.YearOnYear) {
-        newSheet = insertSheetIfNotExist(File, importedOutcomeTabName, false)
+        newSheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
         if (newSheet !== null) {
-            fillPrevOutcomeSheet(newSheet, importedOutcomeTabName)
+            fillPrevOutcomeSheet(newSheet, importedOutcomeTabName, externalFormula)
         }
     }
 
     // --- // creates sources page // --- //
 
-    newSheet = insertSheetIfNotExist(File, sourcesTabName, false)
+    newSheet = insertSheetIfNotExist(SS, sourcesTabName, false)
     if (newSheet !== null) {
         fillSourceSheet(newSheet)
     }
@@ -71,7 +71,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         Logger.log("Starting " + currentClass.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
 
-        populateDCSheetByCategory(File, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
+        populateDCSheetByCategory(SS, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
 
         Logger.log("Completed " + currentClass.labelLong)
     }
@@ -97,20 +97,17 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         if (includeScoring) {
 
             Logger.log("Extra Sheet --- Scores --- adding")
-
-            var pointsSheet = insertSheetIfNotExist(File, "Points", false)
-            if (pointsSheet !== null) { fillPointsSheet(pointsSheet, "Points") }
+    
+            // Scoring Scheme / Validation
+            var pointsSheet = insertPointValidationSheet(SS, "Points")
 
             outputParams = Config.integrateOutputsArray.scoringParams
             isPilotMode = false
-            addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Scores --- added")
 
-            if (pointsSheet !== null) {
-                moveSheetToPos(File, pointsSheet, 1)
-                pointsSheet.hideSheet()
-            }
+            moveHideSheetifExists(SS, pointsSheet, 1)
 
         }
 
@@ -118,16 +115,15 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
             Logger.log("Extra Sheet --- Researcher Feedback --- adding")
             outputParams = Config.integrateOutputsArray.researchNotesParams
 
-            addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Researcher Feedback --- added")
         }
     }
 
-
     // clean up // 
     // if empty Sheet exists, delete
-    removeEmptySheet(File)
+    removeEmptySheet(SS)
 
     Logger.log(mainSheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID

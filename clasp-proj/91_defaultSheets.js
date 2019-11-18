@@ -26,21 +26,30 @@ function fillSourceSheet(thisSheet) {
     thisSheet.setFrozenRows(1)
 }
 
-function fillPrevOutcomeSheet(thisSheet, sourcesTabName) {
+function fillPrevOutcomeSheet(thisSheet, importedOutcomeTabName, externalFormula) {
     thisSheet.setName(importedOutcomeTabName)
-    var cell = firstSheet.getActiveCell()
+    var cell = thisSheet.getActiveCell()
     cell.setValue(externalFormula.toString())
 }
 
-function fillPointsSheet(thisSheet, sourcesTabName) {
-    thisSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
-    thisSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
-    thisSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
+function insertPointValidationSheet(SS, SheetName) {
+    var pointsSheet = insertSheetIfNotExist(SS, SheetName, false)
+    if (pointsSheet !== null) {
+        fillPointsSheet(pointsSheet)
+    }
+
+    return pointsSheet
 }
 
-function insertSheetConnector(File, Companies) {
+function fillPointsSheet(pointsSheet) {
+    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
+}
 
-    var Sheet = insertSheetIfNotExist(File, "Connector", true)
+function insertSheetConnector(SS, Companies) {
+
+    var Sheet = insertSheetIfNotExist(SS, "Connector", true)
 
     var companyCells = []
     var companyName
@@ -54,8 +63,8 @@ function insertSheetConnector(File, Companies) {
         companyUrl = company.urlCurrentDataCollectionSheet
         formula = formulaPrefix + companyUrl + formulaSuffix
         companyCells.push([companyName, formula])
-        })
-    
+    })
+
     var arrayLength = companyCells.length
     if (arrayLength > 0) {
         var column = Sheet.getRange(1, 1, arrayLength, 2)

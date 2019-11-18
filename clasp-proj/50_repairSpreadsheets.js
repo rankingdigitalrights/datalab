@@ -14,15 +14,15 @@ function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
-    //   var File = SpreadsheetApp.create(spreadsheetName)
-    var File = connectToSpreadsheetByName(spreadsheetName)
+    //   var SS = SpreadsheetApp.create(spreadsheetName)
+    var SS = connectToSpreadsheetByName(spreadsheetName)
 
-    var fileID = File.getId()
-    Logger.log("File ID: " + fileID)
+    var fileID = SS.getId()
+    Logger.log("SS ID: " + fileID)
 
 
-    var ListSheetBroken = insertSheetIfNotExist(File, "BrokenRefs", true)
-    var ListSheetFixed = insertSheetIfNotExist(File, "FixedRefs", true)
+    var ListSheetBroken = insertSheetIfNotExist(SS, "BrokenRefs", true)
+    var ListSheetFixed = insertSheetIfNotExist(SS, "FixedRefs", true)
     ListSheetBroken.clear()
     ListSheetFixed.clear()
     // if scoring sheet is integrated into DC, create Points sheet
@@ -39,7 +39,7 @@ function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
         var currentClass = IndicatorsObj.indicatorClasses[i]
 
-        repairDCSheetByCategory(File, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, ListSheetBroken, ListSheetFixed)
+        repairDCSheetByCategory(SS, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, ListSheetBroken, ListSheetFixed)
     }
 
 }

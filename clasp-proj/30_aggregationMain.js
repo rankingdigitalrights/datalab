@@ -13,17 +13,13 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
 
-    var File = connectToSpreadsheetByName(spreadsheetName)
+    var SS = connectToSpreadsheetByName(spreadsheetName)
 
-    var fileID = File.getId()
-    Logger.log("File ID: " + fileID)
+    var fileID = SS.getId()
+    Logger.log("SS ID: " + fileID)
 
     // Scoring Scheme / Validation
-    // TODO Refactor to module and values to i.e. Config.JSON
-    var pointsSheet = insertSheetIfNotExist(File, "Points", false)
-    if (pointsSheet !== null) {
-        fillPointsSheet(pointsSheet, "Points")
-    }
+    var pointsSheet = insertPointValidationSheet(SS, "Points")
 
     var indicatorParams = countIndicatorLengths(IndicatorsObj)
 
@@ -43,13 +39,12 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
         outputParams.sheetName = companyFilename
 
-        Logger.log('begin Scoring for ' + companyFilename)
         Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
 
         var hasOpCom = CompanyObj.hasOpCom
         Logger.log(companyFilename + " opCom? - " + hasOpCom)
 
-        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+        addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
     })
 
@@ -57,30 +52,29 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
 
-    var summarySheet = insertSheetIfNotExist(File, summarySheetName, true)
+    var summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
     summarySheet.clear()
 
     summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
 
     // --- // Side: testing Element Level // --- //
 
-    // summarySheet = File.getSheetByName(summarySheetName)
-    summarySheet.setFrozenColumns(1)
-    summarySheet.setFrozenRows(2)
-    moveSheetToPos(File, summarySheet, 1)
-
-    var connectorSheet = insertSheetConnector(File, Companies)
-    moveSheetToPos(File, connectorSheet, 1)
+    // TODO
 
     // --- // Final formatiing // --- //
-    if (pointsSheet) {
-        moveSheetToPos(File, pointsSheet, 1)
-        pointsSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
-    }
+    // summarySheet = SS.getSheetByName(summarySheetName)
+    summarySheet.setFrozenColumns(1)
+    summarySheet.setFrozenRows(2)
+    moveSheetifExists(SS, summarySheet, 1)
 
-    // clean up // 
+    var connectorSheet = insertSheetConnector(SS, Companies)
+
+    moveSheetifExists(SS, connectorSheet, 1)
+
+    moveHideSheetifExists(SS, pointsSheet, 1)
+
     // if empty Sheet exists, delete
-    removeEmptySheet(File)
+    removeEmptySheet(SS)
 
     return fileID
 }

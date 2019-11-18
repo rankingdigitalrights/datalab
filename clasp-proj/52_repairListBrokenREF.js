@@ -22,12 +22,12 @@ function listBrokenRefs(ListSheet, targetSheet, thisIndLabel) {
     }
 }
 
-function clearNamedRangesFromFile(File) {
+function clearNamedRangesFromFile(SS) {
 
-    var range = File.getSheets()[0].getRange(1,1)
+    var range = SS.getSheets()[0].getRange(1,1)
     Logger.log(range)
     Logger.log(range.getA1Notation())
-    var namedRanges = File.getNamedRanges();
+    var namedRanges = SS.getNamedRanges();
     for (var i = 0; i < namedRanges.length; i++) {
         // namedRanges[i].remove()
         namedRanges[i].setRange(range)

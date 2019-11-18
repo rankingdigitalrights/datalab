@@ -82,6 +82,26 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
     return Sheet
 }
 
+function moveHideSheetifExists(Spreadsheet, Sheet, posInt) {
+
+    if (!posInt) { posInt = 1 }
+
+    if (Sheet !== null) {
+        moveSheetToPos(Spreadsheet, Sheet, posInt)
+        Sheet.hideSheet()
+    }
+}
+
+function moveSheetifExists(Spreadsheet, Sheet, posInt) {
+
+    if (!posInt) { posInt = 1 }
+
+    if (Sheet !== null) {
+        moveSheetToPos(Spreadsheet, Sheet, posInt)
+    }
+}
+
+
 
 function moveSheetToPos(Spreadsheet, Sheet, posInt) {
     Spreadsheet.setActiveSheet(Sheet)
@@ -122,10 +142,10 @@ function getSheetByName(Spreadsheet, Sheetname) {
     return Sheet
 }
 
-function removeEmptySheet(File) {
-    var emptySheet = File.getSheetByName("Sheet1")
+function removeEmptySheet(SS) {
+    var emptySheet = SS.getSheetByName("Sheet1")
 
     if (emptySheet) {
-        File.deleteSheet(emptySheet)
+        SS.deleteSheet(emptySheet)
     }
 }

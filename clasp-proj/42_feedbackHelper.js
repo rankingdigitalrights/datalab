@@ -1,5 +1,5 @@
-function importSourcesSheet(File, sheetName, CompanyObj, doOverwrite) {
-    var sheet = insertSheetIfNotExist(File, sheetName, doOverwrite)
+function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {
+    var sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
     if (sheet !== null) { sheet.clear() }
     fillSourceSheet(sheet)
     var targetCell = sheet.getRange(2,1)
@@ -124,7 +124,7 @@ function addIndicatorLabelRow(activeRow, firstCol, sheet, CompanyObj, nrOfIndSub
     return activeRow + 1
 }
 
-function importFeedbackElementBlock(File, activeRow, activeCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs) {
+function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs) {
 
     var scoringSuffix = "CF" // CF := Company Feedback
     var stepCompID = StepComp.id
@@ -254,7 +254,7 @@ function importFeedbackElementBlock(File, activeRow, activeCol, offsetCol, numbe
     var cellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.labelShort, component, CompanyObj.id, "", scoringSuffix)
     Logger.log(cellName)
 
-    // File.setNamedRange(cellName, feedbackBlock)
+    // SS.setNamedRange(cellName, feedbackBlock)
 
     sheet.getRange(activeRow, feedbackStartCol, 1, feedbackEndCol - feedbackStartCol)
         .setBackground("#f3f3f3")

@@ -175,7 +175,7 @@ function fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) 
 
 // TODO - obsolete description - a step header is a row in which in the first column the name and description of the step is listed
 // and in the remaining columns a placeholderText is added
-function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     activeRow = activeRow + 1
 
@@ -188,7 +188,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, 
     // cell = textUnderline(cell)
 
     // TODO
-    // activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, File, nrOfIndSubComps, companyNumberOfServices) // sets up header
+    // activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfIndSubComps, companyNumberOfServices) // sets up header
 
     var thisFiller = currentStep.components[stepCNr].placeholderText
     var thisFirstCol = 2
@@ -221,7 +221,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, 
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
-                File.setNamedRange(cellName, thisCell)
+                SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
 
             }
@@ -239,7 +239,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, 
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                File.setNamedRange(cellName, thisCell)
+                SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
 
             }
@@ -259,7 +259,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, 
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                File.setNamedRange(cellName, thisCell)
+                SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
             }
         }
@@ -271,7 +271,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, File, 
 }
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
-function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var stepCompType = currentStep.components[stepCNr].id
 
@@ -310,7 +310,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, File,
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
 
-                    File.setNamedRange(cellName, thisCell) // names cells
+                    SS.setNamedRange(cellName, thisCell) // names cells
 
                     activeCol += 1
                 }
@@ -332,7 +332,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, File,
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                    File.setNamedRange(cellName, thisCell) // names cells
+                    SS.setNamedRange(cellName, thisCell) // names cells
 
                     activeCol += 1
                 }
@@ -354,7 +354,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, File,
 
                     var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                    File.setNamedRange(cellName, thisCell) // names cells
+                    SS.setNamedRange(cellName, thisCell) // names cells
 
                     activeCol += 1
                 }
@@ -369,7 +369,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, File,
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
-function fixComments(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function fixComments(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
 
     var stepCompType = currentStep.components[stepCNr].id
@@ -407,7 +407,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, File, curre
 
                     cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompType)
 
-                    File.setNamedRange(cellName, cell)
+                    SS.setNamedRange(cellName, cell)
                     activeCol += 1
 
                 }
@@ -430,7 +430,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, File, curre
 
                     cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                    File.setNamedRange(cellName, cell)
+                    SS.setNamedRange(cellName, cell)
                     activeCol += 1
 
                 }
@@ -453,7 +453,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, File, curre
 
                     cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                    File.setNamedRange(cellName, cell)
+                    SS.setNamedRange(cellName, cell)
                     activeCol += 1
 
                 }
@@ -470,7 +470,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, File, curre
 
 // this function adds an element drop down list to a single row
 
-function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     var thisStepComponent = currentStep.components[stepCNr]
     var stepCompType = currentStep.components[stepCNr].id
@@ -501,7 +501,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, Fil
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
-                File.setNamedRange(cellName, cell) // names cells
+                SS.setNamedRange(cellName, cell) // names cells
                 activeCol += 1
             }
         }
@@ -520,7 +520,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, Fil
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
-                File.setNamedRange(cellName, cell) // names cells
+                SS.setNamedRange(cellName, cell) // names cells
                 activeCol += 1
             }
         }
@@ -540,7 +540,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, Fil
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                File.setNamedRange(cellName, cell) // names cells
+                SS.setNamedRange(cellName, cell) // names cells
                 activeCol += 1
             }
         }
@@ -552,7 +552,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, Fil
 
 // the sources step adds a single row in which the sources of each column can be listed
 
-function fixSources(sheet, currentIndicator, CompanyObj, activeRow, File, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
     var activeCol = 1
 
     var stepCompType = currentStep.components[stepCNr].id
@@ -583,7 +583,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, File, curren
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
 
-                File.setNamedRange(cellName, cell)
+                SS.setNamedRange(cellName, cell)
                 activeCol += 1
 
             }
@@ -601,7 +601,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, File, curren
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
 
-                File.setNamedRange(cellName, cell)
+                SS.setNamedRange(cellName, cell)
                 activeCol += 1
 
             }
@@ -621,7 +621,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, File, curren
 
                 cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                File.setNamedRange(cellName, cell)
+                SS.setNamedRange(cellName, cell)
                 activeCol += 1
             }
         }
