@@ -7,12 +7,11 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
-    var filename = Config.summaryParams.spreadsheetName
-    var summarySheetName = Config.summaryParams.sheetNameSimple + " " + scoringStepNr
-    var testSheetName = "Summary Element"
+    var stepName = " S" + scoringStepNr
+    var summarySheetName = Config.summaryParams.sheetNameSimple + stepName
 
     // connect to existing spreadsheet or creat a blank spreadsheet
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, filename, filenameSuffix)
+    var spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
 
     var File = connectToSpreadsheetByName(spreadsheetName)
 

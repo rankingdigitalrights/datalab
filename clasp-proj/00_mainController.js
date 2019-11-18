@@ -88,7 +88,7 @@ function mainSummaryScoresProto() {
 
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = "Summary"
+    var mainSheetMode = "Summary Scores"
     var scoringStepNr = 3
 
     var Companies = companiesVector.companies
