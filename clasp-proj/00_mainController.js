@@ -5,9 +5,9 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = ""
+var filenameSuffix = "Dev" // ""
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-end testing"
-var outputFolderName = "Pilot FINAL"
+var outputFolderName = "2019 Pilot Dev" // "2019 Pilot FINAL"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
@@ -30,11 +30,11 @@ function mainAllCompaniesDataCollectionSheets() {
 		// .slice(6,9) // Subset #3
 
 		// .slice(0,1) // Amazon
-		// .slice(1,2) // Apple
+		.slice(1,2) // Apple
 		// .slice(2,3) // Deutsche Telekom
 		// .slice(3,4) // Facebook
 		// .slice(4,5) // Google
-		.slice(5,6) // Microsoft
+		// .slice(5,6) // Microsoft
 		// .slice(6,7) // Telefonica
 		// .slice(7,8) // Twitter
 		// .slice(8,9) // Vodafone

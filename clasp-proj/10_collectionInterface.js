@@ -57,6 +57,8 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, companyObj, fil
         hasEmptySheet = false
     }
 
+    var newSheet
+    
     // if set in configObj, import previous Index Outcome
     if (centralConfig.YearOnYear) {
         newSheet = insertSheetIfNotExist(file, importedOutcomeTabName, false)
