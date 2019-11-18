@@ -2,13 +2,7 @@ function clearNamedRangesFromCompanySheet(CompanyObj, filenamePrefix, filenameSu
 
 
     Logger.log(CompanyObj)
-    var companyShortName
-
-    if (CompanyObj.label.altFilename) {
-        companyShortName = CompanyObj.label.altFilename
-    } else {
-        companyShortName = CompanyObj.label.current
-    }
+    var companyShortName = cleanCompanyName(CompanyObj)
 
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
     //   var File = SpreadsheetApp.create(spreadsheetName)

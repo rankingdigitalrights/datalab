@@ -14,12 +14,7 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
 
     var sheetModeID = "FB"
 
-    var companyFilename
-    if (CompanyObj.label.altFilename) {
-        companyFilename = CompanyObj.label.altFilename
-    } else {
-        companyFilename = CompanyObj.label.current
-    }
+    var companyFilename = cleanCompanyName(CompanyObj)
 
     Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
 
@@ -31,17 +26,6 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
     var File = connectToSpreadsheetByName(spreadsheetName)
     var fileID = File.getId()
-
-    // TODO: redundant --> refactor to function 
-    // if an empty Sheet exists, track and delete later
-    var emptySheet = File.getSheetByName("Sheet1")
-
-    var hasEmptySheet
-    if (emptySheet) {
-        hasEmptySheet = true
-    } else {
-        hasEmptySheet = false
-    }
 
     // --- // Feedback Parameters // --- //
 
@@ -62,7 +46,9 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     }
 
     var companyCols = 1
-    if (hasOpCom) { companyCols = 2 }
+    if (hasOpCom) {
+        companyCols = 2
+    }
     var numberOfColumns = (CompanyObj.numberOfServices + companyCols) * globalNrOfComponents
 
     // minus for logical -> index
@@ -96,8 +82,9 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
         lastCol = insertFeedbackSheet(File, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel)
     }
 
-    // if existing, remove first empty sheet
-    if (hasEmptySheet) {File.deleteSheet(emptySheet)}
+    // clean up // 
+    // if empty Sheet exists, delete
+    removeEmptySheet(File)
 
     return fileID
 }

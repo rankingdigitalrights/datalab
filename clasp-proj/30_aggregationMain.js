@@ -18,28 +18,11 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
     var fileID = File.getId()
     Logger.log("File ID: " + fileID)
 
-    // creates Outcome  page
-    // TODO: redundant --> refactor to function 
-    // if an empty Sheet exists, track and delete later
-    var emptySheet = File.getSheetByName("Sheet1")
-
-    var hasEmptySheet
-    if (emptySheet) {
-        hasEmptySheet = true
-    } else {
-        hasEmptySheet = false
-    }
-
     // Scoring Scheme / Validation
     // TODO Refactor to module and values to i.e. Config.JSON
     var pointsSheet = insertSheetIfNotExist(File, "Points", false)
     if (pointsSheet !== null) {
         fillPointsSheet(pointsSheet, "Points")
-    }
-
-    // if existing, remove first empty sheet
-    if (hasEmptySheet) {
-        File.deleteSheet(emptySheet)
     }
 
     var indicatorParams = countIndicatorLengths(IndicatorsObj)
@@ -54,27 +37,22 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     // --- // Individual Company Outcome Sheets // --- //
 
-    Companies.forEach(function (Company) {
+    Companies.forEach(function (CompanyObj) {
 
-        var companyFilename
-        if (Company.label.altFilename) {
-            companyFilename = Company.label.altFilename
-        } else {
-            companyFilename = Company.label.current
-        }
+        var companyFilename = cleanCompanyName(CompanyObj)
 
         outputParams.sheetName = companyFilename
 
         Logger.log('begin Scoring for ' + companyFilename)
         Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
 
-        var hasOpCom = Company.hasOpCom
+        var hasOpCom = CompanyObj.hasOpCom
         Logger.log(companyFilename + " opCom? - " + hasOpCom)
 
-        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+        addSetOfScoringSteps(File, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
     })
-    
+
     // --- // Core: Summary Sheet // --- //
 
     var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
@@ -85,13 +63,6 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
     summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
 
     // --- // Side: testing Element Level // --- //
-    
-
-    // --- // Final formatiing // --- //
-    if (pointsSheet) {
-        moveSheetToPos(File, pointsSheet, 1)
-        pointsSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
-    }
 
     // summarySheet = File.getSheetByName(summarySheetName)
     summarySheet.setFrozenColumns(1)
@@ -100,6 +71,16 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     var connectorSheet = insertSheetConnector(File, Companies)
     moveSheetToPos(File, connectorSheet, 1)
+
+    // --- // Final formatiing // --- //
+    if (pointsSheet) {
+        moveSheetToPos(File, pointsSheet, 1)
+        pointsSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
+    }
+
+    // clean up // 
+    // if empty Sheet exists, delete
+    removeEmptySheet(File)
 
     return fileID
 }

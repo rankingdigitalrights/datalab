@@ -121,3 +121,11 @@ function getSheetByName(Spreadsheet, Sheetname) {
     }
     return Sheet
 }
+
+function removeEmptySheet(File) {
+    var emptySheet = File.getSheetByName("Sheet1")
+
+    if (emptySheet) {
+        File.deleteSheet(emptySheet)
+    }
+}

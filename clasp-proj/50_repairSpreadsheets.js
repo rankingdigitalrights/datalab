@@ -3,12 +3,7 @@
 function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log('--- // --- begin main data collection --- // ---')
 
-    var companyShortName
-    if (CompanyObj.label.altFilename) {
-        companyShortName = CompanyObj.label.altFilename
-    } else {
-        companyShortName = CompanyObj.label.current
-    }
+    var companyShortName = cleanCompanyName(CompanyObj)
 
     var Config = centralConfig 
     var IndicatorsObj = indicatorsVector

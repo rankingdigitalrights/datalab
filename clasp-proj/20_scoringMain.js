@@ -14,12 +14,7 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
 
     var sheetModeID = "SC"
 
-    var companyFilename
-    if (CompanyObj.label.altFilename) {
-        companyFilename = CompanyObj.label.altFilename
-    } else {
-        companyFilename = CompanyObj.label.current
-    }
+    var companyFilename = cleanCompanyName(CompanyObj)
 
     Logger.log('begin main Scoring for ' + companyFilename)
     Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
@@ -35,27 +30,12 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
     var fileID = File.getId()
 
     // creates Outcome  page
-    // TODO: redundant --> refactor to function 
-    // if an empty Sheet exists, track and delete later
-    var emptySheet = File.getSheetByName("Sheet1")
-
-    var hasEmptySheet
-    if (emptySheet) {
-        hasEmptySheet = true
-    } else {
-        hasEmptySheet = false
-    }
 
     // Scoring Scheme / Validation
     // TODO Refactor to module and values to i.e. Config.JSON
     var pointsSheet = insertSheetIfNotExist(File, "Points", false)
     if (pointsSheet !== null) {
         fillPointsSheet(pointsSheet, "Points")
-    }
-
-    // if existing, remove first empty sheet
-    if (hasEmptySheet) {
-        File.deleteSheet(emptySheet)
     }
 
     // --- // Main Procedure // --- //
@@ -69,9 +49,13 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
 
 
     if (pointsSheet) {
-        moveSheetToPos(File, pointsSheet,1)
+        moveSheetToPos(File, pointsSheet, 1)
         pointsSheet.hideSheet() // hide points - only possible after a 2nd sheet exists
     }
+
+    // clean up // 
+    // if empty Sheet exists, delete
+    removeEmptySheet(File)
 
     return fileID
 }

@@ -5,12 +5,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     var sourcesTabName = "Sources"
 
-    var companyShortName
-    if (CompanyObj.label.altFilename) {
-        companyShortName = CompanyObj.label.altFilename
-    } else {
-        companyShortName = CompanyObj.label.current
-    }
+    var companyShortName = cleanCompanyName(CompanyObj)
 
     Logger.log("--- // --- creating " + mainSheetMode + ' Spreadsheet for ' + companyShortName + " --- // ---")
 
@@ -41,16 +36,6 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     // Formula for importing previous year's outcome
     var externalFormula = '=IMPORTRANGE("' + Config.prevIndexSSID + '","' + CompanyObj.tabPrevYearsOutcome + '!' + 'A:Z' + '")'
-
-    // if an empty Sheet exists, track and delete later
-    var emptySheet = File.getSheetByName("Sheet1")
-    var hasEmptySheet
-
-    if (emptySheet) {
-        hasEmptySheet = true
-    } else {
-        hasEmptySheet = false
-    }
 
     var newSheet
 
@@ -94,7 +79,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
     Logger.log('end DC main')
 
     // --- // additional integrated Outputs // --- //
-   
+
     if (integrateOutputs) {
         Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
 
@@ -103,7 +88,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         var includeNotes = Config.integrateOutputsArray.includeNotes
         var includeScoring = Config.integrateOutputsArray.includeScoring
         var hasFullScores = Config.integrateOutputsArray.isFullScoring
-        
+
 
         var sheetModeID = "SC"
 
@@ -123,13 +108,13 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
             Logger.log("Extra Sheet --- Scores --- added")
 
             if (pointsSheet !== null) {
-                moveSheetToPos(File, pointsSheet,1)
+                moveSheetToPos(File, pointsSheet, 1)
                 pointsSheet.hideSheet()
             }
 
         }
 
-        if(includeNotes) {
+        if (includeNotes) {
             Logger.log("Extra Sheet --- Researcher Feedback --- adding")
             outputParams = Config.integrateOutputsArray.researchNotesParams
 
@@ -141,10 +126,8 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
 
     // clean up // 
-    // if existing, remove first empty sheet
-    if (hasEmptySheet) {
-        File.deleteSheet(emptySheet)
-    }
+    // if empty Sheet exists, delete
+    removeEmptySheet(File)
 
     Logger.log(mainSheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID
