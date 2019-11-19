@@ -20,93 +20,73 @@ library(googledrive)
 # spreadsheetID <- gs_key("1EBq-jrwx_P_908aMaVaOup08p0Ii2UsJ-upPRM3EK5Y")
 # token <- googlesheets4::sheets_auth()
 # save(token, file = "googleAuthToken.RData")
-googlesheets4::sheets_auth()
+load("googleAuthToken.RData")
 ```
+
+```{r}
+if(!dir.exists("store")) dir.create("store")
+```
+
+## Fetch Meta
+
+```{r}
+pilot_id_dc <- "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak" # Etisalat Data Colelction MLS from 2019-09-17
+pilot_meta_dc <- googlesheets4::sheets_get(pilot_id_dc)
+
+pilot_meta_dc_names <- pilot_meta_dc$named_ranges
+```
+
+## Obsolete
 
 ```{r}
 # spreadsheetObj <- gs_read_cellfeed(spreadhsheetID)
-ss_id_sc <- "1rCZykK5ju_nmPLybkdPJSniO1Ndz2fz80b2KU_2MuU8" # Etisalat Scoring MLS from 2019-09-17
-ss_id_dc <- "1bEoTnARzol1Vs2DEx052ieAyoKRlsWsLfapxWuEjBNU" # Etisalat Data Colelction MLS from 2019-09-17
-ss_meta_sc <- googlesheets4::sheets_get(ss_id_sc)
-ss_meta_dc <- googlesheets4::sheets_get(ss_id_dc)
 
-# ss_sc <- map(ss_id_sc, ~googlesheets4::sheets_read(.x))
+# pilot_sc <- map(pilot_id_sc, ~googlesheets4::sheets_read(.x))
 
 # Killer generic approach: get all sheets from spreadsheet
-# Needed: ss id & sheet names
-ss_dc <- map2(.x = ss_meta_dc$spreadsheet_id, .y = ss_meta_dc$sheets$name, ~googlesheets4::sheets_read(ss = .x, sheet = .y, skip = ))
-# save(ss_dc, file = "ss_etisalat_dc.RData")
-load(file = "ss_etisalat_dc.RData")
+# Needed: pilot ss id & sheet names
+pilot_dc_raw <- map2(.x = pilot_meta_dc$spreadsheet_id,
+                 .y = pilot_meta_dc$sheets$name,
+                 .id = pilot_meta_dc$sheets$name,
+                 ~googlesheets4::read_sheet(ss = .x, sheet = .y, skip = 0))
+
+save(pilot_dc_raw, file = "store/pilot_apple_input_raw.RData")
+load(file = "store/pilot_apple_input_raw.RData")
+```
+
+## Named Ranges
+
+> Suuuuuper slow
+
+```{r}
+pilot_dc_ranges_raw <- map2(.x = pilot_meta_dc$spreadsheet_id,
+                 .y = pilot_meta_dc$named_ranges$name,
+                 .id = pilot_meta_dc$sheets$name,
+                 ~googlesheets4::read_sheet(ss = .x, range = .y, skip = 0))
+```
+
+## raw cells
+
+> first is not sufficient, second is as sloooow as the other named range approach
+
+```{r}
+g1_cells <- sheets_cells(ss = pilot_meta_dc$spreadsheet_id, sheet = 5)
+cells <- map(pilot_meta_dc_names$name, ~sheets_cells(ss = pilot_meta_dc$spreadsheet_id, range = .x))
 ```
 
 ```{r}
-ss_dc
-```
-
-> maybe cleaner file.get appraoch with googledrive packe (also stressed out by Jenny Bryan)
-
-```{r}
-ss_sc <- googledrive::drive_get(id = ss_id_sc)
+g1_cells %>% hoist(.col = "cell", .simplify = TRUE)
+# g1_cells %>% pluck(col = "cell")
+g1_cells %>% unnest_wider(col = "cell")
+g1_cells %>% unnest(col = cell)
 ```
 
 ```{r}
-ss_sc %>% purrr::flatten()
+g1_cells %>% 
+  mutate_if(is.list, map, as_data_frame) %>% 
+  unnest_wider()
 ```
 
+> worth keeping in mind
 
-
-
-## DC
-
-```{r}
-ss_obj_DC <- googlesheets4::read_sheet(ss_meta_dc$spreadsheet_id, sheet = "F3",
-                                    col_types = c("c")) # C (not c) = exact value from cell (i.e. Formula)
-```
-
-```{r}
-head(ss_obj_DC, 20)
-```
-
-
-```{r}
-ss_meta_dc$named_ranges %>% 
-  arrange(sheet_name, start_row, start_column) %>%
-  head(10)
-```
-
-## Test: Results for G1
-```{r}
-ss_dc_steps <- ss_meta_dc[["named_ranges"]] %>% 
-  filter(str_detect(name, "Step")) %>% 
-  arrange(sheet_name, start_row, start_column)
-```
-
-> How to access value from named range?
-
-```{r}
-ss_dc_step_results <- read_sheet(ss = ss_id_dc, range = ss_dc_steps$range[1])
-
-```
-
-> this works but is rather slow:
-
-```{r}
-ss_dc_step_results <- map(ss_dc_steps$range, ~read_sheet(ss = ss_id_dc, range = .x))
-```
-
-```{r}
-ss_dc_step_results
-```
-
-
-## SC
-
-```{r}
-ss_obj_sc <- googlesheets4::read_sheet(ss_meta$spreadsheet_id, sheet = "Outcome",
-                                    col_types = c("c")) # c = exact value from cell (i.e. Formula)
-```
-
-```{r}
-ss_obj
-```
-
++ `googledrive::drive_upload(path = backendid, type = "spreadsheet`
