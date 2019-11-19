@@ -22,30 +22,8 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
 
     var numberOfColumns = (CompanyObj.numberOfServices + 2) * globalNrOfComponents + 1
 
-    // minus for logical -> index
-    var firstScoringStep
-    // var scoringSteps = Config.scoringSteps --> Array for iteration over particular steps
-    if (outputParams.firstStepNr) {
-        firstScoringStep = outputParams.firstStepNr - 1
-    } else {
-        if (Config.firstScoringStep) {
-            firstScoringStep = Config.firstScoringStep - 1
-        } else {
-            firstScoringStep = 0
-        }
-    }
-
-    var maxScoringStep
-
-    if (outputParams.lastStepNr) {
-        maxScoringStep = outputParams.lastStepNr + 1// for at least 1 iteration
-    } else {
-        if (Config.maxScoringStep) {
-            maxScoringStep = Config.maxScoringStep + 1// for at least 1 iteration
-        } else {
-            maxScoringStep = ResearchStepsObj.researchSteps.length
-        }
-    }
+    var firstScoringStep = determineFirstStep(Config, outputParams)
+    var maxScoringStep = determineMaxStep(Config, outputParams, ResearchStepsObj)
 
     Logger.log("include Sources? " + outputParams.includeSources)
 
