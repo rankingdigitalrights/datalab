@@ -5,6 +5,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
 
     Logger.log("--- Begin addSetOfScoringSteps")
     var sheetName = outputParams.sheetName
+    Logger.log("sheetName received: " + sheetName)
     var subStepNr = outputParams.subStepNr
     var hasFullScores = outputParams.hasFullScores
     var includeSources = outputParams.includeSources
@@ -75,5 +76,5 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
     thisSheet.setFrozenColumns(1)
     singleSheetProtect(thisSheet, sheetName)
 
-    moveSheetifExists(SS, thisSheet, 1)
+    if (integrateOutputs) moveSheetifExists(SS, thisSheet, 1)
 }
