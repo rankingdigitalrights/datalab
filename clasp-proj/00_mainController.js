@@ -7,7 +7,7 @@ var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
 var filenameSuffix = "Dev" // Dev, "", Debug, QC
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
-var outputFolderName = "2019 Pilot Summary Dev"
+var outputFolderName = "2019 Pilot Data Store"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
@@ -99,6 +99,27 @@ function mainSummaryScoresProto() {
     var fileID = createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
     Logger.log("received fileID: " + fileID)
     addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheet)
+}
+
+// create Scoring spreadsheets for all companies
+
+function mainDataStore() {
+
+    // filename fragments defined in 
+    // Config.summaryParams.spreadsheetName
+    var mainSheetMode = centralConfig.dataLayerParams.fileName
+
+    var companies = companiesVector.companies
+        // .slice(1,2) // Apple
+
+    companies.forEach(function (thisCompany) {
+        
+        var fileID = createCompanyDataLayer(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+
+        Logger.log("received fileID: " + fileID)
+        addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
+
+    })
 }
 
 

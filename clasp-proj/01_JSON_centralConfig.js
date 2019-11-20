@@ -13,7 +13,16 @@ var centralConfig = {
 	"scoringSteps": [3, 6],
 	"aggregationParams": {
 		// TBD
-	},
+    },
+    "dataLayerParams" : {
+        "fileName": "Data Store",
+        "summarySheetName": "Aggregated",
+        // "subStepNr": 0,
+        "firstStepNr": 1,
+        "lastStepNr": 6,
+        "dataColWidth": 200,
+        "integrateOutputs": false
+    },
 	// "maxScoringStep": false, // otherwise number
 	"integrateOutputs": true, // DC: integrate any output component?
 	"integrateOutputsArray": {
