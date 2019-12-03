@@ -32,9 +32,9 @@ function defineNamedRangeStringImport(index, sheetModeID, step, indicatorElement
 // (as named ranges are not removed with sheet.clear())
 
 function clearAllNamedRangesFromSheet(sheet) {
-  var namedRanges = sheet.getNamedRanges();
+  var namedRanges = sheet.getNamedRanges()
   for (var i = 0; i < namedRanges.length; i++) {
-    namedRanges[i].remove();
+    namedRanges[i].remove()
   }
   return sheet
 }
