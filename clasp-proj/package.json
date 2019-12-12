@@ -1,26 +1,19 @@
 {
-  "name": "clasp-proj",
-  "version": "1.0.0",
-  "description": "[![clasp](docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)",
-  "main": "00_mainController.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "dependencies": {
-    "@types/google-apps-script": "^1.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rankingdigitalrights/datalab.git"
-  },
-  "author": "RDR",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rankingdigitalrights/datalab/issues"
-  },
-  "homepage": "https://github.com/rankingdigitalrights/datalab#readme"
+    "name": "clasp-proj",
+    "version": "0.0.5",
+    "description": "[![clasp](docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)",
+    "main": "00_mainController.js",
+    "directories": {
+        "doc": "docs"
+    },
+    "dependencies": {
+        "@types/google-apps-script": "^1.0.7",
+        "eslint": "^6.7.2"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "fubits | RDR",
+    "license": "ISC"
 }
