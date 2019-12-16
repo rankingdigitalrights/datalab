@@ -10,7 +10,9 @@
         "@types/google-apps-script": "^1.0.7",
         "eslint": "^6.7.2"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "eslint-plugin-googleappsscript": "^1.0.3"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },

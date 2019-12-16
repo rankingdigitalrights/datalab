@@ -1,7 +1,8 @@
 env:
   browser: true
-  es6: true
+  # es6: true
   node: true
+  googleappsscript/googleappsscript: true
 extends: "eslint:recommended"
 globals:
   Atomics: readonly
@@ -12,7 +13,7 @@ parserOptions:
 rules:
   indent:
     - error
-    - tab
+    - 4
   linebreak-style:
     - error
     - unix
@@ -22,6 +23,5 @@ rules:
   semi:
     - error
     - never
-  eol-last:
-    - error
-    - always
+plugins:
+  - googleappsscript
