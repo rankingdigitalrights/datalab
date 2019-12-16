@@ -1,4 +1,4 @@
-function countIndicatorLengths (IndicatorsObj) {
+function countIndicatorLengths(IndicatorsObj) {
 
     var indicatorLengths = [0]
 
@@ -27,7 +27,7 @@ function insertIndicatorColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, 
         ["Scope"],
         ["Total"],
         ["Governance"],
-        ["Freedom of Experession"],
+        ["Freedom of Expression"],
         ["Privacy"]
     ]
     var indicatorLabel

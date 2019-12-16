@@ -5,7 +5,7 @@ function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     var companyShortName = cleanCompanyName(CompanyObj)
 
-    var Config = centralConfig 
+    var Config = centralConfig
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
     var includeRGuidanceLink = Config.includeRGuidanceLink

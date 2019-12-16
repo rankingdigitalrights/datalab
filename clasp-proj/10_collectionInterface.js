@@ -97,7 +97,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         if (includeScoring) {
 
             Logger.log("Extra Sheet --- Scores --- adding")
-    
+
             // Scoring Scheme / Validation
             var pointsSheet = insertPointValidationSheet(SS, "Points")
 
@@ -121,7 +121,7 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         }
     }
 
-    // clean up // 
+    // clean up //
     // if empty Sheet exists, delete
     removeEmptySheet(SS)
 
