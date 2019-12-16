@@ -1,13 +1,13 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
 function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
-    Logger.log('--- // --- begin main data collection --- // ---')
+    Logger.log("--- // --- begin main data collection --- // ---")
 
     var sourcesTabName = "Sources"
 
     var companyShortName = cleanCompanyName(CompanyObj)
 
-    Logger.log("--- // --- creating " + mainSheetMode + ' Spreadsheet for ' + companyShortName + " --- // ---")
+    Logger.log("--- // --- creating " + mainSheetMode + " Spreadsheet for " + companyShortName + " --- // ---")
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
@@ -35,12 +35,12 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    var externalFormula = '=IMPORTRANGE("' + Config.prevIndexSSID + '","' + CompanyObj.tabPrevYearsOutcome + '!' + 'A:Z' + '")'
+    var externalFormula = "=IMPORTRANGE(\"" + Config.prevIndexSSID + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
 
     var newSheet
 
     // if set in Config, import previous Index Outcome
-    if (centralConfig.YearOnYear) {
+    if (Config.YearOnYear) {
         newSheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
         if (newSheet !== null) {
             fillPrevOutcomeSheet(newSheet, importedOutcomeTabName, externalFormula)
@@ -63,20 +63,21 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
     // --- // MAIN TASK // --- //
     // for each Indicator Class do
+    var currentCat
 
     for (var i = 0; i < IndicatorsObj.indicatorClasses.length; i++) {
 
-        var currentClass = IndicatorsObj.indicatorClasses[i]
+        currentCat = IndicatorsObj.indicatorClasses[i]
 
-        Logger.log("Starting " + currentClass.labelLong)
+        Logger.log("Starting " + currentCat.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
 
-        populateDCSheetByCategory(SS, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
+        populateDCSheetByCategory(SS, currentCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
 
-        Logger.log("Completed " + currentClass.labelLong)
+        Logger.log("Completed " + currentCat.labelLong)
     }
 
-    Logger.log('end DC main')
+    Logger.log("end DC main")
 
     // --- // additional integrated Outputs // --- //
 
@@ -125,6 +126,6 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
     // if empty Sheet exists, delete
     removeEmptySheet(SS)
 
-    Logger.log(mainSheetMode + ' Spreadsheet created for ' + companyShortName)
+    Logger.log(mainSheetMode + " Spreadsheet created for " + companyShortName)
     return fileID
 }

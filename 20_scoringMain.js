@@ -7,7 +7,7 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var Config = centralConfig // var Config = importLocalJSON("Config")
+    var Config = centralConfig
     var CompanyObj = thisCompany // TODO this a JSON Obj now; adapt in scope
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector

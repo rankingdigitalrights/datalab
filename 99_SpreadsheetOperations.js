@@ -7,11 +7,11 @@
 
 function mainTestConnectionByName() {
     var spreadsheetName = "verizon test"
-    connectToSpreadsheetByName(spreadsheetName);
+    connectToSpreadsheetByName(spreadsheetName)
 }
 
 function mainTestConnectionByID() {
-    connectToSpreadsheetByID(spreadsheetID);
+    connectToSpreadsheetByID(spreadsheetID)
 }
 
 function connectToSpreadsheetByName(spreadsheetName) {
@@ -47,7 +47,7 @@ function connectToSpreadsheetByName(spreadsheetName) {
         // Nope. Only do for first Spreadsheet element
         var thisSpreadsheet = Spreadsheets.next()
         Logger.log("File " + thisSpreadsheet.getName() + " exists")
-        Logger.log("locally connected to: " + thisSpreadsheet.getName());
+        Logger.log("locally connected to: " + thisSpreadsheet.getName())
 
         return SpreadsheetApp.open(thisSpreadsheet)
         // }
@@ -59,8 +59,8 @@ function connectToSpreadsheetByName(spreadsheetName) {
 
 function connectToSpreadsheetByID(ID) {
     var thisSpreadsheet = SpreadsheetApp.openById(ID)
-    Logger.log("locally connected to: " + thisSpreadsheet.getName());
-    return thisSpreadsheet;
+    Logger.log("locally connected to: " + thisSpreadsheet.getName())
+    return thisSpreadsheet
 
 }
 
@@ -68,7 +68,7 @@ function connectToSpreadsheetByID(ID) {
 // Help Function to overwrite Sheet in Spreadsheet if it is already existing
 
 function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
-    var Sheet;
+    var Sheet
     if (!Spreadsheet.getSheetByName(SheetName)) {
         Sheet = Spreadsheet.insertSheet(SheetName)
     } else {
@@ -84,7 +84,9 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
 
 function moveHideSheetifExists(Spreadsheet, Sheet, posInt) {
 
-    if (!posInt) { posInt = 1 }
+    if (!posInt) {
+        posInt = 1
+    }
 
     if (Sheet !== null) {
         moveSheetToPos(Spreadsheet, Sheet, posInt)
@@ -94,7 +96,9 @@ function moveHideSheetifExists(Spreadsheet, Sheet, posInt) {
 
 function moveSheetifExists(Spreadsheet, Sheet, posInt) {
 
-    if (!posInt) { posInt = 1 }
+    if (!posInt) {
+        posInt = 1
+    }
 
     if (Sheet !== null) {
         moveSheetToPos(Spreadsheet, Sheet, posInt)
@@ -112,7 +116,7 @@ function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheet) 
 
     var spreadsheet = connectToSpreadsheetByID(controlSpreadsheet)
     var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
-    var formula = '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
+    var formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
     sheet.appendRow([mode, companyShortName, fileID, formula])
     Logger.log("Entry added to Control")
 
@@ -123,9 +127,9 @@ function importRange(url, range, integrateOutputs) {
     var formula
 
     if (integrateOutputs) {
-        formula = '=' + range
+        formula = "=" + range
     } else {
-        formula = '=IMPORTRANGE("' + url + '","' + range + '")'
+        formula = "=IMPORTRANGE(\"" + url + "\",\"" + range + "\")"
         formula = formula.toString()
     }
     return formula

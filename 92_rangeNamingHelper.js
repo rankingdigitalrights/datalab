@@ -18,13 +18,13 @@
 
 function defineNamedRangeStringImport(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
 
-  var compCellName = index + sheetModeID + step + indicatorElement
-  compCellName = compCellName + companyId + service + component
-  if (suffix) {
-    compCellName = compCellName + suffix
-  }
-  compCellName = compCellName.toString()
-  return compCellName
+    var compCellName = index + sheetModeID + step + indicatorElement
+    compCellName = compCellName + companyId + service + component
+    if (suffix) {
+        compCellName = compCellName + suffix
+    }
+    compCellName = compCellName.toString()
+    return compCellName
 }
 
 
@@ -32,9 +32,9 @@ function defineNamedRangeStringImport(index, sheetModeID, step, indicatorElement
 // (as named ranges are not removed with sheet.clear())
 
 function clearAllNamedRangesFromSheet(sheet) {
-  var namedRanges = sheet.getNamedRanges()
-  for (var i = 0; i < namedRanges.length; i++) {
-    namedRanges[i].remove()
-  }
-  return sheet
+    var namedRanges = sheet.getNamedRanges()
+    for (var i = 0; i < namedRanges.length; i++) {
+        namedRanges[i].remove()
+    }
+    return sheet
 }

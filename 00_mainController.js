@@ -7,7 +7,7 @@ var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
 var filenameSuffix = "Dev" // Dev, "", Debug, QC
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
-var outputFolderName = "2019 Pilot Data Store"
+var outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
 
@@ -110,10 +110,10 @@ function mainDataStore() {
     var mainSheetMode = centralConfig.dataLayerParams.fileName
 
     var companies = companiesVector.companies
-        // .slice(1,2) // Apple
+    // .slice(1,2) // Apple
 
     companies.forEach(function (thisCompany) {
-        
+
         var fileID = createCompanyDataLayer(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
 
         Logger.log("received fileID: " + fileID)
@@ -134,8 +134,8 @@ function mainRepairCompaniesDataCollectionSheets() {
         // .slice(3,6) // Subset #2
         // .slice(6,9) // Subset #3
 
-        .slice(0,1) // Amazon
-        // .slice(1, 2) // Apple
+        .slice(0, 1) // Amazon
+    // .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
@@ -171,5 +171,3 @@ function mainClearAllNamedRanges() {
     })
 
 }
-
-

@@ -6,13 +6,8 @@ function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj,
     // - create a new Sheet
     // - name the Sheet
     // -
-    var thisIndCatLength
-    
-    if (useIndicatorSubset) {
-        thisIndCatLength = 2
-    } else {
-        thisIndCatLength = thisIndCat.indicators.length
-    }
+
+    var thisIndCatLength = useIndicatorSubset ? 2 : thisIndCat.indicators.length
 
     // iterates over each indicator in the current type
     // for each indicator = distinct Sheet do
@@ -22,21 +17,18 @@ function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj,
     for (var i = 0; i < thisIndCatLength; i++) {
 
         var thisInd = thisIndCat.indicators[i]
-        Logger.log('indicator :' + thisInd.labelShort)
+        Logger.log("indicator :" + thisInd.labelShort)
         var thisIndScoringScope = thisInd.scoringScope
-        Logger.log('Scoring Scope: ' + thisInd.labelShort + ' ' + thisIndScoringScope)
+        Logger.log("Scoring Scope: " + thisInd.labelShort + " " + thisIndScoringScope)
 
         var sheet = insertSheetIfNotExist(SS, thisInd.labelShort, false)
 
         if (sheet === null) {
-            continue // skips this i if sheet already exists
-        }
+            continue
+        } // skips this i if sheet already exists
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
-        var nrOfIndSubComps = 1
-        if (thisIndCat.hasSubComponents == true) {
-            nrOfIndSubComps = thisIndCat.components.length
-        }
+        var nrOfIndSubComps = (thisIndCat.hasSubComponents == true) ? thisIndCat.components.length : 1
 
         // checks how many company group/opcom columns to hide for this Indicator
         // (based on Scoring Scope)
@@ -121,7 +113,6 @@ function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj,
                     Logger.log("step.component : " + currentStep.labelShort + " : " + thisStepComponent)
 
                     // create the type of substep component that is specified in the json
-                    // TODO: refactor to switch()
 
                     switch (thisStepComponent) {
 
@@ -164,7 +155,7 @@ function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj,
 
                 lastRow = activeRow
 
-                var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps; // calculates the max column
+                var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps // calculates the max column
 
                 // we don't want the researchers' names as part of the range
                 // so move firstRow by 1
@@ -172,9 +163,9 @@ function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj,
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""
-                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisIndCat.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
+                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisIndCat.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
 
-                SS.setNamedRange(stepNamedRange, range); // names an entire step
+                SS.setNamedRange(stepNamedRange, range) // names an entire step
 
                 // GROUPING for substep
                 var substepRange = range.shiftRowGroupDepth(1)
@@ -213,25 +204,25 @@ function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj,
             .setVerticalAlignment("top")
 
         var condRuleNames = SpreadsheetApp.newConditionalFormatRule()
-            .whenTextEqualTo('Your Name')
-            .setFontColor('#ea4335')
+            .whenTextEqualTo("Your Name")
+            .setFontColor("#ea4335")
             .setBold(true)
             .setRanges([sheetRange])
             .build()
-        
+
         var condRuleValues = SpreadsheetApp.newConditionalFormatRule()
-            .whenTextEqualTo('not selected')
+            .whenTextEqualTo("not selected")
             // .setFontColor('#ea4335')
-            .setBackground('#f4cccc')
+            .setBackground("#f4cccc")
             .setRanges([sheetRange])
             .build()
-        
-        var rules = sheet.getConditionalFormatRules()        
+
+        var rules = sheet.getConditionalFormatRules()
         rules.push(condRuleNames)
         rules.push(condRuleValues)
         sheet.setConditionalFormatRules(rules)
-        
-            
+
+
         // collapse all groups
         if (doCollapseAll) {
             sheet.collapseAllRowGroups()

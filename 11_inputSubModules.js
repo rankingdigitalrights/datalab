@@ -8,13 +8,12 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
     var row = activeRow
     var col = activeCol
+    var cell
 
     var maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
     if (companyNumberOfServices == 1 && !hasOpCom) {
         maxColHeadings -= 1
     }
-
-    var maxRow = 1
 
     var indTitle = thisIndicator.labelShort + ". " + thisIndicator.labelLong
     if (thisIndicator.description.length > 1) {
@@ -22,7 +21,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
     }
 
     // Indicator Heading
-    var cell = sheet.getRange(row, col)
+    cell = sheet.getRange(row, col)
         .setValue(indTitle)
         .setFontWeight("bold")
         .setFontSize(14)
@@ -53,19 +52,15 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
             .setFontColor("#ea4335")
         // .setFontColor("chocolate")
 
-
         sheet.setRowHeight(row, 40)
         sheet.getRange(row, col, 1, numberOfColumns).merge()
         sheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
-
         row += 1
         tempStartRow = row // for grouping
     } else {
         tempStartRow = row // for grouping
         row += 1
     }
-
-    
 
     // Element Instructions
     cell = sheet.getRange(row, 1)
@@ -110,7 +105,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
     var rangeStep = sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns)
     rangeStep.shiftRowGroupDepth(1)
 
-    if(collapseRGuidance) {
+    if (collapseRGuidance) {
         rangeStep.collapseGroups()
     }
 
@@ -132,8 +127,8 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
 
     var activeCol = 1
 
-    var rowRange = (activeRow + ':' + activeRow).toString()
-    sheet.getRange(rowRange).setHorizontalAlignment('center') // aligns header row
+    var rowRange = (activeRow + ":" + activeRow).toString()
+    sheet.getRange(rowRange).setHorizontalAlignment("center") // aligns header row
 
     // -----------------------SETTING UP THE HEADER ROW------------------------
     // first cell: Main Step Label
@@ -141,7 +136,7 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
         .setValue("Step: " + thisMainStepNr)
         .setBackground(mainStepColor)
         .setFontFamily("Roboto Mono")
-        .setFontWeight('bold')
+        .setFontWeight("bold")
         .setFontSize(12)
         // .setHorizontalAlignment("left")
         .setVerticalAlignment("top")
@@ -152,7 +147,7 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
         var cell = sheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.groupLabel)
             .setBackground("#fff2cc")
-            .setFontWeight('bold')
+            .setFontWeight("bold")
             .setVerticalAlignment("top")
 
         // if it has components it adds the label in the next row
@@ -174,12 +169,12 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
         var cell = sheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.opComLabel)
             .setBackground("#fff2cc")
-            .setFontWeight('bold')
+            .setFontWeight("bold")
             .setVerticalAlignment("top")
 
         // hiding refactored to main process; set N/A if no OpCom
         if (CompanyObj.hasOpCom == false) {
-            cell.setValue('Operating Company (N/A)')
+            cell.setValue("Operating Company (N/A)")
         }
 
         // if the indicator has components it adds them in the next row
@@ -198,7 +193,7 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
             var cell = sheet.getRange(activeRow, activeCol)
                 .setValue(CompanyObj.services[i].label.current)
                 .setBackground("#b7e1cd")
-                .setFontWeight('bold')
+                .setFontWeight("bold")
                 .setVerticalAlignment("top")
 
 
@@ -214,8 +209,8 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
 
     // if the indicator does indeed have components, it freezes the additional row in which they are
     if (currentClass.hasSubComponents == true) {
-        rowRange = ((activeRow + 1) + ':' + (activeRow + 1)).toString()
-        sheet.getRange(rowRange).setHorizontalAlignment('center')
+        rowRange = ((activeRow + 1) + ":" + (activeRow + 1)).toString()
+        sheet.getRange(rowRange).setHorizontalAlignment("center")
         activeRow = activeRow + 1
     }
 
@@ -233,7 +228,7 @@ function addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) 
         // cell.setBackgroundRGB(currentStep.c1, currentStep.c2, currentStep.c3) // setting background color
         .setValue(currentStep.components[stepCNr].label)
         .setBackground(currentStep.subStepColor)
-        .setFontWeight('bold')
+        .setFontWeight("bold")
     return activeRow + 1
 }
 
@@ -248,7 +243,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
     var text = currentStep.label
     cell.setValue(text)
         .setBackground(currentStep.subStepColor)
-        .setFontWeight('bold')
+        .setFontWeight("bold")
     // cell = textUnderline(cell)
 
     // TODO
@@ -287,7 +282,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
+                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -305,7 +300,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -325,7 +320,7 @@ function addSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -377,13 +372,13 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, 'group', stepCompType)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "group", stepCompType)
 
 
                     SS.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
-                    thisCell.setValue('not selected') // sets default for drop down list
-                        .setFontWeight('bold') // bolds the answers
+                    thisCell.setValue("not selected") // sets default for drop down list
+                        .setFontWeight("bold") // bolds the answers
                     activeCol += 1
                 }
             }
@@ -402,15 +397,15 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                     SS.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
-                        .setFontWeight('bold') // bolds the answers
+                        .setFontWeight("bold") // bolds the answers
                     if (CompanyObj.hasOpCom == false) {
-                        thisCell.setValue('N/A') // if no OpCom, pre-select N/A
+                        thisCell.setValue("N/A") // if no OpCom, pre-select N/A
                     } else {
-                        thisCell.setValue('not selected') // sets default for drop down list
+                        thisCell.setValue("not selected") // sets default for drop down list
                     }
 
                     activeCol += 1
@@ -431,12 +426,12 @@ function addScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                     SS.setNamedRange(cellName, thisCell) // names cells
                     thisCell.setDataValidation(rule) // creates dropdown list
-                        .setValue('not selected') // sets default for drop down list
-                        .setFontWeight('bold') // bolds the answers
+                        .setValue("not selected") // sets default for drop down list
+                        .setFontWeight("bold") // bolds the answers
                     activeCol += 1
                 }
             }
@@ -485,7 +480,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'group', stepCompType)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", stepCompType)
 
                     SS.setNamedRange(cellName, thisCell)
                     activeCol += 1
@@ -508,7 +503,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                     SS.setNamedRange(cellName, thisCell)
                     activeCol += 1
@@ -531,7 +526,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                     SS.setNamedRange(cellName, thisCell)
                     activeCol += 1
@@ -561,7 +556,9 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
     var cell = sheet.getRange(activeRow, activeCol)
         .setValue(thisStepComponent.label)
         .setBackground(currentStep.subStepColor)
-    if (thisStepComponent.type === "binaryReview") { cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center") }
+    if (thisStepComponent.type === "binaryReview") {
+        cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")
+    }
     activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*nrOfIndSubComps)+1)
@@ -579,12 +576,12 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
+                var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
-                    .setValue('not selected') // sets default for drop down list
-                    .setFontWeight('bold') // bolds the answers
+                    .setValue("not selected") // sets default for drop down list
+                    .setFontWeight("bold") // bolds the answers
                 activeCol += 1
             }
         }
@@ -601,12 +598,12 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
-                    .setValue('not selected') // sets default for drop down list
-                    .setFontWeight('bold') // bolds the answers
+                    .setValue("not selected") // sets default for drop down list
+                    .setFontWeight("bold") // bolds the answers
                 activeCol += 1
             }
         }
@@ -624,12 +621,12 @@ function addBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 SS.setNamedRange(cellName, thisCell) // names cells
                 thisCell.setDataValidation(rule) // creates dropdown list
-                    .setValue('not selected') // sets default for drop down list
-                    .setFontWeight('bold') // bolds the answers
+                    .setValue("not selected") // sets default for drop down list
+                    .setFontWeight("bold") // bolds the answers
                 activeCol += 1
             }
         }
@@ -671,13 +668,13 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                         component = currentClass.components[k].labelShort
                     }
 
-                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group")
+                    var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group")
 
                     // sets up formula that compares values
                     var value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     var col = columnToLetter(value)
                     // TODO
-                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.y2yCompRow + elemNr) + ',"Yes","No")'
+                    var formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -702,14 +699,14 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                         component = currentClass.components[k].labelShort
                     }
 
-                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom")
+                    var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom")
 
                     // creating formula that compares the two cells
                     var value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k
                     // finds comparisson column
                     var col = columnToLetter(value)
                     // TODO
-                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.y2yCompRow + elemNr) + ',"Yes","No")'
+                    var formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -735,13 +732,13 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
                         component = currentClass.components[k].labelShort
                     }
 
-                    var compCellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
+                    var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
 
                     // creating formula that will be placed in cell
                     var value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     var col = columnToLetter(value)
                     // TODO
-                    var formula = '=IF(' + compCellName + '=' + "'" + importedOutcomeTabName + "'" + '!' + '$' + col + '$' + (currentIndicator.y2yCompRow + elemNr) + ',"Yes","No")'
+                    var formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -758,7 +755,7 @@ function addComparisonYonY(sheet, currentIndicator, CompanyObj, activeRow, curre
 
     var range = sheet.getRange(activeRow, 2, currentIndicator.elements.length, 2 + (companyNumberOfServices + 2) * nrOfIndSubComps)
 
-    var rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo('No').setBackground("#fa7661").setRanges([range]).build()
+    var rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo("No").setBackground("#fa7661").setRanges([range]).build()
     var rules = sheet.getConditionalFormatRules()
     rules.push(rule)
     sheet.setConditionalFormatRules(rules)
@@ -798,7 +795,7 @@ function addSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'group', stepCompType)
+                var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -816,7 +813,7 @@ function addSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, 'opCom', stepCompType)
+                var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -836,7 +833,7 @@ function addSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
                     component = currentClass.components[k].labelShort
                 }
 
-                var cellName = defineNamedRangeStringImport(indexPrefix, 'DC', currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
