@@ -6,3 +6,4 @@ GS_token.rds
 *.RData
 *.html
 .vscode/settings.json
+node_modules
