@@ -92,8 +92,8 @@ function addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, Indicato
     var rowFormulas = []
     var range
     var formula
-    var formulaPrefix = '=IFERROR(AVERAGE('
-    var formulaSuffix = '),"incomplete")'
+    var formulaPrefix = "=IFERROR(AVERAGE("
+    var formulaSuffix = "),\"incomplete\")"
     var startRow = currentRow + totalLength + elemsLeft
 
     for (var i = 0; i < blockWidth; i++) {
@@ -143,8 +143,8 @@ function addIndicatorScoresRow(currentRow, currentCol, Sheet, Company, Indicator
 
     // var formulaPrefix = 'IFERROR('
     // var formulaSuffix = ',"pending")'
-    var formulaPrefix = '=AVERAGE('
-    var formulaSuffix = ')'
+    var formulaPrefix = "=AVERAGE("
+    var formulaSuffix = ")"
     var formula
     var cellID
     var range

@@ -18,7 +18,7 @@ function getUsersActivityDC() {
     var overviewSheetName = "2019 DC"
 
     // check if Overview Sheet exists
-    var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName);
+    var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
     // if not - process 
     if (!overViewSheet) {
         overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
@@ -51,7 +51,7 @@ function getUsersActivityDC() {
             var thisCompany = SS.getName()
 
             // check if company is already in results
-            var testGet = resultsSpreadsheet.getSheetByName(thisCompany);
+            var testGet = resultsSpreadsheet.getSheetByName(thisCompany)
 
             // if not - process 
             if (!testGet) {
@@ -77,11 +77,11 @@ function getUsersActivityDC() {
 
                 do {
                     var result = AppsActivity.Activities.list({
-                        'drive.fileId': fileId,
-                        'source': 'drive.google.com',
-                        'pageToken': pageToken
+                        "drive.fileId": fileId,
+                        "source": "drive.google.com",
+                        "pageToken": pageToken
                     })
-                    var activities = result.activities;
+                    var activities = result.activities
 
                     // for each distinct activity
                     for (var i = 0; i < activities.length; i++) {
@@ -102,7 +102,7 @@ function getUsersActivityDC() {
                         }
 
                     }
-                    pageToken = result.nextPageToken;
+                    pageToken = result.nextPageToken
                 } while (pageToken)
 
             } else {
@@ -179,7 +179,7 @@ function getUsersActivitySC() {
 
             var fileId = SS.getId()
 
-            var pageToken;
+            var pageToken
 
             // for fileID := Spreadsheet.fileId() fetch all activities from Google Drive
             // for each page of results
@@ -187,12 +187,12 @@ function getUsersActivitySC() {
             var entry = 0 // for continious activity numbery across multiple results pages
             do {
                 var result = AppsActivity.Activities.list({
-                    'drive.fileId': fileId,
-                    'source': 'drive.google.com',
-                    'pageToken': pageToken
+                    "drive.fileId": fileId,
+                    "source": "drive.google.com",
+                    "pageToken": pageToken
                 })
 
-                var activities = result.activities;
+                var activities = result.activities
 
                 // for each distinct activity
                 for (var i = 0; i < activities.length; i++) {
@@ -200,18 +200,18 @@ function getUsersActivitySC() {
                     entry += 1
 
                     // pull out activity
-                    var events = activities[i].singleEvents;
+                    var events = activities[i].singleEvents
 
                     // for all atomic events of this activity
                     for (var j = 0; j < events.length; j++) {
                         // pull out atomic event
-                        var event = events[j];
+                        var event = events[j]
                         // add event data to resultsSheet
                         // vars: activityNr, eventNr, time (POSIX), File, primary Action, secondary Action, user
                         resultsSheet.appendRow([entry, i + 1, j + 1, event.eventTimeMillis, event.target.name, event.primaryEventType, event.additionalEventTypes.toString(), event.user])
                     }
                 }
-                pageToken = result.nextPageToken;
+                pageToken = result.nextPageToken
             } while (pageToken)
 
         } else {

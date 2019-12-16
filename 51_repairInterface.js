@@ -25,9 +25,9 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
         var thisInd = thisIndCat.indicators[i]
         var thisIndLabel = thisInd.labelShort
-        Logger.log('indicator :' + thisIndLabel)
+        Logger.log("indicator :" + thisIndLabel)
         var thisIndScoringScope = thisInd.scoringScope
-        Logger.log('Scoring Scope: ' + thisIndLabel + ' ' + thisIndScoringScope)
+        Logger.log("Scoring Scope: " + thisIndLabel + " " + thisIndScoringScope)
 
         var sheet = getSheetByName(Spreadsheet, thisIndLabel)
 
@@ -119,29 +119,29 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
                     switch (thisStepComponent) {
 
-                        case "header":
-                            activeRow = fixSubStepHeader(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
+                    case "header":
+                        activeRow = fixSubStepHeader(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                        break
 
-                        case "elementResults":
-                            activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
+                    case "elementResults":
+                        activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                        break
 
-                        case "binaryReview":
-                            activeRow = fixBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
+                    case "binaryReview":
+                        activeRow = fixBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                        break
 
-                        case "elementComments":
-                            activeRow = fixComments(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
+                    case "elementComments":
+                        activeRow = fixComments(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                        break
 
-                        case "sources":
-                            activeRow = fixSources(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
+                    case "sources":
+                        activeRow = fixSources(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                        break
 
-                        case "extraQuestion":
-                            activeRow = fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
-                            break
+                    case "extraQuestion":
+                        activeRow = fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
+                        break
 
                     }
                 } // END substep component procedure

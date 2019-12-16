@@ -3,7 +3,7 @@ function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {
     if (sheet !== null) { sheet.clear() }
     fillSourceSheet(sheet)
     var targetCell = sheet.getRange(2,1)
-    var formula = '=IMPORTRANGE("' + CompanyObj.urlCurrentDataCollectionSheet + '","' + 'Sources' + '!' + 'A2:Z' + '")'
+    var formula = "=IMPORTRANGE(\"" + CompanyObj.urlCurrentDataCollectionSheet + "\",\"" + "Sources" + "!" + "A2:Z" + "\")"
     targetCell.setFormula(formula)
 }
 
@@ -47,10 +47,10 @@ function setFeedbackCompanyHeader(activeRow, offsetCol, sheet, companyObj, nrOfI
 
     for (g = 0; g < nrOfIndSubComps; g++) {
         currentCell = sheet.getRange(activeRow, offsetCol)
-        columnLabel = companyObj.label.current + ' (group)'
+        columnLabel = companyObj.label.current + " (group)"
 
         if (nrOfIndSubComps > 1) {
-            columnLabel = columnLabel + '\n' + thisIndClass.components[g].labelLong
+            columnLabel = columnLabel + "\n" + thisIndClass.components[g].labelLong
         }
         currentCell.setValue(columnLabel)
         // currentCell = styleScoringIndicatorHeader(currentCell, columnLabel, thisColor)
@@ -62,13 +62,13 @@ function setFeedbackCompanyHeader(activeRow, offsetCol, sheet, companyObj, nrOfI
     if (companyObj.hasOpCom === true) {
         for (g = 0; g < nrOfIndSubComps; g++) {
             currentCell = sheet.getRange(activeRow, offsetCol)
-            columnLabel = 'OperatingCo\n'
+            columnLabel = "OperatingCo\n"
 
             columnLabel = columnLabel + companyObj.opComLabel
 
 
             if (nrOfIndSubComps > 1) {
-                columnLabel = columnLabel + '\n' + thisIndClass.components[g].labelLong
+                columnLabel = columnLabel + "\n" + thisIndClass.components[g].labelLong
             }
             currentCell.setValue(columnLabel)
             // currentCell = styleScoringIndicatorHeader(currentCell, columnLabel, thisColor)
@@ -84,7 +84,7 @@ function setFeedbackCompanyHeader(activeRow, offsetCol, sheet, companyObj, nrOfI
             columnLabel = companyObj.services[k].label.current
 
             if (nrOfIndSubComps > 1) {
-                columnLabel = columnLabel + '\n' + thisIndClass.components[g].labelLong
+                columnLabel = columnLabel + "\n" + thisIndClass.components[g].labelLong
             }
 
             currentCell.setValue(columnLabel)
@@ -151,7 +151,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
 
         elemLogical = e + 1
         currentCell = sheet.getRange(activeRow, tempCol)
-        rowLabel = 'E' + elemLogical
+        rowLabel = "E" + elemLogical
         currentCell.setValue(rowLabel)
             .setWrap(true)
             .setHorizontalAlignment("right")
@@ -177,7 +177,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
             }
 
             // setting up formula that compares values
-            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, 'group', stepCompID)
+            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, "group", stepCompID)
 
             // adding formula
             formula = importRange(urlDC, compCellName, integrateOutputs)
@@ -195,7 +195,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
                 }
 
                 // setting up formula that compares values
-                compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, 'opCom', stepCompID)
+                compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
                 formula = importRange(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
@@ -295,7 +295,7 @@ function importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepCom
         }
 
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, 'group', stepCompID)
+        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, "group", stepCompID)
 
         // adding formula
         formula = importRange(urlDC, compCellName, integrateOutputs)
@@ -313,7 +313,7 @@ function importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepCom
             }
 
             // setting up formula that compares values
-            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, 'opCom', stepCompID)
+            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
             formula = importRange(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)

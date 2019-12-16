@@ -20,7 +20,7 @@ function scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMod
     var activeRow = 1
     var lastRow
 
-    Logger.log("--- Main Step has " + thisMainStep.substeps.length + ' Substeps')
+    Logger.log("--- Main Step has " + thisMainStep.substeps.length + " Substeps")
     Logger.log("--- Beginning Substep " + thisSubStepID)
 
     // set up header / TODO: remove from steps JSON. Not a component. This is Layout
@@ -53,7 +53,7 @@ function scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMod
 
             var thisInd = thisIndCat.indicators[i]
 
-            Logger.log('begin Indicator: ' + thisInd.labelShort)
+            Logger.log("begin Indicator: " + thisInd.labelShort)
 
             // variable used for indicator average later
 
@@ -62,7 +62,7 @@ function scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMod
             var indyCompositeScores = []
 
             activeRow = setScoringCompanyHeader(activeRow, firstCol, sheet, thisInd, nrOfIndSubComps, thisIndCat, CompanyObj, blocks)
-            Logger.log(' - company header added for ' + thisInd.labelShort)
+            Logger.log(" - company header added for " + thisInd.labelShort)
 
             // --- // Main task // --- //
 
@@ -74,38 +74,38 @@ function scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMod
 
                 StepComp = thisSubStep.components[stepCompNr]
                 stepCompType = StepComp.type
-                Logger.log(" - begin stepCompNr: " + stepCompNr + ' - ' + stepCompType)
+                Logger.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
 
                 switch (stepCompType) {
 
-                    // import researcher name from x.0 step
-                    case "header":
-                        if (includeNames) {
+                // import researcher name from x.0 step
+                case "header":
+                    if (includeNames) {
 
-                            activeRow = importElementRow(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs, isPilotMode)
-                            Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                        }
-                        break
+                        activeRow = importElementRow(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs, isPilotMode)
+                        Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
+                    }
+                    break
 
-                    case "elementResults":
-                        if (includeResults) {
-                            activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
-                            Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                        }
-                        break
-
-                    case "elementComments":
+                case "elementResults":
+                    if (includeResults) {
                         activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
-                        Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                        break
+                        Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
+                    }
+                    break
 
-                    case "sources":
-                        if (includeSources) {
-                            activeRow = importElementRow(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
-                            Logger.log(' - SC - ' + "sources added for: " + thisInd.labelShort)
-                        }
+                case "elementComments":
+                    activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
+                    Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
+                    break
 
-                        break
+                case "sources":
+                    if (includeSources) {
+                        activeRow = importElementRow(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
+                        Logger.log(" - SC - " + "sources added for: " + thisInd.labelShort)
+                    }
+
+                    break
                 }
             }
 
@@ -115,16 +115,16 @@ function scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMod
 
             if (hasFullScores) {
                 activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, hasFullScores)
-                Logger.log(' - ' + 'element scores added for ' + thisInd.labelShort)
+                Logger.log(" - " + "element scores added for " + thisInd.labelShort)
 
                 activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, stepCompNr, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, indyLevelScoresCompany, indyLevelScoresServices, blocks)
-                Logger.log(' - ' + "level scores added for " + thisInd.labelShort)
+                Logger.log(" - " + "level scores added for " + thisInd.labelShort)
 
                 activeRow = addCompositeScores(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, thisInd, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
-                Logger.log(' - ' + "composite scores added for " + thisInd.labelShort)
+                Logger.log(" - " + "composite scores added for " + thisInd.labelShort)
 
                 activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
-                Logger.log(' - ' + "indicator score added for " + thisInd.labelShort)
+                Logger.log(" - " + "indicator score added for " + thisInd.labelShort)
 
                 activeRow = activeRow + 1
             } // END SUBSTEP COMPONENTS

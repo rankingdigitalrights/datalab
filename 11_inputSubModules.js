@@ -519,7 +519,7 @@ function addComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
-                    var g = serviceNr - 3; // helper for Services
+                    var g = serviceNr - 3 // helper for Services
 
                     var component = ""
                     if (nrOfIndSubComps != 1) {

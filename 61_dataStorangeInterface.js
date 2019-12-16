@@ -37,7 +37,7 @@ function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, Resea
             thisSubStep = thisMainStep.substeps[subStepNr]
             sheetLabel = thisSubStep.subStepID
             Logger.log("--- Main Step : " + thisMainStep.step)
-            Logger.log("--- Main Step has " + thisMainStep.substeps.length + ' Substeps')
+            Logger.log("--- Main Step has " + thisMainStep.substeps.length + " Substeps")
 
             var Sheet = insertSheetIfNotExist(SS, sheetLabel, false) // ToDo turn off later
             if (Sheet !== null) {Sheet.clear()} else {continue}

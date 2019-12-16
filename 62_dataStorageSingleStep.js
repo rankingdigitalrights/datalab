@@ -15,7 +15,7 @@ function dataLayoutSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Comp
     Logger.log("--- Beginning Substep " + thisSubStepID)
 
     activeRow = addDataStoreSheetHeader(Sheet, Company, activeRow)
-    Logger.log(' - company header added for ' + thisSubStepID)
+    Logger.log(" - company header added for " + thisSubStepID)
 
     // For all Indicator Categories
     for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
@@ -43,7 +43,7 @@ function dataLayoutSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Comp
 
             var thisInd = thisIndCat.indicators[i]
 
-            Logger.log('begin Indicator: ' + thisInd.labelShort)
+            Logger.log("begin Indicator: " + thisInd.labelShort)
 
             var StepComp
             var stepCompType
@@ -53,30 +53,30 @@ function dataLayoutSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Comp
 
                 StepComp = thisSubStep.components[stepCompNr]
                 stepCompType = StepComp.type
-                Logger.log(" - begin stepCompNr: " + stepCompNr + ' - ' + stepCompType)
+                Logger.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
 
                 switch (stepCompType) {
 
-                    // import researcher name from x.0 step
-                    case "header":
-                        activeRow = importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        // Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
-                        break
+                // import researcher name from x.0 step
+                case "header":
+                    activeRow = importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                    // Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
+                    break
 
-                    case "elementResults":
-                        activeRow = importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
-                        break
+                case "elementResults":
+                    activeRow = importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                    Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
+                    break
 
-                    case "elementComments":
-                        activeRow = importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
-                        break
+                case "elementComments":
+                    activeRow = importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                    Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
+                    break
 
-                    case "sources":
-                        activeRow = importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + ' - SC - ' + "sources added")
-                        break
+                case "sources":
+                    activeRow = importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                    Logger.log(thisInd.labelShort + " - SC - " + "sources added")
+                    break
                 }
             }
         } // END INDICATOR

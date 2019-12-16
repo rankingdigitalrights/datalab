@@ -16,7 +16,7 @@ function importLocalJSON(fileName, subset) {
 
     if (files.hasNext()) {
         var File = files.next()
-        var content = File.getAs('application/json')
+        var content = File.getAs("application/json")
         var jsonObj = JSON.parse(content.getDataAsString())
         Logger.log(finalFilename + ".json imported")
         return jsonObj

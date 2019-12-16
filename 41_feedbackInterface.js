@@ -49,7 +49,7 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
 
         thisInd = thisIndClass.indicators[i]
 
-        Logger.log('begin Indicator: ' + thisInd.labelShort)
+        Logger.log("begin Indicator: " + thisInd.labelShort)
 
         activeRow = addIndicatorLabelRow(activeRow, firstCol, sheet, CompanyObj, nrOfIndSubComps, thisInd, numberOfColumns)
 
@@ -63,32 +63,32 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
 
             StepComp = thisSubStep.components[stepCompNr]
             stepCompType = StepComp.type
-            Logger.log(" - begin stepCompNr: " + stepCompNr + ' - ' + stepCompType)
+            Logger.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
 
             switch (stepCompType) {
 
-                // import researcher name from x.0 step
-                case "header":
-                    break
+            // import researcher name from x.0 step
+            case "header":
+                break
 
-                case "elementResults":
-                    // if (includeResults) {
-                    //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                    // }
-                    break
+            case "elementResults":
+                // if (includeResults) {
+                //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
+                // }
+                break
 
-                case "elementComments":
-                    activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                    break
+            case "elementComments":
+                activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
+                break
 
-                case "sources":
+            case "sources":
 
-                    activeRow = importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    Logger.log(' - SC - ' + "sources added for: " + thisInd.labelShort)
+                activeRow = importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                Logger.log(" - SC - " + "sources added for: " + thisInd.labelShort)
 
-                    break
+                break
             }
         }
 

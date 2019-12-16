@@ -1,7 +1,7 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
 function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
-    Logger.log('--- // --- begin main data collection --- // ---')
+    Logger.log("--- // --- begin main data collection --- // ---")
 
     var companyShortName = cleanCompanyName(CompanyObj)
 

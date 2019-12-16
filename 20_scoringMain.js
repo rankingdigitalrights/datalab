@@ -16,8 +16,8 @@ function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, fi
 
     var companyFilename = cleanCompanyName(CompanyObj)
 
-    Logger.log('begin main Scoring for ' + companyFilename)
-    Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
+    Logger.log("begin main Scoring for " + companyFilename)
+    Logger.log("creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
 
     var hasOpCom = CompanyObj.hasOpCom
     Logger.log(companyFilename + " opCom? - " + hasOpCom)

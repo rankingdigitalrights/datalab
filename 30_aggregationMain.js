@@ -39,7 +39,7 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
         outputParams.sheetName = companyFilename
 
-        Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
+        Logger.log("creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
 
         var hasOpCom = CompanyObj.hasOpCom
         Logger.log(companyFilename + " opCom? - " + hasOpCom)

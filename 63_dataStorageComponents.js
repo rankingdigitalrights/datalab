@@ -6,14 +6,14 @@ function addDataStoreSheetHeader(Sheet, Company, activeRow) {
     var columnLabels = ["Element", "Type"]
 
     // --- // Company Elements // --- //
-    columnLabels.push('Group')
+    columnLabels.push("Group")
 
     // opcom
 
-    columnLabel = 'OpCom'
+    columnLabel = "OpCom"
 
     if (Company.hasOpCom == true) {
-        columnLabel = columnLabel + ' - ' + Company.opComLabel
+        columnLabel = columnLabel + " - " + Company.opComLabel
     } else {
         columnLabel = columnLabel + " (NA)"
     }
@@ -44,7 +44,7 @@ function importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, 
 
     var currentRow = activeRow
 
-    Logger.log(' - ' + 'in ' + StepComp.type + ' ' + Indicator.labelShort)
+    Logger.log(" - " + "in " + StepComp.type + " " + Indicator.labelShort)
 
     var rowLabel
     var component = ""
@@ -68,7 +68,7 @@ function importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, 
         // for Group + Indicator Subcomponents
 
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, 'group', stepCompID)
+        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "group", stepCompID)
 
         // adding formula
         formula = importRange(urlDC, compCellName, integrateOutputs)
@@ -78,11 +78,11 @@ function importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, 
         // OpCom
         if (companyHasOpCom) {
             // setting up formula that compares values
-            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, 'opCom', stepCompID)
+            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "opCom", stepCompID)
 
             formula = importRange(urlDC, compCellName, integrateOutputs)
         } else {
-            formula = 'NA'
+            formula = "NA"
         }
         rowCells.push(formula)
 
@@ -120,7 +120,7 @@ function importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, Indicator
     }
 
     Logger.log("- Element Data Type: " + stepCompID)
-    Logger.log(' - ' + 'in ' + StepComp.type + ' ' + Indicator.labelShort)
+    Logger.log(" - " + "in " + StepComp.type + " " + Indicator.labelShort)
 
     var currentSubStepID = thisSubStepID
     // TODO - PILOT: adjusting substep number for Researcher Name import
@@ -128,7 +128,7 @@ function importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, Indicator
         currentSubStepID = StepComp.importNameFrom
     }
 
-    Logger.log(' - ' + 'in ' + stepCompID + ' ' + Indicator.labelShort)
+    Logger.log(" - " + "in " + stepCompID + " " + Indicator.labelShort)
 
     var rowLabel
     var rowCells = []
@@ -149,7 +149,7 @@ function importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, Indicator
 
 
     // setting up formula that compares values
-    compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, 'group', stepCompID)
+    compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
 
     // adding formula
     formula = importRange(urlDC, compCellName, integrateOutputs)
@@ -159,11 +159,11 @@ function importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, Indicator
     // for opCom + Indicator Subcomponents
     if (companyHasOpCom) {
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, 'opCom', stepCompID)
+        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
 
         formula = importRange(urlDC, compCellName, integrateOutputs)
     } else {
-        formula = 'NA'
+        formula = "NA"
     }
     rowCells.push(formula)
 

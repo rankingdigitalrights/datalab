@@ -16,7 +16,7 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
 
     var companyFilename = cleanCompanyName(CompanyObj)
 
-    Logger.log("creating " + mainSheetMode + ' Spreadsheet for ' + companyFilename)
+    Logger.log("creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
 
     var hasOpCom = CompanyObj.hasOpCom
 

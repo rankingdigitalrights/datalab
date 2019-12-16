@@ -2,7 +2,7 @@
 
 function fillSourceSheet(thisSheet) {
 
-    var webArchiveLink = '=HYPERLINK("https://archive.org/web/", "Internet Archive")'
+    var webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
     thisSheet.appendRow(["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
 
     var lastCol = thisSheet.getLastColumn()
@@ -55,8 +55,8 @@ function insertSheetConnector(SS, Companies) {
     var companyName
     var companyUrl
     var formula
-    var formulaPrefix = '=IMPORTRANGE("'
-    var formulaSuffix = '", "G1!B5")'
+    var formulaPrefix = "=IMPORTRANGE(\""
+    var formulaSuffix = "\", \"G1!B5\")"
 
     Companies.forEach(function (company) {
         companyName = company.label.current

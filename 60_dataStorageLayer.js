@@ -15,7 +15,7 @@ function createCompanyDataLayer(useIndicatorSubset, thisCompany, filenamePrefix,
 
     var companyFilename = cleanCompanyName(CompanyObj)
 
-    Logger.log('begin main Data Layer Process for ' + companyFilename)
+    Logger.log("begin main Data Layer Process for " + companyFilename)
 
     var hasOpCom = CompanyObj.hasOpCom
 
