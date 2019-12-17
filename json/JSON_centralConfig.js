@@ -10,7 +10,6 @@ var centralConfig = {
     "serviceColWidth": 280,
     "defaultDataColWidth": 100,
     // "firstScoringStep": 3 // regular index
-    "firstScoringStep": 3, // Pilot
     "scoringSteps": [3, 6],
     "aggregationParams": {
         // TBD

@@ -1,14 +1,10 @@
-function determineFirstStep(ConfigObj, outputParams) {
+function determineFirstStep(outputParams) {
     var firstScoringStep
 
     if (outputParams.firstStepNr) {
         firstScoringStep = outputParams.firstStepNr - 1
     } else {
-        if (ConfigObj.firstScoringStep) {
-            firstScoringStep = ConfigObj.firstScoringStep - 1
-        } else {
-            firstScoringStep = 0
-        }
+        firstScoringStep = 0
     }
 
     return firstScoringStep
@@ -16,13 +12,7 @@ function determineFirstStep(ConfigObj, outputParams) {
 
 function determineMaxStep(outputParams, ResearchStepsObj) {
 
-    var maxScoringStep
-
-    if (outputParams.lastStepNr) {
-        maxScoringStep = outputParams.lastStepNr
-    } else {
-        maxScoringStep = ResearchStepsObj.researchSteps.length
-    }
+    var maxScoringStep = outputParams.lastStepNr ? outputParams.lastStepNr : ResearchStepsObj.researchSteps.length
 
     return maxScoringStep
 }

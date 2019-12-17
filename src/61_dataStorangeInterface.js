@@ -15,7 +15,7 @@ function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, Resea
 
     var numberOfColumns = (Company.numberOfServices + 2) * globalNrOfComponents + 1
 
-    var firstScoringStep = determineFirstStep(Config, outputParams)
+    var firstScoringStep = determineFirstStep(outputParams)
     var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
 
     // --- // MAIN Procedure // --- //
@@ -40,7 +40,11 @@ function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, Resea
             Logger.log("--- Main Step has " + thisMainStep.substeps.length + " Substeps")
 
             var Sheet = insertSheetIfNotExist(SS, sheetLabel, false) // ToDo turn off later
-            if (Sheet !== null) {Sheet.clear()} else {continue}
+            if (Sheet !== null) {
+                Sheet.clear()
+            } else {
+                continue
+            }
 
             // setting up all the substeps for all the indicators
 
