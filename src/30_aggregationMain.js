@@ -57,11 +57,11 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
 
-    // Prototype: Element Level //
+    // // Prototype: Element Level //
 
-    summarySheet = insertSheetIfNotExist(SS, "Summary: Elements", true)
-    summarySheet.clear()
-    summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
+    // summarySheet = insertSheetIfNotExist(SS, "Summary: Elements", true)
+    // summarySheet.clear()
+    // summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
 
     // --- // Side: testing Element Level // --- //
 

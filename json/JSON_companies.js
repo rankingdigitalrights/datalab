@@ -5,8 +5,7 @@ var companiesVector = {
     "collection": "companies",
     "indexYear": 2019,
     "indexType": "RDR Pilot",
-    "companies": [
-        {
+    "companies": [{
             "id": "iAZ1",
             "label": {
                 "current": "Amazon",
@@ -39,7 +38,8 @@ var companiesVector = {
                         "current": "Amazon PDA",
                         "legacy": [null]
                     }
-                }]
+                }
+            ]
         },
         {
             "id": "iAP1",
@@ -60,13 +60,13 @@ var companiesVector = {
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [{
-                    "id": "meAP1",
-                    "type": "mobileEcosystem",
-                    "label": {
-                        "current": "iOS (mobile ecosystem)",
-                        "legacy": ["iOS mobile ecosystem"]
-                    }
-                }]
+                "id": "meAP1",
+                "type": "mobileEcosystem",
+                "label": {
+                    "current": "iOS (mobile ecosystem)",
+                    "legacy": ["iOS mobile ecosystem"]
+                }
+            }]
         },
         {
             "id": "tDT1",
@@ -86,17 +86,15 @@ var companiesVector = {
             "urlCurrentDataCollectionSheet": "1oyYmRm2yTuZC9m1x5duA4H-bK4DpQTB_IXug9U-D-7U",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
-            "services": [
-                {
-                    "id": "mbDT2",
-                    "type": "mobile",
-                    "subtype": "postpaid",
-                    "label": {
-                        "current": "DT (post paid mobile)",
-                        "legacy": ["Postpaid mobile"]
-                    }
+            "services": [{
+                "id": "mbDT2",
+                "type": "mobile",
+                "subtype": "postpaid",
+                "label": {
+                    "current": "DT (post paid mobile)",
+                    "legacy": ["Postpaid mobile"]
                 }
-            ]
+            }]
         },
         {
             "id": "iFB1",
@@ -117,14 +115,13 @@ var companiesVector = {
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [{
-                    "id": "snFB1",
-                    "type": "socialNetworkBlogs",
-                    "label": {
-                        "current": "Facebook (SNS)",
-                        "legacy": ["Facebook"]
-                    }
+                "id": "snFB1",
+                "type": "socialNetworkBlogs",
+                "label": {
+                    "current": "Facebook (SNS)",
+                    "legacy": ["Facebook"]
                 }
-            ]
+            }]
         },
         {
             "id": "tGO1",
@@ -224,17 +221,15 @@ var companiesVector = {
             "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
-            "services": [
-                {
-                    "id": "mbTF2",
-                    "type": "mobile",
-                    "subtype": "postpaid",
-                    "label": {
-                        "current": "Telefónica (post paid mobile)",
-                        "legacy": ["Postpaid mobile"]
-                    }
+            "services": [{
+                "id": "mbTF2",
+                "type": "mobile",
+                "subtype": "postpaid",
+                "label": {
+                    "current": "Telefónica (post paid mobile)",
+                    "legacy": ["Postpaid mobile"]
                 }
-            ]
+            }]
         },
         {
             "id": "iTW1",
@@ -255,14 +250,13 @@ var companiesVector = {
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
             "services": [{
-                    "id": "snTW1",
-                    "type": "socialNetworkBlogs",
-                    "label": {
-                        "current": "Twitter (SNS)",
-                        "legacy": ["Twitter"]
-                    }
+                "id": "snTW1",
+                "type": "socialNetworkBlogs",
+                "label": {
+                    "current": "Twitter (SNS)",
+                    "legacy": ["Twitter"]
                 }
-            ]
+            }]
         },
         {
             "id": "tVF1",
@@ -282,17 +276,15 @@ var companiesVector = {
             "urlCurrentDataCollectionSheet": "1ro9p1zAENpexqOhgRon8zMMceb2p5nTat4MKzEGrd5o",
             "urlCurrentCompanyScoringSheet": null,
             "numberOfServices": 1,
-            "services": [
-                {
-                    "id": "mbVF2",
-                    "type": "mobile",
-                    "subtype": "postpaid",
-                    "label": {
-                        "current": "Vodafone (post paid mobile)",
-                        "legacy": ["Postpaid mobile"]
-                    }
+            "services": [{
+                "id": "mbVF2",
+                "type": "mobile",
+                "subtype": "postpaid",
+                "label": {
+                    "current": "Vodafone (post paid mobile)",
+                    "legacy": ["Postpaid mobile"]
                 }
-            ]
+            }]
         }
 
     ]

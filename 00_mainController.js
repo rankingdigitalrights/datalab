@@ -5,16 +5,11 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "Dev" // Dev, "", Debug, QC
+var filenameSuffix = "" // Dev, "", Debug, QC
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
 var outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
 
 var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
-
-// --- // Subset params // --- //
-
-var useStepsSubset = false // true := use subset
-var useIndicatorSubset = false // true := use subset
 
 // --- // MAIN CALLER // --- //
 
@@ -23,6 +18,9 @@ var useIndicatorSubset = false // true := use subset
 function mainAllCompaniesDataCollectionSheets() {
 
     var mainSheetMode = "Input" // for filename
+
+    var useStepsSubset = false // true := use subset
+    var useIndicatorSubset = false // true := use subset
 
     var companies = companiesVector.companies
         // .slice(0,0) // on purpose to prevent script from running.
@@ -41,7 +39,7 @@ function mainAllCompaniesDataCollectionSheets() {
     // .slice(8,9) // Vodafone
 
     companies.forEach(function (thisCompany) {
-        var fileID = createSpreadsheetDC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+        var fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
     })
@@ -54,13 +52,16 @@ function mainAllCompaniesScoringSheets() {
 
     var mainSheetMode = "Output"
 
+    var useStepsSubset = false // true := use subset
+    var useIndicatorSubset = true // true := use subset
+
     var companies = companiesVector.companies
         // .slice(0,1) // Amazon
         .slice(1, 2) // Apple
     // .slice(3,4) //
 
     companies.forEach(function (thisCompany) {
-        var fileID = createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+        var fileID = createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
     })
@@ -71,6 +72,8 @@ function mainAllCompaniesScoringSheets() {
 function mainAllFeedbackSheets() {
 
     var mainSheetMode = "Feedback"
+
+    var useIndicatorSubset = false // true := use subset
 
     var companies = companiesVector.companies
     // .slice(1,2) // Apple
@@ -88,7 +91,11 @@ function mainSummaryScoresProto() {
 
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = "Summary Scores"
+    var mainSheetMode = "Summary Scores Testing"
+
+    var useStepsSubset = true // true := use subset
+    var useIndicatorSubset = true // true := use subset
+
     var scoringStepNr = 3
 
     var Companies = companiesVector.companies
@@ -109,12 +116,15 @@ function mainDataStore() {
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataLayerParams.fileName
 
+    var useStepsSubset = true // true := use subset
+    var useIndicatorSubset = true // true := use subset
+
     var companies = companiesVector.companies
     // .slice(1,2) // Apple
 
     companies.forEach(function (thisCompany) {
 
-        var fileID = createCompanyDataLayer(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+        var fileID = createCompanyDataLayer(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
@@ -128,13 +138,15 @@ function mainRepairCompaniesDataCollectionSheets() {
 
     var mainSheetMode = "Input" // for filename
 
-    var companies = companiesVector.companies
-        // .slice(0,0) // on purpose to prevent script from running.
-        // .slice(0,3) // Subset #1
-        // .slice(3,6) // Subset #2
-        // .slice(6,9) // Subset #3
+    var useStepsSubset = true // true := use subset
 
-        .slice(0, 1) // Amazon
+    var companies = companiesVector.companies
+    // .slice(0,0) // on purpose to prevent script from running.
+    // .slice(0,3) // Subset #1
+    // .slice(3,6) // Subset #2
+    // .slice(6,9) // Subset #3
+
+    // .slice(0, 1) // Amazon
     // .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
@@ -145,7 +157,7 @@ function mainRepairCompaniesDataCollectionSheets() {
     // .slice(8,9) // Vodafone
 
     companies.forEach(function (thisCompany) {
-        repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+        repairInputSpreadsheets(useStepsSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
 }

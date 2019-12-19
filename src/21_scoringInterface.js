@@ -34,6 +34,13 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
 
+    Logger.log("Inserting Sheet " + sheetName)
+    var Sheet = insertSheetIfNotExist(SS, sheetName, false)
+    if (Sheet == null) {
+        Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
+        return lastCol
+    }
+
     for (var mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
         var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
@@ -42,7 +49,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
 
         // setting up all the substeps for all the indicators
 
-        lastCol = scoringSingleStep(SS, sheetName, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
+        lastCol = scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
 
         blocks++
 

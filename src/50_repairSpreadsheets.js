@@ -1,6 +1,6 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
-function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
+function repairInputSpreadsheets(useStepsSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log("--- // --- begin main data collection --- // ---")
 
     var companyShortName = cleanCompanyName(CompanyObj)
@@ -39,7 +39,7 @@ function repairSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
 
         var currentClass = IndicatorsObj.indicatorClasses[i]
 
-        repairDCSheetByCategory(SS, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, ListSheetBroken, ListSheetFixed)
+        repairDCSheetByCategory(SS, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, ListSheetBroken, ListSheetFixed)
     }
 
 }

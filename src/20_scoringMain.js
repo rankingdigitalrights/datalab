@@ -3,7 +3,7 @@
 
 // --------------- This is the Main Scoring Process Caller ---------------- //
 
-function createSpreadsheetSC(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 

@@ -2,8 +2,7 @@ var researchStepsVector = {
     "researchSteps": [{
             "step": 1,
             "stepColor": "#ddd9c3",
-            "substeps": [
-                {
+            "substeps": [{
                     "label": "Step 1: Data Collection",
                     "labelShort": "Step 1",
                     "subStepID": "S01",
@@ -287,131 +286,133 @@ var researchStepsVector = {
             "step": 5,
             "stepColor": "#fff2cc",
             "substeps": [{
-                "label": "Step 5: Score consolidation and horizontal review",
-                "labelShort": "Step 5",
-                "subStepID": "S05",
-                "subStepColor": "#fff2cc",
-                "doCollapse": true,
-                "components": [{
-                        "type": "header",
-                        "id": "MI",
-                        "label": "Researcher",
-                        "placeholderText": "Your Name"
-                    },
-                    {
-                        "type": "elementResults",
-                        "id": "",
-                        "label": "Consolidated answer for ",
-                        "dropdown": [
-                            "not selected",
-                            "yes",
-                            "partial",
-                            "no",
-                            "no disclosure found",
-                            "N/A"
-                        ]
-                    },
-                    {
-                        "type": "elementComments",
-                        "id": "MC",
-                        "label": "Comments for ",
-                        "label2": " (explain score)",
-                        "clipWrap": true
-                    },
-                    {
-                        "type": "sources",
-                        "id": "MS",
-                        "label": "Sources (reference, specific page, section, etc.)"
-                    }
-                ]
-            },
-            {
-                "label": "Step 5a: Notes/comments from researchers",
-                "labelShort": "Step 5a",
-                "subStepID": "S05a",
-                "subStepColor": "#fff2cc",
-                "doCollapse": true,
-                "components": [{
-                        "type": "header",
-                        "label": "Researcher",
-                        "id": "MI",
-                        "importNameFrom": "S05",
-                        "placeholderText": ""
-                    },
-                    {
-                        "type": "elementComments",
-                        "id": "MN",
-                        "label": "Notes for ",
-                        "label2": "",
-                        "clipWrap": true
-                    }
-                ]
-            }]
+                    "label": "Step 5: Score consolidation and horizontal review",
+                    "labelShort": "Step 5",
+                    "subStepID": "S05",
+                    "subStepColor": "#fff2cc",
+                    "doCollapse": true,
+                    "components": [{
+                            "type": "header",
+                            "id": "MI",
+                            "label": "Researcher",
+                            "placeholderText": "Your Name"
+                        },
+                        {
+                            "type": "elementResults",
+                            "id": "",
+                            "label": "Consolidated answer for ",
+                            "dropdown": [
+                                "not selected",
+                                "yes",
+                                "partial",
+                                "no",
+                                "no disclosure found",
+                                "N/A"
+                            ]
+                        },
+                        {
+                            "type": "elementComments",
+                            "id": "MC",
+                            "label": "Comments for ",
+                            "label2": " (explain score)",
+                            "clipWrap": true
+                        },
+                        {
+                            "type": "sources",
+                            "id": "MS",
+                            "label": "Sources (reference, specific page, section, etc.)"
+                        }
+                    ]
+                },
+                {
+                    "label": "Step 5a: Notes/comments from researchers",
+                    "labelShort": "Step 5a",
+                    "subStepID": "S05a",
+                    "subStepColor": "#fff2cc",
+                    "doCollapse": true,
+                    "components": [{
+                            "type": "header",
+                            "label": "Researcher",
+                            "id": "MI",
+                            "importNameFrom": "S05",
+                            "placeholderText": ""
+                        },
+                        {
+                            "type": "elementComments",
+                            "id": "MN",
+                            "label": "Notes for ",
+                            "label2": "",
+                            "clipWrap": true
+                        }
+                    ]
+                }
+            ]
         },
         {
             "step": 6,
             "stepColor": "#ead1dc",
             "substeps": [{
-                "label": "Step 6: Final Scores",
-                "labelShort": "Step 6",
-                "subStepID": "S06",
-                "subStepColor": "#ead1dc",
-                "doCollapse": true,
-                "components": [{
-                        "type": "header",
-                        "id": "MI",
-                        "label": "Researcher",
-                        "placeholderText": "Your Name"
-                    },
-                    {
-                        "type": "elementResults",
-                        "id": "",
-                        "label": "Element ",
-                        "dropdown": [
-                            "not selected",
-                            "yes",
-                            "partial",
-                            "no",
-                            "no disclosure found",
-                            "N/A"
-                        ]
-                    },
-                    {
-                        "type": "elementComments",
-                        "id": "MC",
-                        "label": "Comments for ",
-                        "label2": " (explain score)",
-                        "clipWrap": true
-                    },
-                    {
-                        "type": "sources",
-                        "id": "MS",
-                        "label": "Sources (reference, specific page, section, etc.)"
-                    }
-                ]
-            },
-            {
-                "label": "Step 6a: Notes/comments from researchers",
-                "labelShort": "Step 6a",
-                "subStepID": "S06a",
-                "doCollapse": true,
-                "subStepColor": "#ead1dc",
-                "components": [{
-                        "type": "header",
-                        "label": "Researcher",
-                        "id": "MI",
-                        "importNameFrom": "S06",
-                        "placeholderText": ""
-                    },
-                    {
-                        "type": "elementComments",
-                        "id": "MN",
-                        "label": "Notes for ",
-                        "label2": "",
-                        "clipWrap": true
-                    }
-                ]
-            }]
+                    "label": "Step 6: Final Scores",
+                    "labelShort": "Step 6",
+                    "subStepID": "S06",
+                    "subStepColor": "#ead1dc",
+                    "doCollapse": true,
+                    "components": [{
+                            "type": "header",
+                            "id": "MI",
+                            "label": "Researcher",
+                            "placeholderText": "Your Name"
+                        },
+                        {
+                            "type": "elementResults",
+                            "id": "",
+                            "label": "Element ",
+                            "dropdown": [
+                                "not selected",
+                                "yes",
+                                "partial",
+                                "no",
+                                "no disclosure found",
+                                "N/A"
+                            ]
+                        },
+                        {
+                            "type": "elementComments",
+                            "id": "MC",
+                            "label": "Comments for ",
+                            "label2": " (explain score)",
+                            "clipWrap": true
+                        },
+                        {
+                            "type": "sources",
+                            "id": "MS",
+                            "label": "Sources (reference, specific page, section, etc.)"
+                        }
+                    ]
+                },
+                {
+                    "label": "Step 6a: Notes/comments from researchers",
+                    "labelShort": "Step 6a",
+                    "subStepID": "S06a",
+                    "doCollapse": true,
+                    "subStepColor": "#ead1dc",
+                    "components": [{
+                            "type": "header",
+                            "label": "Researcher",
+                            "id": "MI",
+                            "importNameFrom": "S06",
+                            "placeholderText": ""
+                        },
+                        {
+                            "type": "elementComments",
+                            "id": "MN",
+                            "label": "Notes for ",
+                            "label2": "",
+                            "clipWrap": true
+                        }
+                    ]
+                }
+            ]
         }
     ] // end of main steps
 }

@@ -793,8 +793,7 @@ var indicatorsVector = {
             "researchGuidance": "TBD",
             "classColor": "#dd7e6b",
             "hasSubComponents": false,
-            "indicators": [
-                {
+            "indicators": [{
                     "labelShort": "P1a",
                     "labelLong": "Access to privacy policies",
                     "description": "",

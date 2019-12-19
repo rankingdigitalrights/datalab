@@ -4,19 +4,13 @@
 // List the parameters and where their values are coming from
 
 
-function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, ListSheetBroken, ListSheetFixed) {
+function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, ListSheetBroken, ListSheetFixed) {
 
     // for each indicator
     // - create a new Sheet
     // - name the Sheet
     // -
-    var thisIndCatLength
-    
-    if (useIndicatorSubset) {
-        thisIndCatLength = 2
-    } else {
-        thisIndCatLength = thisIndCat.indicators.length
-    }
+    var thisIndCatLength = thisIndCat.indicators.length
 
     // iterates over each indicator in the current type
     // for each indicator = distinct Sheet do
@@ -62,7 +56,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
         // general formatting of sheet
         // TODO: think about where to refactor to
-        
+
         var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
 
         // start sheet in first top left cell
@@ -119,29 +113,29 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
                     switch (thisStepComponent) {
 
-                    case "header":
-                        activeRow = fixSubStepHeader(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                        break
+                        case "header":
+                            activeRow = fixSubStepHeader(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            break
 
-                    case "elementResults":
-                        activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                        break
+                        case "elementResults":
+                            activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            break
 
-                    case "binaryReview":
-                        activeRow = fixBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                        break
+                        case "binaryReview":
+                            activeRow = fixBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            break
 
-                    case "elementComments":
-                        activeRow = fixComments(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                        break
+                        case "elementComments":
+                            activeRow = fixComments(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            break
 
-                    case "sources":
-                        activeRow = fixSources(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                        break
+                        case "sources":
+                            activeRow = fixSources(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            break
 
-                    case "extraQuestion":
-                        activeRow = fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
-                        break
+                        case "extraQuestion":
+                            activeRow = fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
+                            break
 
                     }
                 } // END substep component procedure
@@ -151,7 +145,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
 
                 // Spreadsheet.setNamedRange(stepNamedRange, range)
-                
+
                 // names an entire step
 
                 // GROUPING for substep
@@ -183,19 +177,19 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
         //     .setBold(true)
         //     .setRanges([sheetRange])
         //     .build()
-        
+
         // var condRuleValues = SpreadsheetApp.newConditionalFormatRule()
         //     .whenTextEqualTo('not selected')
         //     // .setFontColor('#ea4335')
         //     .setBackground('#f4cccc')
         //     .setRanges([sheetRange])
         //     .build()
-        
+
         // var rules = sheet.getConditionalFormatRules()        
         // rules.push(condRuleNames)
         // rules.push(condRuleValues)
         // sheet.setConditionalFormatRules(rules)
-        
+
         listBrokenRefs(ListSheetFixed, sheet, thisIndLabel)
     } // End of Indicator Sheet
 

@@ -4,7 +4,7 @@
  * shall become main endpoint for fetching input data
  */
 
-function createCompanyDataLayer(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createCompanyDataLayer(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     var Config = centralConfig
     var CompanyObj = thisCompany

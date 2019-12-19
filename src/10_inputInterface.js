@@ -1,6 +1,6 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
-function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log("--- // --- begin main data collection --- // ---")
 
     var sourcesTabName = "Sources"
@@ -89,7 +89,6 @@ function createSpreadsheetDC(useStepsSubset, useIndicatorSubset, CompanyObj, fil
         var includeNotes = Config.integrateOutputsArray.includeNotes
         var includeScoring = Config.integrateOutputsArray.includeScoring
         var hasFullScores = Config.integrateOutputsArray.isFullScoring
-
 
         var sheetModeID = "SC"
 
