@@ -63,14 +63,20 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
         // --- // Begin Main Step-Wise Procedure // --- //
 
         var mainStepsLength = ResearchStepsObj.researchSteps.length
+
+        // optional: update answer dropdown
         var updateAnswerOptions = false
 
         // for each main step
         for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
 
-            if (mainStepNr > 2) {
+            /* optional: update answer dropdown */
+            /* only update dropdown for Step 4 (array[3]) and following
+            
+            if (mainStepNr > 2) { 
                 updateAnswerOptions = true
             }
+            */
 
             var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
             // setting up all the substeps for all the indicators

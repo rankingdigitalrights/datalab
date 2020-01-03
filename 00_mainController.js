@@ -140,11 +140,11 @@ function mainRepairCompaniesDataCollectionSheets() {
     filenameSuffix = ""
 
     var companies = companiesVector.companies
-        .slice(0, 3) // Subset #1
-    // .slice(3,6) // Subset #2
-    // .slice(6,9) // Subset #3
-    // .slice(0, 1) // Amazon
-    // .slice(1, 2) // Apple
+        // .slice(0, 3) // Subset #1
+        // .slice(3,6) // Subset #2
+        // .slice(6,9) // Subset #3
+        // .slice(0, 1) // Amazon
+        .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
