@@ -241,7 +241,8 @@ var researchStepsVector = {
                                 "partial",
                                 "no",
                                 "no disclosure found",
-                                "N/A"
+                                "N/A",
+                                "not piloted"
                             ]
                         },
                         {
@@ -307,7 +308,8 @@ var researchStepsVector = {
                                 "partial",
                                 "no",
                                 "no disclosure found",
-                                "N/A"
+                                "N/A",
+                                "not piloted"
                             ]
                         },
                         {
@@ -373,7 +375,8 @@ var researchStepsVector = {
                                 "partial",
                                 "no",
                                 "no disclosure found",
-                                "N/A"
+                                "N/A",
+                                "not piloted"
                             ]
                         },
                         {

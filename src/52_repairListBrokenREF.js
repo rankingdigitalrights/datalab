@@ -9,7 +9,10 @@ function listBrokenRefs(ListSheet, targetSheet, thisIndLabel) {
     namedRangesRaw.forEach(function (range) {
         rangeVal = range.getRange().getA1Notation().toString()
         if (rangeVal == "#REF!") {
-            namedRanges.push([[range.getName()], [rangeVal]])
+            namedRanges.push([
+                [range.getName()],
+                [rangeVal]
+            ])
         }
     })
 
@@ -24,7 +27,7 @@ function listBrokenRefs(ListSheet, targetSheet, thisIndLabel) {
 
 function clearNamedRangesFromFile(SS) {
 
-    var range = SS.getSheets()[0].getRange(1,1)
+    var range = SS.getSheets()[0].getRange(1, 1)
     Logger.log(range)
     Logger.log(range.getA1Notation())
     var namedRanges = SS.getNamedRanges()

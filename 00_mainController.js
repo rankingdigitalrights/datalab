@@ -38,10 +38,10 @@ function mainAllCompaniesDataCollectionSheets() {
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
-    companies.forEach(function (thisCompany) {
-        var fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+    companies.forEach(function (Company) {
+        var fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
         Logger.log("received fileID: " + fileID)
-        addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
     })
 
 }
@@ -60,10 +60,10 @@ function mainAllCompaniesScoringSheets() {
         .slice(1, 2) // Apple
     // .slice(3,4) //
 
-    companies.forEach(function (thisCompany) {
-        var fileID = createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+    companies.forEach(function (Company) {
+        var fileID = createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
         Logger.log("received fileID: " + fileID)
-        addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
     })
 }
 
@@ -78,10 +78,10 @@ function mainAllFeedbackSheets() {
     var companies = companiesVector.companies
     // .slice(1,2) // Apple
 
-    companies.forEach(function (thisCompany) {
-        var fileID = createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+    companies.forEach(function (Company) {
+        var fileID = createFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
         Logger.log("received fileID: " + fileID)
-        addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
     })
 }
 
@@ -122,12 +122,12 @@ function mainDataStore() {
     var companies = companiesVector.companies
     // .slice(1,2) // Apple
 
-    companies.forEach(function (thisCompany) {
+    companies.forEach(function (Company) {
 
-        var fileID = createCompanyDataLayer(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+        var fileID = createCompanyDataLayer(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         Logger.log("received fileID: " + fileID)
-        addFileIDtoControl(mainSheetMode, thisCompany.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
 
     })
 }
@@ -137,27 +137,24 @@ function mainDataStore() {
 function mainRepairCompaniesDataCollectionSheets() {
 
     var mainSheetMode = "Input" // for filename
-
-    var useStepsSubset = true // true := use subset
+    filenameSuffix = ""
 
     var companies = companiesVector.companies
-    // .slice(0,0) // on purpose to prevent script from running.
-    // .slice(0,3) // Subset #1
+        .slice(0, 3) // Subset #1
     // .slice(3,6) // Subset #2
     // .slice(6,9) // Subset #3
-
     // .slice(0, 1) // Amazon
     // .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
     // .slice(5,6) // Microsoft
-    // .slice(6,7) // Telefonica
+    // .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
-    companies.forEach(function (thisCompany) {
-        repairInputSpreadsheets(useStepsSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+    companies.forEach(function (Company) {
+        repairInputSpreadsheets(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
 }
@@ -178,8 +175,8 @@ function mainClearAllNamedRanges() {
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
-    companies.forEach(function (thisCompany) {
-        clearNamedRangesFromCompanySheet(thisCompany, filenamePrefix, filenameSuffix, mainSheetMode)
+    companies.forEach(function (Company) {
+        clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
 }

@@ -1,35 +1,4 @@
-function skipIndicatorGuidance(thisIndicator, activeRow, includeRGuidanceLink) {
-
-    // TODO probably move all formatting params to JSON
-
-    var row = activeRow
-
-    row += 1
-
-    var tempStartRow
-
-    row += 1
-
-
-    thisIndicator.elements.forEach(function (element) {
-        row += 1
-    })
-
-    if (includeRGuidanceLink) {
-        row += 1
-    } else {
-        row -= 1
-    }
-
-    row += 1
-
-    row += 1
-
-    activeRow = row
-    return activeRow
-}
-
-function fixIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance) {
+function fixIndicatorGuidance(sheet, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink) {
 
     // TODO probably move all formatting params to JSON
 
@@ -92,8 +61,6 @@ function fixIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
         row += 1
     }
 
-    
-
     // Element Instructions
     cell = sheet.getRange(row, 1)
         .setValue("Elements:")
@@ -155,9 +122,6 @@ function fixIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
 function skipMainStepHeader(thisIndCat, activeRow) {
 
-    var activeCol = 1
-
-    // if the indicator does indeed have components, it freezes the additional row in which they are
     if (thisIndCat.hasSubComponents == true) {
         activeRow = activeRow + 1
     }
@@ -165,13 +129,6 @@ function skipMainStepHeader(thisIndCat, activeRow) {
     return activeRow
 }
 
-
-
-// function just creates a single row in which in the first column a label is added
-function fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) {
-
-    return activeRow + 1
-}
 
 // TODO - obsolete description - a step header is a row in which in the first column the name and description of the step is listed
 // and in the remaining columns a placeholderText is added
@@ -190,10 +147,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
     // TODO
     // activeRow = addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfIndSubComps, companyNumberOfServices) // sets up header
 
-    var thisFiller = currentStep.components[stepCNr].placeholderText
     var thisFirstCol = 2
-    var thisLastCol = ((companyNumberOfServices + 2) * nrOfIndSubComps)
-    // for remaining company, opCom, and services columns it adds the placeholderText
 
     var cellName
     var thisCell
@@ -271,9 +225,18 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
 }
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
-function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices, updateAnswerOptions) {
+
+    if (updateAnswerOptions) {
+        var rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
+    }
 
     var stepCompType = currentStep.components[stepCNr].id
+
+    var cell
+    var cellName
+    var component
+    var k
 
     // row labels
     for (var elemNr = 0; elemNr < currentIndicator.elements.length; elemNr++) {
@@ -284,7 +247,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
         var noteString = thisElement.labelShort + ": " + thisElement.description
 
         // setting up the labels
-        var cell = sheet.getRange(activeRow + elemNr, activeCol)
+        cell = sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(currentStep.components[stepCNr].label + thisElement.labelShort)
             .setBackground(currentStep.subStepColor)
             .setNote(noteString)
@@ -296,21 +259,24 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
             if (serviceNr == 1) {
 
                 // loops through the number of components
-                for (var k = 0; k < nrOfIndSubComps; k++) {
+                for (k = 0; k < nrOfIndSubComps; k++) {
 
-                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
+                    cell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
-                    var component = ""
+                    component = ""
                     if (nrOfIndSubComps != 1) {
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "group", stepCompType)
+                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "group", stepCompType)
 
 
-                    SS.setNamedRange(cellName, thisCell) // names cells
+                    SS.setNamedRange(cellName, cell) // names cells
+                    if (updateAnswerOptions) {
+                        cell.setDataValidation(rule) // updates dropdown list
+                    }
 
                     activeCol += 1
                 }
@@ -320,19 +286,23 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
             else if (serviceNr == 2) {
 
                 // loops through the number of components
-                for (var k = 0; k < nrOfIndSubComps; k++) {
-                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
+                for (k = 0; k < nrOfIndSubComps; k++) {
+                    cell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
-                    var component = ""
+                    component = ""
                     if (nrOfIndSubComps != 1) {
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
-                    SS.setNamedRange(cellName, thisCell) // names cells
+                    SS.setNamedRange(cellName, cell) // names cells
+
+                    if (updateAnswerOptions) {
+                        cell.setDataValidation(rule) // updates dropdown list
+                    }
 
                     activeCol += 1
                 }
@@ -340,21 +310,25 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
 
             // creating all the service columns
             else {
-                for (var k = 0; k < nrOfIndSubComps; k++) {
-                    var thisCell = sheet.getRange(activeRow + elemNr, activeCol)
+                for (k = 0; k < nrOfIndSubComps; k++) {
+                    cell = sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
                     var g = serviceNr - 3 // helper for Services
 
-                    var component = ""
+                    component = ""
                     if (nrOfIndSubComps != 1) {
                         component = currentClass.components[k].labelShort
                     }
 
-                    var cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
-                    SS.setNamedRange(cellName, thisCell) // names cells
+                    SS.setNamedRange(cellName, cell) // names cells
+
+                    if (updateAnswerOptions) {
+                        cell.setDataValidation(rule) // updates dropdown list
+                    }
 
                     activeCol += 1
                 }
@@ -481,7 +455,9 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
     var cell = sheet.getRange(activeRow, activeCol)
         .setValue(thisStepComponent.label)
         .setBackground(currentStep.subStepColor)
-    if (thisStepComponent.type === "binaryReview") { cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center") }
+    if (thisStepComponent.type === "binaryReview") {
+        cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")
+    }
     activeCol += 1
 
     for (var serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*nrOfIndSubComps)+1)
@@ -627,6 +603,12 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
         }
 
     }
+
+    return activeRow + 1
+}
+
+// function just creates a single row in which in the first column a label is added
+function fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) {
 
     return activeRow + 1
 }

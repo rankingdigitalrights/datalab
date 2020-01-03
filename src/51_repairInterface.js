@@ -4,12 +4,8 @@
 // List the parameters and where their values are coming from
 
 
-function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, ListSheetBroken, ListSheetFixed) {
+function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, ListSheetBroken, ListSheetFixed) {
 
-    // for each indicator
-    // - create a new Sheet
-    // - name the Sheet
-    // -
     var thisIndCatLength = thisIndCat.indicators.length
 
     // iterates over each indicator in the current type
@@ -19,9 +15,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
         var thisInd = thisIndCat.indicators[i]
         var thisIndLabel = thisInd.labelShort
-        Logger.log("indicator :" + thisIndLabel)
         var thisIndScoringScope = thisInd.scoringScope
-        Logger.log("Scoring Scope: " + thisIndLabel + " " + thisIndScoringScope)
 
         var sheet = getSheetByName(Spreadsheet, thisIndLabel)
 
@@ -64,17 +58,21 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = fixIndicatorGuidance(sheet, thisIndCat, thisInd, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance)
+        activeRow = fixIndicatorGuidance(sheet, thisInd, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink)
 
         // --- // Begin Main Step-Wise Procedure // --- //
 
         var mainStepsLength = ResearchStepsObj.researchSteps.length
+        var updateAnswerOptions = false
 
         // for each main step
         for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
 
+            if (mainStepNr > 2) {
+                updateAnswerOptions = true
+            }
+
             var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
-            var thisMainStepColor = thisMainStep.stepColor
             // setting up all the substeps for all the indicators
 
             Logger.log("main step : " + thisMainStep.step)
@@ -82,9 +80,6 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
 
 
             activeRow = skipMainStepHeader(thisIndCat, activeRow) // sets up header
-
-            var beginStep = activeRow
-            var endStep = activeRow
 
             // --- // Begin sub-Step-Wise Procedure // --- //
 
@@ -99,7 +94,6 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
                 // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
 
                 // stores first row of a step to use later in naming a step
-                var firstRow = activeRow + 1
 
                 // Begin step component procedure
                 for (var stepCNr = 0; stepCNr < currentStepClength; stepCNr++) {
@@ -109,7 +103,6 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
                     Logger.log("step.component : " + currentStep.labelShort + " : " + thisStepComponent)
 
                     // create the type of substep component that is specified in the json
-                    // TODO: refactor to switch()
 
                     switch (thisStepComponent) {
 
@@ -118,7 +111,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
                             break
 
                         case "elementResults":
-                            activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
+                            activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices, updateAnswerOptions)
                             break
 
                         case "binaryReview":

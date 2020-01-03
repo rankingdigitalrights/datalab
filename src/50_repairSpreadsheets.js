@@ -1,9 +1,9 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
-function repairInputSpreadsheets(useStepsSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
+function repairInputSpreadsheets(Company, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log("--- // --- begin main data collection --- // ---")
 
-    var companyShortName = cleanCompanyName(CompanyObj)
+    var companyShortName = cleanCompanyName(Company)
 
     var Config = centralConfig
     var IndicatorsObj = indicatorsVector
@@ -20,17 +20,22 @@ function repairInputSpreadsheets(useStepsSubset, CompanyObj, filenamePrefix, fil
     var fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
 
+    var currentDate = getISOtimeAsString()
 
     var ListSheetBroken = insertSheetIfNotExist(SS, "BrokenRefs", true)
     var ListSheetFixed = insertSheetIfNotExist(SS, "FixedRefs", true)
+
     ListSheetBroken.clear()
+    ListSheetBroken.appendRow(["last Run: ", currentDate])
+
     ListSheetFixed.clear()
+    ListSheetFixed.appendRow(["last Run: ", currentDate])
     // if scoring sheet is integrated into DC, create Points sheet
 
-    var hasOpCom = CompanyObj.hasOpCom
+    var hasOpCom = Company.hasOpCom
 
     // fetch number of Services once
-    var companyNumberOfServices = CompanyObj.services.length
+    var companyNumberOfServices = Company.services.length
 
     // --- // MAIN TASK // --- //
     // for each Indicator Class do
@@ -39,7 +44,7 @@ function repairInputSpreadsheets(useStepsSubset, CompanyObj, filenamePrefix, fil
 
         var currentClass = IndicatorsObj.indicatorClasses[i]
 
-        repairDCSheetByCategory(SS, currentClass, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, collapseRGuidance, ListSheetBroken, ListSheetFixed)
+        repairDCSheetByCategory(SS, currentClass, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, ListSheetBroken, ListSheetFixed)
     }
 
 }

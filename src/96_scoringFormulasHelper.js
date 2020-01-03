@@ -1,3 +1,7 @@
+function getISOtimeAsString() {
+    return new Date().toISOString()
+}
+
 function elementScoreFormula(range) {
     // proof of concept
     var cell = range.getA1Notation()
@@ -42,9 +46,11 @@ function indicatorScoreFormula(indicatorAverageElements) {
 
     for (var cell = 0; cell < indicatorAverageElements.length; cell++) {
         formula = formula + indicatorAverageElements[cell]
-        if (cell < indicatorAverageElements.length - 1) {formula += ","}
+        if (cell < indicatorAverageElements.length - 1) {
+            formula += ","
+        }
         // formula +=  '=' + '"exclude"' + ",";
-        
+
     }
 
     formula = formula + ")"
@@ -58,28 +64,28 @@ function checkScoringLogic(indicator, scoringComponent, cell, cellName, elements
     var thisCell = cell
     switch (scoringComponent) {
 
-    case "A":
-        if (indicator.scoringScope === "full" | indicator.scoringScope === "company") {
+        case "A":
+            if (indicator.scoringScope === "full" | indicator.scoringScope === "company") {
+                elementsArray.push(cellName)
+                thisCell.setFontWeight("bold")
+            } else {
+                thisCell.setFontStyle("italic")
+            }
+            break
+
+        case "B":
+            if (indicator.scoringScope === "full" | indicator.scoringScope === "services") {
+                elementsArray.push(cellName)
+                thisCell.setFontWeight("bold")
+            } else {
+                thisCell.setFontStyle("italic")
+            }
+            break
+
+        default:
             elementsArray.push(cellName)
             thisCell.setFontWeight("bold")
-        } else {
-            thisCell.setFontStyle("italic")
-        }
-        break
-
-    case "B":
-        if (indicator.scoringScope === "full" | indicator.scoringScope === "services") {
-            elementsArray.push(cellName)
-            thisCell.setFontWeight("bold")
-        } else {
-            thisCell.setFontStyle("italic")
-        }
-        break
-
-    default:
-        elementsArray.push(cellName)
-        thisCell.setFontWeight("bold")
-        break
+            break
     }
     thisCell.setNumberFormat("0.##")
     return thisCell
