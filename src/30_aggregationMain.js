@@ -1,4 +1,4 @@
-function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
+function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
 
     // scroing step number should be passed via main method call
 
@@ -33,16 +33,18 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     // --- // Individual Company Outcome Sheets // --- //
 
+    var companyFilename
+    var hasOpCom
+
     Companies.forEach(function (CompanyObj) {
 
-        var companyFilename = cleanCompanyName(CompanyObj)
+        companyFilename = cleanCompanyName(CompanyObj)
 
         outputParams.sheetName = companyFilename
 
-        Logger.log("creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
+        Logger.log("creating " + mainSheetMode + " Sheet for " + companyFilename)
 
-        var hasOpCom = CompanyObj.hasOpCom
-        Logger.log(companyFilename + " opCom? - " + hasOpCom)
+        hasOpCom = CompanyObj.hasOpCom
 
         addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
@@ -52,26 +54,35 @@ function createAggregationSS(useStepsSubset, useIndicatorSubset, Companies, file
 
     var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
 
-    var summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
+    var summarySheet
+    var includeElements = false
+
+    summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
     summarySheet.clear()
 
-    summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
+    summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
 
-    // // Prototype: Element Level //
-
-    // summarySheet = insertSheetIfNotExist(SS, "Summary: Elements", true)
-    // summarySheet.clear()
-    // summarySheet = fillSummaryScoresSheet(summarySheet, sheetModeID, Config, IndicatorsObj, thisSubStepID, Companies, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode, indicatorParams)
-
-    // --- // Side: testing Element Level // --- //
-
-    // TODO
-
-    // --- // Final formatiing // --- //
-    // summarySheet = SS.getSheetByName(summarySheetName)
     summarySheet.setFrozenColumns(1)
     summarySheet.setFrozenRows(2)
     moveSheetifExists(SS, summarySheet, 1)
+
+    // Prototype: Element Level //
+
+    // TODO
+    includeElements = true
+
+    summarySheet = insertSheetIfNotExist(SS, "Summary w Elements", true)
+    summarySheet.clear()
+
+    summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+
+    summarySheet.setFrozenColumns(1)
+    summarySheet.setFrozenRows(2)
+    moveSheetifExists(SS, summarySheet, 2)
+
+    // --- // Final formatiing // --- //
+    // summarySheet = SS.getSheetByName(summarySheetName)
+
 
     var connectorSheet = insertSheetConnector(SS, Companies)
 

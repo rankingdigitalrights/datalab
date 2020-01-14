@@ -57,8 +57,6 @@ function indicatorScoreFormula(indicatorAverageElements) {
     return formula
 }
 
-
-
 function checkScoringLogic(indicator, scoringComponent, cell, cellName, elementsArray) {
 
     var thisCell = cell

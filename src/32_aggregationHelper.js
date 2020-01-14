@@ -16,7 +16,7 @@ function countIndicatorLengths(IndicatorsObj) {
     return indicatorLengths
 }
 
-function insertIndicatorColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, currentCol, indicatorParams) {
+function insertIndicatorColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, currentCol, includeElements) {
 
     var startRow = currentRow
     var lastRow

@@ -14,6 +14,11 @@ function mainTestConnectionByID() {
     connectToSpreadsheetByID(spreadsheetID)
 }
 
+// TODO: refactor everywhere into two seperate functions:
+// one to try to connect and return null if file does not exist
+// one to create a new file
+// --> separation of concerns AND explicit action where needed
+
 function connectToSpreadsheetByName(spreadsheetName) {
     var Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
     var Spreadsheet
@@ -42,6 +47,9 @@ function connectToSpreadsheetByName(spreadsheetName) {
         return Spreadsheet
 
     } else {
+
+        // TODO after refactor:
+        // return null
 
         // while (Spreadsheet.hasNext()) {
         // Nope. Only do for first Spreadsheet element
@@ -118,7 +126,7 @@ function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheet) 
     var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
     var formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
     sheet.appendRow([mode, companyShortName, fileID, formula])
-    Logger.log("Entry added to Control")
+    Logger.log("created" + fileID + "; added to Control")
 
 }
 

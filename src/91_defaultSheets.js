@@ -42,9 +42,9 @@ function insertPointValidationSheet(SS, SheetName) {
 }
 
 function fillPointsSheet(pointsSheet) {
-    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
-    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude"])
-    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude"])
+    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A", "not piloted"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude", "exclude"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude", "exclude"])
 }
 
 function insertSheetConnector(SS, Companies) {
