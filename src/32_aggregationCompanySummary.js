@@ -12,7 +12,6 @@
 /**
  * @param {string} thisSubStepID
  * @param {any} IndicatorsObj
- * @param {string | any[]} indicatorParams
  * @param {number} currentRow
  * @param {number} currentCol
  * @param {{ services: string | any[]; }} Company
@@ -39,14 +38,18 @@ function addSummarySingleCompany(Sheet, thisSubStepID, IndicatorsObj, indicatorP
     var nrOfClasses = indicatorParams.length
     var classesLeft = 0
 
+    // TODO: implement includeElements with Array of Indicator Cells
+
     for (var i = 0; i < nrOfClasses; i++) {
-        thisLength = indicatorParams[i]
+        thisLength = parseInt(indicatorParams[i])
+        // Logger.log("thisLength: " + thisLength)
         classesLeft = nrOfClasses - i
 
-        currentRow = addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, IndicatorsObj, indicatorParams, thisSubStepID, thisLength, totalLength, classesLeft)
+        currentRow = addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, thisLength, totalLength, classesLeft)
 
         if (i > 0) {
             totalLength += thisLength
+            // Logger.log("totalLength: " + totalLength)
         }
     }
 
@@ -56,6 +59,7 @@ function addSummarySingleCompany(Sheet, thisSubStepID, IndicatorsObj, indicatorP
     blockRange.setBorder(true, true, true, true, null, null, "black", null)
 
     // --- // adding Indicator level scores // --- //
+
     currentRow = addCompanyScores(currentRow, currentCol, Sheet, Company, IndicatorsObj, thisSubStepID, blockWidth, includeElements)
 
     return currentCol + blockWidth

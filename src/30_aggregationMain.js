@@ -16,7 +16,7 @@ moveHideSheetifExists,
 removeEmptySheet
 */
 
-function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
+function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
 
     // scroing step number should be passed via main method call
 

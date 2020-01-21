@@ -162,7 +162,7 @@ function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
 
 /* adds service class totals per company per row */
 
-function addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, IndicatorsObj, indicatorParams, thisSubStepID, thisLength, totalLength, classesLeft) {
+function addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, thisLength, totalLength, classesLeft) {
 
     var tempCol = currentCol
     var rowFormulas = []
@@ -236,8 +236,8 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
 
     // var formulaPrefix = 'IFERROR('
     // var formulaSuffix = ',"pending")'
-    var formulaPrefix = "=AVERAGE("
-    var formulaSuffix = ")"
+    // var formulaPrefix = "=AVERAGE("
+    // var formulaSuffix = ")"
     var formula
     var cellID
     var range
@@ -245,7 +245,8 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
     // Total
     if (!isElement) {
         cellID = defineNamedRangeStringImport(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "", scoringSuffixTotal)
-        formula = formulaPrefix + cellID + formulaSuffix
+        // formula = formulaPrefix + cellID + formulaSuffix
+        formula = cellID
     } else {
         formula = "=\"---\""
     }
@@ -253,13 +254,13 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
 
     // Group
     cellID = defineNamedRangeStringImport(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "group", scoringSuffixLvl)
-    formula = formulaPrefix + cellID + formulaSuffix
+    formula = cellID
     rowFormulas.push(formula)
 
     // Services
     for (var i = 0; i < Company.numberOfServices; i++) {
         cellID = defineNamedRangeStringImport(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
-        formula = formulaPrefix + cellID + formulaSuffix
+        formula = cellID
         rowFormulas.push(formula)
     }
 
