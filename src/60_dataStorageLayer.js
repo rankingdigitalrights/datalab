@@ -1,17 +1,28 @@
 /**
  * per single company
- * pulls out element level data from data input and puts data into structured * tables for further processing
+ * pulls out element level data from data input and puts data into
+ * structured tables for further processing
  * shall become main endpoint for fetching input data
  */
 
-function createCompanyDataLayer(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
+/* global
+        centralConfig,
+        indicatorsVector,
+        researchStepsVector,
+        cleanCompanyName,
+        spreadSheetFileName,
+        connectToSpreadsheetByName,
+        addDataStoreSingleCompany,
+        removeEmptySheet
+*/
+
+function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     var Config = centralConfig
-    var CompanyObj = thisCompany
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
 
-    var sheetModeID = "DC"
+    var CompanyObj = thisCompany
 
     var companyFilename = cleanCompanyName(CompanyObj)
 
@@ -26,14 +37,14 @@ function createCompanyDataLayer(useStepsSubset, useIndicatorSubset, thisCompany,
     var SS = connectToSpreadsheetByName(spreadsheetName)
     var fileID = SS.getId()
 
-    var outputParams = Config.dataLayerParams
+    var outputParams = Config.dataStoreParams
     var integrateOutputs = outputParams.integrateOutputs
     var subStepNr = 0 // param for global control substep processing
 
-    addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
+    addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
 
     // var subStepNr = 1 // param for global control substep processing
-    // addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
+    // addDataStoreSingleCompany(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
 
     // clean up // 
 

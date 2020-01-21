@@ -1,4 +1,3 @@
-/* global centralConfig: false */
 var centralConfig = {
     "indexPrefix": "RDR2019",
     "filenameSuffix": "Pilot Dev",
@@ -14,7 +13,7 @@ var centralConfig = {
     "aggregationParams": {
         // TBD
     },
-    "dataLayerParams": {
+    "dataStoreParams": {
         "fileName": "Data Store",
         "summarySheetName": "Aggregated",
         // "subStepNr": 0,

@@ -1,9 +1,18 @@
-// Interface for creating a single set of scoring content
-// Single set := either Outcome OR Comments OR Company Feedback
+/**
+ * Interface for creating a structured set of company element-level reults
+ * 
+ */
 
-function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs) {
+/* global
+       determineFirstStep,
+       determineMaxStep,
+       insertSheetIfNotExist,
+       dataStoreSingleStep
+*/
 
-    Logger.log("--- Begin addDataLayerSingleCompany --- subStep mode: " + subStepNr)
+function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs) {
+
+    Logger.log("--- Begin addDataStoreSingleCompany --- subStep: " + subStepNr)
     var dataColWidth = outputParams.dataColWidth
     var urlDC = Company.urlCurrentDataCollectionSheet
 
@@ -21,8 +30,6 @@ function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, Resea
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
 
-    var lastCol = 1
-    var blocks = 1
     var mainStepNr
     var thisMainStep
     var thisSubStep
@@ -39,7 +46,8 @@ function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, Resea
             Logger.log("--- Main Step : " + thisMainStep.step)
             Logger.log("--- Main Step has " + thisMainStep.substeps.length + " Substeps")
 
-            var Sheet = insertSheetIfNotExist(SS, sheetLabel, false) // ToDo turn off later
+            var Sheet = insertSheetIfNotExist(SS, sheetLabel, false) // ToDo set as FALSE later
+
             if (Sheet !== null) {
                 Sheet.clear()
             } else {
@@ -48,7 +56,7 @@ function addDataLayerSingleCompany(SS, sheetModeID, Config, IndicatorsObj, Resea
 
             // setting up all the substeps for all the indicators
 
-            dataLayoutSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
+            dataStoreSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
 
         } // END SUBSTEP
     } // END MAIN STEP

@@ -1,6 +1,19 @@
 // --- // Main Config // --- //
 // --- Branch: PILOT --- //
 
+/* global
+        centralConfig,
+        companiesVector,
+        addFileIDtoControl,
+        createSpreadsheetInput,
+        createSpreadsheetOutput,
+        createFeedbackForms,
+        createAggregationOutput,
+        createCompanyDataStore,
+        inspectHealth,
+        repairInputSpreadsheets,
+        clearNamedRangesFromCompanySheet
+*/
 // TODO: Move global parameters to config
 
 var indexPrefix = "RDR19P"
@@ -106,15 +119,16 @@ function mainSummaryScoresProto() {
 
     var useIndicatorSubset = false // true := use subset
 
-    var scoringStepNr = 4
+    var scoringStepNr = 3
 
     var Companies = companiesVector.companies
         .slice(1, 9) // no Amazon
+    // .slice(1, 3) // for debugging
     // .slice(0,3) // Amazon
     // .slice(1,2) // Apple
     // .slice(3,4) //
 
-    var fileID = createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
+    var fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
 
     addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheet)
 
@@ -127,7 +141,7 @@ function mainDataStore() {
 
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = centralConfig.dataLayerParams.fileName
+    var mainSheetMode = centralConfig.dataStoreParams.fileName
 
     var useStepsSubset = true // true := use subset
     var useIndicatorSubset = true // true := use subset
@@ -139,7 +153,7 @@ function mainDataStore() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataLayer(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
@@ -178,10 +192,10 @@ function mainRepairCompaniesDataCollectionSheets() {
         // .slice(0,1) // Amazon
         // .slice(1, 2) // Apple
         // .slice(2,3) // Deutsche Telekom
-        .slice(3, 4) // Facebook
-    // .slice(4,5) // Google
-    // .slice(5,6) // Microsoft
-    // .slice(6,7) // Telefonica
+        // .slice(3, 4) // Facebook
+        // .slice(4,5) // Google
+        // .slice(5,6) // Microsoft
+        .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
