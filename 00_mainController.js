@@ -5,7 +5,7 @@
 
 var indexPrefix = "RDR19P"
 var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "" // Dev, "", Debug, QC
+var filenameSuffix = "Dev" // Dev, "", Debug, QC
 var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
 var outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
 
@@ -100,13 +100,16 @@ function mainSummaryScoresProto() {
 
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = "Summary Scores Dev"
+
+    outputFolderName = "2019 Pilot Summary Dev"
+    var mainSheetMode = "Summary Scores"
 
     var useIndicatorSubset = false // true := use subset
 
-    var scoringStepNr = 6
+    var scoringStepNr = 4
 
     var Companies = companiesVector.companies
+        .slice(1, 9) // no Amazon
     // .slice(0,3) // Amazon
     // .slice(1,2) // Apple
     // .slice(3,4) //
@@ -162,7 +165,6 @@ function mainInspectHealth() {
 
 }
 
-
 // --- // repairing // --- // 
 function mainRepairCompaniesDataCollectionSheets() {
 
@@ -170,16 +172,16 @@ function mainRepairCompaniesDataCollectionSheets() {
     filenameSuffix = ""
 
     var Companies = companiesVector.companies
-        // .slice(0, 3) // Subset #1
+        // .slice(0,3) // Subset #1
         // .slice(3,6) // Subset #2
         // .slice(6,9) // Subset #3
-        // .slice(0, 1) // Amazon
-        .slice(1, 2) // Apple
-    // .slice(2,3) // Deutsche Telekom
-    // .slice(3,4) // Facebook
+        // .slice(0,1) // Amazon
+        // .slice(1, 2) // Apple
+        // .slice(2,3) // Deutsche Telekom
+        .slice(3, 4) // Facebook
     // .slice(4,5) // Google
     // .slice(5,6) // Microsoft
-    // .slice(6, 7) // Telefonica
+    // .slice(6,7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 

@@ -4,7 +4,7 @@ function inspectHealth(Companies, filenamePrefix, filenameSuffix, mainSheetMode)
 
     var controlSpreadsheetName = "00_ControlHealth"
 
-    Companies.array.forEach(Company => {
+    Companies.foreach(function (Company) {
         inspectHealthSingleSpreadsheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 }
