@@ -2,18 +2,6 @@
 
 // To change the cell naming logic, re-arrange the vars in the function body (not in the siganture)
 
-/**
- * 
- * @param {*} index 
- * @param {*} sheetModeID 
- * @param {*} step 
- * @param {*} indicatorElement 
- * @param {*} component 
- * @param {*} companyId 
- * @param {*} service 
- * @param {*} suffix 
- */
-
 // RDR2019DC S01 G1 iVM1 Step
 
 function defineNamedRangeStringImport(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
