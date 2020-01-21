@@ -4,7 +4,7 @@ function setScoringSheetHeader(activeRow, activeCol, sheet, companyShortName, th
 
     // -- // add Step Header to top-left cell // -- //
     // TODO: refactor to components
-    
+
     if (blocks == 1) {
         sheet.getRange(activeRow, activeCol)
             .setValue(companyShortName)
@@ -19,7 +19,7 @@ function setScoringSheetHeader(activeRow, activeCol, sheet, companyShortName, th
         .setValue(thisSubStepLabel)
         .setFontWeight("bold")
         .setFontSize(14)
-    
+
     sheet.setFrozenRows(1)
 
     return activeRow + 1
@@ -312,7 +312,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
 
 // --- // Core function: SCORING // --- //
 
-function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks,hasFullScores) {
+function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, CompanyObj, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, hasFullScores) {
 
     Logger.log(" - " + "in element scoring for " + " " + Indicator.labelShort)
 
@@ -448,7 +448,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
         currentCell.setValue("Level Scores")
         currentCell.setFontWeight("bold")
         tempCol += 1
-    }    
+    }
 
     // --- Level Average Scores --- //
 
@@ -587,13 +587,13 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
         currentCell.setValue("Composite Scores")
         currentCell.setFontWeight("bold")
         tempCol += 1
-    }    
+    }
 
     // --- Composite Company --- //
 
     var scoringComponent = "A"
     currentCell = sheet.getRange(activeRow, tempCol)
-    currentCell.setFormula(compositeScoreFormula(indyLevelScoresCompany))
+    currentCell.setFormula(aggregateScoreFormula(indyLevelScoresCompany))
 
     var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
     SS.setNamedRange(cellName, currentCell)
@@ -609,7 +609,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
 
     var servicesCompositeCell = sheet.getRange(activeRow, tempCol + (2 * nrOfIndSubComps)) // 2 := group + opCom cols
 
-    servicesCompositeCell.setFormula(compositeScoreFormula(indyLevelScoresServices))
+    servicesCompositeCell.setFormula(aggregateScoreFormula(indyLevelScoresServices))
 
     cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
 
@@ -640,13 +640,13 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, current
         currentCell.setValue("Indicator Score")
         currentCell.setFontWeight("bold")
         tempCol += 1
-    }  
+    }
 
     currentCell = sheet.getRange(activeRow, tempCol)
 
     Logger.log(" - " + "Indicator Scoring Ranges - indyCompositeScores[]:\n --- " + indyCompositeScores)
 
-    currentCell.setFormula(indicatorScoreFormula(indyCompositeScores))
+    currentCell.setFormula(aggregateScoreFormula(indyCompositeScores))
 
     currentCell.setFontWeight("bold")
     currentCell.setNumberFormat("0.##")
