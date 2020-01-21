@@ -20,9 +20,11 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
         var sheet = getSheetByName(Spreadsheet, thisIndLabel)
 
         if (sheet === null) {
-            Logger.log("Skip " + thisIndLabel)
+            Logger.log("Skipping " + thisIndLabel)
             continue // skips this i if sheet already exists
         }
+
+        Logger.log(" --- fixing " + thisIndLabel)
 
         listBrokenRefs(ListSheetBroken, sheet, thisIndLabel)
 
@@ -81,7 +83,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
             var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
             // setting up all the substeps for all the indicators
 
-            Logger.log("main step : " + thisMainStep.step)
+            Logger.log(thisIndLabel + " main step : " + thisMainStep.step)
             var subStepsLength = thisMainStep.substeps.length
 
 
@@ -93,7 +95,7 @@ function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchSt
             for (var subStepNr = 0; subStepNr < subStepsLength; subStepNr++) {
 
                 var currentStep = thisMainStep.substeps[subStepNr]
-                Logger.log("substep : " + currentStep.labelShort)
+                Logger.log(thisIndLabel + " substep : " + currentStep.labelShort)
 
                 var currentStepClength = currentStep.components.length
 

@@ -1,7 +1,7 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
 function repairInputSpreadsheets(Company, filenamePrefix, filenameSuffix, mainSheetMode) {
-    Logger.log("--- // --- begin main data collection --- // ---")
+    Logger.log("--- // --- begin repairing --- // ---")
 
     var companyShortName = cleanCompanyName(Company)
 
