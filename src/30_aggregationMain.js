@@ -1,3 +1,21 @@
+/* global 
+centralConfig,
+indicatorsVector,
+researchStepsVector,
+spreadSheetFileName,
+connectToSpreadsheetByName,
+insertPointValidationSheet,
+countIndiClassLengths,
+cleanCompanyName,
+addSetOfScoringSteps
+insertSheetIfNotExist,
+fillSummaryScoresSheet,
+moveSheetifExists,
+insertSheetConnector,
+moveHideSheetifExists,
+removeEmptySheet
+*/
+
 function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
 
     // scroing step number should be passed via main method call
@@ -7,8 +25,8 @@ function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, file
 
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
-    var stepName = " S" + scoringStepNr
-    var summarySheetName = Config.summaryParams.sheetNameSimple + stepName
+    var stepName = "S" + scoringStepNr
+    var summarySheetName = Config.summaryParams.sheetNameSimple + " " + stepName
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
@@ -21,7 +39,7 @@ function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, file
     // Scoring Scheme / Validation
     var pointsSheet = insertPointValidationSheet(SS, "Points")
 
-    var indicatorParams = countIndicatorLengths(IndicatorsObj)
+    var indicatorParams = countIndiClassLengths(IndicatorsObj)
 
     // --- // Main Procedure // --- //
 
@@ -55,7 +73,9 @@ function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, file
     var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
 
     var summarySheet
-    var includeElements = false
+    var includeElements
+
+    includeElements = false
 
     summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
     summarySheet.clear()
@@ -66,12 +86,11 @@ function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, file
     summarySheet.setFrozenRows(2)
     moveSheetifExists(SS, summarySheet, 1)
 
-    // Prototype: Element Level //
+    // Prototype: with Element Level //
 
-    // TODO
     includeElements = true
 
-    summarySheet = insertSheetIfNotExist(SS, "Summary w Elements", true)
+    summarySheet = insertSheetIfNotExist(SS, "Summary w Elements " + stepName, true)
     summarySheet.clear()
 
     summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
@@ -81,8 +100,6 @@ function createAggregationSS(useIndicatorSubset, Companies, filenamePrefix, file
     moveSheetifExists(SS, summarySheet, 2)
 
     // --- // Final formatiing // --- //
-    // summarySheet = SS.getSheetByName(summarySheetName)
-
 
     var connectorSheet = insertSheetConnector(SS, Companies)
 
