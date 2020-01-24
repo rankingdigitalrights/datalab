@@ -7,7 +7,7 @@
 
 function mainTestConnectionByName() {
     var spreadsheetName = "verizon test"
-    connectToSpreadsheetByName(spreadsheetName)
+    connectToSpreadsheetByName(spreadsheetName, false)
 }
 
 function mainTestConnectionByID() {
@@ -19,53 +19,66 @@ function mainTestConnectionByID() {
 // one to create a new file
 // --> separation of concerns AND explicit action where needed
 
-function connectToSpreadsheetByName(spreadsheetName) {
+function connectToSpreadsheetByName(spreadsheetName, createNewFile) {
+
     var Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
-    var Spreadsheet
+
+    var Spreadsheet = null
+
+    // if SS doesn't exist
+    // --- and createNewFile === true
+    // --- create new SS
+    // --- else return null
+    // else
+    // if SS exists --> return SS
+
     if (!Spreadsheets.hasNext()) {
-        Logger.log("Nothing here. Check Spreadsheet Name! Creating a new one.")
-        Logger.log("received: " + spreadsheetName)
 
-        // var outputFolderName = 'SpreadsheetCreationTEST'
-        var folderID = createFolderIfNotExist(rootFolderID, outputFolderName)
+        Logger.log(spreadsheetName + " does not exist!")
 
-        var resource = {
-            title: spreadsheetName,
-            mimeType: MimeType.GOOGLE_SHEETS,
-            parents: [{
-                id: folderID
-            }]
+        if (createNewFile) {
+            Logger.log("Creating " + spreadsheetName)
+
+            var folderID = createFolderIfNotExist(rootFolderID, outputFolderName)
+
+            var resource = {
+                title: spreadsheetName,
+                mimeType: MimeType.GOOGLE_SHEETS,
+                parents: [{
+                    id: folderID
+                }]
+            }
+
+            // Logger.log(resource.parents.id)
+            var fileJson = Drive.Files.insert(resource)
+
+            var fileId = fileJson.id
+            Logger.log("new Speadsheet fileID: " + fileId)
+            Spreadsheet = connectToSpreadsheetByID(fileId)
+
+        } else {
+            Spreadsheet = null
         }
-
-        Logger.log(resource.parents.id)
-        var fileJson = Drive.Files.insert(resource)
-
-        var fileId = fileJson.id
-        Logger.log("new Speadsheet fileID: " + fileId)
-        Spreadsheet = connectToSpreadsheetByID(fileId)
-
-        return Spreadsheet
 
     } else {
 
-        // TODO after refactor:
-        // return null
-
-        // while (Spreadsheet.hasNext()) {
+        // while (Spreadsheet.hasNext()) { }
         // Nope. Only do for first Spreadsheet element
         var thisSpreadsheet = Spreadsheets.next()
         Logger.log("File " + thisSpreadsheet.getName() + " exists")
         Logger.log("locally connected to: " + thisSpreadsheet.getName())
 
-        return SpreadsheetApp.open(thisSpreadsheet)
-        // }
+        Spreadsheet = SpreadsheetApp.open(thisSpreadsheet)
     }
+    // returns SS or null
+    return Spreadsheet
 }
 
 // connect by Spreadsheet ID //
 // more accurate then by name //
 
 function connectToSpreadsheetByID(ID) {
+
     var thisSpreadsheet = SpreadsheetApp.openById(ID)
     Logger.log("locally connected to: " + thisSpreadsheet.getName())
     return thisSpreadsheet

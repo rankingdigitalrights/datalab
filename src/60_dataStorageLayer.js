@@ -34,7 +34,7 @@ function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany,
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to SS or create a new one
-    var SS = connectToSpreadsheetByName(spreadsheetName)
+    var SS = connectToSpreadsheetByName(spreadsheetName, true)
     var fileID = SS.getId()
 
     var outputParams = Config.dataStoreParams

@@ -1,5 +1,5 @@
 function testSomething() {
- 
-  var ss = connectToSpreadsheetByName("2019 Pilot - Amazon DC Testing")
-  Logger.log(ss)
+
+    var ss = connectToSpreadsheetByName("2019 Pilot - Amazon DC Testing", false)
+    Logger.log(ss)
 }

@@ -15,7 +15,12 @@ function repairInputSpreadsheets(Company, filenamePrefix, filenameSuffix, mainSh
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
     //   var SS = SpreadsheetApp.create(spreadsheetName)
-    var SS = connectToSpreadsheetByName(spreadsheetName)
+    var SS = connectToSpreadsheetByName(spreadsheetName, false)
+
+    if (SS === null) {
+        Logger.log("!!!ERROR!!! : " + spreadsheetName + " does not exist. Skipping.")
+        return null
+    }
 
     var fileID = SS.getId()
     Logger.log("SS ID: " + fileID)

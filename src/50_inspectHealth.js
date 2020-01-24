@@ -23,7 +23,7 @@ function inspectHealthSingleSpreadsheet(Company, filenamePrefix, filenameSuffix,
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
     //   var SS = SpreadsheetApp.create(spreadsheetName)
-    var SS = connectToSpreadsheetByName(spreadsheetName)
+    var SS = connectToSpreadsheetByName(spreadsheetName, true)
 
     var fileID = SS.getId()
     Logger.log("SS ID: " + fileID)

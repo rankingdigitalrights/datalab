@@ -12,7 +12,7 @@ https://developers.google.com/drive/activity/v1/reference/activities/list
 function getUsersActivityDC() {
 
     // connect to Output Spreadsheet
-    var resultsSpreadsheet = connectToSpreadsheetByName("ActivityDCNamed")
+    var resultsSpreadsheet = connectToSpreadsheetByName("ActivityDCNamed", true)
 
     // define name of Overview Sheet
     var overviewSheetName = "2019 DC"
@@ -128,7 +128,7 @@ https://developers.google.com/drive/activity/v1/reference/activities/list
 function getUsersActivitySC() {
 
     // connect to Output Spreadsheet
-    var resultsSpreadsheet = connectToSpreadsheetByName("ActivitySCNamed")
+    var resultsSpreadsheet = connectToSpreadsheetByName("ActivitySCNamed", false)
 
     // define name of Overview Sheet
     var overviewSheetName = "2019 SC"

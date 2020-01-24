@@ -26,7 +26,7 @@ function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
-    var SS = connectToSpreadsheetByName(spreadsheetName)
+    var SS = connectToSpreadsheetByName(spreadsheetName, true)
     var fileID = SS.getId()
 
     // creates Outcome  page
