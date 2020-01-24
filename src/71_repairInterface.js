@@ -1,197 +1,63 @@
-// ## BEGIN High-level functions | main components ## //
+// Interface to audit and fix named ranges in a company input spreadsheet
+// Needs: Company, Company Spreadsheet, Indicators, List Sheet Broken, List Sheet Fixed, doRepair boolean
 
-// TODO: Explain in a few sentences what the whole function is doing
-// List the parameters and where their values are coming from
+/* global
+    getSheetByName,
+    listBrokenRefsSingleSheet,
+    fixBrokenRefsSingleSheet
+*/
+
+function processInputSheet(CompanySS, Indicators, Company, ResearchSteps, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs) {
+
+    var hasOpCom = Company.hasOpCom
+    // fetch number of Services once
+    var companyNumberOfServices = Company.services.length
+
+    var thisIndCat
+    var thisIndCatLength
+    var nrOfIndCatSubComps = 1
+    var thisInd
+    var thisIndLabel
+    var thisIndScoringScope
+    var Sheet
 
 
-function repairDCSheetByCategory(Spreadsheet, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, includeRGuidanceLink, ListSheetBroken, ListSheetFixed) {
+    for (var c = 0; c < Indicators.indicatorClasses.length; c++) {
 
-    var thisIndCatLength = thisIndCat.indicators.length
+        thisIndCat = Indicators.indicatorClasses[c]
 
-    // iterates over each indicator in the current type
-    // for each indicator = distinct Sheet do
+        thisIndCatLength = thisIndCat.indicators.length
 
-    for (var i = 0; i < thisIndCatLength; i++) {
 
-        var thisInd = thisIndCat.indicators[i]
-        var thisIndLabel = thisInd.labelShort
-        var thisIndScoringScope = thisInd.scoringScope
-
-        var sheet = getSheetByName(Spreadsheet, thisIndLabel)
-
-        if (sheet === null) {
-            Logger.log("Skipping " + thisIndLabel)
-            continue // skips this i if sheet already exists
+        if (thisIndCat.hasSubComponents === true) {
+            nrOfIndCatSubComps = thisIndCat.components.length
         }
 
-        Logger.log(" --- fixing " + thisIndLabel)
+        // for each indicator / distinct Sheet do
 
-        listBrokenRefs(ListSheetBroken, sheet, thisIndLabel)
+        for (var i = 0; i < thisIndCatLength; i++) {
 
-        // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
-        var nrOfIndSubComps = 1
-        if (thisIndCat.hasSubComponents == true) {
-            nrOfIndSubComps = thisIndCat.components.length
-        }
+            thisInd = thisIndCat.indicators[i]
+            thisIndLabel = thisInd.labelShort
+            thisIndScoringScope = thisInd.scoringScope
 
-        // checks how many company group/opcom columns to hide for this Indicator
-        // (based on Scoring Scope)
+            Sheet = getSheetByName(CompanySS, thisIndLabel)
 
-        var bridgeCompColumnsNr = 2 // default:: no company columns
-        var bridgeOpCom
-
-        if (thisInd.scoringScope == "full") {
-            if (hasOpCom) {
-                bridgeCompColumnsNr = 0
-            } else {
-                // if (companyNumberOfServices > 1) {
-                bridgeCompColumnsNr = 1
-                // }
+            if (Sheet === null) {
+                Logger.log("Skipping " + thisIndLabel)
+                continue // skips this i if Sheet already exists
             }
-        }
 
-        // general formatting of sheet
-        // TODO: think about where to refactor to
+            Logger.log(" --- inspecting " + thisIndLabel)
 
-        var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
+            listBrokenRefsSingleSheet(ListSheetBroken, Sheet, thisIndLabel)
 
-        // start sheet in first top left cell
-        var activeRow = 1
-        var activeCol = 1
-
-        // adds up indicator guidance
-        activeRow = fixIndicatorGuidance(sheet, thisInd, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink)
-
-        // --- // Begin Main Step-Wise Procedure // --- //
-
-        var mainStepsLength = ResearchStepsObj.researchSteps.length
-
-        // optional: update answer dropdown
-        var updateAnswerOptions = false
-
-        // for each main step
-        for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
-
-            /* optional: update answer dropdown */
-            /* only update dropdown for Step 4 (array[3]) and following
-            
-            if (mainStepNr > 2) { 
-                updateAnswerOptions = true
+            if (doRepairs) {
+                Logger.log(" --- fixing " + thisIndLabel)
+                fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchSteps, thisInd, thisIndLabel, thisIndCat, nrOfIndCatSubComps, Company, hasOpCom, companyNumberOfServices, includeRGuidanceLink)
             }
-            */
+        } // End of Indicator Sheet
 
-            var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
-            // setting up all the substeps for all the indicators
+    } // End of Indicator Category ("Class")
 
-            Logger.log(thisIndLabel + " main step : " + thisMainStep.step)
-            var subStepsLength = thisMainStep.substeps.length
-
-
-            activeRow = skipMainStepHeader(thisIndCat, activeRow) // sets up header
-
-            // --- // Begin sub-Step-Wise Procedure // --- //
-
-            // for each substep
-            for (var subStepNr = 0; subStepNr < subStepsLength; subStepNr++) {
-
-                var currentStep = thisMainStep.substeps[subStepNr]
-                Logger.log(thisIndLabel + " substep : " + currentStep.labelShort)
-
-                var currentStepClength = currentStep.components.length
-
-                // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
-
-                // stores first row of a step to use later in naming a step
-
-                // Begin step component procedure
-                for (var stepCNr = 0; stepCNr < currentStepClength; stepCNr++) {
-
-                    var thisStepComponent = currentStep.components[stepCNr].type
-
-                    Logger.log("step.component : " + currentStep.labelShort + " : " + thisStepComponent)
-
-                    // create the type of substep component that is specified in the json
-
-                    switch (thisStepComponent) {
-
-                        case "header":
-                            activeRow = fixSubStepHeader(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
-
-                        case "elementResults":
-                            activeRow = fixScoringOptions(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices, updateAnswerOptions)
-                            break
-
-                        case "binaryReview":
-                            activeRow = fixBinaryEvaluation(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
-
-                        case "elementComments":
-                            activeRow = fixComments(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
-
-                        case "sources":
-                            activeRow = fixSources(sheet, thisInd, CompanyObj, activeRow, Spreadsheet, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNumberOfServices)
-                            break
-
-                        case "extraQuestion":
-                            activeRow = fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
-                            break
-
-                    }
-                } // END substep component procedure
-
-                // if there are no more substeps, we store the final row and name the step
-                // if (stepCNr == currentStepClength - 1) {
-
-
-                // Spreadsheet.setNamedRange(stepNamedRange, range)
-
-                // names an entire step
-
-                // GROUPING for substep
-
-                // }
-
-            } // --- // END Sub-Step-Wise Procedure // --- //
-
-            // if (mainStepNr < mainStepsLength - 1) {
-            //     sheet.getRange(activeRow, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
-            // }
-
-            activeRow += 1
-
-
-        } // --- // END Main-Step-Wise Procedure // --- //
-
-
-        // // set font for whole data range
-        // var sheetRange = sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
-        //     .setFontFamily("Roboto")
-        //     .setFontSize(10)
-        //     .setWrap(true)
-        //     .setVerticalAlignment("top")
-
-        // var condRuleNames = SpreadsheetApp.newConditionalFormatRule()
-        //     .whenTextEqualTo('Your Name')
-        //     .setFontColor('#ea4335')
-        //     .setBold(true)
-        //     .setRanges([sheetRange])
-        //     .build()
-
-        // var condRuleValues = SpreadsheetApp.newConditionalFormatRule()
-        //     .whenTextEqualTo('not selected')
-        //     // .setFontColor('#ea4335')
-        //     .setBackground('#f4cccc')
-        //     .setRanges([sheetRange])
-        //     .build()
-
-        // var rules = sheet.getConditionalFormatRules()        
-        // rules.push(condRuleNames)
-        // rules.push(condRuleValues)
-        // sheet.setConditionalFormatRules(rules)
-
-        listBrokenRefs(ListSheetFixed, sheet, thisIndLabel)
-    } // End of Indicator Sheet
-
-} // End of populating process
+} // End of Company Repairs Process

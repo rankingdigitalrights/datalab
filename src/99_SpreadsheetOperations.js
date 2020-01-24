@@ -133,9 +133,9 @@ function moveSheetToPos(Spreadsheet, Sheet, posInt) {
     Spreadsheet.moveActiveSheet(posInt)
 }
 
-function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheet) {
+function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID) {
 
-    var spreadsheet = connectToSpreadsheetByID(controlSpreadsheet)
+    var spreadsheet = connectToSpreadsheetByID(controlSpreadsheetID)
     var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
     var formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
     sheet.appendRow([mode, companyShortName, fileID, formula])

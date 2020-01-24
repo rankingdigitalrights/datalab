@@ -1,35 +1,37 @@
-// --- // Main Config // --- //
-// --- Branch: PILOT --- //
+// --- // Main Controller // --- //
+// --- //  Branch: PILOT  // --- //
 
 /* global
-        centralConfig,
-        companiesVector,
-        addFileIDtoControl,
-        createSpreadsheetInput,
-        createSpreadsheetOutput,
-        createFeedbackForms,
-        createAggregationOutput,
-        createCompanyDataStore,
-        inspectHealth,
-        repairInputSpreadsheets,
-        clearNamedRangesFromCompanySheet
+    centralConfig,
+    companiesVector,
+    createSpreadsheetInput,
+    createSpreadsheetOutput,
+    createFeedbackForms,
+    createAggregationOutput,
+    createCompanyDataStore,
+    processHealthSingleSpreadsheet,
+    clearNamedRangesFromCompanySheet,
+    connectToSpreadsheetByID,
+    insertSheetIfNotExist,
+    addFileIDtoControl,
 */
-// TODO: Move global parameters to config
 
-var indexPrefix = "RDR19P"
+// global params init (with initiateConfig())
+
+var indexPrefix
 var filenamePrefix = "2019 Pilot -"
 var filenameSuffix = "Dev" // Dev, "", Debug, QC
-var rootFolderID = "1_0ItAPEi3guFochAExacCl2bTN0abwax" // "2019 Back-End Dev"
+var rootFolderID // "2019 Back-End Dev"
 var outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
+var controlSpreadsheetID
 
-var controlSpreadsheet = "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI" // 00_2019_Pilot_Dashboard
-
-// --- // MAIN CALLER // --- //
+// --- // MAIN CALLERS // --- //
 
 // create Data Collection spreadsheets for all companies
 
 function mainAllCompaniesDataCollectionSheets() {
 
+    initiateConfig()
     var mainSheetMode = "Input" // for filename
     var useStepsSubset = false // true := use subset
     var useIndicatorSubset = false // true := use subset
@@ -56,7 +58,7 @@ function mainAllCompaniesDataCollectionSheets() {
 
         fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
     })
 
@@ -66,6 +68,7 @@ function mainAllCompaniesDataCollectionSheets() {
 
 function mainAllCompaniesScoringSheets() {
 
+    initiateConfig()
     var mainSheetMode = "Output"
     var useStepsSubset = false // true := use subset
     var useIndicatorSubset = true // true := use subset
@@ -81,7 +84,7 @@ function mainAllCompaniesScoringSheets() {
 
         fileID = createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
     })
 }
@@ -90,6 +93,7 @@ function mainAllCompaniesScoringSheets() {
 
 function mainAllFeedbackSheets() {
 
+    initiateConfig()
     var mainSheetMode = "Feedback"
 
     var useIndicatorSubset = false // true := use subset
@@ -103,7 +107,7 @@ function mainAllFeedbackSheets() {
 
         fileID = createFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
     })
 }
 
@@ -113,7 +117,7 @@ function mainSummaryScoresProto() {
 
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-
+    initiateConfig()
     outputFolderName = "2019 Pilot Summary Dev"
     var mainSheetMode = "Summary Scores"
 
@@ -130,7 +134,7 @@ function mainSummaryScoresProto() {
 
     var fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
 
-    addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheet)
+    addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 
     Logger.log("added " + mainSheetMode + ";fileID: " + fileID)
 }
@@ -139,6 +143,7 @@ function mainSummaryScoresProto() {
 
 function mainDataStore() {
 
+    initiateConfig()
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
@@ -156,7 +161,7 @@ function mainDataStore() {
         fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         Logger.log("received fileID: " + fileID)
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheet)
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
     })
 }
@@ -165,25 +170,47 @@ function mainDataStore() {
 
 function mainInspectHealth() {
 
-    outputFolderName = "00_control_dev"
+    initiateConfig()
+    // IMPORTANT FLAG
+    var doRepairs = false // IMPORTANT FLAG
 
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
 
-    var Companies = companiesVector.companies
-    // .slice(0,3) // Amazon
-    // .slice(1,2) // Apple
-    // .slice(3,4) //
+    var controlSpreadsheet = connectToSpreadsheetByID(controlSpreadsheetID)
+    var ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
+    // ListSheetBroken.clear()
+    var ListSheetFixed = null
 
-    inspectHealth(Companies, filenamePrefix, filenameSuffix, mainSheetMode)
+    var Companies = companiesVector.companies
+
+    Companies.forEach(function (Company) {
+        processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+    })
 
 }
 
 // --- // repairing // --- // 
 function mainRepairCompaniesDataCollectionSheets() {
 
+    initiateConfig()
+    // IMPORTANT FLAG
+    var doRepairs = true // IMPORTANT FLAG
+
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
+
+    var controlSpreadsheet = connectToSpreadsheetByID(controlSpreadsheetID)
+    var ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
+    ListSheetBroken.clear()
+    var ListSheetFixed
+
+    if (doRepairs) {
+        ListSheetFixed = insertSheetIfNotExist(controlSpreadsheet, "Input - Fixed Refs", true)
+        // ListSheetFixed.clear()
+    } else {
+        ListSheetFixed = null
+    }
 
     var Companies = companiesVector.companies
         // .slice(0,3) // Subset #1
@@ -191,23 +218,24 @@ function mainRepairCompaniesDataCollectionSheets() {
         // .slice(6,9) // Subset #3
         // .slice(0,1) // Amazon
         // .slice(1, 2) // Apple
-        // .slice(2,3) // Deutsche Telekom
-        // .slice(3, 4) // Facebook
-        // .slice(4,5) // Google
-        // .slice(5,6) // Microsoft
-        .slice(6, 7) // Telefonica
+        // .slice(2, 3) // Deutsche Telekom
+        .slice(3, 4) // Facebook
+    // .slice(4,5) // Google
+    // .slice(5,6) // Microsoft
+    // .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
     Companies.forEach(function (Company) {
-        repairInputSpreadsheets(Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
     })
 
 }
 
-// --- // repairing // --- // 
+// --- // USE WISELY // --- // 
 function mainClearAllNamedRanges() {
 
+    initiateConfig()
     var mainSheetMode = "Input" // for filename
 
     var Companies = companiesVector.companies
@@ -226,4 +254,15 @@ function mainClearAllNamedRanges() {
         clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
+}
+
+function initiateConfig() {
+
+    indexPrefix = centralConfig.indexPrefix
+    filenamePrefix = "2019 Pilot -"
+    filenameSuffix = "Dev" // Dev, "", Debug, QC
+    rootFolderID = centralConfig.rootFolderID // "2019 Back-End Dev"
+    outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
+
+    controlSpreadsheetID = centralConfig.controlSpreadsheetID // 00_2019_Pilot_Dashboard
 }

@@ -1,9 +1,9 @@
 var centralConfig = {
-    "indexPrefix": "RDR2019",
+    "indexPrefix": "RDR19P",
     "filenameSuffix": "Pilot Dev",
     "rootFolderID": "1_0ItAPEi3guFochAExacCl2bTN0abwax", // "2019 Back-end testing"
     "outputFolderName": "2019 Pilot Dev", // ID: 1eZxqA2_ebOYs9oMnySKSzV5ybNwrEmMO
-    "controlSpreadsheet": "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI", // 00_Pilot_Dashboard
+    "controlSpreadsheetID": "1PMEEmlueGgf69ZcUjIvS1iFjai9jt6eBd8yKbuZAxMI", // 00_Pilot_Dashboard
     "YearOnYear": false,
     "freezeHead": false,
     "serviceColWidth": 280,
