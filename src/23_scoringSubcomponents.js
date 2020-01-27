@@ -144,7 +144,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
             var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", stepCompID)
 
             // adding formula
-            var formula = importRange(urlDC, compCellName, integrateOutputs)
+            var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
             tempCol += 1
         }
@@ -161,7 +161,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
                 // setting up formula that compares values
                 var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
-                var formula = importRange(urlDC, compCellName, integrateOutputs)
+                var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
 
             } else {
@@ -183,7 +183,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
                 // setting up formula that compares values
                 var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[s].id, stepCompID)
 
-                var formula = importRange(urlDC, compCellName, integrateOutputs)
+                var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
 
                 tempCol += 1
@@ -257,7 +257,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
         var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, "group", stepCompID)
 
         // adding formula
-        var formula = importRange(urlDC, compCellName, integrateOutputs)
+        var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         currentCell.setFormula(formula)
         tempCol += 1
     }
@@ -274,7 +274,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
             // setting up formula that compares values
             var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
-            var formula = importRange(urlDC, compCellName, integrateOutputs)
+            var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
 
         } else {
@@ -296,7 +296,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
             // setting up formula that compares values
             var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
 
-            var formula = importRange(urlDC, compCellName, integrateOutputs)
+            var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
 
             tempCol += 1

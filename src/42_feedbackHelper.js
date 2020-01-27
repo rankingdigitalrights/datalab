@@ -180,7 +180,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
             compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, "group", stepCompID)
 
             // adding formula
-            formula = importRange(urlDC, compCellName, integrateOutputs)
+            formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
             tempCol += 1
         }
@@ -197,7 +197,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
                 // setting up formula that compares values
                 compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
-                formula = importRange(urlDC, compCellName, integrateOutputs)
+                formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
 
                 tempCol += 1
@@ -217,7 +217,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
                 // setting up formula that compares values
                 compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[e].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
 
-                formula = importRange(urlDC, compCellName, integrateOutputs)
+                formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
 
                 tempCol += 1
@@ -298,7 +298,7 @@ function importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepCom
         compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, "group", stepCompID)
 
         // adding formula
-        formula = importRange(urlDC, compCellName, integrateOutputs)
+        formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         currentCell.setFormula(formula)
         tempCol += 1
     }
@@ -315,7 +315,7 @@ function importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepCom
             // setting up formula that compares values
             compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
-            formula = importRange(urlDC, compCellName, integrateOutputs)
+            formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
 
             tempCol += 1
@@ -335,7 +335,7 @@ function importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepCom
             // setting up formula that compares values
             compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, thisInd.labelShort, component, CompanyObj.id, CompanyObj.services[s].id, stepCompID)
 
-            formula = importRange(urlDC, compCellName, integrateOutputs)
+            formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
 
             tempCol += 1
