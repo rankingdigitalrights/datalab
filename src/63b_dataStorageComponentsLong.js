@@ -1,4 +1,4 @@
-function addDataStoreSheetHeaderLong(Sheet, Company, activeRow) {
+function addDataStoreSheetHeaderLong(Sheet, activeRow) {
 
     var columnLabels = ["Step", "Element", "Data Type", "Class", "Service", "Value"]
 

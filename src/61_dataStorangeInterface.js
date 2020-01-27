@@ -1,11 +1,13 @@
 /**
  * Interface for creating a structured set of company element-level reults
- * 
+ * NEW: Wide and Long (Tidy Format)
+ * TODO: consolidate all Steps into single Sheet
  */
 
 /* global
        insertSheetIfNotExist,
-       dataStoreSingleStepWide
+       dataStoreSingleStepWide,
+       dataStoreSingleStepLong
 */
 
 function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, isLongForm) {
@@ -55,7 +57,7 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
             {
                 dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
             } else {
-                dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
+                dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
             }
         } // END SUBSTEP
     } // END MAIN STEP

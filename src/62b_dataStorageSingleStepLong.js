@@ -1,4 +1,4 @@
-function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC) {
+function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC) {
 
     Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
@@ -13,7 +13,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
 
     Logger.log("--- Beginning Substep " + thisSubStepID)
 
-    activeRow = addDataStoreSheetHeaderLong(Sheet, Company, activeRow)
+    activeRow = addDataStoreSheetHeaderLong(Sheet, activeRow)
     Logger.log(" - company header added for " + thisSubStepID)
 
     var thisIndCat
