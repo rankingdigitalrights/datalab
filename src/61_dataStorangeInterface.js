@@ -5,10 +5,10 @@
 
 /* global
        insertSheetIfNotExist,
-       dataStoreSingleStep
+       dataStoreSingleStepWide
 */
 
-function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, dataForm) {
+function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, isLongForm) {
 
     Logger.log("--- Begin addDataStoreSingleCompany --- subStep: " + subStepNr)
 
@@ -51,7 +51,7 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
 
             // setting up all the substeps for all the indicators
 
-            if (dataForm) // TODO: change to bool isWideForm
+            if (!isLongForm) // TODO: change to bool isWideForm
             {
                 dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
             }

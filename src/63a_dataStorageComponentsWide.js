@@ -71,7 +71,7 @@ function importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStep
         compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "group", stepCompID)
 
         // adding formula
-        formula = importRange(urlDC, compCellName, integrateOutputs)
+        formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         // currentCell.setFormula(formula)
         rowCells.push(formula)
 
@@ -80,7 +80,7 @@ function importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStep
             // setting up formula that compares values
             compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "opCom", stepCompID)
 
-            formula = importRange(urlDC, compCellName, integrateOutputs)
+            formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         } else {
             formula = "NA"
         }
@@ -90,7 +90,7 @@ function importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStep
         for (var s = 0; s < Company.services.length; s++) {
             compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, Company.services[s].id, stepCompID)
 
-            formula = importRange(urlDC, compCellName, integrateOutputs)
+            formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             rowCells.push(formula)
         }
         // Sheet.appendRow(rowCells)
@@ -152,7 +152,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
     compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
 
     // adding formula
-    formula = importRange(urlDC, compCellName, integrateOutputs)
+    formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     rowCells.push(formula)
 
 
@@ -161,7 +161,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
         // setting up formula that compares values
         compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
 
-        formula = importRange(urlDC, compCellName, integrateOutputs)
+        formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     } else {
         formula = "NA"
     }
@@ -173,7 +173,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
         // setting up formula that compares values
         compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
 
-        formula = importRange(urlDC, compCellName, integrateOutputs)
+        formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
 
         rowCells.push(formula)
     }

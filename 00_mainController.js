@@ -143,8 +143,9 @@ function mainSummaryScoresProto() {
 
 function mainDataStore() {
 
-    var dataForm = "wide" // "long"
+    var isLongForm = false
     initiateConfig()
+    filenameSuffix = "Dev Wide"
     outputFolderName = "2019 Pilot Data Store v2"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
@@ -160,7 +161,7 @@ function mainDataStore() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, dataForm)
+        fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, isLongForm)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
