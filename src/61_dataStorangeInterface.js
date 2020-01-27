@@ -4,16 +4,14 @@
  */
 
 /* global
-       determineFirstStep,
-       determineMaxStep,
        insertSheetIfNotExist,
        dataStoreSingleStep
 */
 
-function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs) {
+function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth) {
 
     Logger.log("--- Begin addDataStoreSingleCompany --- subStep: " + subStepNr)
-    var dataColWidth = outputParams.dataColWidth
+
     var urlDC = Company.urlCurrentDataCollectionSheet
 
     // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
@@ -23,9 +21,6 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, Company,
     }
 
     var numberOfColumns = (Company.numberOfServices + 2) * globalNrOfComponents + 1
-
-    var firstScoringStep = determineFirstStep(outputParams)
-    var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
 
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
@@ -46,7 +41,7 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, Company,
             Logger.log("--- Main Step : " + thisMainStep.step)
             Logger.log("--- Main Step has " + thisMainStep.substeps.length + " Substeps")
 
-            var Sheet = insertSheetIfNotExist(SS, sheetLabel, false) // ToDo set as FALSE later
+            var Sheet = insertSheetIfNotExist(SS, sheetLabel, true) // ToDo set as FALSE later
 
             if (Sheet !== null) {
                 Sheet.clear()

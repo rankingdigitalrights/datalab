@@ -16,13 +16,13 @@
     addFileIDtoControl,
 */
 
-// global params init (with initiateConfig())
+// global params init (def with initiateConfig())
 
 var indexPrefix
-var filenamePrefix = "2019 Pilot -"
-var filenameSuffix = "Dev" // Dev, "", Debug, QC
+var filenamePrefix
+var filenameSuffix
 var rootFolderID // "2019 Back-End Dev"
-var outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
+var outputFolderName
 var controlSpreadsheetID
 
 // --- // MAIN CALLERS // --- //
@@ -144,6 +144,7 @@ function mainSummaryScoresProto() {
 function mainDataStore() {
 
     initiateConfig()
+    outputFolderName = "2019 Pilot Data Store v2"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
@@ -152,7 +153,7 @@ function mainDataStore() {
     var useIndicatorSubset = true // true := use subset
 
     var Companies = companiesVector.companies
-    // .slice(1,2) // Apple
+        .slice(1, 2) // Apple
 
     var fileID
 
@@ -260,7 +261,7 @@ function initiateConfig() {
 
     indexPrefix = centralConfig.indexPrefix
     filenamePrefix = "2019 Pilot -"
-    filenameSuffix = "Dev" // Dev, "", Debug, QC
+    filenameSuffix = "Dev v2" // Dev, "", Debug, QC
     rootFolderID = centralConfig.rootFolderID // "2019 Back-End Dev"
     outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
 

@@ -13,7 +13,9 @@
         spreadSheetFileName,
         connectToSpreadsheetByName,
         addDataStoreSingleCompany,
-        removeEmptySheet
+        removeEmptySheet,
+        determineFirstStep,
+        determineMaxStep,
 */
 
 function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
@@ -40,8 +42,12 @@ function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany,
     var outputParams = Config.dataStoreParams
     var integrateOutputs = outputParams.integrateOutputs
     var subStepNr = 0 // param for global control substep processing
+    var dataColWidth = outputParams.dataColWidth
 
-    addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
+    var firstScoringStep = determineFirstStep(outputParams)
+    var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
+
+    addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, CompanyObj, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth)
 
     // var subStepNr = 1 // param for global control substep processing
     // addDataStoreSingleCompany(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
