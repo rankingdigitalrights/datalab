@@ -111,7 +111,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
 
 // generic : imports both,element level evaluation results and comments
 // proceeds row-wise per element
-function importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
+function importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
 
     var stepCompID
     if (stepCompID == "elementResults") {
