@@ -143,15 +143,15 @@ function mainSummaryScoresProto() {
 
 function mainDataStore() {
 
-    var isLongForm = false
+    var isLongForm = true
     initiateConfig()
-    filenameSuffix = "Dev Wide"
+    filenameSuffix = "Dev" // + long or wide is decided in main logic
     outputFolderName = "2019 Pilot Data Store v2"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
 
-    var useStepsSubset = true // true := use subset
+    var useStepsSubset = false // true := use subset
     var useIndicatorSubset = true // true := use subset
 
     var Companies = companiesVector.companies

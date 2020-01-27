@@ -54,6 +54,8 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
             if (!isLongForm) // TODO: change to bool isWideForm
             {
                 dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
+            } else {
+                dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC)
             }
         } // END SUBSTEP
     } // END MAIN STEP

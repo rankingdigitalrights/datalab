@@ -28,7 +28,12 @@ function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany,
 
     var companyFilename = cleanCompanyName(CompanyObj)
 
-    Logger.log("begin main Data Layer Process for " + companyFilename)
+    if (isLongForm) {
+        filenameSuffix += " Long"
+    } else {
+        filenameSuffix += " Wide"
+    }
+    Logger.log("begin main Data Layer Process for " + companyFilename + filenameSuffix)
 
     var hasOpCom = CompanyObj.hasOpCom
 
