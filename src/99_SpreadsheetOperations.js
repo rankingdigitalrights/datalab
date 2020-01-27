@@ -143,7 +143,7 @@ function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID
 
 }
 
-function importRange(url, range, integrateOutputs) {
+function importRangeFormula(url, range, integrateOutputs) {
 
     var formula
 
