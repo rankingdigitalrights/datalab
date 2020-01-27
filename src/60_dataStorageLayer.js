@@ -18,7 +18,7 @@
         determineMaxStep,
 */
 
-function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode, dataForm) {
 
     var Config = centralConfig
     var IndicatorsObj = indicatorsVector
@@ -47,7 +47,7 @@ function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany,
     var firstScoringStep = determineFirstStep(outputParams)
     var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
 
-    addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, CompanyObj, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth)
+    addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, CompanyObj, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, dataForm)
 
     // var subStepNr = 1 // param for global control substep processing
     // addDataStoreSingleCompany(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)

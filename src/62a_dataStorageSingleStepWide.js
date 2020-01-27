@@ -1,4 +1,4 @@
-function dataStoreSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC) {
+function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, numberOfColumns, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC) {
 
     Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
@@ -13,7 +13,7 @@ function dataStoreSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Compa
 
     Logger.log("--- Beginning Substep " + thisSubStepID)
 
-    activeRow = addDataStoreSheetHeader(Sheet, Company, activeRow)
+    activeRow = addDataStoreSheetHeaderWide(Sheet, Company, activeRow)
     Logger.log(" - company header added for " + thisSubStepID)
 
     // For all Indicator Categories
@@ -58,22 +58,22 @@ function dataStoreSingleStep(Sheet, subStepNr, IndicatorsObj, thisSubStep, Compa
 
                     // import researcher name from x.0 step
                     case "header":
-                        activeRow = importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                        activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
                         // Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
                         break
 
                     case "elementResults":
-                        activeRow = importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                        activeRow = importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
                         break
 
                     case "elementComments":
-                        activeRow = importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                        activeRow = importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
                         break
 
                     case "sources":
-                        activeRow = importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
+                        activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(thisInd.labelShort + " - SC - " + "sources added")
                         break
                 }

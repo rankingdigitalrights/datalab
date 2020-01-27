@@ -1,6 +1,6 @@
 // ---------------------HELPER FUNCTIONS---------------------------------------------
 // --- BEGIN setScoringCompanyHeader() --- //
-function addDataStoreSheetHeader(Sheet, Company, activeRow) {
+function addDataStoreSheetHeaderWide(Sheet, Company, activeRow) {
 
     var columnLabel
     var columnLabels = ["Element", "Type"]
@@ -32,7 +32,7 @@ function addDataStoreSheetHeader(Sheet, Company, activeRow) {
 
 // generic : imports both,element level evaluation results and comments
 // proceeds row-wise per element
-function importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
+function importDataStoreElementBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
 
     var stepCompID
     if (stepCompID == "elementResults") {
@@ -109,7 +109,7 @@ function importDataStoreElementBlock(Sheet, activeRow, StepComp, thisSubStepID, 
 
 // --- // Begin Sources // --- //
 
-function importDataStoreRow(activeRow, Sheet, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
+function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
 
     var stepCompID
 
