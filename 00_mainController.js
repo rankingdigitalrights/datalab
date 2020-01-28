@@ -145,8 +145,8 @@ function mainDataStore() {
 
     var isLongForm = true
     initiateConfig()
-    filenameSuffix = "Dev" // + long or wide is decided in main logic
-    outputFolderName = "2019 Pilot Data Store v2"
+    filenameSuffix = "Dev v2" // + long or wide is decided in main logic
+    outputFolderName = "2019 Pilot Data Store Long"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
@@ -155,7 +155,7 @@ function mainDataStore() {
     var useIndicatorSubset = true // true := use subset
 
     var Companies = companiesVector.companies
-        .slice(1, 2) // Apple
+    // .slice(1, 2) // Apple
 
     var fileID
 
@@ -186,6 +186,7 @@ function mainInspectHealth() {
     var ListSheetFixed = null
 
     var Companies = companiesVector.companies
+        .slice(1, 2) // Apple
 
     Companies.forEach(function (Company) {
         processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
@@ -222,10 +223,10 @@ function mainRepairCompaniesDataCollectionSheets() {
         // .slice(0,1) // Amazon
         // .slice(1, 2) // Apple
         // .slice(2, 3) // Deutsche Telekom
-        .slice(3, 4) // Facebook
-    // .slice(4,5) // Google
-    // .slice(5,6) // Microsoft
-    // .slice(6, 7) // Telefonica
+        // .slice(3, 4) // Facebook
+        // .slice(4,5) // Google
+        // .slice(5,6) // Microsoft
+        .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
@@ -236,7 +237,7 @@ function mainRepairCompaniesDataCollectionSheets() {
 }
 
 // --- // USE WISELY // --- // 
-function mainClearAllNamedRanges() {
+/* function mainClearAllNamedRanges() {
 
     initiateConfig()
     var mainSheetMode = "Input" // for filename
@@ -257,7 +258,7 @@ function mainClearAllNamedRanges() {
         clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
-}
+} */
 
 function initiateConfig() {
 
