@@ -20,7 +20,7 @@ function listBrokenRefsSingleSheet(ListSheet, sourceSheet, thisIndLabel) {
 
     var arrayLength = namedRanges.length
     if (arrayLength > 0) {
-        var column = ListSheet.getRange(lastRow, 1, arrayLength, 3)
+        var column = ListSheet.getRange(lastRow, 1, arrayLength, namedRanges[0].length)
         column.setValues(namedRanges)
     }
 }
