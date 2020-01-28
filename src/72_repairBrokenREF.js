@@ -7,7 +7,7 @@
     fixComments,
     fixSources,
     fixExtraInstruction,
-    listBrokenRefs
+    listBrokenRefsSingleSheet
 */
 
 function fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchSteps, thisInd, thisIndLabel, thisIndCat, nrOfIndSubComps, Company, hasOpCom, companyNrOfServices, includeRGuidanceLink) {
@@ -172,5 +172,5 @@ function fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchStep
     // rules.push(condRuleValues)
     // Sheet.setConditionalFormatRules(rules)
 
-    listBrokenRefs(ListSheetFixed, Sheet, thisIndLabel)
+    listBrokenRefsSingleSheet(ListSheetFixed, Sheet, thisIndLabel)
 }
