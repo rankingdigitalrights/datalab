@@ -1,5 +1,16 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
+/* global
+        cleanCompanyName,
+        centralConfig,
+        indicatorsVector,
+        researchStepsVector,
+        spreadSheetFileName,
+        connectToSpreadsheetByName,
+        getISOtimeAsString,
+        processInputSheet
+*/
+
 function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs) {
 
     var companyShortName = cleanCompanyName(Company)
