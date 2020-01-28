@@ -186,7 +186,8 @@ function mainInspectHealth() {
     var ListSheetFixed = null
 
     var Companies = companiesVector.companies
-        .slice(1, 2) // Apple
+        // .slice(1, 2) // Apple
+        .slice(1, 9)
 
     Companies.forEach(function (Company) {
         processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)

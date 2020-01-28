@@ -10,8 +10,7 @@ function listBrokenRefsSingleSheet(ListSheet, sourceSheet, thisIndLabel) {
         rangeVal = range.getRange().getA1Notation().toString()
         if (rangeVal === "#REF!") {
             namedRanges.push([
-                ["---"],
-                [thisIndLabel],
+                ["---> " + thisIndLabel],
                 [range.getName()],
                 [rangeVal]
             ])
@@ -20,7 +19,7 @@ function listBrokenRefsSingleSheet(ListSheet, sourceSheet, thisIndLabel) {
 
     var arrayLength = namedRanges.length
     if (arrayLength > 0) {
-        var column = ListSheet.getRange(lastRow, 1, arrayLength, namedRanges[0].length)
+        var column = ListSheet.getRange(lastRow, 1, arrayLength, 3)
         column.setValues(namedRanges)
     }
 }
