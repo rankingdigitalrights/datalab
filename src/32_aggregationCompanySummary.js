@@ -33,6 +33,8 @@ function addSummarySingleCompany(Sheet, thisSubStepID, IndicatorsObj, indicatorP
 
     /** as according to default Index layout this is happening in the wrong order twice (summary scores first, with overall totals before class totals, indicator results second) we need to anticipate the position and length of indicator class blocks. To do so, we sum up individual indicator class lengths only after passing totals and completing the first class. Other than that, this implementation can handle n classes with m indicators without additional modifications */
 
+    // TODO: test insertRows(SummaryBlock)
+
     var thisLength = 0
     var totalLength = 0
     var nrOfClasses = indicatorParams.length

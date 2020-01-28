@@ -1,3 +1,10 @@
+/* global
+        addDataStoreSheetHeaderLong,
+        importDataStoreRowLong,
+        importDataStoreElementBlockLong
+*/
+
+
 function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC) {
 
     Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
@@ -99,15 +106,6 @@ function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
     var hookFirstDataCol = firstCol + 2
     Sheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
     Sheet.setColumnWidth(lastCol + 1, 25)
-
-    // ToDo
-    //     var thisBlock = Sheet.getRange(firstRow, firstCol, activeRow - firstRow, tempCol - firstCol)
-    // thisBlock.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-
-    // if (!hasOpCom) {
-    //     var opComCol = hookFirstDataCol + 1
-    //     Sheet.hideColumns(opComCol)
-    // }
 
 }
 

@@ -1,3 +1,9 @@
+/* global
+        indexPrefix,
+        defineNamedRangeStringImport,
+        importRangeFormula
+*/
+
 function addDataStoreSheetHeaderLong(Sheet, activeRow) {
 
     var columnLabels = ["Step", "Element", "Data Type", "Class", "Service", "Value"]
