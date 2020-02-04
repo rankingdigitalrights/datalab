@@ -118,7 +118,7 @@ function mainSummaryScoresProto() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateConfig()
-    filenameSuffix = "Dev v2" // DANGER
+    filenameSuffix = "Dev" // DANGER
     outputFolderName = "2019 Pilot Summary Dev"
     var mainSheetMode = "Summary Scores"
 
@@ -127,10 +127,10 @@ function mainSummaryScoresProto() {
     var scoringStepNr = 6
 
     var Companies = companiesVector.companies
-        // .slice(1, 9) // no Amazon
-        // .slice(1, 3) // for debugging
-        // .slice(0,3) // Amazon
-        .slice(1, 2) // Apple
+        .slice(1, 9) // no Amazon
+    // .slice(1, 3) // for debugging
+    // .slice(0,3) // Amazon
+    // .slice(1, 2) // Apple
     // .slice(3,4) //
 
     var fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
@@ -144,25 +144,26 @@ function mainSummaryScoresProto() {
 
 function mainDataStore() {
 
-    var isLongForm = true
+    var includeWide = false
     initiateConfig()
-    filenameSuffix = "Dev v2" // + long or wide is decided in main logic
-    outputFolderName = "2019 Pilot Data Store Long"
+    filenameSuffix = " Long" // + long or wide is decided in main logic
+    outputFolderName = "2019 Pilot Data Store"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
 
     var useStepsSubset = false // true := use subset
-    var useIndicatorSubset = true // true := use subset
+    var useIndicatorSubset = false // true := use subset
 
     var Companies = companiesVector.companies
+        .slice(1, 9) // exclude Amazon
     // .slice(1, 2) // Apple
 
     var fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, isLongForm)
+        fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)

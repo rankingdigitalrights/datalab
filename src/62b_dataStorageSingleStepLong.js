@@ -5,26 +5,26 @@
 */
 
 
-function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, dataColWidth, useIndicatorSubset, integrateOutputs, urlDC) {
+function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow) {
 
     Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
-
 
     var thisSubStepID = thisSubStep.subStepID
 
     Logger.log("Inserting Sheet " + subStepNr)
 
-    var firstCol = 1
-    var activeRow = 1
-    var lastRow
+    var activeRow = lastRow
 
     Logger.log("--- Beginning Substep " + thisSubStepID)
 
-    activeRow = addDataStoreSheetHeaderLong(Sheet, activeRow)
-    Logger.log(" - company header added for " + thisSubStepID)
+    if (activeRow === 1) {
+        activeRow = addDataStoreSheetHeaderLong(Sheet, activeRow)
+        Logger.log(" - company header added for " + thisSubStepID)
+    }
 
     var thisIndCat
     var thisIndCatLength
+    var nrOfIndSubComps = 1
 
     // For all Indicator Categories
     for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
@@ -32,7 +32,6 @@ function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
         thisIndCat = IndicatorsObj.indicatorClasses[c]
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
-        var nrOfIndSubComps = 1
 
         if (thisIndCat.hasSubComponents == true) {
             nrOfIndSubComps = thisIndCat.components.length
@@ -92,20 +91,9 @@ function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
         } // END INDICATOR
     } // END INDICATOR CATEGORY
 
-    var lastCol = Sheet.getLastColumn()
+    lastRow = activeRow
 
-    Logger.log("Formatting Sheet")
-    lastRow = Sheet.getLastRow()
-
-    Sheet.getRange(1, 1, lastRow, lastCol)
-        .setFontFamily("Roboto")
-        .setVerticalAlignment("top")
-        .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-    // .setWrap(true)
-
-    var hookFirstDataCol = firstCol + 2
-    Sheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
-    Sheet.setColumnWidth(lastCol + 1, 25)
+    return lastRow
 
 }
 
