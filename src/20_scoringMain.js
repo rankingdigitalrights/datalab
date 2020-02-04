@@ -16,8 +16,8 @@ function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany
 
     var companyFilename = cleanCompanyName(CompanyObj)
 
-    Logger.log("begin main Scoring for " + companyFilename)
-    Logger.log("creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
+    Logger.log("--- --- START: main Scoring for " + companyFilename)
+    Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
 
     var hasOpCom = CompanyObj.hasOpCom
     Logger.log(companyFilename + " opCom? - " + hasOpCom)
@@ -47,6 +47,8 @@ function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany
     // clean up // 
     // if empty Sheet exists, delete
     removeEmptySheet(SS)
+
+    Logger.log("--- --- END: main Scoring for " + companyFilename)
 
     return fileID
 }

@@ -35,8 +35,8 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
     // For each Main Research Step
 
     Logger.log("Inserting Sheet " + sheetName)
-    var Sheet = insertSheetIfNotExist(SS, sheetName, false)
-    if (Sheet == null) {
+    var Sheet = insertSheetIfNotExist(SS, sheetName, true)
+    if (Sheet === null) {
         Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
         return lastCol
     }

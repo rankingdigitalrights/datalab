@@ -60,11 +60,13 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
         outputParams.sheetName = companyFilename
 
-        Logger.log("creating " + mainSheetMode + " Sheet for " + companyFilename)
+        Logger.log("--- --- START: creating " + mainSheetMode + " Sheet for " + companyFilename)
 
         hasOpCom = CompanyObj.hasOpCom
 
         addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+
+        Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
     })
 
@@ -77,27 +79,38 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     includeElements = false
 
-    summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
-    summarySheet.clear()
+    summarySheet = insertSheetIfNotExist(SS, summarySheetName, false)
 
-    summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+    if (summarySheet === null) {
+        Logger.log("BREAK: Sheet for " + summarySheetName + " already exists. Skipping.")
+    } else {
+        summarySheet.clear()
 
-    summarySheet.setFrozenColumns(1)
-    summarySheet.setFrozenRows(2)
-    moveSheetifExists(SS, summarySheet, 1)
+        summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+
+        summarySheet.setFrozenColumns(1)
+        summarySheet.setFrozenRows(2)
+        moveSheetifExists(SS, summarySheet, 1)
+    }
 
     // Prototype: with Element Level //
 
     includeElements = true
 
-    summarySheet = insertSheetIfNotExist(SS, "Summary w Elements " + stepName, true)
-    summarySheet.clear()
+    summarySheetName = "Summary w Elements "
+    summarySheet = insertSheetIfNotExist(SS, summarySheetName + stepName, false)
 
-    summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+    if (summarySheet === null) {
+        Logger.log("BREAK: Sheet for " + summarySheetName + " already exists. Skipping.")
+    } else {
+        summarySheet.clear()
 
-    summarySheet.setFrozenColumns(1)
-    summarySheet.setFrozenRows(2)
-    moveSheetifExists(SS, summarySheet, 2)
+        summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+
+        summarySheet.setFrozenColumns(1)
+        summarySheet.setFrozenRows(2)
+        moveSheetifExists(SS, summarySheet, 2)
+    }
 
     // --- // Final formatiing // --- //
 

@@ -43,7 +43,7 @@ function countIndiClassLengths(IndicatorsObj) {
 
      */
 
-    Logger.log("! --- ! indicatorLengths: " + indicatorLengths)
+    // Logger.log("! --- ! indicatorLengths: " + indicatorLengths)
     return indicatorLengths
 }
 
