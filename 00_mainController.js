@@ -118,18 +118,19 @@ function mainSummaryScoresProto() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateConfig()
+    filenameSuffix = "Dev v2" // DANGER
     outputFolderName = "2019 Pilot Summary Dev"
     var mainSheetMode = "Summary Scores"
 
     var useIndicatorSubset = false // true := use subset
 
-    var scoringStepNr = 3
+    var scoringStepNr = 6
 
     var Companies = companiesVector.companies
-        .slice(1, 9) // no Amazon
-    // .slice(1, 3) // for debugging
-    // .slice(0,3) // Amazon
-    // .slice(1,2) // Apple
+        // .slice(1, 9) // no Amazon
+        // .slice(1, 3) // for debugging
+        // .slice(0,3) // Amazon
+        .slice(1, 2) // Apple
     // .slice(3,4) //
 
     var fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
