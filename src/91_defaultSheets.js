@@ -33,8 +33,9 @@ function fillPrevOutcomeSheet(thisSheet, importedOutcomeTabName, externalFormula
 }
 
 function insertPointValidationSheet(SS, SheetName) {
-    var pointsSheet = insertSheetIfNotExist(SS, SheetName, false)
+    var pointsSheet = insertSheetIfNotExist(SS, SheetName, true)
     if (pointsSheet !== null) {
+        pointsSheet.clear()
         fillPointsSheet(pointsSheet)
     }
 
