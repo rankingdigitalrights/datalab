@@ -12,12 +12,15 @@ var researchStepsVector = {
                             "type": "header",
                             "id": "MI",
                             "label": "Researcher",
+                            "valueLabel": "researcher",
                             "placeholderText": "Your Name"
                         },
                         {
                             "type": "elementResults",
                             "id": "",
+                            "scoringId": "SE",
                             "label": "Element ",
+                            "valueLabel": "result",
                             "dropdown": [
                                 "not selected",
                                 "yes",
@@ -32,12 +35,14 @@ var researchStepsVector = {
                             "id": "MC",
                             "label": "Comments for ",
                             "label2": " (explain score)",
+                            "valueLabel": "comment",
                             "clipWrap": true
                         },
                         {
                             "type": "sources",
                             "id": "MS",
-                            "label": "Sources (reference, specific page, section, etc.)"
+                            "label": "Sources (reference, specific page, section, etc.)",
+                            "valueLabel": "sources"
                         }
                     ]
                 },
@@ -50,6 +55,7 @@ var researchStepsVector = {
                     "components": [{
                             "type": "header",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "id": "MI",
                             "importNameFrom": "S01",
                             "placeholderText": ""
@@ -59,6 +65,7 @@ var researchStepsVector = {
                             "id": "MN",
                             "label": "Notes for ",
                             "label2": "",
+                            "valueLabel": "notes",
                             "clipWrap": true
                         }
                     ]
@@ -78,6 +85,7 @@ var researchStepsVector = {
                             "type": "header",
                             "id": "MI",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "placeholderText": "Your Name"
                         },
                         {
@@ -93,7 +101,9 @@ var researchStepsVector = {
                         {
                             "type": "elementResults",
                             "id": "MA",
+                            "scoringId": "SE",
                             "label": "If 'no': suggested answer for ",
+                            "valueLabel": "result",
                             "dropdown": [
                                 "not selected",
                                 "yes",
@@ -108,12 +118,14 @@ var researchStepsVector = {
                             "id": "MC",
                             "label": "Comments for ",
                             "label2": "\n(required if 'no', optional if 'yes')",
+                            "valueLabel": "comment",
                             "clipWrap": true
                         },
                         {
                             "type": "sources",
                             "id": "MS",
-                            "label": "Sources (reference, specific page, section, etc.)"
+                            "label": "Sources (reference, specific page, section, etc.)",
+                            "valueLabel": "sources"
                         }
                     ]
                 },
@@ -126,6 +138,7 @@ var researchStepsVector = {
                     "components": [{
                             "type": "header",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "id": "MI",
                             "importNameFrom": "S02",
                             "placeholderText": ""
@@ -135,6 +148,7 @@ var researchStepsVector = {
                             "id": "MN",
                             "label": "Notes for ",
                             "label2": "",
+                            "valueLabel": "notes",
                             "clipWrap": true
                         }
                     ]
@@ -154,12 +168,15 @@ var researchStepsVector = {
                             "type": "header",
                             "id": "MI",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "placeholderText": "Your Name"
                         },
                         {
                             "type": "elementResults",
                             "id": "",
+                            "scoringId": "SE",
                             "label": "Consolidated answer for ",
+                            "valueLabel": "result",
                             "dropdown": [
                                 "not selected",
                                 "yes",
@@ -174,12 +191,14 @@ var researchStepsVector = {
                             "id": "MC",
                             "label": "Comments for ",
                             "label2": " (explain score)",
+                            "valueLabel": "comment",
                             "clipWrap": true
                         },
                         {
                             "type": "sources",
                             "id": "MS",
-                            "label": "Sources (reference, specific page, section, etc.)"
+                            "label": "Sources (reference, specific page, section, etc.)",
+                            "valueLabel": "sources"
                         }
                     ]
                 },
@@ -192,6 +211,7 @@ var researchStepsVector = {
                     "components": [{
                             "type": "header",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "id": "MI",
                             "importNameFrom": "S03",
                             "placeholderText": ""
@@ -201,6 +221,7 @@ var researchStepsVector = {
                             "id": "MN",
                             "label": "Notes for ",
                             "label2": "",
+                            "valueLabel": "notes",
                             "clipWrap": true
                         }
                     ]
@@ -220,6 +241,7 @@ var researchStepsVector = {
                             "type": "header",
                             "id": "MI",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "placeholderText": "Your Name"
                         },
                         {
@@ -235,6 +257,8 @@ var researchStepsVector = {
                         {
                             "type": "elementResults",
                             "label": "If 'yes': suggested answer for ",
+                            "valueLabel": "result",
+                            "scoringId": "SE",
                             "dropdown": [
                                 "not selected",
                                 "yes",
@@ -250,12 +274,14 @@ var researchStepsVector = {
                             "id": "MC",
                             "label": "Comments for ",
                             "label2": " (required if 'yes', optional if 'no')",
+                            "valueLabel": "comment",
                             "clipWrap": true
                         },
                         {
                             "type": "sources",
                             "id": "MS",
-                            "label": "Sources (reference, specific page, section, etc.)"
+                            "label": "Sources (reference, specific page, section, etc.)",
+                            "valueLabel": "sources"
                         }
                     ]
                 },
@@ -268,6 +294,7 @@ var researchStepsVector = {
                     "components": [{
                             "type": "header",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "id": "MI",
                             "importNameFrom": "S04",
                             "placeholderText": ""
@@ -277,6 +304,7 @@ var researchStepsVector = {
                             "id": "MN",
                             "label": "Notes for ",
                             "label2": "",
+                            "valueLabel": "notes",
                             "clipWrap": true
                         }
                     ]
@@ -296,12 +324,15 @@ var researchStepsVector = {
                             "type": "header",
                             "id": "MI",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "placeholderText": "Your Name"
                         },
                         {
                             "type": "elementResults",
                             "id": "",
+                            "scoringId": "SE",
                             "label": "Consolidated answer for ",
+                            "valueLabel": "result",
                             "dropdown": [
                                 "not selected",
                                 "yes",
@@ -317,12 +348,14 @@ var researchStepsVector = {
                             "id": "MC",
                             "label": "Comments for ",
                             "label2": " (explain score)",
+                            "valueLabel": "comment",
                             "clipWrap": true
                         },
                         {
                             "type": "sources",
                             "id": "MS",
-                            "label": "Sources (reference, specific page, section, etc.)"
+                            "label": "Sources (reference, specific page, section, etc.)",
+                            "valueLabel": "sources"
                         }
                     ]
                 },
@@ -335,6 +368,7 @@ var researchStepsVector = {
                     "components": [{
                             "type": "header",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "id": "MI",
                             "importNameFrom": "S05",
                             "placeholderText": ""
@@ -344,6 +378,7 @@ var researchStepsVector = {
                             "id": "MN",
                             "label": "Notes for ",
                             "label2": "",
+                            "valueLabel": "notes",
                             "clipWrap": true
                         }
                     ]
@@ -363,12 +398,15 @@ var researchStepsVector = {
                             "type": "header",
                             "id": "MI",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "placeholderText": "Your Name"
                         },
                         {
                             "type": "elementResults",
                             "id": "",
+                            "scoringId": "SE",
                             "label": "Element ",
+                            "valueLabel": "result",
                             "dropdown": [
                                 "not selected",
                                 "yes",
@@ -384,12 +422,14 @@ var researchStepsVector = {
                             "id": "MC",
                             "label": "Comments for ",
                             "label2": " (explain score)",
+                            "valueLabel": "comment",
                             "clipWrap": true
                         },
                         {
                             "type": "sources",
                             "id": "MS",
-                            "label": "Sources (reference, specific page, section, etc.)"
+                            "label": "Sources (reference, specific page, section, etc.)",
+                            "valueLabel": "sources"
                         }
                     ]
                 },
@@ -402,6 +442,7 @@ var researchStepsVector = {
                     "components": [{
                             "type": "header",
                             "label": "Researcher",
+                            "value": "Researcher",
                             "id": "MI",
                             "importNameFrom": "S06",
                             "placeholderText": ""
@@ -411,11 +452,12 @@ var researchStepsVector = {
                             "id": "MN",
                             "label": "Notes for ",
                             "label2": "",
+                            "valueLabel": "notes",
                             "clipWrap": true
                         }
                     ]
                 }
             ]
         }
-    ] // end of main steps
+    ]
 }

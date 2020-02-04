@@ -1,13 +1,13 @@
 /**
  * Interface for creating a structured set of company element-level reults
  * NEW: Wide and Long (Tidy Format)
- * TODO: consolidate all Steps into single Sheet
  */
 
 /* global
        insertSheetIfNotExist,
        dataStoreSingleStepWide,
-       dataStoreSingleStepLong
+       dataStoreSingleStepLong,
+       resizeSheet
 */
 
 function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, includeWide) {
@@ -15,13 +15,11 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
     Logger.log("--- Begin addDataStoreSingleCompany --- subStep: " + subStepNr)
 
     var urlDC = Company.urlCurrentDataCollectionSheet
+    var urlSC = Company.urlCurrentCompanyScoringSheet
 
-    var globalNrOfComponents = 1
-    if (IndicatorsObj.indicatorClasses[0].components) {
-        globalNrOfComponents = IndicatorsObj.indicatorClasses[0].components.length
-    }
+    Logger.log("urlSC: " + urlSC)
 
-    var numberOfColumns = (Company.numberOfServices + 2) * globalNrOfComponents + 1
+    var Indicators = IndicatorsObj
 
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
@@ -39,10 +37,9 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
 
     var longSheet = insertSheetIfNotExist(SS, "long", true) // ToDo set as FALSE later
 
-    longSheet.insertRows(1, 20000)
-
     if (longSheet !== null) {
         longSheet.clear()
+        resizeSheet(longSheet, 20000)
     }
 
     lastRow = 1
@@ -57,7 +54,7 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
             Logger.log("--- Main Step : " + thisMainStep.step)
             Logger.log("--- Main Step has " + thisMainStep.substeps.length + " Substeps")
 
-            lastRow = dataStoreSingleStepLong(longSheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow)
+            lastRow = dataStoreSingleStepLong(longSheet, subStepNr, Indicators, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, urlSC, lastRow)
 
         } // END SUBSTEP
     } // END MAIN STEP
@@ -100,7 +97,7 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
 
                 // setting up all the substeps for all the indicators
                 // setting up all the substeps for all the indicators
-                lastRow = dataStoreSingleStepWide(wideSheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow)
+                lastRow = dataStoreSingleStepWide(wideSheet, subStepNr, Indicators, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow)
 
             } // END SUBSTEP
         } // END MAIN STEP

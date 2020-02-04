@@ -1,17 +1,15 @@
 /* global
         addDataStoreSheetHeaderLong,
         importDataStoreRowLong,
-        importDataStoreElementBlockLong
+        importDataStoreBlockLong
 */
 
 
-function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow) {
+function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, urlSC, lastRow) {
 
     Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
     var thisSubStepID = thisSubStep.subStepID
-
-    Logger.log("Inserting Sheet " + subStepNr)
 
     var activeRow = lastRow
 
@@ -22,38 +20,56 @@ function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
         Logger.log(" - company header added for " + thisSubStepID)
     }
 
-    var thisIndCat
-    var thisIndCatLength
+
+    var indCatLength = Indicators.indicatorClasses.length
+    Logger.log("!!!indCatLength: " + indCatLength)
+
+    var IndyClass
+    var IndyClassLength
+    var indCatLabelShort
     var nrOfIndSubComps = 1
+    var stepCompID
+
+
+    var StepComp
+    var stepCompType
+    var Indicator
+    var indLabelShort
 
     // For all Indicator Categories
-    for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
+    for (var c = 0; c < indCatLength; c++) {
 
-        thisIndCat = IndicatorsObj.indicatorClasses[c]
+        IndyClass = Indicators.indicatorClasses[c]
+        Logger.log("IndyClass: " + IndyClass)
+        Logger.log("IndyClass.indicators.length: " + IndyClass.indicators.length)
+        indCatLabelShort = IndyClass.labelShort
+
+        Logger.log(" --- begin Indicator Category: " + indCatLabelShort)
+
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
-        Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
 
-        if (thisIndCat.hasSubComponents == true) {
-            nrOfIndSubComps = thisIndCat.components.length
+        if (IndyClass.hasSubComponents) {
+            nrOfIndSubComps = IndyClass.components.length
         }
 
         // TODO: Refactor to main caller
 
+
         if (useIndicatorSubset) {
-            thisIndCatLength = 2
+            IndyClassLength = 2
         } else {
-            thisIndCatLength = thisIndCat.indicators.length
+            IndyClassLength = IndyClass.indicators.length
         }
 
+        Logger.log("!!!indCatLength: " + indCatLength)
+
         // For all Indicators
-        var StepComp
-        var stepCompType
 
-        for (var i = 0; i < thisIndCatLength; i++) {
+        for (var i = 0; i < IndyClassLength; i++) {
 
-            var thisInd = thisIndCat.indicators[i]
-
-            Logger.log("begin Indicator: " + thisInd.labelShort)
+            Indicator = IndyClass.indicators[i]
+            indLabelShort = Indicator.labelShort
+            Logger.log("begin Indicator: " + indLabelShort)
 
             // for all components of the current Research Step
             for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
@@ -64,30 +80,35 @@ function dataStoreSingleStepLong(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
 
                 switch (stepCompType) {
 
-                    // import researcher name from x.0 step
+                    // imports researcher name from x.0 step
                     case "header":
-                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        // Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
+                        // stepCompID = StepComp.id
+                        // activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        // Logger.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
 
                     case "elementResults":
-                        activeRow = importDataStoreElementBlockLong(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        Logger.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
                     case "elementComments":
-                        activeRow = importDataStoreElementBlockLong(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        Logger.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
                     case "sources":
-                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + " - SC - " + "sources added")
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        Logger.log(Indicator.labelShort + " sources added")
                         break
 
                 }
             }
+
         } // END INDICATOR
     } // END INDICATOR CATEGORY
 

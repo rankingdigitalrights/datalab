@@ -15,39 +15,43 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
         Logger.log(" - company header added for " + thisSubStepID)
     }
 
-    var thisIndCat
-    var thisIndCatLength
+    var IndCat
+    var indCatLabel
+    var indCatLength
     var nrOfIndSubComps = 1
+
 
     // For all Indicator Categories
     for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
 
-        thisIndCat = IndicatorsObj.indicatorClasses[c]
+        IndCat = IndicatorsObj.indicatorClasses[c]
+        indCatLabel = IndCat.labelShort
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
-        Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
+        Logger.log("begin Indicator Category: " + IndCat.labelLong)
 
-        if (thisIndCat.hasSubComponents == true) {
-            nrOfIndSubComps = thisIndCat.components.length
+        if (IndCat.hasSubComponents == true) {
+            nrOfIndSubComps = IndCat.components.length
         }
 
         // TODO: Refactor to main caller
 
-        thisIndCatLength
+        indCatLength
         if (useIndicatorSubset) {
-            thisIndCatLength = 2
+            indCatLength = 2
         } else {
-            thisIndCatLength = thisIndCat.indicators.length
+            indCatLength = IndCat.indicators.length
         }
 
+        var Indicator
+        var StepComp
+        var stepCompType
+
         // For all Indicators
-        for (var i = 0; i < thisIndCatLength; i++) {
+        for (var i = 0; i < indCatLength; i++) {
 
-            var thisInd = thisIndCat.indicators[i]
+            Indicator = IndCat.indicators[i]
 
-            Logger.log("begin Indicator: " + thisInd.labelShort)
-
-            var StepComp
-            var stepCompType
+            Logger.log("begin Indicator: " + Indicator.labelShort)
 
             // for all components of the current Research Step
             for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
@@ -60,23 +64,23 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
 
                     // import researcher name from x.0 step
                     case "header":
-                        activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        // Logger.log(thisInd.labelShort + ' - SC - ' + stepCompType + " added ")
+                        activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
+                        // Logger.log(Indicator.labelShort + ' - SC - ' + stepCompType + " added ")
                         break
 
                     case "elementResults":
-                        activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
+                        activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
+                        Logger.log(Indicator.labelShort + " - SC - " + stepCompType + " added ")
                         break
 
                     case "elementComments":
-                        activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + " - SC - " + stepCompType + " added ")
+                        activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
+                        Logger.log(Indicator.labelShort + " - SC - " + stepCompType + " added ")
                         break
 
                     case "sources":
-                        activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, thisInd, Company, hasOpCom, integrateOutputs, urlDC)
-                        Logger.log(thisInd.labelShort + " - SC - " + "sources added")
+                        activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
+                        Logger.log(Indicator.labelShort + " - SC - " + "sources added")
                         break
                 }
             }

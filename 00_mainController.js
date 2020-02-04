@@ -69,13 +69,15 @@ function mainAllCompaniesDataCollectionSheets() {
 function mainAllCompaniesScoringSheets() {
 
     initiateConfig()
+    outputFolderName = "2019 Pilot Scores"
     var mainSheetMode = "Output"
     var useStepsSubset = false // true := use subset
-    var useIndicatorSubset = true // true := use subset
+    var useIndicatorSubset = false // true := use subset
 
     var Companies = companiesVector.companies
-        // .slice(0,1) // Amazon
-        .slice(1, 2) // Apple
+        .slice(1, 9)
+    // .slice(0,1) // Amazon
+    // .slice(1, 2) // Apple
     // .slice(3,4) //
 
     var fileID
@@ -146,24 +148,24 @@ function mainDataStore() {
 
     var includeWide = false
     initiateConfig()
-    filenameSuffix = " Long" // + long or wide is decided in main logic
-    outputFolderName = "2019 Pilot Data Store"
+    filenameSuffix = "" // + long or wide is decided in main logic
+    outputFolderName = "2019 Pilot Data Store FINAL"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
 
     var useStepsSubset = false // true := use subset
-    var useIndicatorSubset = false // true := use subset
+    var useIndySubset = false // true := use subset
 
     var Companies = companiesVector.companies
-        .slice(1, 9) // exclude Amazon
+        .slice(2, 9) // exclude Amazon
     // .slice(1, 2) // Apple
 
     var fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide)
+        fileID = createCompanyDataStore(useStepsSubset, useIndySubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
@@ -267,7 +269,7 @@ function initiateConfig() {
 
     indexPrefix = centralConfig.indexPrefix
     filenamePrefix = "2019 Pilot -"
-    filenameSuffix = "Dev v2" // Dev, "", Debug, QC
+    filenameSuffix = "" // Dev, "", Debug, QC
     rootFolderID = centralConfig.rootFolderID // "2019 Back-End Dev"
     outputFolderName = "2019 Pilot Dev" // "2019 Pilot Data Store"
 
