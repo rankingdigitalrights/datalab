@@ -37,7 +37,7 @@ function connectToSpreadsheetByName(spreadsheetName, createNewFile) {
         Logger.log(spreadsheetName + " does not exist!")
 
         if (createNewFile) {
-            Logger.log("Creating " + spreadsheetName)
+            Logger.log("--- --- START: creating " + spreadsheetName)
 
             var folderID = createFolderIfNotExist(rootFolderID, outputFolderName)
 
@@ -97,7 +97,7 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
             Sheet = Spreadsheet.getSheetByName(SheetName)
         } else {
             Sheet = null
-            Logger.log("Sheet already exists")
+            Logger.log("WARN: " + "Sheet for " + SheetName + " already exists ")
         }
     }
     return Sheet
