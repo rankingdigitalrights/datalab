@@ -174,3 +174,11 @@ function removeEmptySheet(SS) {
         SS.deleteSheet(emptySheet)
     }
 }
+
+function resizeSheet(Sheet, newRows) {
+    var oldRows = Sheet.getMaxRows()
+    var rowDiff = newRows - oldRows
+    if (oldRows < newRows) {
+        Sheet.insertRows(1, rowDiff)
+    }
+}
