@@ -57,7 +57,7 @@ var companiesVector = {
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1-bab3MPzTjqt-x3ss6Ol-ihQnLw8CIa9mrn7LsiuVEU",
             "tabPrevYearsOutcome": "AppleOutcome",
             "urlCurrentDataCollectionSheet": "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "1OmNEYyGX1FmmhpqvkWORa-_HNTnL1fO-PrhvNfuR9ak",
             "numberOfServices": 1,
             "services": [{
                 "id": "meAP1",
@@ -84,7 +84,7 @@ var companiesVector = {
             "urlPreviousYearResults": null,
             "tabPrevYearsOutcome": null,
             "urlCurrentDataCollectionSheet": "1oyYmRm2yTuZC9m1x5duA4H-bK4DpQTB_IXug9U-D-7U",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "1PPjaNgxVoKSdHgsml6C3oIRjcYftPp3E8zgWCudMYJI",
             "numberOfServices": 1,
             "services": [{
                 "id": "mbDT2",
@@ -112,7 +112,7 @@ var companiesVector = {
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "FacebookOutcome",
             "urlCurrentDataCollectionSheet": "1lFlbvFdEY-020fNGk5xWq76ArdV2ueczslTsrvrFzqM",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "12XP5-z35N8Dnm6B8hGAjfzVWu7MVS396gwj4XBuwQ-M",
             "numberOfServices": 1,
             "services": [{
                 "id": "snFB1",
@@ -139,7 +139,7 @@ var companiesVector = {
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
             "tabPrevYearsOutcome": "GoogleOutcome",
             "urlCurrentDataCollectionSheet": "1ohGXAj0-oDJdJQch-Ql6bgT8GgzfAaB01RKIHcyHSxg",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "1fNtENyttP5frGgaqV0a5lQWwIsMkONChvbrEgmLeYoA",
             "numberOfServices": 3,
             "services": [{
                     "id": "seGO1",
@@ -183,7 +183,7 @@ var companiesVector = {
             "urlPreviousYearResults": "19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "MicrosoftOutcome",
             "urlCurrentDataCollectionSheet": "1EXgZ4PKkRwo02BNPzjN42B0ddIJJUQ1iUevJTWyafgo",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "1BCU-YbsmAvdp_puHKNCid5DAttNTy90UP6y7Q0KStOA",
             "numberOfServices": 2,
             "services": [{
                     "id": "seMS1",
@@ -219,7 +219,7 @@ var companiesVector = {
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "TelefónicaOutcome",
             "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
             "numberOfServices": 1,
             "services": [{
                 "id": "mbTF2",
@@ -247,7 +247,7 @@ var companiesVector = {
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "TwitterOutcome",
             "urlCurrentDataCollectionSheet": "128V3QkxP783D4GvqNVL0XX47O4LwwQSjntSp2gvgPO8",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "1FROnxD145-hxtLlVHqXA6d5TVPq6aMTpYH5utfMDFY4",
             "numberOfServices": 1,
             "services": [{
                 "id": "snTW1",
@@ -274,7 +274,7 @@ var companiesVector = {
             "urlPreviousYearResults": "https://docs.google.com/spreadsheets/d/19wY05eGXMiOti59c7ZOmsILMDw-4gLWN4qGUtQtD7_U",
             "tabPrevYearsOutcome": "VodafoneOutcome",
             "urlCurrentDataCollectionSheet": "1ro9p1zAENpexqOhgRon8zMMceb2p5nTat4MKzEGrd5o",
-            "urlCurrentCompanyScoringSheet": null,
+            "urlCurrentCompanyScoringSheet": "1r-BgzKcINPnjoPFHI_cWdHfKzHjpIalwTN64juXe7Rg",
             "numberOfServices": 1,
             "services": [{
                 "id": "mbVF2",
