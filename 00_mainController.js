@@ -16,7 +16,7 @@
     addFileIDtoControl,
 */
 
-// global params init (def with initiateConfig())
+// global params init (def with initiateGlobalConfig())
 
 var indexPrefix
 var filenamePrefix
@@ -29,9 +29,9 @@ var controlSpreadsheetID
 
 // create Data Collection spreadsheets for all companies
 
-function mainAllCompaniesDataCollectionSheets() {
+function mainInputSheets() {
 
-    initiateConfig()
+    initiateGlobalConfig()
     filenameSuffix = "Dev" // Dev, "", Debug, QC
     var mainSheetMode = "Input" // for filename
     var useStepsSubset = false // true := use subset
@@ -67,9 +67,9 @@ function mainAllCompaniesDataCollectionSheets() {
 
 // create Scoring spreadsheets for all companies
 
-function mainAllCompaniesScoringSheets() {
+function mainScoringSheets() {
 
-    initiateConfig()
+    initiateGlobalConfig()
     outputFolderName = "2019 Pilot Scores"
     var mainSheetMode = "Output"
     var useStepsSubset = false // true := use subset
@@ -94,9 +94,9 @@ function mainAllCompaniesScoringSheets() {
 
 // create Scoring spreadsheets for all companies
 
-function mainAllFeedbackSheets() {
+function mainFeedbackSheets() {
 
-    initiateConfig()
+    initiateGlobalConfig()
     var mainSheetMode = "Feedback"
 
     var useIndicatorSubset = false // true := use subset
@@ -116,11 +116,11 @@ function mainAllFeedbackSheets() {
 
 // create Scoring spreadsheets for all companies
 
-function mainSummaryScoresProto() {
+function mainAggregationSheets() {
 
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    initiateConfig()
+    initiateGlobalConfig()
     filenameSuffix = "Dev" // DANGER
     outputFolderName = "2019 Pilot Summary Dev"
     var mainSheetMode = "Summary Scores"
@@ -148,7 +148,7 @@ function mainSummaryScoresProto() {
 function mainDataStore() {
 
     var includeWide = false
-    initiateConfig()
+    initiateGlobalConfig()
     filenameSuffix = "" // + long or wide is decided in main logic
     outputFolderName = "2019 Pilot Data Store FINAL"
     // filename fragments defined in 
@@ -176,9 +176,9 @@ function mainDataStore() {
 
 // aggregate Inspection of Health (Named Ranges, ..., tbd)
 
-function mainInspectHealth() {
+function mainInspectInputSheets() {
 
-    initiateConfig()
+    initiateGlobalConfig()
     // IMPORTANT FLAG
     var doRepairs = false // IMPORTANT FLAG
 
@@ -201,9 +201,9 @@ function mainInspectHealth() {
 }
 
 // --- // repairing // --- // 
-function mainRepairCompaniesDataCollectionSheets() {
+function mainRepairInputSheets() {
 
-    initiateConfig()
+    initiateGlobalConfig()
     // IMPORTANT FLAG
     var doRepairs = true // IMPORTANT FLAG
 
@@ -245,7 +245,7 @@ function mainRepairCompaniesDataCollectionSheets() {
 // --- // USE WISELY // --- // 
 /* function mainClearAllNamedRanges() {
 
-    initiateConfig()
+    initiateGlobalConfig()
     var mainSheetMode = "Input" // for filename
 
     var Companies = companiesVector.companies
@@ -266,7 +266,7 @@ function mainRepairCompaniesDataCollectionSheets() {
 
 } */
 
-function initiateConfig() {
+function initiateGlobalConfig() {
 
     indexPrefix = centralConfig.indexPrefix
     filenamePrefix = "2019 Pilot -"
