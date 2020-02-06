@@ -38,16 +38,16 @@ function mainAllCompaniesDataCollectionSheets() {
     var useIndicatorSubset = true // true := use subset
 
     var Companies = companiesVector.companies
-        // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0,3) // Subset #1
-        // .slice(3,6) // Subset #2
-        // .slice(6,9) // Subset #3
+        .slice(0, 0) // on purpose to prevent script from running.
+    // .slice(0,3) // Subset #1
+    // .slice(3,6) // Subset #2
+    // .slice(6,9) // Subset #3
 
-        // .slice(0,1) // Amazon
-        // .slice(1, 2) // Apple
-        // .slice(2,3) // Deutsche Telekom
-        // .slice(3,4) // Facebook
-        .slice(4, 5) // Google
+    // .slice(0,1) // Amazon
+    // .slice(1, 2) // Apple
+    // .slice(2,3) // Deutsche Telekom
+    // .slice(3,4) // Facebook
+    // .slice(4, 5) // Google
     // .slice(5,6) // Microsoft
     // .slice(6,7) // Telefonica
     // .slice(7,8) // Twitter
