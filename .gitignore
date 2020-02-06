@@ -1,9 +1,3 @@
-.httr-oauth
-GS_token.rds
-.Rhistory
-.Rproj.user
-*.Rproj
-*.RData
-*.html
-.vscode/settings.json
-node_modules
+node_modules/
+.vscode/
+clasp.code-workspace
