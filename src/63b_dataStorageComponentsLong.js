@@ -7,7 +7,7 @@
 
 function addDataStoreSheetHeaderLong(Sheet, activeRow) {
 
-    var columnLabels = ["Step", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "Value", "Score"]
+    var columnLabels = ["Step", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "ID", "Value", "Score"]
 
     Sheet.appendRow(columnLabels)
     return activeRow + 1
@@ -49,7 +49,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
     compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "group", stepCompID)
 
     formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
-    rowCells.push(formula)
+    rowCells.push(compCellName, formula)
 
     if (scoringSuffix) {
         compCellName = defineNamedRangeStringImport(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "group", scoringSuffix)
@@ -75,7 +75,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
         formula = "NA"
     }
 
-    rowCells.push(formula)
+    rowCells.push(compCellName, formula)
 
     if (scoringSuffix) {
         if (companyHasOpCom) {
@@ -103,7 +103,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
         // setting up formula that compares values
         compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, Company.services[s].id, stepCompID)
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
-        rowCells.push(formula)
+        rowCells.push(compCellName, formula)
 
         if (scoringSuffix) {
             compCellName = defineNamedRangeStringImport(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
