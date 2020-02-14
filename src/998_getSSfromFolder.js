@@ -1,16 +1,17 @@
-function mainGetFiles() {
+function main_getSSfromFolder() {
+    var trackingSheets = connectToSpreadsheetByName("00_2019_Pilot_Dashboard", false)
     var folder = "2019 Pilot Data Store"
     var sheet = "S04"
-    getFilesFromFolder(folder, sheet)
+    getSSfromFolder(folder, sheet)
 }
 
-function getFilesFromFolder(folder, sheet) {
+
+function getSSfromFolder(folder, sheet) {
 
     var Folder = DriveApp.getFoldersByName(folder).next()
     Logger.log(Folder.getName())
 
-    var File, SS, Sheet
-    var thisCompany
+    var File, SS, Sheet, thisCompany
 
     var spreadsheets = Folder.getFilesByType("application/vnd.google-apps.ritz")
     // for each Spreadsheet of this subfolder

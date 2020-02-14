@@ -149,8 +149,8 @@ function mainDataStore() {
 
     var includeWide = false
     initiateGlobalConfig()
-    filenameSuffix = "" // + long or wide is decided in main logic
-    outputFolderName = "2019 Pilot Data Store FINAL"
+    filenameSuffix = "Test" // + long or wide is decided in main logic
+    outputFolderName = "2019 Pilot Data Store Dev"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
@@ -159,8 +159,9 @@ function mainDataStore() {
     var useIndySubset = false // true := use subset
 
     var Companies = companiesVector.companies
-        .slice(2, 9) // exclude Amazon
-    // .slice(1, 2) // Apple
+        // .slice(2, 9) // exclude Amazon
+        // .slice(1, 2) // Apple
+        .slice(4, 5)
 
     var fileID
 
