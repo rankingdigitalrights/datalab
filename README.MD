@@ -4,6 +4,8 @@
 
 > Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
 
+—
+
 ## TOC
 
 + [Intro](#intro)
@@ -11,34 +13,70 @@
 + [Changelog](#changelog)
 + [Documentation](#documentation)
 
+—
+
 ## Intro
 
-This is the project folder for RDR's spreadsheet automation development.
+This is the project folder for RDR's spreadsheet automation & data pipeline development.
 
 ![The development environment](docs/img/dev_environment.jpg)
 (*The development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
 
-The current scope of the Spreadsheet development is to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible.
+The ~~current~~ former scope of the Spreadsheet development was to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible. In addition we wanted to enable layout-independent querying of input data (by ID vs. static Kartesian range system G5!B14:D19). The project has grown since it's inauguration in August 2019, mostly based on demand and feature discoveries during the 2019/20 Pilot, resulting in the introduction of additional modules (such as a scores aggregation or company feedback request forms) and functionalities.
 
-The environment utilizes [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavour with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is executed through the [browser](https://script.google.com/home/my) and runs online on Google's servers. Output is stored in Google Drive. 
+## Features
 
-While you *can edit* and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing, collaboration, issue-tracking, and so on, it is recommend **to use Git, [`clasp`](https://github.com/google/clasp), and an IDE** of choice (i.e. VSCode for easier integration with NodeJS/npm). This setup enables you to edit code locally with a proper development environment, store your code in a git* repository, and push/pull the code to GAS to execute online.
+Currently, the application's **core features** allow to auto-generate:
+
+  + company-level input spreadsheets
+  + company-level scoring spreadsheets
+  + company-level feedback request spreadsheets ("forms")
+  + summary scores spreadsheets
+  + horizontal review spreadsheets
+  + company level data stores (tidy results & scores data)
+ 
+ In addition, **additional modules** and functions allow to:
+ 
++ audit & maintain input sheet integrity (restoring named ranges with manipulating content)
++ update non-data parts (denominators, element level descriptions, formatting)
++ fetch Google Drive activity statistics for files and folders
+
+**Current project  goals:**
+
++ implement permission management
++ integrate & automate a step-wise company-level data flow starting with the previous Index' results
++ develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
++ Connect Data Store Module to external DB & enable RESTful POST UPDATE([IDs])
+
+**Current work-in progress:**
+
++ map folder structure
++ change range level permissions
++ change file level permission
+
+— 
+
+## Environment
+
+The environment utilizes [Google Apps Script](https://developers.google.com/apps-script/) (short: GAS]) (which is mostly a JavaScript flavor with G-Suite specific classes and methods), and the respective [Google Apps Script API](https://www.google.com/script/start/). Code is executed through the [browser](https://script.google.com/home/my) and runs online on Google's servers. Output is stored in Google Drive. 
+
+While you *can edit* and maintain the code in Google's web editor, this is strongly discouraged. To enable proper versioning, [SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth), code-sharing, collaboration, formatting consistency (`eslint` & `.editorconfig`) issue-tracking, and so on, it is recommended **to use Git, [`clasp`](https://github.com/google/clasp), and `VSCode` (for consistency and easier integration with NodeJS/npm). This setup enables you to edit code locally with a proper development environment, version your code in a git* repository, and deploy the code to GAS to execute online.
 
 > **TL;DR:**
 >
-> + define in JSONs
+> + define parameters in JSON files (indicators, companies, research steps, Index parameters)
 > + develop locally
-> + execute & operate online
+> + deploy & run online
 
-Following the initial proof-of-concept with G.W., the `project` has been migrated to the `rdresearch` G-Suite account. In theory, you can share projects with other accounts in the same manner as you share any Google File. However, executing the code with any other account than `rdresearch` is not authorized currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`)
+Following the initial proof-of-concept with G.W., the `project` has been migrated ~~to the `rdresearch` G-Suite account~~. In theory, you can share projects with other accounts in the same manner as you share any Google File. However, executing the code with any other account than `rdresearch` is not authorized currently (leads to error: `admin_policy_enforced`; probable scope: `https://www.googleapis.com/auth/script.external_request`). This will change soon by migrating the production environment from rdresearch@oti to dev@rdr.
 
 ## Conventions
 
-+ Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js` and ignore implications as clasp auto-converts between file types.
++ Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js`(or `.ts` for TypeScript) and ignore implications as clasp auto-converts between file types.
 
-+ **IMPORTANT**: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` from your IDE or copy/paste code from your browser into git. If you `push` \ `pull`, all targets' files will be overwritten.
++ **IMPORTANT**: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` from your IDE (**danger!!!**) or copy/paste code from your browser into git. If you `push` \ `pull`, **all target folder's files will be overwritten**.
 
----
+— 
 
 ## Quick Start
 
@@ -62,47 +100,15 @@ Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by han
 
 > If you run into runtime issues (e.g. endless loop), you can inspect and **terminate** current executions under [My Executions](https://script.google.com/u/3/home/executions). The status in the online editor is just a front-end gimmick and is actually not at all connected to the execution itself, i.e. you can refresh or close the browser and/or start a new execution, and it will not impact the one already running.
 
----
+—
 
 ## Changelog
 
-> Keep track of new developments here, document your progress, also explicitly indicate **breaking** changes
+> Moved to [**Changelog.md**](docs/CHANGELOG.md)
 
-**Current dev goals**:
+—
 
-+ review the generated subset of 2019 DC & SC to identify shortcomings
-+ prototype aggregation of scores (e.g. Summary Scores, Custom Tables)
-
-2019 September
-
-+ added Drive activity parser, that can return atomic activity events (only when document is changed) for sets of spreadsheets (i.e. time, operation, user). Apart from stats, this could be used for triggering actions.
-+ **new Dev Capacity** JS/GAS: added first [`polyfill`](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill): `array.proto.includes`. More to come with further refactoring.
-+ implemented layout/formatting options for DC & SC; also: Roboto as default Font Family for better readability; TBD: needs to be refactored into single function
-+ introduced coloring based on indicator category
-+ **new Feature** `FileID`s of new spreadsheet files are now returned and added to `00_Test` spreadsheet in root of `2019 Back-end testing` folder
-+ **new SSOT**: Company JSON is now fetched locally (from a global var in `01_JSON_companies.js`)
-+ added Indicator Instructions to `DC`
-+ added header formatting patterns; refactoring to `function` TBD
-+ split up `data collection` into main and helpers to reduce strain
-+ introduced `FeatureRequest` and `bugs` as GitHub Issues (for easier tracking, assigning and elaborating)
-+ migrated project to rdresearch
-+ implemented `importLocalJSON()` to import JSONs from Google Drive. TODO: needs reliable mechanism for synching JSONs with git [unless we move JSON SSOT to Google Drive which is ok])
-+ added output to specific folder functionality
-
-2019 August
-
-+ added permission changes module
-+ refactored scoring and data collection modules into rough single units of responsibility
-+ refactored generic tasks (e.g. importJSONxxx(), nameRange(comp,step,ind)) into helper modules
-+ added scoring sheet module
-+ enabled NodeJS/clasp + GAS API integration, and full integration with git
-
-2019 July
-
-+ initial groundbreaking work by tech intern G.W. based on initiative requirements from L.G. and prototype architecture from I.S.
-+ G.W. created and completed the basic data collection module (99% of the core features), explored the core scoring sheet patterns (i.e. the collection of named ranges for indicator scoring), and created a through documentation of the data collection module
-
-### Documentation
+## Detailed Documentation
 
 > To keep things readable, the documentation is maintained in a separate document.
 
