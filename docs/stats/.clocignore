@@ -1,0 +1,10 @@
+package.json
+package-lock.json
+.clasp.json
+.eslintrc.yml
+tsconfig.json
+jsconfig.json
+appsscript.json
+json/deprecated
+toys
+polyfills

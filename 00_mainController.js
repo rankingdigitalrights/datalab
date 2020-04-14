@@ -39,9 +39,9 @@ function mainInputSheets() {
 
     var Companies = companiesVector.companies
         .slice(0, 0) // on purpose to prevent script from running.
-    // .slice(0,3) // Subset #1
-    // .slice(3,6) // Subset #2
-    // .slice(6,9) // Subset #3
+    // .slice(0,3) // Subset #1 0:2
+    // .slice(3,6) // Subset #2 3:5
+    // .slice(6,9) // Subset #3 6:8
 
     // .slice(0,1) // Amazon
     // .slice(1, 2) // Apple
@@ -92,7 +92,7 @@ function mainScoringSheets() {
     })
 }
 
-// create Scoring spreadsheets for all companies
+// create Feedback spreadsheets for all companies
 
 function mainFeedbackSheets() {
 

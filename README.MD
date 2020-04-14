@@ -1,6 +1,6 @@
 # RDR Spreadsheet Engineering
 
-[![clasp](docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
+[![clasp](docs/img/built-with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 > Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
 
@@ -9,6 +9,7 @@
 ## TOC
 
 + [Intro](#intro)
++ [Features](#features)
 + [Quick Start](#quick-start)
 + [Changelog](#changelog)
 + [Documentation](#documentation)
@@ -17,12 +18,14 @@
 
 ## Intro
 
-This is the project folder for RDR's spreadsheet automation & data pipeline development.
+This is the master repository for RDR's spreadsheet automation & data pipeline development.
 
 ![The development environment](docs/img/dev_environment.jpg)
 (*The development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
 
 The ~~current~~ former scope of the Spreadsheet development was to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible. In addition we wanted to enable layout-independent querying of input data (by ID vs. static Kartesian range system G5!B14:D19). The project has grown since it's inauguration in August 2019, mostly based on demand and feature discoveries during the 2019/20 Pilot, resulting in the introduction of additional modules (such as a scores aggregation or company feedback request forms) and functionalities.
+
+The **current Scope** of the project is to complete an end-to-end data pipeline (spanning from previous Index' data to the final outputs from the current Index cycle).
 
 ## Features
 
@@ -43,12 +46,12 @@ In addition, **additional modules** and functions allow to:
 
 **Current project  goals:**
 
-[ ] migrate from rdresearch to data@rdr & dev@rdr
-[ ] implement permission management
-[ ] integrate & automate a step-wise company-level data flow starting with the previous Index' results
-[ ] develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
-[ ] Connect Data Store Module to external DB & enable RESTful POST UPDATE([IDs])
-[ ] migrate to `ES6` as soon as it is available for GAS
++ [ ] migrate from rdresearch to data@rdr & dev@rdr
++ [ ] implement permission management
++ [ ] integrate & automate a step-wise company-level data flow starting with the previous Index' results
++ [ ] develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
++ [ ] Connect Data Store Module to external DB & enable RESTful POST UPDATE([IDs])
++ [ ] migrate to `ES6` as soon as it is ~~available~~ **stable** for GAS (cf. [v8 runtime](https://www.labnol.org/es6-google-apps-script-v8-200206); [Google's overview](https://developers.google.com/apps-script/guides/v8-runtime))
 
 **Current work-in progress:**
 
@@ -108,7 +111,73 @@ Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by han
 
 > Moved to [**Changelog.md**](docs/CHANGELOG.md)
 
-—
+Current `cloc / Count Lines of Code` (2020-04-14):
+
+### Summary
+
+Language|files|blank|comment|code
+:-------|-------:|-------:|-------:|-------:
+JavaScript|47|1829|1089|5677
+Markdown|1|20|0|53
+--------|--------|--------|--------|--------
+SUM:|48|1849|1089|5730
+
+### Detailed
+
+File|blank|comment|code
+:-------|-------:|-------:|-------:
+json/JSON_indicators.js|1|10|1145
+src/11_inputSubModules.js|231|106|509
+json/JSON_researchStepsPilot.js|0|0|463
+src/23_scoringSubcomponents.js|184|88|392
+src/72_repairSubcomponents.js|181|69|364
+json/JSON_companies.js|2|2|287
+src/42_feedbackHelper.js|90|32|232
+src/33_aggregationHelper.js|69|40|163
+src/11_inputMainProcess.js|74|43|130
+00_mainController.js|76|86|117
+src/99_SpreadsheetOperations.js|46|21|117
+src/63a_dataStorageComponentsWide.js|49|29|108
+src/999_drive_activity.js|58|65|100
+src/999_driveActivityThesis.js|58|65|100
+src/96_scoringFormulasHelper.js|33|4|100
+src/22_scoringSingleStepProcess.js|44|13|97
+src/63b_dataStorageComponentsLong.js|44|19|89
+json/JSON_config.js|0|4|88
+src/12_inputPermissions.js|43|35|86
+src/41_feedbackInterface.js|48|17|80
+src/10_inputInterface.js|43|18|69
+src/62b_dataStorageSingleStepLong.js|38|15|68
+src/61_dataStorangeInterface.js|36|18|64
+src/30_aggregationMain.js|41|26|60
+src/62a_dataStorageSingleStepWide.js|28|8|60
+src/999_driveFilestructure.js|30|30|56
+src/91_defaultSheets.js|15|1|54
+src/72_repairBrokenREF.js|54|68|54
+docs/CHANGELOG.md|20|0|53
+src/40_feedbackMain.js|26|13|51
+src/21_scoringInterface.js|20|8|37
+src/71_repairInterface.js|20|9|34
+src/95_formattingHelper.js|3|2|30
+src/92_findItems.js|10|4|26
+src/998_getSSfromFolder.js|8|3|25
+src/20_scoringMain.js|18|12|24
+src/32_aggregationCompanySummary.js|20|24|24
+src/72_listBrokenREF.js|6|12|21
+src/60_dataStorageLayer.js|16|24|21
+src/70_repairSpreadsheets.js|14|15|20
+src/99_importJSON.js|13|14|18
+src/31_aggregationInterface.js|11|8|18
+src/98_driveOperations.js|1|1|16
+src/92_rangeNamingHelper.js|8|5|16
+src/92_fileNamingHelper.js|6|1|14
+src/93_dataHelpers.js|5|0|13
+src/997_external_libraries_js.js|3|2|11
+src/79_clearNamedRanges.js|5|0|6
+--------|--------|--------|--------
+SUM:|1849|1089|5730
+
+---
 
 ## Detailed Documentation
 
