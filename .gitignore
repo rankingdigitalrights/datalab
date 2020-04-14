@@ -1,5 +1,5 @@
 .clasp.json
 appsscript.json
-node_modules/
-.vscode/
+node_modules
+.vscode
 clasp.code-workspace
