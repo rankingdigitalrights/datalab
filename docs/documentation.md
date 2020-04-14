@@ -30,7 +30,7 @@
 
 > Following the initial development of the data collection spreadsheets by G.W. and I.S., the whole project has been extended and fundamentally restructured and refactored. There's still a lot of clean-up and refactoring tbd, but so far, the core modules and features are maintainable, naming of the ranges is centralized, the project can output to specific folders (within allowed scope) and so on.
 
-To provide contributors with a cognitive model of this project, it is helpful to distinguish between 
+To provide contributors with a cognitive model of this project, it is helpful to distinguish between
 
 + the development environment (the source code stored on `git`, edited locally with an editor, `clasp` for syncing with Google),
 + the execution / runtime environment (Google Apps Script online editor),
@@ -112,7 +112,7 @@ After modules had been introduced and eventually refactored, most modules and me
 
 > `00_mainController` is the central Point of Entry to any activity.
 
-Here you define only a few global variables such as the `Index prefix`, and the target output folder, or whether to use subsets, and then run the respective modules for creating sets of data collection (DC) spreadsheets or sets of company-level scoring (SC) spreadsheets from here. 
+Here you define only a few global variables such as the `Index prefix`, and the target output folder, or whether to use subsets, and then run the respective modules for creating sets of data collection (DC) spreadsheets or sets of company-level scoring (SC) spreadsheets from here.
 
 Each main method call picks up the global parameters for using subsets of indicators or research steps. ~~Right now, these subsets are hardcoded in JSON files which are then assigned in `99_importJSON`.~~
 
@@ -120,7 +120,7 @@ To subset companies, currently you have to stick to `companies.slice(indexOfFirs
 
 ---
 
-#### `1_`: Input Sheets (Data Collection Spreadsheets) 
+#### `1_`: Input Sheets (Data Collection Spreadsheets)
 
 ([top ↥](#documentation))
 
@@ -273,7 +273,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 + weird mix of JS 1.6 - 1.8 (ES4-ES6)
 + we added some core ES6 methods via manual but official polyfill (`Array.find()`, `Object.entries()`)
 
-*Motivational* quote: 
+*Motivational* quote:
 
 > "The GAS is not a precise version of JavaScript. It supports many features of JavaScript 1.8.5 like Object.keys, Object.isExtensible, etc. but on the other hand it does not support the keywords yield and let introduced in JavaScript 1.7. Another features which the GAS supports are the native JSON class and String.trim function introduced in JavaScript 1.8.1. Also the GAS supports the E4X extension.
 >
@@ -311,7 +311,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 > Q: Can we...?\
 > A: Njet.
 
-+ general source for GAS discussions: 
++ general source for GAS discussions:
 
 ---
 
