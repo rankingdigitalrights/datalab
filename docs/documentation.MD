@@ -52,53 +52,76 @@ Eventually, all control should be moved to a `Master Spreadsheet`.
 > naming
 
 + Objects (starts with `C`apital letter)
-+ simpleVariables
-
-    + isBoolean; hasChildren (prefix with `verbs`)
++ simpleVariables (stars with lower-case lett)
++ Booleans are prefix with verb: `isBoolean`; *`hasChildren`
++ ...
 
 ### Main Modules
 
-The basic structure is now modular, with control modules starting with `0x` and core modules being in `1x` (DC), and `2x` (SC).
+The basic structure is now modular, with 1 main controller `00_mainController` and core modules being in `1x` (DC), and `2x` (SC).
 
-Core modules have been split into a main high-level caller (`x0`) and lower-level helper (`x1`, `x2` and so on) to upheld readability and enable affordable maintenance.
+Core modules have been split into
 
-As modules were subsequently introduced, and eventually refactored, most modules and methods operate on the same set of parameters. Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` JSON while working on `10_dataCollectionMain.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**)  as it might (or rather **will**) break e.g. `21_scoringComponents.js`.
++ a main high-level module controller (`x0`)
++ a module interface (`x1`)
++ lower-level helper submodules(`x2++` )
+
+to upheld readability and enable affordable maintenance.
+
+As modules were subsequently introduced, and eventually refactored, most modules and methods operate on the same shared set of parameters. Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` in `JSON_researchSteps.js` while working on `10_inputInterface.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**)  as it might (or rather **will**) break e.g. `21_scoringInterface.js`.
 
 **Modules**:
 
-+ Main Controller
+#### Main Controller
   
   > `00_mainController` - supposed to be the central touchpoint for any activity.
 
   Here you define some global variables such as the `Index prefix`, and the target output folder, or whether to use subsets, and then run the respective modules for creating sets of data collection (DC) spreadsheets or sets of company-level scoring (SC) spreadsheets from the main controller. The third module is setting permissions for the data collection sheets, which is currently not maintained.
 
-  Each main method call picks up the global parameters for using subsets of indicators or subsets of research steps. Right now, these subsets are hardcoded in JSON files which are then assigned in `99_importJSON`.
+  Each main method call picks up the global parameters for using subsets of indicators or subsets of research steps. ~~Right now, these subsets are hardcoded in JSON files which are then assigned in `99_importJSON`.~~
 
-  To subset companies, currently you have to stick to `companies.slice(indexOfFirstCompany,length)` in the respective caller.
+  To subset companies, currently you have to stick to `companies.slice(indexOfFirstCompany,indexOfWhereToStop)` in the respective caller.
 
-+ Data Collection Spreadsheets
+#### 1_: Input Sheets (Data Collection Spreadsheets)
 
-  > `10_dataCollectionMain.js` - core module for the creation of a single company-level data collection spreadsheet
-
-  > `11_dataCollectionComponents.js` - lower-level helper functions for the data collection production
+> `10_inputInterface.js` - core module for the creation of a single company-level data collection spreadsheet
+> `11_dataCollectionComponents.js` - lower-level helper functions for the data collection production
 
   Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restructuring it needs to be updated.
 
-  > `12_permissions.js` - core module for setting / removing step-wise permission for `data collection spreadsheets` - currently not operational
+> `12_permissions.js` - core module for setting / removing step-wise permission for `data collection spreadsheets` - currently not operational
 
-  + currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; un-protecting / assigning editors de-facto not effective with external users (due to missing scope permission). As we are currently using `rdresearch`, and all non-OTI accounts are external...
-  + in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
++ currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; un-protecting / assigning editors de-facto not effective with external users (due to missing scope permission). As we are currently using `rdresearch`, and all non-OTI accounts are external...
 
-+ Company Scoring Spreadsheets
++ in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
 
-  > `20_scoringMain.js` (TBD)
+#### 2_: Company Scoring Spreadsheets
 
-  > `21_scoringComponents.js` (TBD)
+> `20_scoringMain.js` (TBD)
+> `21_scoringInterface.js` (can be called from `30_aggregationMain.js` & be integrated into `10_inputInterface.js`)
+> Best, add `DC fileID` to `<company>.json` before casting `SC`
 
-  > Best, add `DC fileID` to `<company>.json` before casting `SC`
+#### 3_: Aggregation - Summary Scores Spreadsheets
 
-### Helper Modules
++ tbd
 
+#### 4_: Feedback Request Forms
+
+> Process will slightly change for 2020; However, Input sheets need to anticipate feedback input based on blind ID
+
++ tbd
+
+#### 6_: Data Store Layer
+
++ tbd
++ TODO: Split Results & Scoring in 2 separate entities (file vs. sheet)
++ TODO: add triggered / webhook POST action
+
+#### 7_: Input Spreadsheet Repairs
+
+#### 9_: Helper Modules
+
++ default Sheets
 + importJSON
 + scoringFormula
 + rangeNaming
@@ -110,30 +133,12 @@ As modules were subsequently introduced, and eventually refactored, most modules
 
 ### JSON
 
-+ Git --> Drive
++ stored in the Git repository (./json)
 
   + research steps
   + indicators
+  + companies
   + config (not operational yet)
-
-+ Git-only
-
-  + `01_JSON_companies.js` & `var = companiesObj {}`
-  + tbd: `ssh` into `git`
-
-#### Research Steps
-
-> currently redundant, therefore no SSOT. Need to introduce parameterized subsetting functions
-
-+ all
-+ subsets
-
-#### Indicators
-
-> currently redundant, therefore no SSOT. Need to introduce parameterized subsetting functions
-
-+ all
-+ subsets
 
 #### Companies JSON
 
@@ -199,7 +204,7 @@ As modules were subsequently introduced, and eventually refactored, most modules
 
 + if you update existing files, named ranges are not removed by sheet.clear()
 + max. runtime is 30 minutes / 1800 seconds. If your script breaks due to runtime error, you can see the log (Ctrl+Enter in the online editor) to see which company was processed last, delete the output for this company, and re-run the script with a subset, starting with the unfinished company.
-+ also, you can run multiple scripts in parallel...
++ also, you can run multiple scripts in parallel… For this, `slice(1,4)` the companies vector in multiple parts in `00_mainController.js`
 
 ### To be explored
 
