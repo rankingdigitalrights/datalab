@@ -28,25 +28,27 @@ The ~~current~~ former scope of the Spreadsheet development was to automate the 
 
 Currently, the application's **core features** allow to auto-generate:
 
-  + company-level input spreadsheets
-  + company-level scoring spreadsheets
-  + company-level feedback request spreadsheets ("forms")
-  + summary scores spreadsheets
-  + horizontal review spreadsheets
-  + company level data stores (tidy results & scores data)
- 
- In addition, **additional modules** and functions allow to:
- 
++ company-level input spreadsheets
++ company-level scoring spreadsheets
++ company-level feedback request spreadsheets ("forms")
++ summary scores spreadsheets
++ horizontal review spreadsheets
++ company level data stores (tidy results & scores data)
+
+In addition, **additional modules** and functions allow to:
+
 + audit & maintain input sheet integrity (restoring named ranges with manipulating content)
 + update non-data parts (denominators, element level descriptions, formatting)
 + fetch Google Drive activity statistics for files and folders
 
 **Current project  goals:**
 
-+ implement permission management
-+ integrate & automate a step-wise company-level data flow starting with the previous Index' results
-+ develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
-+ Connect Data Store Module to external DB & enable RESTful POST UPDATE([IDs])
+[ ] migrate from rdresearch to data@rdr & dev@rdr
+[ ] implement permission management
+[ ] integrate & automate a step-wise company-level data flow starting with the previous Index' results
+[ ] develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
+[ ] Connect Data Store Module to external DB & enable RESTful POST UPDATE([IDs])
+[ ] migrate to `ES6` as soon as it is available for GAS
 
 **Current work-in progress:**
 
@@ -54,7 +56,7 @@ Currently, the application's **core features** allow to auto-generate:
 + change range level permissions
 + change file level permission
 
-— 
+—
 
 ## Environment
 
@@ -76,7 +78,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 + **IMPORTANT**: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` from your IDE (**danger!!!**) or copy/paste code from your browser into git. If you `push` \ `pull`, **all target folder's files will be overwritten**.
 
-— 
+—
 
 ## Quick Start
 
@@ -89,7 +91,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 7. in the sub-menu (grey), choose the function to run, and click play.
 8. wait for the script to finish. When done, optionally hit `Ctrl + Enter` to inspect the log.
 9. open the output folder in Google Drive (should be under `My Drive`) and inspect the output
-10. if you created new data collection sheets: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the 
+10. if you created new data collection sheets: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the
 
 > If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Test` spreadsheet and update them for the respective `01_JSON_companies.js/<company>`, i.e. params
 
