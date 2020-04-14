@@ -185,11 +185,13 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 ---
 
-#### 7_: Input Spreadsheet Repairs
+#### 7_: Input Spreadsheet Health / Repairs
 
 ([top ↥](#documentation))
 
 > TODO
+
+> **Important**: Two modes - 1 to just inspect health & 1 to do repairs. Repairs are enabled with `var doRepairs`. Therefore there are 2 main callers for now, `mainInspectInputSheets()` vs. `mainRepairInputSheets()`
 
 ---
 

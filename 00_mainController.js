@@ -114,7 +114,7 @@ function mainFeedbackSheets() {
     })
 }
 
-// create Scoring spreadsheets for all companies
+// create Summary Scores spreadsheets for all companies
 
 function mainAggregationSheets() {
 
@@ -143,7 +143,7 @@ function mainAggregationSheets() {
     Logger.log("added " + mainSheetMode + ";fileID: " + fileID)
 }
 
-// create Scoring spreadsheets for all companies
+// create Data Store spreadsheets for all companies
 
 function mainDataStore() {
 
@@ -175,7 +175,7 @@ function mainDataStore() {
     })
 }
 
-// aggregate Inspection of Health (Named Ranges, ..., tbd)
+// aggregate Input Spreadsheets Health Status (Named Ranges, ..., tbd)
 
 function mainInspectInputSheets() {
 
