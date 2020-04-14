@@ -1,3 +1,4 @@
+.clasp.json
 node_modules/
 .vscode/
 clasp.code-workspace
