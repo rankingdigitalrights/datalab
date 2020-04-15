@@ -14,7 +14,8 @@
         "eslint-plugin-googleappsscript": "^1.0.3"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "cloc": "sh ./docs/stats/cloc.sh"
     },
     "author": "fubits | RDR",
     "license": "ISC"
