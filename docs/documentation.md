@@ -266,7 +266,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 ## Environment & Recommended Setup
 
-### Google Apps Script / Apps API
+### Environment: Google Apps Script / Apps API
 
 ([top ↥](#documentation))
 
@@ -286,7 +286,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 ---
 
-### Clasp & IDE
+### Environment: Clasp & IDE
 
 ([top ↥](#documentation))
 
@@ -303,6 +303,12 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 + switching of accounts
 
 ---
+
+### Setup
+
+> TODO
+
++ [/docs/SETUP.md](/docs/SETUP.md)
 
 ## FAQ
 

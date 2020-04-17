@@ -5,7 +5,11 @@
 
 1. Purpose: **Binding** document for ensuring consistent named ranges within an Index set.
 2. Scope: 2019 RDR Index / 2019-2020 Pilot
+3. TODO: 2020 Index (with Data Management Plan)
 
+> Why? See from 2019 Public Excel + CSV Production. At least 6 Sources of Labels had to be compared and evaluated by hand just to ensure 2018 to 2019 consistency
+
+![](/docs/img/2019-label-comparison.jpg)
 ## TOC
 
 + [Index](#Index)
