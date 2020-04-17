@@ -2,6 +2,8 @@
 
 [![clasp](docs/img/built-with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
+> **`development`** branch should always be visited first!
+> `master` branch will be used for production as a protected branch. Master will always be behind on development
 > Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
 
 ---
