@@ -308,7 +308,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 > TODO
 
-+ [/docs/SETUP.md](/docs/SETUP.md)
++ [/docs/SETUP.md](/docs/setup.md)
 
 ## FAQ
 
