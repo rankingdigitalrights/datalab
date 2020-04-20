@@ -56,6 +56,8 @@ In addition, **additional modules** and functions allow to:
 **Current project  goals:**
 
 + [ ] migrate from rdresearch to data@rdr & dev@rdr
+  + [x] code & authentication
+  + [ ] data
 + [ ] implement permission management
 + [ ] integrate & automate a step-wise company-level data flow starting with the previous Index' results
 + [ ] develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
@@ -129,7 +131,7 @@ Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by han
 Current Dimension: `Lines of Code` (2020-04-14):
 
 > (see ./docs/stats/cloc.sh)\
-> run `cloc` from root with `sh ./docs/stats/cloc.sh`
+> run `cloc` from root with `sh ./docs/stats/cloc.sh`\
 > new: run `npm run cloc` from terminal
 
 ### Summary
