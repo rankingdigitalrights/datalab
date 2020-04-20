@@ -1,7 +1,7 @@
 # Documentation
 
-> -> Go back to [README](../README.MD)\
-> -> Jump to [JSON Dictionary](dictionary.MD)
+> -> Go back to [README](../README.md)\
+> -> Jump to [JSON Dictionary](dictionary.md)
 
 ---
 
@@ -17,12 +17,15 @@
 + [Environment & Recommended Setup](#environment--recommended-setup)
 + [Google Apps Script / Apps API](#google-apps-script--apps-api)
 + [Clasp & IDE](#clasp--ide)
++ [Setup](#setup)
 + [FAQ](#faq)
 + [Issues](#issues)
   + [Learnings](#learnings)
   + [To be Explored](#to-be-explored)
 
 ---
+![The development environment](docs/img/dev_environment.jpg)
+(*The development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
 
 ## Intro
 
@@ -236,7 +239,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 + **Guidelines**
 
   + **Baseline**: use 1-letter category `prefix` for companies and 2-letter `prefix`for services
-  + **Authoritative**: [Dictionary](dictionary.MD)
+  + **Authoritative**: [Dictionary](dictionary.md)
   + use a GUI JSON editor for validation of JSON syntax (i.e. VSCode + [JSON Editor](https://marketplace.visualstudio.com/items?itemName=nickdemayo.vscode-json-editor) `plugin`, or [JSON Editor Online](https://jsoneditoronline.org/))
 
 ![VSCode with JSON Editor Plugin](img/vscode_json_editor.jpg)

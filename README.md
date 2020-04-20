@@ -10,20 +10,27 @@
 
 ## TOC
 
++ [Documentation](#documentation)
 + [Intro](#intro)
 + [Features](#features)
 + [Quick Start](#quick-start)
 + [Changelog](#changelog)
-+ [Documentation](#documentation)
++ [Numbers](#numbers)
 
 ---
+
+## Documentation
+
+> To keep things readable, the documentation is maintained in a separate document.
+
++ [**Detailed Documentation**](docs/documentation.md)
 
 ## Intro
 
 This is the master repository for RDR's spreadsheet automation & data pipeline development.
 
-![The development environment](docs/img/dev_environment.jpg)
-(*The development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
+![The development environment](docs/img/datalab-architecture.jpg)
+(*Mapping of the Data Infrastructure setup as of April 2020*)
 
 The ~~current~~ former scope of the Spreadsheet development was to automate the generating ("casting") of spreadsheets for company-level data collection (DC) and for scoring (SC) with as few manual effort as possible. In addition we wanted to enable layout-independent querying of input data (by ID vs. static Kartesian range system G5!B14:D19). The project has grown since it's inauguration in August 2019, mostly based on demand and feature discoveries during the 2019/20 Pilot, resulting in the introduction of additional modules (such as a scores aggregation or company feedback request forms) and functionalities.
 
@@ -79,7 +86,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 ## Conventions
 
-+ **Rule #1: never develop in master branch**. Always use a dedicated feature development branch. Never directly merge into master. **Always** use pull requests and let someone else on the team review the request. **Never** touch `-freeze` branches.
++ **Rule #1: never develop in master branch**. Always use a dedicated feature development branch forked from `development`. Never directly merge into master. **Always** use pull requests and let someone else on the team review the request. **Never** touch `-freeze` branches.
 + Google Apps Script uses `*.gs` as the filetype, while regular Javascript uses `.js`. We can (*should*) stick to `.js`(or `.ts` for TypeScript) and ignore implications as clasp auto-converts between file types.
 + **IMPORTANT**: Keep in mind that the source code is stored in git. Any code changes you make in the online editor won't be fed back into git, unless you use `clasp pull` from your IDE (**danger!!!**) or copy/paste code from your browser into git. If you `push` \ `pull`, **all target folder's files will be overwritten**.
 
@@ -87,18 +94,20 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 ## Quick Start
 
-1. log-in as ~~`rdresearch`~~ `tbd`
-2. open [My Projects](https://script.google.com/home/my) to get an overview of your GAS projects or go directly to the [`Spreadsheet Automation` project](https://script.google.com/a/opentechinstitute.org/d/1ZrUTGLLDXMZxkDB8BRaBpPb-p4ObTJrKI8FfJUN6cL10Iggc0TTalSC5)
+> Local [Setup](docs/setup.md) instructions
+
+1. log-in with your regular @rdr account
+2. open [Script/All Projects](https://script.google.com/home/all) to get an overview of your GAS projects or go directly to the [`Datalab` project](https://script.google.com/a/rankingdigitalrights.org/d/1rZM9rFC9zFPkbxgTzqRBbynz60Bo5xRcdBpL9yi9l6TksLBkJNDAk2Wv/edit)
 3. `00_mainController.gs` should open automatically. If not, open the script. This is the **main interface** to config and run all **core** modules.
 4. ~~edit `companyShortName` in alignment to the according `<company>.json` (see the [JSON folder](/json/))~~ (now vectorized; subset with `.slice(0,1)`)
-5. double-check `outputFolderName` if you need a specific folder for your outputs (folder will be a subfolder of `2019 Back-end testing` owned by `rdresearch`; if you want to change the parent folder, you need to replace the folder **id**  of `rootFolderID`)
+5. double-check `outputFolderName` if you need a specific folder for your outputs (folder will be a subfolder of ~~`2019 Back-end testing`~~ (tbd) owned by `data@`; if you want to change the parent folder, you need to replace the folder **id**  of `rootFolderID`) **and** grant yourself and `dev@` access rights to the folder
 6. edit the `subset` variables in the `main<Function>()` caller of the module you want to run (i.e. define whether you want to run only a subset of research steps)
 7. in the dropdown-menu (grey), choose the function to run, and click play ▶️ to execute the function.
 8. wait for the script to finish. When done, optionally hit `Ctrl + Enter` to inspect the log.
 9. open the output folder in Google Drive (should be under `My Drive`) and inspect the output
-10. if you created new data collection sheets: open `00_Test` spreadsheet and copy the DC Spreadsheet IDs to the
+10. if you created new data collection sheets: open `00_Dashboard` spreadsheet and copy the DC Spreadsheet IDs to the
 
-> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Test` spreadsheet and update them for the respective `01_JSON_companies.js/<company>`, i.e. params
+> If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Dashboard` spreadsheet and update them for the respective `01_JSON_companies.js/<company>`, i.e. params
 
 + `companies.<company>.urlCurrentDataCollectionSheet`
 + `companies.<company>.urlCurrentCompanyScoringSheet`
@@ -107,6 +116,7 @@ Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by han
 
 > debugging #1\
 > If you run into runtime issues (e.g. endless loop), you can inspect and **terminate** current executions under [My Executions](https://script.google.com/u/3/home/executions). The status in the online editor is just a front-end gimmick and is actually not at all connected to the execution itself, i.e. you can refresh or close the browser and/or start a new execution, and it will not impact the one already running.
+> In the same place you can see the verbose output (from `console.log` and the latest error messages) if you uncollapse the row.
 
 ---
 
@@ -114,12 +124,15 @@ Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by han
 
 > Moved to [**Changelog.md**](docs/CHANGELOG.md)
 
+## Numbers
+
 Current Dimension: `Lines of Code` (2020-04-14):
 
 > (see ./docs/stats/cloc.sh)\
 > run `cloc` from root with `sh ./docs/stats/cloc.sh`
+> new: run `npm run cloc` from terminal
 
-**Summary**
+### Summary
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
@@ -187,11 +200,3 @@ src/79_clearNamedRanges.js|5|0|6
 docs/stats/cloc.sh|3|4|6
 --------|--------|--------|--------
 SUM:|2075|1093|6159
-
----
-
-## Documentation
-
-> To keep things readable, the documentation is maintained in a separate document.
-
-+ [**Detailed Documentation**](docs/documentation.MD)
