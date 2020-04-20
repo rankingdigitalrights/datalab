@@ -24,7 +24,7 @@
   + [To be Explored](#to-be-explored)
 
 ---
-![The development environment](docs/img/dev_environment.jpg)
+![The development environment](img/dev_environment.jpg)
 (*The development environment. Clockwise: VSCode+clasp; Google Apps Script; GitHub; Spreadsheet Output on Drive*)
 
 ## Intro
@@ -234,7 +234,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 ([top ↥](#documentation))
 
-> preliminary: make sure that **services children are listed in order** of previous Index' listing (i.e. prepaid, postpaid, broadband)
+> preliminary: make sure that **service children are listed in order** of previous Index' listing (i.e. prepaid, postpaid, broadband)
 
 + **Guidelines**
 
@@ -243,7 +243,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
   + use a GUI JSON editor for validation of JSON syntax (i.e. VSCode + [JSON Editor](https://marketplace.visualstudio.com/items?itemName=nickdemayo.vscode-json-editor) `plugin`, or [JSON Editor Online](https://jsoneditoronline.org/))
 
 ![VSCode with JSON Editor Plugin](img/vscode_json_editor.jpg)
-(*Screenshot: VSCode with JSON Editor Plugin: JSON file is opened on the left, the visual editor on the right.*)
+(*Screenshot: VSCode with JSON Editor Plugin: JSON file is opened on the left, the GUI editor on the right.*)
 
 ---
 
