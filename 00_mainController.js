@@ -1,5 +1,5 @@
 // --- // Main Controller // --- //
-// --- //  Branch: PILOT  // --- //
+// --- //  Branch: Development  // --- //
 
 /* global
     centralConfig,
@@ -150,7 +150,7 @@ function mainDataStore() {
     var includeWide = false
     initiateGlobalConfig()
     filenameSuffix = "Test" // + long or wide is decided in main logic
-    outputFolderName = "2019 Pilot Data Store Dev"
+    outputFolderName = "2019 Pilot Data Store Dev Test"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
@@ -159,9 +159,9 @@ function mainDataStore() {
     var useIndySubset = false // true := use subset
 
     var Companies = companiesVector.companies
-        // .slice(2, 9) // exclude Amazon
+        // .slice(1, 9) // exclude Amazon
         // .slice(1, 2) // Apple
-        .slice(4, 5)
+        .slice(1, 9)
 
     var fileID
 
