@@ -11,6 +11,5 @@
       "version": "v1"
     }]
   },
-  "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8"
+  "exceptionLogging": "STACKDRIVER"
 }
