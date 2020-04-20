@@ -1,6 +1,6 @@
 # Setup
 
-## Basic indivual Authenification
+## Basic individual Authentication
 
 > Brief outline of authenticating with Google Apps Script (GAS)
 
