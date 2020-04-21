@@ -1,13 +1,17 @@
 // ## BEGIN High-level functions | main components ## //
 
-function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset) {
+function populateDCSheetByCategory(SS, thisIndCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
 
     // for each indicator
     // - create a new Sheet
     // - name the Sheet
     // -
 
+    // TODO: move both caller / one level up
+    // these are consistent for a full company spredsheet
     var thisIndCatLength = useIndicatorSubset ? 2 : thisIndCat.indicators.length
+
+    mainStepsLength = useStepsSubset ? 3 : mainStepsLength
 
     // iterates over each indicator in the current type
     // for each indicator = distinct Sheet do

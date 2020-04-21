@@ -214,9 +214,9 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
         activeRow = activeRow + 1
     }
 
-    if (centralConfig.freezeHead) {
-        sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
-    }
+    // if (centralConfig.freezeHead) {
+    //     sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
+    // }
 
     return activeRow
 

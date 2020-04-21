@@ -1,5 +1,23 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
+/* global 
+centralConfig,
+indicatorsVector,
+researchStepsVector,
+spreadSheetFileName,
+createSpreadsheet,
+insertPointValidationSheet,
+cleanCompanyName,
+addSetOfScoringSteps
+insertSheetIfNotExist,
+moveHideSheetifExists,
+removeEmptySheet,
+fillPrevOutcomeSheet,
+fillSourceSheet,
+populateDCSheetByCategory
+*/
+
+
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log("--- // --- begin main data collection --- // ---")
 
@@ -28,20 +46,20 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    var SS = connectToSpreadsheetByName(spreadsheetName, true)
+    var SS = createSpreadsheet(spreadsheetName, true)
 
     var fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    var externalFormula = "=IMPORTRANGE(\"" + Config.prevIndexSSID + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+    var externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
 
     var newSheet
 
     // if set in Config, import previous Index Outcome
     if (Config.YearOnYear) {
-        newSheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
+        newSheet = insertSheetIfNotExist(SS, importedOutcomeTabName, true) // TODO: false; Import only once; hard copy; do not overwrite
         if (newSheet !== null) {
             fillPrevOutcomeSheet(newSheet, importedOutcomeTabName, externalFormula)
         }
@@ -72,7 +90,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
         Logger.log("Starting " + currentCat.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
 
-        populateDCSheetByCategory(SS, currentCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
+        populateDCSheetByCategory(SS, currentCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
         Logger.log("Completed " + currentCat.labelLong)
     }
