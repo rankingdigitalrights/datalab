@@ -4,7 +4,7 @@ function clearNamedRangesFromCompanySheet(CompanyObj, filenamePrefix, filenameSu
 
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    var SS = connectToSpreadsheetByName(spreadsheetName, false)
+    var SS = createSpreadsheet(spreadsheetName, false)
 
     clearNamedRangesFromFile(SS)
 

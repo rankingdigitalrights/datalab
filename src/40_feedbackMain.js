@@ -24,7 +24,7 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
-    var SS = connectToSpreadsheetByName(spreadsheetName, true)
+    var SS = createSpreadsheet(spreadsheetName, true)
     var fileID = SS.getId()
 
     // --- // Feedback Parameters // --- //

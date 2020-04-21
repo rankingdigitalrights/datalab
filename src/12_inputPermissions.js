@@ -57,7 +57,7 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetModeID, filen
 // Component: removes Sheet-level protection and specific protected ranges 
 function clearAllProtections(filename) {
     Logger.log("Unprotection Mode")
-    var thisSpreadsheet = connectToSpreadsheetByName(filename, false)
+    var thisSpreadsheet = createSpreadsheet(filename, false)
     var success
 
     // remove protected ranges
@@ -105,7 +105,7 @@ function indicatorWiseProtectSheetUnprotectRanges(indexPrefix, sheetModeID, file
     Logger.log("Protection Mode")
 
     Logger.log("to be connected to: " + filename)
-    var thisSpreadsheet = connectToSpreadsheetByName(filename, false)
+    var thisSpreadsheet = createSpreadsheet(filename, false)
     Logger.log("remote connected to: " + thisSpreadsheet.getName())
 
     // for each indicator (= sheet)

@@ -1,5 +1,5 @@
 function main_getSSfromFolder() {
-    var trackingSheets = connectToSpreadsheetByName("00_2019_Pilot_Dashboard", false)
+    var trackingSheets = createSpreadsheet("00_2019_Pilot_Dashboard", false)
     var folder = "2019 Pilot Data Store"
     var sheet = "S04"
     getSSfromFolder(folder, sheet)

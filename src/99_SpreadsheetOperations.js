@@ -1,4 +1,15 @@
-// --- connection helper function  --- //
+// --- File-level connection helper function  --- //
+
+/* global
+    rootFolderID,
+    outputFolderName,
+    assignFolderEditors,
+    assignFolderOwner,
+    assignFileEditors,
+    assignFileOwner,
+    createNewFolder,
+    printParentFolders
+*/
 
 // Connect by Spreadsheet name //
 // Universal Method: Connect to Spreadsheet File and return Obj as open Spreadsheet
@@ -7,11 +18,11 @@
 
 function mainTestConnectionByName() {
     var spreadsheetName = "verizon test"
-    connectToSpreadsheetByName(spreadsheetName, false)
+    createSpreadsheet(spreadsheetName, false)
 }
 
 function mainTestConnectionByID() {
-    connectToSpreadsheetByID(spreadsheetID)
+    openSpreadsheetByID(spreadsheetID)
 }
 
 // TODO: refactor everywhere into two seperate functions:
@@ -19,11 +30,11 @@ function mainTestConnectionByID() {
 // one to create a new file
 // --> separation of concerns AND explicit action where needed
 
-function connectToSpreadsheetByName(spreadsheetName, createNewFile) {
+function createSpreadsheet(spreadsheetName, createNewFile) {
 
-    var Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
+    let Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
 
-    var Spreadsheet = null
+    let SS = null
 
     // if SS doesn't exist
     // --- and createNewFile === true
@@ -39,9 +50,10 @@ function connectToSpreadsheetByName(spreadsheetName, createNewFile) {
         if (createNewFile) {
             Logger.log("--- --- START: creating " + spreadsheetName + " in " + rootFolderID + "/" + outputFolderName)
 
-            var folderID = createFolderIfNotExist(rootFolderID, outputFolderName)
+            // TODO: add tests whether script (user?) can access folders
+            let folderID = createNewFolder(rootFolderID, outputFolderName)
 
-            var resource = {
+            let resource = {
                 title: spreadsheetName,
                 mimeType: MimeType.GOOGLE_SHEETS,
                 parents: [{
@@ -50,51 +62,56 @@ function connectToSpreadsheetByName(spreadsheetName, createNewFile) {
             }
 
             // Logger.log(resource.parents.id)
-            var fileJson = Drive.Files.insert(resource)
+            let fileJson = Drive.Files.insert(resource)
 
-            var fileId = fileJson.id
+            let fileId = fileJson.id
+
+            let File = DriveApp.getFileById(fileId)
+            File.setOwner("data@rankingdigitalrights.org")
+            let path = printParentFolders(File)
             Logger.log("new Speadsheet fileID: " + fileId)
-            Spreadsheet = connectToSpreadsheetByID(fileId)
+            Logger.log("File Path: " + path)
+            SS = openSpreadsheetByID(fileId)
 
         } else {
-            Spreadsheet = null
+            SS = null
+            Logger.log(spreadsheetName + " does not exist and NOT creating a new file")
         }
 
     } else {
 
-        // while (Spreadsheet.hasNext()) { }
-        // Nope. Only do for first Spreadsheet element
-        var thisSpreadsheet = Spreadsheets.next()
-        Logger.log("File " + thisSpreadsheet.getName() + " exists")
-        Logger.log("locally connected to: " + thisSpreadsheet.getName())
+        // Only do for first Spreadsheet element
+        SS = Spreadsheets.next()
+        Logger.log("File " + SS.getName() + " exists")
+        Logger.log("locally connected to: " + SS.getName())
 
-        Spreadsheet = SpreadsheetApp.open(thisSpreadsheet)
+        SS = SpreadsheetApp.open(SS)
     }
     // returns SS or null
-    return Spreadsheet
+    return SS
 }
 
 // connect by Spreadsheet ID //
 // more accurate then by name //
 
-function connectToSpreadsheetByID(ID) {
+function openSpreadsheetByID(ID) {
 
-    var thisSpreadsheet = SpreadsheetApp.openById(ID)
-    Logger.log("locally connected to: " + thisSpreadsheet.getName())
-    return thisSpreadsheet
+    let SS = SpreadsheetApp.openById(ID)
+    Logger.log("locally connected to: " + SS.getName())
+    return SS
 
 }
 
 
-// Help Function to overwrite Sheet in Spreadsheet if it is already existing
+// Helper Function to overwrite Sheet in Spreadsheet if it is already existing
 
-function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
-    var Sheet
-    if (!Spreadsheet.getSheetByName(SheetName)) {
-        Sheet = Spreadsheet.insertSheet(SheetName)
+function insertSheetIfNotExist(SS, SheetName, updateSheet) {
+    let Sheet
+    if (!SS.getSheetByName(SheetName)) {
+        Sheet = SS.insertSheet(SheetName)
     } else {
         if (updateSheet) {
-            Sheet = Spreadsheet.getSheetByName(SheetName)
+            Sheet = SS.getSheetByName(SheetName)
         } else {
             Sheet = null
             Logger.log("WARN: " + "Sheet for " + SheetName + " already exists ")
@@ -103,46 +120,71 @@ function insertSheetIfNotExist(Spreadsheet, SheetName, updateSheet) {
     return Sheet
 }
 
-function moveHideSheetifExists(Spreadsheet, Sheet, posInt) {
+function moveHideSheetifExists(SS, Sheet, posInt) {
 
     if (!posInt) {
         posInt = 1
     }
 
     if (Sheet !== null) {
-        moveSheetToPos(Spreadsheet, Sheet, posInt)
+        moveSheetToPos(SS, Sheet, posInt)
         Sheet.hideSheet()
     }
 }
 
-function moveSheetifExists(Spreadsheet, Sheet, posInt) {
+function moveSheetifExists(SS, Sheet, posInt) {
 
     if (!posInt) {
         posInt = 1
     }
 
     if (Sheet !== null) {
-        moveSheetToPos(Spreadsheet, Sheet, posInt)
+        moveSheetToPos(SS, Sheet, posInt)
     }
 }
 
-function moveSheetToPos(Spreadsheet, Sheet, posInt) {
-    Spreadsheet.setActiveSheet(Sheet)
-    Spreadsheet.moveActiveSheet(posInt)
+function moveSheetToPos(SS, Sheet, posInt) {
+    SS.setActiveSheet(Sheet)
+    SS.moveActiveSheet(posInt)
 }
 
-function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID) {
+function importRangeFormula(url, range, integrateOutputs) {
 
-    let idColumn = 3
-    let SS = connectToSpreadsheetByID(controlSpreadsheetID)
-    let Sheet = insertSheetIfNotExist(SS, mode, true)
-    let isInColumn = isValueInColumn(SS, idColumn, mode, fileID)
-    if (!isInColumn) {
-        const formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
-        Sheet.appendRow([mode, companyShortName, fileID, formula])
-        Logger.log("created " + mode + " File for " + companyShortName + ";\nfileID: " + fileID + " added to Control")
+    let formula
+    if (integrateOutputs) {
+        formula = "=" + range
     } else {
-        Logger.log("SKIP: " + companyShortName + " " + mode + " FileID already added")
+        formula = "=IMPORTRANGE(\"" + url + "\",\"" + range + "\")"
+        formula = formula.toString()
+    }
+    return formula
+}
+
+// Sheets have unique Names, so no iteration
+function getSheetByName(SS, Sheetname) {
+    let Sheet
+    if (!SS.getSheetByName(Sheetname)) {
+        Sheet = null
+        Logger.log("Sheet " + Sheetname + " not found.")
+    } else {
+        Sheet = SS.getSheetByName(Sheetname)
+    }
+    return Sheet
+}
+
+function removeEmptySheet(SS) {
+    let emptySheet = SS.getSheetByName("Sheet1")
+
+    if (emptySheet) {
+        SS.deleteSheet(emptySheet)
+    }
+}
+
+function resizeSheet(Sheet, newRows) {
+    let oldRows = Sheet.getMaxRows()
+    let rowDiff = newRows - oldRows
+    if (oldRows < newRows) {
+        Sheet.insertRows(1, rowDiff)
     }
 }
 
@@ -159,44 +201,4 @@ function isValueInColumn(SS, columnNr, mode, value) {
             .includes(value)
     }
     return isInColumn
-}
-
-function importRangeFormula(url, range, integrateOutputs) {
-
-    var formula
-
-    if (integrateOutputs) {
-        formula = "=" + range
-    } else {
-        formula = "=IMPORTRANGE(\"" + url + "\",\"" + range + "\")"
-        formula = formula.toString()
-    }
-    return formula
-}
-
-function getSheetByName(Spreadsheet, Sheetname) {
-    var Sheet
-    if (!Spreadsheet.getSheetByName(Sheetname)) {
-        Sheet = null
-        Logger.log("Sheet " + Sheetname + " not found.")
-    } else {
-        Sheet = Spreadsheet.getSheetByName(Sheetname)
-    }
-    return Sheet
-}
-
-function removeEmptySheet(SS) {
-    var emptySheet = SS.getSheetByName("Sheet1")
-
-    if (emptySheet) {
-        SS.deleteSheet(emptySheet)
-    }
-}
-
-function resizeSheet(Sheet, newRows) {
-    var oldRows = Sheet.getMaxRows()
-    var rowDiff = newRows - oldRows
-    if (oldRows < newRows) {
-        Sheet.insertRows(1, rowDiff)
-    }
 }

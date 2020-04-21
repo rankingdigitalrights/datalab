@@ -6,7 +6,7 @@
         indicatorsVector,
         researchStepsVector,
         spreadSheetFileName,
-        connectToSpreadsheetByName,
+        createSpreadsheet,
         getISOtimeAsString,
         processInputSheet
 */
@@ -25,7 +25,7 @@ function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company
 
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    var companySS = connectToSpreadsheetByName(spreadsheetName, false)
+    var companySS = createSpreadsheet(spreadsheetName, false)
 
     // skip if company spreadsheet does not exist
     if (companySS === null) {
