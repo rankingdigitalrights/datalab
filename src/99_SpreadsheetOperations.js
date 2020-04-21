@@ -37,7 +37,7 @@ function connectToSpreadsheetByName(spreadsheetName, createNewFile) {
         Logger.log(spreadsheetName + " does not exist!")
 
         if (createNewFile) {
-            Logger.log("--- --- START: creating " + spreadsheetName)
+            Logger.log("--- --- START: creating " + spreadsheetName + " in " + rootFolderID + "/" + outputFolderName)
 
             var folderID = createFolderIfNotExist(rootFolderID, outputFolderName)
 
@@ -126,8 +126,6 @@ function moveSheetifExists(Spreadsheet, Sheet, posInt) {
     }
 }
 
-
-
 function moveSheetToPos(Spreadsheet, Sheet, posInt) {
     Spreadsheet.setActiveSheet(Sheet)
     Spreadsheet.moveActiveSheet(posInt)
@@ -135,12 +133,32 @@ function moveSheetToPos(Spreadsheet, Sheet, posInt) {
 
 function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID) {
 
-    var spreadsheet = connectToSpreadsheetByID(controlSpreadsheetID)
-    var sheet = insertSheetIfNotExist(spreadsheet, mode, true)
-    var formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
-    sheet.appendRow([mode, companyShortName, fileID, formula])
-    Logger.log("created" + fileID + "; added to Control")
+    let idColumn = 3
+    let SS = connectToSpreadsheetByID(controlSpreadsheetID)
+    let Sheet = insertSheetIfNotExist(SS, mode, true)
+    let isInColumn = isValueInColumn(SS, idColumn, mode, fileID)
+    if (!isInColumn) {
+        const formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
+        Sheet.appendRow([mode, companyShortName, fileID, formula])
+        Logger.log("created " + mode + " File for " + companyShortName + ";\nfileID: " + fileID + " added to Control")
+    } else {
+        Logger.log("SKIP: " + companyShortName + " " + mode + " FileID already added")
+    }
+}
 
+function isValueInColumn(SS, columnNr, mode, value) {
+    let Range, Sheet, lastRow
+    let isInColumn = false
+    Sheet = SS.getSheetByName(mode)
+    lastRow = Sheet.getLastRow()
+    Logger.log("lastRow: " + lastRow)
+    if (lastRow >= 1) {
+        Range = Sheet.getRange(1, columnNr, lastRow)
+        isInColumn = Range.getValues()
+            .flat(2) // unnest 2D array to flat 1D array
+            .includes(value)
+    }
+    return isInColumn
 }
 
 function importRangeFormula(url, range, integrateOutputs) {
