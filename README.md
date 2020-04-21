@@ -136,18 +136,15 @@ Current Dimension: `Lines of Code` (2020-04-14):
 
 ### Summary
 
-<center>
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 JavaScript|47|1829|1101|5666
 Markdown|5|259|0|539
 --------|--------|--------|--------|--------
 SUM:|52|2088|1101|6205
-</center>
 
 ### Detailed
 
-<center>
 File|blank|comment|code
 :-------|-------:|-------:|-------:
 json/JSON_indicators.js|1|10|1145
@@ -204,4 +201,3 @@ src/79_clearNamedRanges.js|5|0|6
 src/997_external_libraries_js.js|3|14|0
 --------|--------|--------|--------
 SUM:|2088|1101|6205
-</center>
