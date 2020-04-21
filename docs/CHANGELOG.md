@@ -16,6 +16,9 @@
   + master for hosting the production code (protected branch now)
 + [...]
 
++ new function `isValueInColumn()`
++ `addFileIDtoControl()` now checks for redundant ID in `00-Dashboard`
+
 ## 2020 February
 
 + Module: Aggregation - more verbosity; N/P added
