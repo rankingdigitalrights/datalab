@@ -8,3 +8,4 @@ appsscript.json
 json/deprecated
 toys
 polyfills
+docs/stats/cloc.sh

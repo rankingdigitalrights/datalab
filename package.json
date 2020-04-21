@@ -1,7 +1,12 @@
 {
+    "engines": {
+        "node": ">=12.0.0",
+        "npm": ">=6.0.0"
+    },
     "name": "clasp-proj",
     "version": "0.0.5",
     "description": "[![clasp](docs/img/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)",
+    "repository": "https://github.com/rankingdigitalrights/datalab",
     "main": "00_mainController.js",
     "directories": {
         "doc": "docs"
@@ -17,6 +22,6 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "cloc": "sh ./docs/stats/cloc.sh"
     },
-    "author": "fubits | RDR",
+    "author": "fubits | GW | RDR",
     "license": "ISC"
 }
