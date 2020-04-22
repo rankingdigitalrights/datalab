@@ -1,5 +1,36 @@
 var researchStepsVector = {
   researchSteps: [{
+      step: 0,
+      stepColor: "#ddd9c3",
+      substeps: [{
+        label: "Step 0: Dummy Import",
+        labelShort: "Step 0",
+        subStepID: "S00",
+        subStepColor: "#ddd9c3",
+        doCollapse: false,
+        components: [{
+            type: "header",
+            id: "MI",
+            label: "Dummy",
+            value: "Dummy",
+            placeholderText: "Step 0"
+          }, {
+            "type": "importPrevious",
+            "label": "Element ",
+            "comparisonLabelShort": "S07",
+            "component": "FoE"
+          },
+          {
+            "type": "importPrevious",
+            "label": "Element ",
+            "comparisonLabelShort": "S07",
+            "component": "P"
+          }
+
+        ]
+      }]
+    },
+    {
       step: 1,
       stepColor: "#ddd9c3",
       substeps: [{
@@ -53,6 +84,12 @@ var researchStepsVector = {
         "c3": 50,
         "subStepColor": "#ead1dc",
         "components": [{
+            type: "header",
+            id: "MI",
+            label: "Dummy",
+            value: "Dummy",
+            placeholderText: "Step 1.5"
+          }, {
             "type": "header",
             "placeholderText": " "
           },
@@ -157,6 +194,12 @@ var researchStepsVector = {
           subStepColor: "#c6d9f0",
           doCollapse: false,
           components: [{
+              type: "header",
+              id: "MI",
+              label: "Dummy",
+              value: "Dummy",
+              placeholderText: "Step 2.5"
+            }, {
               "type": "binaryReview",
               "label": "Redundant: Do you agree with the year-on-year analysis in Step 1.5?",
               "dropdown": [
