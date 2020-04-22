@@ -30,7 +30,7 @@ var Styles
 function initiateGlobalConfig() {
     indexPrefix = centralConfig.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
-    filenameSuffix = "" // Dev, "", Debug, QC
+    filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
     rootFolderID = centralConfig.rootFolderID
     rootFolderName = centralConfig.rootFolderName
