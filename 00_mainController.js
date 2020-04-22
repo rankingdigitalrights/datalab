@@ -25,6 +25,7 @@ var rootFolderID
 var rootFolderName // "2019 Back-End Dev"
 var outputFolderName
 var controlSpreadsheetID
+var Styles
 
 function initiateGlobalConfig() {
     indexPrefix = centralConfig.indexPrefix
@@ -34,6 +35,7 @@ function initiateGlobalConfig() {
     rootFolderID = centralConfig.rootFolderID
     rootFolderName = centralConfig.rootFolderName
     controlSpreadsheetID = centralConfig.controlSpreadsheetID
+    Styles = centralConfig.styles
 }
 
 // --- // MAIN CALLERS // --- //
