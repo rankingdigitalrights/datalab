@@ -34,7 +34,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MC",
               label: "Comments for ",
-              "label2": " (explain score)",
+              label2: " (explain score)",
               valueLabel: "comment",
               clipWrap: true
             },
@@ -64,7 +64,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MN",
               label: "Notes for ",
-              "label2": "",
+              label2: "",
               valueLabel: "notes",
               clipWrap: true
             }
@@ -117,7 +117,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MC",
               label: "Comments for ",
-              "label2": "\n(required if 'no', optional if 'yes')",
+              label2: "\n(required if 'no', optional if 'yes')",
               valueLabel: "comment",
               clipWrap: true
             },
@@ -147,7 +147,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MN",
               label: "Notes for ",
-              "label2": "",
+              label2: "",
               valueLabel: "notes",
               clipWrap: true
             }
@@ -190,7 +190,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MC",
               label: "Comments for ",
-              "label2": " (explain score)",
+              label2: " (explain score)",
               valueLabel: "comment",
               clipWrap: true
             },
@@ -220,7 +220,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MN",
               label: "Notes for ",
-              "label2": "",
+              label2: "",
               valueLabel: "notes",
               clipWrap: true
             }
@@ -273,7 +273,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MC",
               label: "Comments for ",
-              "label2": " (required if 'yes', optional if 'no')",
+              label2: " (required if 'yes', optional if 'no')",
               valueLabel: "comment",
               clipWrap: true
             },
@@ -303,7 +303,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MN",
               label: "Notes for ",
-              "label2": "",
+              label2: "",
               valueLabel: "notes",
               clipWrap: true
             }
@@ -347,7 +347,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MC",
               label: "Comments for ",
-              "label2": " (explain score)",
+              label2: " (explain score)",
               valueLabel: "comment",
               clipWrap: true
             },
@@ -377,7 +377,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MN",
               label: "Notes for ",
-              "label2": "",
+              label2: "",
               valueLabel: "notes",
               clipWrap: true
             }
@@ -421,7 +421,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MC",
               label: "Comments for ",
-              "label2": " (explain score)",
+              label2: " (explain score)",
               valueLabel: "comment",
               clipWrap: true
             },
@@ -451,7 +451,7 @@ var researchStepsVector = {
               type: "elementComments",
               id: "MN",
               label: "Notes for ",
-              "label2": "",
+              label2: "",
               valueLabel: "notes",
               clipWrap: true
             }
