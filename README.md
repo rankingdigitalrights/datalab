@@ -62,7 +62,7 @@ In addition, **additional modules** and functions allow to:
 + [ ] integrate & automate a step-wise company-level data flow starting with the previous Index' results
 + [ ] develop & test a management dashboard, which provides an overview of research progress and identifies anomalies and other prompts for manual action (i.e. upon the return of company feedback)
 + [ ] Connect Data Store Module to external DB & enable RESTful POST UPDATE([IDs])
-+ [ ] migrate to `ES6` as soon as it is ~~available~~ **stable** for GAS (cf. [v8 runtime](https://www.labnol.org/es6-google-apps-script-v8-200206); [Google's overview](https://developers.google.com/apps-script/guides/v8-runtime))
++ [ ] migrate to `ES6` as soon as ~~ it is available **stable** ~~ possible for GAS (cf. [v8 runtime](https://www.labnol.org/es6-google-apps-script-v8-200206); [Google's overview](https://developers.google.com/apps-script/guides/v8-runtime))
 
 **Current work-in progress:**
 
