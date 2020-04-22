@@ -24,7 +24,7 @@ function populateDCSheetByCategory(SS, IndyCat, Company, ResearchSteps, companyN
 
     let indyCatLength = useIndicatorSubset ? 2 : IndyCat.indicators.length
 
-    let mainStepsLength = useStepsSubset ? 3 : ResearchSteps.researchSteps.length
+    let mainStepsLength = useStepsSubset ? 4 : ResearchSteps.researchSteps.length
 
     // iterates over each indicator in the current Category
     // for each indicator = distinct Sheet do
@@ -129,6 +129,10 @@ function populateDCSheetByCategory(SS, IndyCat, Company, ResearchSteps, companyN
                     // create the type of substep component that is specified in the json
 
                     switch (thisStepComponent) {
+                        case "importPrevious":
+                            activeRow = importYonYResults(sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
+                            break
+
                         case "header":
                             activeRow = addSubStepHeader(sheet, Indicator, Company, activeRow, SS, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break

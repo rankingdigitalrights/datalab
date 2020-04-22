@@ -683,7 +683,7 @@ function addComparisonYonY(Sheet, currentIndicator, CompanyObj, activeRow, curre
                     let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + compCellName + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -715,7 +715,7 @@ function addComparisonYonY(Sheet, currentIndicator, CompanyObj, activeRow, curre
                     // finds comparisson column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + compCellName + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -747,10 +747,140 @@ function addComparisonYonY(Sheet, currentIndicator, CompanyObj, activeRow, curre
                     let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + compCellName + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
+
+                    activeCol += 1
+                }
+            }
+        }
+    }
+
+    // adding the conditional formating so that the cell turns red if the answer is no
+    let colMax = columnToLetter(2 + (companyNumberOfServices + 2) * nrOfIndSubComps)
+    let rowMax = activeRow + currentIndicator.elements.length
+
+    let range = Sheet.getRange(activeRow, 2, currentIndicator.elements.length, 2 + (companyNumberOfServices + 2) * nrOfIndSubComps)
+
+    let rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo("No").setBackground("#fa7661").setRanges([range]).build()
+    let rules = Sheet.getConditionalFormatRules()
+    rules.push(rule)
+    Sheet.setConditionalFormatRules(rules)
+
+
+    activeRow = activeRow + currentIndicator.elements.length
+    return activeRow
+}
+
+function importYonYResults(Sheet, currentIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+
+    // sets up column with discription
+    for (let elemNr = 0; elemNr < currentIndicator.elements.length; elemNr++) {
+        let activeCol = 1
+        // serviceNr = column / service
+        // ~ serviceNr = 0 -> Labels
+        // ~ serviceNr = 1 Group
+        // ~ serviceNr = 2 OpCom
+
+
+        // sets up labels in the first column of the row
+        let cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            .setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort)
+            .setBackground(currentStep.subStepColor)
+        activeCol += 1
+
+        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard 3 with company JSON
+
+            // setting up company column(s)
+            if (serviceNr == 1) {
+
+                // sets up as many columns as the indicator has components
+                for (let k = 0; k < nrOfIndSubComps; k++) {
+                    let thisCell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+                    let component = ""
+                    if (nrOfIndSubComps != 1) {
+                        component = currentClass.components[k].labelShort
+                    }
+
+                    let compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group")
+
+                    // sets up formula that compares values
+                    let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
+                    let col = columnToLetter(value)
+                    // TODO
+
+                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (currentIndicator.y2yCompRow + elemNr)
+
+                    thisCell.setFormula(formula.toString())
+
+                    activeCol += 1
+                } // close nrOfIndSubComps for loop
+            } // close serviceNr==1 if statement
+
+
+            // setting up opCom column(s)
+            else if (serviceNr == 2) {
+
+                // loops through the number of components
+                for (let k = 0; k < nrOfIndSubComps; k++) {
+
+                    // sets cell
+                    let thisCell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+                    // creating the name of cell it will be compared to
+
+                    let component = ""
+                    if (nrOfIndSubComps != 1) {
+                        component = currentClass.components[k].labelShort
+                    }
+
+                    let compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom")
+
+                    // creating formula that compares the two cells
+                    let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k
+                    // finds comparisson column
+                    let col = columnToLetter(value)
+                    // TODO
+
+                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (currentIndicator.y2yCompRow + elemNr)
+
+                    thisCell.setFormula(formula.toString())
+
+
+                    activeCol += 1
+                } // close nrOfIndSubComps for loop
+            } // close serviceNr==2 if statement
+
+
+            // setting up services column(s9
+            else {
+
+                // looping thourough the number of components
+                for (let k = 0; k < nrOfIndSubComps; k++) {
+
+                    // setting cell
+                    let thisCell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+                    // finding the name of cell that it will be compared too
+                    let g = serviceNr - 3
+                    let component = ""
+                    if (nrOfIndSubComps != 1) {
+                        component = currentClass.components[k].labelShort
+                    }
+
+                    let compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.components[stepCNr].comparisonLabelShort, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id)
+
+                    // creating formula that will be placed in cell
+                    let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
+                    let col = columnToLetter(value)
+                    // TODO
+
+                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (currentIndicator.y2yCompRow + elemNr)
+
+                    thisCell.setFormula(formula.toString())
 
                     activeCol += 1
                 }
