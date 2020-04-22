@@ -1,6 +1,5 @@
 // search folder and create a new one if needed
 
-
 // TODO: Test
 function assignFileOwner(File, lastName) {
     let account = lastName + '@rankingdigitalrights.org'
@@ -9,8 +8,7 @@ function assignFileOwner(File, lastName) {
 
 function assignFolderOwner(Folder, lastName) {
     let account = lastName + '@rankingdigitalrights.org'
-    let currentOwner =
-        Folder.setOwner(account)
+    Folder.setOwner(account)
 }
 
 // TODO: Test
@@ -21,20 +19,14 @@ function assignFileEditors(File, personsLastNames) {
 
 function assignFolderEditors(Folder, personsLastNames) {
     let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
-    Logger.log("accounts " + accounts)
     Folder.addEditors(accounts)
 }
 
 function tryAccessParent(parentFolderID) {
-
     let Parent = DriveApp.getFolderById(parentFolderID)
     let canAccessParent = isEmptyObj(Parent) ? true : false
     Logger.log("CORE: can access rootFolder? --> " + canAccessParent)
-    if (canAccessParent) {
-        return Parent
-    } else {
-        return null
-    }
+    return canAccessParent ? Parent : null
 }
 
 function createNewFolder(parentFolderID, folderName) {
@@ -102,4 +94,41 @@ function findFilePath(fileID) {
 function runFindFilePath() {
     let fileID = "1ycl2JbD0P9KFEIwWDZAepMekfXSQR74w-7XdJOFJqvI"
     findFilePath(fileID)
+}
+
+function test_getSSfromFolder() {
+    var trackingSheets = createSpreadsheet("00_2019_Pilot_Dashboard", false)
+    var folder = "2019 Pilot Data Store"
+    var sheet = "S04"
+    getAllSSfromFolder(folder, sheet)
+}
+
+
+function getAllSSfromFolder(folder, sheet) {
+
+    let Folder = DriveApp.getFoldersByName(folder).next()
+    Logger.log(Folder.getName())
+
+    let File, SS, Sheet, thisCompany, thisId, lastColumn
+
+    let spreadsheets = Folder.getFilesByType("application/vnd.google-apps.ritz")
+    // for each Spreadsheet of this subfolder
+    while (spreadsheets.hasNext()) {
+        // enter Spreadsheet
+        File = spreadsheets.next()
+        // get Spreadsheet Name
+
+        thisCompany = File.getName()
+        thisId = File.getId()
+
+        SS = SpreadsheetApp.openById(thisId)
+        Logger.log(SS.getName())
+        Sheet = SS.getSheetByName(sheet)
+        Logger.log(Sheet)
+        lastColumn = Sheet.getLastColumn()
+
+        Logger.log(thisCompany)
+        Logger.log("Width: " + lastColumn)
+        Logger.log(thisId)
+    }
 }
