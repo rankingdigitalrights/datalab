@@ -12,7 +12,7 @@ parserOptions:
   sourceType: module
 rules:
   indent:
-    - error
+    - off
     - 4
   linebreak-style:
     - error
