@@ -1,35 +1,47 @@
 var centralConfig = {
-    "indexPrefix": "RDR19P",
-    "filenameSuffix": "Pilot Dev",
+    "dataOwner": "data",
+    "devs": ["gutermuth", "sperling", "walton"],
+    "indexPrefix": "RDR20",
+    "filenameSuffix": "Index Dev",
     "rootFolderID": "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", //Data:Test-Dev-Remote
-    "outputFolderName": "2020 Index (Dev)",
-    "controlSpreadsheetID": "1r3Hq6m9R3l0yMaiAZXf40Z7Gif54Kd1B08MUBk4n_LM",
-    "YearOnYear": false,
-    "freezeHead": false,
+    "rootFolderName": "2020 Index Dev (Fallback)", // optional Folder name string to see if acces by ID fails
+    "controlSpreadsheetID": "1r3Hq6m9R3l0yMaiAZXf40Z7Gif54Kd1B08MUBk4n_LM", // 00-Dashboard-Dev
+    "YearOnYear": true,
+    "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+    "freezeHead": true,
     "serviceColWidth": 280,
     "defaultDataColWidth": 100,
     // "firstScoringStep": 3 // regular index
     "scoringSteps": [3, 6],
+    "collapseAllGroups": false,
+    "notesSheetname": "Researcher Comments",
+    "scoringSheetname": "Scores",
+    "feedbackSheetname": "Feedback Base",
+    "feedbackStep": 3,
+    "prevYearOutcomeTab": "2019 Outcome",
+    "includeRGuidanceLink": true, // TODO
+    "collapseRGuidance": true,
+    styles: {
+        colors: {
+            blue: "#4D9ECF"
+        }
+    },
+    "summaryParams": { // should be in sync with scoringParams in Prod
+        "spreadsheetName": "Summary Scores",
+        "sheetNameSimple": "Summary Minimal",
+        "splitPrePost": false // TODO
+    },
     "aggregationParams": {
         // TBD
     },
-    "dataStoreParams": {
-        "fileName": "Data Store",
-        "summarySheetName": "Aggregated",
-        // "subStepNr": 0,
-        "firstStepNr": 1,
-        "lastStepNr": 6,
-        "dataColWidth": 200,
-        "integrateOutputs": false
-    },
     // "maxScoringStep": false, // otherwise number
-    "integrateOutputs": true, // DC: integrate any output component?
+    "integrateOutputs": false, // DC: integrate any output component?
     "integrateOutputsArray": {
         "includeScoring": false, // create regular Outcome?
         "isFullScoring": true, // scores or only comments?
         "includeCompFeedback": false, // TODO
-        "includeNotes": true,
-        "isPilotMode": true, // if true then disable scoring
+        "includeNotes": false,
+        "isPilotMode": false, // if true then disable scoring
         "researchNotesParams": {
             "subStepNr": 1,
             "firstStepNr": 1,
@@ -64,19 +76,6 @@ var centralConfig = {
             "includeResults": true
         }
     },
-    "collapseAllGroups": false,
-    "notesSheetname": "Researcher Comments",
-    "scoringSheetname": "Outcome",
-    "feedbackSheetname": "RawCompFeedback",
-    "feedbackStep": 3,
-    "prevYearOutcomeTab": "2018 Outcome",
-    "includeRGuidanceLink": false, // TODO
-    "collapseRGuidance": false,
-    "summaryParams": { // should be in sync with scoringParams in Prod
-        "spreadsheetName": "Summary Scores",
-        "sheetNameSimple": "Summary minimal",
-        "splitPrePost": false // TODO
-    },
     "feedbackParams": {
         "subStepNr": 0,
         "firstStepNr": 3,
@@ -88,5 +87,14 @@ var centralConfig = {
         "includeNames": false,
         "includeResults": true,
         "sourcesSheetname": "Sources referenced"
+    },
+    "dataStoreParams": {
+        "fileName": "Data Store",
+        "summarySheetName": "Aggregated",
+        // "subStepNr": 0,
+        "firstStepNr": 1,
+        "lastStepNr": 6,
+        "dataColWidth": 200,
+        "integrateOutputs": false
     }
 }

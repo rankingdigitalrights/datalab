@@ -11,7 +11,7 @@
     createCompanyDataStore,
     processHealthSingleSpreadsheet,
     clearNamedRangesFromCompanySheet,
-    connectToSpreadsheetByID,
+    openSpreadsheetByID,
     insertSheetIfNotExist,
     addFileIDtoControl,
 */
@@ -21,9 +21,22 @@
 var indexPrefix
 var filenamePrefix
 var filenameSuffix
-var rootFolderID // "2019 Back-End Dev"
+var rootFolderID
+var rootFolderName // "2019 Back-End Dev"
 var outputFolderName
 var controlSpreadsheetID
+var Styles
+
+function initiateGlobalConfig() {
+    indexPrefix = centralConfig.indexPrefix
+    filenamePrefix = "2020 - Dev -" // end with " -"
+    filenameSuffix = "" // Dev, "", Debug, QC
+    outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
+    rootFolderID = centralConfig.rootFolderID
+    rootFolderName = centralConfig.rootFolderName
+    controlSpreadsheetID = centralConfig.controlSpreadsheetID
+    Styles = centralConfig.styles
+}
 
 // --- // MAIN CALLERS // --- //
 
@@ -32,28 +45,30 @@ var controlSpreadsheetID
 function mainInputSheets() {
 
     initiateGlobalConfig()
-    filenameSuffix = "Dev" // Dev, "", Debug, QC
-    var mainSheetMode = "Input" // for filename
-    var useStepsSubset = false // true := use subset
-    var useIndicatorSubset = true // true := use subset
+    outputFolderName = "2020 - Dev - Input"
+    // filenameSuffix = "" // Dev, "", Debug, QC
+    let mainSheetMode = "Input" // for filename
+    let useStepsSubset = true // true := use subset
+    let useIndicatorSubset = true // true := use subset
 
-    var Companies = companiesVector.companies
-        .slice(0, 0) // on purpose to prevent script from running.
-    // .slice(0,3) // Subset #1 0:2
-    // .slice(3,6) // Subset #2 3:5
-    // .slice(6,9) // Subset #3 6:8
+    const Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(1, 4) // Subset #1 1:2
+        // .slice(3,6) // Subset #2 3:5
+        // .slice(6,9) // Subset #3 6:8
 
-    // .slice(0,1) // Amazon
-    // .slice(1, 2) // Apple
+        // Pilot Order //
+        // .slice(0,1) // Amazon
+        .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
-    // .slice(4, 5) // Google
+    // .slice(4,5) // Google
     // .slice(5,6) // Microsoft
     // .slice(6,7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
-    var fileID
+    let fileID
 
     Companies.forEach(function (Company) {
 
@@ -70,18 +85,18 @@ function mainInputSheets() {
 function mainScoringSheets() {
 
     initiateGlobalConfig()
-    outputFolderName = "2019 Pilot Scores"
-    var mainSheetMode = "Output"
-    var useStepsSubset = false // true := use subset
-    var useIndicatorSubset = false // true := use subset
+    outputFolderName = "2020 - Dev - Scores"
+    let mainSheetMode = "Output"
+    let useStepsSubset = false // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
-    var Companies = companiesVector.companies
+    const Companies = companiesVector.companies
         .slice(1, 9)
     // .slice(0,1) // Amazon
     // .slice(1, 2) // Apple
     // .slice(3,4) //
 
-    var fileID
+    let fileID
 
     Companies.forEach(function (Company) {
 
@@ -97,6 +112,7 @@ function mainScoringSheets() {
 function mainFeedbackSheets() {
 
     initiateGlobalConfig()
+    outputFolderName = "2020 - Dev - Feedback"
     var mainSheetMode = "Feedback"
 
     var useIndicatorSubset = false // true := use subset
@@ -122,7 +138,7 @@ function mainAggregationSheets() {
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
     filenameSuffix = "Dev" // DANGER
-    outputFolderName = "2019 Pilot Summary Dev"
+    outputFolderName = "2020 - Dev - Summary"
     var mainSheetMode = "Summary Scores"
 
     var useIndicatorSubset = false // true := use subset
@@ -149,8 +165,9 @@ function mainDataStore() {
 
     var includeWide = false
     initiateGlobalConfig()
+    outputFolderName = "2020 - Dev - Data Store"
+
     filenameSuffix = "Test" // + long or wide is decided in main logic
-    outputFolderName = "2019 Pilot Data Store Dev Test"
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     var mainSheetMode = centralConfig.dataStoreParams.fileName
@@ -186,7 +203,7 @@ function mainInspectInputSheets() {
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
 
-    var controlSpreadsheet = connectToSpreadsheetByID(controlSpreadsheetID)
+    var controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     var ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
     var ListSheetFixed = null
@@ -211,7 +228,7 @@ function mainRepairInputSheets() {
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
 
-    var controlSpreadsheet = connectToSpreadsheetByID(controlSpreadsheetID)
+    var controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     var ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     ListSheetBroken.clear()
     var ListSheetFixed
@@ -266,14 +283,3 @@ function mainRepairInputSheets() {
     })
 
 } */
-
-function initiateGlobalConfig() {
-
-    indexPrefix = centralConfig.indexPrefix
-    filenamePrefix = "2019 Pilot -"
-    filenameSuffix = "Dev" // Dev, "", Debug, QC
-    rootFolderID = centralConfig.rootFolderID // "2019 Back-End Dev"
-    outputFolderName = "2019 Pilot Demo" // "2019 Pilot Data Store"
-
-    controlSpreadsheetID = centralConfig.controlSpreadsheetID // 00_2019_Pilot_Dashboard
-}

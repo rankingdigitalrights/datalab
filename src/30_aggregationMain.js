@@ -3,7 +3,7 @@ centralConfig,
 indicatorsVector,
 researchStepsVector,
 spreadSheetFileName,
-connectToSpreadsheetByName,
+createSpreadsheet,
 insertPointValidationSheet,
 countIndiClassLengths,
 cleanCompanyName,
@@ -31,7 +31,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     // connect to existing spreadsheet or creat a blank spreadsheet
     var spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
 
-    var SS = connectToSpreadsheetByName(spreadsheetName, true)
+    var SS = createSpreadsheet(spreadsheetName, true)
 
     var fileID = SS.getId()
     Logger.log("SS ID: " + fileID)

@@ -1,80 +1,98 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
+/* global 
+centralConfig,
+indicatorsVector,
+researchStepsVector,
+spreadSheetFileName,
+createSpreadsheet,
+insertPointValidationSheet,
+cleanCompanyName,
+addSetOfScoringSteps
+insertSheetIfNotExist,
+moveHideSheetifExists,
+removeEmptySheet,
+fillPrevOutcomeSheet,
+fillSourceSheet,
+populateDCSheetByCategory
+*/
+
+
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log("--- // --- begin main data collection --- // ---")
 
-    var sourcesTabName = "Sources"
+    let sourcesTabName = "Sources"
 
-    var companyShortName = cleanCompanyName(CompanyObj)
+    let companyShortName = cleanCompanyName(CompanyObj)
 
     Logger.log("--- // --- creating " + mainSheetMode + " Spreadsheet for " + companyShortName + " --- // ---")
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var Config = centralConfig // var Config = importLocalJSON("Config")
-    // var CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
-    var IndicatorsObj = indicatorsVector
-    var ResearchStepsObj = researchStepsVector
+    let Config = centralConfig // let Config = importLocalJSON("Config")
+    // let CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
+    let IndicatorsObj = indicatorsVector
+    let ResearchStepsObj = researchStepsVector
 
-    var serviceColWidth = Config.serviceColWidth
-    var doCollapseAll = Config.collapseAllGroups
-    var integrateOutputs = Config.integrateOutputs
-    var importedOutcomeTabName = Config.prevYearOutcomeTab
-    var includeRGuidanceLink = Config.includeRGuidanceLink
-    var collapseRGuidance = Config.collapseRGuidance
+    let serviceColWidth = Config.serviceColWidth
+    let doCollapseAll = Config.collapseAllGroups
+    let integrateOutputs = Config.integrateOutputs
+    let importedOutcomeTabName = Config.prevYearOutcomeTab
+    let includeRGuidanceLink = Config.includeRGuidanceLink
+    let collapseRGuidance = Config.collapseRGuidance
 
 
     // connect to existing spreadsheet or creat a blank spreadsheet
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    var SS = connectToSpreadsheetByName(spreadsheetName, true)
+    let SS = createSpreadsheet(spreadsheetName, true)
 
-    var fileID = SS.getId()
+    let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    var externalFormula = "=IMPORTRANGE(\"" + Config.prevIndexSSID + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+    let externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
 
-    var newSheet
+    let Sheet
 
     // if set in Config, import previous Index Outcome
     if (Config.YearOnYear) {
-        newSheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
-        if (newSheet !== null) {
-            fillPrevOutcomeSheet(newSheet, importedOutcomeTabName, externalFormula)
+        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false) // Import only once; hard copy; do not overwrite
+        if (Sheet !== null) {
+            fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula)
         }
     }
 
     // --- // creates sources page // --- //
 
-    newSheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-    if (newSheet !== null) {
-        fillSourceSheet(newSheet)
+    Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
+    if (Sheet !== null) {
+        fillSourceSheet(Sheet)
     }
 
     // if scoring sheet is integrated into DC, create Points sheet
 
-    var hasOpCom = CompanyObj.hasOpCom
+    let hasOpCom = CompanyObj.hasOpCom
 
     // fetch number of Services once
-    var companyNumberOfServices = CompanyObj.services.length
+    let companyNumberOfServices = CompanyObj.services.length
 
     // --- // MAIN TASK // --- //
-    // for each Indicator Class do
-    var currentCat
+    // for each Indicator Category do
+    let Category
 
-    for (var i = 0; i < IndicatorsObj.indicatorClasses.length; i++) {
+    for (let i = 0; i < IndicatorsObj.indicatorCategories.length; i++) {
 
-        currentCat = IndicatorsObj.indicatorClasses[i]
+        Category = IndicatorsObj.indicatorCategories[i]
 
-        Logger.log("Starting " + currentCat.labelLong)
+        Logger.log("Starting " + Category.labelLong)
         Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
 
-        populateDCSheetByCategory(SS, currentCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset)
+        populateDCSheetByCategory(SS, Category, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
-        Logger.log("Completed " + currentCat.labelLong)
+        Logger.log("Completed " + Category.labelLong)
     }
 
     Logger.log("end DC main")
@@ -85,21 +103,21 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
         Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
 
         // fetch params
-        var isPilotMode = Config.integrateOutputsArray.isPilotMode
-        var includeNotes = Config.integrateOutputsArray.includeNotes
-        var includeScoring = Config.integrateOutputsArray.includeScoring
-        var hasFullScores = Config.integrateOutputsArray.isFullScoring
+        let isPilotMode = Config.integrateOutputsArray.isPilotMode
+        let includeNotes = Config.integrateOutputsArray.includeNotes
+        let includeScoring = Config.integrateOutputsArray.includeScoring
+        let hasFullScores = Config.integrateOutputsArray.isFullScoring
 
-        var sheetModeID = "SC"
+        let sheetModeID = "SC"
 
-        var outputParams
+        let outputParams
 
         if (includeScoring) {
 
             Logger.log("Extra Sheet --- Scores --- adding")
 
             // Scoring Scheme / Validation
-            var pointsSheet = insertPointValidationSheet(SS, "Points")
+            let pointsSheet = insertPointValidationSheet(SS, "Points")
 
             outputParams = Config.integrateOutputsArray.scoringParams
             isPilotMode = false

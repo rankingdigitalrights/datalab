@@ -70,9 +70,17 @@ Eventually, all control should be moved to a `Master Spreadsheet`.
 
 ---
 
-### Code Conventions
+### Conventions
 
 ([top ↥](#documentation))
+
+#### Code Conventions
+
++ we now have ES6 / v8 Javascript Engine (cf. [v8 runtime](https://www.labnol.org/es6-google-apps-script-v8-200206); [Google's overview](https://developers.google.com/apps-script/guides/v8-runtime); [good ES6 Intro](https://medium.com/better-programming/modern-javascript-techniques-cf2084236af4) )
+  + use `let` and `const` where possible
+  + try to avoid `var` unless you really want global scope
++ use ternary operator `condition ? true : false` for simple `if-else` blocks
++ ...
 
 #### Naming Conventions
 
@@ -82,6 +90,13 @@ Eventually, all control should be moved to a `Master Spreadsheet`.
 + functions() are explicit regarding action and scope: ~~createSingleSheet()~~ createStep() + createAllSteps()
 + **import**: in compliance with Google Apps Script syntax (Classes and methods), a Spreadsheet is a `Spreadsheet`, and a Tab / Sheet is a `Sheet`. This should be considered when naming variables and functions. It is encouraged to use `SS` as an abbreviation for a Spreadsheet Object
 + ...
+
+#### Working with Spreadsheets
+
++ as soon as input spreadsheets have been produced, grab their IDs from `00-Dashboard` and add them as `currentInputSheetUrl` to the `companies.json`
++ from here on, **all other modules** should work with the `ID` and not the file name to increase reliability
+  + if `ID` has not been implemented in other modules yet, please do so
+  + if you develop new modules, add getSpreadsheet ``
 
 ---
 
@@ -273,8 +288,10 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 ([top ↥](#documentation))
 
-+ weird mix of JS 1.6 - 1.8 (ES4-ES6)
-+ we added some core ES6 methods via manual but official polyfill (`Array.find()`, `Object.entries()`)
+
++ ~~weird mix of JS 1.6 - 1.8 (ES4-ES6)~~
++ ~~we added some core ES6 methods via manual but official polyfill (`Array.find()`, `Object.entries()`)~~
++ TODO: with the **upgrade** in April 2020 to ES6 we should now have all Array and Object methods and should deprecate `Polyfills`
 
 *Motivational* quote:
 

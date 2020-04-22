@@ -16,6 +16,13 @@
   + master for hosting the production code (protected branch now)
 + [...]
 
++ new function `isValueInColumn()`
++ `addFileIDtoControl()` now checks for redundant ID in `00-Dashboard`
++ `assignFileOwner(lastname)`; `assignFolderOwner(lastname)` added
++ `assignFileEditors(lastNames)`; `assignFolderEditors(lastNames)`added
+  + both sets of methods take string `lastname` or Array string `[lastNames]` and add the email address RDR
+  + for the Index, `*Editors()` should take any email
+
 ## 2020 February
 
 + Module: Aggregation - more verbosity; N/P added

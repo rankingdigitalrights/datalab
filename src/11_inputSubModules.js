@@ -1,5 +1,9 @@
 // --- // Top-Level Headings // --- //
 
+/* 
+global
+    Styles
+*/
 // Indicator Guidance for researchers
 
 function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance) {
@@ -8,6 +12,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
     var row = activeRow
     var col = activeCol
+
     var cell
 
     var maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
@@ -23,8 +28,8 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
     // Indicator Heading
     cell = sheet.getRange(row, col)
         .setValue(indTitle)
-        .setFontWeight("bold")
-        .setFontSize(14)
+        // .setFontWeight("bold")
+        .setFontSize(16)
         .setHorizontalAlignment("left")
         .setVerticalAlignment("middle")
         .setFontFamily("Oswald")
@@ -32,12 +37,13 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
     sheet.setRowHeight(row, 40)
     sheet.getRange(row, col, 1, numberOfColumns).merge()
-    sheet.getRange(row, col, 1, numberOfColumns).setBackground("lightgrey")
-    sheet.setFrozenRows(1)
+    sheet.getRange(row, col, 1, numberOfColumns).setBackground(Styles.colors.blue).setFontColor("white")
+
+    // sheet.setFrozenRows(1)
 
     row += 1
 
-    var tempStartRow
+    var startRow
 
     if (includeRGuidanceLink) {
         // General Instruction
@@ -56,9 +62,9 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
         sheet.getRange(row, col, 1, numberOfColumns).merge()
         sheet.getRange(row, col, 1, numberOfColumns).setBackground("WhiteSmoke")
         row += 1
-        tempStartRow = row // for grouping
+        startRow = row // for grouping
     } else {
-        tempStartRow = row // for grouping
+        startRow = row // for grouping
         row += 1
     }
 
@@ -72,7 +78,7 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
     col += 1
 
-    thisIndicator.elements.forEach(function (element) {
+    thisIndicator.elements.forEach((element) => {
         cell = sheet.getRange(row, col)
             .setValue(element.labelShort + ": " + element.description)
             .setFontSize(10)
@@ -81,6 +87,8 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
         cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
         row += 1
     })
+
+    let lastRow = row
 
     if (includeRGuidanceLink) {
         row += 1
@@ -97,12 +105,12 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
         cell = sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
             .setValue(indicatorLink)
 
-        // var tempLastRow = row // for grouping
-    } else {
-        row -= 1
+        row += 1
+        lastRow = row // for grouping
     }
 
-    var rangeStep = sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns)
+    var rangeStep = sheet.getRange(2, 1, lastRow, numberOfColumns)
+
     rangeStep.shiftRowGroupDepth(1)
 
     if (collapseRGuidance) {
@@ -111,11 +119,12 @@ function addIndicatorGuidance(sheet, currentClass, thisIndicator, activeRow, act
 
     row += 1
 
-    sheet.getRange(tempStartRow, 1, row - tempStartRow + 1, numberOfColumns).setBackground("WhiteSmoke")
+    sheet.getRange(startRow, 1, row - startRow, numberOfColumns).setBackground("WhiteSmoke")
 
     sheet.getRange(row, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
 
-    row += 1
+    sheet.setFrozenRows(lastRow)
+    row += 2
 
     activeRow = row
     return activeRow
@@ -214,9 +223,9 @@ function addMainStepHeader(sheet, currentClass, CompanyObj, activeRow, SS, nrOfI
         activeRow = activeRow + 1
     }
 
-    if (centralConfig.freezeHead) {
-        sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
-    }
+    // if (centralConfig.freezeHead) {
+    //     sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
+    // }
 
     return activeRow
 

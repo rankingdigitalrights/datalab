@@ -1,10 +1,10 @@
 /* global
-    connectToSpreadsheetByName,
+    createSpreadsheet,
     insertSheetIfNotExist
 */
 
 function mainListFolderFiles() {
-    var controlSS = connectToSpreadsheetByName("00_2019_Pilot_Dashboard", false)
+    var controlSS = createSpreadsheet("00_2019_Pilot_Dashboard", false)
     var rootFolderName = "2019 Back-End Dev"
     listFolderFiles(controlSS, rootFolderName)
 }
@@ -13,7 +13,7 @@ function mainListFolderFiles() {
 function listFolderFiles(controlSS, folder) {
 
     // connect to Output Spreadsheet
-    var resultsSpreadsheet = connectToSpreadsheetByName("ActivityDCNamed")
+    var resultsSpreadsheet = createSpreadsheet("ActivityDCNamed")
 
     // define name of Overview Sheet
     var overviewSheetName = "2019 DC"

@@ -21,7 +21,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Comp
     }
 
 
-    var indCatLength = Indicators.indicatorClasses.length
+    var indCatLength = Indicators.indicatorCategories.length
     Logger.log("!!!indCatLength: " + indCatLength)
 
     var IndyClass
@@ -39,7 +39,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Comp
     // For all Indicator Categories
     for (var c = 0; c < indCatLength; c++) {
 
-        IndyClass = Indicators.indicatorClasses[c]
+        IndyClass = Indicators.indicatorCategories[c]
         Logger.log("IndyClass: " + IndyClass)
         Logger.log("IndyClass.indicators.length: " + IndyClass.indicators.length)
         indCatLabelShort = IndyClass.labelShort

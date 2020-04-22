@@ -22,9 +22,9 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
 
 
     // For all Indicator Categories
-    for (var c = 0; c < IndicatorsObj.indicatorClasses.length; c++) {
+    for (var c = 0; c < IndicatorsObj.indicatorCategories.length; c++) {
 
-        IndCat = IndicatorsObj.indicatorClasses[c]
+        IndCat = IndicatorsObj.indicatorCategories[c]
         indCatLabel = IndCat.labelShort
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + IndCat.labelLong)
