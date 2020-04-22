@@ -34,7 +34,8 @@ function populateDCSheetByCategory(SS, IndyCat, Company, ResearchSteps, companyN
     for (var i = 0; i < indyCatLength; i++) {
 
         var Indicator = IndyCat.indicators[i]
-        Logger.log("Indicator: " + Indicator.toString())
+        Logger.log("Indicator: " + Indicator)
+        Logger.log("Indicator toString(): " + Indicator.toString())
         Logger.log("indicator :" + Indicator.labelShort)
         var thisIndScoringScope = Indicator.scoringScope
 

@@ -18,12 +18,12 @@ populateDCSheetByCategory
 */
 
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
     Logger.log("PROCESS: begin main DC --- // ---")
 
     let sourcesTabName = "Sources"
 
-    let companyShortName = cleanCompanyName(CompanyObj)
+    let companyShortName = cleanCompanyName(Company)
 
     Logger.log("--- // --- creating " + mainSheetMode + " Spreadsheet for " + companyShortName + " --- // ---")
 
@@ -31,7 +31,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // Refactored to fetching from Google Drive
 
     let Config = centralConfig // let Config = importLocalJSON("Config")
-    // let CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
+    // let Company = Company // TODO this a JSON Obj now; adapt in scope
     let Indicators = indicatorsVector
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
@@ -51,7 +51,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    let externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+    let externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + Company.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
 
     let Sheet
 
@@ -72,10 +72,10 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
     // if scoring sheet is integrated into DC, create Points sheet
 
-    let hasOpCom = CompanyObj.hasOpCom
+    let hasOpCom = Company.hasOpCom
 
     // fetch number of Services once
-    let companyNumberOfServices = CompanyObj.services.length
+    let companyNumberOfServices = Company.services.length
 
     // --- // MAIN TASK // --- //
     // for each Indicator Category do
@@ -85,8 +85,8 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
         Category = Indicators.indicatorCategories[i]
 
-        Logger.log("--- Starting " + Category.labelLong)
-        populateDCSheetByCategory(SS, Category, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
+        Logger.log("--- NEXT : Starting " + Category.labelLong)
+        populateDCSheetByCategory(SS, Category, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
         Logger.log("--- Completed " + Category.labelLong)
     }
@@ -119,7 +119,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
             outputParams = Config.integrateOutputsArray.scoringParams
             isPilotMode = false
-            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Scores --- added")
 
@@ -131,7 +131,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
             Logger.log("Extra Sheet --- Researcher Feedback --- adding")
             outputParams = Config.integrateOutputsArray.researchNotesParams
 
-            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Researcher Feedback --- added")
         }
