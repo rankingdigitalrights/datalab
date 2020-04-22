@@ -30,7 +30,7 @@ var Styles
 function initiateGlobalConfig() {
     indexPrefix = centralConfig.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
-    filenameSuffix = "" // Dev, "", Debug, QC
+    filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
     rootFolderID = centralConfig.rootFolderID
     rootFolderName = centralConfig.rootFolderName
@@ -49,7 +49,7 @@ function mainInputSheets() {
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.

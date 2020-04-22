@@ -1,8 +1,8 @@
 # Documentation
 
 > -> Go back to [README](../README.md)\
-> -> Jump to [JSON Dictionary](dictionary.md)
-
+> -> Jump to [JSON Dictionary](dictionary.md)\
+> -> List of [QC Steps](QC.md)
 ---
 
 ## TOC
