@@ -19,7 +19,7 @@ populateDCSheetByCategory
 
 
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
-    Logger.log("--- // --- begin main data collection --- // ---")
+    Logger.log("PROCESS: begin main DC --- // ---")
 
     let sourcesTabName = "Sources"
 
@@ -34,8 +34,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // let CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
     let IndicatorsObj = indicatorsVector
     let ResearchStepsObj = researchStepsVector
-
-    let serviceColWidth = Config.serviceColWidth
     let doCollapseAll = Config.collapseAllGroups
     let integrateOutputs = Config.integrateOutputs
     let importedOutcomeTabName = Config.prevYearOutcomeTab
@@ -87,17 +85,17 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
         Category = IndicatorsObj.indicatorCategories[i]
 
-        Logger.log("Starting " + Category.labelLong)
-        Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
+        Logger.log("--- Starting " + Category.labelLong)
+        populateDCSheetByCategory(SS, Category, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
-        populateDCSheetByCategory(SS, Category, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
-
-        Logger.log("Completed " + Category.labelLong)
+        Logger.log("--- Completed " + Category.labelLong)
     }
 
-    Logger.log("end DC main")
+    Logger.log("PROCESS: end DC main")
 
     // --- // additional integrated Outputs // --- //
+    // --- // Pilot Feature, so probably irrelevant // --- //
+    // TODO: remove //
 
     if (integrateOutputs) {
         Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
@@ -143,6 +141,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // if empty Sheet exists, delete
     removeEmptySheet(SS)
 
-    Logger.log(mainSheetMode + " Spreadsheet created for " + companyShortName)
+    Logger.log("FILE: " + mainSheetMode + " Spreadsheet created for " + companyShortName)
     return fileID
 }

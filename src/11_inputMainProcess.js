@@ -1,15 +1,30 @@
-// ## BEGIN High-level functions | main components ## //
+// ## Main: populateDCSheetByCategory ## //
 
-function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
+/* global
+    Styles,
+    insertSheetIfNotExist,
+    addIndicatorGuidance,
+    addMainStepHeader,
+    addSubStepHeader,
+    addScoringOptions,
+    addBinaryEvaluation,
+    addComments,
+    addSources,
+    addExtraInstruction,
+    addComparisonYonY,
+    defineNamedRangeStringImport
+*/
+
+function populateDCSheetByCategory(SS, IndyCat, Company, ResearchSteps, companyNrOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
 
     // for each indicator
     // - create a new Sheet
     // - name the Sheet
-    // - 
+    // - populate the Sheet Step-Wise
 
     let indyCatLength = useIndicatorSubset ? 2 : IndyCat.indicators.length
 
-    let mainStepsLength = useStepsSubset ? 3 : ResearchStepsObj.researchSteps.length
+    let mainStepsLength = useStepsSubset ? 3 : ResearchSteps.researchSteps.length
 
     // iterates over each indicator in the current Category
     // for each indicator = distinct Sheet do
@@ -35,13 +50,12 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
         // (based on Scoring Scope)
 
         var bridgeCompColumnsNr = 2 // default:: no company columns
-        var bridgeOpCom
 
         if (Indicator.scoringScope == "full") {
             if (hasOpCom) {
                 bridgeCompColumnsNr = 0
             } else {
-                // if (companyNumberOfServices > 1) {
+                // if (companyNrOfServices > 1) {
                 bridgeCompColumnsNr = 1
                 // }
             }
@@ -49,14 +63,14 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
 
         // general formatting of sheet
         // TODO: think about where to refactor to
-        sheet.setColumnWidth(1, serviceColWidth)
+        sheet.setColumnWidth(1, Styles.dims.serviceColWidth)
 
-        var numberOfColumns = (companyNumberOfServices + 2) * nrOfIndSubComps + 1
+        var numberOfColumns = (companyNrOfServices + 2) * nrOfIndSubComps + 1
 
-        var thisColWidth = serviceColWidth / nrOfIndSubComps
+        var thisColWidth = Styles.dims.serviceColWidth / nrOfIndSubComps
 
-        // if (CompanyObj.services.length == 1) {
-        //     thisColWidth = serviceColWidth * 1.33
+        // if (Company.services.length == 1) {
+        //     thisColWidth = Styles.dims.serviceColWidth * 1.33
         // }
 
         sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
@@ -67,7 +81,7 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addIndicatorGuidance(sheet, IndyCat, Indicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance)
+        activeRow = addIndicatorGuidance(sheet, IndyCat, Indicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
 
         // --- // Begin Main Step-Wise Procedure // --- //
 
@@ -76,15 +90,14 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
         // for each main step
         for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
 
-            var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
-            var thisMainStepColor = thisMainStep.stepColor
+            var MainStep = ResearchSteps.researchSteps[mainStepNr]
+            var mainStepColor = MainStep.stepColor
             // setting up all the substeps for all the indicators
 
-            Logger.log("main step : " + thisMainStep.step)
-            var subStepsLength = thisMainStep.substeps.length
+            Logger.log("main step : " + MainStep.step)
+            var subStepsLength = MainStep.substeps.length
 
-
-            activeRow = addMainStepHeader(sheet, IndyCat, CompanyObj, activeRow, SS, nrOfIndSubComps, companyNumberOfServices, thisMainStep.step, thisMainStepColor) // sets up header
+            activeRow = addMainStepHeader(sheet, IndyCat, Company, activeRow, SS, nrOfIndSubComps, companyNrOfServices, MainStep.step, mainStepColor) // sets up header
 
             var beginStep = activeRow
             var endStep = activeRow
@@ -94,10 +107,10 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
             // for each substep
             for (var subStepNr = 0; subStepNr < subStepsLength; subStepNr++) {
 
-                var currentStep = thisMainStep.substeps[subStepNr]
-                Logger.log("substep : " + currentStep.labelShort)
+                var SubStep = MainStep.substeps[subStepNr]
+                Logger.log("substep : " + SubStep.labelShort)
 
-                var currentStepClength = currentStep.components.length
+                var subStepLength = SubStep.components.length
 
                 // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
 
@@ -105,42 +118,41 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
                 var firstRow = activeRow + 1
 
                 // Begin step component procedure
-                for (var stepCNr = 0; stepCNr < currentStepClength; stepCNr++) {
+                for (var stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
 
-                    var thisStepComponent = currentStep.components[stepCNr].type
+                    var thisStepComponent = SubStep.components[stepCNr].type
 
-                    Logger.log("step.component : " + currentStep.labelShort + " : " + thisStepComponent)
+                    Logger.log("step.component : " + SubStep.labelShort + " : " + thisStepComponent)
 
                     // create the type of substep component that is specified in the json
 
                     switch (thisStepComponent) {
-
                         case "header":
-                            activeRow = addSubStepHeader(sheet, Indicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, IndyCat, companyNumberOfServices)
+                            activeRow = addSubStepHeader(sheet, Indicator, Company, activeRow, SS, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break
 
                         case "elementResults":
-                            activeRow = addScoringOptions(sheet, Indicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, IndyCat, companyNumberOfServices)
+                            activeRow = addScoringOptions(sheet, Indicator, Company, activeRow, SS, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break
 
                         case "binaryReview":
-                            activeRow = addBinaryEvaluation(sheet, Indicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, IndyCat, companyNumberOfServices)
+                            activeRow = addBinaryEvaluation(sheet, Indicator, Company, activeRow, SS, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break
 
                         case "elementComments":
-                            activeRow = addComments(sheet, Indicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, IndyCat, companyNumberOfServices)
+                            activeRow = addComments(sheet, Indicator, Company, activeRow, SS, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break
 
                         case "sources":
-                            activeRow = addSources(sheet, Indicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, IndyCat, companyNumberOfServices)
+                            activeRow = addSources(sheet, Indicator, Company, activeRow, SS, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break
 
                         case "extraQuestion":
-                            activeRow = addExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet)
+                            activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, sheet)
                             break
 
                         case "comparison":
-                            activeRow = addComparisonYonY(sheet, Indicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, IndyCat, companyNumberOfServices)
+                            activeRow = addComparisonYonY(sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, IndyCat, companyNrOfServices)
                             break
 
                         default:
@@ -150,11 +162,11 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
                 } // END substep component procedure
 
                 // if there are no more substeps, we store the final row and name the step
-                // if (stepCNr == currentStepClength - 1) {
+                // if (stepCNr == subStepLength - 1) {
 
                 lastRow = activeRow
 
-                var maxCol = 1 + (companyNumberOfServices + 2) * nrOfIndSubComps // calculates the max column
+                var maxCol = 1 + (companyNrOfServices + 2) * nrOfIndSubComps // calculates the max column
 
                 // we don't want the researchers' names as part of the range
                 // so move firstRow by 1
@@ -162,7 +174,7 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""
-                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, IndyCat.indicators[i].labelShort, component, CompanyObj.id, "", "Step")
+                var stepNamedRange = defineNamedRangeStringImport(indexPrefix, "DC", SubStep.subStepID, IndyCat.indicators[i].labelShort, component, Company.id, "", "Step")
 
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
@@ -171,7 +183,7 @@ function populateDCSheetByCategory(SS, IndyCat, CompanyObj, ResearchStepsObj, co
 
                 // COLLAPSE substep GROUP per researchSteps substep setting
                 if (!doCollapseAll) {
-                    if (currentStep.doCollapse) {
+                    if (SubStep.doCollapse) {
                         substepRange.collapseGroups()
                     }
                 }
