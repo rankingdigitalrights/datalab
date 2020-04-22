@@ -3,74 +3,95 @@ var researchStepsVector = {
       step: 1,
       stepColor: "#ddd9c3",
       substeps: [{
-          label: "Step 1: Data Collection",
-          labelShort: "Step 1",
-          subStepID: "S01",
-          subStepColor: "#ddd9c3",
-          doCollapse: false,
-          components: [{
-              type: "header",
-              id: "MI",
-              label: "Researcher",
-              valueLabel: "researcher",
-              placeholderText: "Your Name"
-            },
-            {
-              type: "elementResults",
-              id: "",
-              scoringId: "SE",
-              label: "Element ",
-              valueLabel: "result",
-              dropdown: [
-                "not selected",
-                "yes",
-                "partial",
-                "no",
-                "no disclosure found",
-                "N/A"
-              ]
-            },
-            {
-              type: "elementComments",
-              id: "MC",
-              label: "Comments for ",
-              label2: " (explain score)",
-              valueLabel: "comment",
-              clipWrap: true
-            },
-            {
-              type: "sources",
-              id: "MS",
-              label: "Sources (reference, specific page, section, etc.)",
-              valueLabel: "sources"
-            }
-          ]
-        },
-        {
-          label: "Step 1a: Notes/comments from researchers",
-          labelShort: "Step 1a",
-          subStepID: "S01a",
-          subStepColor: "#ddd9c3",
-          doCollapse: false,
-          components: [{
-              type: "header",
-              label: "Researcher",
-              value: "Researcher",
-              id: "MI",
-              importNameFrom: "S01",
-              placeholderText: ""
-            },
-            {
-              type: "elementComments",
-              id: "MN",
-              label: "Notes for ",
-              label2: "",
-              valueLabel: "notes",
-              clipWrap: true
-            }
-          ]
-        }
-      ]
+        label: "Step 1: Data Collection",
+        labelShort: "Step 1",
+        subStepID: "S01",
+        subStepColor: "#ddd9c3",
+        doCollapse: false,
+        components: [{
+            type: "header",
+            id: "MI",
+            label: "Researcher",
+            valueLabel: "researcher",
+            placeholderText: "Your Name"
+          },
+          {
+            type: "elementResults",
+            id: "",
+            scoringId: "SE",
+            label: "Element ",
+            valueLabel: "result",
+            dropdown: [
+              "not selected",
+              "yes",
+              "partial",
+              "no",
+              "no disclosure found",
+              "N/A"
+            ]
+          },
+          {
+            type: "elementComments",
+            id: "MC",
+            label: "Comments for ",
+            label2: " (explain score)",
+            valueLabel: "comment",
+            clipWrap: true
+          },
+          {
+            type: "sources",
+            id: "MS",
+            label: "Sources (reference, specific page, section, etc.)",
+            valueLabel: "sources"
+          }
+        ]
+      }, {
+        "label": "Step 1.5: Year-on-year analysis",
+        "labelShort": "S01.5",
+        "c1": 168,
+        "c2": 168,
+        "c3": 50,
+        "subStepColor": "#ead1dc",
+        "components": [{
+            "type": "header",
+            "placeholderText": " "
+          },
+          {
+            type: "binaryReview",
+            id: "MR",
+            label: "Redundant: Is your answer the same as the previous year?",
+            dropdown: [
+              "not selected",
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "type": "comparison",
+            "label": "Element ",
+            "comparisonLabelShort": "S01"
+          },
+          {
+            "type": "extraQuestion",
+            "label": "If no, please select the reason why and provide comments for that element."
+          },
+          {
+            "type": "elementResults",
+            "label": "Select reason if 'no' for ",
+            "dropdown": [
+              "not selected",
+              "I do not agree with last year's score",
+              "the policy appears revised or changed"
+            ]
+          },
+          {
+            "type": "elementComments",
+            "label": "Comments for ",
+            "label2": " ",
+            "nameLabel": "Comments"
+          }
+        ]
+      }]
     },
     {
       step: 2,
@@ -80,7 +101,7 @@ var researchStepsVector = {
           labelShort: "Step 2",
           subStepID: "S02",
           subStepColor: "#c6d9f0",
-          doCollapse: true,
+          doCollapse: false,
           components: [{
               type: "header",
               id: "MI",
@@ -130,26 +151,33 @@ var researchStepsVector = {
           ]
         },
         {
-          label: "Step 2a: Notes/comments from researchers",
-          labelShort: "Step 2a",
+          label: "Step 2.5: Year-on-Year Review",
+          labelShort: "Step 2.5",
           subStepID: "S02a",
           subStepColor: "#c6d9f0",
-          doCollapse: true,
+          doCollapse: false,
           components: [{
-              type: "header",
-              label: "Researcher",
-              value: "Researcher",
-              id: "MI",
-              importNameFrom: "S02",
-              placeholderText: ""
+              "type": "binaryReview",
+              "label": "Redundant: Do you agree with the year-on-year analysis in Step 1.5?",
+              "dropdown": [
+                "not selected",
+                "yes",
+                "no"
+              ]
             },
             {
-              type: "elementComments",
-              id: "MN",
-              label: "Notes for ",
-              label2: "",
-              valueLabel: "notes",
-              clipWrap: true
+              "type": "elementResults",
+              "label": "In Step 1.5 for ",
+              "dropdown": [
+                "not selected",
+                "yes",
+                "no"
+              ]
+            },
+            {
+              "type": "elementComments",
+              "label": "If no, comments on ",
+              "nameLabel": "Comments2"
             }
           ]
         }
@@ -159,7 +187,7 @@ var researchStepsVector = {
       step: 3,
       stepColor: "#d9ead3",
       substeps: [{
-          label: "Step 3: Score Consensus",
+          label: "TBD: Step 3: Score Consensus",
           labelShort: "Step 3",
           subStepID: "S03",
           subStepColor: "#d9ead3",
@@ -203,26 +231,43 @@ var researchStepsVector = {
           ]
         },
         {
-          label: "Step 3a: Notes/comments from researchers",
-          labelShort: "Step 3a",
-          subStepID: "S03a",
-          subStepColor: "#d9ead3",
-          doCollapse: true,
-          components: [{
-              type: "header",
-              label: "Researcher",
-              value: "Researcher",
-              id: "MI",
-              importNameFrom: "S03",
-              placeholderText: ""
+          "label": "Step 3.5: Year-on-year analysis",
+          "labelShort": "S03.5",
+          "c1": 50,
+          "c2": 168,
+          "c3": 82,
+          "subStepColor": "#dbe5f1",
+          "components": [{
+              "type": "header",
+              "placeholderText": " "
             },
             {
-              type: "elementComments",
-              id: "MN",
-              label: "Notes for ",
-              label2: "",
-              valueLabel: "notes",
-              clipWrap: true
+              "type": "extraQuestion",
+              "label": "Is your answer the same as the previous year?"
+            },
+            {
+              "type": "comparison",
+              "label": "Element ",
+              "comparisonLabelShort": "S03"
+            },
+            {
+              "type": "extraQuestion",
+              "label": "If no, please select the reason why and provide comments for that element."
+            },
+            {
+              "type": "elementResults",
+              "label": "Select reason if 'no' for ",
+              "dropdown": [
+                "not selected",
+                "I do not agree with last year's score",
+                "the policy appears revised or changed"
+              ]
+            },
+            {
+              "type": "elementComments",
+              "label": "Comments for ",
+              "label2": " ",
+              "nameLabel": "Comments"
             }
           ]
         }

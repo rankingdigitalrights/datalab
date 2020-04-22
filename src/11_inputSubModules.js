@@ -683,7 +683,7 @@ function addComparisonYonY(Sheet, currentIndicator, CompanyObj, activeRow, curre
                     let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + compCellName + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -715,7 +715,7 @@ function addComparisonYonY(Sheet, currentIndicator, CompanyObj, activeRow, curre
                     // finds comparisson column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + compCellName + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
@@ -747,7 +747,7 @@ function addComparisonYonY(Sheet, currentIndicator, CompanyObj, activeRow, curre
                     let value = currentIndicator.y2yCompColumn + ((serviceNr - 1) * nrOfIndSubComps) + k // calculates which column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + compCellName + "=" + "'" + importedOutcomeTabName + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + compCellName + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (currentIndicator.y2yCompRow + elemNr) + ",\"Yes\",\"No\")"
 
                     thisCell.setFormula(formula.toString())
 
