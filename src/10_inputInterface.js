@@ -32,7 +32,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
     let Config = centralConfig // let Config = importLocalJSON("Config")
     // let CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
-    let IndicatorsObj = indicatorsVector
+    let Indicators = indicatorsVector
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
     let integrateOutputs = Config.integrateOutputs
@@ -81,9 +81,9 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // for each Indicator Category do
     let Category
 
-    for (let i = 0; i < IndicatorsObj.indicatorCategories.length; i++) {
+    for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
 
-        Category = IndicatorsObj.indicatorCategories[i]
+        Category = Indicators.indicatorCategories[i]
 
         Logger.log("--- Starting " + Category.labelLong)
         populateDCSheetByCategory(SS, Category, CompanyObj, ResearchStepsObj, companyNumberOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
@@ -119,7 +119,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
             outputParams = Config.integrateOutputsArray.scoringParams
             isPilotMode = false
-            addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Scores --- added")
 
@@ -131,7 +131,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
             Logger.log("Extra Sheet --- Researcher Feedback --- adding")
             outputParams = Config.integrateOutputsArray.researchNotesParams
 
-            addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Researcher Feedback --- added")
         }
