@@ -76,7 +76,7 @@ Eventually, all control should be moved to a `Master Spreadsheet`.
 
 #### Code Conventions
 
-+ we now have ES6 / v8 Javascript Engine
++ we now have ES6 / v8 Javascript Engine (cf. [v8 runtime](https://www.labnol.org/es6-google-apps-script-v8-200206); [Google's overview](https://developers.google.com/apps-script/guides/v8-runtime); [good ES6 Intro](https://medium.com/better-programming/modern-javascript-techniques-cf2084236af4) )
   + use `let` and `const` where possible
   + try to avoid `var` unless you really want global scope
 + use ternary operator `condition ? true : false` for simple `if-else` blocks
@@ -291,7 +291,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 
 + ~~weird mix of JS 1.6 - 1.8 (ES4-ES6)~~
 + ~~we added some core ES6 methods via manual but official polyfill (`Array.find()`, `Object.entries()`)~~
-+ TODO: with the **upgrade** in APril 2020 to ES6 we should now have all Array and Object methods and should deprecate `Polyfills`
++ TODO: with the **upgrade** in April 2020 to ES6 we should now have all Array and Object methods and should deprecate `Polyfills`
 
 *Motivational* quote:
 
