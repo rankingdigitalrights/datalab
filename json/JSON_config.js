@@ -21,6 +21,11 @@ var centralConfig = {
     "prevYearOutcomeTab": "2019 Outcome",
     "includeRGuidanceLink": true, // TODO
     "collapseRGuidance": true,
+    styles: {
+        colors: {
+            blue: "#4D9ECF"
+        }
+    },
     "summaryParams": { // should be in sync with scoringParams in Prod
         "spreadsheetName": "Summary Scores",
         "sheetNameSimple": "Summary Minimal",
