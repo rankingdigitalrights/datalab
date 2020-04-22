@@ -49,7 +49,7 @@ function mainInputSheets() {
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
