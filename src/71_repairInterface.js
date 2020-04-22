@@ -22,9 +22,9 @@ function processInputSheet(CompanySS, Indicators, Company, ResearchSteps, includ
     var Sheet
 
 
-    for (var c = 0; c < Indicators.indicatorClasses.length; c++) {
+    for (var c = 0; c < Indicators.indicatorCategories.length; c++) {
 
-        thisIndCat = Indicators.indicatorClasses[c]
+        thisIndCat = Indicators.indicatorCategories[c]
 
         thisIndCatLength = thisIndCat.indicators.length
 

@@ -103,6 +103,7 @@ function test_getSSfromFolder() {
     getAllSSfromFolder(folder, sheet)
 }
 
+// TODO: make function print to 00-Dashboard
 
 function getAllSSfromFolder(folder, sheet) {
 
