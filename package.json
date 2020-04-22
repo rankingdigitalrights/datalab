@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@types/google-apps-script": "^1.0.10",
+        "clasp": "^1.0.0",
         "eslint": "^6.8.0"
     },
     "devDependencies": {
