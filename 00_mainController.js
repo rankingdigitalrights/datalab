@@ -51,13 +51,13 @@ function mainInputSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(1, 4) // Subset #1 1:2
-    // .slice(3,6) // Subset #2 3:5
-    // .slice(6,9) // Subset #3 6:8
+        // .slice(1, 4) // Subset #1 1:2
+        // .slice(3,6) // Subset #2 3:5
+        // .slice(6,9) // Subset #3 6:8
 
-    // Pilot Order //
-    // .slice(0,1) // Amazon
-    // .slice(1,2) // Apple
+        // Pilot Order //
+        // .slice(0,1) // Amazon
+        .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
@@ -83,7 +83,7 @@ function mainInputSheets() {
 function mainScoringSheets() {
 
     initiateGlobalConfig()
-    outputFolderName = "2020 Scores Dev"
+    outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
     let useStepsSubset = false // true := use subset
     let useIndicatorSubset = false // true := use subset
@@ -110,7 +110,7 @@ function mainScoringSheets() {
 function mainFeedbackSheets() {
 
     initiateGlobalConfig()
-    outputFolderName = "2020 Feedback Dev"
+    outputFolderName = "2020 - Dev - Feedback"
     var mainSheetMode = "Feedback"
 
     var useIndicatorSubset = false // true := use subset
@@ -136,7 +136,7 @@ function mainAggregationSheets() {
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
     filenameSuffix = "Dev" // DANGER
-    outputFolderName = "2020 Summary Dev"
+    outputFolderName = "2020 - Dev - Summary"
     var mainSheetMode = "Summary Scores"
 
     var useIndicatorSubset = false // true := use subset
@@ -163,7 +163,7 @@ function mainDataStore() {
 
     var includeWide = false
     initiateGlobalConfig()
-    outputFolderName = "2020 Data Store Dev"
+    outputFolderName = "2020 - Dev - Data Store"
 
     filenameSuffix = "Test" // + long or wide is decided in main logic
     // filename fragments defined in 
