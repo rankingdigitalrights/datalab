@@ -44,12 +44,15 @@ function initiateGlobalConfig() {
 
 function mainInputSheets() {
 
+    let doClearNamedRanges = false // CAUTION
+
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Input"
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = false // true := use subset
+    let useIndicatorSubset = true // true := use subset
+
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -72,7 +75,7 @@ function mainInputSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 

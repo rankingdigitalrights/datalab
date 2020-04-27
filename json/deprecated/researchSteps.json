@@ -1,19 +1,19 @@
 {
     "researchSteps": [{
-            "label": "Step 0: 2019 Outcome",
+            "rowLabel": "Step 0: 2019 Outcome",
             "labelShort": "S00",
             "c1": 223,
             "c2": 135,
             "c3": 212,
             "subStepColor": "#ddd9c3",
             "components": [{
-                "type": "comparison",
-                "label": "Element ",
+                "type": "comparisonYY",
+                "rowLabel": "Element ",
                 "comparisonLabelShort": "S01"
             }]
         },
         {
-            "label": "Step 1: Data Collection",
+            "rowLabel": "Step 1: Data Collection",
             "labelShort": "S01",
             "c1": 223,
             "c2": 135,
@@ -24,8 +24,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Element ",
+                    "type": "results",
+                    "rowLabel": "Element ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -36,20 +36,20 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (explain score)",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "sources",
-                    "label": "Sources (reference, specific page, section, etc.)",
+                    "rowLabel": "Sources (reference, specific page, section, etc.)",
                     "nameLabel": "Sources"
                 }
             ]
         },
         {
-            "label": "Step 1.5: Year-on-year analysis",
+            "rowLabel": "Step 1.5: Year-on-year analysis",
             "labelShort": "S01.5",
             "c1": 168,
             "c2": 168,
@@ -61,20 +61,20 @@
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "Is your answer the same as the previous year?"
+                    "rowLabel": "Is your answer the same as the previous year?"
                 },
                 {
-                    "type": "comparison",
-                    "label": "Element ",
+                    "type": "comparisonYY",
+                    "rowLabel": "Element ",
                     "comparisonLabelShort": "S01"
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "If no, please select the reason why and provide comments for that element."
+                    "rowLabel": "If no, please select the reason why and provide comments for that element."
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Select reason if 'no' for ",
+                    "type": "results",
+                    "rowLabel": "Select reason if 'no' for ",
                     "dropdown": [
                         "not selected",
                         "I do not agree with last year's score",
@@ -82,15 +82,15 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " ",
                     "nameLabel": "Comments"
                 }
             ]
         },
         {
-            "label": "Step 2: Review",
+            "rowLabel": "Step 2: Review",
             "labelShort": "S02",
             "c1": 186,
             "c2": 136,
@@ -101,8 +101,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "binaryReview",
-                    "label": "Do you agree with the answer(s) in Step 1?",
+                    "type": "binaryEvaluation",
+                    "rowLabel": "Do you agree with the answer(s) in Step 1?",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -110,8 +110,8 @@
                     ]
                 },
                 {
-                    "type": "elementResults",
-                    "label": "If 'no': suggested answer for ",
+                    "type": "results",
+                    "rowLabel": "If 'no': suggested answer for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -122,18 +122,18 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (required if 'no', optional if 'yes')",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "Do you agree with the year-on-year analysis in Step 1.5?"
+                    "rowLabel": "Do you agree with the year-on-year analysis in Step 1.5?"
                 },
                 {
-                    "type": "elementResults",
-                    "label": "In Step 1.5 for ",
+                    "type": "results",
+                    "rowLabel": "In Step 1.5 for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -141,14 +141,14 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "If no, comments on ",
+                    "type": "comments",
+                    "rowLabel": "If no, comments on ",
                     "nameLabel": "Comments2"
                 }
             ]
         },
         {
-            "label": "Step 3: Score Consensus",
+            "rowLabel": "Step 3: Score Consensus",
             "labelShort": "S03",
             "c1": 50,
             "c2": 147,
@@ -159,8 +159,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Consolidated answer for ",
+                    "type": "results",
+                    "rowLabel": "Consolidated answer for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -171,20 +171,20 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (explain score)",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "sources",
-                    "label": "Sources (reference, specific page, section, etc.)",
+                    "rowLabel": "Sources (reference, specific page, section, etc.)",
                     "nameLabel": "Sources"
                 }
             ]
         },
         {
-            "label": "Step 3.5: Year-on-year analysis",
+            "rowLabel": "Step 3.5: Year-on-year analysis",
             "labelShort": "S03.5",
             "c1": 50,
             "c2": 168,
@@ -196,20 +196,20 @@
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "Is your answer the same as the previous year?"
+                    "rowLabel": "Is your answer the same as the previous year?"
                 },
                 {
-                    "type": "comparison",
-                    "label": "Element ",
+                    "type": "comparisonYY",
+                    "rowLabel": "Element ",
                     "comparisonLabelShort": "S03"
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "If no, please select the reason why and provide comments for that element."
+                    "rowLabel": "If no, please select the reason why and provide comments for that element."
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Select reason if 'no' for ",
+                    "type": "results",
+                    "rowLabel": "Select reason if 'no' for ",
                     "dropdown": [
                         "not selected",
                         "I do not agree with last year's score",
@@ -217,15 +217,15 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " ",
                     "nameLabel": "Comments"
                 }
             ]
         },
         {
-            "label": "Step 4: First Horizontal Review",
+            "rowLabel": "Step 4: First Horizontal Review",
             "labelShort": "S04",
             "c1": 168,
             "c2": 50,
@@ -236,8 +236,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Consolidated answer for ",
+                    "type": "results",
+                    "rowLabel": "Consolidated answer for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -248,20 +248,20 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (explain score)",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "sources",
-                    "label": "Sources (reference, specific page, section, etc.)",
+                    "rowLabel": "Sources (reference, specific page, section, etc.)",
                     "nameLabel": "Sources"
                 }
             ]
         },
         {
-            "label": "Step 4.5: Year-on-year analysis",
+            "rowLabel": "Step 4.5: Year-on-year analysis",
             "labelShort": "S04.5",
             "c1": 188,
             "c2": 214,
@@ -273,20 +273,20 @@
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "Is your answer the same as the previous year?"
+                    "rowLabel": "Is your answer the same as the previous year?"
                 },
                 {
-                    "type": "comparison",
-                    "label": "Element ",
+                    "type": "comparisonYY",
+                    "rowLabel": "Element ",
                     "comparisonLabelShort": "S04"
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "If no, please select the reason why and provide comments for that element."
+                    "rowLabel": "If no, please select the reason why and provide comments for that element."
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Select reason if 'no' for ",
+                    "type": "results",
+                    "rowLabel": "Select reason if 'no' for ",
                     "dropdown": [
                         "not selected",
                         "I do not agree with last year's score",
@@ -294,15 +294,15 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " ",
                     "nameLabel": "Comments"
                 }
             ]
         },
         {
-            "label": "Step 5: Company Feedback",
+            "rowLabel": "Step 5: Company Feedback",
             "labelShort": "S05",
             "c1": "143",
             "c2": "237",
@@ -313,8 +313,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "binaryReview",
-                    "label": "Does company feedback merit a change??",
+                    "type": "binaryEvaluation",
+                    "rowLabel": "Does company feedback merit a change??",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -322,8 +322,8 @@
                     ]
                 },
                 {
-                    "type": "elementResults",
-                    "label": "If 'yes': suggested answer for ",
+                    "type": "results",
+                    "rowLabel": "If 'yes': suggested answer for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -334,20 +334,20 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (required if 'yes', optional if 'no')",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "sources",
-                    "label": "Sources (reference, specific page, section, etc.)",
+                    "rowLabel": "Sources (reference, specific page, section, etc.)",
                     "nameLabel": "Sources"
                 }
             ]
         },
         {
-            "label": "Step 6: Second Horizontal Review",
+            "rowLabel": "Step 6: Second Horizontal Review",
             "labelShort": "S06",
             "c1": 162,
             "c2": 168,
@@ -358,8 +358,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Consolidated answer for ",
+                    "type": "results",
+                    "rowLabel": "Consolidated answer for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -370,20 +370,20 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (explain score)",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "sources",
-                    "label": "Sources (reference, specific page, section, etc.)",
+                    "rowLabel": "Sources (reference, specific page, section, etc.)",
                     "nameLabel": "Sources"
                 }
             ]
         },
         {
-            "label": "Step 7: Final Review",
+            "rowLabel": "Step 7: Final Review",
             "labelShort": "S07",
             "c1": 50,
             "c2": 149,
@@ -394,8 +394,8 @@
                     "placeholderText": "Your Name"
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Consolidated answer for ",
+                    "type": "results",
+                    "rowLabel": "Consolidated answer for ",
                     "dropdown": [
                         "not selected",
                         "yes",
@@ -406,20 +406,20 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " (explain score)",
                     "nameLabel": "Comments"
                 },
                 {
                     "type": "sources",
-                    "label": "Sources (reference, specific page, section, etc.)",
+                    "rowLabel": "Sources (reference, specific page, section, etc.)",
                     "nameLabel": "Sources"
                 }
             ]
         },
         {
-            "label": "Step 7.5: Year-on-year analysis",
+            "rowLabel": "Step 7.5: Year-on-year analysis",
             "labelShort": "S07.5",
             "c1": 240,
             "c2": 200,
@@ -431,20 +431,20 @@
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "Is your answer the same as the previous year?"
+                    "rowLabel": "Is your answer the same as the previous year?"
                 },
                 {
-                    "type": "comparison",
-                    "label": "Element ",
+                    "type": "comparisonYY",
+                    "rowLabel": "Element ",
                     "comparisonLabelShort": "S07"
                 },
                 {
                     "type": "extraQuestion",
-                    "label": "If no, please select the reason why and provide comments for that element."
+                    "rowLabel": "If no, please select the reason why and provide comments for that element."
                 },
                 {
-                    "type": "elementResults",
-                    "label": "Select reason if 'no' for ",
+                    "type": "results",
+                    "rowLabel": "Select reason if 'no' for ",
                     "dropdown": [
                         "not selected",
                         "I do not agree with last year's score",
@@ -452,8 +452,8 @@
                     ]
                 },
                 {
-                    "type": "elementComments",
-                    "label": "Comments for ",
+                    "type": "comments",
+                    "rowLabel": "Comments for ",
                     "label2": " ",
                     "nameLabel": "Comments"
                 }

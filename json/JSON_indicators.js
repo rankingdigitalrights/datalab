@@ -64,7 +64,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 138,
+        "y2yCompRow": 143,
         "elements": [{
             "labelShort": "F1a.1",
             "description": "Are the company’s terms of service easy to find?"
@@ -736,10 +736,9 @@ var indicatorsVector = {
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
         "elements": [{
-            "labelShort": "F11.1",
-            "description": "Does the company ​require​ users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?"
-          }
-        ]
+          "labelShort": "F11.1",
+          "description": "Does the company ​require​ users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?"
+        }]
       },
       {
         "labelShort": "F12",
@@ -783,7 +782,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F13.2",
-            "description": "Does the company ​clearly disclose​ that it requires users​ to clearly label all ​content ​and ​accounts​ that are produced, disseminated or operated with the assistance of a ​bot​?"
+            "description": "Does the company ​clearly disclose​ that it requires users​ to clearly rowLabel all ​content ​and ​accounts​ that are produced, disseminated or operated with the assistance of a ​bot​?"
           },
           {
             "labelShort": "F13.3",
@@ -809,7 +808,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 434,
         "elements": [{
             "labelShort": "P1a.1",
             "description": "Are the company’s ​privacy policies ​​easy to find​?"
@@ -1525,10 +1524,9 @@ var indicatorsVector = {
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
         "elements": [{
-            "labelShort": "P18.1",
-            "description": "Does the company publish practical materials that educate users on how to protect themselves from cybersecurity risks relevant to their products or services?"
-          }
-        ]
+          "labelShort": "P18.1",
+          "description": "Does the company publish practical materials that educate users on how to protect themselves from cybersecurity risks relevant to their products or services?"
+        }]
       },
       {
         "labelShort": "P19",

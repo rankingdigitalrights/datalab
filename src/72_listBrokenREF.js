@@ -23,17 +23,3 @@ function listBrokenRefsSingleSheet(ListSheet, sourceSheet, thisIndLabel) {
         column.setValues(namedRanges)
     }
 }
-
-/**
-function clearNamedRangesFromFile(SS) {
-
-    var range = SS.getSheets()[0].getRange(1, 1)
-    Logger.log(range)
-    Logger.log(range.getA1Notation())
-    var namedRanges = SS.getNamedRanges()
-    for (var i = 0; i < namedRanges.length; i++) {
-        // namedRanges[i].remove()
-        namedRanges[i].setRange(range)
-    }
-}
- */

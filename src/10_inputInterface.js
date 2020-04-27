@@ -2,6 +2,7 @@
 
 /* global 
 centralConfig,
+clearNamedRangesFromFile,
 indicatorsVector,
 researchStepsVector,
 spreadSheetFileName,
@@ -18,7 +19,7 @@ populateDCSheetByCategory
 */
 
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
     Logger.log("PROCESS: begin main DC --- // ---")
 
     let sourcesTabName = "Sources"
@@ -45,6 +46,8 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     let SS = createSpreadsheet(spreadsheetName, true)
+
+    if (doClearNamedRanges) clearNamedRangesFromFile(SS)
 
     let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)

@@ -88,13 +88,13 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Comp
                         break
 
 
-                    case "elementResults":
+                    case "results":
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
                         Logger.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
-                    case "elementComments":
+                    case "comments":
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
                         Logger.log(Indicator.labelShort + stepCompType + " added ")

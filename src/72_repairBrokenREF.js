@@ -98,15 +98,15 @@ function fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchStep
                         activeRow = fixSubStepHeader(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 
-                    case "elementResults":
+                    case "results":
                         activeRow = fixScoringOptions(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices, updateAnswerOptions)
                         break
 
-                    case "binaryReview":
+                    case "binaryEvaluation":
                         activeRow = fixBinaryEvaluation(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 
-                    case "elementComments":
+                    case "comments":
                         activeRow = fixComments(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 

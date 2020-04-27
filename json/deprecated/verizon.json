@@ -1,6 +1,6 @@
 {
   "id": "iVM1",
-  "label": {
+  "rowLabel": {
     "current": "Verizon Media",
     "legacy": [
       "Oath",
@@ -21,7 +21,7 @@
   "services": [{
       "id": "maYM1",
       "type": "mail",
-      "label": {
+      "rowLabel": {
         "current": "Yahoo Mail",
         "legacy": null
       }
@@ -29,7 +29,7 @@
     {
       "id": "pvTR1",
       "type": "photoVideo",
-      "label": {
+      "rowLabel": {
         "current": "Tumblr",
         "legacy": null
       }
