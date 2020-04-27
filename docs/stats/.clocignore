@@ -5,7 +5,9 @@ package-lock.json
 tsconfig.json
 jsconfig.json
 appsscript.json
-json/deprecated
+json/
 toys
 polyfills
-docs/stats/cloc.sh
+docs/stats
+docs/
+README.md

@@ -21,7 +21,9 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "cloc": "sh ./docs/stats/cloc.sh"
+        "cloc": "sh ./docs/stats/cloc.sh",
+        "json": "sh ./docs/stats/json.sh",
+        "docs": "sh ./docs/stats/docs.sh"
     },
     "author": "fubits | GW | RDR",
     "license": "ISC"
