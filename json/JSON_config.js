@@ -14,6 +14,8 @@ var centralConfig = {
   collapseAllGroups: false,
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
+  newElementLabelResult: "NEW",
+  newElementLabelComment: "N/A - New Element in 2020",
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,
   styles: {

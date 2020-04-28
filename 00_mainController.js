@@ -18,6 +18,7 @@
 
 // global params init (def with initiateGlobalConfig())
 
+var Config
 var indexPrefix
 var filenamePrefix
 var filenameSuffix
@@ -27,15 +28,17 @@ var outputFolderName
 var controlSpreadsheetID
 var Styles
 
+
 function initiateGlobalConfig() {
-    indexPrefix = centralConfig.indexPrefix
+    Config = centralConfig
+    indexPrefix = Config.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
     filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
-    rootFolderID = centralConfig.rootFolderID
-    rootFolderName = centralConfig.rootFolderName
-    controlSpreadsheetID = centralConfig.controlSpreadsheetID
-    Styles = centralConfig.styles
+    rootFolderID = Config.rootFolderID
+    rootFolderName = Config.rootFolderName
+    controlSpreadsheetID = Config.controlSpreadsheetID
+    Styles = Config.styles
 }
 
 // --- // MAIN CALLERS // --- //
@@ -67,7 +70,7 @@ function mainInputSheets() {
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
     // .slice(5,6) // Microsoft
-    // .slice(6,7) // Telefonica
+    // .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
@@ -173,7 +176,7 @@ function mainDataStore() {
     filenameSuffix = "Test" // + long or wide is decided in main logic
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = centralConfig.dataStoreParams.fileName
+    var mainSheetMode = Config.dataStoreParams.fileName
 
     var useStepsSubset = false // true := use subset
     var useIndySubset = false // true := use subset

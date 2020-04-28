@@ -42,7 +42,7 @@ function createNewFolder(parentFolderID, folderName) {
             Logger.log("CORE: Folder " + folderName + " does not exist. Creating a new one")
             Folder = ParentFolder.createFolder(folderName)
             Folder.setOwner("data@rankingdigitalrights.org") // TODO: from config
-            assignFolderEditors(Folder, centralConfig.devs)
+            assignFolderEditors(Folder, Config.devs)
             folderID = Folder.getId()
         } else {
             Folder = Children.next()

@@ -7,7 +7,6 @@ function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var Config = centralConfig
     var CompanyObj = thisCompany // TODO this a JSON Obj now; adapt in scope
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector

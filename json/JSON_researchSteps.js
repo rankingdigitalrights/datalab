@@ -4,7 +4,7 @@ var researchStepsVector = {
       stepColor: "#faca0f",
       substeps: [{
         rowLabel: "2019 S7 Outcome",
-        labelShort: "Step 0",
+        labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
         subStepColor: "#faca0f",
         doCollapse: false,
@@ -13,7 +13,7 @@ var researchStepsVector = {
             id: "MI",
             rowLabel: "Dummy",
             value: "Dummy",
-            placeholderText: "Step 0"
+            placeholderText: "2019 Outcome"
           }, {
             "type": "importPreviousResults",
             "rowLabel": "Element ",
@@ -37,7 +37,7 @@ var researchStepsVector = {
             id: "MS",
             "comparisonLabelShort": "S07"
           }, {
-            type: "binaryReviewS1",
+            type: "binaryReview",
             stepYonY: "S07",
             idYonY: "YY",
             id: "MY",
@@ -69,7 +69,7 @@ var researchStepsVector = {
             placeholderText: "Your Name"
           },
           {
-            type: "evaluationS1",
+            type: "review",
             id: "",
             scoringId: "SE",
             rowLabel: "Element ",
@@ -130,7 +130,7 @@ var researchStepsVector = {
               ]
             },
             {
-              type: "results",
+              type: "evaluation",
               id: "MA",
               scoringId: "SE",
               rowLabel: "If 'no': suggested answer ",
@@ -174,7 +174,7 @@ var researchStepsVector = {
               placeholderText: "Step 2.5"
             }, {
               "type": "binaryEvaluation",
-              "rowLabel": "Redundant: Do you agree with the year-on-year analysis in Step 1.5?",
+              "rowLabel": "Do you agree with the year-on-year analysis in Step 1.5?",
               "dropdown": [
                 "not selected",
                 "yes",
@@ -182,7 +182,7 @@ var researchStepsVector = {
               ]
             },
             {
-              "type": "results",
+              "type": "evaluation",
               "rowLabel": "In Step 1.5 for ",
               "dropdown": [
                 "not selected",
@@ -216,7 +216,7 @@ var researchStepsVector = {
               placeholderText: "Your Name"
             },
             {
-              type: "results",
+              type: "evaluation",
               id: "",
               scoringId: "SE",
               rowLabel: "Consolidated answer ",
@@ -272,7 +272,7 @@ var researchStepsVector = {
               "rowLabel": "If no, please select the reason why and provide comments for that element."
             },
             {
-              "type": "results",
+              "type": "evaluation",
               "rowLabel": "Select reason if 'no' for ",
               "dropdown": [
                 "not selected",
@@ -317,7 +317,7 @@ var researchStepsVector = {
               ]
             },
             {
-              type: "results",
+              type: "evaluation",
               rowLabel: "If 'yes': suggested answer for ",
               variableName: "result",
               scoringId: "SE",
@@ -390,7 +390,7 @@ var researchStepsVector = {
               placeholderText: "Your Name"
             },
             {
-              type: "results",
+              type: "evaluation",
               id: "",
               scoringId: "SE",
               rowLabel: "Consolidated answer ",
@@ -464,7 +464,7 @@ var researchStepsVector = {
               placeholderText: "Your Name"
             },
             {
-              type: "results",
+              type: "evaluation",
               id: "",
               scoringId: "SE",
               rowLabel: "Element ",

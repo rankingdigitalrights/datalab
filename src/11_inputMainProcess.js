@@ -9,7 +9,7 @@
     addSubStepHeader,
     addScoringOptions,
     addBinaryEvaluation,
-    addEvaluationYonY,
+    addReviewYonY,
     addBinaryReview,
     addComments,
     addSources,
@@ -140,22 +140,24 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                         case "importPreviousComments":
                             activeRow = importYonYResults(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
-                            dataStartRow = activeRow
                             break
 
                         case "header":
                             activeRow = addSubStepHeader(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
-                        case "evaluationS1":
-                            activeRow = addEvaluationYonY(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                        case "review":
+                            activeRow = addReviewYonY(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
-                        case "results":
+                        case "evaluation":
                             activeRow = addScoringOptions(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
-                        case "binaryReviewS1":
+                        case "binaryReview":
+                            // hook for data range and conditional formatting
+                            dataStartRow = activeRow
+
                             activeRow = addBinaryReview(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
@@ -247,7 +249,12 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
         var condRuleValues = SpreadsheetApp.newConditionalFormatRule()
             .whenTextEqualTo("not selected")
-            // .setFontColor('#ea4335')
+            .setBackground("#f4cccc")
+            .setRanges([sheetRange])
+            .build()
+
+        var condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
+            .whenTextEqualTo(Config.newElementLabelResult)
             .setBackground("#f4cccc")
             .setRanges([sheetRange])
             .build()
@@ -255,6 +262,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         var rules = sheet.getConditionalFormatRules()
         rules.push(condRuleNames)
         rules.push(condRuleValues)
+        rules.push(condRuleNewElem)
         sheet.setConditionalFormatRules(rules)
 
 

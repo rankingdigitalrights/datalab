@@ -1,51 +1,61 @@
-/* global
-    centralConfig,
-    indexPrefix,
-    defineNamedRangeStringImport,
-    columnToLetter
-*/
-
-// for binaryYYCheck 
-// let compCell = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, "group")
-
 // New Step 1; similar to Step 1.5 but integrated into old Step 1
 // - has dropdown with evaluation options
 // - compares result of step 0 review (yes/no/not selected)
 // - and either pulls element results or picks "not selected"
-function addEvaluationYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
+function addReviewYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
 
     let Elements = Indicator.elements
     let elementsNr = Elements.length
 
     let StepComp = Step.components[stepCNr]
+    let stepCompID = StepComp.id
+
+    // for linking to Named Range of Step 0
+    // TODO: make a shared function() between importYonY & addReviewYonY
+
+    let rangeStartRow = activeRow
+    let rangeStartCol = 1
+    let rangeRows
+    let rangeCols
 
     let idYonY = StepComp.idYonY // "YY"
     let stepYonY = StepComp.stepYonY // "S07"
+    let idYonYType = StepComp.idYonYType // "MR",
+
     let binaryEvalID = "MY"
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
     let evaluationCell, prevResultCell
 
-    let stepCompID = StepComp.id
-    let idYonYType = StepComp.idYonYType
 
-    let Cell, Element, noteString, cellID, subIndicator
+    let Cell, Element, noteString, cellID, subIndicator, labelFormula
 
+    let activeCol
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
-        let activeCol = 1
 
+        // 1.) Row Labels
+
+        activeCol = 1
         Element = Elements[elemNr]
-
         noteString = Element.labelShort + ": " + Element.description
+        labelFormula = StepComp.rowLabel + Element.labelShort
 
-        // Row Labels
+        if (Element.y2yResultRow) {
+            labelFormula += (" (2020)")
+        } else {
+            labelFormula += (" (new)")
+        }
+
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(StepComp.rowLabel + Element.labelShort)
+            .setValue(labelFormula)
             .setBackground(Step.subStepColor)
             .setNote(noteString)
+
         activeCol += 1
+
+        // 2.) Value Cells
 
         for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
 
@@ -149,311 +159,20 @@ function addEvaluationYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
 
                     activeCol += 1
-                }
-            }
-        }
-    }
+                } // service END
+            } // services END
+        } // single Element END
+    } // whole Elements Iteration END
 
     activeRow = activeRow + elementsNr
-    return activeRow
-}
 
-// Imports previous year's outcome as Step 0
-// assigns YYS07 ID to element results & comments
-// TODO: make Prefix correct (i.e. "RDR19") & dynamic (from variable)
-function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
+    rangeCols = activeCol
+    rangeRows = elementsNr
 
-    let Elements = Indicator.elements
-    let elementsNr = Elements.length
-    // TODO: temporary offset
-    // re-implement with element.predecessorRow || predecessorElementID
-    let offsetRowLastYear = isComments ? Indicator.y2yCompRow + elementsNr : Indicator.y2yCompRow
+    Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
 
-    let rangeStartRow = activeRow
-    let rangeStartCol = 2
-    let rangeEndRow
-    let rangeEndCol = 1 + companyNumberOfServices + 2
-
-    let stepCompID = Step.components[stepCNr].id
-
-    let Cell, cellID
-
-    let binaryEvalID = "MY"
-
-    // element-wise ~ row-wise
-
-    for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
-        let activeCol = 1
-        // serviceNr = column / service
-        // ~ serviceNr = 0 -> Labels
-        // ~ serviceNr = 1 Group
-        // ~ serviceNr = 2 OpCom
-
-
-        // row labels
-        Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(Step.components[stepCNr].rowLabel + Elements[elemNr].labelShort)
-            .setBackground(Step.subStepColor)
-        activeCol += 1
-
-        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offeset 3 with company JSON
-
-            // setting up company column(s)
-            if (serviceNr == 1) {
-
-                // sets up as many columns as the indicator has components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    let subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, "group", stepCompID)
-
-                    // sets up formula that compares values
-                    let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k // calculates which column
-                    let col = columnToLetter(value)
-                    // TODO
-
-                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (offsetRowLastYear + elemNr)
-
-                    Cell.setFormula(formula.toString())
-                    SS.setNamedRange(cellID, Cell)
-
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
-            } // close serviceNr==1 if statement
-
-
-            // setting up opCom column
-            else if (serviceNr == 2) {
-
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // sets Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // creating the name of Cell it will be compared to
-
-                    let subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, "opCom", stepCompID)
-
-                    // creating formula that compares the two cells
-                    let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                    // finds comparisson column
-                    let col = columnToLetter(value)
-                    // TODO
-
-                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (offsetRowLastYear + elemNr)
-
-                    Cell.setFormula(formula.toString())
-                    SS.setNamedRange(cellID, Cell)
-
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
-            } // close serviceNr==2 if statement
-
-
-            // setting up services column(s9
-            else {
-
-                // looping thourough the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // setting Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // finding the name of Cell that it will be compared too
-                    let s = serviceNr - 3
-                    let subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
-
-                    // creating formula that will be placed in Cell
-                    let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k // calculates which column
-                    let col = columnToLetter(value)
-                    // TODO
-
-                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (offsetRowLastYear + elemNr)
-
-                    Cell.setFormula(formula.toString())
-                    SS.setNamedRange(cellID, Cell)
-
-                    activeCol += 1
-                }
-            }
-        }
-    }
-
-    // adding the conditional formating so that the Cell turns red if the answer is no
-    let colMax = columnToLetter(2 + (companyNumberOfServices + 2) * nrOfSubIndicators)
-    let rowMax = activeRow + elementsNr
-
-    let range = Sheet.getRange(activeRow, 2, elementsNr, 2 + (companyNumberOfServices + 2) * nrOfSubIndicators)
-
-    let rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo("No").setBackground("#fa7661").setRanges([range]).build()
-    let rules = Sheet.getConditionalFormatRules()
-    rules.push(rule)
-    Sheet.setConditionalFormatRules(rules)
-
-    range.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-
-    activeRow = activeRow + elementsNr
-    return activeRow
-}
-
-function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
-
-    let Elements = Indicator.elements
-    let elementsNr = Elements.length
-    // TODO: temporary offset
-    // re-implement with element.predecessorRow || predecessorElementID
-    let offsetRowLastYear = isComments ? Indicator.y2yCompRow + elementsNr : Indicator.y2yCompRow
-
-    let rangeStartRow = activeRow
-    let rangeStartCol = 2
-    let rangeEndRow
-    let rangeEndCol = 1 + companyNumberOfServices + 2
-
-    // element-wise ~ row-wise
-
-    let Cell
-
-    for (let elemNr = 0; elemNr < 1; elemNr++) {
-        let activeCol = 1
-        // serviceNr = column / service
-        // ~ serviceNr = 0 -> Labels
-        // ~ serviceNr = 1 Group
-        // ~ serviceNr = 2 OpCom
-
-
-        // row labels
-        Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(Step.components[stepCNr].rowLabel + Elements[elemNr].labelShort)
-            .setBackground(Step.subStepColor)
-        activeCol += 1
-
-        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offeset 3 with company JSON
-
-            // setting up company column(s)
-            if (serviceNr == 1) {
-
-                // sets up as many columns as the indicator has components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    let subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, "group")
-
-                    // sets up formula that compares values
-                    let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k // calculates which column
-                    let col = columnToLetter(value)
-                    // TODO
-
-                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (offsetRowLastYear + elemNr)
-
-                    Cell.setFormula(formula.toString())
-
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
-            } // close serviceNr==1 if statement
-
-
-            // setting up opCom column
-            else if (serviceNr == 2) {
-
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // sets Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // creating the name of Cell it will be compared to
-
-                    let subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, "opCom")
-
-                    // creating formula that compares the two cells
-                    let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                    // finds comparisson column
-                    let col = columnToLetter(value)
-                    // TODO
-
-                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (offsetRowLastYear + elemNr)
-
-                    Cell.setFormula(formula.toString())
-
-
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
-            } // close serviceNr==2 if statement
-
-
-            // setting up services column(s9
-            else {
-
-                // looping thourough the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // setting Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // finding the name of Cell that it will be compared too
-                    let s = serviceNr - 3
-                    let subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "YY", Step.components[stepCNr].comparisonLabelShort, Elements[elemNr].labelShort, subIndicator, Company.id, Company.services[s].id)
-
-                    // creating formula that will be placed in Cell
-                    let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k // calculates which column
-                    let col = columnToLetter(value)
-                    // TODO
-
-                    let formula = "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!$" + col + "$" + (offsetRowLastYear + elemNr)
-
-                    Cell.setFormula(formula.toString())
-
-                    activeCol += 1
-                }
-            }
-        }
-    }
-
-    // adding the conditional formating so that the Cell turns red if the answer is no
-    let colMax = columnToLetter(2 + (companyNumberOfServices + 2) * nrOfSubIndicators)
-    let rowMax = activeRow + elementsNr
-
-    let range = Sheet.getRange(activeRow, 2, elementsNr, 2 + (companyNumberOfServices + 2) * nrOfSubIndicators)
-
-    let rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo("No").setBackground("#fa7661").setRanges([range]).build()
-    let rules = Sheet.getConditionalFormatRules()
-    rules.push(rule)
-    Sheet.setConditionalFormatRules(rules)
-
-    range.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-
-    activeRow = activeRow + elementsNr
     return activeRow
 }
 
@@ -554,6 +273,10 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr
         }
     }
 
+    Sheet.getRange(activeRow, 2, 1, activeCol)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
+
     return activeRow + 1
 }
 
@@ -604,7 +327,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
                     let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k // calculates which column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + cellID + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (offsetRowLastYear + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + cellID + "=" + "'" + Config.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (offsetRowLastYear + elemNr) + ",\"Yes\",\"No\")"
 
                     Cell.setFormula(formula.toString())
 
@@ -636,7 +359,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
                     // finds comparisson column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + cellID + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (offsetRowLastYear + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + cellID + "=" + "'" + Config.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (offsetRowLastYear + elemNr) + ",\"Yes\",\"No\")"
 
                     Cell.setFormula(formula.toString())
 
@@ -668,7 +391,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
                     let value = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k // calculates which column
                     let col = columnToLetter(value)
                     // TODO
-                    let formula = "=IF(" + cellID + "=" + "'" + centralConfig.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (offsetRowLastYear + elemNr) + ",\"Yes\",\"No\")"
+                    let formula = "=IF(" + cellID + "=" + "'" + Config.prevYearOutcomeTab + "'" + "!" + "$" + col + "$" + (offsetRowLastYear + elemNr) + ",\"Yes\",\"No\")"
 
                     Cell.setFormula(formula.toString())
 

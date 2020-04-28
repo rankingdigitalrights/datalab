@@ -7,7 +7,6 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var Config = centralConfig
     var CompanyObj = thisCompany
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector

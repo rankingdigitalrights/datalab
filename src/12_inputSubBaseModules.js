@@ -223,7 +223,7 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
         activeRow = activeRow + 1
     }
 
-    // if (centralConfig.freezeHead) {
+    // if (Config.freezeHead) {
     //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
     // }
 
@@ -263,8 +263,9 @@ function addSubStepHeader(SS, Sheet, currentIndicator, CompanyObj, activeRow, cu
     let thisLastCol = ((companyNumberOfServices + 2) * nrOfIndSubComps)
     // for remaining company, opCom, and services columns it adds the placeholderText
     let thisRange = Sheet.getRange(activeRow, thisFirstCol, 1, thisLastCol)
-    thisRange.setValue(thisFiller)
-    thisRange.setFontStyle("italic")
+        .setValue(thisFiller)
+        .setFontStyle("italic")
+        .setHorizontalAlignment("center")
 
     let cellName
     let thisCell
@@ -342,24 +343,37 @@ function addSubStepHeader(SS, Sheet, currentIndicator, CompanyObj, activeRow, cu
 }
 
 // addScoringOptions creates a dropdown list in each column for each subindicator
-function addScoringOptions(SS, Sheet, currentIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addScoringOptions(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfIndSubComps, Category, companyNumberOfServices) {
 
-    let rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
+    let rule = SpreadsheetApp.newDataValidation().requireValueInList(Step.components[stepCNr].dropdown).build()
 
-    let stepCompID = currentStep.components[stepCNr].id
+    let Elements = Indicator.elements
+    let elementsNr = Elements.length
+
+    let StepComp = Step.components[stepCNr]
+    let stepCompID = Step.components[stepCNr].id
+
+    let rangeStartRow = activeRow
+    let rangeStartCol = 1
+    let rangeRows, rangeCols, stepRange, dataRange
+
+    let Cell, cellID, Element, subIndicator
+
+    let activeCol
 
     // row labels
-    for (let elemNr = 0; elemNr < currentIndicator.elements.length; elemNr++) {
-        let activeCol = 1
+    for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
-        let thisElement = currentIndicator.elements[elemNr]
+        activeCol = 1
 
-        let noteString = thisElement.labelShort + ": " + thisElement.description
+        Element = Elements[elemNr]
+
+        let noteString = Element.labelShort + ": " + Element.description
 
         // setting up the labels
-        let cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(currentStep.components[stepCNr].rowLabel + thisElement.labelShort)
-            .setBackground(currentStep.subStepColor)
+        Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            .setValue(StepComp.rowLabel + Element.labelShort)
+            .setBackground(Step.subStepColor)
             .setNote(noteString)
         activeCol += 1
 
@@ -371,21 +385,21 @@ function addScoringOptions(SS, Sheet, currentIndicator, CompanyObj, activeRow, c
                 // loops through the number of components
                 for (let k = 0; k < nrOfIndSubComps; k++) {
 
-                    let thisCell = Sheet.getRange(activeRow + elemNr, activeCol)
+                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
-                    let component = ""
+                    subIndicator = ""
 
                     if (nrOfIndSubComps != 1) {
-                        component = currentClass.components[k].labelShort
+                        subIndicator = Category.components[k].labelShort
                     }
 
-                    let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "group", stepCompID)
+                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", Step.subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
 
-                    SS.setNamedRange(cellName, thisCell) // names cells
-                    thisCell.setDataValidation(rule) // creates dropdown list
-                    thisCell.setValue("not selected") // sets default for drop down list
+                    SS.setNamedRange(cellID, Cell) // names cells
+                    Cell.setDataValidation(rule) // creates dropdown list
+                    Cell.setValue("not selected") // sets default for drop down list
                         .setFontWeight("bold") // bolds the answers
                     activeCol += 1
                 }
@@ -396,24 +410,24 @@ function addScoringOptions(SS, Sheet, currentIndicator, CompanyObj, activeRow, c
 
                 // loops through the number of components
                 for (let k = 0; k < nrOfIndSubComps; k++) {
-                    let thisCell = Sheet.getRange(activeRow + elemNr, activeCol)
+                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
-                    let component = ""
+                    subIndicator = ""
                     if (nrOfIndSubComps != 1) {
-                        component = currentClass.components[k].labelShort
+                        subIndicator = Category.components[k].labelShort
                     }
 
-                    let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "opCom", stepCompID)
+                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", Step.subStepID, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
 
-                    SS.setNamedRange(cellName, thisCell) // names cells
-                    thisCell.setDataValidation(rule) // creates dropdown list
+                    SS.setNamedRange(cellID, Cell) // names cells
+                    Cell.setDataValidation(rule) // creates dropdown list
                         .setFontWeight("bold") // bolds the answers
-                    if (CompanyObj.hasOpCom == false) {
-                        thisCell.setValue("N/A") // if no OpCom, pre-select N/A
+                    if (Company.hasOpCom == false) {
+                        Cell.setValue("N/A") // if no OpCom, pre-select N/A
                     } else {
-                        thisCell.setValue("not selected") // sets default for drop down list
+                        Cell.setValue("not selected") // sets default for drop down list
                     }
 
                     activeCol += 1
@@ -423,21 +437,21 @@ function addScoringOptions(SS, Sheet, currentIndicator, CompanyObj, activeRow, c
             // creating all the service columns
             else {
                 for (let k = 0; k < nrOfIndSubComps; k++) {
-                    let thisCell = Sheet.getRange(activeRow + elemNr, activeCol)
+                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
                     // cell name formula; output defined in 44_rangeNamingHelper.js
 
                     let g = serviceNr - 3 // helper for Services
 
-                    let component = ""
+                    subIndicator = ""
                     if (nrOfIndSubComps != 1) {
-                        component = currentClass.components[k].labelShort
+                        subIndicator = Category.components[k].labelShort
                     }
 
-                    let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
+                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", Step.subStepID, Element.labelShort, subIndicator, Company.id, Company.services[g].id, stepCompID)
 
-                    SS.setNamedRange(cellName, thisCell) // names cells
-                    thisCell.setDataValidation(rule) // creates dropdown list
+                    SS.setNamedRange(cellID, Cell) // names cells
+                    Cell.setDataValidation(rule) // creates dropdown list
                         .setValue("not selected") // sets default for drop down list
                         .setFontWeight("bold") // bolds the answers
                     activeCol += 1
@@ -446,7 +460,13 @@ function addScoringOptions(SS, Sheet, currentIndicator, CompanyObj, activeRow, c
         }
     }
 
-    activeRow = activeRow + currentIndicator.elements.length
+    rangeCols = activeCol
+    rangeRows = elementsNr
+    Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
+
+    activeRow = activeRow + elementsNr
     return activeRow
 }
 
@@ -638,6 +658,10 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, CompanyObj, activeRow,
             }
         }
     }
+
+    Sheet.getRange(activeRow, 2, 1, activeCol)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
 
     return activeRow + 1
 }

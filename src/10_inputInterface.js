@@ -1,7 +1,7 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
 /* global 
-centralConfig,
+Config,
 clearNamedRangesFromFile,
 indicatorsVector,
 researchStepsVector,
@@ -31,7 +31,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    let Config = centralConfig // let Config = importLocalJSON("Config")
     // let Company = Company // TODO this a JSON Obj now; adapt in scope
     let Indicators = indicatorsVector
     let ResearchStepsObj = researchStepsVector

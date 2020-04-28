@@ -82,7 +82,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                         }
                         break
 
-                    case "results":
+                    case "evaluation":
                         if (includeResults) {
                             activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                             Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)

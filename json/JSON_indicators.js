@@ -95,32 +95,32 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F1b.1",
             "description": "Are the company’s ​advertising content policies easy to find​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1b.2",
             "description": "Are the company’s ​advertising content policies available in the primary language(s) spoken by users in the company’s home jurisdiction?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1b.3",
             "description": "Are the company’s​ advertising content policies presented in an ​understandable manner​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1b.4",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires apps made available through its app store​ ​to provide users with an a​ dvertising content policy​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1b.5",
             "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose​ that it requires s​ kills​ made available through its ​skill store​ to provide users with an advertising content policy​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -134,32 +134,32 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F1c.1",
             "description": "Are the company’s ​advertising targeting policies​ ​easy to find?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1c.2",
             "description": "Are the ​advertising targeting policies​ available in the primary language(s) spoken by ​users ​in the company’s home jurisdiction?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1c.3",
             "description": "Are the ​advertising targeting policies​ presented in an understandable manner​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1c.4",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to provide users with an a​ dvertising targeting policy​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1c.5",
             "description": "(For ​personal digital assistant ecosystems​): Does the company clearly disclose that it requires ​skills​ made available through its ​skill store​ to provide users with an advertising targeting policy​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -173,20 +173,20 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F1d.1",
             "description": "Are the company’s ​algorithmic system use policies​ ​easy to find​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1d.2",
             "description": "Are the ​algorithmic system use policies​ available in the primary language(s) spoken by users in the company’s home jurisdiction?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F1d.3",
             "description": "Are the ​algorithmic system use policies​ presented in an​ understandable manner​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -233,38 +233,38 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F2b.1",
             "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​advertising content policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2b.2",
             "description": "Does the company ​clearly disclose​ how it will ​directly notify users​ of changes?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2b.3",
             "description": "Does the company​ clearly disclose​ the timeframe within which it ​directly notifies​ ​users ​of changes prior to these changes coming into effect?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2b.4",
             "description": "Does the company maintain a ​public archive​ or change log​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2b.5",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to n​ otify​ ​users​ when the ​apps​ change their ​advertising content policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2b.6",
             "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising content policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -278,38 +278,38 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F2c.1",
             "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​advertising targeting policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2c.2",
             "description": "Does the company ​clearly disclose​ how it will ​directly notify users​ of changes?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2c.3",
             "description": "Does the company​ clearly disclose​ the timeframe within which it ​directly notifies​ ​users ​of changes prior to these changes coming into effect?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2c.4",
             "description": "Does the company maintain a ​public archive​ or change log​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2c.5",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to d​ irectly notify users​ when the a​ pps change their ​advertising targeting policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2c.6",
             "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising targeting policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -323,26 +323,26 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F2d.1",
             "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​algorithmic system use policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2d.2",
             "description": "Does the company ​clearly disclose​ how it will ​directly notify users​ of changes?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2d.3",
             "description": "Does the company​ ​clearly disclose​ the timeframe within which it ​directly notifies​ ​users​ of changes prior to these changes coming into effect?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F2d.4",
             "description": "Does the company maintain a ​public archive​ or change log​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -407,20 +407,20 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F3b.1",
             "description": "Does the company ​clearly disclose ​what types of advertising content​ it does not permit?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F3b.2",
             "description": "Does the company ​clearly disclose ​whether it ​requires all ​advertising content ​must be clearly labelled as such?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F3b.3",
             "description": "Does the company ​clearly disclose​ ​the processes and technologies it​ ​uses to​ ​identify​ advertising content​ or accounts​ that violate the company’s rules?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -434,32 +434,32 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F3c.1",
             "description": "Does the company ​clearly disclose​ whether it enables third parties ​to target its ​users​ with ​advertising content​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F3c.2",
             "description": "Does the company ​clearly disclose​ what types of targeting parameters​ are not permitted?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F3c.3",
             "description": "Does the company ​clearly disclose​ that it does not permit ​advertisers​ to target specific individuals?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F3c.4",
             "description": "Does the company ​clearly disclose​ that algorithmically​ generated ​advertising audience categories ​are evaluated by human reviewers before they can be used?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F3c.5",
             "description": "Does the company ​clearly disclose ​information about the processes and technologies it uses to​ ​identify advertising content​ or ​accounts​ that violate the company’s rules?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -508,14 +508,14 @@ var indicatorsVector = {
           {
             "labelShort": "F4b.2",
             "description": "Does the company publish data on the number of accounts restricted ​based on which rule was violated?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4b.3",
             "description": "Does the company publish data on the number of pieces of ​content​ ​restricted ​based on the method used to identify the violation?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4b.4",
@@ -541,32 +541,32 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F4c.1",
             "description": "Does the company publish the total number of advertisements​ it ​restricted ​to enforce its a​dvertising content policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4c.2",
             "description": "Does the company publish the number of advertisements​ it ​restricted ​based on which rule was violated?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4c.3",
             "description": "Does the company publish the number of advertisements​ it ​restricted ​based on the method used to identify the violation?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4c.4",
             "description": "Does the company publish this data at least four times a year?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4c.5",
             "description": "Can the data be​ ​exported as a ​structured data file​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -580,32 +580,32 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F4d.1",
             "description": "Does the company publish the total number of pieces of advertising content​ it ​restricted ​to enforce its advertising targeting policies​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4d.2",
             "description": "Does the company publish the number of pieces of advertising content ​it ​restricts ​based on which rule was violated?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4d.3",
             "description": "Does the company publish the number of pieces of advertising content ​it ​restricts ​based on the method used to identify the violation?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4d.4",
             "description": "Does the company publish this data at least four times a year?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F4d.5",
             "description": "Can the data be accessed through a ​robust programmatic interface​ or exported as a ​structured data file​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -886,8 +886,8 @@ var indicatorsVector = {
           {
             "labelShort": "F9.2",
             "description": "Does the company engage in practices, such as offering zero-rating programs​, that ​prioritize​ network traffic for reasons beyond assuring quality of service and reliability of the network?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F9.3",
@@ -962,11 +962,11 @@ var indicatorsVector = {
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
         "elements": [{
-            "labelShort": "F11.1",
-            "description": "Does the company ​require​ users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?",
-            "y2yResultRow": 422,
-            "y2yCommentRow": 423
-          }]
+          "labelShort": "F11.1",
+          "description": "Does the company ​require​ users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?",
+          "y2yResultRow": 422,
+          "y2yCommentRow": 423
+        }]
       },
       {
         "labelShort": "F12",
@@ -975,35 +975,35 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
-        "elements": [  {
+        "elements": [{
             "labelShort": "F12.1",
             "description": "Does the company ​clearly disclose​ whether it uses algorithmic systems​ to ​curate, recommend, and/or rank​ the ​content​ that ​users​ can access through its platform?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F12.2",
             "description": "Does the company ​clearly disclose​ how the algorithmic systems​ are deployed to ​curate, recommend, and/or rank​ ​content​, including the variables that influence these systems?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F12.3",
             "description": "Does the company ​clearly disclose​ what options users have to control the variables that the ​algorithmic content curation, recommendation, and/or ranking system​ takes into ​account​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F12.4",
             "description": "Does the company ​clearly disclose​ whether algorithmic system​ are used to automatically ​curate, recommend, and/or rank​ ​content​ ​by default?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F12.5",
             "description": "Does the company ​clearly disclose​ that users can opt in to automated ​content curation, recommendation, and/or ranking system​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1017,26 +1017,26 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F13.1",
             "description": "Does the company​ clearly disclose​ rules governing the use of ​bots​ on its platform?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F13.2",
             "description": "Does the company ​clearly disclose​ that it requires users​ to clearly label all ​content ​and ​accounts​ that are produced, disseminated or operated with the assistance of a ​bot​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F13.3",
             "description": "Does the company ​clearly disclose​ its process for enforcing its ​bot policy?​",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "F13.4",
             "description": "Does the company​ ​clearly disclose​ data on the volume and nature of user ​content ​and ​accounts restricted f​ or violating the company’s ​bot policy​?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       }
@@ -1082,8 +1082,8 @@ var indicatorsVector = {
           {
             "labelShort": "P1a.5",
             "description": "(For personal digital assistant ecosystems): Does the company disclose that it requires skills made available through its skill store to provide users with a privacy policy?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1097,20 +1097,20 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P1b.1",
             "description": "Are the company’s algorithmic system development policies easy to find?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P1b.2",
             "description": "Are the algorithmic system development policies available in the primary language(s) spoken by users in the company’s home jurisdiction?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P1b.3",
             "description": "Are the algorithmic system development policies presented in an understandable manner?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1154,8 +1154,8 @@ var indicatorsVector = {
           {
             "labelShort": "P2a.6",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills sold through its skill store to notify users when the skill changes its privacy policy?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1169,26 +1169,26 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P2b.1",
             "description": "Does the company clearly disclose that it directly notifies users about  all changes to its algorithmic system development policies?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P2b.2",
             "description": "Does the company clearly disclose how it will directly notify users of changes?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P2b.3",
             "description": "Does the company clearly disclose the time frame within which it directly notifies users of changes notification prior to these changes coming into effect?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P2b.4",
             "description": "Does the company maintain a public archive or change log",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1232,14 +1232,14 @@ var indicatorsVector = {
           {
             "labelShort": "P3a.6",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose what user information the skills collects?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P3a.7",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether third-party skills made available through its skill store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the skill?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1253,20 +1253,20 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P3b.1",
             "description": "Does the company clearly disclose all the types of user information it infers on the basis of collected user information?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P3b.2",
             "description": "For each type of user information the company infers, does the company clearly disclose how it infers that user information?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P3b.3",
             "description": "Does the company clearly disclose that it limits inference of user information to what is directly relevant and necessary to accomplish the purpose of its service?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1316,14 +1316,14 @@ var indicatorsVector = {
           {
             "labelShort": "P4.7",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose what user information the skills share?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P4.8",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose the types of third parties with whom they share user information?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1343,8 +1343,8 @@ var indicatorsVector = {
           {
             "labelShort": "P5.2",
             "description": "For each type of user information the company infers, does the company clearly disclose its purpose for the inference?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P5.3",
@@ -1418,14 +1418,14 @@ var indicatorsVector = {
           {
             "labelShort": "P6.8",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose how long they retain user information?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P6.9",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1451,14 +1451,14 @@ var indicatorsVector = {
           {
             "labelShort": "P7.3",
             "description": "For each type of user information the company infers on the basis of collected information, does the company clearly disclose whether users can control if the company can attempt to infer this user information?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P7.4",
             "description": "For each type of user information the company infers on the basis of collected information, does the company clearly disclose whether users can delete this user information?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P7.5",
@@ -1469,20 +1469,20 @@ var indicatorsVector = {
           {
             "labelShort": "P7.6",
             "description": "Does the company clearly disclose that users can opt in to being served with targeted advertising?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P7.7",
             "description": "Does the company clearly disclose that it provides users with options to control how their user information is used for the development of algorithmic systems?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P7.8",
             "description": "Does the company clearly disclose whether it uses user information to develop algorithmic systems by default, or not?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P7.9",
@@ -1526,8 +1526,8 @@ var indicatorsVector = {
           {
             "labelShort": "P8.5",
             "description": "Does the company clearly disclose that users can obtain all the information that a company has inferred about them?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P8.6",
@@ -1538,8 +1538,8 @@ var indicatorsVector = {
           {
             "labelShort": "P8.7",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1583,26 +1583,26 @@ var indicatorsVector = {
           {
             "labelShort": "P9.6",
             "description": "Does the company clearly disclose what user information it collects from third-parties through non-technical means?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P9.7",
             "description": "Does the company clearly explain how it collects user information from third parties through non-technical means?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P9.8",
             "description": "Does the company clearly disclose its purpose for collecting user information from third parties through non-technical means?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P9.9",
             "description": "Does the company clearly disclose how long it retains the user information it collects from third parties through non-technical means?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1772,29 +1772,29 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
-        "elements": [  {
+        "elements": [{
             "labelShort": "P11b.1",
             "description": "Does the company list the number of requests it receives for user information that come through private processes?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P11b.2",
             "description": "Does the company list the number of requests for user information that come through private processes with which it complied?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P11b.3",
             "description": "Does the company report this data at least once per year?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P11b.4",
             "description": "Can the data reported by the company be exported as a structured data file?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -1916,14 +1916,14 @@ var indicatorsVector = {
           {
             "labelShort": "P14.10",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose what, if any, modifications it has made to a personal digital assistant operating system?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P14.11",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose what, if any, effect such modifications have on the company’s ability to send security updates to users?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       },
@@ -2022,11 +2022,11 @@ var indicatorsVector = {
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
         "elements": [{
-            "labelShort": "P18.1",
-            "description": "Does the company publish practical materials that educate users on how to protect themselves from cybersecurity risks relevant to their products or services?",
-            "y2yResultRow": 869,
-            "y2yCommentRow": 870
-          }]
+          "labelShort": "P18.1",
+          "description": "Does the company publish practical materials that educate users on how to protect themselves from cybersecurity risks relevant to their products or services?",
+          "y2yResultRow": 869,
+          "y2yCommentRow": 870
+        }]
       },
       {
         "labelShort": "P19",
@@ -2038,32 +2038,32 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P19.1",
             "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which the company has assigned them?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P19.2",
             "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which each piece of advertising content they see while using the product or service was targeted?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P19.3",
             "description": "Does the company clearly disclose how users can access the list of advertisers who have attempted to influence them through the company’s on-platform targeted advertising technologies?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P19.4",
             "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which each piece of advertising content they see off-platform was targeted through the company’s advertising network?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           },
           {
             "labelShort": "P19.5",
             "description": "Does the company clearly disclose how users can access the list of advertisers who have attempted to influence them through the company’s off-platform advertising network?",
-            "y2yResultRow": "NEW",
-            "y2yCommentRow": "NEW"
+            "y2yResultRow": null,
+            "y2yCommentRow": null
           }
         ]
       }

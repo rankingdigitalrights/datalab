@@ -73,7 +73,7 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
                 case "header":
                     break
 
-                case "results":
+                case "evaluation":
                     // if (includeResults) {
                     //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
                     //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)

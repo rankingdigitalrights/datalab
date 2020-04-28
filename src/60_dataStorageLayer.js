@@ -6,7 +6,7 @@
  */
 
 /* global
-        centralConfig,
+        Config,
         indicatorsVector,
         researchStepsVector,
         cleanCompanyName,
@@ -20,7 +20,6 @@
 
 function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode, includeWide) {
 
-    var Config = centralConfig
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
 
