@@ -370,7 +370,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 182,
         "previousIndicator": "F3",
         "previousLength": 7,
         "elements": [{
@@ -493,7 +493,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 212,
         "previousIndicator": "F4",
         "previousLength": 3,
         "elements": [{
@@ -647,7 +647,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 230,
         "previousIndicator": "F5",
         "previousLength": 12,
         "elements": [{
@@ -700,7 +700,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 230,
         "previousIndicator": "F5",
         "previousLength": 12,
         "elements": [{
@@ -741,7 +741,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 275,
         "previousIndicator": "F6",
         "previousLength": 10,
         "elements": [{
@@ -812,7 +812,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 314,
         "previousIndicator": "F7",
         "previousLength": 10,
         "elements": [{
@@ -883,7 +883,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 353,
         "previousIndicator": "F8",
         "previousLength": 4,
         "elements": [{
@@ -918,7 +918,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 374,
         "previousIndicator": "F9",
         "previousLength": 2,
         "elements": [{
@@ -947,7 +947,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 389,
         "previousIndicator": "F10",
         "previousLength": 8,
         "elements": [{
@@ -1006,7 +1006,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 422,
         "previousIndicator": "F11",
         "previousLength": 1,
         "elements": [{
@@ -1176,7 +1176,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 455,
         "previousIndicator": "P2",
         "previousLength": 5,
         "elements": [{
@@ -1258,7 +1258,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 479,
         "previousIndicator": "P3",
         "previousLength": 5,
         "elements": [{
@@ -1340,7 +1340,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 503,
         "previousIndicator": "P4",
         "previousLength": 6,
         "elements": [{
@@ -1399,7 +1399,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 530,
         "previousIndicator": "P5",
         "previousLength": 5,
         "elements": [{
@@ -1440,7 +1440,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 551,
         "previousIndicator": "P6",
         "previousLength": 7,
         "elements": [{
@@ -1505,7 +1505,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 581,
         "previousIndicator": "P7",
         "previousLength": 5,
         "elements": [{
@@ -1570,7 +1570,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 605,
         "previousIndicator": "P8",
         "previousLength": 5,
         "elements": [{
@@ -1623,7 +1623,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 629,
         "previousIndicator": "P9",
         "previousLength": 5,
         "elements": [{
@@ -1688,7 +1688,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 653,
         "previousIndicator": "P10",
         "previousLength": 12,
         "elements": [{
@@ -1741,7 +1741,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 653,
         "previousIndicator": "P10",
         "previousLength": 12,
         "elements": [{
@@ -1782,7 +1782,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 698,
         "previousIndicator": "P11",
         "previousLength": 11,
         "elements": [{
@@ -1853,9 +1853,9 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
-        "previousIndicator": "P11",
-        "previousLength": 11,
+        "y2yCompRow": 698,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "P11b.1",
             "description": "Does the company list the number of requests it receives for user information that come through private processes?",
@@ -1888,7 +1888,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 740,
         "previousIndicator": "P12",
         "previousLength": 3,
         "elements": [{
@@ -1917,7 +1917,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 758,
         "previousIndicator": "P13",
         "previousLength": 3,
         "elements": [{
@@ -1946,7 +1946,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 776,
         "previousIndicator": "P14",
         "previousLength": 9,
         "elements": [{
@@ -2023,7 +2023,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 812,
         "previousIndicator": "P15",
         "previousLength": 3,
         "elements": [{
@@ -2052,7 +2052,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 830,
         "previousIndicator": "P16",
         "previousLength": 4,
         "elements": [{
@@ -2087,7 +2087,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 851,
         "previousIndicator": "P17",
         "previousLength": 3,
         "elements": [{
@@ -2116,7 +2116,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 429,
+        "y2yCompRow": 869,
         "previousIndicator": "P18",
         "previousLength": 1,
         "elements": [{
