@@ -13,6 +13,8 @@ var indicatorsVector = {
       "scoringScope": "full",
       "y2yCompColumn": 2,
       "y2yCompRow": 54,
+      "previousIndicator": "G4",
+      "previousLength": 11,
       "elements": [{
           "labelShort": "G4b.1",
           "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its processes for enforcing its terms of service?"
@@ -65,6 +67,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 143,
+        "previousIndicator": "F1",
+        "previousLength": 3,
         "elements": [{
             "labelShort": "F1a.1",
             "description": "Are the company’s ​terms of service​ ​easy to find​?",
@@ -92,6 +96,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F1b.1",
             "description": "Are the company’s ​advertising content policies easy to find​?",
@@ -131,6 +137,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F1c.1",
             "description": "Are the company’s ​advertising targeting policies​ ​easy to find?",
@@ -170,6 +178,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F1d.1",
             "description": "Are the company’s ​algorithmic system use policies​ ​easy to find​?",
@@ -196,7 +206,9 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 161,
+        "previousIndicator": "F2",
+        "previousLength": 4,
         "elements": [{
             "labelShort": "F2a.1",
             "description": "Does the company ​clearly disclose​ ​that it ​directly notifies ​users about a​ ll​ changes to its t​ erms of service​?",
@@ -230,6 +242,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F2b.1",
             "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​advertising content policies​?",
@@ -275,6 +289,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F2c.1",
             "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​advertising targeting policies​?",
@@ -320,6 +336,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F2d.1",
             "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​algorithmic system use policies​?",
@@ -353,6 +371,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F3",
+        "previousLength": 7,
         "elements": [{
             "labelShort": "F3a.1",
             "description": "Does the company ​clearly disclose​ what types of content ​or activities it does not permit?",
@@ -404,6 +424,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F3b.1",
             "description": "Does the company ​clearly disclose ​what types of advertising content​ it does not permit?",
@@ -431,6 +453,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F3c.1",
             "description": "Does the company ​clearly disclose​ whether it enables third parties ​to target its ​users​ with ​advertising content​?",
@@ -470,6 +494,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F4",
+        "previousLength": 3,
         "elements": [{
             "labelShort": "F4a.1",
             "description": "Does the company publish data about the total number of pieces of content restricted ​for violating the company's rules."
@@ -499,6 +525,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F4b.1",
             "description": "Does the company publish data on the total number of accounts​ ​restricted ​for violating the company’s own rules?",
@@ -538,6 +566,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F4c.1",
             "description": "Does the company publish the total number of advertisements​ it ​restricted ​to enforce its a​dvertising content policies​?",
@@ -577,6 +607,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F4d.1",
             "description": "Does the company publish the total number of pieces of advertising content​ it ​restricted ​to enforce its advertising targeting policies​?",
@@ -616,6 +648,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F5",
+        "previousLength": 12,
         "elements": [{
             "labelShort": "F5a.1",
             "description": "Does the company ​clearly disclose​ its process for responding to ​non-judicial government demands?",
@@ -667,6 +701,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F5",
+        "previousLength": 12,
         "elements": [{
             "labelShort": "F5b.1",
             "description": "Does the company ​clearly disclose​ its process for responding to ​​requests​ to remove, filter, or restrict ​content ​or ​accounts ​made through p​rivate processes​?",
@@ -706,6 +742,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F6",
+        "previousLength": 10,
         "elements": [{
             "labelShort": "F6.1",
             "description": "Does the company break out the number of ​demands it receives by country?",
@@ -775,6 +813,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F7",
+        "previousLength": 10,
         "elements": [{
             "labelShort": "F7.1",
             "description": "Does the company break out the number of requests ​to restrict ​content​ or ​accounts​ that it receives through private processes?",
@@ -844,6 +884,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F8",
+        "previousLength": 4,
         "elements": [{
             "labelShort": "F8.1",
             "description": "If the company hosts user-generated content, does the company clearly disclose that it notifies users who generated the content when it is restricted?",
@@ -877,6 +919,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F9",
+        "previousLength": 2,
         "elements": [{
             "labelShort": "F9.1",
             "description": "Does the company ​clearly disclos​e​ ​a policy commitment ​to​ ​n​ot ​prioritize​, block, or delay certain types of traffic, ​applications​,​ protocols​, or ​content​ reasons beyond assuring quality of service and reliability of the network?",
@@ -904,6 +948,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F10",
+        "previousLength": 8,
         "elements": [{
             "labelShort": "F10.1",
             "description": "Does the company ​clearly disclose​ t​he reason(s) why it may shut down service to a particular area or group of users?",
@@ -961,6 +1007,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": "F11",
+        "previousLength": 1,
         "elements": [{
           "labelShort": "F11.1",
           "description": "Does the company ​require​ users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?",
@@ -975,6 +1023,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F12.1",
             "description": "Does the company ​clearly disclose​ whether it uses algorithmic systems​ to ​curate, recommend, and/or rank​ the ​content​ that ​users​ can access through its platform?",
@@ -1014,6 +1064,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "F13.1",
             "description": "Does the company​ clearly disclose​ rules governing the use of ​bots​ on its platform?",
@@ -1055,6 +1107,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 434,
+        "previousIndicator": "P1",
+        "previousLength": 4,
         "elements": [{
             "labelShort": "P1a.1",
             "description": "Are the company’s privacy policies easy to find?",
@@ -1094,6 +1148,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "P1b.1",
             "description": "Are the company’s algorithmic system development policies easy to find?",
@@ -1121,6 +1177,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P2",
+        "previousLength": 5,
         "elements": [{
             "labelShort": "P2a.1",
             "description": "Does the company clearly disclose  that it directly notifies users about all changes to its privacy policies?",
@@ -1166,6 +1224,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "P2b.1",
             "description": "Does the company clearly disclose that it directly notifies users about  all changes to its algorithmic system development policies?",
@@ -1199,6 +1259,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P3",
+        "previousLength": 5,
         "elements": [{
             "labelShort": "P3a.1",
             "description": "Does the company clearly disclose what types of user information it collects?",
@@ -1250,6 +1312,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "P3b.1",
             "description": "Does the company clearly disclose all the types of user information it infers on the basis of collected user information?",
@@ -1277,6 +1341,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P4",
+        "previousLength": 6,
         "elements": [{
             "labelShort": "P4.1",
             "description": "For each type of user information the company collects, does the company clearly disclose whether it shares that user information?",
@@ -1334,6 +1400,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P5",
+        "previousLength": 5,
         "elements": [{
             "labelShort": "P5.1",
             "description": "For each type of user information the company collects, does the company clearly disclose its purpose for collection?",
@@ -1373,6 +1441,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P6",
+        "previousLength": 7,
         "elements": [{
             "labelShort": "P6.1",
             "description": "For each type of user information the company collects, does the company clearly disclose how long it retains that user information?",
@@ -1436,6 +1506,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P7",
+        "previousLength": 5,
         "elements": [{
             "labelShort": "P7.1",
             "description": "For each type of user information the company collects, does the company clearly disclose whether users can control the company’s collection of this user information?",
@@ -1499,6 +1571,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P8",
+        "previousLength": 5,
         "elements": [{
             "labelShort": "P8.1",
             "description": "Does the company clearly disclose that users can obtain a copy of their user information?",
@@ -1550,6 +1624,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P9",
+        "previousLength": 5,
         "elements": [{
             "labelShort": "P9.1",
             "description": "(For digital platforms) Does the company clearly disclose what user information it collects from third-party websites through technical means?",
@@ -1613,6 +1689,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P10",
+        "previousLength": 12,
         "elements": [{
             "labelShort": "P10a.1",
             "description": "Does the company clearly disclose its process for responding to non-judicial government demands?",
@@ -1664,6 +1742,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P10",
+        "previousLength": 12,
         "elements": [{
             "labelShort": "P10b.1",
             "description": "Does the company clearly disclose its process for responding to requests made through private processes?",
@@ -1703,6 +1783,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P11",
+        "previousLength": 11,
         "elements": [{
             "labelShort": "P11a.1",
             "description": "Does the company list the number of government demands it receives by country?",
@@ -1772,6 +1854,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P11",
+        "previousLength": 11,
         "elements": [{
             "labelShort": "P11b.1",
             "description": "Does the company list the number of requests it receives for user information that come through private processes?",
@@ -1805,6 +1889,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P12",
+        "previousLength": 3,
         "elements": [{
             "labelShort": "P12.1",
             "description": "Does the company clearly disclose that it notifies users when government entities (including courts or other judicial bodies) request their user information?",
@@ -1832,6 +1918,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P13",
+        "previousLength": 3,
         "elements": [{
             "labelShort": "P13.1",
             "description": "Does the company clearly disclose that it has systems in place to limit and monitor employee access to user information?",
@@ -1859,6 +1947,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P14",
+        "previousLength": 9,
         "elements": [{
             "labelShort": "P14.1",
             "description": "Does the company clearly disclose that it has a mechanism through which security researchers can submit vulnerabilities they discover?",
@@ -1934,6 +2024,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P15",
+        "previousLength": 3,
         "elements": [{
             "labelShort": "P15.1",
             "description": "Does the company clearly disclose that it will notify the relevant authorities without undue delay when a data breach occurs?",
@@ -1961,6 +2053,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P16",
+        "previousLength": 4,
         "elements": [{
             "labelShort": "P16.1",
             "description": "Does the company clearly disclose that the transmission of user communications is encrypted by default?",
@@ -1994,6 +2088,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P17",
+        "previousLength": 3,
         "elements": [{
             "labelShort": "P17.1",
             "description": "Does the company clearly disclose that it deploys advanced authentication methods to prevent fraudulent access?",
@@ -2021,6 +2117,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": "P18",
+        "previousLength": 1,
         "elements": [{
           "labelShort": "P18.1",
           "description": "Does the company publish practical materials that educate users on how to protect themselves from cybersecurity risks relevant to their products or services?",
@@ -2035,6 +2133,8 @@ var indicatorsVector = {
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 429,
+        "previousIndicator": null,
+        "previousLength": null,
         "elements": [{
             "labelShort": "P19.1",
             "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which the company has assigned them?",

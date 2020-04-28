@@ -224,7 +224,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
 
 }
 
-// addScoringOptions creates a dropdown list in each column for each subindicator
+// addStepEvaluation creates a dropdown list in each column for each subindicator
 function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices, updateAnswerOptions) {
 
     if (updateAnswerOptions) {

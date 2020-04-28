@@ -17,29 +17,30 @@ var researchStepsVector = {
           }, {
             "type": "importPreviousResults",
             "rowLabel": "Element ",
-            stepYonY: "S07",
-            idYonY: "YY",
+            comparisonStep: "S07",
+            comparisonType: "DC",
             id: "MR",
             "comparisonLabelShort": "S07"
           },
           {
             "type": "importPreviousComments",
             "rowLabel": "Comment ",
-            stepYonY: "S07",
-            idYonY: "YY",
+            comparisonStep: "S07",
+            comparisonType: "DC",
             id: "MC",
             "comparisonLabelShort": "S07"
           }, {
             "type": "importPreviousSources",
             "rowLabel": "Sources (2019)",
-            stepYonY: "S07",
-            idYonY: "YY",
+            comparisonStep: "S07",
+            comparisonType: "DC",
             id: "MS",
             "comparisonLabelShort": "S07"
           }, {
             type: "binaryReview",
-            stepYonY: "S07",
-            idYonY: "YY",
+            comparisonStep: "S07",
+            binaryStep: "S00",
+            comparisonType: "DC",
             id: "MY",
             rowLabel: "Are the results the same as the previous year?",
             dropdown: [
@@ -70,13 +71,13 @@ var researchStepsVector = {
           },
           {
             type: "review",
-            id: "",
+            id: "MR",
             scoringId: "SE",
             rowLabel: "Element ",
             variableName: "result",
-            stepYonY: "S07",
-            idYonY: "YY",
-            idYonYType: "MR",
+            comparisonStep: "S07",
+            binaryStep: "S00",
+            comparisonType: "DC",
             dropdown: [
               "not selected",
               "yes",
@@ -92,13 +93,19 @@ var researchStepsVector = {
             rowLabel: "Comment ",
             label2: " (explain score)",
             variableName: "comment",
+            comparisonStep: "S07",
+            binaryStep: "S07",
+            comparisonType: "DC",
             clipWrap: true
           },
           {
             type: "sources",
             id: "MS",
             rowLabel: "Sources (reference, specific page, section, etc.)",
-            variableName: "sources"
+            variableName: "sources",
+            comparisonStep: "S07",
+            binaryStep: "S07",
+            comparisonType: "DC",
           }
         ]
       }]
@@ -120,9 +127,12 @@ var researchStepsVector = {
               placeholderText: "Your Name"
             },
             {
-              type: "binaryEvaluation",
+              type: "binaryReview",
+              comparisonStep: "S07",
+              binaryStep: "S02",
+              comparisonType: "DC",
               id: "MY",
-              rowLabel: "Do you agree with the answer(s) in Step 1?",
+              rowLabel: "Are the results the same as the previous year?",
               dropdown: [
                 "not selected",
                 "yes",
@@ -130,11 +140,14 @@ var researchStepsVector = {
               ]
             },
             {
-              type: "evaluation",
-              id: "MA",
+              type: "review", // "evaluation"
+              id: "MR",
               scoringId: "SE",
               rowLabel: "If 'no': suggested answer ",
               variableName: "result",
+              comparisonStep: "S01",
+              binaryStep: "S02",
+              comparisonType: "DC",
               dropdown: [
                 "not selected",
                 "yes",
@@ -150,12 +163,18 @@ var researchStepsVector = {
               rowLabel: "Comment ",
               label2: "\n(required if 'no', optional if 'yes')",
               variableName: "comment",
+              comparisonStep: "S01",
+              binaryStep: "S02",
+              comparisonType: "DC",
               clipWrap: true
             },
             {
               type: "sources",
               id: "MS",
               rowLabel: "Sources (reference, specific page, section, etc.)",
+              comparisonStep: "S01",
+              binaryStep: "S02",
+              comparisonType: "DC",
               variableName: "sources"
             }
           ]
@@ -183,7 +202,9 @@ var researchStepsVector = {
             },
             {
               "type": "evaluation",
+              "id": "YY",
               "rowLabel": "In Step 1.5 for ",
+              binaryStep: "S07",
               "dropdown": [
                 "not selected",
                 "yes",
@@ -250,6 +271,7 @@ var researchStepsVector = {
           "rowLabel": "Step 3.5: Year-on-year analysis",
           "labelShort": "S03.5",
           subStepID: "S035",
+          resultStepID: "S03",
           "c1": 50,
           "c2": 168,
           "c3": 82,

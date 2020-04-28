@@ -7,15 +7,16 @@
     addIndicatorGuidance,
     addMainStepHeader,
     addSubStepHeader,
-    addScoringOptions,
+    addStepEvaluation,
     addBinaryEvaluation,
-    addReviewYonY,
+    addStepReview,
     addBinaryReview,
     addComments,
     addSources,
     addExtraInstruction,
     addComparisonYonY,
     importYonYResults,
+    importYonYSources,
     defineNamedRangeStringImport
 */
 
@@ -26,7 +27,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // - name the Sheet
     // - populate the Sheet Step-Wise
 
-    let indyCatLength = useIndicatorSubset ? 1 : Category.indicators.length
+    //TODO: remove when Gs exist
+
+    let minIndicators = Category.indicators.length > 1 ? 2 : 1
+
+    let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
 
     let mainStepsLength = useStepsSubset ? 4 : ResearchSteps.researchSteps.length
 
@@ -38,8 +43,6 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     for (var i = 0; i < indyCatLength; i++) {
 
         var Indicator = Category.indicators[i]
-        Logger.log("Indicator: " + Indicator)
-        Logger.log("Indicator toString(): " + Indicator.toString())
         Logger.log("indicator :" + Indicator.labelShort)
         var thisIndScoringScope = Indicator.scoringScope
 
@@ -92,7 +95,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // --- // Begin Main Step-Wise Procedure // --- //
 
         var contentStartRow = activeRow
-        var dataStartRow
+        var dataStartRow = 0
 
         // for each main step
         for (var mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
@@ -142,26 +145,32 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             activeRow = importYonYResults(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
                             break
 
+                        case "importPreviousSources":
+                            activeRow = importYonYSources(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, null)
+                            break
+
                         case "header":
                             activeRow = addSubStepHeader(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "review":
-                            activeRow = addReviewYonY(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepReview(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "evaluation":
-                            activeRow = addScoringOptions(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepEvaluation(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "binaryReview":
+
                             // hook for data range and conditional formatting
-                            dataStartRow = activeRow
+                            if (dataStartRow === 0) dataStartRow = activeRow
 
                             activeRow = addBinaryReview(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "binaryEvaluation":
+
                             activeRow = addBinaryEvaluation(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 

@@ -13,7 +13,7 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
     let row = activeRow
     let col = activeCol
 
-    let cell
+    let Cell
 
     let maxColHeadings = (2 + bridgeCompColumnsNr) * (nrOfIndSubComps) + 1
     if (companyNumberOfServices == 1 && !hasOpCom) {
@@ -26,10 +26,10 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
     }
 
     // Indicator Heading
-    cell = Sheet.getRange(row, col)
+    Cell = Sheet.getRange(row, col)
         .setValue(indTitle)
         // .setFontWeight("bold")
-        .setFontSize(16)
+        .setFontSize(18)
         .setHorizontalAlignment("left")
         .setVerticalAlignment("middle")
         .setFontFamily("Oswald")
@@ -47,7 +47,7 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
 
     if (includeRGuidanceLink) {
         // General Instruction
-        cell = Sheet.getRange(row, col)
+        Cell = Sheet.getRange(row, col)
             .setValue("▶ Please read the indicator-specific guidance and discussions before starting the research!")
             .setFontWeight("bold")
             .setFontSize(9)
@@ -69,7 +69,7 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
     }
 
     // Element Instructions
-    cell = Sheet.getRange(row, 1)
+    Cell = Sheet.getRange(row, 1)
         .setValue("Elements:")
         .setFontWeight("bold")
         .setHorizontalAlignment("right")
@@ -79,12 +79,12 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
     col += 1
 
     thisIndicator.elements.forEach((element) => {
-        cell = Sheet.getRange(row, col)
+        Cell = Sheet.getRange(row, col)
             .setValue(element.labelShort + ": " + element.description)
             .setFontSize(10)
             .setFontFamily("Roboto")
             .setHorizontalAlignment("left")
-        cell = Sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+        Cell = Sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
         row += 1
     })
 
@@ -96,13 +96,13 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
 
         // TODO: Parameterize
 
-        cell = Sheet.getRange(row, 1)
+        Cell = Sheet.getRange(row, 1)
             .setValue("Research Guidance:")
             .setFontWeight("bold")
             .setHorizontalAlignment("right")
             .setFontFamily("Roboto Mono")
 
-        cell = Sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+        Cell = Sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
             .setValue(indicatorLink)
 
         row += 1
@@ -139,6 +139,7 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
     let rowRange = (activeRow + ":" + activeRow).toString()
     Sheet.getRange(rowRange).setHorizontalAlignment("center") // aligns header row
 
+    let Cell
     // -----------------------SETTING UP THE HEADER ROW------------------------
     // first cell: Main Step Label
     Sheet.getRange(activeRow, activeCol)
@@ -153,7 +154,7 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
 
     // Company (group) column(s)
     for (let i = 0; i < nrOfIndSubComps; i++) {
-        let cell = Sheet.getRange(activeRow, activeCol)
+        Cell = Sheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.groupLabel)
             .setBackground("#fff2cc")
             .setFontWeight("bold")
@@ -161,7 +162,7 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
 
         // if it has components it adds the rowLabel in the next row
         if (currentClass.hasSubComponents == true) {
-            let currentCell = Sheet.getRange(activeRow + 1, activeCol)
+            Cell = Sheet.getRange(activeRow + 1, activeCol)
             currentCell.setValue(currentClass.components[i].labelLong)
             currentCell.setBackground("#fff2cc")
         }
@@ -170,12 +171,12 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
 
     } // close nrOfIndSubComps for loop
 
-    // setting up OpComCompany regardless of whether it has one
-    // will just hide the column if it doesn't exist
+    // setting up OpCom regardless of whether it has one
+    // hide the column if it doesn't exist
 
     for (let i = 0; i < nrOfIndSubComps; i++) {
 
-        let cell = Sheet.getRange(activeRow, activeCol)
+        Cell = Sheet.getRange(activeRow, activeCol)
             .setValue(CompanyObj.opComLabel)
             .setBackground("#fff2cc")
             .setFontWeight("bold")
@@ -183,12 +184,12 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
 
         // hiding refactored to main process; set N/A if no OpCom
         if (CompanyObj.hasOpCom == false) {
-            cell.setValue("Operating Company (N/A)")
+            Cell.setValue("Operating Company (N/A)")
         }
 
         // if the indicator has components it adds them in the next row
         if (currentClass.hasSubComponents == true) {
-            let currentCell = Sheet.getRange(activeRow + 1, activeCol)
+            Cell = Sheet.getRange(activeRow + 1, activeCol)
                 .setValue(currentClass.components[i].labelLong)
                 .setBackground("#fff2cc")
         }
@@ -199,7 +200,7 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
     // for remaining columns (services)
     for (let i = 0; i < companyNumberOfServices; i++) {
         for (let k = 0; k < nrOfIndSubComps; k++) {
-            let cell = Sheet.getRange(activeRow, activeCol)
+            Cell = Sheet.getRange(activeRow, activeCol)
                 .setValue(CompanyObj.services[i].label.current)
                 .setBackground("#b7e1cd")
                 .setFontWeight("bold")
@@ -208,7 +209,7 @@ function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSu
 
             // if the indicator has components it adds them in the next row
             if (currentClass.hasSubComponents == true) {
-                let currentCell = Sheet.getRange(activeRow + 1, activeCol)
+                Cell = Sheet.getRange(activeRow + 1, activeCol)
                     .setValue(currentClass.components[k].labelLong)
                     .setBackground("#b7e1cd")
             }
@@ -342,8 +343,8 @@ function addSubStepHeader(SS, Sheet, currentIndicator, CompanyObj, activeRow, cu
 
 }
 
-// addScoringOptions creates a dropdown list in each column for each subindicator
-function addScoringOptions(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfIndSubComps, Category, companyNumberOfServices) {
+// addStepEvaluation creates a dropdown list in each column for each subindicator
+function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfIndSubComps, Category, companyNumberOfServices) {
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Step.components[stepCNr].dropdown).build()
 
@@ -670,80 +671,83 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, CompanyObj, activeRow,
 
 // the sources step adds a single row in which the sources of each column can be listed
 
-function addSources(SS, Sheet, currentIndicator, CompanyObj, activeRow, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addSources(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfIndSubComps, Category, companyNumberOfServices) {
     let activeCol = 1
 
-    let stepCompID = currentStep.components[stepCNr].id
+    let stepCompID = Step.components[stepCNr].id
 
+    let Cell, cellID
 
     // adding rowLabel
-    let cell = Sheet.getRange(activeRow, activeCol)
-        .setValue(currentStep.components[stepCNr].rowLabel)
-        .setBackground(currentStep.subStepColor)
+    Cell = Sheet.getRange(activeRow, activeCol)
+        .setValue(Step.components[stepCNr].rowLabel)
+        .setBackground(Step.subStepColor)
     activeCol += 1
 
     for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
 
-        // TODO: fix cell reference for OpCom
+        // TODO: fix Cell reference for OpCom
 
         if (serviceNr == 1) {
             // main company
             for (let k = 0; k < nrOfIndSubComps; k++) {
-                let thisCell = Sheet.getRange(activeRow, 1 + serviceNr + k)
+                Cell = Sheet.getRange(activeRow, 1 + serviceNr + k)
 
-                // cell name formula; output defined in 44_rangeNamingHelper.js
+                // Cell name formula; output defined in 44_rangeNamingHelper.js
 
                 let component = ""
                 if (nrOfIndSubComps != 1) {
-                    component = currentClass.components[k].labelShort
+                    component = Category.components[k].labelShort
                 }
 
-                let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompID)
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", Step.subStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
 
-                SS.setNamedRange(cellName, thisCell)
+                SS.setNamedRange(cellID, Cell)
                 activeCol += 1
 
             }
         } else if (serviceNr == 2) {
             // opCom
             for (let k = 0; k < nrOfIndSubComps; k++) {
-                let thisCell = Sheet.getRange(activeRow, 1 + nrOfIndSubComps + k)
+                Cell = Sheet.getRange(activeRow, 1 + nrOfIndSubComps + k)
 
-                // cell name formula; output defined in 44_rangeNamingHelper.js
+                // Cell name formula; output defined in 44_rangeNamingHelper.js
 
                 let component = ""
                 if (nrOfIndSubComps != 1) {
-                    component = currentClass.components[k].labelShort
+                    component = Category.components[k].labelShort
                 }
 
-                let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompID)
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", Step.subStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
 
-                SS.setNamedRange(cellName, thisCell)
+                SS.setNamedRange(cellID, Cell)
                 activeCol += 1
 
             }
         } else {
             // services
             for (let k = 0; k < nrOfIndSubComps; k++) {
-                let thisCell = Sheet.getRange(activeRow, activeCol)
+                Cell = Sheet.getRange(activeRow, activeCol)
 
-                // cell name formula; output defined in 44_rangeNamingHelper.js
+                // Cell name formula; output defined in 44_rangeNamingHelper.js
 
                 let g = serviceNr - 3 // helper for Services
 
                 let component = ""
                 if (nrOfIndSubComps != 1) {
-                    component = currentClass.components[k].labelShort
+                    component = Category.components[k].labelShort
                 }
 
-                let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", Step.subStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
 
-                SS.setNamedRange(cellName, thisCell)
+                SS.setNamedRange(cellID, Cell)
                 activeCol += 1
             }
         }
 
     }
+
+    Sheet.getRange(activeRow, 2, 1, activeCol).setHorizontalAlignment("center")
 
     return activeRow + 1
 }

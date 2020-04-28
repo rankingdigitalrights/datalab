@@ -2,6 +2,7 @@ var centralConfig = {
   dataOwner: "data@rankingdigitalrights.org",
   devs: ["gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "walton@rankingdigitalrights.org"],
   indexPrefix: "RDR20",
+  prevIndexPrefix: "RDR19",
   filenameSuffix: "Index Dev",
   rootFolderID: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", //Data @ Test-Dev-Remote
   rootFolderName: "2020 Index Dev (Fallback)", // optional Folder name string to see if access by ID fails
@@ -14,8 +15,9 @@ var centralConfig = {
   collapseAllGroups: false,
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
+  newIndicatorLabel: "N/A - New Indicator",
   newElementLabelResult: "NEW",
-  newElementLabelComment: "N/A - New Element in 2020",
+  newElementLabelComment: "N/A - New 2020 Element",
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,
   styles: {
