@@ -31,7 +31,7 @@ function initiateGlobalConfig() {
     indexPrefix = centralConfig.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
     filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
-    outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
+    outputFolderName = "PermissionsTesting" // Specific folder defined in Main Callers
     rootFolderID = centralConfig.rootFolderID
     rootFolderName = centralConfig.rootFolderName
     controlSpreadsheetID = centralConfig.controlSpreadsheetID
