@@ -2,7 +2,7 @@
 
 /* global
         cleanCompanyName,
-        centralConfig,
+        Config,
         indicatorsVector,
         researchStepsVector,
         spreadSheetFileName,
@@ -16,7 +16,6 @@ function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company
     var companyShortName = cleanCompanyName(Company)
     Logger.log("--- // --- begin repairing " + companyShortName + " --- // ---")
 
-    var Config = centralConfig
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector
     var includeRGuidanceLink = Config.includeRGuidanceLink

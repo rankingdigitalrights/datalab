@@ -36,7 +36,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
 
     var stepCompID
 
-    if (stepCompID == "elementResults") {
+    if (stepCompID == "results") {
         stepCompID = false
     } else {
         stepCompID = StepComp.id
@@ -114,7 +114,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
 function importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
 
     var stepCompID
-    if (stepCompID == "elementResults") {
+    if (stepCompID == "results") {
         stepCompID = false
     } else {
         stepCompID = StepComp.id

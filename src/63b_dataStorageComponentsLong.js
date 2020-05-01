@@ -37,7 +37,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
 
     // row label / first two Column
 
-    rowLabels.push(currentSubStepID, indCatLabelShort, indLabelShort, elemLabelShort, StepComp.valueLabel)
+    rowLabels.push(currentSubStepID, indCatLabelShort, indLabelShort, elemLabelShort, StepComp.variableName)
 
     rowCells = rowLabels.slice() //ES5; no Array.from()
 

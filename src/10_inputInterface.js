@@ -1,7 +1,8 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
 /* global 
-centralConfig,
+Config,
+clearNamedRangesFromFile,
 indicatorsVector,
 researchStepsVector,
 spreadSheetFileName,
@@ -18,7 +19,7 @@ populateDCSheetByCategory
 */
 
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
     Logger.log("PROCESS: begin main DC --- // ---")
 
     let sourcesTabName = "Sources"
@@ -30,7 +31,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    let Config = centralConfig // let Config = importLocalJSON("Config")
     // let Company = Company // TODO this a JSON Obj now; adapt in scope
     let Indicators = indicatorsVector
     let ResearchStepsObj = researchStepsVector
@@ -45,6 +45,8 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     let SS = createSpreadsheet(spreadsheetName, true)
+
+    if (doClearNamedRanges) clearNamedRangesFromFile(SS)
 
     let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)

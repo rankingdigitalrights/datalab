@@ -1,5 +1,5 @@
 /* global 
-centralConfig,
+Config,
 indicatorsVector,
 researchStepsVector,
 spreadSheetFileName,
@@ -21,7 +21,6 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     // scroing step number should be passed via main method call
 
     var sheetModeID = "SC"
-    var Config = centralConfig // var Config = importLocalJSON("Config")
 
     var IndicatorsObj = indicatorsVector
     var ResearchStepsObj = researchStepsVector

@@ -98,15 +98,15 @@ function fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchStep
                         activeRow = fixSubStepHeader(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 
-                    case "elementResults":
+                    case "evaluation":
                         activeRow = fixScoringOptions(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices, updateAnswerOptions)
                         break
 
-                    case "binaryReview":
+                    case "binaryEvaluation":
                         activeRow = fixBinaryEvaluation(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 
-                    case "elementComments":
+                    case "comments":
                         activeRow = fixComments(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 
@@ -167,9 +167,16 @@ function fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchStep
     //     .setRanges([sheetRange])
     //     .build()
 
+    // var condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
+    //     .whenTextEqualTo(Config.newElementLabelResult)
+    //     .setBackground("#f4cccc")
+    //     .setRanges([sheetRange])
+    //     .build()
+
     // var rules = Sheet.getConditionalFormatRules()        
     // rules.push(condRuleNames)
     // rules.push(condRuleValues)
+    // rules.push(condRuleNewElem)
     // Sheet.setConditionalFormatRules(rules)
 
     listBrokenRefsSingleSheet(ListSheetFixed, Sheet, thisIndLabel)

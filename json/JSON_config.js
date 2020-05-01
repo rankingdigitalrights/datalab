@@ -2,21 +2,22 @@ var centralConfig = {
   dataOwner: "walton@rankingdigitalrights.org",
   devs: ["gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "walton@rankingdigitalrights.org"],
   indexPrefix: "RDR20",
+  prevIndexPrefix: "RDR19",
   filenameSuffix: "Index Dev",
   rootFolderID: "1pmv2sdJ_XkPPkEwyUeJEZTCu2UfR9eBa", //Data:Test-Dev-Remote
   rootFolderName: "PermissionsTesting", // optional Folder name string to see if acces by ID fails
   controlSpreadsheetID: "1LPTRR-Nz5MWj2mjEQLxqsyJ0ALXSuHD0kT6CYSQOpVs", // 00-Dashboard-Dev
   YearOnYear: true,
-  urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+  urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   freezeHead: true,
   // firstScoringStep: 3 // regular index
   scoringSteps: [3, 6],
   collapseAllGroups: false,
-  notesSheetname: "Researcher Comments",
-  scoringSheetname: "Scores",
-  feedbackSheetname: "Feedback Base",
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
+  newIndicatorLabel: "N/A - New Indicator",
+  newElementLabelResult: "NEW",
+  newElementLabelComment: "N/A - New 2020 Element",
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,
   styles: {
@@ -38,6 +39,9 @@ var centralConfig = {
   },
   // maxScoringStep: false, // otherwise number
   integrateOutputs: false, // DC: integrate any output component?
+  notesSheetname: "Researcher Comments",
+  scoringSheetname: "Scores",
+  feedbackSheetname: "Feedback Base",
   integrateOutputsArray: {
     includeScoring: false, // create regular Outcome?
     isFullScoring: true, // scores or only comments?

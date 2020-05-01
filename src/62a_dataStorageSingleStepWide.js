@@ -68,12 +68,12 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
                         // Logger.log(Indicator.labelShort + ' - SC - ' + stepCompType + " added ")
                         break
 
-                    case "elementResults":
+                    case "evaluation":
                         activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(Indicator.labelShort + " - SC - " + stepCompType + " added ")
                         break
 
-                    case "elementComments":
+                    case "comments":
                         activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(Indicator.labelShort + " - SC - " + stepCompType + " added ")
                         break

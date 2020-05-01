@@ -18,6 +18,7 @@
 
 // global params init (def with initiateGlobalConfig())
 
+var Config
 var indexPrefix
 var filenamePrefix
 var filenameSuffix
@@ -27,8 +28,10 @@ var outputFolderName
 var controlSpreadsheetID
 var Styles
 
+
 function initiateGlobalConfig() {
-    indexPrefix = centralConfig.indexPrefix
+    Config = centralConfig
+    indexPrefix = Config.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
     filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
     outputFolderName = "PermissionsTesting" // Specific folder defined in Main Callers
@@ -44,12 +47,15 @@ function initiateGlobalConfig() {
 
 function mainInputSheets() {
 
+    let doClearNamedRanges = false // CAUTION
+
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Input"
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = false // true := use subset
+    let useIndicatorSubset = true // true := use subset
+
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -64,7 +70,7 @@ function mainInputSheets() {
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
     // .slice(5,6) // Microsoft
-    // .slice(6,7) // Telefonica
+    // .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 
@@ -72,7 +78,7 @@ function mainInputSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -170,7 +176,7 @@ function mainDataStore() {
     filenameSuffix = "Test" // + long or wide is decided in main logic
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = centralConfig.dataStoreParams.fileName
+    var mainSheetMode = Config.dataStoreParams.fileName
 
     var useStepsSubset = false // true := use subset
     var useIndySubset = false // true := use subset

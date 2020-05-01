@@ -122,7 +122,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
         // row label / first Column
         // skip first Column for subsequent steps    
         if (blocks === 1) {
-            var rowLabel = StepComp.label + Indicator.elements[elemNr].labelShort
+            var rowLabel = StepComp.rowLabel + Indicator.elements[elemNr].labelShort
             currentCell.setValue(rowLabel.toString())
             currentCell.setWrap(true)
             tempCol += 1
@@ -224,7 +224,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
 
     Logger.log(" - " + "in " + stepCompID + " " + Indicator.labelShort)
 
-    if (stepCompID == "elementResults") {
+    if (stepCompID == "results") {
         stepCompID = false
     }
 
@@ -236,7 +236,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
     // row label / first Column
     // skip first Column for subsequent steps    
     if (blocks === 1) {
-        var rowLabel = StepComp.label
+        var rowLabel = StepComp.rowLabel
         currentCell.setValue(rowLabel)
         currentCell.setWrap(true)
         tempCol += 1

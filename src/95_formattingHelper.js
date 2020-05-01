@@ -1,5 +1,5 @@
-function styleScoringIndicatorHeader(currentCell, label, colorHex) {
-    currentCell.setValue(label)
+function styleScoringIndicatorHeader(currentCell, rowLabel, colorHex) {
+    currentCell.setValue(rowLabel)
     currentCell.setWrap(true)
     currentCell.setBackground(colorHex)
     currentCell.setVerticalAlignment("top")

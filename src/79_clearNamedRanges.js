@@ -9,3 +9,12 @@ function clearNamedRangesFromCompanySheet(CompanyObj, filenamePrefix, filenameSu
     clearNamedRangesFromFile(SS)
 
 }
+
+
+function clearNamedRangesFromFile(SS) {
+
+    let namedRanges = SS.getNamedRanges()
+    for (let i = 0; i < namedRanges.length; i++) {
+        SS.removeNamedRange(namedRanges[i])
+    }
+}
