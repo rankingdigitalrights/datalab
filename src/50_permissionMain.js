@@ -8,6 +8,32 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 */
 
 
+function permissionsTesting() {
+    Logger.log("in permissionsTesting")
+
+  
+    var Sheet=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1b0vYmNq51hb7_Nejd4RMpetIhN63A-iQvvI4_J5ZE9g/edit#gid=685545106');
+    var notation = Sheet.getRangeByName("RDR20DCundefinedG4biAP1Step").getA1Notation();
+      //var notation = Sheet.getRangeByName("RDR20DCundefinedG4biAP1Step").getRange();
+
+  var range = Sheet.getRange(notation);
+      
+  Logger.log(range)
+  
+  //var range = Sheet.getRange('B101:D121');
+    var protection = range.protect().setDescription('Sample protected range');
+
+    var me = Session.getEffectiveUser();
+    //protection.addEditor(me);
+
+    protection.removeEditors(protection.getEditors());
+    if (protection.canDomainEdit()) {protection.setDomainEdit(false);}
+
+
+
+}
+
+
 
 function openStep(IndicatorsObj, ResearchStepsObj, CompanyVec, StepVec, EmailVec){
      // IndicatorsObj is the JSON containing all the indicator info
