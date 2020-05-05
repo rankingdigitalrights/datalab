@@ -4,9 +4,21 @@
 global
     Styles
 */
+
+function addMainSheetHeader(Sheet, Category, Indicator, Company, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance) {
+
+    activeRow = addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
+
+    activeRow = addMainCompanyHeader(Sheet, Category, Company, activeRow, nrOfIndSubComps, companyNrOfServices)
+
+    Sheet.setFrozenRows(activeRow)
+
+    return activeRow += 1
+}
+
 // Indicator Guidance for researchers
 
-function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance) {
+function addIndicatorGuidance(Sheet, currentClass, Indicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNumberOfServices, includeRGuidanceLink, collapseRGuidance) {
 
     // TODO probably move all formatting params to JSON
 
@@ -20,9 +32,10 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
         maxColHeadings -= 1
     }
 
-    let indTitle = thisIndicator.labelShort + ". " + thisIndicator.labelLong
-    if (thisIndicator.description.length > 1) {
-        indTitle = indTitle + ": " + thisIndicator.description
+    let indTitle = Indicator.labelShort + ". " + Indicator.labelLong
+
+    if (Indicator.description.length > 1) {
+        indTitle = indTitle + ": " + Indicator.description
     }
 
     // Indicator Heading
@@ -69,30 +82,47 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
     }
 
     // Element Instructions
-    Cell = Sheet.getRange(row, 1)
-        .setValue("Elements:")
-        .setFontWeight("bold")
-        .setHorizontalAlignment("right")
-        .setVerticalAlignment("top")
-        .setFontFamily("Roboto Mono")
+    // Cell = Sheet.getRange(row, 1)
+    //     .setValue("Elements:")
+    //     .setFontWeight("bold")
+    //     .setHorizontalAlignment("right")
+    //     .setVerticalAlignment("top")
+    //     .setFontFamily("Roboto Mono")
 
-    col += 1
+    // col += 1
 
-    thisIndicator.elements.forEach((element) => {
-        Cell = Sheet.getRange(row, col)
-            .setValue(element.labelShort + ": " + element.description)
-            .setFontSize(10)
-            .setFontFamily("Roboto")
-            .setHorizontalAlignment("left")
-        Cell = Sheet.getRange(row, col, 1, maxColHeadings).merge().setWrap(true)
+    let indStart = row
+    let values = []
+
+    Indicator.elements.forEach((element) => {
+        values.push(
+            [(element.labelShort + ": "), element.description]
+        )
+        Cell = Sheet.getRange(row, 2, 1, maxColHeadings)
+            .merge()
+            .setWrap(true)
+            .setVerticalAlignment("top")
         row += 1
     })
+
+    let indEnd = row
+
+    Cell = Sheet.getRange(indStart, col, values.length, 2)
+        .setValues(values)
+        .setFontSize(10)
+        .setFontFamily("Roboto")
+        .setHorizontalAlignment("left")
+
+    Cell = Sheet.getRange(indStart, col, values.length, 1)
+        .setHorizontalAlignment("right")
+        .setFontWeight("bold")
+        .setVerticalAlignment("top")
 
     let lastRow = row
 
     if (includeRGuidanceLink) {
         row += 1
-        let indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + thisIndicator.labelShort
+        let indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + Indicator.labelShort
 
         // TODO: Parameterize
 
@@ -109,7 +139,7 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
         lastRow = row // for grouping
     }
 
-    let block = Sheet.getRange(2, 1, lastRow, numberOfColumns)
+    let block = Sheet.getRange(2, 1, lastRow - 1, numberOfColumns)
 
     block.shiftRowGroupDepth(1)
 
@@ -123,14 +153,117 @@ function addIndicatorGuidance(Sheet, currentClass, thisIndicator, activeRow, act
 
     Sheet.getRange(row, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
 
-    Sheet.setFrozenRows(lastRow)
-    row += 2
+    // Sheet.setFrozenRows(lastRow)
+    // row += 2
 
     activeRow = row
     return activeRow
 }
 
+
 // Company + Services Header
+
+function addMainCompanyHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSubComps, companyNumberOfServices) {
+
+    let activeCol = 1
+
+    let rowRange = (activeRow + ":" + activeRow).toString()
+    Sheet.getRange(rowRange).setHorizontalAlignment("center") // aligns header row
+
+    let Cell
+
+    // first cell: Main Step Label
+    Sheet.getRange(activeRow, activeCol)
+        .setValue(CompanyObj.label.current)
+        // .setBackground("yellow")
+        .setFontFamily("Roboto Mono")
+        .setFontWeight("bold")
+        .setFontSize(12)
+        // .setHorizontalAlignment("left")
+        .setVerticalAlignment("top")
+    activeCol += 1
+
+    // Company (group) column(s)
+    for (let i = 0; i < nrOfIndSubComps; i++) {
+        Cell = Sheet.getRange(activeRow, activeCol)
+            .setValue(CompanyObj.groupLabel)
+            .setBackground("#fff2cc")
+            .setFontWeight("bold")
+            .setVerticalAlignment("top")
+
+        // if it has components it adds the rowLabel in the next row
+        if (currentClass.hasSubComponents == true) {
+            Cell = Sheet.getRange(activeRow + 1, activeCol)
+            Cell.setValue(currentClass.components[i].labelLong)
+            Cell.setBackground("#fff2cc")
+        }
+
+        activeCol += 1
+
+    } // close nrOfIndSubComps for loop
+
+    // setting up OpCom regardless of whether it has one
+    // hide the column if it doesn't exist
+
+    for (let i = 0; i < nrOfIndSubComps; i++) {
+
+        Cell = Sheet.getRange(activeRow, activeCol)
+            .setValue(CompanyObj.opComLabel)
+            .setBackground("#fff2cc")
+            .setFontWeight("bold")
+            .setVerticalAlignment("top")
+
+        // hiding refactored to main process; set N/A if no OpCom
+        if (CompanyObj.hasOpCom == false) {
+            Cell.setValue("Operating Company (N/A)")
+        }
+
+        // if the indicator has components it adds them in the next row
+        if (currentClass.hasSubComponents == true) {
+            Cell = Sheet.getRange(activeRow + 1, activeCol)
+                .setValue(currentClass.components[i].labelLong)
+                .setBackground("#fff2cc")
+        }
+
+        activeCol += 1
+    }
+
+    // for remaining columns (services)
+    for (let i = 0; i < companyNumberOfServices; i++) {
+        for (let k = 0; k < nrOfIndSubComps; k++) {
+            Cell = Sheet.getRange(activeRow, activeCol)
+                .setValue(CompanyObj.services[i].label.current)
+                .setBackground("#b7e1cd")
+                .setFontWeight("bold")
+                .setVerticalAlignment("top")
+
+
+            // if the indicator has components it adds them in the next row
+            if (currentClass.hasSubComponents == true) {
+                Cell = Sheet.getRange(activeRow + 1, activeCol)
+                    .setValue(currentClass.components[k].labelLong)
+                    .setBackground("#b7e1cd")
+            }
+            activeCol += 1
+        }
+    }
+
+    // if the indicator does indeed have components, it freezes the additional row in which they are
+    if (currentClass.hasSubComponents == true) {
+        rowRange = ((activeRow + 1) + ":" + (activeRow + 1)).toString()
+        Sheet.getRange(rowRange).setHorizontalAlignment("center")
+        activeRow = activeRow + 1
+    }
+
+    // if (Config.freezeHead) {
+    //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
+    // }
+
+    return activeRow += 1
+
+}
+
+// Old version - Step-wise Header
 
 function addMainStepHeader(Sheet, currentClass, CompanyObj, activeRow, nrOfIndSubComps, companyNumberOfServices, thisMainStepNr, mainStepColor) {
 

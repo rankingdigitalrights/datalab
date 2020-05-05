@@ -36,20 +36,7 @@ var researchStepsVector = {
             comparisonType: "DC",
             id: "MS",
             "comparisonLabelShort": "S07"
-          }, {
-            type: "binaryReview",
-            comparisonStep: "S07",
-            binaryStep: "S00",
-            comparisonType: "DC",
-            id: "MY",
-            rowLabel: "Are the results the same as the previous year?",
-            dropdown: [
-              "not selected",
-              "yes",
-              "no"
-            ]
           }
-
         ]
       }]
     },
@@ -69,8 +56,21 @@ var researchStepsVector = {
             variableName: "researcher",
             placeholderText: "Your Name"
           },
+          //   {
+          //     type: "binaryReview",
+          //     comparisonStep: "S07",
+          //     binaryStep: "S00",
+          //     comparisonType: "DC",
+          //     id: "MB",
+          //     rowLabel: "Are the results the same this year?",
+          //     dropdown: [
+          //       "not selected",
+          //       "yes",
+          //       "no"
+          //     ]
+          //   },
           {
-            type: "review",
+            type: "evaluation",
             id: "MR",
             scoringId: "SE",
             rowLabel: "Element ",
@@ -86,27 +86,27 @@ var researchStepsVector = {
               "no disclosure found",
               "N/A"
             ]
-          },
-          {
-            type: "comments",
-            id: "MC",
-            rowLabel: "Comment ",
-            label2: " (explain score)",
-            variableName: "comment",
-            comparisonStep: "S07",
-            binaryStep: "S07",
-            comparisonType: "DC",
-            clipWrap: true
-          },
-          {
-            type: "sources",
-            id: "MS",
-            rowLabel: "Sources (reference, specific page, section, etc.)",
-            variableName: "sources",
-            comparisonStep: "S07",
-            binaryStep: "S07",
-            comparisonType: "DC",
           }
+          //   {
+          //     type: "comments",
+          //     id: "MC",
+          //     rowLabel: "Comment ",
+          //     label2: " (explain score)",
+          //     variableName: "comment",
+          //     comparisonStep: "S07",
+          //     binaryStep: "S07",
+          //     comparisonType: "DC",
+          //     clipWrap: true
+          //   },
+          //   {
+          //     type: "sources",
+          //     id: "MS",
+          //     rowLabel: "Sources (reference, specific page, section, etc.)",
+          //     variableName: "sources",
+          //     comparisonStep: "S07",
+          //     binaryStep: "S07",
+          //     comparisonType: "DC",
+          //   }
         ]
       }]
     },
@@ -131,7 +131,7 @@ var researchStepsVector = {
               comparisonStep: "S07",
               binaryStep: "S02",
               comparisonType: "DC",
-              id: "MY",
+              id: "MB",
               rowLabel: "Are the results the same as the previous year?",
               dropdown: [
                 "not selected",
@@ -330,7 +330,7 @@ var researchStepsVector = {
             },
             {
               type: "binaryEvaluation",
-              id: "MY",
+              id: "MB",
               rowLabel: "Does company feedback merit a change??",
               dropdown: [
                 "not selected",

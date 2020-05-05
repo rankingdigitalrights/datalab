@@ -18,7 +18,6 @@ fillSourceSheet,
 populateDCSheetByCategory
 */
 
-
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
     Logger.log("PROCESS: begin main DC --- // ---")
 

@@ -43,14 +43,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     for (var i = 0; i < indyCatLength; i++) {
 
         var Indicator = Category.indicators[i]
-        Logger.log("indicator :" + Indicator.labelShort)
+        Logger.log("--- Starting Indicator :" + Indicator.labelShort)
         var thisIndScoringScope = Indicator.scoringScope
 
-        var sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+        var Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
 
-        if (sheet === null) {
+        if (Sheet === null) {
             continue
-        } // skips this i if sheet already exists
+        } // skips this i if Sheet already exists
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
         var nrOfIndSubComps = (Category.hasSubComponents == true) ? Category.components.length : 1
@@ -70,9 +70,9 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             }
         }
 
-        // general formatting of sheet
+        // general formatting of Sheet
         // TODO: think about where to refactor to
-        sheet.setColumnWidth(1, Styles.dims.serviceColWidth)
+        Sheet.setColumnWidth(1, Styles.dims.serviceColWidth)
 
         var numberOfColumns = (companyNrOfServices + 2) * nrOfIndSubComps + 1
 
@@ -82,15 +82,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         //     thisColWidth = Styles.dims.serviceColWidth * 1.33
         // }
 
-        sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
+        Sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
 
 
-        // start sheet in first top left cell
+        // start Sheet in first top left cell
         var activeRow = 1
         var activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addIndicatorGuidance(sheet, Category, Indicator, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
+        activeRow = addMainSheetHeader(Sheet, Category, Indicator, Company, activeRow, activeCol, nrOfIndSubComps, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
 
         // --- // Begin Main Step-Wise Procedure // --- //
 
@@ -107,7 +107,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             Logger.log("main step : " + MainStep.step)
             var subStepsLength = MainStep.substeps.length
 
-            activeRow = addMainStepHeader(sheet, Category, Company, activeRow, nrOfIndSubComps, companyNrOfServices, MainStep.step, mainStepColor) // sets up header
+            activeRow = addMainStepHeader(Sheet, Category, Company, activeRow, nrOfIndSubComps, companyNrOfServices, MainStep.step, mainStepColor) // sets up header
 
             var beginStep = activeRow
             var endStep = activeRow
@@ -137,28 +137,29 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                     // create the type of substep component that is specified in the json
 
                     switch (thisStepComponent) {
+
+                        case "header":
+                            activeRow = addSubStepHeader(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            break
+
                         case "importPreviousResults":
-                            activeRow = importYonYResults(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
                             break
 
                         case "importPreviousComments":
-                            activeRow = importYonYResults(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
                             break
 
                         case "importPreviousSources":
-                            activeRow = importYonYSources(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, null)
-                            break
-
-                        case "header":
-                            activeRow = addSubStepHeader(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = importYonYSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, null)
                             break
 
                         case "review":
-                            activeRow = addStepReview(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "evaluation":
-                            activeRow = addStepEvaluation(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "binaryReview":
@@ -166,32 +167,32 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             // hook for data range and conditional formatting
                             if (dataStartRow === 0) dataStartRow = activeRow
 
-                            activeRow = addBinaryReview(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addBinaryReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "binaryEvaluation":
 
-                            activeRow = addBinaryEvaluation(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addBinaryEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "comments":
-                            activeRow = addComments(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addComments(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "sources":
-                            activeRow = addSources(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         case "extraQuestion":
-                            activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, sheet)
+                            activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet)
                             break
 
                         case "comparisonYY":
-                            activeRow = addComparisonYonY(SS, sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         default:
-                            sheet.appendRow(["!!!Error: Missed a component!!!"])
+                            Sheet.appendRow(["!!!Error: Missed a component!!!"])
                             break
                     }
                 } // END substep component procedure
@@ -205,7 +206,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                 // exclude researchers' names from step named range
                 // so move firstRow by 1
-                var range = sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1)
+                var range = Sheet.getRange(firstRow + 1, 2, lastRow - firstRow - 1, maxCol - 1)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""
@@ -228,25 +229,25 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 endStep = activeRow
             } // --- // END Sub-Step-Wise Procedure // --- //
 
-            sheet.getRange(activeRow, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
+            Sheet.getRange(activeRow, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
 
 
             activeRow += 1
 
             // group whole step and make main step header row the anchor
-            var rangeStep = sheet.getRange(beginStep + 1, 1, endStep - beginStep - 1, numberOfColumns)
+            var rangeStep = Sheet.getRange(beginStep + 1, 1, endStep - beginStep - 1, numberOfColumns)
             Logger.log("grouping whole step for range :" + rangeStep.getA1Notation())
             rangeStep.shiftRowGroupDepth(1)
 
         } // --- // END Main-Step-Wise Procedure // --- //
 
-        var sheetRange = sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
+        var sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
             .setFontFamily("Roboto")
             .setFontSize(10)
             .setVerticalAlignment("top")
 
         // set font for whole data range
-        sheetRange = sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
+        sheetRange = Sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
             .setWrap(true)
 
         var condRuleNames = SpreadsheetApp.newConditionalFormatRule()
@@ -268,16 +269,16 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             .setRanges([sheetRange])
             .build()
 
-        var rules = sheet.getConditionalFormatRules()
+        var rules = Sheet.getConditionalFormatRules()
         rules.push(condRuleNames)
         rules.push(condRuleValues)
         rules.push(condRuleNewElem)
-        sheet.setConditionalFormatRules(rules)
+        Sheet.setConditionalFormatRules(rules)
 
 
         // collapse all groups
         if (doCollapseAll) {
-            sheet.collapseAllRowGroups()
+            Sheet.collapseAllRowGroups()
         }
 
         // hides opCom column(s) if opCom == false
@@ -285,14 +286,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
         if (thisIndScoringScope == "full") {
             if (!hasOpCom) {
-                sheet.hideColumns(3)
+                Sheet.hideColumns(3)
             }
         } else {
-            sheet.hideColumns(2, bridgeCompColumnsNr)
+            Sheet.hideColumns(2, bridgeCompColumnsNr)
         }
 
         // color Indicator Sheet (Tab) in Class Color when done
-        sheet.setTabColor(Category.classColor)
+        Sheet.setTabColor(Category.classColor)
 
     } // End of Indicator Sheet
 

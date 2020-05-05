@@ -13,7 +13,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
     let subStepID = Step.subStepID
 
-    let comparisonIndexPrefix = subStepID === "S01" ? Config.prevIndexPrefix : indexPrefix
+    let compIndexPrefix = subStepID === "S01" ? Config.prevIndexPrefix : indexPrefix
 
     let Elements = Indicator.elements
     let elementsNr = Elements.length
@@ -27,7 +27,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
     let binaryEvalCell, prevResultCell
 
-    let binaryEvalID = "MY"
+    let binaryEvalID = "MB" // TODO: move into JSON
 
     // for linking to Named Range of Step 0
     // TODO: make a shared function() between importYonY & addStepReview
@@ -84,7 +84,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
                     binaryEvalCell = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, "group", binaryEvalID)
 
-                    prevResultCell = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + binaryEvalCell + "=\"yes\"" + "," + prevResultCell + ",\"not selected\")"
@@ -116,7 +116,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
                         subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
                         binaryEvalCell = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, "opCom", binaryEvalID)
 
-                        prevResultCell = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + binaryEvalCell + "=\"yes\"" + "," + prevResultCell + ",\"not selected\")"
@@ -147,7 +147,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
                     binaryEvalCell = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, Company.services[s].id, binaryEvalID)
 
-                    prevResultCell = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + binaryEvalCell + "=\"yes\"" + "," + prevResultCell + ",\"not selected\")"
