@@ -9,7 +9,6 @@
             "components": [{
                 "type": "comparisonYY",
                 "rowLabel": "Element ",
-                "comparisonLabelShort": "S01"
             }]
         },
         {
@@ -20,7 +19,7 @@
             "c3": 212,
             "subStepColor": "#ddd9c3",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -56,7 +55,7 @@
             "c3": 50,
             "subStepColor": "#ead1dc",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": " "
                 },
                 {
@@ -66,7 +65,6 @@
                 {
                     "type": "comparisonYY",
                     "rowLabel": "Element ",
-                    "comparisonLabelShort": "S01"
                 },
                 {
                     "type": "extraQuestion",
@@ -97,7 +95,7 @@
             "c3": 177,
             "subStepColor": "#c6d9f0",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -155,7 +153,7 @@
             "c3": 168,
             "subStepColor": "#dbe5f1",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -191,7 +189,7 @@
             "c3": 82,
             "subStepColor": "#dbe5f1",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": " "
                 },
                 {
@@ -201,7 +199,6 @@
                 {
                     "type": "comparisonYY",
                     "rowLabel": "Element ",
-                    "comparisonLabelShort": "S03"
                 },
                 {
                     "type": "extraQuestion",
@@ -232,7 +229,7 @@
             "c3": 80,
             "subStepColor": "#f2dcdb",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -268,7 +265,7 @@
             "c3": 208,
             "subStepColor": "#f2dcdb",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": " "
                 },
                 {
@@ -278,7 +275,6 @@
                 {
                     "type": "comparisonYY",
                     "rowLabel": "Element ",
-                    "comparisonLabelShort": "S04"
                 },
                 {
                     "type": "extraQuestion",
@@ -309,7 +305,7 @@
             "c3": "88",
             "subStepColor": "#d9ead3",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -354,7 +350,7 @@
             "c3": 50,
             "subStepColor": "#d9d2e9",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -390,7 +386,7 @@
             "c3": 168,
             "subStepColor": "#fff2cc",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -426,7 +422,7 @@
             "c3": 58,
             "subStepColor": "#fff2cc",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": " "
                 },
                 {
@@ -436,7 +432,6 @@
                 {
                     "type": "comparisonYY",
                     "rowLabel": "Element ",
-                    "comparisonLabelShort": "S07"
                 },
                 {
                     "type": "extraQuestion",

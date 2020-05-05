@@ -94,7 +94,7 @@ function fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchStep
 
                 switch (thisStepComponent) {
 
-                    case "header":
+                    case "subStepHeader":
                         activeRow = fixSubStepHeader(Sheet, thisInd, Company, activeRow, CompanySS, currentStep, stepCNr, nrOfIndSubComps, thisIndCat, companyNrOfServices)
                         break
 

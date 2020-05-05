@@ -16,7 +16,7 @@ var centralConfig = {
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
   newIndicatorLabel: "N/A - New Indicator",
-  newElementLabelResult: "NEW",
+  newElementLabelResult: "New 2020 Element",
   newElementLabelComment: "N/A - New 2020 Element",
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,

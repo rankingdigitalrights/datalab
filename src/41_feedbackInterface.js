@@ -70,7 +70,7 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
             switch (stepCompType) {
 
                 // import researcher name from x.0 step
-                case "header":
+                case "subStepHeader":
                     break
 
                 case "evaluation":

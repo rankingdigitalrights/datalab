@@ -22,6 +22,16 @@ function assignFolderEditors(Folder, accounts) {
     Folder.addEditors(accounts)
 }
 
+function assignFileViewers(File, accounts) {
+    // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
+    File.addViewers(accounts)
+}
+
+function assignFolderViewers(Folder, accounts) {
+    // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
+    Folder.addViewers(accounts)
+}
+
 function tryAccessParent(parentFolderID) {
     let Parent = DriveApp.getFolderById(parentFolderID)
     let canAccessParent = isEmptyObj(Parent) ? true : false

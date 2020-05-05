@@ -63,7 +63,7 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
                 switch (stepCompType) {
 
                     // import researcher name from x.0 step
-                    case "header":
+                    case "subStepHeader":
                         activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
                         // Logger.log(Indicator.labelShort + ' - SC - ' + stepCompType + " added ")
                         break
