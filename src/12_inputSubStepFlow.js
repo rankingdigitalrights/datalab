@@ -13,21 +13,26 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
     let subStepID = Step.subStepID
 
-    let comparisonIndexPrefix = subStepID === "S01" ? Config.prevIndexPrefix : indexPrefix
-
     let Elements = Indicator.elements
     let elementsNr = Elements.length
 
     let StepComp = Step.components[stepCNr]
     let stepCompID = StepComp.id
 
-    let comparisonStep = StepComp.comparisonStep // "S07"
-    let binaryStep = StepComp.binaryStep // the binary Review or Eval Step which is evaluated
+    // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
+
+    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
+
+    let prevStep = StepComp.prevStep // "S07"
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Step which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
-    let binaryEvalCell, prevResultCell
+    let evaluationCell, prevResultCell
 
-    let binaryEvalID = "MY"
+    let yesAnswer = StepComp.mode === "YonY" ? "no change" : "not selected"
+
+    let naText = Config.newElementLabelResult
+
 
     // for linking to Named Range of Step 0
     // TODO: make a shared function() between importYonY & addStepReview
@@ -45,22 +50,23 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
+        Element = Elements[elemNr]
+
+        let hasPredecessor = Element.y2yResultRow ? true : false
+
         // 1.) Row Labels
 
         activeCol = 1
-        Element = Elements[elemNr]
-        noteString = Element.labelShort + ": " + Element.description
         labelFormula = StepComp.rowLabel + Element.labelShort
 
-        if (Element.y2yResultRow) {
-            labelFormula += (" (2020)")
-        } else {
-            labelFormula += (" (new)")
-        }
+        noteString = Element.labelShort + ": " + Element.description
+
+        if (!hasPredecessor) labelFormula += (" (new)")
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(labelFormula)
             .setBackground(Step.subStepColor)
+            .setFontWeight("bold")
             .setNote(noteString)
 
         activeCol += 1
@@ -82,14 +88,21 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
                     // Cell name formulas; output defined in 44_rangeNamingHelper.js
                     cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
 
-                    binaryEvalCell = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, "group", binaryEvalID)
+                    if (hasPredecessor) {
 
-                    prevResultCell = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
 
-                    // sets up cellValue that compares values
-                    cellValue = "=IF(" + binaryEvalCell + "=\"yes\"" + "," + prevResultCell + ",\"not selected\")"
+                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
 
-                    Cell.setFormula(cellValue.toString())
+                        // sets up cellValue that compares values
+
+                        cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+
+                    } else {
+                        cellValue = naText
+                    }
+
+                    Cell.setValue(cellValue.toString())
 
                     // creates dropdown list & boldens
                     Cell.setDataValidation(rule).setFontWeight("bold")
@@ -113,15 +126,21 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
                     if (Company.hasOpCom == false) {
                         Cell.setValue("N/A") // if no OpCom, pre-select N/A
                     } else {
-                        subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
-                        binaryEvalCell = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, "opCom", binaryEvalID)
 
-                        prevResultCell = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+                        if (hasPredecessor) {
 
-                        // sets up cellValue that compares values
-                        cellValue = "=IF(" + binaryEvalCell + "=\"yes\"" + "," + prevResultCell + ",\"not selected\")"
+                            subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
+                            evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
 
-                        Cell.setFormula(cellValue.toString())
+                            prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+
+                            // sets up cellValue that compares values
+                            cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+                        } else {
+                            cellValue = naText
+                        }
+
+                        Cell.setValue(cellValue.toString())
 
                         // creates dropdown list & boldens
                         Cell.setDataValidation(rule).setFontWeight("bold")
@@ -140,25 +159,30 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
                     let s = serviceNr - 3 // helper for Services
 
-                    subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
-
                     // Cell name formulas; output defined in 44_rangeNamingHelper.js
                     cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
 
-                    binaryEvalCell = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, Company.services[s].id, binaryEvalID)
+                    if (hasPredecessor) {
 
-                    prevResultCell = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, comparisonStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                        subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
 
-                    // sets up cellValue that compares values
-                    cellValue = "=IF(" + binaryEvalCell + "=\"yes\"" + "," + prevResultCell + ",\"not selected\")"
+                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
 
-                    Cell.setFormula(cellValue.toString())
+                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+
+                        // sets up cellValue that compares values
+                        cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+
+                    } else {
+                        cellValue = naText
+                    }
+
+                    Cell.setValue(cellValue.toString())
 
                     SS.setNamedRange(cellID, Cell) // names cells
 
                     // creates dropdown list & boldens
                     Cell.setDataValidation(rule).setFontWeight("bold")
-
 
                     activeCol += 1
                 } // service END
@@ -191,7 +215,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr
     let StepComp = Step.components[stepCNr]
     let stepCompID = Step.components[stepCNr].id
     let comparisonType = StepComp.comparisonType // "YY"
-    let binaryStep = StepComp.binaryStep // the binary Review or Eval Step which is evaluated
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Step which is evaluated
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Step.components[stepCNr].dropdown).build()
     let activeCol = 1
@@ -223,7 +247,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr
                     subIndicator = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, "group", stepCompID)
+                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, subIndicator, Company.id, "group", stepCompID)
 
                 SS.setNamedRange(cellName, Cell) // names cells
                 Cell.setDataValidation(rule) // creates dropdown list
@@ -245,7 +269,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr
                     subIndicator = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, subIndicator, Company.id, "opCom", stepCompID)
 
                 SS.setNamedRange(cellName, Cell) // names cells
                 Cell.setDataValidation(rule) // creates dropdown list
@@ -268,7 +292,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr
                     subIndicator = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, binaryStep, Indicator.labelShort, subIndicator, Company.id, Company.services[g].id, stepCompID)
+                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, subIndicator, Company.id, Company.services[g].id, stepCompID)
 
                 SS.setNamedRange(cellName, Cell) // names cells
                 Cell.setDataValidation(rule) // creates dropdown list

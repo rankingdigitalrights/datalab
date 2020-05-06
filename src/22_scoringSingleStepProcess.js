@@ -74,7 +74,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                 switch (stepCompType) {
 
                     // import researcher name from x.0 step
-                    case "header":
+                    case "subStepHeader":
                         if (includeNames) {
 
                             activeRow = importElementRow(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs, isPilotMode)

@@ -2,12 +2,9 @@
     "researchSteps": [{
             "rowLabel": "Step 1: Data Collection",
             "labelShort": "S01",
-            "c1": 223,
-            "c2": 135,
-            "c3": 212,
             "subStepColor": "#ddd9c3",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -38,12 +35,9 @@
         {
             "rowLabel": "Step 1.5: Year-on-year analysis",
             "labelShort": "S01.5",
-            "c1": 168,
-            "c2": 168,
-            "c3": 50,
             "subStepColor": "#ead1dc",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": " "
                 },
                 {
@@ -52,8 +46,7 @@
                 },
                 {
                     "type": "comparisonYY",
-                    "rowLabel": "Element ",
-                    "comparisonLabelShort": "S01"
+                    "rowLabel": "Element "
                 },
                 {
                     "type": "extraQuestion",
@@ -84,7 +77,7 @@
             "c3": 177,
             "subStepColor": "#c6d9f0",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -142,7 +135,7 @@
             "c3": 168,
             "subStepColor": "#dbe5f1",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": "Your Name"
                 },
                 {
@@ -178,7 +171,7 @@
             "c3": 82,
             "subStepColor": "#dbe5f1",
             "components": [{
-                    "type": "header",
+                    "type": "subStepHeader",
                     "placeholderText": " "
                 },
                 {
@@ -187,8 +180,7 @@
                 },
                 {
                     "type": "comparisonYY",
-                    "rowLabel": "Element ",
-                    "comparisonLabelShort": "S03"
+                    "rowLabel": "Element "
                 },
                 {
                     "type": "extraQuestion",
