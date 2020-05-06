@@ -58,13 +58,29 @@ var companiesVector = {
       "tabPrevYearsOutcome": "AppleOutcome",
       "urlCurrentDataCollectionSheet": "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak",
       "urlCurrentCompanyScoringSheet": "1OmNEYyGX1FmmhpqvkWORa-_HNTnL1fO-PrhvNfuR9ak",
-      "numberOfServices": 1,
+      "numberOfServices": 3,
       "services": [{
         "id": "meAP1",
         "type": "mobileEcosystem",
         "label": {
           "current": "iOS (mobile ecosystem)",
           "legacy": ["iOS mobile ecosystem"]
+        }
+      },
+      {
+        "id": "mvAP1",
+        "type": "messagingVoip",
+        "label": {
+          "current": "iMessage",
+          "legacy": ["iMessage"]
+        }
+      },
+      {
+        "id": "clAP1",
+        "type": "cloud",
+        "label": {
+          "current": "iCloud",
+          "legacy": ["iCloud"]
         }
       }]
     },
@@ -220,14 +236,31 @@ var companiesVector = {
       "tabPrevYearsOutcome": "TelefonicaOutcome",
       "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
       "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
-      "numberOfServices": 1,
+      "numberOfServices": 3,
       "services": [{
+        "id": "mbTF2",
+        "type": "mobile",
+        "subtype": "prepaid",
+        "label": {
+          "current": "Prepaid mobile)",
+          "legacy": ["Prepaid mobile"]
+        }
+      },
+      {
         "id": "mbTF2",
         "type": "mobile",
         "subtype": "postpaid",
         "label": {
-          "current": "Telefónica (post paid mobile)",
+          "current": "Postpaid mobile",
           "legacy": ["Postpaid mobile"]
+        }
+      },
+      {
+        "id": "bbTF1",
+        "type": "broadband",
+        "label": {
+          "current": "Fixed-line broadband",
+          "legacy": null
         }
       }]
     },
