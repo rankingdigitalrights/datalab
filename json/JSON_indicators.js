@@ -7,52 +7,607 @@ var indicatorsVector = {
     "classColor": "#ffe599",
     "hasSubComponents": false,
     "indicators": [{
-      "labelShort": "G4b",
-      "labelLong": "Impact assessment: Processes for company policy enforcement",
+      "labelShort": "G1",
+      "labelLong": "Policy Commitment",
       "description": "",
       "scoringScope": "full",
       "y2yCompColumn": 2,
       "y2yCompRow": 54,
-      "previousIndicator": "G4",
-      "previousLength": 11,
-      "elements": [{
-          "labelShort": "G4b.1",
-          "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its processes for enforcing its terms of service?"
-        },
-        {
-          "labelShort": "G4b.2",
-          "description": "Does the company clearly disclose it conducts risk assessments of its enforcement of its privacy policies?"
-        },
-        {
-          "labelShort": "G4b.3",
-          "description": "Does the company disclose that it assesses discrimination risks associated with its processes for enforcing its terms of service?"
-        },
-        {
-          "labelShort": "G4b.4",
-          "description": "Does the company clearly disclose that it assesses discrimination risks associated with its processes for enforcing its privacy policies?"
-        },
-        {
-          "labelShort": "G4b.5",
-          "description": "Does the company conduct additional evaluation wherever the company’s risk assessments identify concerns?"
-        },
-        {
-          "labelShort": "G4b.6",
-          "description": "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?"
-        },
-        {
-          "labelShort": "G4b.7",
-          "description": "Does the company conduct assessments on a regular schedule?"
-        },
-        {
-          "labelShort": "G4b.8",
-          "description": "Are the company’s assessments assured by an external third party?"
-        },
-        {
-          "labelShort": "G4b.9",
-          "description": "Is the external third party that assures the assessment accredited to a relevant and reputable human rights standard by a credible organization?"
-        }
+      "previousIndicator": "G1",
+      "previousLength": 1,
+        "elements": [{
+            "labelShort": "G1.1",
+            "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to freedom of expression and information and privacy?",
+            "y2yResultRow": 3,
+            "y2yCommentRow": 4
+          },
+          {
+            "labelShort": "G1.2",
+            "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to privacy?",
+            "y2yResultRow": 3,
+            "y2yCommentRow": 4
+          },
+          {
+            "labelShort": "G1.3",
+            "description": "Does the company disclose an explicit, clearly articulated policy commitment to human rights in its development and use of algorithmic systems?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
       ]
-    }]
+      },
+      {
+        "labelShort": "G2",
+        "labelLong": "Governance and oversight",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G2",
+        "previousLength": 3,
+        "elements": [{
+            "labelShort": "G2.1",
+            "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect freedom of expression and information?",
+            "y2yResultRow": 16,
+            "y2yCommentRow": 19
+          },
+          {
+            "labelShort": "G2.2",
+            "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect privacy?",
+            "y2yResultRow": 16,
+            "y2yCommentRow": 19
+          },
+          {
+            "labelShort": "G2.3",
+            "description": "Does the company clearly disclose that an executive-level committee, team, program or officer oversees how company practices affect freedom of expression and information?",
+            "y2yResultRow": 17,
+            "y2yCommentRow": 20
+          },
+          {
+            "labelShort": "G2.4",
+            "description": "Does the company clearly disclose that an executive-level committee, team, program or officer oversees how company practices affect privacy?",
+            "y2yResultRow": 17,
+            "y2yCommentRow": 20
+          },
+          {
+            "labelShort": "G2.5",
+            "description": "Does the company clearly disclose that a management-level committee, team, program or officer oversees how company practices affect freedom of expression and information?",
+            "y2yResultRow": 18,
+            "y2yCommentRow": 21
+          },
+          {
+            "labelShort": "G2.6",
+            "description": "Does the company clearly disclose that a management-level committee, team, program or officer oversees how company practices affect privacy?",
+            "y2yResultRow": 18,
+            "y2yCommentRow": 21
+          }
+        ]
+      },
+      {
+        "labelShort": "G3",
+        "labelLong": "Internal implementation",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G3",
+        "previousLength": 2,
+        "elements": [{
+            "labelShort": "G3.1",
+            "description": "Does the company clearly disclose that it provides employee training on freedom of expression and information issues?",
+            "y2yResultRow": 37,
+            "y2yCommentRow": 39
+          },
+          {
+            "labelShort": "G3.2",
+            "description": "Does the company clearly disclose that it provides employee training on privacy issues?",
+            "y2yResultRow": 37,
+            "y2yCommentRow": 39
+          },
+          {
+            "labelShort": "G3.3",
+            "description": "Does the company clearly disclose that it maintains an employee whistleblower program through which employees can report concerns related to how the company treats its users’ freedom of expression and information rights?",
+            "y2yResultRow": 38,
+            "y2yCommentRow": 40
+          },
+          {
+            "labelShort": "G3.4",
+            "description": "Does the company clearly disclose that it maintains an employee whistleblower program through which employees can report concerns related to how the company treats its users’ privacy rights?",
+            "y2yResultRow": 38,
+            "y2yCommentRow": 40
+          }
+        ]
+      },
+      {
+        "labelShort": "G4a",
+        "labelLong": "Human Rights Impact Assessments",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G4",
+        "previousLength": 11,
+        "elements": [{
+            "labelShort": "G4a.1",
+            "description": "Does the company consider how laws affect freedom of expression and information in jurisdictions where it operates?",
+            "y2yResultRow": 54,
+            "y2yCommentRow": 65
+          },
+          {
+            "labelShort": "G4a.2",
+            "description": "Does the company consider how laws affect privacy in jurisdictions where it operates?",
+            "y2yResultRow": 54,
+            "y2yCommentRow": 65
+          },
+          {
+            "labelShort": "G4a.3",
+            "description": "Does the company regularly assess freedom of expression and information risks associated with existing products and services in jurisdictions where it operates?",
+            "y2yResultRow": 55,
+            "y2yCommentRow": 66
+          },
+          {
+            "labelShort": "G4a.4",
+            "description": "Does the company assess privacy risks associated with existing products and services in jurisdictions where it operates?",
+            "y2yResultRow": 55,
+            "y2yCommentRow": 66
+          },
+          {
+            "labelShort": "G4a.5",
+            "description": "Does the company assess freedom of expression and information risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies or entry into new markets or jurisdictions?",
+            "y2yResultRow": 56,
+            "y2yCommentRow": 67
+          },
+          {
+            "labelShort": "G4a.6",
+            "description": "Does the company assess privacy risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?",
+            "y2yResultRow": 56,
+            "y2yCommentRow": 67
+          },
+          {
+            "labelShort": "G4a.7",
+            "description": "Does the company disclose that it conducts additional evaluation wherever the company’s risk assessments identify concerns?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4a.8",
+            "description": "Does the company disclose that senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4a.9",
+            "description": "Does the company conduct assessments on a regular schedule?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4a.10",
+            "description": "Are the company’s assessments assured by an external third party?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4a.11",
+            "description": "Is the external third party that assures the assessment accredited to a relevant and reputable human rights standard by a credible organization?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
+        ]
+      },
+      {
+        "labelShort": "G4b",
+        "labelLong": "Policy Enforcement",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G4",
+        "previousLength": 11,
+        "elements": [{
+            "labelShort": "G4b.1",
+            "description": "Does the company clearly disclose that it assesses freedom of expression and information risks of  enforcing its terms of service?",
+            "y2yResultRow": 57,
+            "y2yCommentRow": 68
+          },
+          {
+            "labelShort": "G4b.2",
+            "description": "Does the company clearly disclose it conducts risk assessments of its enforcement of its privacy policies?",
+            "y2yResultRow": 57,
+            "y2yCommentRow": 68
+          },
+          {
+            "labelShort": "G4b.3",
+            "description": "Does the company disclose that it assesses discrimination risks associated with its processes for enforcing its terms of service?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4b.4",
+            "description": "Does the company clearly disclose that it assesses discrimination risks associated with its processes for enforcing its privacy policies?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4b.5",
+            "description": "Does the company conduct additional evaluation wherever the company’s risk assessments identify concerns?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4b.6",
+            "description": "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4b.7",
+            "description": "Does the company conduct assessments on a regular schedule?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4b.8",
+            "description": "Are the company’s assessments assured by an external third party?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4b.9",
+            "description": "Is the external third party that assures the assessment accredited to a relevant and reputable human rights standard by a credible organization?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
+        ]
+      },
+      {
+        "labelShort": "G4c",
+        "labelLong": "Impact assessment: Targeted Advertising",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G4",
+        "previousLength": 11,
+        "elements": [{
+            "labelShort": "G4c.1",
+            "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its targeted advertising policies and practices?",
+            "y2yResultRow": 59,
+            "y2yCommentRow": 70
+          },
+          {
+            "labelShort": "G4c.2",
+            "description": "Does the company disclose that it assesses privacy risks associated with its targeted advertising policies and practices?",
+            "y2yResultRow": 59,
+            "y2yCommentRow": 70
+          },
+          {
+            "labelShort": "G4c.3",
+            "description": "Does the company disclose that it assesses discrimination risks associated with its targeted advertising policies and practices?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4c.4",
+            "description": "Does the company conduct additional evaluation whenever the company’s risk assessments identify concerns?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4c.5",
+            "description": "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4c.6",
+            "description": "Does the company conduct assessments on a regular schedule?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4c.7",
+            "description": "Are the company’s assessments assured by an external third party?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4c.8",
+            "description": "Is the external third party that assures the assessment accredited to a relevant and reputable human rights standard by a credible organization?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
+        ]
+      },
+      {
+        "labelShort": "G4d",
+        "labelLong": "Impact assessment: Algorithmic systems",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G4",
+        "previousLength": 11,
+        "elements": [{
+            "labelShort": "G4d.1",
+            "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its development and use of algorithmic decision-making systems?",
+            "y2yResultRow": 58,
+            "y2yCommentRow": 69
+          },
+          {
+            "labelShort": "G4d.2",
+            "description": "Does the company disclose that it assesses privacy risks associated with its development and use of algorithmic decision-making systems?",
+            "y2yResultRow": 58,
+            "y2yCommentRow": 69
+          },
+          {
+            "labelShort": "G4d.3",
+            "description": "Does the company disclose that it assesses discrimination risks associated with its development and use of algorithmic decision making systems?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4d.4",
+            "description": "Does the company conduct additional evaluation wherever the company’s risk assessments identify concerns?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4d.5",
+            "description": "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4d.6",
+            "description": "Does the company conduct assessments on a regular schedule?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4d.7",
+            "description": "Are the company’s assessments assured by an external third party?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4d.8",
+            "description": "Is the external third party that assures the assessment accredited to a relevant and reputable human rights standard by a credible organization?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
+        ]
+      },
+      {
+        "labelShort": "G4e",
+        "labelLong": "Impact assessment: Zero-rating",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
+        "elements": [{
+            "labelShort": "G4e.1",
+            "description": "Does the company clearly disclose that it assesses freedom of expression and information risks associated with its zero-rating programs?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.2",
+            "description": "Does the company clearly disclose that it assesses privacy risks associated with its zero-rating programs?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.3",
+            "description": "Does the company clearly disclose that it assesses discrimination risks associated with its zero-rating programs?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.4",
+            "description": "Does the company conduct additional evaluation wherever the company’s risk assessments identify concerns?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.5",
+            "description": "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.6",
+            "description": "Does the company conduct assessments on a regular schedule?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.7",
+            "description": "Are the company’s assessments assured by an external third party?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G4e.8",
+            "description": "Is the external third party that assures the assessment accredited to a relevant and reputable human rights standard by a credible organization?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
+        ]
+      },
+      {
+        "labelShort": "G5",
+        "labelLong": "Stakeholder Engagement and accountability",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G5",
+        "previousLength": 3,
+        "elements": [{
+            "labelShort": "G5.1",
+            "description": "Is the company a member of one or more multi-stakeholder initiative that address the full range of ways in which freedom of expression and information, privacy, and related human rights may be affected in the course of the company’s operations?",
+            "y2yResultRow": "CHANGED",
+            "y2yCommentRow": "CHANGED"
+          },
+          {
+            "labelShort": "G5.2",
+            "description": "If the company is not a member of one or more such multi-stakeholder initiatives, is the company a member of any organizations that engage systematically and on a regular basis with non-industry and non-governmental stakeholders on freedom of expression and privacy?",
+            "y2yResultRow": 98,
+            "y2yCommentRow": 101
+          },
+          {
+            "labelShort": "G5.3",
+            "description": "If the company is not a member of one of these organizations, does the company disclose that it initiates or participates in meetings with stakeholders that represent, advocate on behalf of, or are people whose freedom of expression and privacy are directly impacted by the company’s business?",
+            "y2yResultRow": 99,
+            "y2yCommentRow": 102
+          }
+        ]
+      },
+      {
+        "labelShort": "G6a",
+        "labelLong": "Remedy",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G6",
+        "previousLength": 5,
+        "elements": [{
+            "labelShort": "G6a.1",
+            "description": "G6.1: Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression and information has been adversely affected by the company’s policies or practices?",
+            "y2yResultRow": 117,
+            "y2yCommentRow": 122
+          },
+          {
+            "labelShort": "G6a.2",
+            "description": "Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their privacy has been adversely affected by the company’s policies or practices?",
+            "y2yResultRow": 117,
+            "y2yCommentRow": 122
+          },
+          {
+            "labelShort": "G6a.3",
+            "description": "Does the company clearly disclose​ its procedures for providing remedy for freedom of expression and information-related grievances?",
+            "y2yResultRow": 118,
+            "y2yCommentRow": 123
+          },
+          {
+            "labelShort": "G6a.4",
+            "description": "Does the company clearly disclose​ its procedures for providing remedy for privacy-related grievances?",
+            "y2yResultRow": 118,
+            "y2yCommentRow": 123
+          },
+          {
+            "labelShort": "G6a.5",
+            "description": "Does the company clearly disclose​ timeframes for its grievance and remedy procedures?",
+            "y2yResultRow": 119,
+            "y2yCommentRow": 124
+          },
+          {
+            "labelShort": "G6a.6",
+            "description": "Does the company clearly disclose the number of complaints received related to freedom of expression?",
+            "y2yResultRow": 120,
+            "y2yCommentRow": 125
+          },
+          {
+            "labelShort": "G6a.7",
+            "description": "Does the company clearly disclose the number of complaints received related to privacy?",
+            "y2yResultRow": 120,
+            "y2yCommentRow": 125
+          },
+          {
+            "labelShort": "G6a.8",
+            "description": "Does the company clearly disclose​ evidence that it is providing remedy for freedom of expression grievances?",
+            "y2yResultRow": 121,
+            "y2yCommentRow": 126
+          },
+          {
+            "labelShort": "G6a.9",
+            "description": "Does the company clearly disclose​ evidence that it is providing remedy for privacy grievances?",
+            "y2yResultRow": 121,
+            "y2yCommentRow": 126
+          }
+        ]
+      },
+      {
+        "labelShort": "G6b",
+        "labelLong": "Process for content moderation appeals",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": null,
+        "previousLength": null,
+        "elements": [  {
+            "labelShort": "G6b.1",
+            "description": "Does the company clearly disclose that it offers users the ability to appeal content-moderation actions?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.2",
+            "description": "Does the company clearly disclose that it notifies the user who is affected by a content-moderation action?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.3",
+            "description": "Does the company clearly disclose a timeframe for notifying affected users when it takes a content-moderation action?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.4",
+            "description": "Does the company clearly disclose when appeals are not permitted?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.5",
+            "description": "Does the company clearly disclose its process for reviewing appeals?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.6",
+            "description": "Does the company clearly disclose its timeframe for reviewing appeals?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.7",
+            "description": "Does the company clearly disclose the role of humans in reviewing appeals?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.8",
+            "description": "Does the company clearly disclose what role automation plays in reviewing appeals?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.9",
+            "description": "Does the company clearly disclose that the affected user has an opportunity to present additional information that will be considered in the review?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.10",
+            "description": "Does the company clearly disclose that it provides the affected user a statement outlining the reason for its decision?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "G6b.11",
+            "description": "Does the company clearly disclose evidence that it is addressing content moderation appeals?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          }
+        ]
+      }
+  ]
   }, {
     "labelShort": "F",
     "labelLong": "Freedom of Expression",
@@ -498,23 +1053,33 @@ var indicatorsVector = {
         "previousLength": 3,
         "elements": [{
             "labelShort": "F4a.1",
-            "description": "Does the company publish data about the total number of pieces of content restricted ​for violating the company's rules."
+            "description": "Does the company publish data about the total number of pieces of content restricted ​for violating the company's rules.",
+            "y2yResultRow": "CHANGED",
+            "y2yCommentRow": "CHANGED"
           },
           {
             "labelShort": "F4a.2",
-            "description": "Does the company publish​ ​data on the number of pieces of ​content restricted​ based on which rule was violated?"
+            "description": "Does the company publish​ ​data on the number of pieces of ​content restricted​ based on which rule was violated?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
           },
           {
             "labelShort": "F4a.3",
-            "description": "Does the company publish​ ​data on the number of pieces of ​content​ ​it ​restricted ​based on the method used to identify the violation?"
+            "description": "Does the company publish​ ​data on the number of pieces of ​content​ ​it ​restricted ​based on the method used to identify the violation?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
           },
           {
             "labelShort": "F4a.4",
-            "description": "Does the company publish this data at leas​t​ ​four times ​a year?"
+            "description": "Does the company publish this data at leas​t​ ​four times ​a year?",
+            "y2yResultRow": "CHANGED",
+            "y2yCommentRow": "CHANGED"
           },
           {
             "labelShort": "F4a.5",
-            "description": "Can the data be exported as a ​structured data ​file?"
+            "description": "Can the data be exported as a ​structured data ​file?",
+            "y2yResultRow": "CHANGED",
+            "y2yCommentRow": "CHANGED"
           }
         ]
       },
