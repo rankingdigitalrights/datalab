@@ -33,8 +33,8 @@ function initiateGlobalConfig() {
     Config = centralConfig
     indexPrefix = Config.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
-    filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
-    outputFolderName = "PermissionsTesting" // Specific folder defined in Main Callers
+    filenameSuffix = " (Permissions1)" // Dev, "", Debug, QC
+    outputFolderName = "2020 - Dev - Input" // Specific folder defined in Main Callers
     rootFolderID = centralConfig.rootFolderID
     rootFolderName = centralConfig.rootFolderName
     controlSpreadsheetID = centralConfig.controlSpreadsheetID
@@ -93,7 +93,7 @@ function mainScoringSheets() {
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
-    let useStepsSubset = true // true := use subset
+    let useStepsSubset = false // true := use subset
     let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
@@ -267,15 +267,15 @@ function mainRepairInputSheets() {
 }
 
 // --- // USE WISELY // --- // 
-function mainClearAllNamedRanges() {
+/* function mainClearAllNamedRanges() {
 
     initiateGlobalConfig()
     var mainSheetMode = "Input" // for filename
 
     var Companies = companiesVector.companies
-        // .slice(0, 0)
-        // .slice(0,1) // Amazon
-        .slice(1, 2) // Apple
+        .slice(0, 0)
+    // .slice(0,1) // Amazon
+    // .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
@@ -288,4 +288,4 @@ function mainClearAllNamedRanges() {
         clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
-}
+} */
