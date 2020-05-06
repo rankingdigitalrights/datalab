@@ -78,7 +78,7 @@ function openStep() {
   Logger.log("protectSheets")
         
     let Indicators = indicatorsVector
-    var StepLabelShort="subStepID" // make this a variable later
+    var StepLabelShort="S01" // make this a variable later
     var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
     
     var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
@@ -103,9 +103,12 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
   for (var k = 0; k < protections.length; k++) {
     if (protections[k].getDescription() == Indicator.labelShort) {
       var protection=protections[k]
+      Logger.log(protection.getDescription())
       
       // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-      var namedR=defineNamedRangeStringImport("RDR20", "DC", StepLabelShort, Indicator.labelShort, component, "iAP1", "", "Step")    
+      var namedR=defineNamedRangeStringImport("RDR20", "DC", StepLabelShort, Indicator.labelShort, "", "iAP1", "", "Step")  
+      Logger.log(namedR)
+      
       var notation = Spread.getRangeByName(namedR).getA1Notation();
       var range = sheet.getRange(notation); 
       var rangeArray=[range]   
@@ -121,9 +124,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
           protection.addEditors(emails);
               Spread.addEditors(emails);
   
-      
-  
-      
+ 
       
     } // close if       
         
@@ -137,6 +138,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
           
           
       }  
+}
   
   
 } // end function
@@ -177,8 +179,8 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
     var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
     
     // protecting 2019 Outcome
-    var protect=Spread.getSheetByName("2019 Outome").protect().setDescription("2019 Outome")
-    protect.removeEditors(protection.getEditors());
+    var protect=Spread.getSheetByName("2019 Outcome").protect().setDescription("2019 Outcome")
+    protect.removeEditors(protect.getEditors());
     protect.addEditors(emails)
     if (protect.canDomainEdit()) {protect.setDomainEdit(false);}
     
