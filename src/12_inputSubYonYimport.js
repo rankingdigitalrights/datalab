@@ -6,10 +6,10 @@
 */
 
 
-// Imports previous year's outcome as Step 0
+// Imports previous year's outcome as Substep 0
 // assigns YYS07 ID to element results & comments
 // TODO: make Prefix correct (i.e. "RDR19") & dynamic (from variable)
-function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
+function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
@@ -17,8 +17,8 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Step, stepC
     let Elements = Indicator.elements
     let elementsNr = Elements.length
 
-    let StepComp = Step.components[stepCNr]
-    let stepCompID = Step.components[stepCNr].id
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = Substep.components[stepCNr].id
 
     let prevStep = StepComp.prevStep // "S07"
     let comparisonType = StepComp.comparisonType // "DC",
@@ -61,7 +61,7 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(cellValue)
-            .setBackground(Step.subStepColor)
+            .setBackground(Substep.subStepColor)
 
         if (!isComments) {
             Cell.setFontWeight("bold")
@@ -204,12 +204,12 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Step, stepC
     return activeRow
 }
 
-function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
+function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
-    let StepComp = Step.components[stepCNr]
-    let stepCompID = Step.components[stepCNr].id
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = Substep.components[stepCNr].id
 
     // for stepwise formatting
     // TODO
@@ -239,7 +239,7 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
     Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(cellValue)
-        .setBackground(Step.subStepColor)
+        .setBackground(Substep.subStepColor)
 
     activeCol += 1
 
@@ -358,25 +358,26 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
 // regular x.5 comparison of step with previous year's outcome
 // probably obsolete
-// if not TODO: adapt to Step 0 pattern
+// if not TODO: adapt to Substep 0 pattern
 
-function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
+function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
 
 
-    let comparisonIndexPrefix = Config.prevIndexPrefix
 
-    let subStepID = Step.subStepID
+
+    let subStepID = Substep.subStepID
 
     let Elements = Indicator.elements
     let elementsNr = Elements.length
 
-    let StepComp = Step.components[stepCNr]
+    let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id // TODO: add to JSON
 
     let evaluationStep = StepComp.evaluationStep
     let prevStep = StepComp.prevStep
 
     let comparisonType = StepComp.comparisonType
+    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let naText = Config.newElementLabelResult
 
@@ -403,11 +404,10 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
         if (!hasPredecessor) labelFormula += (" (new)")
 
-
         // Row Labels
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(labelFormula)
-            .setBackground(Step.subStepColor)
+            .setBackground(Substep.subStepColor)
             .setFontWeight("bold")
             .setNote(noteString)
 
@@ -429,11 +429,11 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
                     cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
 
-                    if (hasPredecessor) {
+                    if (hasPredecessor || mainStepNr > 1) {
 
                         prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
 
-                        prevYearCell = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
+                        prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -467,11 +467,11 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
                         Cell.setValue("N/A") // if no OpCom, pre-select N/A
                     } else {
 
-                        if (hasPredecessor) {
+                        if (hasPredecessor || mainStepNr > 1) {
 
                             prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
 
-                            prevYearCell = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
+                            prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
 
                             // sets up cellValue that compares values
                             cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -505,17 +505,16 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
 
                     cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
 
-                    if (hasPredecessor) {
+                    if (hasPredecessor || mainStepNr > 1) {
 
                         subIndicator = ""
                         if (nrOfSubIndicators != 1) {
                             subIndicator = Category.components[k].labelShort
                         }
 
-
                         prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
 
-                        prevYearCell = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
+                        prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -549,14 +548,14 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, Step, stepC
     return activeRow
 }
 
-function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
+function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
 
-    let subStepID = Step.subStepID
+    let subStepID = Substep.subStepID
 
     let Elements = Indicator.elements
     let elementsNr = Elements.length
 
-    let StepComp = Step.components[stepCNr]
+    let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
 
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
@@ -564,7 +563,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let prevStep = StepComp.prevStep // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Step which is evaluated
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let evaluationCell, prevResultCell
@@ -574,7 +573,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
     let naText = Config.newElementLabelResult
 
 
-    // for linking to Named Range of Step 0
+    // for linking to Named Range of Substep 0
     // TODO: make a shared function() between importYonY & addStepReview
 
     let rangeStartRow = activeRow
@@ -605,7 +604,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(labelFormula)
-            .setBackground(Step.subStepColor)
+            .setBackground(Substep.subStepColor)
             .setFontWeight("bold")
             .setNote(noteString)
 

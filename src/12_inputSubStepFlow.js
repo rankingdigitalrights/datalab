@@ -5,18 +5,18 @@ global
     indexPrefix
 */
 
-// New Step 1; similar to Step 1.5 but integrated into old Step 1
+// New Substep 1; similar to Substep 1.5 but integrated into old Substep 1
 // - has dropdown with evaluation options
 // - compares result of step 0 review (yes/no/not selected)
 // - and either pulls element results or picks "not selected"
-function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
+function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
 
-    let subStepID = Step.subStepID
+    let subStepID = Substep.subStepID
 
     let Elements = Indicator.elements
     let elementsNr = Elements.length
 
-    let StepComp = Step.components[stepCNr]
+    let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
 
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
@@ -24,7 +24,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let prevStep = StepComp.prevStep // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Step which is evaluated
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let evaluationCell, prevResultCell
@@ -34,7 +34,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
     let naText = Config.newElementLabelResult
 
 
-    // for linking to Named Range of Step 0
+    // for linking to Named Range of Substep 0
     // TODO: make a shared function() between importYonY & addStepReview
 
     let rangeStartRow = activeRow
@@ -44,7 +44,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
-    let Cell, cellValue, Element, noteString, cellID, subIndicator, labelFormula
+    let Cell, cellValue, Element, noteString, cellID, subIndicator
 
     let activeCol
 
@@ -57,15 +57,15 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
         // 1.) Row Labels
 
         activeCol = 1
-        labelFormula = StepComp.rowLabel + Element.labelShort
+        cellValue = StepComp.rowLabel + Element.labelShort
 
         noteString = Element.labelShort + ": " + Element.description
 
-        if (!hasPredecessor) labelFormula += (" (new)")
+        if (!hasPredecessor) cellValue += (" (new)")
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(labelFormula)
-            .setBackground(Step.subStepColor)
+            .setValue(cellValue)
+            .setBackground(Substep.subStepColor)
             .setFontWeight("bold")
             .setNote(noteString)
 
@@ -88,7 +88,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
                     // Cell name formulas; output defined in 44_rangeNamingHelper.js
                     cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
 
-                    if (hasPredecessor) {
+                    if (hasPredecessor || mainStepNr > 1) {
 
                         evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
 
@@ -127,7 +127,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
                         Cell.setValue("N/A") // if no OpCom, pre-select N/A
                     } else {
 
-                        if (hasPredecessor) {
+                        if (hasPredecessor || mainStepNr > 1) {
 
                             subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
                             evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
@@ -162,7 +162,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
                     // Cell name formulas; output defined in 44_rangeNamingHelper.js
                     cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
 
-                    if (hasPredecessor) {
+                    if (hasPredecessor || mainStepNr > 1) {
 
                         subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
 
@@ -206,18 +206,18 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, 
 
 // this function adds an element drop down list to a single row
 
-function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
 
     activeRow += 1
 
-    let subStepID = Step.subStepID
+    let subStepID = Substep.subStepID
 
-    let StepComp = Step.components[stepCNr]
-    let stepCompID = Step.components[stepCNr].id
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = Substep.components[stepCNr].id
     let comparisonType = StepComp.comparisonType // "YY"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Step which is evaluated
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
 
-    let rule = SpreadsheetApp.newDataValidation().requireValueInList(Step.components[stepCNr].dropdown).build()
+    let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
     let activeCol = 1
 
     let cellName, subIndicator
@@ -225,7 +225,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Step, stepCNr
     // sets up the labels
     let Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(StepComp.rowLabel)
-        .setBackground(Step.subStepColor)
+        .setBackground(Substep.subStepColor)
         .setFontWeight("bold")
         .setFontStyle("italic")
         .setHorizontalAlignment("center")

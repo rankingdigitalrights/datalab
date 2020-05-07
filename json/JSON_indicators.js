@@ -7,14 +7,14 @@ var indicatorsVector = {
     "classColor": "#ffe599",
     "hasSubComponents": false,
     "indicators": [{
-      "labelShort": "G1",
-      "labelLong": "Policy Commitment",
-      "description": "",
-      "scoringScope": "full",
-      "y2yCompColumn": 2,
-      "y2yCompRow": 54,
-      "previousIndicator": "G1",
-      "previousLength": 1,
+        "labelShort": "G1",
+        "labelLong": "Policy Commitment",
+        "description": "",
+        "scoringScope": "full",
+        "y2yCompColumn": 2,
+        "y2yCompRow": 54,
+        "previousIndicator": "G1",
+        "previousLength": 1,
         "elements": [{
             "labelShort": "G1.1",
             "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to freedom of expression and information and privacy?",
@@ -33,7 +33,7 @@ var indicatorsVector = {
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
-      ]
+        ]
       },
       {
         "labelShort": "G2",
@@ -539,7 +539,7 @@ var indicatorsVector = {
         "y2yCompRow": 54,
         "previousIndicator": null,
         "previousLength": null,
-        "elements": [  {
+        "elements": [{
             "labelShort": "G6b.1",
             "description": "Does the company clearly disclose that it offers users the ability to appeal content-moderation actions?",
             "y2yResultRow": false,
@@ -607,7 +607,7 @@ var indicatorsVector = {
           }
         ]
       }
-  ]
+    ]
   }, {
     "labelShort": "F",
     "labelLong": "Freedom of Expression",
