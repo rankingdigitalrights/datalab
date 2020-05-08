@@ -7,8 +7,7 @@
 
 
 // Imports previous year's outcome as Substep 0
-// assigns YYS07 ID to element results & comments
-// TODO: make Prefix correct (i.e. "RDR19") & dynamic (from variable)
+
 function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
@@ -48,22 +47,22 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, S
         // --- 1.) Row Labels --- //
 
         activeCol = 1
-        // serviceNr = column / service
-        // ~ serviceNr = 0 -> Labels
-        // ~ serviceNr = 1 Group
-        // ~ serviceNr = 2 OpCom
 
         Element = Elements[elemNr]
         hasPredecessor = isComments ? Element.y2yCommentRow : Element.y2yResultRow
         isRevised = Element.isRevised ? true : false
 
-        if (hasSubindicator && Element.prevSubInd == "P") {
-            subIndOffset = 1
-            subCatLabel = "\" (" + Element.prevSubInd + ")\""
+        if (hasSubindicator) {
+            Element.prevSubInd ? subCatLabel = "\" (" + Element.prevSubInd + ")\"" : ""
+            if (Element.prevSubInd == "P") {
+                subIndOffset = 1
+            } else {
+                subIndOffset = 0
+            }
         }
 
         if (hasPredecessor) {
-            cellValue = "=CONCATENATE(" + "\"" + StepComp.rowLabel + "\"" + "," + "REGEXEXTRACT(" + "'" + Config.prevYearOutcomeTab + "'!$A$" + (hasPredecessor) + ", " + "\"[A-Z]\\d+\.\\d+\"" + ")," +
+            cellValue = "=CONCATENATE(" + "\"" + StepComp.rowLabel + "\"" + "," + "REGEXEXTRACT(" + "'" + Config.prevYearOutcomeTab + "'!$A$" + (hasPredecessor) + ", " + "\"[A-Z]\\d+\\.\\d+\"" + ")," +
                 subCatLabel + ")"
 
         } else {
@@ -84,108 +83,43 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, S
         // --- 2.) Cell Values --- // 
         /* element-wise procedure from labels column 1 over services (~columns) */
 
+        let serviceLabel
+
         for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offeset 3 with company JSON
 
-            // setting up company column(s)
             if (serviceNr == 1) {
+                serviceLabel = "group"
+            } else if (serviceNr == 2) {
+                serviceLabel = "opCom"
+            } else {
+                let s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+            }
 
-                // sets up as many columns as the indicator has components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            // looping thourough the number of components
 
-                    subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
+            // setting Cell
+            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                    cellID = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, "group", stepCompID)
+            // finding the name of Cell that it will be compared too
+            subIndicator = ""
 
-                    if (hasPredecessor) {
-                        // calculates which column
-                        targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                        let col = columnToLetter(targetColumn, subIndOffset)
-                        cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
-                    } else {
-                        cellValue = naText
-                    }
+            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
-                    Cell.setValue(cellValue.toString())
-                    SS.setNamedRange(cellID, Cell) // TODO: make row-wise | step-wise assignment
+            if (hasPredecessor) {
+                // calculates which column
+                targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators)
+                let col = columnToLetter(targetColumn, subIndOffset)
+                cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
+            } else {
+                cellValue = naText
+            }
 
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
-            } // close serviceNr==1 if statement
+            Cell.setValue(cellValue.toString())
+            SS.setNamedRange(cellID, Cell)
 
-
-            // setting up opCom column
-            else if (serviceNr == 2) {
-
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // sets Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // creating the name of Cell it will be compared to
-
-                    subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, "opCom", stepCompID)
-
-                    if (hasPredecessor) {
-                        // calculates which column
-                        targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                        let col = columnToLetter(targetColumn, subIndOffset)
-                        cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
-                    } else {
-                        cellValue = naText
-                    }
-
-                    Cell.setValue(cellValue.toString())
-                    SS.setNamedRange(cellID, Cell)
-
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
-            } // close serviceNr==2 if statement
-
-
-            // setting up services column(s9
-            else {
-
-                // looping thourough the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // setting Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // finding the name of Cell that it will be compared too
-                    let s = serviceNr - 3
-                    subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
-
-                    cellID = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
-
-                    if (hasPredecessor) {
-                        // calculates which column
-                        targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                        let col = columnToLetter(targetColumn, subIndOffset)
-                        cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
-                    } else {
-                        cellValue = naText
-                    }
-
-                    Cell.setValue(cellValue.toString())
-                    SS.setNamedRange(cellID, Cell)
-
-                    activeCol += 1
-                }
-            } // services END
-        } // single element END
+            activeCol += 1
+        } // services END
     } // whole element-wise iteration END
 
     // adding the conditional formating so that the Cell turns red if the answer is no
@@ -216,7 +150,9 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, S
     return activeRow
 }
 
-function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
+// TODO: What to do about G Sources for mixed Subindicator Compositions?
+
+function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, Category, companyNumberOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
@@ -225,7 +161,7 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, st
 
     // for stepwise formatting
     // TODO
-    let Cell, cellID, subIndicator, cellValue, targetColumn
+    let Cell, cellID, cellValue, targetColumn
 
     let hasPredecessor
 
@@ -263,101 +199,75 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, st
         // setting up company column(s)
         if (serviceNr == 1) {
 
-            // sets up as many columns as the indicator has components
-            for (let k = 0; k < nrOfSubIndicators; k++) {
-                Cell = Sheet.getRange(activeRow, activeCol)
+            Cell = Sheet.getRange(activeRow, activeCol)
 
-                subIndicator = ""
-                if (nrOfSubIndicators != 1) {
-                    subIndicator = Category.components[k].labelShort
-                }
+            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, "group", stepCompID)
 
-                cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, subIndicator, Company.id, "group", stepCompID)
+            if (hasPredecessor) {
+                // calculates which column
+                targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
+                let col = columnToLetter(targetColumn)
+                cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
+            } else {
+                cellValue = naText
+            }
 
-                if (hasPredecessor) {
-                    // calculates which column
-                    targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                    let col = columnToLetter(targetColumn)
-                    cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
-                } else {
-                    cellValue = naText
-                }
+            Cell.setValue(cellValue.toString())
+            SS.setNamedRange(cellID, Cell) // TODO: make row-wise | step-wise assignment
 
-                Cell.setValue(cellValue.toString())
-                SS.setNamedRange(cellID, Cell) // TODO: make row-wise | step-wise assignment
+            activeCol += 1
 
-                activeCol += 1
-            } // close nrOfSubIndicators for loop
         } // close serviceNr==1 if statement
 
 
         // setting up opCom column
         else if (serviceNr == 2) {
 
-            // loops through the number of components
-            for (let k = 0; k < nrOfSubIndicators; k++) {
+            // sets Cell
+            Cell = Sheet.getRange(activeRow, activeCol)
 
-                // sets Cell
-                Cell = Sheet.getRange(activeRow, activeCol)
+            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, "opCom", stepCompID)
 
-                // creating the name of Cell it will be compared to
+            if (hasPredecessor) {
+                // calculates which column
+                targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
+                let col = columnToLetter(targetColumn)
+                cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
+            } else {
+                cellValue = naText
+            }
 
-                subIndicator = ""
-                if (nrOfSubIndicators != 1) {
-                    subIndicator = Category.components[k].labelShort
-                }
+            Cell.setValue(cellValue.toString())
+            SS.setNamedRange(cellID, Cell)
 
-                cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+            activeCol += 1
 
-                if (hasPredecessor) {
-                    // calculates which column
-                    targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                    let col = columnToLetter(targetColumn)
-                    cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
-                } else {
-                    cellValue = naText
-                }
-
-                Cell.setValue(cellValue.toString())
-                SS.setNamedRange(cellID, Cell)
-
-                activeCol += 1
-            } // close nrOfSubIndicators for loop
         } // close serviceNr==2 if statement
 
 
-        // setting up services column(s9
+        // setting up services column
         else {
 
-            // looping thourough the number of components
-            for (let k = 0; k < nrOfSubIndicators; k++) {
+            let s = serviceNr - 3
+            // setting Cell
+            Cell = Sheet.getRange(activeRow, activeCol)
 
-                // setting Cell
-                Cell = Sheet.getRange(activeRow, activeCol)
+            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
-                // finding the name of Cell that it will be compared too
-                let s = serviceNr - 3
-                subIndicator = ""
-                if (nrOfSubIndicators != 1) {
-                    subIndicator = Category.components[k].labelShort
-                }
-
-                cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
-
-                if (hasPredecessor) {
-                    // calculates which column
-                    targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                    let col = columnToLetter(targetColumn)
-                    cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
-                } else {
-                    cellValue = naText
-                }
-
-                Cell.setValue(cellValue.toString())
-                SS.setNamedRange(cellID, Cell)
-
-                activeCol += 1
+            if (hasPredecessor) {
+                // calculates which column
+                targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
+                let col = columnToLetter(targetColumn)
+                cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
+            } else {
+                cellValue = naText
             }
+
+            Cell.setValue(cellValue.toString())
+            SS.setNamedRange(cellID, Cell)
+
+            activeCol += 1
+
         } // services END
     } // single row END
 
@@ -372,10 +282,7 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, st
 // probably obsolete
 // if not TODO: adapt to Substep 0 pattern
 
-function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
-
-
-
+function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, Substep, stepCNr, Category, companyNumberOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -395,7 +302,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
 
     let prevYearCell
 
-    let Cell, cellValue, Element, noteString, cellID, subIndicator, prevResultCell
+    let Cell, cellValue, Element, noteString, cellID, prevResultCell
 
     let activeCol
 
@@ -432,102 +339,49 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
             if (serviceNr == 1) {
 
                 // sets up as many columns as the indicator has components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                    subIndicator = ""
-                    if (nrOfSubIndicators != 1) {
-                        subIndicator = Category.components[k].labelShort
-                    }
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
 
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                if (hasPredecessor || mainStepNr > 1) {
 
-                    if (hasPredecessor || mainStepNr > 1) {
+                    prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
-                        prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
+                    prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
-                        prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
+                    // sets up cellValue that compares values
+                    cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
 
-                        // sets up cellValue that compares values
-                        cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
+                } else {
+                    cellValue = naText
+                }
 
-                    } else {
-                        cellValue = naText
-                    }
+                Cell.setValue(cellValue.toString())
 
-                    Cell.setValue(cellValue.toString())
+                SS.setNamedRange(cellID, Cell) // names cells
 
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
-                } // close nrOfSubIndicators for loop
+                activeCol += 1
             } // close serviceNr==1 if statement
 
 
             // setting up opCom column(s)
             else if (serviceNr == 2) {
 
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
+                // sets Cell
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                    // sets Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
-
-                    //OpComp-specific "N/A" for Non-Telecommunication Companies   
-                    if (Company.hasOpCom == false) {
-                        Cell.setValue("N/A") // if no OpCom, pre-select N/A
-                    } else {
-
-                        if (hasPredecessor || mainStepNr > 1) {
-
-                            prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
-
-                            prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
-
-                            // sets up cellValue that compares values
-                            cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
-
-                        } else {
-                            cellValue = naText
-                        }
-
-                        Cell.setValue(cellValue.toString())
-
-                    }
-
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
-                }
-            }
-
-
-            // setting up services column(s9
-            else {
-
-                // looping thourough the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-
-                    // setting Cell
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    // finding the name of Cell that it will be compared too
-                    let s = serviceNr - 3
-
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                //OpComp-specific "N/A" for Non-Telecommunication Companies   
+                if (Company.hasOpCom == false) {
+                    Cell.setValue("N/A") // if no OpCom, pre-select N/A
+                } else {
 
                     if (hasPredecessor || mainStepNr > 1) {
 
-                        subIndicator = ""
-                        if (nrOfSubIndicators != 1) {
-                            subIndicator = Category.components[k].labelShort
-                        }
+                        prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
-                        prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
-
-                        prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
+                        prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -538,16 +392,52 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
 
                     Cell.setValue(cellValue.toString())
 
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
                 }
+
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                activeCol += 1
+
+            }
+
+
+            // setting up services column(s9
+            else {
+
+                // setting Cell
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+                // finding the name of Cell that it will be compared too
+                let s = serviceNr - 3
+
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+
+                if (hasPredecessor || mainStepNr > 1) {
+
+
+                    prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+
+                    prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+
+                    // sets up cellValue that compares values
+                    cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
+
+                } else {
+                    cellValue = naText
+                }
+
+                Cell.setValue(cellValue.toString())
+
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                activeCol += 1
+
             }
         }
     }
 
     // conditional formating so that the Cell turns red if the answer is no
-    let Range = Sheet.getRange(activeRow, 2, elementsNr, 2 + (companyNumberOfServices + 2) * nrOfSubIndicators)
+    let Range = Sheet.getRange(activeRow, 2, elementsNr, 2 + (companyNumberOfServices + 2))
 
     Range.setHorizontalAlignment("center")
 
@@ -561,7 +451,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
     return activeRow
 }
 
-function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
+function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, Category, companyNumberOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -596,7 +486,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
-    let Cell, cellValue, Element, noteString, cellID, subIndicator
+    let Cell, cellValue, Element, noteString, cellID
 
     let activeCol
 
@@ -631,115 +521,104 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
             // creates column(s) for overall company
             if (serviceNr == 1) {
 
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
 
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                    subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
+                // Cell name formulas; output defined in 44_rangeNamingHelper.js
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
 
-                    // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                if (hasPredecessor) {
 
-                    if (hasPredecessor) {
+                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
-                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", stepCompID)
 
-                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                    // sets up cellValue that compares values
 
-                        // sets up cellValue that compares values
+                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
 
-                        cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
-
-                        Cell.setDataValidation(rule)
-                    } else {
-                        cellValue = naText
-                    }
-
-                    Cell.setValue(cellValue.toString())
-                        .setFontWeight("bold")
-
-                    // creates dropdown list & boldens
-
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
+                    Cell.setDataValidation(rule)
+                } else {
+                    cellValue = naText
                 }
+
+                Cell.setValue(cellValue.toString())
+                    .setFontWeight("bold")
+
+                // creates dropdown list & boldens
+
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                activeCol += 1
+
             }
 
             // setting up opCom column(s)
             else if (serviceNr == 2) {
 
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-                    // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+                // Cell name formulas; output defined in 44_rangeNamingHelper.js
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
-                    //OpComp-specific "N/A" for Non-Telecommunication Companies   
-                    if (Company.hasOpCom == false) {
-                        Cell.setValue("N/A") // if no OpCom, pre-select N/A
-                    } else {
-
-                        if (hasPredecessor) {
-
-                            subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
-                            evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
-
-                            prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
-
-                            // sets up cellValue that compares values
-                            cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
-                            Cell.setDataValidation(rule)
-                        } else {
-                            cellValue = naText
-                        }
-
-                        Cell.setValue(cellValue.toString()).setFontWeight("bold")
-
-                        // creates dropdown list & boldens
-                    }
-
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
-                }
-            }
-
-            // creating all the service columns
-            else {
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    let s = serviceNr - 3 // helper for Services
-
-                    // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                //OpComp-specific "N/A" for Non-Telecommunication Companies   
+                if (Company.hasOpCom == false) {
+                    Cell.setValue("N/A") // if no OpCom, pre-select N/A
+                } else {
 
                     if (hasPredecessor) {
 
-                        subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
+                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
-                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
-
-                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
                         Cell.setDataValidation(rule)
-
                     } else {
                         cellValue = naText
                     }
 
                     Cell.setValue(cellValue.toString()).setFontWeight("bold")
 
-                    SS.setNamedRange(cellID, Cell) // names cells
-
                     // creates dropdown list & boldens
+                }
 
-                    activeCol += 1
-                } // service END
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                activeCol += 1
+
+            }
+
+            // creating all the service columns
+            else {
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+                let s = serviceNr - 3 // helper for Services
+
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+
+                if (hasPredecessor) {
+
+
+                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+
+                    // sets up cellValue that compares values
+                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                    Cell.setDataValidation(rule)
+
+                } else {
+                    cellValue = naText
+                }
+
+                Cell.setValue(cellValue.toString()).setFontWeight("bold")
+
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                // creates dropdown list & boldens
+
+                activeCol += 1
             } // services END
         } // single Element END
     } // whole Elements Iteration END

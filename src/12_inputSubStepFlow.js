@@ -9,7 +9,7 @@ global
 // - has dropdown with evaluation options
 // - compares result of step 0 review (yes/no/not selected)
 // - and either pulls element results or picks "not selected"
-function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices) {
+function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNumberOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -44,7 +44,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
-    let Cell, cellValue, Element, noteString, cellID, subIndicator
+    let Cell, cellValue, Element, noteString, cellID
 
     let activeCol
 
@@ -79,114 +79,104 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
             // creates column(s) for overall company
             if (serviceNr == 1) {
 
-                // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
 
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                    subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
+                // Cell name formulas; output defined in 44_rangeNamingHelper.js
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
 
-                    // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                if (hasPredecessor || mainStepNr > 1) {
 
-                    if (hasPredecessor || mainStepNr > 1) {
+                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
-                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "group", comparisonType)
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", stepCompID)
 
-                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "group", stepCompID)
+                    // sets up cellValue that compares values
 
-                        // sets up cellValue that compares values
+                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
 
-                        cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-
-                    } else {
-                        cellValue = naText
-                    }
-
-                    Cell.setValue(cellValue.toString())
-
-                    // creates dropdown list & boldens
-                    Cell.setDataValidation(rule).setFontWeight("bold")
-
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
+                } else {
+                    cellValue = naText
                 }
+
+                Cell.setValue(cellValue.toString())
+
+                // creates dropdown list & boldens
+                Cell.setDataValidation(rule).setFontWeight("bold")
+
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                activeCol += 1
+
             }
 
             // setting up opCom column(s)
             else if (serviceNr == 2) {
 
                 // loops through the number of components
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-                    // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+                // Cell name formulas; output defined in 44_rangeNamingHelper.js
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
-                    //OpComp-specific "N/A" for Non-Telecommunication Companies   
-                    if (Company.hasOpCom == false) {
-                        Cell.setValue("N/A") // if no OpCom, pre-select N/A
-                    } else {
-
-                        if (hasPredecessor || mainStepNr > 1) {
-
-                            subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
-                            evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, "opCom", comparisonType)
-
-                            prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, "opCom", stepCompID)
-
-                            // sets up cellValue that compares values
-                            cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-                        } else {
-                            cellValue = naText
-                        }
-
-                        Cell.setValue(cellValue.toString())
-
-                        // creates dropdown list & boldens
-                        Cell.setDataValidation(rule).setFontWeight("bold")
-                    }
-
-                    SS.setNamedRange(cellID, Cell) // names cells
-
-                    activeCol += 1
-                }
-            }
-
-            // creating all the service columns
-            else {
-                for (let k = 0; k < nrOfSubIndicators; k++) {
-                    Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                    let s = serviceNr - 3 // helper for Services
-
-                    // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                    cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                //OpComp-specific "N/A" for Non-Telecommunication Companies   
+                if (Company.hasOpCom == false) {
+                    Cell.setValue("N/A") // if no OpCom, pre-select N/A
+                } else {
 
                     if (hasPredecessor || mainStepNr > 1) {
 
-                        subIndicator = nrOfSubIndicators != 1 ? Category.components[k].labelShort : ""
+                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
-                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, comparisonType)
-
-                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, Company.services[s].id, stepCompID)
+                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-
                     } else {
                         cellValue = naText
                     }
 
                     Cell.setValue(cellValue.toString())
 
-                    SS.setNamedRange(cellID, Cell) // names cells
-
                     // creates dropdown list & boldens
                     Cell.setDataValidation(rule).setFontWeight("bold")
+                }
 
-                    activeCol += 1
-                } // service END
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                activeCol += 1
+
+            }
+
+            // creating all the service columns
+            else {
+                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+                let s = serviceNr - 3 // helper for Services
+
+                // Cell name formulas; output defined in 44_rangeNamingHelper.js
+                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+
+                if (hasPredecessor || mainStepNr > 1) {
+
+                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+
+                    // sets up cellValue that compares values
+                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+
+                } else {
+                    cellValue = naText
+                }
+
+                Cell.setValue(cellValue.toString())
+
+                SS.setNamedRange(cellID, Cell) // names cells
+
+                // creates dropdown list & boldens
+                Cell.setDataValidation(rule).setFontWeight("bold")
+
+                activeCol += 1
             } // services END
         } // single Element END
     } // whole Elements Iteration END
@@ -207,7 +197,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
 // this function adds an element drop down list to a single row
 
-function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices) {
+function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNumberOfServices) {
 
     activeRow += 1
 
@@ -221,7 +211,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
     let activeCol = 1
 
-    let cellName, subIndicator
+    let cellName
 
     // sets up the labels
     let Cell = Sheet.getRange(activeRow, activeCol)
@@ -238,69 +228,41 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
 
         if (serviceNr == 1) {
             // company group
-            for (let k = 0; k < nrOfIndSubComps; k++) {
-                Cell = Sheet.getRange(activeRow, activeCol)
+            Cell = Sheet.getRange(activeRow, activeCol)
 
-                // Cell name formula; output defined in 44_rangeNamingHelper.js
+            cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "group", stepCompID)
 
-                subIndicator = ""
-                if (nrOfIndSubComps != 1) {
-                    subIndicator = currentClass.components[k].labelShort
-                }
-
-                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, subIndicator, Company.id, "group", stepCompID)
-
-                SS.setNamedRange(cellName, Cell) // names cells
-                Cell.setDataValidation(rule) // creates dropdown list
-                    .setValue("not selected") // sets default for drop down list
-                    .setFontWeight("bold") // bolds the answers
-                activeCol += 1
-            }
+            SS.setNamedRange(cellName, Cell) // names cells
+            Cell.setDataValidation(rule) // creates dropdown list
+                .setValue("not selected") // sets default for drop down list
+                .setFontWeight("bold") // bolds the answers
+            activeCol += 1
         }
 
         // opCom column
         else if (serviceNr == 2) {
-            for (let k = 0; k < nrOfIndSubComps; k++) {
-                Cell = Sheet.getRange(activeRow, activeCol)
+            Cell = Sheet.getRange(activeRow, activeCol)
 
-                // Cell name formula; output defined in 44_rangeNamingHelper.js
+            cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
 
-                subIndicator = ""
-                if (nrOfIndSubComps != 1) {
-                    subIndicator = currentClass.components[k].labelShort
-                }
-
-                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, subIndicator, Company.id, "opCom", stepCompID)
-
-                SS.setNamedRange(cellName, Cell) // names cells
-                Cell.setDataValidation(rule) // creates dropdown list
-                    .setValue("not selected") // sets default for drop down list
-                    .setFontWeight("bold") // bolds the answers
-                activeCol += 1
-            }
+            SS.setNamedRange(cellName, Cell) // names cells
+            Cell.setDataValidation(rule) // creates dropdown list
+                .setValue("not selected") // sets default for drop down list
+                .setFontWeight("bold") // bolds the answers
+            activeCol += 1
         }
 
         // service columns
         else {
-            for (let k = 0; k < nrOfIndSubComps; k++) {
-                Cell = Sheet.getRange(activeRow, activeCol)
+            Cell = Sheet.getRange(activeRow, activeCol)
 
-                // Cell name formula; output defined in 44_rangeNamingHelper.js
+            cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
 
-                let g = serviceNr - 3
-                subIndicator = ""
-                if (nrOfIndSubComps != 1) {
-                    subIndicator = currentClass.components[k].labelShort
-                }
-
-                cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, subIndicator, Company.id, Company.services[g].id, stepCompID)
-
-                SS.setNamedRange(cellName, Cell) // names cells
-                Cell.setDataValidation(rule) // creates dropdown list
-                    .setValue("not selected") // sets default for drop down list
-                    .setFontWeight("bold") // bolds the answers
-                activeCol += 1
-            }
+            SS.setNamedRange(cellName, Cell) // names cells
+            Cell.setDataValidation(rule) // creates dropdown list
+                .setValue("not selected") // sets default for drop down list
+                .setFontWeight("bold") // bolds the answers
+            activeCol += 1
         }
     }
 

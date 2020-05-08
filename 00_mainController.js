@@ -64,15 +64,15 @@ function mainInputSheets() {
         // .slice(6,9) // Subset #3 6:8
 
         // Pilot Order //
-        // .slice(0,1) // Amazon
-        // .slice(1, 2) // Apple
-        // .slice(2,3) // Deutsche Telekom
-        // .slice(3,4) // Facebook
-        // .slice(4,5) // Google
-        // .slice(5,6) // Microsoft
-        .slice(6, 7) // Telefonica
-    // .slice(7,8) // Twitter
-    // .slice(8,9) // Vodafone
+        // .slice(0,1) 
+        // .slice(1, 2)
+        // .slice(2,3) 
+        // .slice(3, 4) // Apple
+        // .slice(4,5) 
+        // .slice(5,6) 
+        // .slice(6, 7)
+        // .slice(7,8)
+        .slice(12, 13)
 
     let fileID
 

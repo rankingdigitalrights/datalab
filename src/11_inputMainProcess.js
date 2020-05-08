@@ -78,9 +78,9 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // TODO: think about where to refactor to
         Sheet.setColumnWidth(1, 140)
 
-        let numberOfColumns = (companyNrOfServices + 2) * nrOfIndSubComps + 1
+        let numberOfColumns = (companyNrOfServices + 2) + 1
 
-        let thisColWidth = Styles.dims.serviceColWidth / nrOfIndSubComps
+        let thisColWidth = Styles.dims.serviceColWidth
 
         // if (Company.services.length == 1) {
         //     thisColWidth = Styles.dims.serviceColWidth * 1.33
@@ -163,45 +163,45 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "importPreviousSources":
-                            activeRow = importYonYSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, null)
+                            activeRow = importYonYSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices, null)
+                            break
+
+                        case "comparisonYY":
+                            activeRow = addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
+                        case "YonYreview":
+                            activeRow = addYonYReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "review":
-                            activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "evaluation":
-                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "binaryReview":
 
-                            activeRow = addBinaryReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addBinaryReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "binaryEvaluation":
 
-                            activeRow = addBinaryEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addBinaryEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "comments":
-                            activeRow = addComments(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addComments(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "sources":
-                            activeRow = addSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "extraQuestion":
                             activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, companyNrOfServices)
-                            break
-
-                        case "comparisonYY":
-                            activeRow = addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
-                            break
-
-                        case "YonYreview":
-                            activeRow = addYonYReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         default:
@@ -215,7 +215,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                 lastRow = activeRow
 
-                let maxCol = 1 + (companyNrOfServices + 2) * nrOfIndSubComps // calculates the max column
+                let maxCol = 1 + (companyNrOfServices + 2) // calculates the max column
 
                 // exclude researchers' names from step named range
                 // so move firstRow by 1

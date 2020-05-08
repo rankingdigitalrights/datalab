@@ -5,14 +5,15 @@ var indicatorsVector = {
     "description": "Indicators in this category seek evidence that the company has governance processes in place to ensure that it respects the human rights to freedom of expression and privacy. Both rights are part of the Universal Declaration of Human Rights and are enshrined in the International Covenant on Civil and Political Rights. They apply online as well as offline. In order for a company to perform well in this section, the company’s disclosure should at least follow, and ideally surpass, the UN Guiding Principles on Business and Human Rights and other industry-specific human rights standards focused on freedom of expression and privacy such as the Global Network Initiative.",
     "researchGuidance": "TBD",
     "classColor": "#ffe599",
-    "hadSubComponents": false,
+    hadSubComponents: true,
+    components: ["F", "P"],
     "indicators": [{
         "labelShort": "G1",
         "labelLong": "Policy Commitment",
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 3,
         "previousIndicator": "G1",
         "previousLength": 1,
         "elements": [{
@@ -43,7 +44,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 16,
         "previousIndicator": "G2",
         "previousLength": 3,
         "elements": [{
@@ -96,7 +97,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 37,
         "previousIndicator": "G3",
         "previousLength": 2,
         "elements": [{
@@ -466,7 +467,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 97,
         "previousIndicator": "G5",
         "previousLength": 3,
         "elements": [{
@@ -496,7 +497,7 @@ var indicatorsVector = {
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
-        "y2yCompRow": 54,
+        "y2yCompRow": 117,
         "previousIndicator": "G6",
         "previousLength": 5,
         "elements": [{
