@@ -27,7 +27,7 @@ var companiesVector = {
           "id": "ecAZ1",
           "type": "eCommerce",
           "label": {
-            "current": "Amazon e-commerce",
+            "current": "Amazon.com",
             "legacy": [null]
           }
         },
@@ -35,11 +35,84 @@ var companiesVector = {
           "id": "ebAZ1",
           "type": "pda",
           "label": {
-            "current": "Amazon PDA",
+            "current": "Alexa",
             "legacy": [null]
           }
         }
       ]
+    },
+    {
+      "id": "iAL1",
+      "label": {
+        "current": "Alibaba",
+        "altFilename": null,
+        "legacy": [null]
+      },
+      "type": "internet",
+      "groupLabel": "Alibaba",
+      "hasOpCom": false,
+      "opComLabel": null,
+      "isPrevScored": false,
+      "firstIndex": null,
+      "urlPreviousYearResults": null,
+      "tabPrevYearsOutcome": null,
+      "urlCurrentDataCollectionSheet": "1lCU-jarAjYnoNA8ftmTiP-l2c54pDNN-mh8mVEFRxyA",
+      "urlCurrentCompanyScoringSheet": null,
+      "numberOfServices": 2,
+      "services": [{
+          "id": "ecAL1",
+          "type": "eCommerce",
+          "label": {
+            "current": "Taobao.com",
+            "legacy": [null]
+          }
+        },
+        {
+          "id": "ebAL1",
+          "type": "pda",
+          "label": {
+            "current": "AliGenie",
+            "legacy": [null]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tAM1",
+      "label": {
+        "current": "América Móvil",
+        "altFilename": "AmericaMovil",
+        "legacy": [null]
+      },
+      "type": "telecom",
+      "groupLabel": "América Móvil (Group)",
+      "hasOpCom": true,
+      "opComLabel": "Telcel (Operating Company)",
+      "isPrevScored": true,
+      "firstIndex": 2015,
+      "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+      "tabPrevYearsOutcome": "AmericaMovilOutcome",
+      "urlCurrentDataCollectionSheet": "1oyYmRm2yTuZC9m1x5duA4H-bK4DpQTB_IXug9U-D-7U",
+      "urlCurrentCompanyScoringSheet": "1PPjaNgxVoKSdHgsml6C3oIRjcYftPp3E8zgWCudMYJI",
+      "numberOfServices": 2,
+      "services": [{
+        "id": "mbAM2",
+        "type": "mobile",
+        "subtype": "prepaid",
+        "label": {
+          "current": "Prepaid mobile)",
+          "legacy": ["Prepaid mobile"]
+        }
+      },
+      {
+        "id": "mbAM2",
+        "type": "mobile",
+        "subtype": "postpaid",
+        "label": {
+          "current": "Postpaid mobile",
+          "legacy": ["Postpaid mobile"]
+        }
+      }]
     },
     {
       "id": "iAP1",
@@ -53,7 +126,7 @@ var companiesVector = {
       "hasOpCom": false,
       "opComLabel": null,
       "isPrevScored": true,
-      "firstIndex": 2015,
+      "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "AppleOutcome",
       "urlCurrentDataCollectionSheet": "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak",
@@ -81,6 +154,184 @@ var companiesVector = {
         "label": {
           "current": "iCloud",
           "legacy": ["iCloud"]
+        }
+      }]
+    },
+    {
+      "id": "tAT1",
+      "label": {
+        "current": "AT&T",
+        "altFilename": "ATT",
+        "legacy": [null]
+      },
+      "type": "telecom",
+      "groupLabel": "AT&T (Group)",
+      "hasOpCom": false,
+      "opComLabel": null,
+      "isPrevScored": true,
+      "firstIndex": 2015,
+      "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+      "tabPrevYearsOutcome": "ATTOutcome",
+      "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
+      "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
+      "numberOfServices": 3,
+      "services": [{
+        "id": "mbAT1",
+        "type": "mobile",
+        "subtype": "prepaid",
+        "label": {
+          "current": "Prepaid mobile)",
+          "legacy": ["Prepaid mobile"]
+        }
+      },
+      {
+        "id": "mbAT2",
+        "type": "mobile",
+        "subtype": "postpaid",
+        "label": {
+          "current": "Postpaid mobile",
+          "legacy": ["Postpaid mobile"]
+        }
+      },
+      {
+        "id": "bbAT1",
+        "type": "broadband",
+        "label": {
+          "current": "Fixed-line broadband",
+          "legacy": null
+        }
+      }]
+    },
+    {
+      "id": "tAX1",
+      "label": {
+        "current": "Axiata",
+        "altFilename": null,
+        "legacy": [null]
+      },
+      "type": "telecom",
+      "groupLabel": "Axiata (Group)",
+      "hasOpCom": true,
+      "opComLabel": "Celcom (Operating Company)",
+      "isPrevScored": true,
+      "firstIndex": 2015,
+      "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+      "tabPrevYearsOutcome": "AxiataOutcome",
+      "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
+      "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
+      "numberOfServices": 3,
+      "services": [{
+        "id": "mbAX1",
+        "type": "mobile",
+        "subtype": "prepaid",
+        "label": {
+          "current": "Prepaid mobile)",
+          "legacy": ["Prepaid mobile"]
+        }
+      },
+      {
+        "id": "mbAX2",
+        "type": "mobile",
+        "subtype": "postpaid",
+        "label": {
+          "current": "Postpaid mobile",
+          "legacy": ["Postpaid mobile"]
+        }
+      },
+      {
+        "id": "bbAX1",
+        "type": "broadband",
+        "label": {
+          "current": "Fixed-line broadband",
+          "legacy": null
+        }
+      }]
+    },
+    {
+      "id": "iBA1",
+      "label": {
+        "current": "Baidu",
+        "altFilename": null,
+        "legacy": [null]
+      },
+      "type": "internet",
+      "groupLabel": "Baidu",
+      "hasOpCom": false,
+      "opComLabel": null,
+      "isPrevScored": true,
+      "firstIndex": 2017,
+      "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+      "tabPrevYearsOutcome": "BaiduOutcome",
+      "urlCurrentDataCollectionSheet": "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak",
+      "urlCurrentCompanyScoringSheet": "1OmNEYyGX1FmmhpqvkWORa-_HNTnL1fO-PrhvNfuR9ak",
+      "numberOfServices": 3,
+      "services": [{
+        "id": "seBA1",
+        "type": "search",
+        "label": {
+          "current": "Baidu Search",
+          "legacy": ["Baidu Search"]
+        }
+      },
+      {
+        "id": "clBA1",
+        "type": "cloud",
+        "label": {
+          "current": "Baidu Cloud",
+          "legacy": ["Baidu Cloud"]
+        }
+      },
+      {
+        "id": "mvBA1",
+        "type": "messagingVoip",
+        "label": {
+          "current": "Baidu PostBar",
+          "legacy": ["Baidu PostBar"]
+        }
+      }]
+    },
+    {
+      "id": "tBH1",
+      "label": {
+        "current": "Bharti Airtel",
+        "altFilename": null,
+        "legacy": [null]
+      },
+      "type": "telecom",
+      "groupLabel": "Bharti Airtel (Group)",
+      "hasOpCom": true,
+      "opComLabel": "Airtel India (Operating Company)",
+      "isPrevScored": true,
+      "firstIndex": 2015,
+      "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
+      "tabPrevYearsOutcome": "BhartiAirtelOutcome",
+      "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
+      "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
+      "numberOfServices": 3,
+      "services": [{
+        "id": "mbBH1",
+        "type": "mobile",
+        "subtype": "prepaid",
+        "label": {
+          "current": "Prepaid mobile)",
+          "legacy": ["Prepaid mobile"]
+        }
+      },
+      {
+        "id": "mbBH2",
+        "type": "mobile",
+        "subtype": "postpaid",
+        "label": {
+          "current": "Postpaid mobile",
+          "legacy": ["Postpaid mobile"]
+        }
+      },
+      {
+        "id": "bbBH1",
+        "type": "broadband",
+        "label": {
+          "current": "Fixed-line broadband",
+          "legacy": null
         }
       }]
     },
@@ -238,7 +489,7 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
       "numberOfServices": 3,
       "services": [{
-        "id": "mbTF2",
+        "id": "mbTF1",
         "type": "mobile",
         "subtype": "prepaid",
         "label": {
