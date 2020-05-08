@@ -19,13 +19,15 @@ var indicatorsVector = {
             "labelShort": "G1.1",
             "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to freedom of expression and information and privacy?",
             "y2yResultRow": 3,
-            "y2yCommentRow": 4
+            "y2yCommentRow": 4,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G1.2",
             "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to privacy?",
             "y2yResultRow": 3,
-            "y2yCommentRow": 4
+            "y2yCommentRow": 4,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G1.3",
@@ -48,37 +50,43 @@ var indicatorsVector = {
             "labelShort": "G2.1",
             "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect freedom of expression and information?",
             "y2yResultRow": 16,
-            "y2yCommentRow": 19
+            "y2yCommentRow": 19,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G2.2",
             "description": "Does the company clearly disclose that the board of directors exercises formal oversight over how company practices affect privacy?",
             "y2yResultRow": 16,
-            "y2yCommentRow": 19
+            "y2yCommentRow": 19,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G2.3",
             "description": "Does the company clearly disclose that an executive-level committee, team, program or officer oversees how company practices affect freedom of expression and information?",
             "y2yResultRow": 17,
-            "y2yCommentRow": 20
+            "y2yCommentRow": 20,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G2.4",
             "description": "Does the company clearly disclose that an executive-level committee, team, program or officer oversees how company practices affect privacy?",
             "y2yResultRow": 17,
-            "y2yCommentRow": 20
+            "y2yCommentRow": 20,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G2.5",
             "description": "Does the company clearly disclose that a management-level committee, team, program or officer oversees how company practices affect freedom of expression and information?",
             "y2yResultRow": 18,
-            "y2yCommentRow": 21
+            "y2yCommentRow": 21,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G2.6",
             "description": "Does the company clearly disclose that a management-level committee, team, program or officer oversees how company practices affect privacy?",
             "y2yResultRow": 18,
-            "y2yCommentRow": 21
+            "y2yCommentRow": 21,
+            "prevSubInd": "P"
           }
         ]
       },
@@ -95,25 +103,29 @@ var indicatorsVector = {
             "labelShort": "G3.1",
             "description": "Does the company clearly disclose that it provides employee training on freedom of expression and information issues?",
             "y2yResultRow": 37,
-            "y2yCommentRow": 39
+            "y2yCommentRow": 39,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G3.2",
             "description": "Does the company clearly disclose that it provides employee training on privacy issues?",
             "y2yResultRow": 37,
-            "y2yCommentRow": 39
+            "y2yCommentRow": 39,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G3.3",
             "description": "Does the company clearly disclose that it maintains an employee whistleblower program through which employees can report concerns related to how the company treats its users’ freedom of expression and information rights?",
             "y2yResultRow": 38,
-            "y2yCommentRow": 40
+            "y2yCommentRow": 40,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G3.4",
             "description": "Does the company clearly disclose that it maintains an employee whistleblower program through which employees can report concerns related to how the company treats its users’ privacy rights?",
             "y2yResultRow": 38,
-            "y2yCommentRow": 40
+            "y2yCommentRow": 40,
+            "prevSubInd": "P"
           }
         ]
       },
@@ -130,37 +142,43 @@ var indicatorsVector = {
             "labelShort": "G4a.1",
             "description": "Does the company consider how laws affect freedom of expression and information in jurisdictions where it operates?",
             "y2yResultRow": 54,
-            "y2yCommentRow": 65
+            "y2yCommentRow": 65,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G4a.2",
             "description": "Does the company consider how laws affect privacy in jurisdictions where it operates?",
             "y2yResultRow": 54,
-            "y2yCommentRow": 65
+            "y2yCommentRow": 65,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G4a.3",
             "description": "Does the company regularly assess freedom of expression and information risks associated with existing products and services in jurisdictions where it operates?",
             "y2yResultRow": 55,
-            "y2yCommentRow": 66
+            "y2yCommentRow": 66,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G4a.4",
             "description": "Does the company assess privacy risks associated with existing products and services in jurisdictions where it operates?",
             "y2yResultRow": 55,
-            "y2yCommentRow": 66
+            "y2yCommentRow": 66,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G4a.5",
             "description": "Does the company assess freedom of expression and information risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies or entry into new markets or jurisdictions?",
             "y2yResultRow": 56,
-            "y2yCommentRow": 67
+            "y2yCommentRow": 67,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G4a.6",
             "description": "Does the company assess privacy risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?",
             "y2yResultRow": 56,
-            "y2yCommentRow": 67
+            "y2yCommentRow": 67,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G4a.7",
@@ -207,13 +225,15 @@ var indicatorsVector = {
             "labelShort": "G4b.1",
             "description": "Does the company clearly disclose that it assesses freedom of expression and information risks of  enforcing its terms of service?",
             "y2yResultRow": 57,
-            "y2yCommentRow": 68
+            "y2yCommentRow": 68,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G4b.2",
             "description": "Does the company clearly disclose it conducts risk assessments of its enforcement of its privacy policies?",
             "y2yResultRow": 57,
-            "y2yCommentRow": 68
+            "y2yCommentRow": 68,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G4b.3",
@@ -272,13 +292,15 @@ var indicatorsVector = {
             "labelShort": "G4c.1",
             "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its targeted advertising policies and practices?",
             "y2yResultRow": 59,
-            "y2yCommentRow": 70
+            "y2yCommentRow": 70,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G4c.2",
             "description": "Does the company disclose that it assesses privacy risks associated with its targeted advertising policies and practices?",
             "y2yResultRow": 59,
-            "y2yCommentRow": 70
+            "y2yCommentRow": 70,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G4c.3",
@@ -331,13 +353,15 @@ var indicatorsVector = {
             "labelShort": "G4d.1",
             "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its development and use of algorithmic decision-making systems?",
             "y2yResultRow": 58,
-            "y2yCommentRow": 69
+            "y2yCommentRow": 69,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G4d.2",
             "description": "Does the company disclose that it assesses privacy risks associated with its development and use of algorithmic decision-making systems?",
             "y2yResultRow": 58,
-            "y2yCommentRow": 69
+            "y2yCommentRow": 69,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G4d.3",
@@ -448,8 +472,9 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "G5.1",
             "description": "Is the company a member of one or more multi-stakeholder initiative that address the full range of ways in which freedom of expression and information, privacy, and related human rights may be affected in the course of the company’s operations?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "G5.2",
@@ -478,25 +503,29 @@ var indicatorsVector = {
             "labelShort": "G6a.1",
             "description": "G6.1: Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression and information has been adversely affected by the company’s policies or practices?",
             "y2yResultRow": 117,
-            "y2yCommentRow": 122
+            "y2yCommentRow": 122,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.2",
             "description": "Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their privacy has been adversely affected by the company’s policies or practices?",
             "y2yResultRow": 117,
-            "y2yCommentRow": 122
+            "y2yCommentRow": 122,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G6a.3",
             "description": "Does the company clearly disclose​ its procedures for providing remedy for freedom of expression and information-related grievances?",
             "y2yResultRow": 118,
-            "y2yCommentRow": 123
+            "y2yCommentRow": 123,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.4",
             "description": "Does the company clearly disclose​ its procedures for providing remedy for privacy-related grievances?",
             "y2yResultRow": 118,
-            "y2yCommentRow": 123
+            "y2yCommentRow": 123,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G6a.5",
@@ -508,25 +537,29 @@ var indicatorsVector = {
             "labelShort": "G6a.6",
             "description": "Does the company clearly disclose the number of complaints received related to freedom of expression?",
             "y2yResultRow": 120,
-            "y2yCommentRow": 125
+            "y2yCommentRow": 125,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.7",
             "description": "Does the company clearly disclose the number of complaints received related to privacy?",
             "y2yResultRow": 120,
-            "y2yCommentRow": 125
+            "y2yCommentRow": 125,
+            "prevSubInd": "P"
           },
           {
             "labelShort": "G6a.8",
             "description": "Does the company clearly disclose​ evidence that it is providing remedy for freedom of expression grievances?",
             "y2yResultRow": 121,
-            "y2yCommentRow": 126
+            "y2yCommentRow": 126,
+            "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.9",
             "description": "Does the company clearly disclose​ evidence that it is providing remedy for privacy grievances?",
             "y2yResultRow": 121,
-            "y2yCommentRow": 126
+            "y2yCommentRow": 126,
+            "prevSubInd": "P"
           }
         ]
       },
@@ -943,14 +976,16 @@ var indicatorsVector = {
           {
             "labelShort": "F3a.3",
             "description": "Does the company ​clearly disclose​ information about the processes it uses to identify ​content​ or ​accounts that violate the company’s rules?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "F3a.4",
             "description": "Does the company ​clearly disclose​ whether it uses algorithmic systems ​to flag c​ontent​ that might violate the company’s rules?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "F3a.5",
@@ -1054,8 +1089,9 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F4a.1",
             "description": "Does the company publish data about the total number of pieces of content restricted ​for violating the company's rules.",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "F4a.2",
@@ -1072,14 +1108,16 @@ var indicatorsVector = {
           {
             "labelShort": "F4a.4",
             "description": "Does the company publish this data at leas​t​ ​four times ​a year?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "F4a.5",
             "description": "Can the data be exported as a ​structured data ​file?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           }
         ]
       },
@@ -1095,8 +1133,9 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F4b.1",
             "description": "Does the company publish data on the total number of accounts​ ​restricted ​for violating the company’s own rules?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "F4b.2",
@@ -1113,14 +1152,16 @@ var indicatorsVector = {
           {
             "labelShort": "F4b.4",
             "description": "Does the company publish this data at least four times a year?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "F4b.5",
             "description": "Can the data be exported as a ​structured data ​file?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           }
         ]
       },
@@ -2353,14 +2394,16 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P11a.1",
             "description": "Does the company list the number of government demands it receives by country?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "P11a.2",
             "description": "Does the company list the number of government demands it receives for stored user information and for real-time communications access?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "P11a.3",
@@ -2383,14 +2426,16 @@ var indicatorsVector = {
           {
             "labelShort": "P11a.6",
             "description": "Does the company include government demands that come from court orders?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "P11a.7",
             "description": "Does the company list the number of government demands it complied with, broken down by category of demand?",
-            "y2yResultRow": "CHANGED",
-            "y2yCommentRow": "CHANGED"
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
           },
           {
             "labelShort": "P11a.8",
