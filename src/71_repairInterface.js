@@ -29,7 +29,7 @@ function processInputSheet(CompanySS, Indicators, Company, ResearchSteps, includ
         thisIndCatLength = thisIndCat.indicators.length
 
 
-        if (thisIndCat.hasSubComponents === true) {
+        if (thisIndCat.hadSubComponents === true) {
             nrOfIndCatSubComps = thisIndCat.components.length
         }
 

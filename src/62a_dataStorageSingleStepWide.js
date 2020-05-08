@@ -29,7 +29,7 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + IndCat.labelLong)
 
-        if (IndCat.hasSubComponents == true) {
+        if (IndCat.hadSubComponents == true) {
             nrOfIndSubComps = IndCat.components.length
         }
 

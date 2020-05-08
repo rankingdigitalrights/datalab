@@ -122,7 +122,7 @@ function fixIndicatorGuidance(sheet, thisIndicator, activeRow, activeCol, nrOfIn
 
 function skipMainStepHeader(thisIndCat, activeRow) {
 
-    if (thisIndCat.hasSubComponents == true) {
+    if (thisIndCat.hadSubComponents == true) {
         activeRow = activeRow + 1
     }
 

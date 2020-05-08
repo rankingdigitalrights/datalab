@@ -9,7 +9,7 @@
 // Imports previous year's outcome as Substep 0
 // assigns YYS07 ID to element results & comments
 // TODO: make Prefix correct (i.e. "RDR19") & dynamic (from variable)
-function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
+function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, Substep, stepCNr, nrOfSubIndicators, Category, companyNumberOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
@@ -31,7 +31,11 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, st
 
     let Cell, cellID, Element, subIndicator, cellValue, targetColumn
 
-    let hasPredecessor
+    let hasPredecessor, isRevised
+    let subIndOffset = 0
+    let subCatLabel = ""
+    let hasSubindicator = (category == "G") ? true : false
+
 
     let naText = isComments ? Config.newElementLabelComment : Config.newElementLabelResult
 
@@ -51,13 +55,21 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, st
 
         Element = Elements[elemNr]
         hasPredecessor = isComments ? Element.y2yCommentRow : Element.y2yResultRow
+        isRevised = Element.isRevised ? true : false
+
+        if (hasSubindicator && Element.prevSubInd == "P") {
+            subIndOffset = 1
+            subCatLabel = "\" (" + Element.prevSubInd + ")\""
+        }
 
         if (hasPredecessor) {
             cellValue = "=CONCATENATE(" + "\"" + StepComp.rowLabel + "\"" + "," + "REGEXEXTRACT(" + "'" + Config.prevYearOutcomeTab + "'!$A$" + (hasPredecessor) + ", " + "\"[A-Z]\\d+\.\\d+\"" + ")," +
-                "" + ")"
-        } else(
-            cellValue = StepComp.rowLabel + Element.labelShort + " (new)"
-        )
+                subCatLabel + ")"
+
+        } else {
+            cellValue = StepComp.rowLabel + Element.labelShort
+            cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+        }
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(cellValue)
@@ -91,7 +103,7 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, st
                     if (hasPredecessor) {
                         // calculates which column
                         targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                        let col = columnToLetter(targetColumn)
+                        let col = columnToLetter(targetColumn, subIndOffset)
                         cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
                     } else {
                         cellValue = naText
@@ -126,7 +138,7 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, st
                     if (hasPredecessor) {
                         // calculates which column
                         targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                        let col = columnToLetter(targetColumn)
+                        let col = columnToLetter(targetColumn, subIndOffset)
                         cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
                     } else {
                         cellValue = naText
@@ -161,7 +173,7 @@ function importYonYResults(SS, Sheet, Indicator, Company, activeRow, Substep, st
                     if (hasPredecessor) {
                         // calculates which column
                         targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators) + k
-                        let col = columnToLetter(targetColumn)
+                        let col = columnToLetter(targetColumn, subIndOffset)
                         cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
                     } else {
                         cellValue = naText
@@ -383,7 +395,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
 
     let prevYearCell
 
-    let Cell, cellValue, Element, noteString, cellID, subIndicator, prevResultCell, labelFormula
+    let Cell, cellValue, Element, noteString, cellID, subIndicator, prevResultCell
 
     let activeCol
 
@@ -397,16 +409,17 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
         Element = Elements[elemNr]
 
         let hasPredecessor = Element.y2yResultRow ? true : false
+        let isRevised = Element.isRevised ? true : false
 
         noteString = Element.labelShort + ": " + Element.description
 
-        labelFormula = StepComp.rowLabel + Element.labelShort
+        cellValue = StepComp.rowLabel + Element.labelShort
 
-        if (!hasPredecessor) labelFormula += (" (new)")
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
 
         // Row Labels
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(labelFormula)
+            .setValue(cellValue)
             .setBackground(Substep.subStepColor)
             .setFontWeight("bold")
             .setNote(noteString)
@@ -583,7 +596,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
-    let Cell, cellValue, Element, noteString, cellID, subIndicator, labelFormula
+    let Cell, cellValue, Element, noteString, cellID, subIndicator
 
     let activeCol
 
@@ -592,18 +605,19 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
         Element = Elements[elemNr]
 
         let hasPredecessor = Element.y2yResultRow ? true : false
+        let isRevised = Element.isRevised ? true : false
 
         // 1.) Row Labels
 
         activeCol = 1
-        labelFormula = StepComp.rowLabel + Element.labelShort
+        cellValue = StepComp.rowLabel + Element.labelShort
 
         noteString = Element.labelShort + ": " + Element.description
 
-        if (!hasPredecessor) labelFormula += (" (new)")
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(labelFormula)
+            .setValue(cellValue)
             .setBackground(Substep.subStepColor)
             .setFontWeight("bold")
             .setNote(noteString)
@@ -637,14 +651,15 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                         cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
 
+                        Cell.setDataValidation(rule)
                     } else {
                         cellValue = naText
                     }
 
                     Cell.setValue(cellValue.toString())
+                        .setFontWeight("bold")
 
                     // creates dropdown list & boldens
-                    Cell.setDataValidation(rule).setFontWeight("bold")
 
                     SS.setNamedRange(cellID, Cell) // names cells
 
@@ -675,15 +690,14 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                             // sets up cellValue that compares values
                             cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
-
+                            Cell.setDataValidation(rule)
                         } else {
                             cellValue = naText
                         }
 
-                        Cell.setValue(cellValue.toString())
+                        Cell.setValue(cellValue.toString()).setFontWeight("bold")
 
                         // creates dropdown list & boldens
-                        Cell.setDataValidation(rule).setFontWeight("bold")
                     }
 
                     SS.setNamedRange(cellID, Cell) // names cells
@@ -712,17 +726,17 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                        Cell.setDataValidation(rule)
 
                     } else {
                         cellValue = naText
                     }
 
-                    Cell.setValue(cellValue.toString())
+                    Cell.setValue(cellValue.toString()).setFontWeight("bold")
 
                     SS.setNamedRange(cellID, Cell) // names cells
 
                     // creates dropdown list & boldens
-                    Cell.setDataValidation(rule).setFontWeight("bold")
 
                     activeCol += 1
                 } // service END

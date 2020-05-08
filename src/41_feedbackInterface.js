@@ -19,7 +19,7 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
     // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
     var nrOfIndSubComps = 1
 
-    if (thisIndClass.hasSubComponents == true) {
+    if (thisIndClass.hadSubComponents == true) {
         nrOfIndSubComps = thisIndClass.components.length
     }
 

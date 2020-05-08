@@ -30,10 +30,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // - name the Sheet
     // - populate the Sheet Step-Wise
 
-    //TODO: remove when Gs exist
+    // fallback for subset runs when indicator category only has 1 item
 
     let minIndicators = Category.indicators.length > 1 ? 2 : 1
 
+    let category = Category.labelShort
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
 
     let mainStepsLength = useStepsSubset ? 4 : ResearchSteps.researchSteps.length
@@ -56,7 +57,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         } // skips this i if Sheet already exists
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
-        let nrOfIndSubComps = (Category.hasSubComponents == true) ? Category.components.length : 1
+        let nrOfIndSubComps = (Category.hadSubComponents == true) ? Category.components.length : 1
 
         // checks how many company group/opcom columns to hide for this Indicator
         // (based on Scoring Scope)
@@ -154,11 +155,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "importPreviousResults":
-                            activeRow = importYonYResults(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
                             break
 
                         case "importPreviousComments":
-                            activeRow = importYonYResults(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
                             break
 
                         case "importPreviousSources":
@@ -218,7 +219,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                 // exclude researchers' names from step named range
                 // so move firstRow by 1
-                let range = Sheet.getRange(firstRow - 1, 2, lastRow - firstRow + 1, maxCol - 1)
+                let range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""

@@ -51,19 +51,6 @@ var researchStepsVector = {
               type: "subStepHeader",
               rowLabel: "Are the Results the same this Year?",
             },
-            //   {
-            //     type: "binaryReview",
-            //     prevStep: "S07",
-            //     evaluationStep: "S00",
-            //     comparisonType: "DC",
-            //     id: "MB",
-            //     rowLabel: "Are the Results the same this year?",
-            //     dropdown: [
-            //       "not selected",
-            //       "yes",
-            //       "no"
-            //     ]
-            //   },
             {
               type: "evaluation",
               id: "MR",
@@ -132,7 +119,8 @@ var researchStepsVector = {
               comparisonType: "MS",
             }
           ]
-        }, {
+        },
+        {
           labelShort: "Step 1.5",
           subStepID: "S015",
           subStepColor: "#ddd9c3",
@@ -153,7 +141,7 @@ var researchStepsVector = {
             {
               type: "YonYreview", // "evaluation"
               mode: "YonY",
-              id: "MR",
+              id: "YY",
               scoringId: "SE",
               rowLabel: "Reason ",
               variableName: "result",
@@ -228,7 +216,7 @@ var researchStepsVector = {
         doCollapse: false,
         components: [{
             type: "subStepHeader",
-            rowLabel: "If you disagree, add suggested result and comment",
+            rowLabel: "If you disagree, add suggested Result and Comment",
           },
           {
             type: "review",
@@ -275,7 +263,7 @@ var researchStepsVector = {
         subStepColor: "#c6d9f0",
         "components": [{
             type: "subStepHeader",
-            rowLabel: "Do you agree with the year-on-year analysis in Step 1.5?",
+            rowLabel: "Do you agree with the Year-on-Year Analysis in Step 1.5?",
           },
           //   {
           //     "type": "comparisonYY",
@@ -345,8 +333,8 @@ var researchStepsVector = {
       rowLabel: "Reconcilation and Consolidation",
       stepColor: "#d9ead3",
       substeps: [{
-          labelShort: "Step 3.1",
-          subStepID: "S031",
+          labelShort: "Step 3.0",
+          subStepID: "S030",
           subStepColor: "#d9ead3",
           doCollapse: false,
           components: [{
@@ -358,28 +346,26 @@ var researchStepsVector = {
             },
             {
               type: "subStepHeader",
-              rowLabel: "Is there agreement between Step 1 and Step 2?",
+              rowLabel: "Is there Agreement between Step 1 and Step 2?",
             },
             {
               "type": "comparisonYY",
               id: "MR",
               "rowLabel": "Answer ",
               prevStep: "S011",
-              evaluationIndex: "RDR20",
               evaluationStep: "S021",
               comparisonType: "MR"
             }
           ]
         },
         {
-          "rowLabel": "Step 3.5: Year-on-year analysis",
-          "labelShort": "Step 3.5",
-          subStepID: "S035",
+          labelShort: "Step 3.1",
+          subStepID: "S031",
           resultStepID: "S030",
-          "subStepColor": "#dbe5f1",
+          "subStepColor": "#d9ead3",
           "components": [{
               type: "subStepHeader",
-              rowLabel: "If there is a disagreement, please suggest your answer and in the comment field, explain your reasoning:"
+              rowLabel: "If there is a disagreement, please suggest your Result and in the Comment field, explain your reasoning:"
             },
             {
               type: "review",
@@ -388,7 +374,7 @@ var researchStepsVector = {
               rowLabel: "Result ",
               variableName: "result",
               prevStep: "S021",
-              evaluationStep: "S031",
+              evaluationStep: "S030",
               comparisonType: "MR",
               dropdown: [
                 "not selected",
@@ -401,7 +387,7 @@ var researchStepsVector = {
             },
             {
               "type": "extraQuestion",
-              "rowLabel": "If you disagree, please explain your reasoning:"
+              "rowLabel": "If there is a disagreement, please explain your reasoning:"
             },
             {
               type: "comments",
@@ -410,7 +396,7 @@ var researchStepsVector = {
               label2: " (explain score)",
               variableName: "comment",
               prevStep: "S021",
-              evaluationStep: "S031",
+              evaluationStep: "S030",
               comparisonType: "MC",
               clipWrap: true
             },
@@ -420,8 +406,64 @@ var researchStepsVector = {
               rowLabel: "Sources (reference, specific page, section, etc.)",
               variableName: "sources",
               prevStep: "S021",
-              evaluationStep: "S031",
+              evaluationStep: "S030",
               comparisonType: "MS",
+            }
+          ]
+        },
+        {
+          labelShort: "Step 3.5",
+          subStepID: "S035",
+          subStepColor: "#d9ead3",
+          "components": [{
+              type: "subStepHeader",
+              rowLabel: "Are the Year-on-Year Results the same this Year?",
+            },
+            // regular YonY:
+            {
+              "type": "comparisonYY",
+              id: "MR",
+              "rowLabel": "Answer ",
+              prevStep: "S031",
+              prevIndexPrefix: "RDR19",
+              evaluationStep: "S07",
+              comparisonType: "MR"
+            },
+            {
+              "type": "extraQuestion",
+              "rowLabel": "If this Year's Results are different, select Reason for Change:"
+            },
+            {
+              type: "YonYreview", // "evaluation"
+              mode: "YonY",
+              id: "YY",
+              scoringId: "SE",
+              rowLabel: "Reason ",
+              variableName: "result",
+              prevStep: "S031",
+              evaluationStep: "S035", // Regular YonY: S015
+              comparisonType: "MR", // Regular YonY: YY
+              dropdown: [
+                "not selected",
+                "no change",
+                "improvement",
+                "decline",
+                "other"
+              ]
+            },
+            {
+              "type": "comments",
+              "rowLabel": "Comment ",
+              "label2": " ",
+              "nameLabel": "Comments"
+            }, {
+              type: "sources",
+              id: "MS",
+              rowLabel: "Sources (reference, specific page, section, etc.)",
+              variableName: "sources",
+              prevStep: "S07",
+              evaluationStep: "S07",
+              comparisonType: "DC",
             }
           ]
         }

@@ -65,12 +65,12 @@ function mainInputSheets() {
 
         // Pilot Order //
         // .slice(0,1) // Amazon
-        .slice(1, 2) // Apple
-    // .slice(2,3) // Deutsche Telekom
-    // .slice(3,4) // Facebook
-    // .slice(4,5) // Google
-    // .slice(5,6) // Microsoft
-    // .slice(6, 7) // Telefonica
+        // .slice(1, 2) // Apple
+        // .slice(2,3) // Deutsche Telekom
+        // .slice(3,4) // Facebook
+        // .slice(4,5) // Google
+        // .slice(5,6) // Microsoft
+        .slice(6, 7) // Telefonica
     // .slice(7,8) // Twitter
     // .slice(8,9) // Vodafone
 

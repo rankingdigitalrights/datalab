@@ -53,6 +53,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
         Element = Elements[elemNr]
 
         let hasPredecessor = Element.y2yResultRow ? true : false
+        let isRevised = Element.isRevised ? true : false
 
         // 1.) Row Labels
 
@@ -61,7 +62,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
         noteString = Element.labelShort + ": " + Element.description
 
-        if (!hasPredecessor) cellValue += (" (new)")
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(cellValue)

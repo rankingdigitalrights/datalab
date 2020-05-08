@@ -275,8 +275,6 @@ function addExtraInstruction(Substep, stepCNr, activeRow, activeCol, Sheet, comp
 
     let horizontalDim = 1 + 2 + companyNrOfServices
 
-    Sheet.insertRowsBefore(activeRow, 1)
-
     Sheet.getRange(activeRow, 1, 2, 1)
         .setBackground(Substep.subStepColor)
 
@@ -403,12 +401,13 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
         Element = Elements[elemNr]
 
         let hasPredecessor = Element.y2yResultRow ? true : false
+        let isRevised = Element.isRevised ? true : false
 
         let noteString = Element.labelShort + ": " + Element.description
 
         cellValue = StepComp.rowLabel + Element.labelShort
 
-        if (!hasPredecessor) cellValue += (" (new)")
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
 
         // setting up the labels
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
