@@ -469,7 +469,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
-    let evaluationCell, prevResultCell
+    let reviewCell, prevResultCell
 
     let yesAnswer = StepComp.mode === "YonY" ? "no change" : "not selected"
 
@@ -529,13 +529,13 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                 if (hasPredecessor) {
 
-                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
+                    reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
                     prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", stepCompID)
 
                     // sets up cellValue that compares values
 
-                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                    cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
 
                     Cell.setDataValidation(rule)
                 } else {
@@ -567,12 +567,12 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                     if (hasPredecessor) {
 
-                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
+                        reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
                         prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                         // sets up cellValue that compares values
-                        cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                        cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
                         Cell.setDataValidation(rule)
                     } else {
                         cellValue = naText
@@ -600,12 +600,12 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
                 if (hasPredecessor) {
 
 
-                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+                    reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
 
                     prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
                     // sets up cellValue that compares values
-                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                    cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
                     Cell.setDataValidation(rule)
 
                 } else {

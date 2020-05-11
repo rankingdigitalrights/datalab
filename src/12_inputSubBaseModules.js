@@ -16,23 +16,23 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
     let rangeStartCol = 1
     let rangeRows, rangeCols
 
-    let Cell, cellID, Element, cellValue
+    let Cell, cellID, Element, noteString, cellValue, hasPredecessor, isRevised
 
     let activeCol
 
-    // row labels
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
-
-        activeCol = 1
 
         Element = Elements[elemNr]
 
-        let hasPredecessor = Element.y2yResultRow ? true : false
-        let isRevised = Element.isRevised ? true : false
+        hasPredecessor = Element.y2yResultRow ? true : false
+        isRevised = Element.isRevised ? true : false
 
-        let noteString = Element.labelShort + ": " + Element.description
+        // row labels
 
+        activeCol = 1
         cellValue = StepComp.rowLabel + Element.labelShort
+
+        noteString = Element.labelShort + ": " + Element.description
 
         cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
 
@@ -45,92 +45,41 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
         activeCol += 1
 
+        let serviceLabel
+
         for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
 
-            // creates column(s) for overall company
+
             if (serviceNr == 1) {
+                serviceLabel = "group"
+            } else if (serviceNr == 2) {
+                serviceLabel = "opCom"
+            } else {
+                let s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+            }
 
-                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                // cell name formula; output defined in 44_rangeNamingHelper.js
-
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
-
-                SS.setNamedRange(cellID, Cell) // names cells
+            if (serviceNr == 2 && Company.hasOpCom == false) {
+                cellValue = "N/A" // if no OpCom, pre-select N/A
+            } else {
 
                 cellValue = "not selected" // default for drop down list
 
-                if (hasPredecessor) {
+                if (hasPredecessor || (mainStepNr > 1 && stepCompID != "YY")) {
                     Cell.setDataValidation(rule) // creates dropdown list
                 } else {
-                    if (mainStepNr > 1) {
-                        Cell.setDataValidation(rule) // creates dropdown list
-                    } else {
-                        cellValue = naText
-                    }
+                    cellValue = naText
                 }
 
-                Cell.setValue(cellValue)
-                    .setFontWeight("bold")
-
-                activeCol += 1
             }
 
-            // setting up opCom column(s)
-            else if (serviceNr == 2) {
+            Cell.setValue(cellValue)
+            SS.setNamedRange(cellID, Cell) // names cells
 
-                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
-
-                SS.setNamedRange(cellID, Cell) // names cells
-
-                cellValue = "not selected" // default for drop down list
-
-                if (hasPredecessor) {
-                    Cell.setDataValidation(rule) // creates dropdown list
-                } else {
-                    if (mainStepNr > 1) {
-                        Cell.setDataValidation(rule) // creates dropdown list
-                    } else {
-                        cellValue = naText
-                    }
-                }
-
-                Cell.setValue(cellValue)
-                    .setFontWeight("bold")
-
-
-                activeCol += 1
-            }
-
-            // creating all the service columns
-            else {
-                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                let g = serviceNr - 3 // helper for Services
-
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, Company.services[g].id, stepCompID)
-
-                SS.setNamedRange(cellID, Cell) // names cells
-
-                cellValue = "not selected" // default for drop down list
-
-                if (hasPredecessor) {
-                    Cell.setDataValidation(rule) // creates dropdown list
-                } else {
-                    if (mainStepNr > 1) {
-                        Cell.setDataValidation(rule) // creates dropdown list
-                    } else {
-                        cellValue = naText
-                    }
-                }
-
-                Cell.setValue(cellValue)
-                    .setFontWeight("bold")
-
-                activeCol += 1
-            }
+            activeCol += 1
         }
     }
 
@@ -143,6 +92,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
     activeRow = activeRow + elementsNr
     return activeRow
 }
+
 
 
 // this function creates a cell for comments for each subindicator and names the ranges

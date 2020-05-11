@@ -59,20 +59,38 @@ function mainInputSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
+        // Pilot Order //
         // .slice(1, 4) // Subset #1 1:2
         // .slice(3,6) // Subset #2 3:5
         // .slice(6,9) // Subset #3 6:8
+        .slice(0, 2)
 
-        // Pilot Order //
-        // .slice(0,1) 
-        // .slice(1, 2)
-        // .slice(2,3) 
-        // .slice(3, 4) // Apple
-        // .slice(4,5) 
-        // .slice(5,6) 
-        // .slice(6, 7)
-        // .slice(7,8)
-        .slice(12, 13)
+    //   0 "Amazon",
+    //   1 "Alibaba",
+    //   2 "América Móvil",
+    //   3 "Apple",
+    //   4 "AT&T",
+    //   5 "Axiata",
+    //   6 "Baidu",
+    //   7 "Bharti Airtel",
+    //   8 "Deutsche Telekom",
+    //   9 "Etisalat",
+    //   10 "Facebook",
+    //   11 "Google",
+    //   12 "Kakao",
+    //   13 "Mail.Ru",
+    //   14 "Microsoft",
+    //   15 "MTN",
+    //   16 "Ooredoo",
+    //   17 "Orange",
+    //   18 "Samsung",
+    //   19 "Telefónica",
+    //   20 "Telenor",
+    //   21 "Tencent",
+    //   22 "Twitter",
+    //   23 "Verizon Media",
+    //   24 "Vodafone",
+    //   25 "Yandex"
 
     let fileID
 

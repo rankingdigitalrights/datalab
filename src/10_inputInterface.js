@@ -21,7 +21,7 @@ populateDCSheetByCategory
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
     Logger.log("PROCESS: begin main DC --- // ---")
 
-    let sourcesTabName = "Sources"
+    let sourcesTabName = "2020 Sources"
 
     let companyShortName = cleanCompanyName(Company)
 
@@ -36,6 +36,8 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let doCollapseAll = Config.collapseAllGroups
     let integrateOutputs = Config.integrateOutputs
     let importedOutcomeTabName = Config.prevYearOutcomeTab
+    let importedSourcesTabName = "2019 Sources" // TODO: Config
+
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
@@ -45,23 +47,31 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
 
     let SS = createSpreadsheet(spreadsheetName, true)
 
-    if (doClearNamedRanges) clearNamedRangesFromFile(SS)
-
     let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    let externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + Company.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
-
+    let externalFormula
+    let tabPrevYearsSources = companyShortName + "Sources"
     let Sheet
 
     // if set in Config, import previous Index Outcome
     if (Config.YearOnYear) {
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + Company.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+
         Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false) // Import only once; hard copy; do not overwrite
         if (Sheet !== null) {
             fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula)
         }
+
+        externalFormula = "=IMPORTRANGE(\"" + "1gK8M9-4eLwwbWMsgXH6Gi1VqOXZF1iARWE3Q_CNqgr8" + "\",\"" + Company.tabPrevYearsSources + "!" + "A:Z" + "\")"
+
+        Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false) // Import only once; hard copy; do not overwrite
+        if (Sheet !== null) {
+            fillPrevOutcomeSheet(Sheet, importedSourcesTabName, externalFormula)
+        }
+
     }
 
     // --- // creates sources page // --- //

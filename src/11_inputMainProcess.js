@@ -174,8 +174,12 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             activeRow = addYonYReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
-                        case "review":
+                        case "reviewResults":
                             activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
+                        case "reviewComments":
+                            activeRow = addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "evaluation":

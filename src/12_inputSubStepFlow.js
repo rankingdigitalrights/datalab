@@ -9,7 +9,7 @@ global
 // - has dropdown with evaluation options
 // - compares result of step 0 review (yes/no/not selected)
 // - and either pulls element results or picks "not selected"
-function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNumberOfServices) {
+function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -18,6 +18,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
+    let mode = Substep.mode
 
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
 
@@ -27,7 +28,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
-    let evaluationCell, prevResultCell
+    let reviewCell, prevResultCell
 
     let yesAnswer = StepComp.mode === "YonY" ? "no change" : "not selected"
 
@@ -41,10 +42,11 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
     let rangeStartCol = 1
     let rangeRows
     let rangeCols
+    let rule
 
-    let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
+    rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
-    let Cell, cellValue, Element, noteString, cellID
+    let Cell, cellValue, Element, noteString, cellID, hasPredecessor, isRevised
 
     let activeCol
 
@@ -52,8 +54,8 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
         Element = Elements[elemNr]
 
-        let hasPredecessor = Element.y2yResultRow ? true : false
-        let isRevised = Element.isRevised ? true : false
+        hasPredecessor = Element.y2yResultRow ? true : false
+        isRevised = Element.isRevised ? true : false
 
         // 1.) Row Labels
 
@@ -72,114 +74,49 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
         activeCol += 1
 
-        // 2.) Value Cells
+        let serviceLabel
 
-        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
+        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
 
-            // creates column(s) for overall company
             if (serviceNr == 1) {
+                serviceLabel = "group"
+            } else if (serviceNr == 2) {
+                serviceLabel = "opCom"
+            } else {
+                let s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+            }
 
+            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
+            if (serviceNr == 2 && Company.hasOpCom == false) {
+                cellValue = "N/A" // if no OpCom, pre-select N/A
+            } else {
 
                 if (hasPredecessor || mainStepNr > 1) {
 
-                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
+                    reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", stepCompID)
+                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
                     // sets up cellValue that compares values
-
-                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-
+                    cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
                 } else {
                     cellValue = naText
                 }
 
-                Cell.setValue(cellValue.toString())
-
-                // creates dropdown list & boldens
-                Cell.setDataValidation(rule).setFontWeight("bold")
-
-                SS.setNamedRange(cellID, Cell) // names cells
-
-                activeCol += 1
-
+                // creates dropdown list
+                Cell.setDataValidation(rule)
             }
 
-            // setting up opCom column(s)
-            else if (serviceNr == 2) {
+            Cell.setValue(cellValue.toString())
+            SS.setNamedRange(cellID, Cell) // names cells
 
-                // loops through the number of components
-                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-                // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
+            activeCol += 1
 
-                //OpComp-specific "N/A" for Non-Telecommunication Companies   
-                if (Company.hasOpCom == false) {
-                    Cell.setValue("N/A") // if no OpCom, pre-select N/A
-                } else {
-
-                    if (hasPredecessor || mainStepNr > 1) {
-
-                        evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
-
-                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", stepCompID)
-
-                        // sets up cellValue that compares values
-                        cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-                    } else {
-                        cellValue = naText
-                    }
-
-                    Cell.setValue(cellValue.toString())
-
-                    // creates dropdown list & boldens
-                    Cell.setDataValidation(rule).setFontWeight("bold")
-                }
-
-                SS.setNamedRange(cellID, Cell) // names cells
-
-                activeCol += 1
-
-            }
-
-            // creating all the service columns
-            else {
-                Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-
-                let s = serviceNr - 3 // helper for Services
-
-                // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
-
-                if (hasPredecessor || mainStepNr > 1) {
-
-                    evaluationCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
-
-                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
-
-                    // sets up cellValue that compares values
-                    cellValue = "=IF(" + evaluationCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-
-                } else {
-                    cellValue = naText
-                }
-
-                Cell.setValue(cellValue.toString())
-
-                SS.setNamedRange(cellID, Cell) // names cells
-
-                // creates dropdown list & boldens
-                Cell.setDataValidation(rule).setFontWeight("bold")
-
-                activeCol += 1
-            } // services END
-        } // single Element END
-    } // whole Elements Iteration END
+        } // Element END
+    } // Elements Iteration END
 
     activeRow = activeRow + elementsNr
 
@@ -193,11 +130,109 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
     return activeRow
 }
 
+function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
+
+    let subStepID = Substep.subStepID
+
+    let Elements = Indicator.elements
+    let elementsNr = Elements.length
+
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = StepComp.id
+    let mode = Substep.mode
+
+    // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
+
+    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
+
+    let prevStep = StepComp.prevStep // "S07"
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let comparisonType = StepComp.comparisonType // "DC",
+
+    let reviewCell, prevResultCell
+
+    let yesAnswer = ""
+
+    let naText = Config.newElementLabelResult
+
+
+    // for linking to Named Range of Substep 0
+    // TODO: make a shared function() between importYonY & addStepReview
+
+    let rangeStartRow = activeRow
+    let rangeStartCol = 1
+    let rangeRows
+    let rangeCols
+    let rule
+
+    let Cell, cellValue, Element, cellID, hasPredecessor, isRevised
+
+    let activeCol
+
+    for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
+
+        Element = Elements[elemNr]
+
+        hasPredecessor = Element.y2yResultRow ? true : false
+        isRevised = Element.isRevised ? true : false
+
+        // 1.) Row Labels
+
+        activeCol = 1
+        cellValue = StepComp.rowLabel + Element.labelShort
+
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+
+        Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            .setValue(cellValue)
+            .setBackground(Substep.subStepColor)
+
+        activeCol += 1
+
+        let serviceLabel
+
+        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
+
+            if (serviceNr == 1) {
+                serviceLabel = "group"
+            } else if (serviceNr == 2) {
+                serviceLabel = "opCom"
+            } else {
+                let s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+            }
+
+            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+            if (serviceNr == 2 && Company.hasOpCom == false) {
+                cellValue = "N/A" // if no OpCom, pre-select N/A
+            } else {
+                reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
+
+                prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+                // sets up cellValue that compares values
+                cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+            }
+
+            Cell.setValue(cellValue)
+            SS.setNamedRange(cellID, Cell) // names cells
+
+            activeCol += 1
+
+        } // Element END
+    } // Elements Iteration END
+
+    return activeRow + elementsNr
+}
+
+
 // NEW: Binary evaluation of whole step
 
 // this function adds an element drop down list to a single row
 
-function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNumberOfServices) {
+function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNrOfServices) {
 
     activeRow += 1
 
@@ -224,7 +259,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
 
     activeCol += 1
 
-    for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // (((companyNumberOfServices+2)*nrOfIndSubComps)+1)
+    for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // (((companyNrOfServices+2)*nrOfIndSubComps)+1)
 
         if (serviceNr == 1) {
             // company group
