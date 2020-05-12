@@ -2,29 +2,32 @@
 
 function produceSourceSheet(thisSheet, doFill) {
 
+    let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
+
+    let columns = ["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\n\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"]
+
     if (doFill) {
-        let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
-        thisSheet.appendRow(["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
+        thisSheet.appendRow(columns)
     }
 
-    let lastCol = thisSheet.getLastColumn()
+    let lastCol = columns.length
 
-    thisSheet.getRange(1, 1, 1, lastCol)
-        .setFontFamily("Roboto")
-        .setFontWeight("bold")
-        .setVerticalAlignment("top")
-        .setHorizontalAlignment("center")
-        .setWrap(true)
-        .setFontSize(11)
+    Logger.log("lastCol: " + lastCol)
 
-    thisSheet.getRange(2, 1, 99, lastCol)
+    thisSheet.getRange(1, 1, 99, lastCol)
         .setFontFamily("Roboto")
         .setVerticalAlignment("top")
         .setWrap(true)
         .setFontSize(10)
 
+    thisSheet.getRange(1, 1, 1, lastCol)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
+        .setFontSize(11)
+
     thisSheet.setColumnWidths(1, 1, 100)
     thisSheet.setColumnWidths(2, lastCol, 200)
+    thisSheet.setColumnWidths(4, 2, 140)
     thisSheet.setFrozenRows(1)
 }
 
