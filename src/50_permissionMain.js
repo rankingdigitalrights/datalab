@@ -32,7 +32,7 @@ function openStepTest() {
       
       // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
       var namedR=""
-      namedR=defineNamedRangeStringImport("RDR20", "DC", "S01", Indicator, "", "iAP1", "", "Step") 
+      namedR=defineNamedRange("RDR20", "DC", "S01", Indicator, "", "iAP1", "", "Step") 
       
       Logger.log(namedR)
       
@@ -106,7 +106,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
       Logger.log(protection.getDescription())
       
       // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-      var namedR=defineNamedRangeStringImport(indexPrefix, "DC", StepLabelShort, Indicator.labelShort, "", companyID, "", "Step")  
+      var namedR=defineNamedRange(indexPrefix, "DC", StepLabelShort, Indicator.labelShort, "", companyID, "", "Step")  
       Logger.log(namedR)
       
       var notation = Spread.getRangeByName(namedR).getA1Notation();
