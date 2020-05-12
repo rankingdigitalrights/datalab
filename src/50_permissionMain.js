@@ -7,82 +7,33 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 
 */
 
-function openStepTest() {
-    // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
-    // future input vars: url
-    Logger.log("protectSheets")
-        
+function permissionsController() {
     let Indicators = indicatorsVector
-    var StepLabelShort="subStepID" // make this a variable later
-    var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
+    var StepLabelShort="S02" // make this a variable later
+    var companyID="iAp1"
+    var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org","ilja_s@pm.me"]
+    var emails2 = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
     var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
-    
 
-  var Indicator = "F1c"
-  var sheet=Spread.getSheetByName(Indicator)
-  var protections = sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET); // finding all the sheet protections
-  
-  for (var k = 0; k < protections.length; k++) {
-    if (protections[k].getDescription() == Indicator) {
-      
-      
-      var protection=protections[k]
-      Logger.log(protection.getDescription())
 
-      
-      // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-      var namedR=""
-      namedR=defineNamedRange("RDR20", "DC", "S01", Indicator, "", "iAP1", "", "Step") 
-      
-      Logger.log(namedR)
-      
-      var notation = Spread.getRangeByName(namedR).getA1Notation();
-      var range = sheet.getRange(notation); 
-      var rangeArray=[range]   
-      
-      protection.setUnprotectedRanges(rangeArray) // now this step is unprotected
-      
-      // create a new protection that will only be open to certain people
-      var protectionStep = range.protect().setDescription(Indicator+"Protection");
-      
-      var me = Session.getEffectiveUser()
-      protectionStep.addEditor(me)
+  // opening a step
+  //openStep(Indicators, StepLabelShort,companyID,emails,Spread)
   
-      protectionStep.removeEditors(protectionStep.getEditors());
-      if (protectionStep.canDomainEdit()) {protectionStep.setDomainEdit(false);}
-      
-          protection.addEditors(emails);
-              Spread.addEditors(emails);
+  // protecting all sheets
+  //protectSheets(Indicators, emails2, Spread)
   
-      
+  // removing all protections
+  removeAllProtections(Spread)
   
-      
-      
-    }        
-        
-          
-          
-         // Logger.log("indicator :" + Indicator.labelShort)
-      }
-          
-          
-          //Logger.log("--- Completed " + Category.labelLong)
-          
 }
 
 
-function openStep() {
+function openStep(Indicators, StepLabelShort,companyID,emails,Spread) {
   
   // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
   // future input vars: url
   Logger.log("protectSheets")
-        
-    let Indicators = indicatorsVector
-    var StepLabelShort="S01" // make this a variable later
-    var companyID="iAp1"
-    var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
-    var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
-    
+
   // looping through the types of indicators (G,F,P)
 for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
   
@@ -93,6 +44,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
           // looping through indicators and getting indicator individual sheets
       for (var j = 0; j < Category.indicators.length; j++) {
         var Indicator = Category.indicators[j]
+        if( Spread.getSheetByName(Indicator.labelShort) != null){
         var sheet=Spread.getSheetByName(Indicator.labelShort)
         
         Logger.log(sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET))
@@ -106,7 +58,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
       Logger.log(protection.getDescription())
       
       // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-      var namedR=defineNamedRange(indexPrefix, "DC", StepLabelShort, Indicator.labelShort, "", companyID, "", "Step")  
+      var namedR=defineNamedRange("RDR20", "DC", StepLabelShort, Indicator.labelShort, "", companyID, "", "Step")  
       Logger.log(namedR)
       
       var notation = Spread.getRangeByName(namedR).getA1Notation();
@@ -121,7 +73,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
       protectionStep.removeEditors(protectionStep.getEditors());
       if (protectionStep.canDomainEdit()) {protectionStep.setDomainEdit(false);}
       
-          protection.addEditors(emails);
+          protectionStep.addEditors(emails);
               Spread.addEditors(emails);
   
  
@@ -135,10 +87,10 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
           
           
           Logger.log("--- Completed " + Category.labelLong)
-          
-          
-      }  
-}
+    }   // end if statement
+       
+      }  // end individual indicator
+} // end category
   
   
 } // end function
@@ -146,9 +98,8 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
   
   
   
-  function removeAllProtections() {
+  function removeAllProtections(Spread) {
    Logger.log("In removeAllProtections")
-   var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756')
     var sheets = Spread.getSheets()
     
     // looping through each sheet and removing all protections on the sheet
@@ -171,13 +122,9 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
     
   }
   
-  function protectSheets() {
+  function protectSheets(Indicators, emails, Spread) {
     Logger.log(" In protectSheets")
-        
-    let Indicators = indicatorsVector;
-    var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
-    var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
-    
+
     // protecting 2019 Outcome
     var protect=Spread.getSheetByName("2019 Outcome").protect().setDescription("2019 Outcome")
     protect.removeEditors(protect.getEditors());
@@ -200,6 +147,8 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
   
           var Indicator = Category.indicators[j] // specific indicator
           
+          if( Spread.getSheetByName(Indicator.labelShort) != null){
+
           // creating a protection for the sheet, description must be name of sheet for openStep to work
            var protection=Spread.getSheetByName(Indicator.labelShort).protect().setDescription(Indicator.labelShort)
   
@@ -209,6 +158,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
       if (protection.canDomainEdit()) {protection.setDomainEdit(false);}
   
           Logger.log("indicator :" + Indicator.labelShort)
+      }
       }
           
           
