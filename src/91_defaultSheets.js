@@ -1,11 +1,13 @@
 // --- // creates sources page // --- //
 
-function fillSourceSheet(thisSheet) {
+function produceSourceSheet(thisSheet, doFill) {
 
-    var webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
-    thisSheet.appendRow(["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
+    if (doFill) {
+        let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
+        thisSheet.appendRow(["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
+    }
 
-    var lastCol = thisSheet.getLastColumn()
+    let lastCol = thisSheet.getLastColumn()
 
     thisSheet.getRange(1, 1, 1, lastCol)
         .setFontFamily("Roboto")
@@ -28,7 +30,7 @@ function fillSourceSheet(thisSheet) {
 
 function fillPrevOutcomeSheet(thisSheet, importedOutcomeTabName, externalFormula) {
     thisSheet.setName(importedOutcomeTabName)
-    var cell = thisSheet.getActiveCell()
+    let cell = thisSheet.getActiveCell()
     cell.setValue(externalFormula.toString())
 }
 

@@ -1,7 +1,7 @@
 function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {
     var sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
     if (sheet !== null) { sheet.clear() }
-    fillSourceSheet(sheet)
+    produceSourceSheet(sheet)
     var targetCell = sheet.getRange(2,1)
     var formula = "=IMPORTRANGE(\"" + CompanyObj.urlCurrentDataCollectionSheet + "\",\"" + "Sources" + "!" + "A2:Z" + "\")"
     targetCell.setFormula(formula)
