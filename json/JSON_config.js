@@ -16,9 +16,11 @@ var centralConfig = {
   collapseAllGroups: false,
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
-  newIndicatorLabel: "N/A - New Indicator",
-  newElementLabelResult: "New 2020 Element",
-  newElementLabelComment: "N/A - New 2020 Element",
+  newIndicatorLabel: "N/A: New / Revised Indicator",
+  newElementLabelResult: "N/A: New / Revised Element",
+  newElementLabelComment: "New / Revised Element",
+  newCompanyLabelResult: "N/A",
+  newCompanyLabelComment: "New Company",
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,
   styles: {

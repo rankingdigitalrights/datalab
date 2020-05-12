@@ -9,7 +9,7 @@ global
 // - has dropdown with evaluation options
 // - compares result of step 0 review (yes/no/not selected)
 // - and either pulls element results or picks "not selected"
-function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
+function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -89,6 +89,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+
 
             if (serviceNr == 2 && Company.hasOpCom == false) {
                 cellValue = "N/A" // if no OpCom, pre-select N/A
@@ -308,4 +309,129 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
     if (subStepID !== "S00") activeRow += 1
 
     return activeRow + 1
+}
+
+function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainStepNr, activeRow, Substep, stepCNr, companyNumberOfServices) {
+
+    let subStepID = Substep.subStepID
+
+    let Elements = Indicator.elements
+    let elementsNr = Elements.length
+
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = StepComp.id // TODO: add to JSON
+
+    let evaluationStep = StepComp.evaluationStep
+    let prevStep = StepComp.prevStep
+
+    let isInternalEval = StepComp.isInternalEval
+
+    let comparisonType = StepComp.comparisonType
+    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
+
+    let naText = Config.newElementLabelResult
+
+    let prevYearCell
+
+    let Cell, cellValue, Element, subIndicator, noteString, cellID, prevResultCell
+
+    let activeCol
+
+    for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
+        activeCol = 1
+        // serviceNr = column / service
+        // ~ serviceNr = 0 -> Labels
+        // ~ serviceNr = 1 Group
+        // ~ serviceNr = 2 OpCom
+
+        Element = Elements[elemNr]
+
+        let hasPredecessor = Element.y2yResultRow ? true : false
+        let isRevised = Element.isRevised ? true : false
+
+        noteString = Element.labelShort + ": " + Element.description
+
+        cellValue = StepComp.rowLabel + Element.labelShort
+
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+
+        // Row Labels
+        Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            .setValue(cellValue)
+            .setBackground(Substep.subStepColor)
+            .setFontWeight("bold")
+            .setNote(noteString)
+
+        activeCol += 1
+
+        // --- 2.) Cell Values --- // 
+
+        let serviceLabel
+
+        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // TODO: address hard 3 with company JSON
+
+            if (serviceNr == 1) {
+                serviceLabel = "group"
+            } else if (serviceNr == 2) {
+                serviceLabel = "opCom"
+            } else {
+                let s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+            }
+
+            // setting Cell
+            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+
+            // finding the name of Cell that it will be compared too
+
+            subIndicator = ""
+
+            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
+
+            if (serviceNr == 2 && Company.hasOpCom == false) {
+                cellValue = "N/A" // if no OpCom, pre-select N/A
+            } else {
+
+                if (!isNewCompany || !isInternalEval) {
+
+                    if (hasPredecessor || mainStepNr > 1) {
+
+                        prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
+
+                        prevYearCell = defineNamedRange(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
+
+                        // sets up cellValue that compares values
+                        cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
+
+                    } else {
+                        cellValue = naText
+                    }
+                } else {
+                    cellValue = Config.newCompanyLabelResult
+
+                }
+            }
+
+            Cell.setValue(cellValue.toString())
+
+            SS.setNamedRange(cellID, Cell) // names cells
+
+            activeCol += 1
+
+        }
+    }
+
+    // conditional formating so that the Cell turns red if the answer is no
+    let Range = Sheet.getRange(activeRow, 2, elementsNr, 2 + (companyNumberOfServices + 2))
+
+    Range.setHorizontalAlignment("center")
+
+    let Rule = SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo("No").setBackground("#fa7661").setRanges([Range]).build()
+    let Rules = Sheet.getConditionalFormatRules()
+    Rules.push(Rule)
+    Sheet.setConditionalFormatRules(Rules)
+
+
+    activeRow = activeRow + elementsNr
+    return activeRow
 }

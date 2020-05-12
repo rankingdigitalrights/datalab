@@ -166,9 +166,15 @@ function addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfSe
 
     let Cell
 
+    let cellValue = Company.label.current
+
+    if (!Company.isPrevScored) {
+        cellValue += " (New)"
+    }
+
     // first cell: MainStep Label
     Sheet.getRange(activeRow, activeCol)
-        .setValue(Company.label.current + " : ")
+        .setValue(cellValue)
 
     activeCol += 1
 

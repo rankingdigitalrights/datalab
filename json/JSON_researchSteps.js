@@ -348,12 +348,13 @@ var researchStepsVector = {
               rowLabel: "Is there Agreement between Step 1 and Step 2?",
             },
             {
-              "type": "comparisonYY",
+              type: "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
               prevStep: "S011",
               evaluationStep: "S021",
-              comparisonType: "R"
+              comparisonType: "R",
+              isInternalEval: true
             }
           ]
         },
@@ -420,13 +421,14 @@ var researchStepsVector = {
             },
             // regular YonY:
             {
-              "type": "comparisonYY",
+              "type": "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
               prevStep: "S031",
               prevIndexPrefix: "RDR19",
               evaluationStep: "S07",
-              comparisonType: "R"
+              comparisonType: "R",
+              isInternalEval: false
             },
             {
               "type": "extraQuestion",

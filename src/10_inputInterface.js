@@ -96,6 +96,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // if scoring sheet is integrated into DC, create Points sheet
 
     let hasOpCom = Company.hasOpCom
+    let isNewCompany = (Company.isPrevScored) ? false : true
 
     // fetch number of Services once
     let companyNumberOfServices = Company.services.length
@@ -109,7 +110,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
         Category = Indicators.indicatorCategories[i]
 
         Logger.log("--- NEXT : Starting " + Category.labelLong)
-        populateDCSheetByCategory(SS, Category, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
+        populateDCSheetByCategory(SS, Category, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
         Logger.log("--- Completed " + Category.labelLong)
     }

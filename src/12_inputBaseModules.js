@@ -1,6 +1,10 @@
 // addStepEvaluation creates a dropdown list in each column for each subindicator
 
-function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
+/* global
+    Config
+*/
+
+function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
 
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
 
@@ -68,10 +72,10 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
                 cellValue = "not selected" // default for drop down list
 
-                if (hasPredecessor || (mainStepNr > 1 && stepCompID != "YY")) {
+                if ((hasPredecessor && !isNewCompany) || (mainStepNr > 1 && stepCompID != "YY")) {
                     Cell.setDataValidation(rule) // creates dropdown list
                 } else {
-                    cellValue = naText
+                    cellValue = isNewCompany ? Config.newCompanyLabelResult : naText
                 }
 
             }

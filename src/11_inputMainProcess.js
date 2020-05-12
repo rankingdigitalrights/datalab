@@ -17,13 +17,13 @@
     addComments,
     addSources,
     addExtraInstruction,
-    addComparisonYonY,
+    addTwoStepComparison,
     importYonYResults,
     importYonYSources,
     defineNamedRange
 */
 
-function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, companyNrOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
+function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, companyNrOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
 
     // for each indicator
     // - create a new Sheet
@@ -155,27 +155,27 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "importPreviousResults":
-                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, SubStep, stepCNr, nrOfIndSubComps, companyNrOfServices, false)
                             break
 
                         case "importPreviousComments":
-                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, SubStep, stepCNr, nrOfIndSubComps, companyNrOfServices, true)
                             break
 
                         case "importPreviousSources":
-                            activeRow = importYonYSources(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices, null)
+                            activeRow = importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, SubStep, stepCNr, companyNrOfServices, null)
                             break
 
-                        case "comparisonYY":
-                            activeRow = addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
+                        case "compareTwoSteps":
+                            activeRow = addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainStepNr, activeRow, SubStep, stepCNr, companyNrOfServices)
                             break
 
                         case "YonYreview":
-                            activeRow = addYonYReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
+                            activeRow = addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, SubStep, stepCNr, companyNrOfServices)
                             break
 
                         case "reviewResults":
-                            activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            activeRow = addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "reviewComments":
@@ -183,7 +183,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "evaluation":
-                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "binaryReview":
