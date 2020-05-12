@@ -18,9 +18,8 @@ populateDCSheetByCategory
 */
 
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
-    Logger.log("PROCESS: begin main DC --- // ---")
 
-    let sourcesTabName = "2020 Sources"
+    Logger.log("PROCESS: begin main DC --- // ---")
 
     let companyShortName = cleanCompanyName(Company)
 
@@ -52,24 +51,33 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
 
     // Formula for importing previous year's outcome
     let externalFormula
-    let tabPrevYearsSources = companyShortName + "Sources"
+
+    let tabPrevYearsOutcome = (Company.tabPrevYearsOutcome != null) ? Company.tabPrevYearsOutcome : "VodafoneOutcome"
+
+    let tabPrevYearsSources = (Company.tabPrevYearsOutcome != null) ? (companyShortName + "Sources") : "VodafoneSources"
+
+    let sourcesTabName = "2020 Sources"
+
     let Sheet
 
     // if set in Config, import previous Index Outcome & Sources
     if (Config.YearOnYear) {
 
         // Previous OUTCOME
-        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + Company.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
 
-        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false) // Import only once; hard copy; do not overwrite
+        // Import only once; hard copy; do not overwrite
+        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
+
         if (Sheet !== null) {
             fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula)
         }
 
         // Previous SOURCES
-        externalFormula = "=IMPORTRANGE(\"" + "1gK8M9-4eLwwbWMsgXH6Gi1VqOXZF1iARWE3Q_CNqgr8" + "\",\"" + tabPrevYearsSources + "!" + "A:Z" + "\")"
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearSources + "\",\"" + tabPrevYearsSources + "!" + "A:Z" + "\")"
 
-        Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false) // Import only once; hard copy; do not overwrite
+        // Import only once; hard copy; do not overwrite
+        Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false)
         if (Sheet !== null) {
             fillPrevOutcomeSheet(Sheet, importedSourcesTabName, externalFormula)
             produceSourceSheet(Sheet, false)
