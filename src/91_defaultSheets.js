@@ -1,39 +1,44 @@
 // --- // creates sources page // --- //
 
-function fillSourceSheet(thisSheet) {
+function produceSourceSheet(thisSheet, doFill) {
 
-    var webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
-    thisSheet.appendRow(["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"])
+    let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
 
-    var lastCol = thisSheet.getLastColumn()
+    let columns = ["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\n\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"]
 
-    thisSheet.getRange(1, 1, 1, lastCol)
-        .setFontFamily("Roboto")
-        .setFontWeight("bold")
-        .setVerticalAlignment("top")
-        .setHorizontalAlignment("center")
-        .setWrap(true)
-        .setFontSize(11)
+    if (doFill) {
+        thisSheet.appendRow(columns)
+    }
 
-    thisSheet.getRange(2, 1, 99, lastCol)
+    let lastCol = columns.length
+
+    Logger.log("lastCol: " + lastCol)
+
+    thisSheet.getRange(1, 1, 99, lastCol)
         .setFontFamily("Roboto")
         .setVerticalAlignment("top")
         .setWrap(true)
         .setFontSize(10)
 
+    thisSheet.getRange(1, 1, 1, lastCol)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
+        .setFontSize(11)
+
     thisSheet.setColumnWidths(1, 1, 100)
     thisSheet.setColumnWidths(2, lastCol, 200)
+    thisSheet.setColumnWidths(4, 2, 140)
     thisSheet.setFrozenRows(1)
 }
 
 function fillPrevOutcomeSheet(thisSheet, importedOutcomeTabName, externalFormula) {
     thisSheet.setName(importedOutcomeTabName)
-    var cell = thisSheet.getActiveCell()
+    let cell = thisSheet.getActiveCell()
     cell.setValue(externalFormula.toString())
 }
 
 function insertPointValidationSheet(SS, SheetName) {
-    var pointsSheet = insertSheetIfNotExist(SS, SheetName, true)
+    let pointsSheet = insertSheetIfNotExist(SS, SheetName, true)
     if (pointsSheet !== null) {
         pointsSheet.clear()
         fillPointsSheet(pointsSheet)
@@ -44,14 +49,14 @@ function insertPointValidationSheet(SS, SheetName) {
 
 function insertSheetConnector(SS, Companies) {
 
-    var Sheet = insertSheetIfNotExist(SS, "Connector", true)
+    let Sheet = insertSheetIfNotExist(SS, "Connector", true)
 
-    var companyCells = []
-    var companyName
-    var companyUrl
-    var formula
-    var formulaPrefix = "=IMPORTRANGE(\""
-    var formulaSuffix = "\", \"G1!B5\")"
+    let companyCells = []
+    let companyName
+    let companyUrl
+    let formula
+    let formulaPrefix = "=IMPORTRANGE(\""
+    let formulaSuffix = "\", \"G1!B5\")"
 
     Companies.forEach(function (company) {
         companyName = company.label.current
@@ -60,9 +65,9 @@ function insertSheetConnector(SS, Companies) {
         companyCells.push([companyName, formula])
     })
 
-    var arrayLength = companyCells.length
+    let arrayLength = companyCells.length
     if (arrayLength > 0) {
-        var column = Sheet.getRange(1, 1, arrayLength, 2)
+        let column = Sheet.getRange(1, 1, arrayLength, 2)
         column.setValues(companyCells)
     }
 

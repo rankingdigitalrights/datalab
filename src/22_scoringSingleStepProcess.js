@@ -30,7 +30,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
         Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
         var nrOfIndSubComps = 1
 
-        if (thisIndCat.hasSubComponents == true) {
+        if (thisIndCat.hadSubComponents == true) {
             nrOfIndSubComps = thisIndCat.components.length
         }
 

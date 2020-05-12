@@ -9,8 +9,11 @@ function styleScoringIndicatorHeader(currentCell, rowLabel, colorHex) {
 
 // functions to convert column numbers to letters and vice versa
 // for easier translation of column number to column letter in formulas
-function columnToLetter(column) {
+function columnToLetter(column, offset) {
     var temp, letter = ""
+
+    if (offset) column += offset
+
     while (column > 0) {
         temp = (column - 1) % 26
         letter = String.fromCharCode(temp + 65) + letter

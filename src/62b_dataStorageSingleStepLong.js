@@ -48,7 +48,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Comp
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
-        if (IndyClass.hasSubComponents) {
+        if (IndyClass.hadSubComponents) {
             nrOfIndSubComps = IndyClass.components.length
         }
 

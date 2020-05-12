@@ -20,7 +20,7 @@
     addComparisonYonY,
     importYonYResults,
     importYonYSources,
-    defineNamedRangeStringImport
+    defineNamedRange
 */
 
 function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, companyNrOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
@@ -30,10 +30,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // - name the Sheet
     // - populate the Sheet Step-Wise
 
-    //TODO: remove when Gs exist
+    // fallback for subset runs when indicator category only has 1 item
 
     let minIndicators = Category.indicators.length > 1 ? 2 : 1
 
+    let category = Category.labelShort
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
 
     let mainStepsLength = useStepsSubset ? 4 : ResearchSteps.researchSteps.length
@@ -56,7 +57,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         } // skips this i if Sheet already exists
 
         // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
-        let nrOfIndSubComps = (Category.hasSubComponents == true) ? Category.components.length : 1
+        let nrOfIndSubComps = (Category.hadSubComponents == true) ? Category.components.length : 1
 
         // checks how many company group/opcom columns to hide for this Indicator
         // (based on Scoring Scope)
@@ -77,9 +78,9 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // TODO: think about where to refactor to
         Sheet.setColumnWidth(1, 140)
 
-        let numberOfColumns = (companyNrOfServices + 2) * nrOfIndSubComps + 1
+        let numberOfColumns = (companyNrOfServices + 2) + 1
 
-        let thisColWidth = Styles.dims.serviceColWidth / nrOfIndSubComps
+        let thisColWidth = Styles.dims.serviceColWidth
 
         // if (Company.services.length == 1) {
         //     thisColWidth = Styles.dims.serviceColWidth * 1.33
@@ -154,53 +155,57 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "importPreviousResults":
-                            activeRow = importYonYResults(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, false)
                             break
 
                         case "importPreviousComments":
-                            activeRow = importYonYResults(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
+                            activeRow = importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, true)
                             break
 
                         case "importPreviousSources":
-                            activeRow = importYonYSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices, null)
+                            activeRow = importYonYSources(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices, null)
                             break
 
-                        case "review":
-                            activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                        case "comparisonYY":
+                            activeRow = addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
+                        case "YonYreview":
+                            activeRow = addYonYReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
+                        case "reviewResults":
+                            activeRow = addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
+                        case "reviewComments":
+                            activeRow = addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "evaluation":
-                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "binaryReview":
 
-                            activeRow = addBinaryReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addBinaryReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "binaryEvaluation":
 
-                            activeRow = addBinaryEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addBinaryEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "comments":
-                            activeRow = addComments(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addComments(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "sources":
-                            activeRow = addSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
+                            activeRow = addSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "extraQuestion":
                             activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, companyNrOfServices)
-                            break
-
-                        case "comparisonYY":
-                            activeRow = addComparisonYonY(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
-                            break
-
-                        case "YonYreview":
-                            activeRow = addYonYReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, nrOfIndSubComps, Category, companyNrOfServices)
                             break
 
                         default:
@@ -214,15 +219,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                 lastRow = activeRow
 
-                let maxCol = 1 + (companyNrOfServices + 2) * nrOfIndSubComps // calculates the max column
+                let maxCol = 1 + (companyNrOfServices + 2) // calculates the max column
 
                 // exclude researchers' names from step named range
                 // so move firstRow by 1
-                let range = Sheet.getRange(firstRow - 1, 2, lastRow - firstRow + 1, maxCol - 1)
+                let range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""
-                let stepNamedRange = defineNamedRangeStringImport(indexPrefix, "DC", SubStep.subStepID, Category.indicators[i].labelShort, component, Company.id, "", "Step")
+                let stepNamedRange = defineNamedRange(indexPrefix, "DC", SubStep.subStepID, Category.indicators[i].labelShort, component, Company.id, "", "Step")
 
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 

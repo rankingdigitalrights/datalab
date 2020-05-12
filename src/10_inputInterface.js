@@ -2,7 +2,6 @@
 
 /* global 
 Config,
-clearNamedRangesFromFile,
 indicatorsVector,
 researchStepsVector,
 spreadSheetFileName,
@@ -14,14 +13,13 @@ insertSheetIfNotExist,
 moveHideSheetifExists,
 removeEmptySheet,
 fillPrevOutcomeSheet,
-fillSourceSheet,
+produceSourceSheet,
 populateDCSheetByCategory
 */
 
 function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
-    Logger.log("PROCESS: begin main DC --- // ---")
 
-    let sourcesTabName = "Sources"
+    Logger.log("PROCESS: begin main DC --- // ---")
 
     let companyShortName = cleanCompanyName(Company)
 
@@ -36,6 +34,8 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let doCollapseAll = Config.collapseAllGroups
     let integrateOutputs = Config.integrateOutputs
     let importedOutcomeTabName = Config.prevYearOutcomeTab
+    let importedSourcesTabName = "2019 Sources" // TODO: Config
+
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
@@ -45,30 +45,52 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
 
     let SS = createSpreadsheet(spreadsheetName, true)
 
-    if (doClearNamedRanges) clearNamedRangesFromFile(SS)
-
     let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    let externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + Company.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+    let externalFormula
+
+    let tabPrevYearsOutcome = (Company.tabPrevYearsOutcome != null) ? Company.tabPrevYearsOutcome : "VodafoneOutcome"
+
+    let tabPrevYearsSources = (Company.tabPrevYearsOutcome != null) ? (companyShortName + "Sources") : "VodafoneSources"
+
+    let sourcesTabName = "2020 Sources"
 
     let Sheet
 
-    // if set in Config, import previous Index Outcome
+    // if set in Config, import previous Index Outcome & Sources
     if (Config.YearOnYear) {
-        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false) // Import only once; hard copy; do not overwrite
+
+        // Previous OUTCOME
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+
+        // Import only once; hard copy; do not overwrite
+        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
+
         if (Sheet !== null) {
             fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula)
         }
+
+        // Previous SOURCES
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearSources + "\",\"" + tabPrevYearsSources + "!" + "A:Z" + "\")"
+
+        // Import only once; hard copy; do not overwrite
+        Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false)
+        if (Sheet !== null) {
+            fillPrevOutcomeSheet(Sheet, importedSourcesTabName, externalFormula)
+            produceSourceSheet(Sheet, false)
+
+        }
+
     }
 
     // --- // creates sources page // --- //
 
     Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
     if (Sheet !== null) {
-        fillSourceSheet(Sheet)
+        produceSourceSheet(Sheet, true)
     }
 
     // if scoring sheet is integrated into DC, create Points sheet
