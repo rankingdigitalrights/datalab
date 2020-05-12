@@ -1,7 +1,7 @@
 /* 
 global
     Config,    
-    defineNamedRangeStringImport,
+    defineNamedRange,
     indexPrefix
 */
 
@@ -88,7 +88,7 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
             if (serviceNr == 2 && Company.hasOpCom == false) {
                 cellValue = "N/A" // if no OpCom, pre-select N/A
@@ -96,9 +96,9 @@ function addStepReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Sub
 
                 if (hasPredecessor || mainStepNr > 1) {
 
-                    reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
+                    reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
@@ -203,14 +203,14 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
             if (serviceNr == 2 && Company.hasOpCom == false) {
                 cellValue = "N/A" // if no OpCom, pre-select N/A
             } else {
-                reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
+                reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
                 // sets up cellValue that compares values
                 cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
@@ -265,7 +265,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
             // company group
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "group", stepCompID)
+            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "group", stepCompID)
 
             SS.setNamedRange(cellName, Cell) // names cells
             Cell.setDataValidation(rule) // creates dropdown list
@@ -278,7 +278,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
         else if (serviceNr == 2) {
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
+            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
 
             SS.setNamedRange(cellName, Cell) // names cells
             Cell.setDataValidation(rule) // creates dropdown list
@@ -291,7 +291,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
         else {
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellName = defineNamedRangeStringImport(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
+            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
 
             SS.setNamedRange(cellName, Cell) // names cells
             Cell.setDataValidation(rule) // creates dropdown list

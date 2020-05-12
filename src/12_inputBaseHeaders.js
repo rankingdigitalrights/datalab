@@ -3,7 +3,7 @@
 /* 
 global
     Styles,
-    defineNamedRangeStringImport,
+    defineNamedRange,
     indexPrefix
 */
 
@@ -333,7 +333,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
             // Cell name formula; output defined in 44_rangeNamingHelper.js
 
-            cellName = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
+            cellName = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
 
             SS.setNamedRange(cellName, Cell)
             activeCol += 1
@@ -344,7 +344,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
             // Cell name formula; output defined in 44_rangeNamingHelper.js
 
-            cellName = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
+            cellName = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
 
             SS.setNamedRange(cellName, Cell)
             activeCol += 1
@@ -356,7 +356,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
             let g = col - 3 // helper for Services
 
-            cellName = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
+            cellName = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
 
             SS.setNamedRange(cellName, Cell)
             activeCol += 1

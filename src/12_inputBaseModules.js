@@ -60,7 +60,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
             if (serviceNr == 2 && Company.hasOpCom == false) {
                 cellValue = "N/A" // if no OpCom, pre-select N/A
@@ -132,7 +132,7 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
                 Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
 
                 SS.setNamedRange(cellID, Cell)
 
@@ -144,7 +144,7 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
                 Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                 SS.setNamedRange(cellID, Cell)
                 activeCol += 1
@@ -160,7 +160,7 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
                 let g = serviceNr - 3 // helper for Services
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, Company.services[g].id, stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, Company.services[g].id, stepCompID)
 
                 SS.setNamedRange(cellID, Cell)
 
@@ -197,7 +197,7 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
             // company group
             let thisCell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "group", stepCompID)
+            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "group", stepCompID)
 
             SS.setNamedRange(cellName, thisCell) // names cells
             thisCell.setDataValidation(rule) // creates dropdown list
@@ -213,7 +213,7 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
             let thisCell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "opCom", stepCompID)
+            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "opCom", stepCompID)
 
             SS.setNamedRange(cellName, thisCell) // names cells
             thisCell.setDataValidation(rule) // creates dropdown list
@@ -229,7 +229,7 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
             let thisCell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
+            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
 
             SS.setNamedRange(cellName, thisCell) // names cells
             thisCell.setDataValidation(rule) // creates dropdown list
@@ -272,7 +272,7 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
             // main company
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "group", stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "group", stepCompID)
 
             SS.setNamedRange(cellID, Cell)
 
@@ -283,7 +283,7 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
             // opCom
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
 
             SS.setNamedRange(cellID, Cell)
 
@@ -295,7 +295,7 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
 
             let g = serviceNr - 3 // helper for Services
 
-            cellID = defineNamedRangeStringImport(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
 
             SS.setNamedRange(cellID, Cell)
 

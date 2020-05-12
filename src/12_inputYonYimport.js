@@ -1,7 +1,7 @@
 /* global
     Config,
     indexPrefix,
-    defineNamedRangeStringImport,
+    defineNamedRange,
     columnToLetter
 */
 
@@ -104,7 +104,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, S
             // finding the name of Cell that it will be compared too
             subIndicator = ""
 
-            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
             if (hasPredecessor) {
                 // calculates which column
@@ -210,7 +210,7 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, activeRow, S
 
         Cell = Sheet.getRange(activeRow, activeCol)
 
-        cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
+        cellID = defineNamedRange(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
 
         if (hasPredecessor) {
             // calculates which column
@@ -312,13 +312,13 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
                 // sets up as many columns as the indicator has components
                 Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
 
                 if (hasPredecessor || mainStepNr > 1) {
 
-                    prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", comparisonType)
+                    prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
-                    prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
+                    prevYearCell = defineNamedRange(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -341,7 +341,7 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
                 // sets Cell
                 Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                 //OpComp-specific "N/A" for Non-Telecommunication Companies   
                 if (Company.hasOpCom == false) {
@@ -350,9 +350,9 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
 
                     if (hasPredecessor || mainStepNr > 1) {
 
-                        prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
+                        prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
-                        prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
+                        prevYearCell = defineNamedRange(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -381,14 +381,14 @@ function addComparisonYonY(SS, Sheet, Indicator, Company, mainStepNr, activeRow,
                 // finding the name of Cell that it will be compared too
                 let s = serviceNr - 3
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
                 if (hasPredecessor || mainStepNr > 1) {
 
 
-                    prevResultCell = defineNamedRangeStringImport(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+                    prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
 
-                    prevYearCell = defineNamedRangeStringImport(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+                    prevYearCell = defineNamedRange(compIndexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + prevResultCell + "=" + prevYearCell + "," + "\"Yes\"" + "," + "\"No\"" + ")"
@@ -496,13 +496,13 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
                 Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
                 // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "group", stepCompID)
 
                 if (hasPredecessor) {
 
-                    reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
+                    reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "group", comparisonType)
 
-                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", stepCompID)
+                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "group", stepCompID)
 
                     // sets up cellValue that compares values
 
@@ -529,7 +529,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                 Cell = Sheet.getRange(activeRow + elemNr, activeCol)
                 // Cell name formulas; output defined in 44_rangeNamingHelper.js
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                 //OpComp-specific "N/A" for Non-Telecommunication Companies   
                 if (Company.hasOpCom == false) {
@@ -538,9 +538,9 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                     if (hasPredecessor) {
 
-                        reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
+                        reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, "opCom", comparisonType)
 
-                        prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", stepCompID)
+                        prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
                         // sets up cellValue that compares values
                         cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
@@ -566,14 +566,14 @@ function addYonYReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCN
 
                 let s = serviceNr - 3 // helper for Services
 
-                cellID = defineNamedRangeStringImport(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+                cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
                 if (hasPredecessor) {
 
 
-                    reviewCell = defineNamedRangeStringImport(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
+                    reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, Company.services[s].id, comparisonType)
 
-                    prevResultCell = defineNamedRangeStringImport(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"

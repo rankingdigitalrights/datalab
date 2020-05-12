@@ -1,6 +1,6 @@
 /* global
         indexPrefix,
-        defineNamedRangeStringImport,
+        defineNamedRange,
         importRangeFormula
         resizeSheet
 */
@@ -46,13 +46,13 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
     // 1. Group
 
     rowCells.push("Company", "Group")
-    compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "group", stepCompID)
+    compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "group", stepCompID)
 
     formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     rowCells.push(compCellName, formula)
 
     if (scoringSuffix) {
-        compCellName = defineNamedRangeStringImport(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "group", scoringSuffix)
+        compCellName = defineNamedRange(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "group", scoringSuffix)
         formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
     } else {
         formula = ""
@@ -68,7 +68,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
     rowCells.push("Company", "OpCom")
     // for opCom + Indicator Subcomponents
     if (companyHasOpCom) {
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "opCom", stepCompID)
+        compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "opCom", stepCompID)
 
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     } else {
@@ -79,7 +79,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
 
     if (scoringSuffix) {
         if (companyHasOpCom) {
-            compCellName = defineNamedRangeStringImport(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "opCom", scoringSuffix)
+            compCellName = defineNamedRange(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "opCom", scoringSuffix)
             formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
         } else {
             formula = "NA"
@@ -101,12 +101,12 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
         rowCells.push(Company.services[s].type, Company.services[s].label.current)
 
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, Company.services[s].id, stepCompID)
+        compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, Company.services[s].id, stepCompID)
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         rowCells.push(compCellName, formula)
 
         if (scoringSuffix) {
-            compCellName = defineNamedRangeStringImport(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
+            compCellName = defineNamedRange(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
             formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
         } else {
             formula = ""

@@ -20,7 +20,7 @@
     addComparisonYonY,
     importYonYResults,
     importYonYSources,
-    defineNamedRangeStringImport
+    defineNamedRange
 */
 
 function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, companyNrOfServices, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
@@ -227,7 +227,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 const component = ""
-                let stepNamedRange = defineNamedRangeStringImport(indexPrefix, "DC", SubStep.subStepID, Category.indicators[i].labelShort, component, Company.id, "", "Step")
+                let stepNamedRange = defineNamedRange(indexPrefix, "DC", SubStep.subStepID, Category.indicators[i].labelShort, component, Company.id, "", "Step")
 
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
