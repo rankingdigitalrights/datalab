@@ -152,7 +152,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, activeRow, S
 
 // TODO: What to do about G Sources for mixed Subindicator Compositions?
 
-function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, Category, companyNumberOfServices, isComments) {
+function importYonYSources(SS, Sheet, Indicator, category, Company, activeRow, Substep, stepCNr, Category, companyNumberOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
@@ -163,27 +163,28 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, st
     // TODO
     let Cell, cellID, cellValue, targetColumn
 
-    let hasPredecessor
+    let hasPredecessor = Indicator.prevIndicator ? true : false
+    let targetRow = hasPredecessor ? (Indicator.y2yCompRow + (Indicator.prevIndLength * 2)) : null
+
+    let subIndOffset = 0
+    let subCatLabel = ""
+    let hasSubindicator = (category == "G") ? true : false // TODO: Category.hadSubComponents
 
     let naText = isComments ? Config.newElementLabelComment : Config.newElementLabelResult
 
-    // element-wise ~ row-wise
+    // for whole indicator
 
-    let activeCol = 1
+    let activeCol
 
     // --- 1.) Row Labels --- //
 
+    activeCol = 1
 
-    // serviceNr = column / service
-    // ~ serviceNr = 0 -> Labels
-    // ~ serviceNr = 1 Group
-    // ~ serviceNr = 2 OpCom
-
-    hasPredecessor = Indicator.previousIndicator ? true : false
-
-    let targetRow = hasPredecessor ? (Indicator.y2yCompRow + (Indicator.previousLength * 2)) : null
-
-    cellValue = StepComp.rowLabel
+    if (!hasSubindicator) {
+        cellValue = StepComp.rowLabel
+    } else {
+        cellValue = StepComp.rowLabel + " (F | P)"
+    }
 
     Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(cellValue)
@@ -194,81 +195,51 @@ function importYonYSources(SS, Sheet, Indicator, Company, activeRow, Substep, st
     // --- 2.) Cell Values --- // 
     /* element-wise procedure from labels column 1 over services (~columns) */
 
-    for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offeset 3 with company JSON
+    let serviceLabel
 
-        // setting up company column(s)
+    for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offset 3 with company JSON
+
         if (serviceNr == 1) {
-
-            Cell = Sheet.getRange(activeRow, activeCol)
-
-            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, "group", stepCompID)
-
-            if (hasPredecessor) {
-                // calculates which column
-                targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
-                let col = columnToLetter(targetColumn)
-                cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
-            } else {
-                cellValue = naText
-            }
-
-            Cell.setValue(cellValue.toString())
-            SS.setNamedRange(cellID, Cell) // TODO: make row-wise | step-wise assignment
-
-            activeCol += 1
-
-        } // close serviceNr==1 if statement
-
-
-        // setting up opCom column
-        else if (serviceNr == 2) {
-
-            // sets Cell
-            Cell = Sheet.getRange(activeRow, activeCol)
-
-            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, "opCom", stepCompID)
-
-            if (hasPredecessor) {
-                // calculates which column
-                targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
-                let col = columnToLetter(targetColumn)
-                cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
-            } else {
-                cellValue = naText
-            }
-
-            Cell.setValue(cellValue.toString())
-            SS.setNamedRange(cellID, Cell)
-
-            activeCol += 1
-
-        } // close serviceNr==2 if statement
-
-
-        // setting up services column
-        else {
-
+            serviceLabel = "group"
+        } else if (serviceNr == 2) {
+            serviceLabel = "opCom"
+        } else {
             let s = serviceNr - 3
-            // setting Cell
-            Cell = Sheet.getRange(activeRow, activeCol)
+            serviceLabel = Company.services[s].id
+        }
 
-            cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+        Cell = Sheet.getRange(activeRow, activeCol)
 
-            if (hasPredecessor) {
-                // calculates which column
-                targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
-                let col = columnToLetter(targetColumn)
+        cellID = defineNamedRangeStringImport(comparisonIndexPrefix, "DC", "S07", Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+        if (hasPredecessor) {
+            // calculates which column
+            targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
+            let col = columnToLetter(targetColumn, 0)
+
+            if (!hasSubindicator) {
+
                 cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
             } else {
-                cellValue = naText
+
+                let col2 = columnToLetter(targetColumn, 1)
+
+                let cellA = "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
+                let cellB = "'" + Config.prevYearOutcomeTab + "'" + "!$" + col2 + "$" + targetRow
+
+                cellValue = "=CONCATENATE(" + cellA + ",\" | \"," + cellB + ")"
+
             }
 
-            Cell.setValue(cellValue.toString())
-            SS.setNamedRange(cellID, Cell)
+        } else {
+            cellValue = naText
+        }
 
-            activeCol += 1
+        Cell.setValue(cellValue.toString())
+        SS.setNamedRange(cellID, Cell)
 
-        } // services END
+        activeCol += 1
+
     } // single row END
 
     Sheet.getRange(activeRow, 2, 1, activeCol).setHorizontalAlignment("center")

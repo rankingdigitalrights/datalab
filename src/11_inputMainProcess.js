@@ -163,7 +163,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "importPreviousSources":
-                            activeRow = importYonYSources(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices, null)
+                            activeRow = importYonYSources(SS, Sheet, Indicator, category, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices, null)
                             break
 
                         case "comparisonYY":
