@@ -10,14 +10,14 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 function openStepTest() {
     // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
     // future input vars: url
-        Logger.log("protectSheets")
+    Logger.log("protectSheets")
         
     let Indicators = indicatorsVector
     var StepLabelShort="subStepID" // make this a variable later
     var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
-    
     var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
     
+
   var Indicator = "F1c"
   var sheet=Spread.getSheetByName(Indicator)
   var protections = sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET); // finding all the sheet protections
@@ -79,8 +79,8 @@ function openStep() {
         
     let Indicators = indicatorsVector
     var StepLabelShort="S01" // make this a variable later
+    var companyID="iAp1"
     var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
-    
     var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1VAnqcoRUKdsrKWL1bPRRZiGKpLdapZ4aUGFYeI7iXh8/edit#gid=744690756');
     
   // looping through the types of indicators (G,F,P)
@@ -106,7 +106,7 @@ for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
       Logger.log(protection.getDescription())
       
       // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-      var namedR=defineNamedRangeStringImport("RDR20", "DC", StepLabelShort, Indicator.labelShort, "", "iAP1", "", "Step")  
+      var namedR=defineNamedRangeStringImport(indexPrefix, "DC", StepLabelShort, Indicator.labelShort, "", companyID, "", "Step")  
       Logger.log(namedR)
       
       var notation = Spread.getRangeByName(namedR).getA1Notation();

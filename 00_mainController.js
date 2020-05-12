@@ -33,7 +33,7 @@ function initiateGlobalConfig() {
     Config = centralConfig
     indexPrefix = Config.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
-    filenameSuffix = " (Permissions1)" // Dev, "", Debug, QC
+    filenameSuffix = " (PermissionsTest)" // Dev, "", Debug, QC
     outputFolderName = "2020 - Dev - Input" // Specific folder defined in Main Callers
     rootFolderID = centralConfig.rootFolderID
     rootFolderName = centralConfig.rootFolderName
@@ -94,7 +94,7 @@ function mainScoringSheets() {
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
     let useStepsSubset = false // true := use subset
-    let useIndicatorSubset = false // true := use subset
+    let useIndicatorSubset = true // true := use subset
 
     const Companies = companiesVector.companies
         .slice(1, 9)
