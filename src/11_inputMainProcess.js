@@ -129,7 +129,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
 
                 // stores first row of a step to use later in naming a step
-                let firstRow = activeRow + 1
+                let firstRow = mainStepNr == 0 ? activeRow : activeRow + 1
 
                 // Begin step component procedure
                 for (let stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
@@ -232,12 +232,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
                 // GROUPING for substep
-                let substepRange = range.shiftRowGroupDepth(1)
+                if (subStepsLength > 1) {
+                    let substepRange = range.shiftRowGroupDepth(1)
 
-                // COLLAPSE substep GROUP per researchSteps substep setting
-                if (!doCollapseAll) {
-                    if (SubStep.doCollapse) {
-                        substepRange.collapseGroups()
+                    // COLLAPSE substep GROUP per researchSteps substep setting
+                    if (!doCollapseAll) {
+                        if (SubStep.doCollapse) {
+                            substepRange.collapseGroups()
+                        }
                     }
                 }
 
@@ -245,12 +247,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 activeRow += 1
             } // --- // END Sub-Step-Wise Procedure // --- //
 
-            Sheet.getRange(activeRow, activeCol, 1, numberOfColumns).setBorder(null, null, true, null, null, null, "black", null)
-
             // activeRow += 1
 
             // group whole step and make main step header row the anchor
-            let rangeStep = Sheet.getRange(beginStep, 1, endStep - beginStep - 1, numberOfColumns)
+            let rangeStep = Sheet.getRange(beginStep, 1, endStep - beginStep, numberOfColumns)
             Logger.log("grouping whole step for range :" + rangeStep.getA1Notation())
             rangeStep.shiftRowGroupDepth(1)
 
