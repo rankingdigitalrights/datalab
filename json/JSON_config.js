@@ -28,7 +28,7 @@ var centralConfig = {
       blue: "#4D9ECF"
     },
     dims: {
-      serviceColWidth: 280,
+      serviceColWidth: 360,
       defaultDataColWidth: 100,
     }
   },
