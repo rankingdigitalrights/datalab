@@ -7,31 +7,38 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 
 */
 
+// idea for preventing the sharing of folder: https://developers.google.com/apps-script/reference/drive/folder#setShareableByEditors(Boolean)
+// see setShareableByEditors
+// file also has shareable
+
+
 function permissionsController() {
+    // can easily call all the other permissions functions from this function
   
     // variables that user determines
       let Indicators = indicatorsVector
-      var StepLabelShort=["S020","S021","S025"]
-      var companyID="iAL1"
+      var StepLabelShort=["S020","S021","S025"] // add all the (sub)steps to be opened
+      var companyID="iAL1" 
       var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org","ilja_s@pm.me"]
       var Sheetemails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
       var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1sjFem9pVlIETiqc1UPSnHJSpHqlujsTT5JazdNzrDOY/edit#gid=1309150286');
   
   
     // opening a step
-    openStep(Indicators, StepLabelShort,companyID,emails,Spread)
+    //openStep(Indicators, StepLabelShort,companyID,emails,Spread)
     
     // protecting all sheets
     //protectSheets(Indicators, Sheetemails, Spread)
     
     // removing all protections
-    //removeAllProtections(Spread)
+    removeAllProtections(Spread)
     
     // close step
     // closeStep(Indicators,Sheetemails,Spread)
     
   }
   
+  // closeStep simply removes all permissions and then adds only the sheet permissions back
   function closeStep(Indicators, emails, Spread) {
     removeAllProtections(Spread)
     protectSheets(Indicators, emails, Spread)
@@ -64,32 +71,35 @@ function permissionsController() {
           var protections = sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET);
           
           // looking for the protection of the entire sheet with the indicator name
-    for (var k = 0; k < protections.length; k++) {
-      if (protections[k].getDescription() == Indicator.labelShort) {
-        var protection=protections[k] // gets the sheet protection
-        Logger.log(protection.getDescription())
+          // assumes there are no two sheet protections with same name
+        for (var k = 0; k < protections.length; k++) {
+            if (protections[k].getDescription() == Indicator.labelShort) {
+            var protection=protections[k] // gets the sheet protection once found
+            Logger.log(protection.getDescription())
         
         
-        // looping through all the steps you want to open
-        for(var l=0; l<StepLabelShort.length; l++) {
-          // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-        var namedR=defineNamedRange("RDR20", "DC", StepLabelShort[l], Indicator.labelShort, "", companyID, "", "Step")  
-        Logger.log(namedR)
+            // looping through all the steps you want to open
+            for(var l=0; l<StepLabelShort.length; l++) {
+
+                // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
+                // need to make RDR20 and DC variables
+                var namedR=defineNamedRange("RDR20", "DC", StepLabelShort[l], Indicator.labelShort, "", companyID, "", "Step")  
+                Logger.log(namedR)
         
-        var notation = Spread.getRangeByName(namedR).getA1Notation();
-        var range = sheet.getRange(notation); 
-        var rangeArray=[range]   
+                var notation = Spread.getRangeByName(namedR).getA1Notation(); 
+                var range = sheet.getRange(notation); // getting the range associated with named range
+                var rangeArray=[range] // need to store range in an array in order to call setUnprotectedRanges
         
-        protection.setUnprotectedRanges(rangeArray) // now this step is unprotected
+             protection.setUnprotectedRanges(rangeArray) // now this step is unprotected
         
-        // create a new protection that will only be open to certain people of that step
-        var protectionStep = range.protect().setDescription(Indicator.labelShort+"StepProtection"+StepLabelShort[l]);
+            // create a new protection that will only be open to certain people of that step
+            var protectionStep = range.protect().setDescription(Indicator.labelShort+"StepProtection"+StepLabelShort[l]);
     
-        protectionStep.removeEditors(protectionStep.getEditors());
-        if (protectionStep.canDomainEdit()) {protectionStep.setDomainEdit(false);}
+            protectionStep.removeEditors(protectionStep.getEditors());
+            if (protectionStep.canDomainEdit()) {protectionStep.setDomainEdit(false);} // disabeling domain edit
         
-            protectionStep.addEditors(emails);
-               //Spread.addEditors(emails); // maybe this step isn't needed
+            protectionStep.addEditors(emails); // add emails to the step protection
+            //Spread.addEditors(emails); // maybe this step isn't needed
           
         }
         
@@ -123,20 +133,20 @@ function permissionsController() {
       
       // looping through each sheet and removing all protections on the sheet
     for (var i = 0; i < sheets.length ; i++ ) {
-      var sheet = Spread.getSheets()[i]
+        var sheet = Spread.getSheets()[i]
       
-       Logger.log("In "+sheet)
+        Logger.log("In "+sheet)
     
        
-      // getting all the protections on a sheet and then removing them
-      var protections=sheet.getProtections(SpreadsheetApp.ProtectionType.RANGE)
-      var protect=sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)
+        // getting all the protections on a sheet and then removing them
+        var protections=sheet.getProtections(SpreadsheetApp.ProtectionType.RANGE)
+        var protect=sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)
       
-      // removing sheet protections
-      for (var j = 0; j < protections.length; j++) {protections[j].remove() }
+        // removing sheet protections
+        for (var j = 0; j < protections.length; j++) {protections[j].remove() }
       
-      // removing range protections
-      for (var j = 0; j < protect.length; j++) {protect[j].remove()}
+        // removing range protections
+        for (var j = 0; j < protect.length; j++) {protect[j].remove()}
       
       }
       
@@ -182,9 +192,9 @@ function permissionsController() {
              var protection=Spread.getSheetByName(Indicator.labelShort).protect().setDescription(Indicator.labelShort)
     
              // removing other editors and only adding array of emails
-        protection.removeEditors(protection.getEditors());
-        protection.addEditors(emails)
-        if (protection.canDomainEdit()) {protection.setDomainEdit(false);}
+            protection.removeEditors(protection.getEditors());
+            protection.addEditors(emails)
+            if (protection.canDomainEdit()) {protection.setDomainEdit(false);}
     
             Logger.log("indicator :" + Indicator.labelShort)
         }
