@@ -38,6 +38,14 @@ var companiesVector = {
             current: "Alexa",
             legacy: [null]
           }
+        },
+        {
+          id: "clAZ1",
+          type: "cloud",
+          label: {
+            current: "Amazon Drive",
+            legacy: [null]
+          }
         }
       ]
     },
@@ -1028,20 +1036,12 @@ var companiesVector = {
       tabPrevYearsOutcome: "TwitterOutcome",
       urlCurrentDataCollectionSheet: "128V3QkxP783D4GvqNVL0XX47O4LwwQSjntSp2gvgPO8",
       urlCurrentCompanyScoringSheet: "1FROnxD145-hxtLlVHqXA6d5TVPq6aMTpYH5utfMDFY4",
-      numberOfServices: 2,
+      numberOfServices: 1,
       services: [{
           id: "smTW1",
           type: "socialNetworkBlogs",
           label: {
             current: "Twitter",
-            legacy: [null]
-          }
-        },
-        {
-          id: "pvTW1",
-          type: "photoVideo",
-          label: {
-            current: "Periscope",
             legacy: [null]
           }
         }
