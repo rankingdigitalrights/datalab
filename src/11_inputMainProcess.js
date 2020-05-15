@@ -136,7 +136,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                     let thisStepComponent = SubStep.components[stepCNr].type
 
-                    Logger.log("step.component : " + SubStep.labelShort + " : " + thisStepComponent)
+                    Logger.log("----- component : " + SubStep.labelShort + " : " + thisStepComponent)
 
                     // create the type of substep component that is specified in the json
 
