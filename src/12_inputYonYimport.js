@@ -35,9 +35,9 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     let hasSubindicator = (category == "G") ? true : false
 
 
+    // Indicator Level Evaluation & Scoring Specifics
     let doExcludeCompanies = Indicator.doExcludeCompanies ? true : false
     let excludeCompanies = doExcludeCompanies ? Indicator.excludeCompanies : []
-
     let doExcludeServices = Indicator.doExcludeServices ? true : false
     let excludeServices = doExcludeServices ? Indicator.excludeServices : []
 
@@ -101,7 +101,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
             } else {
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
-                serviceType = Company.services[s].serviceType
+                serviceType = Company.services[s].type
             }
 
 
@@ -113,11 +113,8 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
             // TODO: Big-O Horror
 
-            if (doExcludeCompanies && excludeCompanies.includes(Company.type) || (doExcludeServices && excludeServices.includes(serviceType))) {
-
-                Logger.log("hit!!!")
+            if ((doExcludeCompanies && excludeCompanies.includes(Company.type)) || (doExcludeServices && excludeServices.includes(serviceType))) {
                 cellValue = "N/A"
-
             } else {
 
                 if (!isNewCompany) {
@@ -138,6 +135,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
                     cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
                 }
             }
+
 
 
             Cell.setValue(cellValue.toString())
