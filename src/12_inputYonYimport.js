@@ -35,6 +35,12 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     let hasSubindicator = (category == "G") ? true : false
 
 
+    let doExcludeCompanies = Indicator.doExcludeCompanies ? true : false
+    let excludeCompanies = doExcludeCompanies ? Indicator.excludeCompanies : []
+
+    let doExcludeServices = Indicator.doExcludeServices ? true : false
+    let excludeServices = doExcludeServices ? Indicator.excludeServices : []
+
     let naText = isComments ? Config.newElementLabelComment : Config.newElementLabelResult
 
     // element-wise ~ row-wise
@@ -82,45 +88,57 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
         // --- 2.) Cell Values --- // 
 
         let serviceLabel
+        let serviceType = ""
 
         for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offeset 3 with company JSON
 
             if (serviceNr == 1) {
                 serviceLabel = "group"
+                serviceType = "group"
             } else if (serviceNr == 2) {
                 serviceLabel = "opCom"
+                serviceType = "opCom"
             } else {
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
+                serviceType = Company.services[s].serviceType
             }
 
-            // looping thourough the number of components
 
-            // setting Cell
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-            // finding the name of Cell that it will be compared too
             subIndicator = ""
 
             cellID = defineNamedRange(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
-            if (!isNewCompany) {
+            // TODO: Big-O Horror
 
-                if (serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
-                } else {
-                    if (hasPredecessor) {
-                        // calculates which column
-                        targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators)
-                        let col = columnToLetter(targetColumn, subIndOffset)
-                        cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
-                    } else {
-                        cellValue = naText
-                    }
-                }
+            if (doExcludeCompanies && excludeCompanies.includes(Company.type) || (doExcludeServices && excludeServices.includes(serviceType))) {
+
+                Logger.log("hit!!!")
+                cellValue = "N/A"
+
             } else {
-                cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
+
+                if (!isNewCompany) {
+
+                    if ((serviceNr == 2 && Company.hasOpCom == false)) {
+                        cellValue = "N/A" // if no OpCom, pre-select N/A
+                    } else {
+                        if (hasPredecessor) {
+                            // calculates which column
+                            targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators)
+                            let col = columnToLetter(targetColumn, subIndOffset)
+                            cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
+                        } else {
+                            cellValue = naText
+                        }
+                    }
+                } else {
+                    cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
+                }
             }
+
 
             Cell.setValue(cellValue.toString())
             SS.setNamedRange(cellID, Cell)

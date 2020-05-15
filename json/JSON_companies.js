@@ -100,7 +100,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -182,7 +182,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -228,7 +228,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -318,7 +318,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -364,7 +364,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -410,7 +410,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -716,7 +716,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -762,7 +762,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -808,7 +808,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -890,7 +890,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -936,7 +936,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
@@ -1097,7 +1097,7 @@ var companiesVector = {
           type: "mobile",
           subtype: "prepaid",
           label: {
-            current: "Prepaid mobile)",
+            current: "Prepaid mobile",
             legacy: ["Prepaid mobile"]
           }
         },
