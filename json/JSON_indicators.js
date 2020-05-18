@@ -735,6 +735,10 @@ var indicatorsVector = {
           {
             "labelShort": "F1b.5",
             "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose​ that it requires s​ kills​ made available through its ​skill store​ to provide users with an advertising content policy​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -781,6 +785,10 @@ var indicatorsVector = {
           {
             "labelShort": "F1c.5",
             "description": "(For ​personal digital assistant ecosystems​): Does the company clearly disclose that it requires ​skills​ made available through its ​skill store​ to provide users with an advertising targeting policy​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -899,6 +907,10 @@ var indicatorsVector = {
           {
             "labelShort": "F2b.6",
             "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising content policies​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -950,7 +962,12 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F2c.6",
-            "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising targeting policies​?",
+            "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​kills change their ​advertising targeting policies​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["mobileEcosystem", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
+
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -2403,7 +2420,7 @@ var indicatorsVector = {
             "labelShort": "P9.1",
             "description": "(For digital platforms) Does the company clearly disclose what user information it collects from third-party websites through technical means?",
             "doExcludeCompanies": true,
-            "excludeServices": ["telecom"],
+            "excludeCompanies": ["telecom"],
             "y2yResultRow": 629,
             "y2yCommentRow": 634
           },
@@ -2411,7 +2428,7 @@ var indicatorsVector = {
             "labelShort": "P9.2",
             "description": "(For digital platforms) Does the company clearly explain how it collects user information from third parties through technical means?",
             "doExcludeCompanies": true,
-            "excludeServices": ["telecom"],
+            "excludeCompanies": ["telecom"],
             "y2yResultRow": 630,
             "y2yCommentRow": 635
           },
@@ -2419,7 +2436,7 @@ var indicatorsVector = {
             "labelShort": "P9.3",
             "description": "(For digital platforms) Does the company clearly disclose its purpose for collecting user information from third parties through technical means?",
             "doExcludeCompanies": true,
-            "excludeServices": ["telecom"],
+            "excludeCompanies": ["telecom"],
             "y2yResultRow": 631,
             "y2yCommentRow": 636
           },
@@ -2427,7 +2444,7 @@ var indicatorsVector = {
             "labelShort": "P9.4",
             "description": "(For digital platforms) Does the company clearly disclose how long it retains the user information it collects from third parties through technical means?",
             "doExcludeCompanies": true,
-            "excludeServices": ["telecom"],
+            "excludeCompanies": ["telecom"],
             "y2yResultRow": 632,
             "y2yCommentRow": 637
           },
@@ -2435,7 +2452,7 @@ var indicatorsVector = {
             "labelShort": "P9.5",
             "description": "(For digital platforms) Does the company clearly disclose that it respects user-generated signals to opt-out of data collection?",
             "doExcludeCompanies": true,
-            "excludeServices": ["telecom"],
+            "excludeCompanies": ["telecom"],
             "y2yResultRow": 633,
             "y2yCommentRow": 638
           },
