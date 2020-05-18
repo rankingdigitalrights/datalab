@@ -32,20 +32,24 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
         maxColHeadings -= 1
     }
 
-    let indTitle = "▶ " + Indicator.labelShort + ". " + Indicator.labelLong
+    let indTitle = "▶ " + Indicator.labelShort
 
     if (Indicator.description.length > 1) {
         indTitle = indTitle + ": " + Indicator.description
     }
 
+    let indDescription = Indicator.labelLong
+
     // Indicator Heading
-    Sheet.getRange(row, col)
-        .setValue(indTitle)
-        // .setFontWeight("bold")
+    Sheet.getRange(row, 1, 1, 2)
+        .setValues([
+            [indTitle, indDescription]
+        ])
         .setFontSize(18)
-        .setHorizontalAlignment("left")
         .setVerticalAlignment("middle")
         .setFontFamily("Oswald")
+
+    Sheet.getRange(row, 1).setHorizontalAlignment("center")
 
     Sheet.setRowHeight(row, 30)
     Sheet.getRange(row, col, 1, numberOfColumns)
@@ -117,7 +121,7 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
 
     if (includeRGuidanceLink) {
         row += 1
-        let indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + Indicator.labelShort
+        let indicatorLink = Indicator.researchGuidance
 
         // TODO: Parameterize
 
