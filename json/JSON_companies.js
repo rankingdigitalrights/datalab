@@ -295,7 +295,7 @@ var companiesVector = {
         },
         {
           "id": "mvBA1",
-          "type": "messagingVoip",
+          "type": "socialNetworkBlogs",
           "label": {
             "current": "Baidu PostBar",
             "legacy": ["Baidu PostBar"]
