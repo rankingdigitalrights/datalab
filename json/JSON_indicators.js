@@ -11,6 +11,7 @@ var indicatorsVector = {
         "labelShort": "G1",
         "labelLong": "Policy Commitment",
         "description": "",
+        "researchGuidance": "URL",
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 3,
