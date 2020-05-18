@@ -512,35 +512,35 @@ var indicatorsVector = {
         "prevIndLength": 5,
         "elements": [{
             "labelShort": "G6a.1",
-            "description": "G6.1: Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression and information has been adversely affected by the company’s policies or practices?",
+            "description": "G6.1: Does the company clearly disclose it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression and information has been adversely affected by the company’s policies or practices?",
             "y2yResultRow": 117,
             "y2yCommentRow": 122,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.2",
-            "description": "Does the company clearly disclose​ it has a grievance mechanism(s) enabling users to submit complaints if they feel their privacy has been adversely affected by the company’s policies or practices?",
+            "description": "Does the company clearly disclose it has a grievance mechanism(s) enabling users to submit complaints if they feel their privacy has been adversely affected by the company’s policies or practices?",
             "y2yResultRow": 117,
             "y2yCommentRow": 122,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G6a.3",
-            "description": "Does the company clearly disclose​ its procedures for providing remedy for freedom of expression and information-related grievances?",
+            "description": "Does the company clearly disclose its procedures for providing remedy for freedom of expression and information-related grievances?",
             "y2yResultRow": 118,
             "y2yCommentRow": 123,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.4",
-            "description": "Does the company clearly disclose​ its procedures for providing remedy for privacy-related grievances?",
+            "description": "Does the company clearly disclose its procedures for providing remedy for privacy-related grievances?",
             "y2yResultRow": 118,
             "y2yCommentRow": 123,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G6a.5",
-            "description": "Does the company clearly disclose​ timeframes for its grievance and remedy procedures?",
+            "description": "Does the company clearly disclose timeframes for its grievance and remedy procedures?",
             "y2yResultRow": 119,
             "y2yCommentRow": 124
           },
@@ -560,14 +560,14 @@ var indicatorsVector = {
           },
           {
             "labelShort": "G6a.8",
-            "description": "Does the company clearly disclose​ evidence that it is providing remedy for freedom of expression grievances?",
+            "description": "Does the company clearly disclose evidence that it is providing remedy for freedom of expression grievances?",
             "y2yResultRow": 121,
             "y2yCommentRow": 126,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G6a.9",
-            "description": "Does the company clearly disclose​ evidence that it is providing remedy for privacy grievances?",
+            "description": "Does the company clearly disclose evidence that it is providing remedy for privacy grievances?",
             "y2yResultRow": 121,
             "y2yCommentRow": 126,
             "prevSubInd": "P"
@@ -676,7 +676,7 @@ var indicatorsVector = {
         "prevIndLength": 3,
         "elements": [{
             "labelShort": "F1a.1",
-            "description": "Are the company’s ​terms of service​ ​easy to find​?",
+            "description": "Are the company’s ​terms of service ​easy to find​?",
             "y2yResultRow": 143,
             "y2yCommentRow": 146
           },
@@ -688,7 +688,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F1a.3",
-            "description": "Are the​ terms of service​ presented in an understandable manner​?",
+            "description": "Are the terms of service presented in an understandable manner​?",
             "y2yResultRow": 145,
             "y2yCommentRow": 148
           }
@@ -718,13 +718,13 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F1b.3",
-            "description": "Are the company’s​ advertising content policies presented in an ​understandable manner​?",
+            "description": "Are the company’s advertising content policies presented in an ​understandable manner​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F1b.4",
-            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires apps made available through its app store​ ​to provide users with an a​ dvertising content policy​?",
+            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose that it requires apps made available through its app store ​to provide users with an advertising content policy​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -734,7 +734,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F1b.5",
-            "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose​ that it requires s​ kills​ made available through its ​skill store​ to provide users with an advertising content policy​?",
+            "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose that it requires s kills made available through its ​skill store to provide users with an advertising content policy​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -756,25 +756,25 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F1c.1",
-            "description": "Are the company’s ​advertising targeting policies​ ​easy to find?",
+            "description": "Are the company’s ​advertising targeting policies ​easy to find?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F1c.2",
-            "description": "Are the ​advertising targeting policies​ available in the primary language(s) spoken by ​users ​in the company’s home jurisdiction?",
+            "description": "Are the ​advertising targeting policies available in the primary language(s) spoken by ​users ​in the company’s home jurisdiction?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F1c.3",
-            "description": "Are the ​advertising targeting policies​ presented in an understandable manner​?",
+            "description": "Are the ​advertising targeting policies presented in an understandable manner​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F1c.4",
-            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to provide users with an a​ dvertising targeting policy​?",
+            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose that it requires ​apps made available through its ​app store to provide users with an advertising targeting policy​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -784,7 +784,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F1c.5",
-            "description": "(For ​personal digital assistant ecosystems​): Does the company clearly disclose that it requires ​skills​ made available through its ​skill store​ to provide users with an advertising targeting policy​?",
+            "description": "(For ​personal digital assistant ecosystems​): Does the company clearly disclose that it requires ​skills made available through its ​skill store to provide users with an advertising targeting policy​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -806,19 +806,19 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F1d.1",
-            "description": "Are the company’s ​algorithmic system use policies​ ​easy to find​?",
+            "description": "Are the company’s ​algorithmic system use policies ​easy to find​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F1d.2",
-            "description": "Are the ​algorithmic system use policies​ available in the primary language(s) spoken by users in the company’s home jurisdiction?",
+            "description": "Are the ​algorithmic system use policies available in the primary language(s) spoken by users in the company’s home jurisdiction?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F1d.3",
-            "description": "Are the ​algorithmic system use policies​ presented in an​ understandable manner​?",
+            "description": "Are the ​algorithmic system use policies presented in an understandable manner​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -836,25 +836,25 @@ var indicatorsVector = {
         "prevIndLength": 4,
         "elements": [{
             "labelShort": "F2a.1",
-            "description": "Does the company ​clearly disclose​ ​that it ​directly notifies ​users about a​ ll​ changes to its t​ erms of service​?",
+            "description": "Does the company ​clearly disclose ​that it ​directly notifies ​users about a ll changes to its terms of service​?",
             "y2yResultRow": 161,
             "y2yCommentRow": 165
           },
           {
             "labelShort": "F2a.2",
-            "description": "Does the company ​clearly disclose​ how it will​ directly notify​ users of changes?",
+            "description": "Does the company ​clearly disclose how it will directly notify users of changes?",
             "y2yResultRow": 162,
             "y2yCommentRow": 166
           },
           {
             "labelShort": "F2a.3",
-            "description": "Does the company ​clearly disclose​ the timeframe within which it ​directly notifies​ users ​of changes​ prior to ​these​ changes coming into effect?",
+            "description": "Does the company ​clearly disclose the timeframe within which it ​directly notifies users ​of changes prior to ​these changes coming into effect?",
             "y2yResultRow": 163,
             "y2yCommentRow": 167
           },
           {
             "labelShort": "F2a.4",
-            "description": "Does the company maintain a ​public archive​ or change log​?",
+            "description": "Does the company maintain a ​public archive or change log​?",
             "y2yResultRow": 164,
             "y2yCommentRow": 168
           }
@@ -872,31 +872,31 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F2b.1",
-            "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​advertising content policies​?",
+            "description": "Does the company ​clearly disclose that it ​directly notifies users about changes to its ​advertising content policies​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2b.2",
-            "description": "Does the company ​clearly disclose​ how it will ​directly notify users​ of changes?",
+            "description": "Does the company ​clearly disclose how it will ​directly notify users of changes?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2b.3",
-            "description": "Does the company​ clearly disclose​ the timeframe within which it ​directly notifies​ ​users ​of changes prior to these changes coming into effect?",
+            "description": "Does the company clearly disclose the timeframe within which it ​directly notifies ​users ​of changes prior to these changes coming into effect?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2b.4",
-            "description": "Does the company maintain a ​public archive​ or change log​?",
+            "description": "Does the company maintain a ​public archive or change log​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2b.5",
-            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to n​ otify​ ​users​ when the ​apps​ change their ​advertising content policies​?",
+            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose that it requires ​apps made available through its ​app store to notify ​users when the ​apps change their ​advertising content policies​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -906,7 +906,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F2b.6",
-            "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising content policies​?",
+            "description": "(For ​personal digital ecosystems)​: Does the company clearly disclose that it requires ​skills ​made available through its ​skills store to ​notify ​users when the s kills change their ​advertising content policies​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -928,31 +928,31 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F2c.1",
-            "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​advertising targeting policies​?",
+            "description": "Does the company ​clearly disclose that it ​directly notifies users about changes to its ​advertising targeting policies​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2c.2",
-            "description": "Does the company ​clearly disclose​ how it will ​directly notify users​ of changes?",
+            "description": "Does the company ​clearly disclose how it will ​directly notify users of changes?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2c.3",
-            "description": "Does the company​ clearly disclose​ the timeframe within which it ​directly notifies​ ​users ​of changes prior to these changes coming into effect?",
+            "description": "Does the company clearly disclose the timeframe within which it ​directly notifies ​users ​of changes prior to these changes coming into effect?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2c.4",
-            "description": "Does the company maintain a ​public archive​ or change log​?",
+            "description": "Does the company maintain a ​public archive or change log​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2c.5",
-            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to d​ irectly notify users​ when the a​ pps change their ​advertising targeting policies​?",
+            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose that it requires ​apps made available through its ​app store to directly notify users when the a pps change their ​advertising targeting policies​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -962,7 +962,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F2c.6",
-            "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​kills change their ​advertising targeting policies​?",
+            "description": "(For ​personal digital ecosystems): Does the company clearly disclose that it requires ​skills ​made available through its ​skills store to ​notify ​users when the s​kills change their ​advertising targeting policies​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -985,25 +985,25 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F2d.1",
-            "description": "Does the company ​clearly disclose​ that it ​directly notifies users​ about changes to its​ ​algorithmic system use policies​?",
+            "description": "Does the company ​clearly disclose that it ​directly notifies users about changes to its ​algorithmic system use policies​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2d.2",
-            "description": "Does the company ​clearly disclose​ how it will ​directly notify users​ of changes?",
+            "description": "Does the company ​clearly disclose how it will ​directly notify users of changes?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2d.3",
-            "description": "Does the company​ ​clearly disclose​ the timeframe within which it ​directly notifies​ ​users​ of changes prior to these changes coming into effect?",
+            "description": "Does the company ​clearly disclose the timeframe within which it ​directly notifies ​users of changes prior to these changes coming into effect?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F2d.4",
-            "description": "Does the company maintain a ​public archive​ or change log​?",
+            "description": "Does the company maintain a ​public archive or change log​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1021,7 +1021,7 @@ var indicatorsVector = {
         "prevIndLength": 7,
         "elements": [{
             "labelShort": "F3a.1",
-            "description": "Does the company ​clearly disclose​ what types of content ​or activities it does not permit?",
+            "description": "Does the company ​clearly disclose what types of content ​or activities it does not permit?",
             "y2yResultRow": 182,
             "y2yCommentRow": 189
           },
@@ -1035,7 +1035,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3a.3",
-            "description": "Does the company ​clearly disclose​ information about the processes it uses to identify ​content​ or ​accounts that violate the company’s rules?",
+            "description": "Does the company ​clearly disclose information about the processes it uses to identify ​content or ​accounts that violate the company’s rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
@@ -1057,7 +1057,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3a.6",
-            "description": "Does the company ​clearly disclose​ whether any private entities receive priority consideration when flagging content ​to be restricted for violating the company’s rules?",
+            "description": "Does the company ​clearly disclose whether any private entities receive priority consideration when flagging content ​to be restricted for violating the company’s rules?",
             "doExcludeServices": true,
             "excludeServices": ["mobile", "cloud", "eCommerce", "email"],
             "y2yResultRow": 186,
@@ -1065,7 +1065,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3a.7",
-            "description": "Does the company ​clearly disclose​ ​its process for enforcing its rules ​once violations are detected?​",
+            "description": "Does the company ​clearly disclose ​its process for enforcing its rules ​once violations are detected?​",
             "y2yResultRow": 187,
             "y2yCommentRow": 194
           }
@@ -1083,7 +1083,7 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F3b.1",
-            "description": "Does the company ​clearly disclose ​what types of advertising content​ it does not permit?",
+            "description": "Does the company ​clearly disclose ​what types of advertising content it does not permit?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1095,7 +1095,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3b.3",
-            "description": "Does the company ​clearly disclose​ ​the processes and technologies it​ ​uses to​ ​identify​ advertising content​ or accounts​ that violate the company’s rules?",
+            "description": "Does the company ​clearly disclose ​the processes and technologies it ​uses to ​identify advertising content or accounts that violate the company’s rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1113,31 +1113,31 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F3c.1",
-            "description": "Does the company ​clearly disclose​ whether it enables third parties ​to target its ​users​ with ​advertising content​?",
+            "description": "Does the company ​clearly disclose whether it enables third parties ​to target its ​users with ​advertising content​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F3c.2",
-            "description": "Does the company ​clearly disclose​ what types of targeting parameters​ are not permitted?",
+            "description": "Does the company ​clearly disclose what types of targeting parameters are not permitted?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F3c.3",
-            "description": "Does the company ​clearly disclose​ that it does not permit ​advertisers​ to target specific individuals?",
+            "description": "Does the company ​clearly disclose that it does not permit ​advertisers to target specific individuals?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F3c.4",
-            "description": "Does the company ​clearly disclose​ that algorithmically​ generated ​advertising audience categories ​are evaluated by human reviewers before they can be used?",
+            "description": "Does the company ​clearly disclose that algorithmically generated ​advertising audience categories ​are evaluated by human reviewers before they can be used?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F3c.5",
-            "description": "Does the company ​clearly disclose ​information about the processes and technologies it uses to​ ​identify advertising content​ or ​accounts​ that violate the company’s rules?",
+            "description": "Does the company ​clearly disclose ​information about the processes and technologies it uses to ​identify advertising content or ​accounts that violate the company’s rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1162,7 +1162,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4a.2",
-            "description": "Does the company publish​ ​data on the number of pieces of ​content restricted​ based on which rule was violated?",
+            "description": "Does the company publish ​data on the number of pieces of ​content restricted based on which rule was violated?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1174,14 +1174,14 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4a.4",
-            "description": "Does the company publish​ ​data on the number of pieces of ​content​ ​it ​restricted ​based on the method used to identify the violation?",
+            "description": "Does the company publish ​data on the number of pieces of ​content ​it ​restricted ​based on the method used to identify the violation?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
           },
           {
             "labelShort": "F4a.5",
-            "description": "Does the company publish this data at leas​t​ ​four times ​a year?",
+            "description": "Does the company publish this data at leas​t ​four times ​a year?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
@@ -1210,7 +1210,7 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F4b.1",
-            "description": "Does the company publish data on the total number of accounts​ ​restricted ​for violating the company’s own rules?",
+            "description": "Does the company publish data on the total number of accounts ​restricted ​for violating the company’s own rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
@@ -1223,7 +1223,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4b.3",
-            "description": "Does the company publish data on the number of pieces of ​content​ ​restricted ​based on the method used to identify the violation?",
+            "description": "Does the company publish data on the number of pieces of ​content ​restricted ​based on the method used to identify the violation?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1305,37 +1305,37 @@ var indicatorsVector = {
         "prevIndLength": 12,
         "elements": [{
             "labelShort": "F5a.1",
-            "description": "Does the company ​clearly disclose​ its process for responding to ​non-judicial government demands?",
+            "description": "Does the company ​clearly disclose its process for responding to ​non-judicial government demands?",
             "y2yResultRow": 230,
             "y2yCommentRow": 242
           },
           {
             "labelShort": "F5a.2",
-            "description": "Does the company ​clearly disclose​ its process for responding to ​court orders​?",
+            "description": "Does the company ​clearly disclose its process for responding to ​court orders​?",
             "y2yResultRow": 231,
             "y2yCommentRow": 243
           },
           {
             "labelShort": "F5a.3",
-            "description": "Does the company ​clearly disclose​ its process for responding to ​government demands ​from foreign jurisdictions?",
+            "description": "Does the company ​clearly disclose its process for responding to ​government demands ​from foreign jurisdictions?",
             "y2yResultRow": 232,
             "y2yCommentRow": 244
           },
           {
             "labelShort": "F5a.4",
-            "description": "Do the company’s explanations ​clearly disclose​ the legal basis under which it may comply with ​government demands?",
+            "description": "Do the company’s explanations ​clearly disclose the legal basis under which it may comply with ​government demands?",
             "y2yResultRow": 234,
             "y2yCommentRow": 246
           },
           {
             "labelShort": "F5a.5",
-            "description": "Does the company ​clearly disclose​ that it carries out due diligence on ​government demands​  before deciding how to respond?",
+            "description": "Does the company ​clearly disclose that it carries out due diligence on ​government demands  before deciding how to respond?",
             "y2yResultRow": 236,
             "y2yCommentRow": 248
           },
           {
             "labelShort": "F5a.6",
-            "description": "Does the company commit to push back on inappropriate or overbroad​ demands ​made by governments?",
+            "description": "Does the company commit to push back on inappropriate or overbroad demands ​made by governments?",
             "y2yResultRow": 238,
             "y2yCommentRow": 250
           },
@@ -1361,31 +1361,31 @@ var indicatorsVector = {
         "prevIndLength": 12,
         "elements": [{
             "labelShort": "F5b.1",
-            "description": "Does the company ​clearly disclose​ its process for responding to ​​requests​ to remove, filter, or restrict ​content ​or ​accounts ​made through p​rivate processes​?",
+            "description": "Does the company ​clearly disclose its process for responding to ​​requests to remove, filter, or restrict ​content ​or ​accounts ​made through private processes​?",
             "y2yResultRow": 233,
             "y2yCommentRow": 245
           },
           {
             "labelShort": "F5b.2",
-            "description": "Do the company’s explanations ​clearly disclose​ the basis under which it may comply with ​private​ ​requests made through​ private processes?​",
+            "description": "Do the company’s explanations ​clearly disclose the basis under which it may comply with ​private ​requests made through private processes?​",
             "y2yResultRow": 235,
             "y2yCommentRow": 247
           },
           {
             "labelShort": "F5b.3",
-            "description": "Does the company ​clearly disclose​ that it carries out due diligence on ​requests ​made through private processes​ before deciding how to respond?",
+            "description": "Does the company ​clearly disclose that it carries out due diligence on ​requests ​made through private processes before deciding how to respond?",
             "y2yResultRow": 237,
             "y2yCommentRow": 249
           },
           {
             "labelShort": "F5b.4",
-            "description": "Does the company commit to push back on inappropriate or overbroad ​requests ​made through​ private processes​?",
+            "description": "Does the company commit to push back on inappropriate or overbroad ​requests ​made through private processes​?",
             "y2yResultRow": 239,
             "y2yCommentRow": 251
           },
           {
             "labelShort": "F5b.5",
-            "description": "Does the company provide clear guidance or examples of implementation of its process of responding to requests ​made through​ private processes​?",
+            "description": "Does the company provide clear guidance or examples of implementation of its process of responding to requests ​made through private processes​?",
             "y2yResultRow": 241,
             "y2yCommentRow": 253
           }
@@ -1393,7 +1393,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "F6",
-        "labelLong": "Data about government ​demands​ ​​to restrict content ​and​ ​​accounts",
+        "labelLong": "Data about government ​demands ​​to restrict content ​and ​​accounts",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91443024",
         "scoringScope": "full",
@@ -1427,7 +1427,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F6.4",
-            "description": "Does the company list the types of subject matter associated with the ​demands​  it receives?",
+            "description": "Does the company list the types of subject matter associated with the ​demands  it receives?",
             "y2yResultRow": 278,
             "y2yCommentRow": 288
           },
@@ -1439,7 +1439,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F6.6",
-            "description": "Does the company list the number of ​demands ​it knowingly receives from government officials to restrict ​content​ or ​accounts​ through ​unofficial processes​?",
+            "description": "Does the company list the number of ​demands ​it knowingly receives from government officials to restrict ​content or ​accounts through ​unofficial processes​?",
             "y2yResultRow": 280,
             "y2yCommentRow": 290
           },
@@ -1483,7 +1483,7 @@ var indicatorsVector = {
         "prevIndLength": 10,
         "elements": [{
             "labelShort": "F7.1",
-            "description": "Does the company break out the number of requests ​to restrict ​content​ or ​accounts​ that it receives through private processes?",
+            "description": "Does the company break out the number of requests ​to restrict ​content or ​accounts that it receives through private processes?",
             "y2yResultRow": 314,
             "y2yCommentRow": 324
           },
@@ -1511,7 +1511,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F7.5",
-            "description": "Does the company ​clearly disclose​ the ​private processes​ that made the​ request​s​?",
+            "description": "Does the company ​clearly disclose the ​private processes that made the request​s​?",
             "y2yResultRow": 318,
             "y2yCommentRow": 328
           },
@@ -1535,13 +1535,13 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F7.9",
-            "description": "Can the data be exported as a ​structured data​ file?",
+            "description": "Can the data be exported as a ​structured data file?",
             "y2yResultRow": 322,
             "y2yCommentRow": 332
           },
           {
             "labelShort": "F7.10",
-            "description": "Does the company ​clearly disclose​ that its reporting covers all types of ​requests that it receives through ​private processes​?",
+            "description": "Does the company ​clearly disclose that its reporting covers all types of ​requests that it receives through ​private processes​?",
             "y2yResultRow": 323,
             "y2yCommentRow": 333
           }
@@ -1607,19 +1607,19 @@ var indicatorsVector = {
         "prevIndLength": 2,
         "elements": [{
             "labelShort": "F9.1",
-            "description": "Does the company ​clearly disclos​e​ ​a policy commitment ​to​ ​n​ot ​prioritize​, block, or delay certain types of traffic, ​applications​,​ protocols​, or ​content​ reasons beyond assuring quality of service and reliability of the network?",
+            "description": "Does the company ​clearly disclose ​a policy commitment ​to ​n​ot ​prioritize​, block, or delay certain types of traffic, ​applications​, protocols​, or ​content reasons beyond assuring quality of service and reliability of the network?",
             "y2yResultRow": 374,
             "y2yCommentRow": 376
           },
           {
             "labelShort": "F9.2",
-            "description": "Does the company engage in practices, such as offering zero-rating programs​, that ​prioritize​ network traffic for reasons beyond assuring quality of service and reliability of the network?",
+            "description": "Does the company engage in practices, such as offering zero-rating programs​, that ​prioritize network traffic for reasons beyond assuring quality of service and reliability of the network?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F9.3",
-            "description": "If the company does engage in ​network ​prioritization ​practices ​beyond assuring quality of service and reliability of the network​, does it ​clearly disclos​e​ its purpose for doing so?",
+            "description": "If the company does engage in ​network ​prioritization ​practices ​beyond assuring quality of service and reliability of the network​, does it ​clearly disclose its purpose for doing so?",
             "y2yResultRow": 375,
             "y2yCommentRow": 377
           }
@@ -1639,49 +1639,49 @@ var indicatorsVector = {
         "prevIndLength": 8,
         "elements": [{
             "labelShort": "F10.1",
-            "description": "Does the company ​clearly disclose​ t​he reason(s) why it may shut down service to a particular area or group of users?",
+            "description": "Does the company ​clearly disclose t​he reason(s) why it may shut down service to a particular area or group of users?",
             "y2yResultRow": 389,
             "y2yCommentRow": 397
           },
           {
             "labelShort": "F10.2",
-            "description": "Does the company ​clearly disclose​ ​why it may restrict access to specific ​applications​ or ​protocols (e.g., VoIP, messaging) in a particular area or to a specific group of users?",
+            "description": "Does the company ​clearly disclose ​why it may restrict access to specific ​applications or ​protocols (e.g., VoIP, messaging) in a particular area or to a specific group of users?",
             "y2yResultRow": 390,
             "y2yCommentRow": 398
           },
           {
             "labelShort": "F10.3",
-            "description": "Does the company ​clearly disclose​ ​its process for responding to ​government demands​ to ​shut down a network or restrict access to a service​?",
+            "description": "Does the company ​clearly disclose ​its process for responding to ​government demands to ​shut down a network or restrict access to a service​?",
             "y2yResultRow": 391,
             "y2yCommentRow": 399
           },
           {
             "labelShort": "F10.4",
-            "description": "Does the company​ ​clearly disclose a ​commit​ment​ to push back on ​government demands​ ​to ​shut down a network or restrict access to a service​?",
+            "description": "Does the company ​clearly disclose a ​commitment to push back on ​government demands ​to ​shut down a network or restrict access to a service​?",
             "y2yResultRow": 392,
             "y2yCommentRow": 400
           },
           {
             "labelShort": "F10.5",
-            "description": "Does the company ​clearly disclose​ that it notifies users directly when it ​shuts down a network or restrict access to a service​?",
+            "description": "Does the company ​clearly disclose that it notifies users directly when it ​shuts down a network or restrict access to a service​?",
             "y2yResultRow": 393,
             "y2yCommentRow": 401
           },
           {
             "labelShort": "F10.6",
-            "description": "Does the company ​clearly disclose​ the number of network shutdown​ ​demands​ it receives?",
+            "description": "Does the company ​clearly disclose the number of network shutdown ​demands it receives?",
             "y2yResultRow": 394,
             "y2yCommentRow": 402
           },
           {
             "labelShort": "F10.7",
-            "description": "Does the company​ ​clearly disclose​ the specific legal authority that makes the ​demands?",
+            "description": "Does the company ​clearly disclose the specific legal authority that makes the ​demands?",
             "y2yResultRow": 395,
             "y2yCommentRow": 403
           },
           {
             "labelShort": "F10.8",
-            "description": "Does the company ​clearly disclose ​the number of government demands​ ​with which it complied?",
+            "description": "Does the company ​clearly disclose ​the number of government demands ​with which it complied?",
             "y2yResultRow": 396,
             "y2yCommentRow": 404
           }
@@ -1701,7 +1701,7 @@ var indicatorsVector = {
         "prevIndLength": 1,
         "elements": [{
           "labelShort": "F11.1",
-          "description": "Does the company ​require​ users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?",
+          "description": "Does the company ​require users to verify their identity with their ​government-issued identification​, or with other forms of identification that could be connected to their offline identity?",
           "y2yResultRow": 422,
           "y2yCommentRow": 423
         }]
@@ -1720,31 +1720,31 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F12.1",
-            "description": "Does the company ​clearly disclose​ whether it uses algorithmic systems​ to ​curate, recommend, and/or rank​ the ​content​ that ​users​ can access through its platform?",
+            "description": "Does the company ​clearly disclose whether it uses algorithmic systems to ​curate, recommend, and/or rank the ​content that ​users can access through its platform?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F12.2",
-            "description": "Does the company ​clearly disclose​ how the algorithmic systems​ are deployed to ​curate, recommend, and/or rank​ ​content​, including the variables that influence these systems?",
+            "description": "Does the company ​clearly disclose how the algorithmic systems are deployed to ​curate, recommend, and/or rank ​content​, including the variables that influence these systems?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F12.3",
-            "description": "Does the company ​clearly disclose​ what options users have to control the variables that the ​algorithmic content curation, recommendation, and/or ranking system​ takes into ​account​?",
+            "description": "Does the company ​clearly disclose what options users have to control the variables that the ​algorithmic content curation, recommendation, and/or ranking system takes into ​account​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F12.4",
-            "description": "Does the company ​clearly disclose​ whether algorithmic system​ are used to automatically ​curate, recommend, and/or rank​ ​content​ ​by default?",
+            "description": "Does the company ​clearly disclose whether algorithmic system are used to automatically ​curate, recommend, and/or rank ​content ​by default?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F12.5",
-            "description": "Does the company ​clearly disclose​ that users can opt in to automated ​content curation, recommendation, and/or ranking system​?",
+            "description": "Does the company ​clearly disclose that users can opt in to automated ​content curation, recommendation, and/or ranking system​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1764,25 +1764,25 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F13.1",
-            "description": "Does the company​ clearly disclose​ rules governing the use of ​bots​ on its platform?",
+            "description": "Does the company clearly disclose rules governing the use of ​bots on its platform?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F13.2",
-            "description": "Does the company ​clearly disclose​ that it requires users​ to clearly label all ​content ​and ​accounts​ that are produced, disseminated or operated with the assistance of a ​bot​?",
+            "description": "Does the company ​clearly disclose that it requires users to clearly label all ​content ​and ​accounts that are produced, disseminated or operated with the assistance of a ​bot​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F13.3",
-            "description": "Does the company ​clearly disclose​ its process for enforcing its ​bot policy?​",
+            "description": "Does the company ​clearly disclose its process for enforcing its ​bot policy?​",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F13.4",
-            "description": "Does the company​ ​clearly disclose​ data on the volume and nature of user ​content ​and ​accounts restricted f​ or violating the company’s ​bot policy​?",
+            "description": "Does the company ​clearly disclose data on the volume and nature of user ​content ​and ​accounts restricted f or violating the company’s ​bot policy​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
