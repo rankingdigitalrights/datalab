@@ -50,12 +50,11 @@ function mainInputSheets() {
     let doClearNamedRanges = false // CAUTION
 
     initiateGlobalConfig()
-    outputFolderName = "2020 - Dev - Input"
+    outputFolderName = "2020 - Dev - Testing R2"
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = true // true := use subset
-
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -67,26 +66,26 @@ function mainInputSheets() {
         // .slice(0, 1) //   0 "Amazon",
         // .slice(1, 2) //   1 "Alibaba",
         //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
-    //   4 "AT&T",
-    //   5 "Axiata",
-    //   6 "Baidu",
-    //   7 "Bharti Airtel",
-    //   8 "Deutsche Telekom",
-    //   9 "Etisalat",
-    //   10 "Facebook",
-    //   11 "Google",
-    //   12 "Kakao",
-    //   13 "Mail.Ru",
-    //   14 "Microsoft",
-    //   15 "MTN",
-    //   16 "Ooredoo",
-    //   17 "Orange",
-    //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
+        // .slice(3, 4) //   3 "Apple",
+        //   4 "AT&T",
+        //   5 "Axiata",
+        //   6 "Baidu",
+        //   7 "Bharti Airtel",
+        //   8 "Deutsche Telekom",
+        //   9 "Etisalat",
+        //   10 "Facebook",
+        //   11 "Google",
+        //   12 "Kakao",
+        //   13 "Mail.Ru",
+        //   14 "Microsoft",
+        //   15 "MTN",
+        //   16 "Ooredoo",
+        //   17 "Orange",
+        //   18 "Samsung",
+        .slice(19, 20) //   19 "Telefónica",
     //   20 "Telenor",
     //   21 "Tencent",
-    //   22 "Twitter",
+    // .slice(22, 23) // 22 "Twitter",
     //   23 "Verizon Media",
     //   24 "Vodafone",
     //   25 "Yandex"
