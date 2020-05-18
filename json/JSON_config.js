@@ -17,7 +17,7 @@ var centralConfig = {
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
   newIndicatorLabel: "New / Revised Indicator",
-  newElementLabelResult: "New / Revised Element",
+  newElementLabelResult: "N/A",
   newElementLabelComment: "New / Revised Element",
   newCompanyLabelResult: "N/A",
   newCompanyLabelComment: "New Company",
@@ -28,7 +28,7 @@ var centralConfig = {
       blue: "#4D9ECF"
     },
     dims: {
-      serviceColWidth: 360,
+      serviceColWidth: 320,
       defaultDataColWidth: 100,
     }
   },
