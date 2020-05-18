@@ -4,7 +4,9 @@
     Config,
     indexPrefix,
     defineNamedRange,
-
+    checkIndicatorSpecs,
+    checkElementSpecs,
+    makeElementNA
 */
 
 function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
@@ -27,11 +29,14 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
 
     let activeCol
 
-    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
         Element = Elements[elemNr]
+        ElementSpecs = checkElementSpecs(Element)
 
         hasPredecessor = Element.y2yResultRow ? true : false
         isRevised = Element.isRevised ? true : false
@@ -39,10 +44,9 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
         // row labels
 
         activeCol = 1
+
         cellValue = StepComp.rowLabel + Element.labelShort
-
         noteString = Element.labelShort + ": " + Element.description
-
         cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
 
         // setting up the labels
@@ -76,11 +80,13 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
             } else {
+
                 if (serviceNr == 2 && Company.hasOpCom == false) {
                     cellValue = "N/A" // if no OpCom, pre-select N/A
+
                 } else {
 
                     cellValue = "not selected" // default for drop down list
@@ -130,27 +136,24 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
     //     Sheet.setRowHeight(activeRow + i, 50)
     // } // increases height of row
 
-    let Element, Cell, cellID, hasPredecessor, isRevised
+    let Element, Cell, cellID
 
-    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
 
     // loops through subindicators
     for (let elemNr = 0; elemNr < indLength; elemNr++) {
         let activeCol = 1
 
         Element = Indicator.elements[elemNr]
-        hasPredecessor = Element.y2yResultRow ? true : false
-        isRevised = Element.isRevised ? true : false
+        ElementSpecs = checkElementSpecs(Element)
 
         // adding the labels
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-        // if (StepComp.rowLabel2) {
-        //     StepComp.rowLabel = StepComp.rowLabel + " " + StepComp.rowLabel2
-        // }
         Cell.setValue(StepComp.rowLabel + Element.labelShort)
-
-
         Cell.setBackground(currentStep.subStepColor) // colors Cell
+
         activeCol += 1
 
         let serviceLabel, serviceType
@@ -176,7 +179,7 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
             cellID = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
                 Cell.setValue(cellValue)
             } else {

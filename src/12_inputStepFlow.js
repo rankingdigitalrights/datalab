@@ -50,11 +50,14 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
     let activeCol
 
-    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
         Element = Elements[elemNr]
+        ElementSpecs = checkElementSpecs(Element)
 
         hasPredecessor = Element.y2yResultRow ? true : false
         isRevised = Element.isRevised ? true : false
@@ -97,7 +100,7 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
             } else {
 
@@ -181,11 +184,15 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
     let activeCol
 
-    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
         Element = Elements[elemNr]
+        ElementSpecs = checkElementSpecs(Element)
+
         hasPredecessor = Element.y2yResultRow ? true : false
         isRevised = Element.isRevised ? true : false
 
@@ -223,7 +230,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
             } else {
 
@@ -360,11 +367,15 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
 
     let activeCol
 
-    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
         Element = Elements[elemNr]
+        ElementSpecs = checkElementSpecs(Element)
+
         hasPredecessor = Element.y2yResultRow ? true : false
         isRevised = Element.isRevised ? true : false
 
@@ -415,7 +426,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
 
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
-            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
             } else {
 

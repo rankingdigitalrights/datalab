@@ -294,11 +294,15 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
     let activeCol
 
-    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
         Element = Elements[elemNr]
+        ElementSpecs = checkElementSpecs(Element)
+
         hasPredecessor = Element.y2yResultRow ? true : false
         isRevised = Element.isRevised ? true : false
 
@@ -342,7 +346,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
-            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
             } else {
 
