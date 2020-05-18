@@ -28,10 +28,10 @@ function permissionsController() {
     //openStep(Indicators, StepLabelShort,companyID,emails,Spread)
     
     // protecting all sheets
-    //protectSheets(Indicators, Sheetemails, Spread)
+    protectSheets(Indicators, Sheetemails, Spread)
     
     // removing all protections
-    removeAllProtections(Spread)
+    //removeAllProtections(Spread)
     
     // close step
     // closeStep(Indicators,Sheetemails,Spread)
@@ -90,7 +90,7 @@ function permissionsController() {
                 var range = sheet.getRange(notation); // getting the range associated with named range
                 var rangeArray=[range] // need to store range in an array in order to call setUnprotectedRanges
         
-             protection.setUnprotectedRanges(rangeArray) // now this step is unprotected
+             protection.setUnprotectedRanges([rangeArray]) // now this step is unprotected
         
             // create a new protection that will only be open to certain people of that step
             var protectionStep = range.protect().setDescription(Indicator.labelShort+"StepProtection"+StepLabelShort[l]);
