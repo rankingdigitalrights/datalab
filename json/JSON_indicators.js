@@ -725,6 +725,10 @@ var indicatorsVector = {
           {
             "labelShort": "F1b.4",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires apps made available through its app store​ ​to provide users with an a​ dvertising content policy​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -767,6 +771,10 @@ var indicatorsVector = {
           {
             "labelShort": "F1c.4",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to provide users with an a​ dvertising targeting policy​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -881,6 +889,10 @@ var indicatorsVector = {
           {
             "labelShort": "F2b.5",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to n​ otify​ ​users​ when the ​apps​ change their ​advertising content policies​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -929,6 +941,10 @@ var indicatorsVector = {
           {
             "labelShort": "F2c.5",
             "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose​ that it requires ​apps​ made available through its ​app store​ to d​ irectly notify users​ when the a​ pps change their ​advertising targeting policies​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -995,6 +1011,8 @@ var indicatorsVector = {
           {
             "labelShort": "F3a.2",
             "description": "Does the company ​clearly disclose ​why it may ​restrict a user’s account​?",
+            "doExcludeServices": true,
+            "excludeServices": ["search"],
             "y2yResultRow": 183,
             "y2yCommentRow": 190
           },
@@ -1015,12 +1033,16 @@ var indicatorsVector = {
           {
             "labelShort": "F3a.5",
             "description": "Does the company clearly disclose whether any government authorities receive priority consideration when flagging content to be restricted for violating the company’s rules?",
+            "doExcludeServices": true,
+            "excludeServices": ["mobile", "cloud", "eCommerce", "email"],
             "y2yResultRow": 185,
             "y2yCommentRow": 192
           },
           {
             "labelShort": "F3a.6",
             "description": "Does the company ​clearly disclose​ whether any private entities receive priority consideration when flagging content ​to be restricted for violating the company’s rules?",
+            "doExcludeServices": true,
+            "excludeServices": ["mobile", "cloud", "eCommerce", "email"],
             "y2yResultRow": 186,
             "y2yCommentRow": 193
           },
@@ -1373,12 +1395,16 @@ var indicatorsVector = {
           {
             "labelShort": "F6.2",
             "description": "Does the company list the number of ​accounts affected?",
+            "doExcludeServices": true,
+            "excludeServices": ["search"],
             "y2yResultRow": 276,
             "y2yCommentRow": 286
           },
           {
             "labelShort": "F6.3",
             "description": "Does the company list the number of pieces of ​content or URLs affected?",
+            "doExcludeServices": true,
+            "excludeServices": ["messagingVoip"],
             "y2yResultRow": 277,
             "y2yCommentRow": 287
           },
@@ -1447,12 +1473,16 @@ var indicatorsVector = {
           {
             "labelShort": "F7.2",
             "description": "Does the company list the number of ​accounts affected?",
+            "doExcludeServices": true,
+            "excludeServices": ["search"],
             "y2yResultRow": 315,
             "y2yCommentRow": 325
           },
           {
             "labelShort": "F7.3",
             "description": "Does the company list the number of pieces of ​content or URLs affected?",
+            "doExcludeServices": true,
+            "excludeServices": ["messagingVoip"],
             "y2yResultRow": 316,
             "y2yCommentRow": 326
           },
@@ -1513,24 +1543,34 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "F8.1",
             "description": "If the company hosts user-generated content, does the company clearly disclose that it notifies users who generated the content when it is restricted?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["email", "search"],
             "y2yResultRow": 353,
             "y2yCommentRow": 357
           },
           {
             "labelShort": "F8.2",
             "description": "Does the company clearly disclose that it notifies users who attempt to access content that has been restricted?",
+            "doExcludeServices": true,
+            "excludeServices": ["email"],
             "y2yResultRow": 354,
             "y2yCommentRow": 358
           },
           {
             "labelShort": "F8.3",
             "description": "In its notification, does the company clearly disclose a reason for the content restriction (legal or otherwise)?",
+            "doExcludeServices": true,
+            "excludeServices": ["email"],
             "y2yResultRow": 355,
             "y2yCommentRow": 359
           },
           {
             "labelShort": "F8.4",
             "description": "Does the company clearly disclose that it notifies users when it restricts their account?",
+            "doExcludeServices": true,
+            "excludeServices": ["search"],
             "y2yResultRow": 356,
             "y2yCommentRow": 360
           }
@@ -1770,12 +1810,20 @@ var indicatorsVector = {
           {
             "labelShort": "P1a.4",
             "description": "(For mobile ecosystems): Does the company require apps made available through its app store to provide users with a privacy policy?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 437,
             "y2yCommentRow": 441
           },
           {
             "labelShort": "P1a.5",
             "description": "(For personal digital assistant ecosystems): Does the company disclose that it requires skills made available through its skill store to provide users with a privacy policy?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1848,12 +1896,20 @@ var indicatorsVector = {
           {
             "labelShort": "P2a.5",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it requires apps sold through its app store to notify users when the app changes its privacy policy?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 459,
             "y2yCommentRow": 464
           },
           {
             "labelShort": "P2a.6",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills sold through its skill store to notify users when the skill changes its privacy policy?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1926,24 +1982,40 @@ var indicatorsVector = {
           {
             "labelShort": "P3a.4",
             "description": "(For mobile ecosystems): Does the company clearly disclose  that it evaluates whether the privacy policies of third-party apps made available through its app store disclose what user information the apps collect?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 482,
             "y2yCommentRow": 487
           },
           {
             "labelShort": "P3a.5",
             "description": "(For mobile ecosystems): Does the company clearly disclose  that it evaluates whether third-party apps made available through its app store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the app?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 483,
             "y2yCommentRow": 488
           },
           {
             "labelShort": "P3a.6",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose what user information the skills collects?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "P3a.7",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether third-party skills made available through its skill store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the skill?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -2016,24 +2088,40 @@ var indicatorsVector = {
           {
             "labelShort": "P4.5",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party apps made available through its app store disclose what user information the apps share?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 507,
             "y2yCommentRow": 513
           },
           {
             "labelShort": "P4.6",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party apps made available through its app store disclose the types of third parties with whom they share user information?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 508,
             "y2yCommentRow": 514
           },
           {
             "labelShort": "P4.7",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose what user information the skills share?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "P4.8",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose the types of third parties with whom they share user information?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -2124,24 +2212,40 @@ var indicatorsVector = {
           {
             "labelShort": "P6.6",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose how long they retains user information?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 556,
             "y2yCommentRow": 563
           },
           {
             "labelShort": "P6.7",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store state that all user information is deleted when users terminate their accounts or delete the app?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 557,
             "y2yCommentRow": 564
           },
           {
             "labelShort": "P6.8",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose how long they retain user information?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "P6.9",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -2208,6 +2312,10 @@ var indicatorsVector = {
           {
             "labelShort": "P7.9",
             "description": "(For mobile ecosystems and personal digital assistant ecosystems): Does the company clearly disclose that it provides users with options to control the device’s geolocation functions?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 585,
             "y2yCommentRow": 590
           }
@@ -2262,12 +2370,20 @@ var indicatorsVector = {
           {
             "labelShort": "P8.7",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose that users can obtain all of the user information about them the app holds?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["pda", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 609,
             "y2yCommentRow": 614
           },
           {
             "labelShort": "P8.8",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -2286,30 +2402,40 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P9.1",
             "description": "(For digital platforms) Does the company clearly disclose what user information it collects from third-party websites through technical means?",
+            "doExcludeCompanies": true,
+            "excludeServices": ["telecom"],
             "y2yResultRow": 629,
             "y2yCommentRow": 634
           },
           {
             "labelShort": "P9.2",
             "description": "(For digital platforms) Does the company clearly explain how it collects user information from third parties through technical means?",
+            "doExcludeCompanies": true,
+            "excludeServices": ["telecom"],
             "y2yResultRow": 630,
             "y2yCommentRow": 635
           },
           {
             "labelShort": "P9.3",
             "description": "(For digital platforms) Does the company clearly disclose its purpose for collecting user information from third parties through technical means?",
+            "doExcludeCompanies": true,
+            "excludeServices": ["telecom"],
             "y2yResultRow": 631,
             "y2yCommentRow": 636
           },
           {
             "labelShort": "P9.4",
             "description": "(For digital platforms) Does the company clearly disclose how long it retains the user information it collects from third parties through technical means?",
+            "doExcludeCompanies": true,
+            "excludeServices": ["telecom"],
             "y2yResultRow": 632,
             "y2yCommentRow": 637
           },
           {
             "labelShort": "P9.5",
             "description": "(For digital platforms) Does the company clearly disclose that it respects user-generated signals to opt-out of data collection?",
+            "doExcludeCompanies": true,
+            "excludeServices": ["telecom"],
             "y2yResultRow": 633,
             "y2yCommentRow": 638
           },
@@ -2638,48 +2764,74 @@ var indicatorsVector = {
           {
             "labelShort": "P14.4",
             "description": "(For mobile ecosystems and personal digital assistant ecosystems) Does the company clearly disclose that software updates, security patches, add-ons, or extensions are downloaded over an encrypted channel?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 779,
             "y2yCommentRow": 788
           },
           {
             "labelShort": "P14.5",
             "description": "(For mobile ecosystems and telecommunications companies) Does the company clearly disclose what, if any, modifications it has made to a mobile operating system?",
+            "doExcludeServices": true,
+            "excludeServices": ["broadband", "search", "email", "messagingVoip", "cloud", "eCommerce", "pda", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 780,
             "y2yCommentRow": 789
           },
           {
             "labelShort": "P14.6",
             "description": "(For mobile ecosystems, personal digital assistant ecosystems, and telecommunications companies) Does the company clearly disclose what, if any, effect such modifications have on the company’s ability to send security updates to users?",
+            "doExcludeServices": true,
+            "excludeServices": ["broadband", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 781,
             "y2yCommentRow": 790
           },
           {
             "labelShort": "P14.7",
             "description": "(For mobile ecosystems and personal digital assistant ecosystems) Does the company clearly disclose the date through which it will continue to provide security updates for the device/OS?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 782,
             "y2yCommentRow": 791
           },
           {
             "labelShort": "P14.8",
             "description": "(For mobile ecosystems and personal digital assistant ecosystems) Does the company commit to provide security updates for the operating system and other critical software for a minimum of five years after release?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 783,
             "y2yCommentRow": 792
           },
           {
             "labelShort": "P14.9",
             "description": "(For mobile ecosystems, personal digital assistant ecosystems, and telecommunications companies) If the company uses an operating system adapted from an existing system, does the company commit to provide security patches within one month of a vulnerability being announced to the public?",
+            "doExcludeServices": true,
+            "excludeServices": ["broadband", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": 784,
             "y2yCommentRow": 793
           },
           {
             "labelShort": "P14.10",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose what, if any, modifications it has made to a personal digital assistant operating system?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "P14.11",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose what, if any, effect such modifications have on the company’s ability to send security updates to users?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
