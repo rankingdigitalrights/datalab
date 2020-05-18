@@ -1,6 +1,7 @@
 var researchStepsVector = {
   researchSteps: [{
       step: 0,
+      stepID: "S00",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
       substeps: [{
@@ -33,6 +34,7 @@ var researchStepsVector = {
     },
     {
       step: 1,
+      stepID: "S01",
       rowLabel: "Data Collection and Evaluation",
       stepColor: "#ddd9c3",
       substeps: [{
@@ -41,13 +43,6 @@ var researchStepsVector = {
           subStepColor: "#ddd9c3",
           doCollapse: false,
           components: [{
-              type: "stepResearcherRow",
-              id: "N",
-              rowLabel: "Researcher",
-              variableName: "researcher",
-              placeholderText: "Your Name"
-            },
-            {
               type: "subStepHeader",
               rowLabel: "Are the Results the same this Year?",
             },
@@ -112,7 +107,7 @@ var researchStepsVector = {
             {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources",
               prevStep: "S07",
               evaluationStep: "S010",
@@ -161,10 +156,11 @@ var researchStepsVector = {
               "rowLabel": "Comment ",
               "label2": " ",
               "nameLabel": "Comments"
-            }, {
+            },
+            {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources",
               prevStep: "S07",
               evaluationStep: "S07",
@@ -176,6 +172,7 @@ var researchStepsVector = {
     },
     {
       step: 2,
+      stepID: "S02",
       rowLabel: "Fact Check/Review of Step 1",
       stepColor: "#c6d9f0",
       substeps: [{
@@ -184,13 +181,6 @@ var researchStepsVector = {
         subStepColor: "#c6d9f0",
         doCollapse: false,
         components: [{
-            type: "stepResearcherRow",
-            id: "N",
-            rowLabel: "Researcher",
-            variableName: "researcher",
-            placeholderText: "Your Name"
-          },
-          {
             type: "subStepHeader",
             rowLabel: "Do you agree with the Step 1 Evaluation?",
           },
@@ -249,7 +239,7 @@ var researchStepsVector = {
           {
             type: "sources",
             id: "S",
-            rowLabel: "Sources (reference, specific page, section, etc.)",
+            rowLabel: "Sources",
             variableName: "sources",
             prevStep: "S011",
             evaluationStep: "S020",
@@ -307,7 +297,7 @@ var researchStepsVector = {
           //   },
           {
             "type": "extraQuestion",
-            "rowLabel": "If you disagree, please explain your reasoning:"
+            "question": "If you disagree, please explain your reasoning:"
           },
           {
             "type": "comments",
@@ -318,7 +308,7 @@ var researchStepsVector = {
           {
             type: "sources",
             id: "S",
-            rowLabel: "Sources (reference, specific page, section, etc.)",
+            rowLabel: "Sources",
             variableName: "sources",
             prevStep: "S011",
             evaluationStep: "S020",
@@ -329,6 +319,7 @@ var researchStepsVector = {
     },
     {
       step: 3,
+      stepID: "S03",
       rowLabel: "Reconcilation and Consolidation",
       stepColor: "#d9ead3",
       substeps: [{
@@ -337,13 +328,6 @@ var researchStepsVector = {
           subStepColor: "#d9ead3",
           doCollapse: false,
           components: [{
-              type: "stepResearcherRow",
-              id: "N",
-              rowLabel: "Researcher",
-              variableName: "researcher",
-              placeholderText: "Your Name"
-            },
-            {
               type: "subStepHeader",
               rowLabel: "Is there Agreement between Step 1 and Step 2?",
             },
@@ -387,7 +371,7 @@ var researchStepsVector = {
             },
             {
               "type": "extraQuestion",
-              "rowLabel": "If there is a disagreement, please explain your reasoning:"
+              "question": "If there is a disagreement, please explain your reasoning:"
             },
             {
               type: "comments",
@@ -403,7 +387,7 @@ var researchStepsVector = {
             {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources",
               prevStep: "S021",
               evaluationStep: "S030",
@@ -432,7 +416,7 @@ var researchStepsVector = {
             },
             {
               "type": "extraQuestion",
-              "rowLabel": "If this Year's Results are different, select Reason for Change:"
+              "question": "If this Year's Results are different, select Reason for Change:"
             },
             {
               type: "YonYreview", // "evaluation"
@@ -460,7 +444,7 @@ var researchStepsVector = {
             }, {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources",
               prevStep: "S07",
               evaluationStep: "S07",
@@ -472,6 +456,7 @@ var researchStepsVector = {
     },
     {
       step: 4,
+      stepID: "S04",
       rowLabel: "Company Feedback",
       stepColor: "#d9d2e9",
       substeps: [{
@@ -481,13 +466,6 @@ var researchStepsVector = {
           subStepColor: "#d9d2e9",
           doCollapse: true,
           components: [{
-              type: "stepResearcherRow",
-              id: "N",
-              rowLabel: "Researcher",
-              variableName: "researcher",
-              placeholderText: "Your Name"
-            },
-            {
               type: "subStepHeader",
               rowLabel: "Are the Results the same this year?",
             },
@@ -512,8 +490,7 @@ var researchStepsVector = {
                 "partial",
                 "no",
                 "no disclosure found",
-                "N/A",
-                "not piloted"
+                "N/A"
               ]
             },
             {
@@ -527,7 +504,7 @@ var researchStepsVector = {
             {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources"
             }
           ]
@@ -560,6 +537,7 @@ var researchStepsVector = {
     },
     {
       step: 5,
+      stepID: "S05",
       rowLabel: "Consolidated Evaluation",
       stepColor: "#fff2cc",
       substeps: [{
@@ -569,13 +547,6 @@ var researchStepsVector = {
           subStepColor: "#fff2cc",
           doCollapse: true,
           components: [{
-              type: "stepResearcherRow",
-              id: "N",
-              rowLabel: "Researcher",
-              variableName: "researcher",
-              placeholderText: "Your Name"
-            },
-            {
               type: "subStepHeader",
               rowLabel: "Are the Results the same this year?",
             },
@@ -591,8 +562,7 @@ var researchStepsVector = {
                 "partial",
                 "no",
                 "no disclosure found",
-                "N/A",
-                "not piloted"
+                "N/A"
               ]
             },
             {
@@ -606,7 +576,7 @@ var researchStepsVector = {
             {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources"
             }
           ]
@@ -648,13 +618,6 @@ var researchStepsVector = {
           subStepColor: "#ead1dc",
           doCollapse: true,
           components: [{
-              type: "stepResearcherRow",
-              id: "N",
-              rowLabel: "Researcher",
-              variableName: "researcher",
-              placeholderText: "Your Name"
-            },
-            {
               type: "subStepHeader",
               rowLabel: "Are the Results the same this year?",
             },
@@ -670,8 +633,7 @@ var researchStepsVector = {
                 "partial",
                 "no",
                 "no disclosure found",
-                "N/A",
-                "not piloted"
+                "N/A"
               ]
             },
             {
@@ -685,7 +647,7 @@ var researchStepsVector = {
             {
               type: "sources",
               id: "S",
-              rowLabel: "Sources (reference, specific page, section, etc.)",
+              rowLabel: "Sources",
               variableName: "sources"
             }
           ]

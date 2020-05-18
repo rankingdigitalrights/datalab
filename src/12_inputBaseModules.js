@@ -1,7 +1,10 @@
 // addStepEvaluation creates a dropdown list in each column for each subindicator
 
 /* global
-    Config
+    Config,
+    indexPrefix,
+    defineNamedRange,
+
 */
 
 function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
@@ -73,7 +76,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
                 cellValue = "not selected" // default for drop down list
 
                 if ((hasPredecessor && !isNewCompany) || (mainStepNr > 1 && stepCompID != "YY")) {
-                    Cell.setDataValidation(rule) // creates dropdown list
+                    Cell.setDataValidation(rule)
                 } else {
                     cellValue = isNewCompany ? Config.newCompanyLabelResult : naText
                 }
@@ -81,7 +84,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
             }
 
             Cell.setValue(cellValue)
-            SS.setNamedRange(cellID, Cell) // names cells
+            SS.setNamedRange(cellID, Cell)
 
             activeCol += 1
         }
@@ -150,6 +153,10 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
                 cellID = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
+                if (!Company.hasOpCom) {
+                    Cell.setValue("N/A")
+                }
+
                 SS.setNamedRange(cellID, Cell)
                 activeCol += 1
 
@@ -203,10 +210,10 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
             let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "group", stepCompID)
 
-            SS.setNamedRange(cellName, thisCell) // names cells
-            thisCell.setDataValidation(rule) // creates dropdown list
-                .setValue("not selected") // sets default for drop down list
-                .setFontWeight("bold") // bolds the answers
+            SS.setNamedRange(cellName, thisCell)
+            thisCell.setDataValidation(rule)
+                .setValue("not selected")
+                .setFontWeight("bold")
 
             activeCol += 1
 
@@ -219,10 +226,10 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
             let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "opCom", stepCompID)
 
-            SS.setNamedRange(cellName, thisCell) // names cells
-            thisCell.setDataValidation(rule) // creates dropdown list
-                .setValue("not selected") // sets default for drop down list
-                .setFontWeight("bold") // bolds the answers
+            SS.setNamedRange(cellName, thisCell)
+            thisCell.setDataValidation(rule)
+                .setValue("not selected")
+                .setFontWeight("bold")
 
             activeCol += 1
 
@@ -231,14 +238,16 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
         // service columns
         else {
 
+            let s = serviceNr - 3
+
             let thisCell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
+            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
-            SS.setNamedRange(cellName, thisCell) // names cells
-            thisCell.setDataValidation(rule) // creates dropdown list
-                .setValue("not selected") // sets default for drop down list
-                .setFontWeight("bold") // bolds the answers
+            SS.setNamedRange(cellName, thisCell)
+            thisCell.setDataValidation(rule)
+                .setValue("not selected")
+                .setFontWeight("bold")
 
             activeCol += 1
         }
@@ -266,6 +275,7 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
     Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(Substep.components[stepCNr].rowLabel)
         .setBackground(Substep.subStepColor)
+    Cell.setNote("Sources: reference, specific page, section, etc.")
     activeCol += 1
 
     for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
@@ -290,6 +300,10 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
             cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
 
             SS.setNamedRange(cellID, Cell)
+
+            if (!Company.hasOpCom) {
+                Cell.setValue("N/A")
+            }
 
             activeCol += 1
 

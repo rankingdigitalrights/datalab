@@ -20,7 +20,8 @@
     addTwoStepComparison,
     importYonYResults,
     importYonYSources,
-    defineNamedRange
+    defineNamedRange,
+    cropEmptyColumns
 */
 
 function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, companyNrOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
@@ -114,6 +115,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             activeRow = addMainStepHeader(Sheet, Category, Company, activeRow, companyNrOfServices, MainStep, mainStepColor) // sets up header
 
             let beginStep = activeRow
+
+            if (mainStepNr > 0) {
+                activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+            }
+
             let endStep = activeRow
 
             // --- // Begin sub-Step-Wise Procedure // --- //
@@ -143,14 +149,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                     switch (thisStepComponent) {
 
                         case "stepResearcherRow":
+                            //TODO: remove from JSON
+                            break
+
+                        case "subStepHeader":
 
                             // HOOK for data range and conditional formatting
                             if (dataStartRow === 0 && mainStepNr > 0) dataStartRow = activeRow
 
-                            activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, companyNrOfServices)
-                            break
-
-                        case "subStepHeader":
                             activeRow = addSubStepHeader(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, companyNrOfServices)
                             break
 
@@ -205,7 +211,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "extraQuestion":
-                            activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, companyNrOfServices)
+                            activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, Company, companyNrOfServices)
                             break
 
                         default:
@@ -233,6 +239,8 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                 // GROUPING for substep
                 if (subStepsLength > 1) {
+
+                    range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
                     let substepRange = range.shiftRowGroupDepth(1)
 
                     // COLLAPSE substep GROUP per researchSteps substep setting
@@ -308,6 +316,8 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         } else {
             Sheet.hideColumns(2, bridgeCompColumnsNr)
         }
+
+        cropEmptyColumns(Sheet)
 
         // color Indicator Sheet (Tab) in Class Color when done
         Sheet.setTabColor(Category.classColor)

@@ -136,8 +136,6 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
                 }
             }
 
-
-
             Cell.setValue(cellValue.toString())
             SS.setNamedRange(cellID, Cell)
 
@@ -150,24 +148,16 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     rangeCols = activeCol
     rangeRows = elementsNr
 
-    let range = Sheet.getRange(activeRow, rangeStartCol + 1, rangeRows, rangeCols)
-        .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-
-    // let rule = SpreadsheetApp.newConditionalFormatRule()
-    //     .whenTextEqualTo("No")
-    //     .setBackground("#fa7661")
-    //     .setRanges([range])
-    //     .build()
-
-    // let rules = Sheet.getConditionalFormatRules()
-    // rules.push(rule)
-    // Sheet.setConditionalFormatRules(rules)
-
     //format Component block
     if (!isComments) {
         Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
             .setFontWeight("bold")
             .setHorizontalAlignment("center")
+    } else {
+        Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
+            .setVerticalAlignment("middle")
+            .setWrap(true)
+            .setVerticalAlignment("top")
     }
     activeRow = activeRow + elementsNr
     return activeRow

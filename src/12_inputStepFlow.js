@@ -389,12 +389,12 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
             if (serviceNr == 2 && Company.hasOpCom == false) {
-                cellValue = "N/A" // if no OpCom, pre-select N/A
+                cellValue = "N/A"
             } else {
 
-                if (!isNewCompany || !isInternalEval) {
+                if (!isNewCompany) {
 
-                    if (hasPredecessor || mainStepNr > 1) {
+                    if (hasPredecessor || (mainStepNr > 1 && isInternalEval)) {
 
                         prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
 
