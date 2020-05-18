@@ -141,21 +141,21 @@ var indicatorsVector = {
         "prevIndLength": 11,
         "elements": [{
             "labelShort": "G4a.1",
-            "description": "Does the company consider how laws affect freedom of expression and information in jurisdictions where it operates?",
+            "description": "Does the company assess how laws affect freedom of expression and information in jurisdictions where it operates?",
             "y2yResultRow": 54,
             "y2yCommentRow": 65,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G4a.2",
-            "description": "Does the company consider how laws affect privacy in jurisdictions where it operates?",
+            "description": "Does the company assess how laws affect privacy in jurisdictions where it operates?",
             "y2yResultRow": 54,
             "y2yCommentRow": 65,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G4a.3",
-            "description": "Does the company regularly assess freedom of expression and information risks associated with existing products and services in jurisdictions where it operates?",
+            "description": "Does the company assess freedom of expression and information risks associated with existing products and services in jurisdictions where it operates?",
             "y2yResultRow": 55,
             "y2yCommentRow": 66,
             "prevSubInd": "F"
@@ -183,13 +183,13 @@ var indicatorsVector = {
           },
           {
             "labelShort": "G4a.7",
-            "description": "Does the company disclose that it conducts additional evaluation wherever the company’s risk assessments identify concerns?",
+            "description": "Does the company conduct additional evaluation wherever the company’s risk assessments identify concerns?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "G4a.8",
-            "description": "Does the company disclose that senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
+            "description": "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -218,33 +218,37 @@ var indicatorsVector = {
         "labelLong": "Policy Enforcement",
         "description": "",
         "scoringScope": "full",
+        "doExcludeCompanies": true,
+        "excludeCompanies": ["telecom"],
+        "doExcludeServices": true,
+        "excludeServices": ["opCom", "search", "cloud", "eCommerce", "email"],
         "y2yCompColumn": 2,
         "y2yCompRow": 54,
         "prevIndicator": "G4",
         "prevIndLength": 11,
         "elements": [{
             "labelShort": "G4b.1",
-            "description": "Does the company clearly disclose that it assesses freedom of expression and information risks of  enforcing its terms of service?",
+            "description": "Does the company assess freedom of expression and information risks of enforcing its terms of service?",
             "y2yResultRow": 57,
             "y2yCommentRow": 68,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G4b.2",
-            "description": "Does the company clearly disclose it conducts risk assessments of its enforcement of its privacy policies?",
+            "description": "Does the company conduct risk assessments of its enforcement of its privacy policies?",
             "y2yResultRow": 57,
             "y2yCommentRow": 68,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G4b.3",
-            "description": "Does the company disclose that it assesses discrimination risks associated with its processes for enforcing its terms of service?",
+            "description": "Does the company assess discrimination risks associated with its processes for enforcing its terms of service?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "G4b.4",
-            "description": "Does the company clearly disclose that it assesses discrimination risks associated with its processes for enforcing its privacy policies?",
+            "description": "Does the company assess discrimination risks associated with its processes for enforcing its privacy policies?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -291,21 +295,21 @@ var indicatorsVector = {
         "prevIndLength": 11,
         "elements": [{
             "labelShort": "G4c.1",
-            "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its targeted advertising policies and practices?",
+            "description": "Does the company assess freedom of expression and information risks associated with its targeted advertising policies and practices?",
             "y2yResultRow": 59,
             "y2yCommentRow": 70,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G4c.2",
-            "description": "Does the company disclose that it assesses privacy risks associated with its targeted advertising policies and practices?",
+            "description": "Does the company assess privacy risks associated with its targeted advertising policies and practices?",
             "y2yResultRow": 59,
             "y2yCommentRow": 70,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G4c.3",
-            "description": "Does the company disclose that it assesses discrimination risks associated with its targeted advertising policies and practices?",
+            "description": "Does the company disclose assess discrimination risks associated with its targeted advertising policies and practices?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -352,21 +356,21 @@ var indicatorsVector = {
         "prevIndLength": 11,
         "elements": [{
             "labelShort": "G4d.1",
-            "description": "Does the company disclose that it assesses freedom of expression and information risks associated with its development and use of algorithmic decision-making systems?",
+            "description": "Does the company assess freedom of expression and information risks associated with its development and use of algorithmic decision-making systems?",
             "y2yResultRow": 58,
             "y2yCommentRow": 69,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G4d.2",
-            "description": "Does the company disclose that it assesses privacy risks associated with its development and use of algorithmic decision-making systems?",
+            "description": "Does the company assess privacy risks associated with its development and use of algorithmic decision-making systems?",
             "y2yResultRow": 58,
             "y2yCommentRow": 69,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G4d.3",
-            "description": "Does the company disclose that it assesses discrimination risks associated with its development and use of algorithmic decision making systems?",
+            "description": "Does the company assess discrimination risks associated with its development and use of algorithmic decision making systems?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -413,19 +417,19 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "G4e.1",
-            "description": "Does the company clearly disclose that it assesses freedom of expression and information risks associated with its zero-rating programs?",
+            "description": "Does the company assess freedom of expression and information risks associated with its zero-rating programs?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "G4e.2",
-            "description": "Does the company clearly disclose that it assesses privacy risks associated with its zero-rating programs?",
+            "description": "Does the company assess privacy risks associated with its zero-rating programs?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "G4e.3",
-            "description": "Does the company clearly disclose that it assesses discrimination risks associated with its zero-rating programs?",
+            "description": "Does the company assess discrimination risks associated with its zero-rating programs?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -472,20 +476,20 @@ var indicatorsVector = {
         "prevIndLength": 3,
         "elements": [{
             "labelShort": "G5.1",
-            "description": "Is the company a member of one or more multi-stakeholder initiative that address the full range of ways in which freedom of expression and information, privacy, and related human rights may be affected in the course of the company’s operations?",
+            "description": "Is the company a member of one or more multi-stakeholder initiatives that address the full range of ways in which users’ fundamental rights to freedom of expression and information, privacy, and non-discrimination may be affected in the course of the company’s operations?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
           },
           {
             "labelShort": "G5.2",
-            "description": "If the company is not a member of one or more such multi-stakeholder initiatives, is the company a member of any organizations that engage systematically and on a regular basis with non-industry and non-governmental stakeholders on freedom of expression and privacy?",
+            "description": "If the company is not a member of one or more such multi-stakeholder initiatives, is the company a member of any organization that engages systematically and on a regular basis with non-industry and non-governmental stakeholders on freedom of expression and privacy issues?",
             "y2yResultRow": 98,
             "y2yCommentRow": 101
           },
           {
             "labelShort": "G5.3",
-            "description": "If the company is not a member of one of these organizations, does the company disclose that it initiates or participates in meetings with stakeholders that represent, advocate on behalf of, or are people whose freedom of expression and privacy are directly impacted by the company’s business?",
+            "description": "If the company is not a member of one of these organizations, does the company disclose that it initiates or participates in meetings with stakeholders that represent, advocates on behalf of, or are people whose rights to freedom of expression and information and to privacy are directly impacted by the company’s business?",
             "y2yResultRow": 99,
             "y2yCommentRow": 102
           }
@@ -579,13 +583,13 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "G6b.1",
-            "description": "Does the company clearly disclose that it offers users the ability to appeal content-moderation actions?",
+            "description": "Does the company clearly disclose that it offers affected users the ability to appeal content-moderation actions?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "G6b.2",
-            "description": "Does the company clearly disclose that it notifies the user who is affected by a content-moderation action?",
+            "description": "Does the company clearly disclose that it notifies the users who are affected by a content-moderation action?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -615,7 +619,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "G6b.7",
-            "description": "Does the company clearly disclose the role of humans in reviewing appeals?",
+            "description": "Does the company clearly disclose that such appeals are reviewed by at least one human not involved in the original content-moderation action?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -627,13 +631,13 @@ var indicatorsVector = {
           },
           {
             "labelShort": "G6b.9",
-            "description": "Does the company clearly disclose that the affected user has an opportunity to present additional information that will be considered in the review?",
+            "description": "Does the company clearly disclose that the affected users have an opportunity to present additional information that will be considered in the review?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "G6b.10",
-            "description": "Does the company clearly disclose that it provides the affected user a statement outlining the reason for its decision?",
+            "description": "Does the company clearly disclose that it provides the affected users with a statement outlining the reason for its decision?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -987,7 +991,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3a.4",
-            "description": "Does the company ​clearly disclose​ whether it uses algorithmic systems ​to flag c​ontent​ that might violate the company’s rules?",
+            "description": "Does the company clearly disclose how it uses algorithmic systems to flag content that might violate the company’s rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
@@ -1106,24 +1110,32 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4a.3",
-            "description": "Does the company publish​ ​data on the number of pieces of ​content​ ​it ​restricted ​based on the method used to identify the violation?",
+            "description": "Does the company publish data on the number of pieces of content it restricted based on the format of content? (e.g. text, image, video, live video)?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F4a.4",
-            "description": "Does the company publish this data at leas​t​ ​four times ​a year?",
+            "description": "Does the company publish​ ​data on the number of pieces of ​content​ ​it ​restricted ​based on the method used to identify the violation?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
           },
           {
             "labelShort": "F4a.5",
+            "description": "Does the company publish this data at leas​t​ ​four times ​a year?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false,
+            "isRevised": true
+          },
+          {
+            "labelShort": "F4a.6",
             "description": "Can the data be exported as a ​structured data ​file?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
           }
+
         ]
       },
       {
@@ -1174,7 +1186,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "F4c",
-        "labelLong": "Data about advertising content policy enforcement",
+        "labelLong": "Data about advertising content and ad targeting policy enforcement",
         "description": "",
         "scoringScope": "full",
         "y2yCompColumn": 2,
@@ -1183,72 +1195,37 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "F4c.1",
-            "description": "Does the company publish the total number of advertisements​ it ​restricted ​to enforce its a​dvertising content policies​?",
+            "description": "Does the company publish the total number of advertisements it restricted to enforce its advertising content policies?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F4c.2",
-            "description": "Does the company publish the number of advertisements​ it ​restricted ​based on which rule was violated?",
+            "description": "Does the company publish the number of advertisements it restricted based on which rule was violated?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F4c.3",
-            "description": "Does the company publish the number of advertisements​ it ​restricted ​based on the method used to identify the violation?",
+            "description": "Does the company publish the total number of advertisements it restricted to enforce its advertising targeting policies?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F4c.4",
-            "description": "Does the company publish this data at least four times a year?",
+            "description": "Does the company publish the number of pieces of advertising content it restricts based on which rule was violated?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "F4c.5",
-            "description": "Can the data be​ ​exported as a ​structured data file​?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          }
-        ]
-      },
-      {
-        "labelShort": "F4d",
-        "labelLong": "Data about advertising targeting policy enforcement",
-        "description": "",
-        "scoringScope": "full",
-        "y2yCompColumn": 2,
-        "y2yCompRow": 54,
-        "prevIndicator": null,
-        "prevIndLength": null,
-        "elements": [{
-            "labelShort": "F4d.1",
-            "description": "Does the company publish the total number of pieces of advertising content​ it ​restricted ​to enforce its advertising targeting policies​?",
+            "description": "Does the company publish this data at least once a year?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
-            "labelShort": "F4d.2",
-            "description": "Does the company publish the number of pieces of advertising content ​it ​restricts ​based on which rule was violated?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "F4d.3",
-            "description": "Does the company publish the number of pieces of advertising content ​it ​restricts ​based on the method used to identify the violation?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "F4d.4",
-            "description": "Does the company publish this data at least four times a year?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "F4d.5",
-            "description": "Can the data be accessed through a ​robust programmatic interface​ or exported as a ​structured data file​?",
+            "labelShort": "F4c.6",
+            "description": "Can the data be exported as a structured data file?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -1259,6 +1236,8 @@ var indicatorsVector = {
         "labelLong": "Process for responding to ​government demands to restrict content or accounts",
         "description": "",
         "scoringScope": "full",
+        "doExcludeServices": true,
+        "excludeServices": ["email"],
         "y2yCompColumn": 2,
         "y2yCompRow": 230,
         "prevIndicator": "F5",
@@ -1312,6 +1291,8 @@ var indicatorsVector = {
         "labelLong": "Process for responding to private requests for content or account restriction",
         "description": "",
         "scoringScope": "full",
+        "doExcludeServices": true,
+        "excludeServices": ["email"],
         "y2yCompColumn": 2,
         "y2yCompRow": 230,
         "prevIndicator": "F5",
@@ -1353,6 +1334,8 @@ var indicatorsVector = {
         "labelLong": "Data about government ​demands​ ​​to restrict content ​and​ ​​accounts",
         "description": "",
         "scoringScope": "full",
+        "doExcludeServices": true,
+        "excludeServices": ["email"],
         "y2yCompColumn": 2,
         "y2yCompRow": 275,
         "prevIndicator": "F6",
@@ -1424,6 +1407,8 @@ var indicatorsVector = {
         "labelLong": "Data about private requests for content or account restriction",
         "description": "",
         "scoringScope": "full",
+        "doExcludeServices": true,
+        "excludeServices": ["email"],
         "y2yCompColumn": 2,
         "y2yCompRow": 314,
         "prevIndicator": "F7",
@@ -2163,9 +2148,9 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P7.6",
-            "description": "Does the company clearly disclose that users can opt in to being served with targeted advertising?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
+            "description": "Does the company clearly disclose that targeted advertising is off by default?",
+            "y2yResultRow": 584,
+            "y2yCommentRow": 589
           },
           {
             "labelShort": "P7.7",
@@ -2222,18 +2207,24 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P8.5",
-            "description": "Does the company clearly disclose that users can obtain all the information that a company has inferred about them?",
+            "description": "Does the company clearly disclose that users can access the list of advertising audience categories to which the company has assigned them?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
           {
             "labelShort": "P8.6",
+            "description": "Does the company clearly disclose that users can obtain all the information that a company has inferred about them?",
+            "y2yResultRow": false,
+            "y2yCommentRow": false
+          },
+          {
+            "labelShort": "P8.7",
             "description": "(For mobile ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party apps made available through its app store disclose that users can obtain all of the user information about them the app holds?",
             "y2yResultRow": 609,
             "y2yCommentRow": 614
           },
           {
-            "labelShort": "P8.7",
+            "labelShort": "P8.8",
             "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?",
             "y2yResultRow": false,
             "y2yCommentRow": false
@@ -2758,50 +2749,7 @@ var indicatorsVector = {
           "y2yResultRow": 869,
           "y2yCommentRow": 870
         }]
-      },
-      {
-        "labelShort": "P19",
-        "labelLong": "User access to advertising targeting metadata",
-        "description": "",
-        "scoringScope": "full",
-        "y2yCompColumn": 2,
-        "y2yCompRow": 429,
-        "prevIndicator": null,
-        "prevIndLength": null,
-        "elements": [{
-            "labelShort": "P19.1",
-            "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which the company has assigned them?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "P19.2",
-            "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which each piece of advertising content they see while using the product or service was targeted?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "P19.3",
-            "description": "Does the company clearly disclose how users can access the list of advertisers who have attempted to influence them through the company’s on-platform targeted advertising technologies?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "P19.4",
-            "description": "Does the company clearly disclose how users can access the list of advertising audience categories to which each piece of advertising content they see off-platform was targeted through the company’s advertising network?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          },
-          {
-            "labelShort": "P19.5",
-            "description": "Does the company clearly disclose how users can access the list of advertisers who have attempted to influence them through the company’s off-platform advertising network?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
-          }
-        ]
       }
-
-
     ]
   }]
 }

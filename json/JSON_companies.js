@@ -1,5 +1,5 @@
 // please refer to naming conventions
-// https://github.com/rankingdigitalrights/datalab/blob/pilot-fork/clasp-proj/docs/dictionary.MD
+// "https"://github.com/rankingdigitalrights/datalab/blob/pilot-fork/clasp-proj/docs/dictionary.MD
 
 var companiesVector = {
   "collection": "companies",
@@ -22,7 +22,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": null,
       "urlCurrentDataCollectionSheet": "1lCU-jarAjYnoNA8ftmTiP-l2c54pDNN-mh8mVEFRxyA",
       "urlCurrentCompanyScoringSheet": null,
-      "numberOfServices": 2,
+      "numberOfServices": 3,
       "services": [{
           "id": "ecAZ1",
           "type": "eCommerce",
@@ -40,11 +40,11 @@ var companiesVector = {
           }
         },
         {
-          id: "clAZ1",
-          type: "cloud",
-          label: {
-            current: "Amazon Drive",
-            legacy: [null]
+          "id": "clAZ1",
+          "type": "cloud",
+          "label": {
+            "current": "Amazon Cloud",
+            "legacy": [null]
           }
         }
       ]
