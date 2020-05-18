@@ -138,7 +138,7 @@ var companiesVector = {
       "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "AppleOutcome",
-      "urlCurrentDataCollectionSheet": "1eRzRqGy_baoheL8uxuh2fsMNuXicXAqOzvoLDlS6-Ak",
+      "urlCurrentDataCollectionSheet": "1q5q9tFe9dcoRYedZpQsgD3_Jv5CF4KsnsDmSrPWkx38",
       "urlCurrentCompanyScoringSheet": "1OmNEYyGX1FmmhpqvkWORa-_HNTnL1fO-PrhvNfuR9ak",
       "numberOfServices": 3,
       "services": [{
@@ -890,7 +890,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "TelefonicaOutcome",
-      "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
+      "urlCurrentDataCollectionSheet": "1Jzuz2_Ic1Ati2YW8yIpA9L9wwsXxCaTw_5hqClMvspE",
       "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
       "numberOfServices": 3,
       "services": [{
