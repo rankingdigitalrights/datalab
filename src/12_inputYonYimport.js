@@ -8,7 +8,7 @@
 
 // Imports previous year's outcome as Substep 0
 
-function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, Substep, stepCNr, nrOfSubIndicators, companyNumberOfServices, isComments) {
+function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, Substep, stepCNr, nrOfSubIndicators, companyNrOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
@@ -34,14 +34,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     let subCatLabel = ""
     let hasSubindicator = (category == "G") ? true : false
 
-
-    // Indicator Level Evaluation & Scoring Specifics
-    let doExcludeCompanies = Indicator.doExcludeCompanies ? true : false
-    let excludeCompanies = doExcludeCompanies ? Indicator.excludeCompanies : []
-    let doExcludeServices = Indicator.doExcludeServices ? true : false
-    let excludeServices = doExcludeServices ? Indicator.excludeServices : []
-
-    let naText = isComments ? Config.newElementLabelComment : Config.newElementLabelResult
+    let naText = "New / Revised Element"
 
     // element-wise ~ row-wise
 
@@ -90,7 +83,9 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
         let serviceLabel
         let serviceType = ""
 
-        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offeset 3 with company JSON
+        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // address hard-coded offset 3 with company JSON
+
+            // TODO: Switch case
 
             if (serviceNr == 1) {
                 serviceLabel = "group"
@@ -111,29 +106,22 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
             cellID = defineNamedRange(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
-            // TODO: Big-O Horror
+            if (!isNewCompany) {
 
-            if ((doExcludeCompanies && excludeCompanies.includes(Company.type)) || (doExcludeServices && excludeServices.includes(serviceType))) {
-                cellValue = "N/A"
-            } else {
-
-                if (!isNewCompany) {
-
-                    if ((serviceNr == 2 && Company.hasOpCom == false)) {
-                        cellValue = "N/A" // if no OpCom, pre-select N/A
-                    } else {
-                        if (hasPredecessor) {
-                            // calculates which column
-                            targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators)
-                            let col = columnToLetter(targetColumn, subIndOffset)
-                            cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
-                        } else {
-                            cellValue = naText
-                        }
-                    }
+                if ((serviceNr == 2 && Company.hasOpCom == false)) {
+                    cellValue = "N/A" // if no OpCom, pre-select N/A
                 } else {
-                    cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
+                    if (hasPredecessor) {
+                        // calculates which column
+                        targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators)
+                        let col = columnToLetter(targetColumn, subIndOffset)
+                        cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
+                    } else {
+                        cellValue = naText
+                    }
                 }
+            } else {
+                cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
             }
 
             Cell.setValue(cellValue.toString())
@@ -155,17 +143,17 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
             .setHorizontalAlignment("center")
     } else {
         Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
-            .setVerticalAlignment("middle")
             .setWrap(true)
             .setVerticalAlignment("top")
     }
+
     activeRow = activeRow + elementsNr
     return activeRow
 }
 
 // TODO: What to do about G Sources for mixed Subindicator Compositions?
 
-function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, Substep, stepCNr, companyNumberOfServices, isComments) {
+function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, Substep, stepCNr, companyNrOfServices, isComments) {
 
     let comparisonIndexPrefix = Config.prevIndexPrefix
 
@@ -210,7 +198,7 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
 
     let serviceLabel
 
-    for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) { // address hard-coded offset 3 with company JSON
+    for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // address hard-coded offset 3 with company JSON
 
         if (serviceNr == 1) {
             serviceLabel = "group"
@@ -267,7 +255,7 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
     return activeRow
 }
 
-function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, Substep, stepCNr, companyNumberOfServices) {
+function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, Substep, stepCNr, companyNrOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -291,7 +279,6 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
     let naText = Config.newElementLabelResult
 
-
     // for linking to Named Range of Substep 0
     // TODO: make a shared function() between importYonY & addStepReview
 
@@ -303,15 +290,17 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
     let Cell, cellValue, Element, noteString, cellID
+    let hasPredecessor, isRevised
 
     let activeCol
+
+    const IndicatorSpecs = checkIndicatorSpecs(Indicator)
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
         Element = Elements[elemNr]
-
-        let hasPredecessor = Element.y2yResultRow ? true : false
-        let isRevised = Element.isRevised ? true : false
+        hasPredecessor = Element.y2yResultRow ? true : false
+        isRevised = Element.isRevised ? true : false
 
         // 1.) Row Labels
 
@@ -332,46 +321,53 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
         // 2.) Value Cells
 
-        let serviceLabel
+        let serviceLabel, serviceType
 
-        for (let serviceNr = 1; serviceNr < (companyNumberOfServices + 3); serviceNr++) {
+        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
 
+            // TODO: Switch case
 
             if (serviceNr == 1) {
                 serviceLabel = "group"
+                serviceType = "group"
             } else if (serviceNr == 2) {
                 serviceLabel = "opCom"
+                serviceType = "opCom"
             } else {
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
+                serviceType = Company.services[s].type
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            // Cell name formulas; output defined in 44_rangeNamingHelper.js
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
 
-
-            if (!isNewCompany) {
-
-                if (serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
-                } else {
-
-                    if (hasPredecessor) {
-
-                        reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
-
-                        prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
-
-                        // sets up cellValue that compares values
-                        cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
-                        Cell.setDataValidation(rule)
-                    } else {
-                        cellValue = naText
-                    }
-                }
+            if ((IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(Company.type)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))) {
+                cellValue = "N/A"
             } else {
-                cellValue = Config.newCompanyLabelResult
+
+                if (!isNewCompany) {
+
+                    if (serviceNr == 2 && Company.hasOpCom == false) {
+                        cellValue = "N/A" // if no OpCom, pre-select N/A
+                    } else {
+
+                        if (hasPredecessor) {
+
+                            reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
+
+                            prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+                            // sets up cellValue that compares values
+                            cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                            Cell.setDataValidation(rule)
+                        } else {
+                            cellValue = naText
+                        }
+                    }
+                } else {
+                    cellValue = Config.newCompanyLabelResult
+                }
             }
 
             Cell.setValue(cellValue.toString()).setFontWeight("bold")
