@@ -735,6 +735,10 @@ var indicatorsVector = {
           {
             "labelShort": "F1b.5",
             "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose​ that it requires s​ kills​ made available through its ​skill store​ to provide users with an advertising content policy​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -781,6 +785,10 @@ var indicatorsVector = {
           {
             "labelShort": "F1c.5",
             "description": "(For ​personal digital assistant ecosystems​): Does the company clearly disclose that it requires ​skills​ made available through its ​skill store​ to provide users with an advertising targeting policy​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -899,6 +907,10 @@ var indicatorsVector = {
           {
             "labelShort": "F2b.6",
             "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising content policies​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -950,7 +962,12 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F2c.6",
-            "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​ kills change their ​advertising targeting policies​?",
+            "description": "(For ​personal digital ecosystems)​ : Does the company clearly disclose​ that it requires ​skills ​made available through its ​skills store​ to ​notify​ ​users​ when the s​kills change their ​advertising targeting policies​?",
+            "doExcludeCompanies": true,
+            "excludeCompanies": ["telecom"],
+            "doExcludeServices": true,
+            "excludeServices": ["mobileEcosystem", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
+
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
