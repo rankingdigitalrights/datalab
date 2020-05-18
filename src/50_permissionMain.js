@@ -16,13 +16,22 @@ function permissionsController() {
     // can easily call all the other permissions functions from this function
   
     // variables that user determines
-      let Indicators = indicatorsVector
-      var StepLabelShort=["S020","S021","S025"] // add all the (sub)steps to be opened
-      var companyID="iAL1" 
-      var emails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org","ilja_s@pm.me"]
-      var Sheetemails = ["ggw12@georgetown.edu","sperling@rankingdigitalrights.org"]
-      var Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1sjFem9pVlIETiqc1UPSnHJSpHqlujsTT5JazdNzrDOY/edit#gid=1309150286');
-  
+    let Indicators = indicatorsVector
+    let StepLabelShort=["S020","S021","S025"]
+        //["S010","S011","S015","S020","S021","S025","S030","S031","S035"] // add all the (sub)steps to be opened
+    let companyID="iAZ1" // Amazon ID
+    let emails = ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org","ilja.sperling@gmail.com"]
+    let Sheetemails = ["walton@rankingdigitalrights.org","sperling@rankingdigitalrights.org","gutermuth@rankingdigitalrights.org"]
+    let allEmails= ["walton@rankingdigitalrights.org","sperling@rankingdigitalrights.org","gutermuth@rankingdigitalrights.org","wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org","ilja.sperling@gmail.com"]
+
+    let Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc/edit#gid=1404795634');
+
+    // adding viewers
+    assignFileViewers(Spread, allEmails)
+
+    // adding editors
+    assignFileEditors(Spread, allEmails)
+
   
     // opening a step
     //openStep(Indicators, StepLabelShort,companyID,emails,Spread)
@@ -88,9 +97,11 @@ function permissionsController() {
         
                 var notation = Spread.getRangeByName(namedR).getA1Notation(); 
                 var range = sheet.getRange(notation); // getting the range associated with named range
-                var rangeArray=[range] // need to store range in an array in order to call setUnprotectedRanges
+                
+                let unprotectedRanges=protection.getUnprotectedRanges()
+                unprotectedRanges.push(range)
         
-             protection.setUnprotectedRanges([rangeArray]) // now this step is unprotected
+             protection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
         
             // create a new protection that will only be open to certain people of that step
             var protectionStep = range.protect().setDescription(Indicator.labelShort+"StepProtection"+StepLabelShort[l]);
