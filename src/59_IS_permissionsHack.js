@@ -42,7 +42,7 @@ function protectSingleCompany() {
 
     // let Company = companiesVector.companies.slice(0, 1)[0]
     // let Company = companiesVector.companies.slice(3, 4)[0]
-    let Company = companiesVector.companies.slice(6, 7)[0]
+    let Company = companiesVector.companies.slice(19, 20)[0]
     let companyID = Company.id
     Logger.log("CompanyObj :")
     Logger.log(Company.id)
@@ -68,7 +68,7 @@ function protectSingleCompany() {
 
     // opening a step
     //openResearchNameStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "RNames")
-     openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames")
+     openResearchStep(Indicators, stepIDs, companyID, Researchers, SS, Company, "SNames")
 
 
     // assignFileOwner("1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc", "data")
@@ -98,7 +98,6 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     let protections, protection, namedR, notation, range, unprotectedRanges
     let protectionStep
     let editors
-    let rangeName
 
     // looping through the types of indicators (G,F,P)
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
@@ -125,13 +124,6 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
                 unprotectedRanges=protection.getUnprotectedRanges()
                 // add the name range here as well
-                // TODO unhardcode this
-                rangeName = specialRangeName("Names", "S01", Indicator.labelShort)
-                notation = SS.getRangeByName(namedR).getA1Notation();
-                range = Sheet.getRange(notation); // getting the range associated with named range
-
-                unprotectedRanges.push(range)
-
 
 
                 // looping through all the steps you want to open
@@ -215,10 +207,7 @@ function removeAllProtections(SS) {
 function protectSheets(Indicators, emails, SS) {
     Logger.log(" In protectSheets")
 
-    let protect, protection
-    let rangeName, notation, range
-    let unprotectedRanges
-    let Sheet
+    let protect
 
     // protecting 2019 Outcome
     protect = SS.getSheetByName("2019 Outcome").protect().setDescription("2019 Outcome")
@@ -256,8 +245,7 @@ function protectSheets(Indicators, emails, SS) {
             if (SS.getSheetByName(Indicator.labelShort) != null) {
 
                 // creating a protection for the Sheet, description must be name of Sheet for openStep to work
-                 Sheet=getSheetByName(Indicator.labelShort)
-                 protection = Sheet.protect().setDescription(Indicator.labelShort)
+                let protection = SS.getSheetByName(Indicator.labelShort).protect().setDescription(Indicator.labelShort)
 
                 // removing other editors and only adding array of emails
                 protection.removeEditors(protection.getEditors());
@@ -265,21 +253,6 @@ function protectSheets(Indicators, emails, SS) {
                 if (protection.canDomainEdit()) {
                     protection.setDomainEdit(false);
                 }
-
-                unprotectedRanges=[]
-
-                rangeName = specialRangeName("Guide", "", Indicator.labelShort)
-                notation = SS.getRangeByName(rangeName).getA1Notation();
-                range = Sheet.getRange(notation); // getting the range associated with named range
-
-                unprotectedRanges.push(range)
-
-                rangeName = specialRangeName("Step", "0", Indicator.labelShort)
-                notation = SS.getRangeByName(rangeName).getA1Notation();
-                range = Sheet.getRange(notation); // getting the range associated with named range
-
-                unprotectedRanges.push(range)
-                unprotectedRanges.push(rangeName)
 
                 Logger.log("indicator :" + Indicator.labelShort)
             }

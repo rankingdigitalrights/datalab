@@ -1,10 +1,6 @@
 // find research Step by labelShort
 // TODO adapt to updated Research Steps JSON structure
 
-function specialRangeName(Prefix, Main, Suffix) {
-    return Prefix + Main + Suffix
-}
-
 function findResearchStepShort(ResearchStepsObj, stepsQuery) {
 
     var useStepsSubset = []
