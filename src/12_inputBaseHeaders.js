@@ -25,8 +25,6 @@ function addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, 
     Range = Sheet.getRange(rangeStart, 1, rangeEnd - rangeStart, width)
     SS.setNamedRange(rangeName, Range)
 
-    Range.setBackground("red")
-
     Sheet.setFrozenRows(activeRow)
 
     return activeRow += 2
@@ -403,8 +401,6 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep
     rangeName = specialRangeName("Names", MainStep.stepID, Indicator.labelShort)
     Range = Sheet.getRange(rangeStart, 2, 1, width - 1)
     SS.setNamedRange(rangeName, Range)
-
-    Range.setBackground("red")
 
     return activeRow + 2
 

@@ -158,8 +158,6 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     Range = Sheet.getRange(rangeStart - 1, 1, elementsNr + 2, width)
     SS.setNamedRange(rangeName, Range)
 
-    Range.setBackground("red")
-
     return activeRow
 }
 
