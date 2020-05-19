@@ -23,7 +23,10 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
     // for stepwise formatting
     // TODO
-    let rangeStartRow = activeRow
+    let rangeStart, rangeEnd, Range, width, rangeName
+    width = 1 + 2 + companyNrOfServices
+
+    rangeStart = activeRow
     let rangeStartCol = 1
     let rangeRows, rangeCols, stepRange, dataRange
 
@@ -138,16 +141,25 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
     //format Component block
     if (!isComments) {
-        Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
+        Sheet.getRange(rangeStart, rangeStartCol + 1, rangeRows, rangeCols)
             .setFontWeight("bold")
             .setHorizontalAlignment("center")
     } else {
-        Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
+        Sheet.getRange(rangeStart, rangeStartCol + 1, rangeRows, rangeCols)
             .setWrap(true)
             .setVerticalAlignment("top")
     }
 
     activeRow = activeRow + elementsNr
+
+    rangeEnd = activeRow
+
+    rangeName = specialRangeName("Step", "0", Indicator.labelShort)
+    Range = Sheet.getRange(rangeStart - 1, 1, elementsNr + 2, width)
+    SS.setNamedRange(rangeName, Range)
+
+    Range.setBackground("red")
+
     return activeRow
 }
 

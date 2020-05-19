@@ -7,11 +7,25 @@ global
     indexPrefix
 */
 
-function addMainSheetHeader(Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance) {
+function addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance) {
+
+    let rangeStart, rangeEnd, Range, width, rangeName
+
+    width = 1 + 2 + companyNrOfServices
+
+    rangeStart = activeRow
 
     activeRow = addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
 
     activeRow = addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfServices)
+
+    rangeEnd = activeRow
+
+    rangeName = specialRangeName("Guide", "", Indicator.labelShort)
+    Range = Sheet.getRange(rangeStart, 1, rangeEnd - rangeStart, width)
+    SS.setNamedRange(rangeName, Range)
+
+    Range.setBackground("red")
 
     Sheet.setFrozenRows(activeRow)
 
@@ -309,6 +323,12 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep
 
     activeRow += 1
 
+    let rangeStart, rangeEnd, Range, width, rangeName
+
+    width = 1 + 2 + companyNrOfServices
+
+    rangeStart = activeRow
+
     // sets up labels in the first column
     let Cell = Sheet.getRange(activeRow, 1)
     Cell.setValue("Researcher")
@@ -377,6 +397,14 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep
         }
 
     }
+
+    rangeEnd = activeRow
+
+    rangeName = specialRangeName("Names", MainStep.stepID, Indicator.labelShort)
+    Range = Sheet.getRange(rangeStart, 2, 1, width - 1)
+    SS.setNamedRange(rangeName, Range)
+
+    Range.setBackground("red")
 
     return activeRow + 2
 

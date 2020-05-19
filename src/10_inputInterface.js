@@ -110,6 +110,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
         Category = Indicators.indicatorCategories[i]
 
         Logger.log("--- NEXT : Starting " + Category.labelLong)
+
         populateDCSheetByCategory(SS, Category, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
         Logger.log("--- Completed " + Category.labelLong)
