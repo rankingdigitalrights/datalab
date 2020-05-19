@@ -7,72 +7,102 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 
 */
 
-// idea for preventing the sharing of folder: https://developers.google.com/apps-script/reference/drive/folder#setShareableByEditors(Boolean)
-// see setShareableByEditors
-// file also has shareable
 
-function testSelectSingleIndicator() {
-    let Indicators = selectSingleIndicator(indicatorsVector, "P", "P18")
+function testUnprotectSingleCompany() {
+
+    // let Company = companiesVector.companies.slice(0, 1)[0]
+    // let Company = companiesVector.companies.slice(3, 4)[0]
+    // let Company = companiesVector.companies.slice(19, 20)[0]
+    let Company = companiesVector.companies.slice(6, 7)[0] // Baidu
+
+    let Researchers = ["ilja.sperling@gmail.com", "ilja_s@pm.me", "ggw12@georgetown.edu"]
+
+    let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
+    // let allEmails = Researchers.concat(Editors)
+
+    // let Researchers = ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
+    // let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
+
+    unProtectSingleCompany(Company, Researchers, Editors)
 }
 
+function testProtectSingleCompany() {
+    // let Company = companiesVector.companies.slice(0, 1)[0]
+    // let Company = companiesVector.companies.slice(3, 4)[0]
+    // let Company = companiesVector.companies.slice(19, 20)[0]
+    let Company = companiesVector.companies.slice(6, 7)[0] // Baidu
 
-function selectSingleIndicator(Indicators, catLabel, indLabel) {
-
-    let CategorySubset = Indicators.indicatorCategories.filter(category => category.labelShort == catLabel)
-
-    let Indicator = CategorySubset[0].indicators.filter(indicator => indicator.labelShort == indLabel)
-
-    Indicator ? console.log("Indicator " + Indicator[0].labelShort + " found!") : console.log("Indicator " + indLabel + " NOT found!")
-
-    return Indicator
-}
-
-function protectSingleCompany() {
-    // can easily call all the other permissions functions from this function
+    let useIndSubset = true
 
     // variables that user determines
     // let Indicators = selectSingleIndicator(indicatorsVector, "P", "P18")
     let Indicators = indicatorsVector
 
     // let stepIDs = ["S030", "S031", "S035"]
-    let stepIDs = ["S020", "S021", "S025"]
-    // let stepIDs = ["S01"]
-    //["S010","S011","S015","S020","S021","S025","S030","S031","S035"] // add all the (sub)steps to be opened
+    // let stepIDs = ["S020", "S021", "S025"]
+    let stepIDs = ["S010", "S011", "S015"]
+    let mainStepID = "S01"
+    // let stepIDs = ["S01"] // for researcher names
 
-
-    // let Company = companiesVector.companies.slice(0, 1)[0]
-    // let Company = companiesVector.companies.slice(3, 4)[0]
-    let Company = companiesVector.companies.slice(19, 20)[0]
-    let companyID = Company.id
-    Logger.log("CompanyObj :")
-    Logger.log(Company.id)
-
-    let Researchers = ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
+    let Researchers = ["ilja.sperling@gmail.com", "ilja_s@pm.me", "ggw12@georgetown.edu"]
     let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
-    let allEmails = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
+
+    // let Researchers = ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
+    // let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
+
+    protectSingleCompany(Company, Researchers, Editors, Indicators, useIndSubset, stepIDs, mainStepID)
+}
+
+// idea for preventing the sharing of folder: https://developers.google.com/apps-script/reference/drive/folder#setShareableByEditors(Boolean)
+// see setShareableByEditors
+// file also has shareable
+
+function unProtectSingleCompany(Company, Researchers, Editors) {
+    // can easily call all the other permissions functions from this function
+
+    // variables that user determines
+    // let Indicators = selectSingleIndicator(indicatorsVector, "P", "P18")
+    // let Indicators = indicatorsVector
+
+    let companyID = Company.id
+    Logger.log("CompanyObj :" + companyID)
 
     let SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
+    // let allEmails = Researchers.concat(Editors)
+    // 
     // adding viewers
     // assignFileViewers(SS, allEmails)
 
     // adding editors
     // assignFileEditors(SS, Editors)
 
-    // assignFileOwner("1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc", "sperling")
+    // removing all protections
+    removeAllProtections(SS)
 
+}
+
+function protectSingleCompany(Company, Researchers, Editors, Indicators, useIndSubset, stepIDs, mainStepID) {
+    // can easily call all the other permissions functions from this function
+
+    let companyID = Company.id
+    Logger.log("CompanyObj: " + Company.id)
+
+    let SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
+
+    // protecting all sheets
+    protectSheets(Indicators, Editors, SS)
+    // adding viewers
+
+    let allEmails = Researchers.concat(Editors)
+    assignFileViewers(SS, allEmails)
+
+    // adding editors
+    assignFileEditors(SS, Researchers)
 
     // opening a step
-    openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, "RNames")
-    // openResearchStep(Indicators, stepIDs, companyID, Researchers, SS, Company, "SNames")
-
-
-    // assignFileOwner("1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc", "data")
-    // protecting all sheets
-    // protectSheets(Indicators, Editors, SS)
-
-    // removing all protections
-    //removeAllProtections(SS)
+    // openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, "Names")
+    openResearchSteps(Indicators, useIndSubset, mainStepID, stepIDs, companyID, Researchers, SS, Company, "Step")
 
     // close step
     // closeStep(Indicators,Editors,SS)
@@ -85,6 +115,111 @@ function closeStep(Indicators, Emails, SS) {
     protectSheets(Indicators, Emails, SS)
 }
 
+
+function openResearchSteps(Indicators, useIndSubset, mainStepID, stepIDs, companyID, Researchers, SS, Company, Label) {
+    // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
+    Logger.log("MODE: open researcher names")
+
+    let Sheet, Category, Indicator
+    let sheetProtections, sheetProtection, namedR, notation, range, unprotectedRanges
+    let protectionStep
+
+    let maxIndLength
+
+    // looping through the types of indicators (G,F,P)
+    for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
+
+        Category = Indicators.indicatorCategories[i]
+        Logger.log("NEXT : Starting " + Category.labelLong)
+
+        maxIndLength = useIndSubset ? 3 : Category.indicators.length
+
+        // looping through indicators
+        for (let j = 0; j < maxIndLength; j++) {
+
+            Indicator = Category.indicators[j]
+            Logger.log("--- BEGIN indicator :" + Indicator.labelShort)
+            // if the spread has a Sheet for this indicator
+
+            Sheet = SS.getSheetByName(Indicator.labelShort)
+
+            if (Sheet != null) {
+
+                Logger.log("--- Sheet found :" + Indicator.labelShort)
+
+                // getting the list of sheetProtections on this spread
+                sheetProtections = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)
+
+                // looking for the protection of the entire Sheet with the indicator name
+                // assumes there are no two Sheet sheetProtections with same name
+                for (let k = 0; k < sheetProtections.length; k++) {
+
+                    // TODO: not sure why we need this
+                    // thats O=n in the worst case
+                    // use Array.includes()
+
+                    if (sheetProtections[k].getDescription() == Indicator.labelShort) {
+
+                        sheetProtection = sheetProtections[k] // gets the Sheet sheetProtection once found
+                        Logger.log("--- existing sheetProtection found: " + sheetProtection.getDescription())
+
+                        let unprotectedRanges = sheetProtection.getUnprotectedRanges()
+                        let rangeProtection
+
+                        // looping through all the steps you want to open
+                        for (let l = 0; l < stepIDs.length; l++) {
+
+                            // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
+                            // need to make RDR20 and DC variables
+
+                            // Cell name formula; output defined in 44_rangeNamingHelper.js
+
+                            namedR = defineNamedRange("RDR20", "DC", stepIDs[l], Indicator.labelShort, "", companyID, "", Label)
+
+                            notation = SS.getRangeByName(namedR).getA1Notation()
+                            range = Sheet.getRange(notation) // getting the range associated with named range
+
+                            rangeProtection = range.protect()
+
+                            rangeProtection.removeEditors(rangeProtection.getEditors())
+                            if (rangeProtection.canDomainEdit()) {
+                                rangeProtection.setDomainEdit(false)
+                            } // disabeling domain edit
+
+                            rangeProtection.addEditors(Researchers) // add emails to the step rangeProtection
+                            //SS.addEditors(emails) // maybe this step isn't needed
+
+                            // let description = Indicator.labelShort + "StepProtection" + mainStepID + Label
+
+                            // if (rangeProtection.getDescription() != description) {
+                            //     rangeProtection.setDescription(description)
+                            // }
+
+                            unprotectedRanges.push(range)
+
+                        }
+
+                        sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
+
+                        // create a new protection that will only be open to certain people of that step
+
+
+                    } // close if       
+                }
+
+
+                Logger.log("--- Completed " + Category.labelLong)
+            } // end if statement
+
+        } // end individual indicator
+
+    } // end category
+
+
+} // end function
+
+
+// TODO: Deprecate if possible and assign named Range in Input Sheets module
 
 function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, Label) {
     // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
@@ -101,7 +236,7 @@ function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, C
         Logger.log("--- NEXT : Starting " + Category.labelLong)
 
         // looping through indicators
-        for (let j = 0; j < Category.indicators.length; j++) {
+        for (let j = 0; j < 2; j++) {
             Indicator = Category.indicators[j]
 
             // if the spread has a Sheet for this indicator
@@ -110,7 +245,7 @@ function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, C
                 Sheet = SS.getSheetByName(Indicator.labelShort)
 
                 // getting the list of protections on this spread
-                protections = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET);
+                protections = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)
 
                 // looking for the protection of the entire Sheet with the indicator name
                 // assumes there are no two Sheet protections with same name
@@ -134,11 +269,11 @@ function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, C
 
                             let namedRObj = SS.getRangeByName(namedR)
 
-                            notation = namedRObj.getA1Notation();
-                            range = Sheet.getRange(notation); // getting the range associated with named range
+                            notation = namedRObj.getA1Notation()
+                            range = Sheet.getRange(notation) // getting the range associated with named range
 
-                            let rfr = range.getRow();
-                            let rfc = range.getColumn();
+                            let rfr = range.getRow()
+                            let rfc = range.getColumn()
 
                             let newRange = Sheet.getRange(rfr, rfc, 1, width)
 
@@ -154,28 +289,20 @@ function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, C
                             protection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
 
                             // create a new protection that will only be open to certain people of that step
-                            protectionStep = range.protect().setDescription(Indicator.labelShort + "StepProtection" + stepIDs[l] + Label);
+                            protectionStep = range.protect().setDescription(Indicator.labelShort + "StepProtection" + stepIDs[l] + Label)
 
-                            protectionStep.removeEditors(protectionStep.getEditors());
+                            protectionStep.removeEditors(protectionStep.getEditors())
                             if (protectionStep.canDomainEdit()) {
-                                protectionStep.setDomainEdit(false);
+                                protectionStep.setDomainEdit(false)
                             } // disabeling domain edit
 
-                            protectionStep.addEditors(Researchers); // add emails to the step protection
-                            //SS.addEditors(emails); // maybe this step isn't needed
+                            protectionStep.addEditors(Researchers) // add emails to the step protection
+                            //SS.addEditors(emails) // maybe this step isn't needed
                         }
 
-
-
-
                     } // close if       
-
-
-
                     Logger.log("indicator :" + Indicator.labelShort)
                 }
-
-
                 Logger.log("--- Completed " + Category.labelLong)
             } // end if statement
 
@@ -185,87 +312,6 @@ function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, C
 
 
 } // end function
-
-function openResearchStep(Indicators, stepIDs, companyID, Researchers, SS, Company, Label) {
-    // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
-    Logger.log("protectSheets")
-
-    let Sheet, Category, Indicator
-    let protections, protection, namedR, notation, range, unprotectedRanges
-    let protectionStep
-
-    // looping through the types of indicators (G,F,P)
-    for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
-
-        Category = Indicators.indicatorCategories[i]
-        Logger.log("--- NEXT : Starting " + Category.labelLong)
-
-        // looping through indicators
-        for (let j = 0; j < Category.indicators.length; j++) {
-            Indicator = Category.indicators[j]
-            Logger.log("BEGIN indicator :" + Indicator.labelShort)
-            // if the spread has a Sheet for this indicator
-            if (SS.getSheetByName(Indicator.labelShort) != null) {
-
-                Sheet = SS.getSheetByName(Indicator.labelShort)
-
-                // getting the list of protections on this spread
-                protections = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET);
-
-                // looking for the protection of the entire Sheet with the indicator name
-                // assumes there are no two Sheet protections with same name
-                for (let k = 0; k < protections.length; k++) {
-                    if (protections[k].getDescription() == Indicator.labelShort) {
-                        protection = protections[k] // gets the Sheet protection once found
-                        Logger.log(protection.getDescription())
-
-
-                        // looping through all the steps you want to open
-                        for (let l = 0; l < stepIDs.length; l++) {
-
-                            // now need to build the namedRange you want, get A1 notation, then unprotect it, then protect it and open it only to certain people
-                            // need to make RDR20 and DC variables
-
-                            let width = Company.services.length + 3
-
-                            // Cell name formula; output defined in 44_rangeNamingHelper.js
-
-                            namedR = defineNamedRange("RDR20", "DC", stepIDs[l], Indicator.labelShort, "", companyID, "", "Step")
-
-                            notation = SS.getRangeByName(namedR).getA1Notation();
-                            range = Sheet.getRange(notation); // getting the range associated with named range
-
-                            let unprotectedRanges = protection.getUnprotectedRanges()
-                            unprotectedRanges.push(range)
-
-                            protection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
-
-                            // create a new protection that will only be open to certain people of that step
-                            protectionStep = range.protect().setDescription(Indicator.labelShort + "StepProtection" + stepIDs[l] + Label);
-
-                            protectionStep.removeEditors(protectionStep.getEditors());
-                            if (protectionStep.canDomainEdit()) {
-                                protectionStep.setDomainEdit(false);
-                            } // disabeling domain edit
-
-                            protectionStep.addEditors(Researchers); // add emails to the step protection
-                            //SS.addEditors(emails); // maybe this step isn't needed
-                        }
-
-                    } // close if       
-                }
-
-
-                Logger.log("--- Completed " + Category.labelLong)
-            } // end if statement
-
-        } // end individual indicator
-
-    } // end category
-
-
-} // end function
-
 
 
 function removeAllProtections(SS) {
@@ -299,66 +345,63 @@ function removeAllProtections(SS) {
 
 
 
-function protectSheets(Indicators, emails, SS) {
+function protectSheets(Indicators, Editors, SS) {
     Logger.log(" In protectSheets")
 
     let protect
 
-    // protecting 2019 Outcome
+    protecting 2019 Outcome
     protect = SS.getSheetByName("2019 Outcome").protect().setDescription("2019 Outcome")
-    protect.removeEditors(protect.getEditors());
-    protect.addEditors(emails)
+    protect.removeEditors(protect.getEditors())
+    protect.addEditors(Editors)
     if (protect.canDomainEdit()) {
-        protect.setDomainEdit(false);
+        protect.setDomainEdit(false)
     }
 
     // protecting 2019 Sources
     protect = SS.getSheetByName("2019 Sources").protect().setDescription("2019 Sources")
-    protect.removeEditors(protect.getEditors());
-    protect.addEditors(emails)
+    protect.removeEditors(protect.getEditors())
+    protect.addEditors(Editors)
     if (protect.canDomainEdit()) {
-        protect.setDomainEdit(false);
+        protect.setDomainEdit(false)
     }
 
 
+    let Category, Indicator
+    let Protection
 
     // looping through the types of indicators
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
 
-        let Category = Indicators.indicatorCategories[i]
+        Category = Indicators.indicatorCategories[i]
 
         Logger.log("--- NEXT : Starting " + Category.labelLong)
-
 
         // looping through each indicator in the types and protecting individual sheets
         for (let j = 0; j < Category.indicators.length; j++) {
             Logger.log(Category.indicators[j].labelShort)
 
-            let Indicator = Category.indicators[j] // specific indicator
+            Indicator = Category.indicators[j] // specific indicator
 
             // if the Sheet with this indicator name exists protect that Sheet
             if (SS.getSheetByName(Indicator.labelShort) != null) {
 
                 // creating a protection for the Sheet, description must be name of Sheet for openStep to work
-                let protection = SS.getSheetByName(Indicator.labelShort).protect().setDescription(Indicator.labelShort)
+                Protection = SS.getSheetByName(Indicator.labelShort).protect().setDescription(Indicator.labelShort)
 
-                // removing other editors and only adding array of emails
-                protection.removeEditors(protection.getEditors());
-                protection.addEditors(emails)
-                if (protection.canDomainEdit()) {
-                    protection.setDomainEdit(false);
+                // removing other editors and only adding array of Editors
+                Protection.removeEditors(Protection.getEditors())
+                Protection.addEditors(Editors)
+                if (Protection.canDomainEdit()) {
+                    Protection.setDomainEdit(false)
                 }
 
                 Logger.log("indicator :" + Indicator.labelShort)
             }
         }
 
-
         Logger.log("--- Completed " + Category.labelLong)
 
-
     }
-
-
 
 }

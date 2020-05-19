@@ -33,7 +33,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
     // fallback for subset runs when indicator category only has 1 item
 
-    let minIndicators = Category.indicators.length > 1 ? 8 : 1
+    let minIndicators = Category.indicators.length > 1 ? 3 : 1
 
     let category = Category.labelShort
 
