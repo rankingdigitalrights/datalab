@@ -11,6 +11,12 @@ function assignFolderOwner(Folder, lastName) {
     Folder.setOwner(account)
 }
 
+function removeFileEditors(File, accounts){
+    for (var i = 0; i < File.accounts.length; i++){
+        File.removeEditor(accounts[i])
+    }
+}
+
 // TODO: Test
 function assignFileEditors(File, accounts) {
     // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')

@@ -12,6 +12,7 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 // file also has shareable
 
 
+/*
 function permissionsController() {
     // can easily call all the other permissions functions from this function
   
@@ -220,4 +221,4 @@ function permissionsController() {
     
       
     }
-    
+    */
