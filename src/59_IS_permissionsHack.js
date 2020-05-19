@@ -7,8 +7,9 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 
 */
 
+// both main Functions can server as main callers in 00_mainControler
 
-function testUnprotectSingleCompany() {
+function mainUnprotectSingleCompany() {
 
     // let Company = companiesVector.companies.slice(0, 1)[0]
     // let Company = companiesVector.companies.slice(3, 4)[0]
@@ -18,7 +19,6 @@ function testUnprotectSingleCompany() {
     let Researchers = ["ilja.sperling@gmail.com", "ilja_s@pm.me", "ggw12@georgetown.edu"]
 
     let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
-    // let allEmails = Researchers.concat(Editors)
 
     // let Researchers = ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
     // let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
@@ -26,7 +26,7 @@ function testUnprotectSingleCompany() {
     unProtectSingleCompany(Company, Researchers, Editors)
 }
 
-function testProtectSingleCompany() {
+function mainProtectSingleCompany() {
     // let Company = companiesVector.companies.slice(0, 1)[0]
     // let Company = companiesVector.companies.slice(3, 4)[0]
     // let Company = companiesVector.companies.slice(19, 20)[0]
@@ -91,6 +91,11 @@ function protectSingleCompany(Company, Researchers, Editors, Indicators, useIndS
     let SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     // protecting all sheets
+    // TODO: we can also (should)
+    // a) make this a distinct main-controller level functions
+    // b) run for all compnies (maybe in parallel) it after we produce the input sheets
+    // currently takes around 4minutes to run
+
     protectSheets(Indicators, Editors, SS)
     // adding viewers
 
@@ -101,7 +106,7 @@ function protectSingleCompany(Company, Researchers, Editors, Indicators, useIndS
     assignFileEditors(SS, Researchers)
 
     // opening a step
-    // openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, "Names")
+    // openResearcherNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, "Names")
     openResearchSteps(Indicators, useIndSubset, mainStepID, stepIDs, companyID, Researchers, SS, Company, "Step")
 
     // close step
@@ -179,6 +184,9 @@ function openResearchSteps(Indicators, useIndSubset, mainStepID, stepIDs, compan
                             notation = SS.getRangeByName(namedR).getA1Notation()
                             range = Sheet.getRange(notation) // getting the range associated with named range
 
+                            // TODO: update existing range protections instead of adding new redundant ones.
+
+                            // create a new protection that will only be open to certain people of that step
                             rangeProtection = range.protect()
 
                             rangeProtection.removeEditors(rangeProtection.getEditors())
@@ -201,7 +209,6 @@ function openResearchSteps(Indicators, useIndSubset, mainStepID, stepIDs, compan
 
                         sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
 
-                        // create a new protection that will only be open to certain people of that step
 
 
                     } // close if       
@@ -221,7 +228,7 @@ function openResearchSteps(Indicators, useIndSubset, mainStepID, stepIDs, compan
 
 // TODO: Deprecate if possible and assign named Range in Input Sheets module
 
-function openResearchNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, Label) {
+function openResearcherNameStep(Indicators, stepIDs, companyID, Researchers, SS, Company, Label) {
     // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
     Logger.log("protectSheets")
 
@@ -350,7 +357,7 @@ function protectSheets(Indicators, Editors, SS) {
 
     let protect
 
-    protecting 2019 Outcome
+    // protecting 2019 Outcome
     protect = SS.getSheetByName("2019 Outcome").protect().setDescription("2019 Outcome")
     protect.removeEditors(protect.getEditors())
     protect.addEditors(Editors)
