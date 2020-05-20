@@ -967,7 +967,6 @@ var indicatorsVector = {
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
             "excludeServices": ["mobileEcosystem", "search", "email", "messagingVoip", "cloud", "eCommerce", "socialNetworkBlogs", "photoVideo"],
-
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
