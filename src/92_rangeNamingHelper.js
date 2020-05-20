@@ -27,3 +27,7 @@ function clearAllNamedRangesFromSheet(sheet) {
     }
     return sheet
 }
+
+function specialRangeName(Prefix, Main, Suffix) {
+    return Prefix + Main + Suffix
+}

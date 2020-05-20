@@ -32,8 +32,8 @@ var Styles
 function initiateGlobalConfig() {
     Config = centralConfig
     indexPrefix = Config.indexPrefix
-    filenamePrefix = "2020 - Dev -" // end with " -"
-    filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
+    filenamePrefix = "2020 - " // end with " -"
+    filenameSuffix = "" // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
     rootFolderID = Config.rootFolderID
     rootFolderName = Config.rootFolderName
@@ -50,7 +50,7 @@ function mainInputSheets() {
     let doClearNamedRanges = false // CAUTION
 
     initiateGlobalConfig()
-    outputFolderName = "2020 - Dev - Input"
+    outputFolderName = "2020 Index - Input Sheets"
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
@@ -82,10 +82,10 @@ function mainInputSheets() {
     //   16 "Ooredoo",
     //   17 "Orange",
     //   18 "Samsung",
-    //   19 "Telefónica",
+    // .slice(19, 20) //   19 "Telefónica",
     //   20 "Telenor",
     //   21 "Tencent",
-    //   22 "Twitter",
+    // .slice(22, 23) // 22 "Twitter",
     //   23 "Verizon Media",
     //   24 "Vodafone",
     //   25 "Yandex"

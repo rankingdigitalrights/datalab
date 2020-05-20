@@ -16,3 +16,19 @@ function determineMaxStep(outputParams, ResearchStepsObj) {
 
     return maxScoringStep
 }
+
+function testSelectSingleIndicator() {
+    let Indicators = selectSingleIndicator(indicatorsVector, "P", "P18")
+}
+
+
+function selectSingleIndicator(Indicators, catLabel, indLabel) {
+
+    let CategorySubset = Indicators.indicatorCategories.filter(category => category.labelShort == catLabel)
+
+    let Indicator = CategorySubset[0].indicators.filter(indicator => indicator.labelShort == indLabel)
+
+    Indicator ? console.log("Indicator " + Indicator[0].labelShort + " found!") : console.log("Indicator " + indLabel + " NOT found!")
+
+    return Indicator
+}

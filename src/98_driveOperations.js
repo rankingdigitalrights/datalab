@@ -2,6 +2,11 @@
 
 // TODO: Test
 function assignFileOwner(File, lastName) {
+
+    if (typeof File === 'string') {
+        File = DriveApp.getFileById(File)
+    }
+
     let account = lastName + '@rankingdigitalrights.org'
     File.setOwner(account)
 }

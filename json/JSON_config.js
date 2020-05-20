@@ -4,8 +4,8 @@ var centralConfig = {
   indexPrefix: "RDR20",
   prevIndexPrefix: "RDR19",
   filenameSuffix: "Index Dev",
-  rootFolderID: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", //Data @ Test-Dev-Remote
-  rootFolderName: "2020 Index Dev (Fallback)", // optional Folder name string to see if access by ID fails
+  rootFolderID: "19hiRk0NX3s-eF9i-nFGIuNEvYFqGyazR", //Data @ 2020 Index
+  rootFolderName: "2020 Index", // optional Folder name string to see if access by ID fails
   controlSpreadsheetID: "1r3Hq6m9R3l0yMaiAZXf40Z7Gif54Kd1B08MUBk4n_LM", // 00-Dashboard-Dev
   YearOnYear: true,
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
@@ -16,9 +16,11 @@ var centralConfig = {
   collapseAllGroups: false,
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
-  newIndicatorLabel: "N/A - New Indicator",
-  newElementLabelResult: "New 2020 Element",
-  newElementLabelComment: "N/A - New 2020 Element",
+  newIndicatorLabel: "New / Revised Indicator",
+  newElementLabelResult: "N/A",
+  newElementLabelComment: "New / Revised Element",
+  newCompanyLabelResult: "N/A",
+  newCompanyLabelComment: "New Company",
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,
   styles: {
@@ -26,7 +28,7 @@ var centralConfig = {
       blue: "#4D9ECF"
     },
     dims: {
-      serviceColWidth: 280,
+      serviceColWidth: 320,
       defaultDataColWidth: 100,
     }
   },

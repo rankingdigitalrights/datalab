@@ -7,11 +7,23 @@ global
     indexPrefix
 */
 
-function addMainSheetHeader(Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance) {
+function addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance) {
+
+    let rangeStart, rangeEnd, Range, width, rangeName
+
+    width = 1 + 2 + companyNrOfServices
+
+    rangeStart = activeRow
 
     activeRow = addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
 
     activeRow = addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfServices)
+
+    rangeEnd = activeRow
+
+    rangeName = specialRangeName("Guide", "", Indicator.labelShort)
+    Range = Sheet.getRange(rangeStart, 1, rangeEnd - rangeStart, width)
+    SS.setNamedRange(rangeName, Range)
 
     Sheet.setFrozenRows(activeRow)
 
@@ -32,25 +44,27 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
         maxColHeadings -= 1
     }
 
-    let indTitle = "▶ " + Indicator.labelShort + ". " + Indicator.labelLong
+    let indTitle = "▶ " + Indicator.labelShort
 
     if (Indicator.description.length > 1) {
         indTitle = indTitle + ": " + Indicator.description
     }
 
+    let indDescription = Indicator.labelLong
+
     // Indicator Heading
-    Sheet.getRange(row, col)
-        .setValue(indTitle)
-        // .setFontWeight("bold")
+    Sheet.getRange(row, 1, 1, 2)
+        .setValues([
+            [indTitle, indDescription]
+        ])
         .setFontSize(18)
-        .setHorizontalAlignment("left")
         .setVerticalAlignment("middle")
         .setFontFamily("Oswald")
-        .setWrap(true)
 
-    Sheet.setRowHeight(row, 40)
+    Sheet.getRange(row, 1).setHorizontalAlignment("center")
+
+    Sheet.setRowHeight(row, 30)
     Sheet.getRange(row, col, 1, numberOfColumns)
-        .merge()
         .setBackground(Styles.colors.blue).setFontColor("white")
 
     // Sheet.setFrozenRows(1)
@@ -68,13 +82,11 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
             .setHorizontalAlignment("left")
             .setVerticalAlignment("middle")
             .setFontFamily("Roboto Mono")
-            .setWrap(true)
             .setFontColor("#ea4335")
         // .setFontColor("chocolate")
 
         Sheet.setRowHeight(row, 40)
         Sheet.getRange(row, col, 1, numberOfColumns)
-            .merge()
             .setBackground("WhiteSmoke")
 
         row += 1
@@ -86,10 +98,15 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
 
     let indStart = row
     let values = []
+    let prefix, hasPredecessor, isRevised
 
-    Indicator.elements.forEach((element) => {
+    Indicator.elements.forEach((Element) => {
+        hasPredecessor = Element.y2yResultRow ? true : false
+        isRevised = Element.isRevised ? true : false
+        prefix = isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+
         values.push(
-            [(element.labelShort + ":"), element.description]
+            [(prefix + " " + Element.labelShort + ":"), Element.description]
         )
         Sheet.getRange(row, 2, 1, maxColHeadings)
             .merge()
@@ -116,12 +133,12 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
 
     if (includeRGuidanceLink) {
         row += 1
-        let indicatorLink = "https://rankingdigitalrights.org/2019-indicators/#" + Indicator.labelShort
+        let indicatorLink = Indicator.researchGuidance
 
         // TODO: Parameterize
 
         Sheet.getRange(row, 1)
-            .setValue("Research Guidance:")
+            .setValue("Research Guidance")
             .setFontWeight("bold")
             .setHorizontalAlignment("right")
             .setFontFamily("Roboto Mono")
@@ -166,9 +183,16 @@ function addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfSe
 
     let Cell
 
+    let cellValue = Company.label.current
+
+    if (!Company.isPrevScored) {
+        cellValue += " (New)"
+    }
+
     // first cell: MainStep Label
     Sheet.getRange(activeRow, activeCol)
-        .setValue(Company.label.current + " : ")
+        .setValue(cellValue)
+        .setWrap(true)
 
     activeCol += 1
 
@@ -203,7 +227,7 @@ function addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfSe
         .setVerticalAlignment("middle")
         .setFontSize(12)
 
-    Sheet.setRowHeight(activeRow, 40)
+    Sheet.setRowHeight(activeRow, 30)
 
     // if (Config.freezeHead) {
     //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
@@ -217,15 +241,19 @@ function addMainStepHeader(Sheet, Category, Company, activeRow, companyNrOfServi
 
     let horizontalDim = 1 + 2 + companyNrOfServices
 
+    let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
+
     Sheet.getRange(activeRow, 1, 1, horizontalDim)
+        .setBackground(mainStepColor)
+        .setBorder(true, false, true, false, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
+
+    Sheet.getRange(activeRow, 2, 1, titleWidth)
         .merge()
         .setValue("Step " + MainStep.step + " - " + MainStep.rowLabel)
         .setFontSize(14)
         .setFontWeight("bold")
-        .setBackground(mainStepColor)
         .setHorizontalAlignment("center")
         .setVerticalAlignment("middle")
-        .setBorder(true, false, true, false, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
 
     Sheet.setRowHeight(activeRow, 30)
 
@@ -235,26 +263,20 @@ function addMainStepHeader(Sheet, Category, Company, activeRow, companyNrOfServi
 
 function addSubStepHeader(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, companyNrOfServices) {
 
-    // sets up labels in the first column
+    let horizontalDim = 1 + 2 + companyNrOfServices
+
+    let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
+
     let Cell = Sheet.getRange(activeRow, 1)
     Cell.setValue(Substep.labelShort)
         .setBackground(Substep.subStepColor)
-        .setFontWeight("bold")
-        .setFontSize(12)
-        .setHorizontalAlignment("center")
 
-    // Cell = textUnderline(Cell)
-
-    // TODO
-    // activeRow = addMainStepHeader(Sheet, Category, Company, activeRow, SS, nrOfIndSubComps, companyNrOfServices) // sets up header
-
-    let thisFirstCol = 2
-    let thisLastCol = (companyNrOfServices + 2)
-    // for remaining company, opCom, and services columns it adds the placeholderText
-    Cell = Sheet.getRange(activeRow, 2, 1, thisLastCol)
+    Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
         .merge()
         .setValue(Substep.components[stepCNr].rowLabel)
         .setFontStyle("italic")
+
+    Cell = Sheet.getRange(activeRow, 1, 1, horizontalDim)
         .setFontWeight("bold")
         .setFontSize(12)
         .setHorizontalAlignment("center")
@@ -267,23 +289,27 @@ function addSubStepHeader(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
 }
 
-function addExtraInstruction(Substep, stepCNr, activeRow, activeCol, Sheet, companyNrOfServices) {
+function addExtraInstruction(Substep, stepCNr, activeRow, activeCol, Sheet, Company, companyNrOfServices) {
 
     let horizontalDim = 1 + 2 + companyNrOfServices
+
+    let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
 
     Sheet.getRange(activeRow, 1, 2, 1)
         .setBackground(Substep.subStepColor)
 
     activeRow += 1
 
-    Sheet.getRange(activeRow, 2, 1, horizontalDim - 1)
+    Sheet.getRange(activeRow, 2, 1, titleWidth)
         .merge()
-        .setValue(Substep.components[stepCNr].rowLabel)
+        .setValue(Substep.components[stepCNr].question)
         .setFontStyle("italic")
         .setFontWeight("bold")
         .setFontSize(12)
         .setHorizontalAlignment("center")
         .setVerticalAlignment("middle")
+
+    Sheet.getRange(activeRow, 1, 1, horizontalDim)
         .setBorder(true, true, true, true, null, null, Substep.subStepColor, SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
 
     Sheet.setRowHeight(activeRow, 30)
@@ -291,14 +317,20 @@ function addExtraInstruction(Substep, stepCNr, activeRow, activeCol, Sheet, comp
     return activeRow + 1
 }
 
-function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, companyNrOfServices) {
+function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices) {
 
     activeRow += 1
 
+    let rangeStart, rangeEnd, Range, width, rangeName
+
+    width = 1 + 2 + companyNrOfServices
+
+    rangeStart = activeRow
+
     // sets up labels in the first column
     let Cell = Sheet.getRange(activeRow, 1)
-    Cell.setValue(Substep.components[stepCNr].rowLabel)
-        .setBackground(Substep.subStepColor)
+    Cell.setValue("Researcher")
+        .setBackground(MainStep.stepColor)
         .setFontStyle("italic")
         .setFontWeight("bold")
         .setFontSize(11)
@@ -307,7 +339,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
     // TODO
     // activeRow = addMainStepHeader(Sheet, Category, Company, activeRow, SS, nrOfIndSubComps, companyNrOfServices) // sets up header
 
-    let thisFiller = Substep.components[stepCNr].placeholderText
+    let thisFiller = "Your Name"
     let thisFirstCol = 2
     let thisLastCol = ((companyNrOfServices + 2))
     // for remaining company, opCom, and services columns it adds the placeholderText
@@ -321,7 +353,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
     let activeCol = thisFirstCol
 
-    let stepCompID = Substep.components[stepCNr].id
+    let stepCompID = "N"
 
     for (let col = 1; col < (companyNrOfServices + 3); col++) {
 
@@ -333,7 +365,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
             // Cell name formula; output defined in 44_rangeNamingHelper.js
 
-            cellName = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
+            cellName = defineNamedRange(indexPrefix, "DC", MainStep.stepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
 
             SS.setNamedRange(cellName, Cell)
             activeCol += 1
@@ -344,7 +376,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
             // Cell name formula; output defined in 44_rangeNamingHelper.js
 
-            cellName = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
+            cellName = defineNamedRange(indexPrefix, "DC", MainStep.stepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
 
             SS.setNamedRange(cellName, Cell)
             activeCol += 1
@@ -356,13 +388,19 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, Substep,
 
             let g = col - 3 // helper for Services
 
-            cellName = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
+            cellName = defineNamedRange(indexPrefix, "DC", MainStep.stepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
 
             SS.setNamedRange(cellName, Cell)
             activeCol += 1
         }
 
     }
+
+    rangeEnd = activeRow
+
+    rangeName = specialRangeName("Names", MainStep.stepID, Indicator.labelShort)
+    Range = Sheet.getRange(rangeStart, 2, 1, width - 1)
+    SS.setNamedRange(rangeName, Range)
 
     return activeRow + 2
 
