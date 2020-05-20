@@ -9,7 +9,7 @@ var indicatorsVector = {
     "components": ["F", "P"],
     "indicators": [{
         "labelShort": "G1",
-        "labelLong": "Policy Commitment",
+        "labelLong": "Policy commitment",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91064590",
         "scoringScope": "full",
@@ -19,7 +19,7 @@ var indicatorsVector = {
         "prevIndLength": 1,
         "elements": [{
             "labelShort": "G1.1",
-            "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to freedom of expression and information and privacy?",
+            "description": "Does the company make an explicit, clearly articulated policy commitment to human rights, including to freedom of expression and information?",
             "y2yResultRow": 3,
             "y2yCommentRow": 4,
             "prevSubInd": "F"
@@ -41,7 +41,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "G2",
-        "labelLong": "Governance and oversight",
+        "labelLong": "Governance and management oversight",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91354606",
         "scoringScope": "full",
@@ -135,7 +135,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "G4a",
-        "labelLong": "Human Rights Impact Assessments",
+        "labelLong": "Impact assessment: Governments and regulations",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360899",
         "scoringScope": "full",
@@ -173,7 +173,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "G4a.5",
-            "description": "Does the company assess freedom of expression and information risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies or entry into new markets or jurisdictions?",
+            "description": "Does the company assess freedom of expression and information risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?",
             "y2yResultRow": 56,
             "y2yCommentRow": 67,
             "prevSubInd": "F"
@@ -219,7 +219,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "G4b",
-        "labelLong": "Policy Enforcement",
+        "labelLong": "Impact assessment: Processes for policy enforcement",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360905",
         "scoringScope": "full",
@@ -287,7 +287,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "G4c",
-        "labelLong": "Impact assessment: Targeted Advertising",
+        "labelLong": "Impact assessment: Targeted advertising",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360907",
         "scoringScope": "full",
@@ -311,7 +311,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "G4c.3",
-            "description": "Does the company disclose assess discrimination risks associated with its targeted advertising policies and practices?",
+            "description": "Does the company assess discrimination risks associated with its targeted advertising policies and practices?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -359,21 +359,21 @@ var indicatorsVector = {
         "prevIndLength": 11,
         "elements": [{
             "labelShort": "G4d.1",
-            "description": "Does the company assess freedom of expression and information risks associated with its development and use of algorithmic decision-making systems?",
+            "description": "Does the company assess freedom of expression and information risks associated with its development and use of algorithmic systems?",
             "y2yResultRow": 58,
             "y2yCommentRow": 69,
             "prevSubInd": "F"
           },
           {
             "labelShort": "G4d.2",
-            "description": "Does the company assess privacy risks associated with its development and use of algorithmic decision-making systems?",
+            "description": "Does the company assess privacy risks associated with its development and use of algorithmic systems?",
             "y2yResultRow": 58,
             "y2yCommentRow": 69,
             "prevSubInd": "P"
           },
           {
             "labelShort": "G4d.3",
-            "description": "Does the company assess discrimination risks associated with its development and use of algorithmic decision making systems?",
+            "description": "Does the company assess discrimination risks associated with its development and use of algorithmic systems?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -471,7 +471,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "G5",
-        "labelLong": "Stakeholder Engagement and accountability",
+        "labelLong": "Stakeholder engagement and accountability",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360916",
         "scoringScope": "full",
@@ -512,7 +512,7 @@ var indicatorsVector = {
         "prevIndLength": 5,
         "elements": [{
             "labelShort": "G6a.1",
-            "description": "G6.1: Does the company clearly disclose it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression and information has been adversely affected by the company’s policies or practices?",
+            "description": "Does the company clearly disclose it has a grievance mechanism(s) enabling users to submit complaints if they feel their freedom of expression and information rights have been adversely affected by the company’s policies or practices?",
             "y2yResultRow": 117,
             "y2yCommentRow": 122,
             "prevSubInd": "F"
@@ -734,7 +734,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F1b.5",
-            "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose that it requires s kills made available through its ​skill store to provide users with an advertising content policy​?",
+            "description": "(For ​personal digital assistant ecosystems​): Does the company ​clearly disclose that it requires skills made available through its ​skill store to provide users with an advertising content policy​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -836,7 +836,7 @@ var indicatorsVector = {
         "prevIndLength": 4,
         "elements": [{
             "labelShort": "F2a.1",
-            "description": "Does the company ​clearly disclose ​that it ​directly notifies ​users about a ll changes to its terms of service​?",
+            "description": "Does the company ​clearly disclose ​that it ​directly notifies ​users about all changes to its terms of service​?",
             "y2yResultRow": 161,
             "y2yCommentRow": 165
           },
@@ -906,7 +906,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F2b.6",
-            "description": "(For ​personal digital ecosystems)​: Does the company clearly disclose that it requires ​skills ​made available through its ​skills store to ​notify ​users when the s kills change their ​advertising content policies​?",
+            "description": "(For ​personal digital ecosystems)​: Does the company clearly disclose that it requires ​skills ​made available through its ​skills store to ​notify ​users when the skills change their ​advertising content policies​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -952,7 +952,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F2c.5",
-            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose that it requires ​apps made available through its ​app store to directly notify users when the a pps change their ​advertising targeting policies​?",
+            "description": "(For ​mobile ecosystems​): Does the company ​clearly disclose that it requires ​apps made available through its ​app store to directly notify users when the apps change their ​advertising targeting policies​?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -1130,7 +1130,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3c.4",
-            "description": "Does the company ​clearly disclose that algorithmically generated ​advertising audience categories ​are evaluated by human reviewers before they can be used?",
+            "description": "Does the company publish the number of pieces of advertising content it restricts based on which advertising targeting rule was violated?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1154,7 +1154,7 @@ var indicatorsVector = {
         "prevIndLength": 3,
         "elements": [{
             "labelShort": "F4a.1",
-            "description": "Does the company publish data about the total number of pieces of content restricted ​for violating the company's rules.",
+            "description": "Does the company publish data about the total number of pieces of content restricted ​for violating the company's rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
@@ -1606,7 +1606,7 @@ var indicatorsVector = {
         "prevIndLength": 2,
         "elements": [{
             "labelShort": "F9.1",
-            "description": "Does the company ​clearly disclose ​a policy commitment ​to ​n​ot ​prioritize​, block, or delay certain types of traffic, ​applications​, protocols​, or ​content reasons beyond assuring quality of service and reliability of the network?",
+            "description": "Does the company ​clearly disclose ​a policy commitment ​to ​n​ot ​prioritize​, block, or delay certain types of traffic, ​applications​, protocols​, or ​content for reasons beyond assuring quality of service and reliability of the network?",
             "y2yResultRow": 374,
             "y2yCommentRow": 376
           },
@@ -1662,7 +1662,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F10.5",
-            "description": "Does the company ​clearly disclose that it notifies users directly when it ​shuts down a network or restrict access to a service​?",
+            "description": "Does the company ​clearly disclose that it notifies users directly when it ​shuts down a network or restricts access to a service​?",
             "y2yResultRow": 393,
             "y2yCommentRow": 401
           },
@@ -1737,7 +1737,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F12.4",
-            "description": "Does the company ​clearly disclose whether algorithmic system are used to automatically ​curate, recommend, and/or rank ​content ​by default?",
+            "description": "Does the company ​clearly disclose whether algorithmic systems are used to automatically ​curate, recommend, and/or rank ​content ​by default?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1781,7 +1781,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F13.4",
-            "description": "Does the company ​clearly disclose data on the volume and nature of user ​content ​and ​accounts restricted f or violating the company’s ​bot policy​?",
+            "description": "Does the company ​clearly disclose data on the volume and nature of user ​content ​and ​accounts restricted for violating the company’s ​bot policy​?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
