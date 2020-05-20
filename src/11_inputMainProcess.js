@@ -37,8 +37,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
     let category = Category.labelShort
 
+    // Research Steps Subset
+    let mainStepsLength = useStepsSubset ? 3 : ResearchSteps.researchSteps.length
+
+    // Indicator Subset
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
-    let mainStepsLength = useStepsSubset ? 4 : ResearchSteps.researchSteps.length
 
     // iterates over each indicator in the current Category
     // for each indicator = distinct Sheet do
