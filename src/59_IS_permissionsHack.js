@@ -57,9 +57,10 @@ function protectSingleCompany() {
     let SheetEditors=[]
     
     let SS = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/u/1/d/1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ/edit?usp=drive_web&ouid=102240670771475449012")
-
+    let fileID="1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ"
+    
     // overall open function
-    initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames",Viewers,SheetEditors)
+    initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames",Viewers,SheetEditors,fileID)
     
     // adding viewers
     // assignFileViewers(SS, Viewers)
@@ -87,7 +88,11 @@ function protectSingleCompany() {
 
 }
 
-function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames,Viewers,SheetEditors) {
+function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames,Viewers,SheetEditors,fileID) {
+
+  DriveApp.getFileById(fileID).setShareableByEditors(false)
+  
+  
     protectSheets(Indicators, SheetEditors, SS,companyID)
     assignFileViewers(SS, Viewers)
     openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames)
