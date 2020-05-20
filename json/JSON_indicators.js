@@ -2591,13 +2591,13 @@ var indicatorsVector = {
             "labelShort": "P11a.1",
             "description": "Does the company list the number of government demands it receives by country?",
             "y2yResultRow": 698,
-            "y2yCommentRow": 709,
+            "y2yCommentRow": 709
           },
           {
             "labelShort": "P11a.2",
             "description": "Does the company list the number of government demands it receives for stored user information and for real-time communications access?",
             "y2yResultRow": 699,
-            "y2yCommentRow": 710,
+            "y2yCommentRow": 710
           },
           {
             "labelShort": "P11a.3",
