@@ -122,7 +122,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
         // row label / first Column
         // skip first Column for subsequent steps    
         if (blocks === 1) {
-            var rowLabel = StepComp.label + Indicator.elements[elemNr].labelShort
+            var rowLabel = StepComp.rowLabel + Indicator.elements[elemNr].labelShort
             currentCell.setValue(rowLabel.toString())
             currentCell.setWrap(true)
             tempCol += 1
@@ -141,7 +141,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
             }
 
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", stepCompID)
+            var compCellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", stepCompID)
 
             // adding formula
             var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
@@ -159,7 +159,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
 
             if (companyHasOpCom) {
                 // setting up formula that compares values
-                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", stepCompID)
+                var compCellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
                 var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
@@ -181,7 +181,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
                 }
 
                 // setting up formula that compares values
-                var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[s].id, stepCompID)
+                var compCellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[s].id, stepCompID)
 
                 var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
@@ -224,7 +224,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
 
     Logger.log(" - " + "in " + stepCompID + " " + Indicator.labelShort)
 
-    if (stepCompID == "elementResults") {
+    if (stepCompID == "results") {
         stepCompID = false
     }
 
@@ -236,7 +236,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
     // row label / first Column
     // skip first Column for subsequent steps    
     if (blocks === 1) {
-        var rowLabel = StepComp.label
+        var rowLabel = StepComp.rowLabel
         currentCell.setValue(rowLabel)
         currentCell.setWrap(true)
         tempCol += 1
@@ -254,7 +254,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
         }
 
         // setting up formula that compares values
-        var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, "group", stepCompID)
+        var compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, "group", stepCompID)
 
         // adding formula
         var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
@@ -272,7 +272,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
 
         if (companyHasOpCom) {
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, "opCom", stepCompID)
+            var compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, "opCom", stepCompID)
 
             var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
@@ -294,7 +294,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
             }
 
             // setting up formula that compares values
-            var compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
+            var compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompID)
 
             var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
@@ -362,7 +362,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentS
             if (nrOfIndSubComps != 1) {
                 component = indicatorCat.components[k].labelShort
             }
-            var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", scoringSuffix)
+            var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", scoringSuffix)
             SS.setNamedRange(cellName, currentCell)
             tempCol += 1
         }
@@ -385,7 +385,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentS
                 if (nrOfIndSubComps != 1) {
                     component = indicatorCat.components[k].labelShort
                 }
-                cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", scoringSuffix)
+                cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", scoringSuffix)
                 SS.setNamedRange(cellName, currentCell)
 
             } else {
@@ -416,7 +416,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentS
                 if (nrOfIndSubComps != 1) {
                     component = indicatorCat.components[k].labelShort
                 }
-                cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, scoringSuffix)
+                cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, scoringSuffix)
                 SS.setNamedRange(cellName, currentCell)
                 tempCol += 1
             }
@@ -469,7 +469,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
             if (nrOfIndSubComps != 1) {
                 component = indicatorCat.components[k].labelShort
             }
-            var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", "SE")
+            var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", "SE")
             serviceCells.push(cellName)
         }
 
@@ -481,7 +481,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
         if (nrOfIndSubComps != 1) {
             component = indicatorCat.components[k].labelShort
         }
-        var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, "group", scoringSuffix)
+        var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, "group", scoringSuffix)
         SS.setNamedRange(cellName, currentCell)
         indyLevelScoresCompany.push(cellName) // adding name to the formula
         tempCol += 1
@@ -503,7 +503,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
                 if (nrOfIndSubComps != 1) {
                     component = indicatorCat.components[k].labelShort
                 }
-                var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", "SE")
+                var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", "SE")
                 if (companyHasOpCom == true) {
                     serviceCells.push(cellName)
                 }
@@ -518,7 +518,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
                 component = indicatorCat.components[k].labelShort
             }
 
-            var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, "opCom", scoringSuffix)
+            var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, "opCom", scoringSuffix)
             SS.setNamedRange(cellName, currentCell)
             indyLevelScoresCompany.push(cellName)
 
@@ -543,7 +543,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
                 if (nrOfIndSubComps != 1) {
                     component = indicatorCat.components[k].labelShort
                 }
-                var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, "SE")
+                var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, "SE")
                 serviceCells.push(cellName)
             }
 
@@ -557,7 +557,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
                 component = indicatorCat.components[k].labelShort
             }
 
-            var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, scoringSuffix)
+            var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, scoringSuffix)
 
             SS.setNamedRange(cellName, currentCell)
 
@@ -595,7 +595,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
     currentCell = sheet.getRange(activeRow, tempCol)
     currentCell.setFormula(aggregateScoreFormula(indyLevelScoresCompany))
 
-    var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
+    var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
     SS.setNamedRange(cellName, currentCell)
 
     // apply scoring Logic
@@ -611,7 +611,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
 
     servicesCompositeCell.setFormula(aggregateScoreFormula(indyLevelScoresServices))
 
-    cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
+    cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
 
     SS.setNamedRange(cellName, servicesCompositeCell)
     // apply scoring Logic
@@ -654,7 +654,7 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, current
     // naming the level cell score
     var component = ""
 
-    var cellName = defineNamedRangeStringImport(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, "", scoringSuffix)
+    var cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, component, CompanyObj.id, "", scoringSuffix)
 
     SS.setNamedRange(cellName, currentCell)
 

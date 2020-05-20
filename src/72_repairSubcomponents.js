@@ -122,7 +122,7 @@ function fixIndicatorGuidance(sheet, thisIndicator, activeRow, activeCol, nrOfIn
 
 function skipMainStepHeader(thisIndCat, activeRow) {
 
-    if (thisIndCat.hasSubComponents == true) {
+    if (thisIndCat.hadSubComponents == true) {
         activeRow = activeRow + 1
     }
 
@@ -138,7 +138,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
 
     // sets up labels in the first column
     var cell = sheet.getRange(activeRow, 1)
-    var text = currentStep.label
+    var text = currentStep.rowLabel
     cell.setValue(text)
         .setBackground(currentStep.subStepColor)
         .setFontWeight("bold")
@@ -173,7 +173,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -191,7 +191,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -211,7 +211,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 SS.setNamedRange(cellName, thisCell)
                 activeCol += 1
@@ -224,7 +224,7 @@ function fixSubStepHeader(sheet, currentIndicator, CompanyObj, activeRow, SS, cu
 
 }
 
-// addScoringOptions creates a dropdown list in each column for each subindicator
+// addStepEvaluation creates a dropdown list in each column for each subindicator
 function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, currentStep, stepCNr, nrOfIndSubComps, currentClass, companyNumberOfServices, updateAnswerOptions) {
 
     if (updateAnswerOptions) {
@@ -248,7 +248,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
 
         // setting up the labels
         cell = sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(currentStep.components[stepCNr].label + thisElement.labelShort)
+            .setValue(currentStep.components[stepCNr].rowLabel + thisElement.labelShort)
             .setBackground(currentStep.subStepColor)
             .setNote(noteString)
         activeCol += 1
@@ -270,7 +270,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
                         component = currentClass.components[k].labelShort
                     }
 
-                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "group", stepCompType)
+                    cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "group", stepCompType)
 
 
                     SS.setNamedRange(cellName, cell) // names cells
@@ -296,7 +296,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
                         component = currentClass.components[k].labelShort
                     }
 
-                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                    cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                     SS.setNamedRange(cellName, cell) // names cells
 
@@ -322,7 +322,7 @@ function fixScoringOptions(sheet, currentIndicator, CompanyObj, activeRow, SS, c
                         component = currentClass.components[k].labelShort
                     }
 
-                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                    cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, thisElement.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                     SS.setNamedRange(cellName, cell) // names cells
 
@@ -359,7 +359,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
 
         // adding the labels
         var cell = sheet.getRange(activeRow + elemNr, activeCol)
-        cell.setValue(currentStep.components[stepCNr].label + currentIndicator.elements[elemNr].labelShort + currentStep.components[stepCNr].label2)
+        cell.setValue(currentStep.components[stepCNr].rowLabel + currentIndicator.elements[elemNr].labelShort + currentStep.components[stepCNr].label2)
         cell.setBackground(currentStep.subStepColor) // colors cell
         activeCol += 1
 
@@ -379,7 +379,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
                         component = currentClass.components[k].labelShort
                     }
 
-                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", stepCompType)
+                    cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "group", stepCompType)
 
                     SS.setNamedRange(cellName, cell)
                     activeCol += 1
@@ -402,7 +402,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
                         component = currentClass.components[k].labelShort
                     }
 
-                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                    cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                     SS.setNamedRange(cellName, cell)
                     activeCol += 1
@@ -425,7 +425,7 @@ function fixComments(sheet, currentIndicator, CompanyObj, activeRow, SS, current
                         component = currentClass.components[k].labelShort
                     }
 
-                    cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                    cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.elements[elemNr].labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                     SS.setNamedRange(cellName, cell)
                     activeCol += 1
@@ -453,10 +453,10 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
 
     // sets up the labels
     var cell = sheet.getRange(activeRow, activeCol)
-        .setValue(thisStepComponent.label)
+        .setValue(thisStepComponent.rowLabel)
         .setBackground(currentStep.subStepColor)
-    if (thisStepComponent.type === "binaryReview") {
-        cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center")
+    if (thisStepComponent.type === "binaryEvaluation") {
+        cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center").setFontSize(12)
     }
     activeCol += 1
 
@@ -475,7 +475,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 SS.setNamedRange(cellName, cell) // names cells
                 activeCol += 1
@@ -494,7 +494,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 SS.setNamedRange(cellName, cell) // names cells
                 activeCol += 1
@@ -514,7 +514,7 @@ function fixBinaryEvaluation(sheet, currentIndicator, CompanyObj, activeRow, SS,
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 SS.setNamedRange(cellName, cell) // names cells
                 activeCol += 1
@@ -534,9 +534,9 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
     var stepCompType = currentStep.components[stepCNr].id
 
 
-    // adding label
+    // adding rowLabel
     var cell = sheet.getRange(activeRow, activeCol)
-        .setValue(currentStep.components[stepCNr].label)
+        .setValue(currentStep.components[stepCNr].rowLabel)
         .setBackground(currentStep.subStepColor)
     activeCol += 1
     var cellName
@@ -557,7 +557,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "group", stepCompType)
 
                 SS.setNamedRange(cellName, cell)
                 activeCol += 1
@@ -575,7 +575,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, "opCom", stepCompType)
 
                 SS.setNamedRange(cellName, cell)
                 activeCol += 1
@@ -595,7 +595,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
                     component = currentClass.components[k].labelShort
                 }
 
-                cellName = defineNamedRangeStringImport(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
+                cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, component, CompanyObj.id, CompanyObj.services[g].id, stepCompType)
 
                 SS.setNamedRange(cellName, cell)
                 activeCol += 1
@@ -607,7 +607,7 @@ function fixSources(sheet, currentIndicator, CompanyObj, activeRow, SS, currentS
     return activeRow + 1
 }
 
-// function just creates a single row in which in the first column a label is added
+// function just creates a single row in which in the first column a rowLabel is added
 function fixExtraInstruction(currentStep, stepCNr, activeRow, activeCol, sheet) {
 
     return activeRow + 1

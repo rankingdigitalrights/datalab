@@ -1,5 +1,5 @@
 /* global
-    defineNamedRangeStringImport,
+    defineNamedRange,
     indexPrefix
  */
 
@@ -244,7 +244,7 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
 
     // Total
     if (!isElement) {
-        cellID = defineNamedRangeStringImport(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "", scoringSuffixTotal)
+        cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "", scoringSuffixTotal)
         // formula = formulaPrefix + cellID + formulaSuffix
         formula = cellID
     } else {
@@ -253,13 +253,13 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
     rowFormulas.push(formula)
 
     // Group
-    cellID = defineNamedRangeStringImport(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "group", scoringSuffixLvl)
+    cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "group", scoringSuffixLvl)
     formula = cellID
     rowFormulas.push(formula)
 
     // Services
     for (var i = 0; i < Company.numberOfServices; i++) {
-        cellID = defineNamedRangeStringImport(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
+        cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
         formula = cellID
         rowFormulas.push(formula)
     }

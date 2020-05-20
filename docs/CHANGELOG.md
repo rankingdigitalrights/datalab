@@ -9,11 +9,17 @@
   + data@ owns data & outputs
   + users need to use their own accounts to deploy & execute modules
   + login and admin tasks reflected in [setup.md](/docs/setup.md)
-+ Main readme & changelog updated;
++ Main readme & changelog overhauled updated (rolling);
 + git branches cleanup
   + development for main feature testing
-  + temporary branches for new features
-  + master for hosting the production code (protected branch now)
+  + temporary branches (i.e. `input-dev`; `permissions`) for development of new features
+  + `master` for hosting the production code (**protected branch** now)
++ Breaking: Step 0/1 re-designed (incl. Indicators & Research Steps)
+  + imports previous Outcome as Step 0
+  + Step 1 pulls from Step 0 based on dropdown (did change yes/no)
+  + new YonY submodules & research Substep Components
++ Breaking: Indicators F/P updated to 2020
++ Breaking: variable & property names changed to improve readability
 + [...]
 
 + new function `isValueInColumn()`

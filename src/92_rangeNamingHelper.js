@@ -4,7 +4,7 @@
 
 // RDR2019DC S01 G1 iVM1 Step
 
-function defineNamedRangeStringImport(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
+function defineNamedRange(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
 
     var compCellName = index + sheetModeID + step + indicatorElement
     compCellName = compCellName + companyId + service + component
@@ -26,4 +26,8 @@ function clearAllNamedRangesFromSheet(sheet) {
         namedRanges[i].remove()
     }
     return sheet
+}
+
+function specialRangeName(Prefix, Main, Suffix) {
+    return Prefix + Main + Suffix
 }

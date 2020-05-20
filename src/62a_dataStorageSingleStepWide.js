@@ -29,7 +29,7 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + IndCat.labelLong)
 
-        if (IndCat.hasSubComponents == true) {
+        if (IndCat.hadSubComponents == true) {
             nrOfIndSubComps = IndCat.components.length
         }
 
@@ -63,17 +63,17 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
                 switch (stepCompType) {
 
                     // import researcher name from x.0 step
-                    case "header":
+                    case "subStepHeader":
                         activeRow = importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
                         // Logger.log(Indicator.labelShort + ' - SC - ' + stepCompType + " added ")
                         break
 
-                    case "elementResults":
+                    case "evaluation":
                         activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(Indicator.labelShort + " - SC - " + stepCompType + " added ")
                         break
 
-                    case "elementComments":
+                    case "comments":
                         activeRow = importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, hasOpCom, integrateOutputs, urlDC)
                         Logger.log(Indicator.labelShort + " - SC - " + stepCompType + " added ")
                         break

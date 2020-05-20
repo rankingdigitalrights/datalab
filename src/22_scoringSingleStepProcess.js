@@ -30,7 +30,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
         Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
         var nrOfIndSubComps = 1
 
-        if (thisIndCat.hasSubComponents == true) {
+        if (thisIndCat.hadSubComponents == true) {
             nrOfIndSubComps = thisIndCat.components.length
         }
 
@@ -74,7 +74,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                 switch (stepCompType) {
 
                     // import researcher name from x.0 step
-                    case "header":
+                    case "subStepHeader":
                         if (includeNames) {
 
                             activeRow = importElementRow(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs, isPilotMode)
@@ -82,14 +82,14 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                         }
                         break
 
-                    case "elementResults":
+                    case "evaluation":
                         if (includeResults) {
                             activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                             Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
                         }
                         break
 
-                    case "elementComments":
+                    case "comments":
                         activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                         Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
                         break

@@ -18,6 +18,7 @@
 
 // global params init (def with initiateGlobalConfig())
 
+var Config
 var indexPrefix
 var filenamePrefix
 var filenameSuffix
@@ -27,15 +28,17 @@ var outputFolderName
 var controlSpreadsheetID
 var Styles
 
+
 function initiateGlobalConfig() {
-    indexPrefix = centralConfig.indexPrefix
-    filenamePrefix = "2020 - Dev -" // end with " -"
+    Config = centralConfig
+    indexPrefix = Config.indexPrefix
+    filenamePrefix = "2020 - " // end with " -"
     filenameSuffix = "" // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
-    rootFolderID = centralConfig.rootFolderID
-    rootFolderName = centralConfig.rootFolderName
-    controlSpreadsheetID = centralConfig.controlSpreadsheetID
-    Styles = centralConfig.styles
+    rootFolderID = Config.rootFolderID
+    rootFolderName = Config.rootFolderName
+    controlSpreadsheetID = Config.controlSpreadsheetID
+    Styles = Config.styles
 }
 
 // --- // MAIN CALLERS // --- //
@@ -44,35 +47,54 @@ function initiateGlobalConfig() {
 
 function mainInputSheets() {
 
+    let doClearNamedRanges = false // CAUTION
+
     initiateGlobalConfig()
-    outputFolderName = "2020 - Dev - Input"
+    outputFolderName = "2020 Index - Input Sheets"
     // filenameSuffix = "" // Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
+        // Pilot Order //
         // .slice(1, 4) // Subset #1 1:2
         // .slice(3,6) // Subset #2 3:5
         // .slice(6,9) // Subset #3 6:8
-
-        // Pilot Order //
-        // .slice(0,1) // Amazon
-        .slice(1, 2) // Apple
-    // .slice(2,3) // Deutsche Telekom
-    // .slice(3,4) // Facebook
-    // .slice(4,5) // Google
-    // .slice(5,6) // Microsoft
-    // .slice(6,7) // Telefonica
-    // .slice(7,8) // Twitter
-    // .slice(8,9) // Vodafone
+        // .slice(0, 2)
+        // .slice(0, 1) //   0 "Amazon",
+        // .slice(1, 2) //   1 "Alibaba",
+        //   2 "América Móvil",
+        .slice(3, 4) //   3 "Apple",
+    //   4 "AT&T",
+    //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    //   7 "Bharti Airtel",
+    //   8 "Deutsche Telekom",
+    //   9 "Etisalat",
+    //   10 "Facebook",
+    //   11 "Google",
+    //   12 "Kakao",
+    //   13 "Mail.Ru",
+    //   14 "Microsoft",
+    //   15 "MTN",
+    //   16 "Ooredoo",
+    //   17 "Orange",
+    //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    //   20 "Telenor",
+    //   21 "Tencent",
+    // .slice(22, 23) // 22 "Twitter",
+    //   23 "Verizon Media",
+    //   24 "Vodafone",
+    //   25 "Yandex"
 
     let fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -87,7 +109,7 @@ function mainScoringSheets() {
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
-    let useStepsSubset = false // true := use subset
+    let useStepsSubset = true // true := use subset
     let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
@@ -170,7 +192,7 @@ function mainDataStore() {
     filenameSuffix = "Test" // + long or wide is decided in main logic
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
-    var mainSheetMode = centralConfig.dataStoreParams.fileName
+    var mainSheetMode = Config.dataStoreParams.fileName
 
     var useStepsSubset = false // true := use subset
     var useIndySubset = false // true := use subset
@@ -261,15 +283,15 @@ function mainRepairInputSheets() {
 }
 
 // --- // USE WISELY // --- // 
-/* function mainClearAllNamedRanges() {
+function mainClearAllNamedRanges() {
 
     initiateGlobalConfig()
     var mainSheetMode = "Input" // for filename
 
     var Companies = companiesVector.companies
-        .slice(0, 0)
-    // .slice(0,1) // Amazon
-    // .slice(1, 2) // Apple
+        // .slice(0, 0)
+        // .slice(0,1) // Amazon
+        .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
@@ -282,4 +304,4 @@ function mainRepairInputSheets() {
         clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
-} */
+}

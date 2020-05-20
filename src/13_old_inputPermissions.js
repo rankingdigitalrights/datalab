@@ -136,7 +136,7 @@ function singleStepProtectSheetUnprotectRanges(indexPrefix, sheetModeID, sheet, 
     var range
 
     for (step in steps) {
-        rangeName = defineNamedRangeStringImport(indexPrefix, sheetModeID, steps[step], indicator, "", companyId, "", "Step")
+        rangeName = defineNamedRange(indexPrefix, sheetModeID, steps[step], indicator, "", companyId, "", "Step")
         // Logger.log(rangeName)
         range = sheet.getRange(rangeName)
 

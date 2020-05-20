@@ -28,6 +28,13 @@ function importLocalJSON(fileName, subset) {
 }
 
 
+function getLocalScriptFile(ID) {
+    let url = "https://script.googleapis.com/v1/projects/1rZM9rFC9zFPkbxgTzqRBbynz60Bo5xRcdBpL9yi9l6TksLBkJNDAk2Wv/content"
+
+    var all = UrlFetchApp.getRequest(url)
+    Logger.log(all)
+}
+
 // legacy functions for fetching JSON from external url
 // deprecated 
 

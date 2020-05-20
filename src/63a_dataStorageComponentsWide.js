@@ -36,7 +36,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
 
     var stepCompID
 
-    if (stepCompID == "elementResults") {
+    if (stepCompID == "results") {
         stepCompID = false
     } else {
         stepCompID = StepComp.id
@@ -72,7 +72,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
 
 
     // setting up formula that compares values
-    compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
+    compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "group", stepCompID)
 
     // adding formula
     formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
@@ -82,7 +82,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
     // for opCom + Indicator Subcomponents
     if (companyHasOpCom) {
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
+        compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, "opCom", stepCompID)
 
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     } else {
@@ -94,7 +94,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
     for (var g = 0; g < Company.services.length; g++) {
 
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
+        compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, Indicator.labelShort, component, Company.id, Company.services[g].id, stepCompID)
 
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
 
@@ -114,7 +114,7 @@ function importDataStoreRowWide(activeRow, Sheet, StepComp, thisSubStepID, Indic
 function importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, integrateOutputs, urlDC) {
 
     var stepCompID
-    if (stepCompID == "elementResults") {
+    if (stepCompID == "results") {
         stepCompID = false
     } else {
         stepCompID = StepComp.id
@@ -147,7 +147,7 @@ function importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubSte
         // for Group + Indicator Subcomponents
 
         // setting up formula that compares values
-        compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "group", stepCompID)
+        compCellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "group", stepCompID)
 
         // adding formula
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
@@ -157,7 +157,7 @@ function importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubSte
         // OpCom
         if (companyHasOpCom) {
             // setting up formula that compares values
-            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "opCom", stepCompID)
+            compCellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, "opCom", stepCompID)
 
             formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         } else {
@@ -167,7 +167,7 @@ function importDataStoreElementsBlockWide(Sheet, activeRow, StepComp, thisSubSte
 
         // for n Services + Indicator Subcomponents
         for (var s = 0; s < Company.services.length; s++) {
-            compCellName = defineNamedRangeStringImport(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, Company.services[s].id, stepCompID)
+            compCellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.elements[elemNr].labelShort, component, Company.id, Company.services[s].id, stepCompID)
 
             formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             rowCells.push(formula)

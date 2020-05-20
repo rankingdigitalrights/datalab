@@ -13,14 +13,19 @@
     },
     "dependencies": {
         "@types/google-apps-script": "^1.0.10",
+        "clasp": "^1.0.0",
         "eslint": "^6.8.0"
     },
     "devDependencies": {
         "eslint-plugin-googleappsscript": "^1.0.3"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "cloc": "sh ./docs/stats/cloc.sh"
+        "switch-prod": "sh ./env/switch-prod.sh",
+        "switch-dev": "sh ./env/switch-dev.sh",
+        "cloc": "sh ./docs/stats/cloc.sh",
+        "json": "sh ./docs/stats/json.sh",
+        "docs": "sh ./docs/stats/docs.sh",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "fubits | GW | RDR",
     "license": "ISC"

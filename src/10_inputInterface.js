@@ -1,7 +1,7 @@
 // --- Spreadsheet Casting: Company Data Collection Sheet --- //
 
 /* global 
-centralConfig,
+Config,
 indicatorsVector,
 researchStepsVector,
 spreadSheetFileName,
@@ -13,32 +13,29 @@ insertSheetIfNotExist,
 moveHideSheetifExists,
 removeEmptySheet,
 fillPrevOutcomeSheet,
-fillSourceSheet,
+produceSourceSheet,
 populateDCSheetByCategory
 */
 
+function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
-    Logger.log("--- // --- begin main data collection --- // ---")
+    Logger.log("PROCESS: begin main DC --- // ---")
 
-    let sourcesTabName = "Sources"
-
-    let companyShortName = cleanCompanyName(CompanyObj)
+    let companyShortName = cleanCompanyName(Company)
 
     Logger.log("--- // --- creating " + mainSheetMode + " Spreadsheet for " + companyShortName + " --- // ---")
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    let Config = centralConfig // let Config = importLocalJSON("Config")
-    // let CompanyObj = CompanyObj // TODO this a JSON Obj now; adapt in scope
-    let IndicatorsObj = indicatorsVector
+    // let Company = Company // TODO this a JSON Obj now; adapt in scope
+    let Indicators = indicatorsVector
     let ResearchStepsObj = researchStepsVector
-
-    let serviceColWidth = Config.serviceColWidth
     let doCollapseAll = Config.collapseAllGroups
     let integrateOutputs = Config.integrateOutputs
     let importedOutcomeTabName = Config.prevYearOutcomeTab
+    let importedSourcesTabName = "2019 Sources" // TODO: Config
+
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
@@ -53,51 +50,77 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
-    let externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + CompanyObj.tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+    let externalFormula
+
+    let tabPrevYearsOutcome = (Company.tabPrevYearsOutcome != null) ? Company.tabPrevYearsOutcome : "VodafoneOutcome"
+
+    let tabPrevYearsSources = (Company.tabPrevYearsOutcome != null) ? (companyShortName + "Sources") : "VodafoneSources"
+
+    let sourcesTabName = "2020 Sources"
 
     let Sheet
 
-    // if set in Config, import previous Index Outcome
+    // if set in Config, import previous Index Outcome & Sources
     if (Config.YearOnYear) {
-        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false) // Import only once; hard copy; do not overwrite
+
+        // Previous OUTCOME
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+
+        // Import only once; hard copy; do not overwrite
+        Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
+
         if (Sheet !== null) {
             fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula)
         }
+
+        // Previous SOURCES
+        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearSources + "\",\"" + tabPrevYearsSources + "!" + "A:Z" + "\")"
+
+        // Import only once; hard copy; do not overwrite
+        Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false)
+        if (Sheet !== null) {
+            fillPrevOutcomeSheet(Sheet, importedSourcesTabName, externalFormula)
+            produceSourceSheet(Sheet, false)
+
+        }
+
     }
 
     // --- // creates sources page // --- //
 
     Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
     if (Sheet !== null) {
-        fillSourceSheet(Sheet)
+        produceSourceSheet(Sheet, true)
     }
 
     // if scoring sheet is integrated into DC, create Points sheet
 
-    let hasOpCom = CompanyObj.hasOpCom
+    let hasOpCom = Company.hasOpCom
+    let isNewCompany = (Company.isPrevScored) ? false : true
 
     // fetch number of Services once
-    let companyNumberOfServices = CompanyObj.services.length
+    let companyNumberOfServices = Company.services.length
 
     // --- // MAIN TASK // --- //
     // for each Indicator Category do
     let Category
 
-    for (let i = 0; i < IndicatorsObj.indicatorCategories.length; i++) {
+    for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
 
-        Category = IndicatorsObj.indicatorCategories[i]
+        Category = Indicators.indicatorCategories[i]
 
-        Logger.log("Starting " + Category.labelLong)
-        Logger.log("Passing over " + ResearchStepsObj.researchSteps.length + " Steps")
+        Logger.log("--- NEXT : Starting " + Category.labelLong)
 
-        populateDCSheetByCategory(SS, Category, CompanyObj, ResearchStepsObj, companyNumberOfServices, serviceColWidth, hasOpCom, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
+        populateDCSheetByCategory(SS, Category, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
 
-        Logger.log("Completed " + Category.labelLong)
+        Logger.log("--- Completed " + Category.labelLong)
     }
 
-    Logger.log("end DC main")
+    Logger.log("PROCESS: end DC main")
 
     // --- // additional integrated Outputs // --- //
+    // --- // Pilot Feature, so probably irrelevant // --- //
+    // TODO: remove //
 
     if (integrateOutputs) {
         Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
@@ -121,7 +144,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
 
             outputParams = Config.integrateOutputsArray.scoringParams
             isPilotMode = false
-            addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Scores --- added")
 
@@ -133,7 +156,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
             Logger.log("Extra Sheet --- Researcher Feedback --- adding")
             outputParams = Config.integrateOutputsArray.researchNotesParams
 
-            addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("Extra Sheet --- Researcher Feedback --- added")
         }
@@ -143,6 +166,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, CompanyObj, 
     // if empty Sheet exists, delete
     removeEmptySheet(SS)
 
-    Logger.log(mainSheetMode + " Spreadsheet created for " + companyShortName)
+    Logger.log("FILE: " + mainSheetMode + " Spreadsheet created for " + companyShortName)
     return fileID
 }

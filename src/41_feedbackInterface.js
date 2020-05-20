@@ -6,7 +6,9 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
 
     Logger.log("Inserting Sheet " + sheetName)
     var sheet = insertSheetIfNotExist(SS, sheetName, true)
-    if (sheet !== null) { sheet.clear() }
+    if (sheet !== null) {
+        sheet.clear()
+    }
 
     var firstCol = lastCol
     var activeCol = firstCol
@@ -17,7 +19,7 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
     // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
     var nrOfIndSubComps = 1
 
-    if (thisIndClass.hasSubComponents == true) {
+    if (thisIndClass.hadSubComponents == true) {
         nrOfIndSubComps = thisIndClass.components.length
     }
 
@@ -67,32 +69,32 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
 
             switch (stepCompType) {
 
-            // import researcher name from x.0 step
-            case "header":
-                break
+                // import researcher name from x.0 step
+                case "subStepHeader":
+                    break
 
-            case "elementResults":
-                // if (includeResults) {
-                //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                // }
-                break
+                case "evaluation":
+                    // if (includeResults) {
+                    //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                    //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
+                    // }
+                    break
 
-            case "elementComments":
-                activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
-                break
+                case "comments":
+                    activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                    Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
+                    break
 
-            case "sources":
+                case "sources":
 
-                activeRow = importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                Logger.log(" - SC - " + "sources added for: " + thisInd.labelShort)
+                    activeRow = importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
+                    Logger.log(" - SC - " + "sources added for: " + thisInd.labelShort)
 
-                break
+                    break
             }
         }
 
-        blockEndRow = activeRow - 1// mark end of block
+        blockEndRow = activeRow - 1 // mark end of block
         activeRow += 1
 
         lastCol = numberOfColumns * 2 + 2
@@ -126,7 +128,7 @@ function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores,
     // label columns
     sheet.getRange(1, 1, lastRow, 2)
         .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-    
+
     // results columns
     sheet.getRange(1, offsetCol, lastRow, numberOfColumns)
         .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)

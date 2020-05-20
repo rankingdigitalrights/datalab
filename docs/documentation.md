@@ -1,8 +1,8 @@
 # Documentation
 
 > -> Go back to [README](../README.md)\
-> -> Jump to [JSON Dictionary](dictionary.md)
-
+> -> Jump to [JSON Dictionary](dictionary.md)\
+> -> List of [QC Steps](QC.md)
 ---
 
 ## TOC
@@ -35,12 +35,13 @@
 
 To provide contributors with a cognitive model of this project, it is helpful to distinguish between
 
-+ the development environment (the source code stored on `git`, edited locally with an editor, `clasp` for syncing with Google),
-+ the execution / runtime environment (Google Apps Script online editor),
-+ the output environment (Google Drive), and
-+ the UI/frontend (*currently* Google Spreadsheets).
-
-Currently, the `JSON` files build the fourth component as they are stored on a stage server. This has to be changed yet, and has been changed for the companies vector.
++ the **development** environment
+  + **collaboration & version control**: source code shared on `git`, edited locally with an IDE
+  + `clasp` for **deploying** to Google Apps Script,
++ the parameters & configuration: `JSON` files for Indicators, Companies, Research Steps, and global Index settings
++ the **execution** / **runtime** environment (Google Apps Script online editor),
++ the **output** environment (Google Drive), and
++ the **UI/frontend** (*currently* Google Spreadsheets).
 
 ---
 
@@ -52,21 +53,21 @@ Currently, the `JSON` files build the fourth component as they are stored on a s
 
 The core idea is that,
 
-a) based on a set of `parameter vectors` (indicators, research steps, companies) provided as JSON files or JSON Objects (`JSON_companies.js`)
+a) based on a set of `parameter vectors` (indicators, research steps, companies, Index config) provided as JSON files or JSON Objects (`JSON_companies.js`)
 
 b) for each `company` you
 
 + first create the `data collection spreadsheet` with `mainAllCompaniesDataCollectionSheets()`, which will be located in `rootFolderID/outputFolderName` of `@rdresearch`'s Drive.
 
-  > The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `JSON_companies.[<company>]` Object.
+  > The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `JSON_companies.[<company>]` Child.
 
 + currently defunct: ~~to set step-wise editing `permissions` for the data collection sheet, run `mainPermissions()`~~
 
 + then create the `company scoring sheet` with `mainCreateScoringSheet()`.
 
-  > ~~In the near future~~ Currently, all outputs are tracked in a `00_Test`.
+  > ~~In the near future~~ Currently, all outputs are tracked in a `00_XYZ_Dashboard` Spreadsheet.
 
-Eventually, all control should be moved to a `Master Spreadsheet`.
+Eventually, all control should be moved to a `Master Dashboard` Spreadsheet.
 
 ---
 
@@ -84,16 +85,16 @@ Eventually, all control should be moved to a `Master Spreadsheet`.
 
 #### Naming Conventions
 
-+ `Objects` start with `C`apital letters
 + primitives / simpleVariables start with lower-case letters
++ `Objects` start with `C`apital letters
 + Booleans are prefixed with a verb: `isBoolean`; `hasChildren`; etc.
-+ functions() are explicit regarding action and scope: ~~createSingleSheet()~~ createStep() + createAllSteps()
-+ **import**: in compliance with Google Apps Script syntax (Classes and methods), a Spreadsheet is a `Spreadsheet`, and a Tab / Sheet is a `Sheet`. This should be considered when naming variables and functions. It is encouraged to use `SS` as an abbreviation for a Spreadsheet Object
++ functions() are explicit regarding action and scope: ~~createSingleSheet()~~ addStep() + protectAllSteps()
++ **important**: in compliance with Google Apps Script API syntax (Classes and methods), a Spreadsheet is a `Spreadsheet`, and a Tab / Sheet is a `Sheet`. This should be considered when naming variables and functions. It is encouraged to use `SS` as an abbreviation for a Spreadsheet Object, and `Sheet` for a single Sheet Object, ..., `Range`, `Cell`, and so on
 + ...
 
 #### Working with Spreadsheets
 
-+ as soon as input spreadsheets have been produced, grab their IDs from `00-Dashboard` and add them as `currentInputSheetUrl` to the `companies.json`
++ as soon as input spreadsheets have been produced, grab their IDs from `00-Dashboard` and add them as `currentInputSheetUrl` to the `json/JSON_companies.js`
 + from here on, **all other modules** should work with the `ID` and not the file name to increase reliability
   + if `ID` has not been implemented in other modules yet, please do so
   + if you develop new modules, add getSpreadsheet ``
@@ -142,16 +143,15 @@ To subset companies, currently you have to stick to `companies.slice(indexOfFirs
 
 ([top ↥](#documentation))
 
-+ `10_inputInterface.js` - core module for the creation of a single company-level data collection spreadsheet
-+ `11_dataCollectionComponents.js` - lower-level helper functions for the data collection production
++ `10_inputInterface.js` - Main module interface for the creation of a single company-level data collection spreadsheet
++ `11_inputMainProcess.js` - Main process controller which calls lower-level helper functions for the data collection production
++ `12_inputSubBaseModules.js` - Submodules which produce Substep compontents (result evaluation dropdowns, comment rows, and so on)
++ `12_inputSubYonY.js` - Submodules for the Step-wise Year-on-Year logic and the **new 2020 Step 0/1 Review**
++ deprecated `13_old_inputPermissions.js` - old Step-wise permissions submodule. **To be updated & refactored to Main Module `5x_Permissions.js`**
+  + + currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; un-protecting / assigning editors de-facto not effective with external users (due to missing scope permission). This was at least true for when we were using `rdresearch`, and since all non-OTI accounts were external to `rdresearch`...
+  + in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
 
-Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restructuring it needs to be updated.
-
-+ `12_inputPermissions.js` - future submodule for setting / removing step-wise permission for `data collection spreadsheets` - **currently not operational**
-
-+ currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; un-protecting / assigning editors de-facto not effective with external users (due to missing scope permission). As we are currently using `rdresearch`, and all non-OTI accounts are external...
-
-+ in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
+Extensive documentation for the initial Data Collection Script was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restructuring it needs to be updated.
 
 ---
 
@@ -166,7 +166,7 @@ Extensive documentation was created by G.W. ([GDoc](https://docs.google.com/docu
 + `22_scoringSingleStepProcess.js`(TODO)
 + `23_scoringSubcomponents.js`
 
-> Best, add `DC fileID` to `<company>.json` before casting `SC`. This way SC will immediately be connected to DC.
+> Best, add `DC fileID` to `json/JSON_companies.js/<company>` before casting `SC`. This way SC will immediately be connected to DC.
 
 ---
 

@@ -2,6 +2,11 @@
 
 // TODO: Test
 function assignFileOwner(File, lastName) {
+
+    if (typeof File === 'string') {
+        File = DriveApp.getFileById(File)
+    }
+
     let account = lastName + '@rankingdigitalrights.org'
     File.setOwner(account)
 }
@@ -12,14 +17,24 @@ function assignFolderOwner(Folder, lastName) {
 }
 
 // TODO: Test
-function assignFileEditors(File, personsLastNames) {
-    let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
+function assignFileEditors(File, accounts) {
+    // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
     File.addEditors(accounts)
 }
 
-function assignFolderEditors(Folder, personsLastNames) {
-    let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
+function assignFolderEditors(Folder, accounts) {
+    // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
     Folder.addEditors(accounts)
+}
+
+function assignFileViewers(File, accounts) {
+    // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
+    File.addViewers(accounts)
+}
+
+function assignFolderViewers(Folder, accounts) {
+    // let accounts = personsLastNames.map(lastName => lastName + '@rankingdigitalrights.org')
+    Folder.addViewers(accounts)
 }
 
 function tryAccessParent(parentFolderID) {
@@ -34,6 +49,7 @@ function createNewFolder(parentFolderID, folderName) {
     let ParentFolder = tryAccessParent(parentFolderID)
 
     if (ParentFolder) {
+        Logger.log("CORE: Connected to ROOT " + ParentFolder.getName())
         let Children = ParentFolder.getFoldersByName(folderName)
         let Folder
         let folderID
@@ -41,7 +57,7 @@ function createNewFolder(parentFolderID, folderName) {
             Logger.log("CORE: Folder " + folderName + " does not exist. Creating a new one")
             Folder = ParentFolder.createFolder(folderName)
             Folder.setOwner("data@rankingdigitalrights.org") // TODO: from config
-            assignFolderEditors(Folder, ["sperling"])
+            assignFolderEditors(Folder, Config.devs)
             folderID = Folder.getId()
         } else {
             Folder = Children.next()
@@ -50,7 +66,7 @@ function createNewFolder(parentFolderID, folderName) {
         Logger.log("CORE: Found Folder: " + Folder.getName())
         return folderID
     } else {
-        Logger.log("CORE ERROR: Can not access Root " + parentFolderID)
+        Logger.log("CORE ERROR: Can not access ROOT " + parentFolderID)
         Logger.log("CORE ERROR: Can create Folder " + folderName)
         return null
     }
