@@ -58,6 +58,9 @@ function protectSingleCompany() {
     
     let SS = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/u/1/d/1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ/edit?usp=drive_web&ouid=102240670771475449012")
 
+    // overall open function
+    initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames",Viewers,SheetEditors)
+    
     // adding viewers
     // assignFileViewers(SS, Viewers)
 
@@ -69,7 +72,7 @@ function protectSingleCompany() {
 
     // opening a step
     //openResearchNameStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "RNames")
-    openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames")
+    //openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames")
 
 
     // assignFileOwner("1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc", "data")
@@ -82,6 +85,12 @@ function protectSingleCompany() {
     // close step
     // closeStep(Indicators,Editors,SS)
 
+}
+
+function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames,Viewers,SheetEditors) {
+    protectSheets(Indicators, SheetEditors, SS)
+    assignFileViewers(SS, Viewers)
+    openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames)
 }
 
 // closeStep simply removes all permissions and then adds only the Sheet permissions back
@@ -306,3 +315,4 @@ function protectSheets(Indicators, emails, SS) {
 
 
 }
+
