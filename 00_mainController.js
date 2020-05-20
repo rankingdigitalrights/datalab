@@ -56,7 +56,6 @@ function mainInputSheets() {
     let useStepsSubset = true // true := use subset
     let useIndicatorSubset = true // true := use subset
 
-
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
         // Pilot Order //
@@ -67,10 +66,10 @@ function mainInputSheets() {
         // .slice(0, 1) //   0 "Amazon",
         // .slice(1, 2) //   1 "Alibaba",
         //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
-    //   4 "AT&T",
-    //   5 "Axiata",
-    //   6 "Baidu",
+        // .slice(3, 4) //   3 "Apple",
+        //   4 "AT&T",
+        //   5 "Axiata",
+        .slice(6, 7) //   6 "Baidu",
     //   7 "Bharti Airtel",
     //   8 "Deutsche Telekom",
     //   9 "Etisalat",
@@ -86,7 +85,7 @@ function mainInputSheets() {
     // .slice(19, 20) //   19 "Telefónica",
     //   20 "Telenor",
     //   21 "Tencent",
-    //   22 "Twitter",
+    // .slice(22, 23) // 22 "Twitter",
     //   23 "Verizon Media",
     //   24 "Vodafone",
     //   25 "Yandex"

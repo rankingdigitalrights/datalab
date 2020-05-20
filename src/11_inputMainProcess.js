@@ -33,11 +33,11 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
     // fallback for subset runs when indicator category only has 1 item
 
-    let minIndicators = Category.indicators.length > 1 ? 2 : 1
+    let minIndicators = Category.indicators.length > 1 ? 3 : 1
 
     let category = Category.labelShort
-    let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
 
+    let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
     let mainStepsLength = useStepsSubset ? 4 : ResearchSteps.researchSteps.length
 
     // iterates over each indicator in the current Category
@@ -95,7 +95,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         let activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addMainSheetHeader(Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
+        activeRow = addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
 
         // --- // Begin Main Step-Wise Procedure // --- //
 
@@ -267,7 +267,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
             .setFontFamily("Roboto")
             // .setFontSize(10)
-            .setVerticalAlignment("middle")
+            .setVerticalAlignment("top")
 
         // set font for whole data range
         sheetRange = Sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
@@ -287,17 +287,17 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             .setRanges([sheetRange])
             .build()
 
-        let condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
-            .whenTextEqualTo(Config.newElementLabelResult)
-            .setFontColor("#ea4335")
-            .setBold(true)
-            .setRanges([sheetRange])
-            .build()
+        // let condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
+        //     .whenTextEqualTo(Config.newElementLabelResult)
+        //     .setFontColor("#ea4335")
+        //     .setBold(true)
+        //     .setRanges([sheetRange])
+        //     .build()
 
         let rules = Sheet.getConditionalFormatRules()
         rules.push(condRuleNames)
         rules.push(condRuleValues)
-        rules.push(condRuleNewElem)
+        // rules.push(condRuleNewElem)
         Sheet.setConditionalFormatRules(rules)
 
 

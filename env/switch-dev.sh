@@ -5,3 +5,4 @@ id=$line
 echo "$id"
 done < env/devID.txt
 clasp settings scriptId $id
+echo "ENV switched to DEVELOPMENT - GW"
