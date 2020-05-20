@@ -2287,7 +2287,7 @@ var indicatorsVector = {
             "labelShort": "P7.2",
             "description": "For each type of user information the company collects, does the company clearly disclose whether users can delete this user information?",
             "y2yResultRow": 582,
-            "y2yCommentRow": 567
+            "y2yCommentRow": 587
           },
           {
             "labelShort": "P7.3",
