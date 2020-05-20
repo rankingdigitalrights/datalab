@@ -1222,7 +1222,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4b.3",
-            "description": "Does the company publish data on the number of pieces of ​content ​restricted ​based on the method used to identify the violation?",
+            "description": "Does the company publish data on the number of accounts restricted based on the method used to identify the violation?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
