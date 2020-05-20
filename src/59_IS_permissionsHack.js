@@ -11,6 +11,7 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 // see setShareableByEditors
 // file also has shareable
 
+
 function testSelectSingleIndicator() {
     let Indicators = selectSingleIndicator(indicatorsVector, "P", "P18")
 }
@@ -35,7 +36,7 @@ function protectSingleCompany() {
     let Indicators = indicatorsVector
 
     // let stepIDs = ["S030", "S031", "S035"]
-    let stepIDs = ["S020", "S021", "S025"]
+    let stepIDs = ["S010", "S011", "S015"]
     // let stepIDs = ["S01"]
     //["S010","S011","S015","S020","S021","S025","S030","S031","S035"] // add all the (sub)steps to be opened
 
@@ -52,10 +53,10 @@ function protectSingleCompany() {
     //let allEmails = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
 
     let Viewers =["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
-    let StepEditors=["walton@rankingdigitalrights.org"]
+    let StepEditors=["walton@rankingdigitalrights.org","ilja.sperling@gmail.com"]
     let SheetEditors=[]
-
-    let SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
+    
+    let SS = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/u/1/d/1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ/edit?usp=drive_web&ouid=102240670771475449012")
 
     // adding viewers
     // assignFileViewers(SS, Viewers)
@@ -68,12 +69,12 @@ function protectSingleCompany() {
 
     // opening a step
     //openResearchNameStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "RNames")
-     openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames")
+    openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames")
 
 
     // assignFileOwner("1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc", "data")
     // protecting all sheets
-    // protectSheets(Indicators, SheetEditors, SS)
+    //protectSheets(Indicators, SheetEditors, SS)
 
     // removing all protections
     //removeAllProtections(SS)
@@ -99,6 +100,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     let protectionStep
     let editors
     let rangeName
+    let firstR, lastR
 
     // looping through the types of indicators (G,F,P)
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
@@ -127,7 +129,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 // add the name range here as well
                 // TODO unhardcode this
                 rangeName = specialRangeName("Names", "S01", Indicator.labelShort)
-                notation = SS.getRangeByName(namedR).getA1Notation();
+                notation = SS.getRangeByName(rangeName).getA1Notation();
                 range = Sheet.getRange(notation); // getting the range associated with named range
 
                 unprotectedRanges.push(range)
@@ -146,8 +148,10 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
                             namedR = defineNamedRange("RDR20", "DC", stepIDs[l], Indicator.labelShort, "", companyID, "", "Step")
 
-                            notation = SS.getRangeByName(namedR).getA1Notation();
-                            range = Sheet.getRange(notation); // getting the range associated with named range
+                            firstR=SS.getRangeByName(namedR).getRow()
+                            lastR=SS.getRangeByName(namedR).getLastRow()
+                            
+                            range = Sheet.getRange(firstR+":"+lastR); // getting the range associated with named range                  
 
                             unprotectedRanges.push(range)
 
@@ -166,13 +170,12 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     } // end category
 
     // now need to update the editors for the entire sheet
+  // need to first remove all old editors then add the ones we want
+  
+  
     editors=SS.getEditors()
-    for(var i=0; i<editors.length;i++){
-        if(!StepEditors.contains(editors[i])){
-            SS.removeEditor(editors[i])
-        }
-    }
-
+    for(var i=0; i<editors.length;i++){SS.removeEditor(editors[i])}
+  
     SS.addEditors(StepEditors)
 
 
@@ -219,6 +222,7 @@ function protectSheets(Indicators, emails, SS) {
     let rangeName, notation, range
     let unprotectedRanges
     let Sheet
+    let firstR, lastR
 
     // protecting 2019 Outcome
     protect = SS.getSheetByName("2019 Outcome").protect().setDescription("2019 Outcome")
@@ -256,7 +260,7 @@ function protectSheets(Indicators, emails, SS) {
             if (SS.getSheetByName(Indicator.labelShort) != null) {
 
                 // creating a protection for the Sheet, description must be name of Sheet for openStep to work
-                 Sheet=getSheetByName(Indicator.labelShort)
+                 Sheet=SS.getSheetByName(Indicator.labelShort)
                  protection = Sheet.protect().setDescription(Indicator.labelShort)
 
                 // removing other editors and only adding array of emails
@@ -269,17 +273,25 @@ function protectSheets(Indicators, emails, SS) {
                 unprotectedRanges=[]
 
                 rangeName = specialRangeName("Guide", "", Indicator.labelShort)
-                notation = SS.getRangeByName(rangeName).getA1Notation();
-                range = Sheet.getRange(notation); // getting the range associated with named range
+                
+                firstR=SS.getRangeByName(rangeName).getRow()
+                lastR=SS.getRangeByName(rangeName).getLastRow()
+                   
+                range = Sheet.getRange(firstR+":"+lastR); // getting the range associated with named range
 
                 unprotectedRanges.push(range)
 
                 rangeName = specialRangeName("Step", "0", Indicator.labelShort)
-                notation = SS.getRangeByName(rangeName).getA1Notation();
-                range = Sheet.getRange(notation); // getting the range associated with named range
+                firstR=SS.getRangeByName(rangeName).getRow()
+                lastR=SS.getRangeByName(rangeName).getLastRow()
+                            
+                range = Sheet.getRange(firstR+":"+lastR); // getting the range associated with named range
 
                 unprotectedRanges.push(range)
-                unprotectedRanges.push(rangeName)
+                
+                Logger.log(unprotectedRanges)
+                
+                protection.setUnprotectedRanges(unprotectedRanges)
 
                 Logger.log("indicator :" + Indicator.labelShort)
             }

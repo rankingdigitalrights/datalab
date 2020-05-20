@@ -27,10 +27,10 @@ function permissionsController() {
     let Spread=SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc/edit#gid=1404795634');
 
     // adding viewers
-    assignFileViewers(Spread, allEmails)
+    //assignFileViewers(Spread, allEmails)
 
     // adding editors
-    assignFileEditors(Spread, allEmails)
+    //assignFileEditors(Spread, allEmails)
 
   
     // opening a step
