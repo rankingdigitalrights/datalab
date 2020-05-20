@@ -1041,7 +1041,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3a.4",
-            "description": "Does the company clearly disclose how it uses algorithmic systems to flag content that might violate the company’s rules?",
+            "description": "Does the company clearly disclose how algorithmic systems are used to flag content that might violate the company’s rules?",
             "y2yResultRow": false,
             "y2yCommentRow": false,
             "isRevised": true
@@ -1088,7 +1088,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3b.2",
-            "description": "Does the company ​clearly disclose ​whether it ​requires all ​advertising content ​must be clearly labelled as such?",
+            "description": "Does the company clearly disclose whether it requires all advertising content be clearly labelled as such?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1825,7 +1825,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P1a.4",
-            "description": "(For mobile ecosystems): Does the company require apps made available through its app store to provide users with a privacy policy?",
+            "description": "(For mobile ecosystems): Does the company disclose that it requires apps made available through its app store to provide users with a privacy policy?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,
@@ -1943,7 +1943,7 @@ var indicatorsVector = {
         "prevIndLength": null,
         "elements": [{
             "labelShort": "P2b.1",
-            "description": "Does the company clearly disclose that it directly notifies users about  all changes to its algorithmic system development policies?",
+            "description": "Does the company clearly disclose that it directly notifies users about all changes to its algorithmic system development policies?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1961,7 +1961,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P2b.4",
-            "description": "Does the company maintain a public archive or change log",
+            "description": "Does the company maintain a public archive or change log?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
@@ -2537,7 +2537,7 @@ var indicatorsVector = {
       },
       {
         "labelShort": "P10b",
-        "labelLong": "Access to algorithmic system development policies",
+        "labelLong": "Process for responding to private requests for user information",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91443123",
         "scoringScope": "full",
@@ -2590,16 +2590,14 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P11a.1",
             "description": "Does the company list the number of government demands it receives by country?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false,
-            "isRevised": true
+            "y2yResultRow": 698,
+            "y2yCommentRow": 709,
           },
           {
             "labelShort": "P11a.2",
             "description": "Does the company list the number of government demands it receives for stored user information and for real-time communications access?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false,
-            "isRevised": true
+            "y2yResultRow": 699,
+            "y2yCommentRow": 710,
           },
           {
             "labelShort": "P11a.3",
@@ -2666,8 +2664,8 @@ var indicatorsVector = {
         "elements": [{
             "labelShort": "P11b.1",
             "description": "Does the company list the number of requests it receives for user information that come through private processes?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false
+            "y2yResultRow": 704,
+            "y2yCommentRow": 715
           },
           {
             "labelShort": "P11b.2",
@@ -2693,7 +2691,7 @@ var indicatorsVector = {
         "labelShort": "P12",
         "labelLong": "User notification about third-party requests for user information",
         "description": "",
-        "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360899",
+        "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91493864",
         "scoringScope": "full",
         "y2yCompColumn": 2,
         "y2yCompRow": 740,
@@ -2737,7 +2735,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P13.2",
-            "description": "Does the company clearly disclose that it has a security team that conducts audits on the company’s products and services?",
+            "description": "Does the company clearly disclose that it has a security team that conducts security audits on the company’s products and services?",
             "y2yResultRow": 759,
             "y2yCommentRow": 762
           },
@@ -2949,7 +2947,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P17.3",
-            "description": "Does the company clearly disclose that it notifies users about unusual account activity and possible unauthorized access to their account?",
+            "description": "Does the company clearly disclose that it notifies users about unusual account activity and possible unauthorized access to their accounts?",
             "y2yResultRow": 853,
             "y2yCommentRow": 856
           }
