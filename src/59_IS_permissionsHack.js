@@ -52,8 +52,8 @@ function protectSingleCompany() {
     //let Editors = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org"]
     //let allEmails = ["walton@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
 
-    let Viewers =["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com"]
-    let StepEditors=["walton@rankingdigitalrights.org","ilja.sperling@gmail.com"]
+    let Viewers =["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "ilja.sperling@gmail.com","gutermuth@rankingdigitalrights.org"]
+    let StepEditors=["walton@rankingdigitalrights.org","ilja.sperling@gmail.com","gutermuth@rankingdigitalrights.org"]
     let SheetEditors=[]
     
     let SS = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/u/1/d/1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ/edit?usp=drive_web&ouid=102240670771475449012")
@@ -77,7 +77,7 @@ function protectSingleCompany() {
 
     // assignFileOwner("1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc", "data")
     // protecting all sheets
-    //protectSheets(Indicators, SheetEditors, SS)
+    //protectSheets(Indicators, SheetEditors, SS,companyID)
 
     // removing all protections
     //removeAllProtections(SS)
@@ -88,7 +88,7 @@ function protectSingleCompany() {
 }
 
 function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames,Viewers,SheetEditors) {
-    protectSheets(Indicators, SheetEditors, SS)
+    protectSheets(Indicators, SheetEditors, SS,companyID)
     assignFileViewers(SS, Viewers)
     openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames)
 }
@@ -224,7 +224,7 @@ function removeAllProtections(SS) {
 
 
 
-function protectSheets(Indicators, emails, SS) {
+function protectSheets(Indicators, emails, SS,companyID) {
     Logger.log(" In protectSheets")
 
     let protect, protection
@@ -289,8 +289,9 @@ function protectSheets(Indicators, emails, SS) {
                 range = Sheet.getRange(firstR+":"+lastR); // getting the range associated with named range
 
                 unprotectedRanges.push(range)
+                
+                rangeName = defineNamedRange("RDR20", "DC", "S00", Indicator.labelShort, "", companyID, "", "Step")
 
-                rangeName = specialRangeName("Step", "0", Indicator.labelShort)
                 firstR=SS.getRangeByName(rangeName).getRow()
                 lastR=SS.getRangeByName(rangeName).getLastRow()
                             
@@ -315,4 +316,3 @@ function protectSheets(Indicators, emails, SS) {
 
 
 }
-
