@@ -4,9 +4,9 @@ var centralConfig = {
   indexPrefix: "RDR20",
   prevIndexPrefix: "RDR19",
   filenameSuffix: "Index Dev",
-  rootFolderID: "1pmv2sdJ_XkPPkEwyUeJEZTCu2UfR9eBa", //Data:Test-Dev-Remote
-  rootFolderName: "PermissionsTesting", // optional Folder name string to see if acces by ID fails
-  controlSpreadsheetID: "1LPTRR-Nz5MWj2mjEQLxqsyJ0ALXSuHD0kT6CYSQOpVs", // 00-Dashboard-Dev
+  rootFolderID: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", //Data @ Test-Dev-Remote
+  rootFolderName: "2020 Index Dev (Fallback)", // optional Folder name string to see if access by ID fails
+  controlSpreadsheetID: "1r3Hq6m9R3l0yMaiAZXf40Z7Gif54Kd1B08MUBk4n_LM", // 00-Dashboard-Dev
   YearOnYear: true,
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   urlPreviousYearSources: "1gK8M9-4eLwwbWMsgXH6Gi1VqOXZF1iARWE3Q_CNqgr8",

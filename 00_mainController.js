@@ -33,12 +33,12 @@ function initiateGlobalConfig() {
     Config = centralConfig
     indexPrefix = Config.indexPrefix
     filenamePrefix = "2020 - Dev -" // end with " -"
-    filenameSuffix = " (PermissionsTest)" // Dev, "", Debug, QC
-    outputFolderName = "2020 - Dev - Input" // Specific folder defined in Main Callers
-    rootFolderID = centralConfig.rootFolderID
-    rootFolderName = centralConfig.rootFolderName
-    controlSpreadsheetID = centralConfig.controlSpreadsheetID
-    Styles = centralConfig.styles
+    filenameSuffix = " (Alpha)" // Dev, "", Debug, QC
+    outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
+    rootFolderID = Config.rootFolderID
+    rootFolderName = Config.rootFolderName
+    controlSpreadsheetID = Config.controlSpreadsheetID
+    Styles = Config.styles
 }
 
 // --- // MAIN CALLERS // --- //
@@ -56,22 +56,20 @@ function mainInputSheets() {
     let useStepsSubset = true // true := use subset
     let useIndicatorSubset = true // true := use subset
 
-
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
         // Pilot Order //
         // .slice(1, 4) // Subset #1 1:2
         // .slice(3,6) // Subset #2 3:5
         // .slice(6,9) // Subset #3 6:8
-        .slice(0, 2)
-
-    //   0 "Amazon",
-    //   1 "Alibaba",
-    //   2 "América Móvil",
-    //   3 "Apple",
-    //   4 "AT&T",
-    //   5 "Axiata",
-    //   6 "Baidu",
+        // .slice(0, 2)
+        // .slice(0, 1) //   0 "Amazon",
+        // .slice(1, 2) //   1 "Alibaba",
+        //   2 "América Móvil",
+        // .slice(3, 4) //   3 "Apple",
+        //   4 "AT&T",
+        //   5 "Axiata",
+        .slice(6, 7) //   6 "Baidu",
     //   7 "Bharti Airtel",
     //   8 "Deutsche Telekom",
     //   9 "Etisalat",
