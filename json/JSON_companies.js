@@ -6,6 +6,41 @@ var companiesVector = {
   "indexYear": 2019,
   "indexType": "RDR Pilot",
   "companies": [{
+      "id": "iAL1",
+      "label": {
+        "current": "Alibaba",
+        "altFilename": null,
+        "legacy": [null]
+      },
+      "type": "internet",
+      "groupLabel": "Alibaba",
+      "hasOpCom": false,
+      "opComLabel": null,
+      "isPrevScored": false,
+      "firstIndex": null,
+      "urlPreviousYearResults": null,
+      "tabPrevYearsOutcome": null,
+      "urlCurrentDataCollectionSheet": "1WmI5QXq2p4tVY3JdfFV8Ra5DV3wp7bhH6ufo2Mzpkhw",
+      "urlCurrentCompanyScoringSheet": null,
+      "numberOfServices": 2,
+      "services": [{
+          "id": "ecAL1",
+          "type": "eCommerce",
+          "label": {
+            "current": "Taobao.com",
+            "legacy": [null]
+          }
+        },
+        {
+          "id": "ebAL1",
+          "type": "pda",
+          "label": {
+            "current": "AliGenie",
+            "legacy": [null]
+          }
+        }
+      ]
+    }, {
       "id": "iAZ1",
       "label": {
         "current": "Amazon",
@@ -20,7 +55,7 @@ var companiesVector = {
       "firstIndex": null,
       "urlPreviousYearResults": null,
       "tabPrevYearsOutcome": null,
-      "urlCurrentDataCollectionSheet": "1uetDs8PQfIiDRW572b_AP5i9bxC17DSVaqIXVnpe3fc",
+      "urlCurrentDataCollectionSheet": "1B35t-vsT4E-PCg5MKCHwBOj3o3XwYYVUuDrZKg756sQ",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -50,42 +85,6 @@ var companiesVector = {
       ]
     },
     {
-      "id": "iAL1",
-      "label": {
-        "current": "Alibaba",
-        "altFilename": null,
-        "legacy": [null]
-      },
-      "type": "internet",
-      "groupLabel": "Alibaba",
-      "hasOpCom": false,
-      "opComLabel": null,
-      "isPrevScored": false,
-      "firstIndex": null,
-      "urlPreviousYearResults": null,
-      "tabPrevYearsOutcome": null,
-      "urlCurrentDataCollectionSheet": "1lCU-jarAjYnoNA8ftmTiP-l2c54pDNN-mh8mVEFRxyA",
-      "urlCurrentCompanyScoringSheet": null,
-      "numberOfServices": 2,
-      "services": [{
-          "id": "ecAL1",
-          "type": "eCommerce",
-          "label": {
-            "current": "Taobao.com",
-            "legacy": [null]
-          }
-        },
-        {
-          "id": "ebAL1",
-          "type": "pda",
-          "label": {
-            "current": "AliGenie",
-            "legacy": [null]
-          }
-        }
-      ]
-    },
-    {
       "id": "tAM1",
       "label": {
         "current": "América Móvil",
@@ -100,8 +99,8 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "AmericaMovilOutcome",
-      "urlCurrentDataCollectionSheet": "1oyYmRm2yTuZC9m1x5duA4H-bK4DpQTB_IXug9U-D-7U",
-      "urlCurrentCompanyScoringSheet": "1PPjaNgxVoKSdHgsml6C3oIRjcYftPp3E8zgWCudMYJI",
+      "urlCurrentDataCollectionSheet": "1UwQa0iIfWcEFW6cRxlmw-Sfw3qvs3bwQQ5vwmptrD8o",
+      "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 2,
       "services": [{
           "id": "mbAM2",
@@ -138,8 +137,8 @@ var companiesVector = {
       "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "AppleOutcome",
-      "urlCurrentDataCollectionSheet": "1q5q9tFe9dcoRYedZpQsgD3_Jv5CF4KsnsDmSrPWkx38",
-      "urlCurrentCompanyScoringSheet": "1OmNEYyGX1FmmhpqvkWORa-_HNTnL1fO-PrhvNfuR9ak",
+      "urlCurrentDataCollectionSheet": "1tvk9IH-BJ5QL-MWrAG-pHURXLVsodnG_XIKZtSK6SP0",
+      "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
           "id": "meAP1",
@@ -182,8 +181,8 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "ATTOutcome",
-      "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
-      "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
+      "urlCurrentDataCollectionSheet": "1KGJUM95bNuvFDzZqXpZaDKbwMa379_HDvff7Rg4Wc3k",
+      "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
           "id": "mbAT1",
@@ -228,8 +227,8 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "AxiataOutcome",
-      "urlCurrentDataCollectionSheet": "1VoY1z3iwGlcjLkXL1eFHcTprLdpMNhgnk2yrD4KLp_g",
-      "urlCurrentCompanyScoringSheet": "19NKVpi1NaLGhUcoGeUtbMZKsJYd_PpYyficew7lCv94",
+      "urlCurrentDataCollectionSheet": "1bi7WVri0AsI0wqOjQ9XNQXeW_KZ1FuEz-mkBGiLE3Cc",
+      "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
           "id": "mbAX1",
@@ -274,7 +273,7 @@ var companiesVector = {
       "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "BaiduOutcome",
-      "urlCurrentDataCollectionSheet": "1MRwgxoQuKWwb8H7jPeQ00AnMfBEQd2DmOpVH9pf3-GM",
+      "urlCurrentDataCollectionSheet": "17LIVa6Mj2ARm7E7aRHmIdvaD0UWxY4SA0C5YY166GBE",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -318,7 +317,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "BhartiAirtelOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1pz7nE153onnNfDPqoPXI_D2V5ZLMNip7g8r6s0OpybQ",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -364,7 +363,7 @@ var companiesVector = {
       "firstIndex": 2019,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "DeutscheTelekomOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1qHXyuNG5S52jb02gdcHq9cdc5mTsuaI4-v8GgSi4sFA",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -410,7 +409,7 @@ var companiesVector = {
       "firstIndex": 2019,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "EtisalatOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1G4PznxQg_h_xMi5JJOIyHd8N47Waa508RcblC9Sfz94",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -456,7 +455,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "FacebookOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1LkJlcXq3wx4cInqjaxpqC3Udf8MeGvzX607RCWtCffw",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 4,
       "services": [{
@@ -508,7 +507,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1mOB5yheHPKrPAb_HTpJA27IxligiggJHM4MCv1JGh9Y",
       "tabPrevYearsOutcome": "GoogleOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1tkOrgUWe0sG5cfNYeoph5IQdYt_A3LGbR2JMkCdwhGg",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 5,
       "services": [{
@@ -568,7 +567,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "KakaoOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1Ld1w8GS3Rn7AncE3AQBx5z4Ad5ww4lL0xe3lhlVDLu4",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -612,7 +611,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "Mail.ruOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1qYiP2KP2xB7SRM1br6LunjF6PoqWvGoCIeE8G8hXbB4",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 4,
       "services": [{
@@ -664,7 +663,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "MicrosoftOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1Bw5YfKfBMcLNca39qc7vye42vd_Zk5V2lM_8RYGRSAE",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 4,
       "services": [{
@@ -716,7 +715,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "MTNOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1KjK1n2SbLkxGYmu7iIF7N5cScIYHm8pvJzGB89UemtI",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -762,7 +761,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "OoredooOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "18nbBe8yAIF2vjwZjioohW1BoiYPg9OE916-1pWT7Stk",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -808,7 +807,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "OrangeOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "12hQjVpLb3i3WxVYNEzUqdZyBncI6L69MO3e7iMYfIck",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -854,7 +853,7 @@ var companiesVector = {
       "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "SamsungOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "116hQwK-fOJF46G4XmK-FpiSHpQbUeD4XXWc9Cx-8Euk",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 2,
       "services": [{
@@ -890,7 +889,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "TelefonicaOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1pF6YV_FzlKr6sHbV3Id8pV9rouD9Rs6r9g-fcBGlmj4",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -936,7 +935,7 @@ var companiesVector = {
       "firstIndex": 2019,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "TelenorOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "150kTM3p6zcigywbRIUaki9NLtXmKEFHGRY2fNMDhSBk",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -982,7 +981,7 @@ var companiesVector = {
       "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "TencentOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1LxyBnEMep0OP9r-jOGTMLaIRmizOaHHDwNSTbWJ1wHg",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 4,
       "services": [{
@@ -1034,7 +1033,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "TwitterOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "18_EcR5oZIdF-UvP47kLlD1Lj8U8ES1DdbVlLaitjwfI",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 1,
       "services": [{
@@ -1061,7 +1060,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "OathOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1lLXsyxGnIlTf3tSMTtrJObxy6hf0yjBlmcbTSgYV32M",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 1,
       "services": [{
@@ -1088,7 +1087,7 @@ var companiesVector = {
       "firstIndex": 2015,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "VodafoneOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1FwJrdsdWXC1A4bSohbFWAPyeVIiS4g3Mjm_1Kl09i1E",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
@@ -1134,7 +1133,7 @@ var companiesVector = {
       "firstIndex": 2017,
       "urlPreviousYearResults": "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74",
       "tabPrevYearsOutcome": "YandexOutcome",
-      "urlCurrentDataCollectionSheet": null,
+      "urlCurrentDataCollectionSheet": "1Svrmp9T0JgdETzJ8Opo5WOyVomjxHip691ixlwbPtA8",
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 3,
       "services": [{
