@@ -18,6 +18,10 @@
 
 // global params init (def with initiateGlobalConfig())
 
+/** --- main Prod vs Dev Toggle --- **/
+var isProduction = true
+/** --- main Prod vs Dev Toggle --- **/
+
 var Config
 var indexPrefix
 var filenamePrefix
@@ -32,11 +36,11 @@ var Styles
 function initiateGlobalConfig() {
     Config = centralConfig
     indexPrefix = Config.indexPrefix
-    filenamePrefix = "2020 - " // end with " -"
-    filenameSuffix = "" // Dev, "", Debug, QC
+    filenamePrefix = Config.filenamePrefix
+    filenameSuffix = isProduction ? Config.filenameSuffixProd : Config.filenameSuffixDev // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
-    rootFolderID = Config.rootFolderID
-    rootFolderName = Config.rootFolderName
+    rootFolderID = isProduction ? Config.rootFolderIDProd : Config.rootFolderIDDev
+    rootFolderName = isProduction ? Config.rootFolderNameProd : Config.rootFolderIDDev
     controlSpreadsheetID = Config.controlSpreadsheetID
     Styles = Config.styles
 }
@@ -50,45 +54,40 @@ function mainInputSheets() {
     let doClearNamedRanges = false // CAUTION
 
     initiateGlobalConfig()
-    outputFolderName = "2020 Index - Input Sheets"
-    // filenameSuffix = "" // Dev, "", Debug, QC
+    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
+    // filenameSuffix = "" // local override : Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
     let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
-        // .slice(0, 0) // on purpose to prevent script from running.
-        // Pilot Order //
-        // .slice(1, 4) // Subset #1 1:2
-        // .slice(3,6) // Subset #2 3:5
-        // .slice(6,9) // Subset #3 6:8
-        // .slice(0, 2)
-        // .slice(0, 1) //   0 "Amazon",
-        // .slice(1, 2) //   1 "Alibaba",
-        //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
-    //   4 "AT&T",
-    //   5 "Axiata",
+        .slice(0, 0) // on purpose to prevent script from running.
+    // .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
-    //   7 "Bharti Airtel",
-    //   8 "Deutsche Telekom",
-    //   9 "Etisalat",
-    //   10 "Facebook",
-    //   11 "Google",
-    //   12 "Kakao",
-    //   13 "Mail.Ru",
-    //   14 "Microsoft",
-    //   15 "MTN",
-    //   16 "Ooredoo",
-    //   17 "Orange",
-    //   18 "Samsung",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
     // .slice(19, 20) //   19 "Telefónica",
-    //   20 "Telenor",
-    //   21 "Tencent",
-    // .slice(22, 23) // 22 "Twitter",
-    //   23 "Verizon Media",
-    //   24 "Vodafone",
-    //   25 "Yandex"
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
 
     let fileID
 
@@ -109,8 +108,8 @@ function mainScoringSheets() {
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
-    let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = false // true := use subset
+    let useStepsSubset = false // true := use subset
+    let useIndicatorSubset = true // true := use subset
 
     const Companies = companiesVector.companies
         .slice(1, 9)
@@ -283,15 +282,15 @@ function mainRepairInputSheets() {
 }
 
 // --- // USE WISELY // --- // 
-function mainClearAllNamedRanges() {
+/* function mainClearAllNamedRanges() {
 
     initiateGlobalConfig()
     var mainSheetMode = "Input" // for filename
 
     var Companies = companiesVector.companies
-        // .slice(0, 0)
-        // .slice(0,1) // Amazon
-        .slice(1, 2) // Apple
+        .slice(0, 0)
+    // .slice(0,1) // Amazon
+    // .slice(1, 2) // Apple
     // .slice(2,3) // Deutsche Telekom
     // .slice(3,4) // Facebook
     // .slice(4,5) // Google
@@ -304,4 +303,4 @@ function mainClearAllNamedRanges() {
         clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
-}
+} */

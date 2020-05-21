@@ -114,6 +114,7 @@ function insertSheetIfNotExist(SS, SheetName, updateSheet) {
             Sheet = SS.getSheetByName(SheetName)
         } else {
             Sheet = null
+            
             Logger.log("WARN: " + "Sheet for " + SheetName + " already exists ")
         }
     }
