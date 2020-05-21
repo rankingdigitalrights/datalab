@@ -56,8 +56,8 @@ function protectSingleCompany() {
     let StepEditors = ["walton@rankingdigitalrights.org", "ilja.sperling@gmail.com", "gutermuth@rankingdigitalrights.org"]
     let SheetEditors = []
 
-    let SS = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/u/1/d/1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ/edit?usp=drive_web&ouid=102240670771475449012")
-    let fileID = "1VzeVx1Yn1K4eESagPHX1b7jELL1jhPF1MsNMEE-3xPQ"
+    let fileID = Company.urlCurrentDataCollectionSheet
+    let SS = SpreadsheetApp.openById(fileID)
 
     // overall open function
     initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames", Viewers, SheetEditors, fileID)
