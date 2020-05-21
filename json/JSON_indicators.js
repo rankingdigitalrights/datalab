@@ -1260,7 +1260,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4c.2",
-            "description": "Does the company publish the number of advertisements it restricted based on which rule was violated?",
+            "description": "Does the company publish the number of advertisements it restricted based on which advertising content rule was violated?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -1272,7 +1272,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F4c.4",
-            "description": "Does the company publish the number of pieces of advertising content it restricts based on which rule was violated?",
+            "description": "Does the company publish the number of advertisements it restricted based on which advertising targeting rule was violated?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
