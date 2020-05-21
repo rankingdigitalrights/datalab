@@ -4,7 +4,7 @@ function produceSourceSheet(thisSheet, doFill) {
 
     let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
 
-    let columns = ["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\n\nYYYY-MM-DD", "Saved source link", webArchiveLink, "Has this policy changed from the previous year's Index?"]
+    let columns = ["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\n\nYYYY-MM-DD", "Saved source link", "Has this policy changed from the previous year's Index?"]
 
     if (doFill) {
         thisSheet.appendRow(columns)

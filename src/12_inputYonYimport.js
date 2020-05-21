@@ -5,7 +5,6 @@
     columnToLetter
 */
 
-
 // Imports previous year's outcome as Substep 0
 
 function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, Substep, stepCNr, nrOfSubIndicators, companyNrOfServices, isComments) {
@@ -153,10 +152,6 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     activeRow = activeRow + elementsNr
 
     rangeEnd = activeRow
-
-    rangeName = specialRangeName("Step", "0", Indicator.labelShort)
-    Range = Sheet.getRange(rangeStart - 1, 1, elementsNr + 2, width)
-    SS.setNamedRange(rangeName, Range)
 
     return activeRow
 }
