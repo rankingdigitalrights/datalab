@@ -1743,7 +1743,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F12.5",
-            "description": "Does the company clearly disclose that users can opt in to automated content curation, recommendation, and/or ranking system?",
+            "description": "Does the company clearly disclose that users can opt in to automated content curation, recommendation, and/or ranking systems?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           }
