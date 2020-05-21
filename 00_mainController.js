@@ -58,38 +58,36 @@ function mainInputSheets() {
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
-        // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(1, 4) // Subset #1 1:3
-        // .slice(0, 2)
-        // .slice(0, 1) //   0 "Amazon",
-        // .slice(1, 2) //   1 "Alibaba",
-        //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        //   4 "AT&T",
-        //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        //   7 "Bharti Airtel",
-        //   8 "Deutsche Telekom",
-        //   9 "Etisalat",
-        //   10 "Facebook",
-        .slice(11, 12) //   11 "Google",
-    //   12 "Kakao",
-    //   13 "Mail.Ru",
-    //   14 "Microsoft",
-    //   15 "MTN",
-    //   16 "Ooredoo",
-    //   17 "Orange",
-    //   18 "Samsung",
+        .slice(0, 0) // on purpose to prevent script from running.
+    // .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
     // .slice(19, 20) //   19 "Telefónica",
-    //   20 "Telenor",
-    //   21 "Tencent",
-    // .slice(22, 23) // 22 "Twitter",
-    //   23 "Verizon Media",
-    //   24 "Vodafone",
-    //   25 "Yandex"
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
 
     let fileID
 

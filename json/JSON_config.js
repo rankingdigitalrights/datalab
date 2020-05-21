@@ -8,22 +8,23 @@ var centralConfig = {
   filenamePrefix: "2020 -",
   filenameSuffixProd: "",
   filenameSuffixDev: "(Dev)",
-  rootFolderNameProd: "2020 Index",
+  rootFolderNameProd: "2020 RDR Index Data",
   rootFolderIDProd: "19hiRk0NX3s-eF9i-nFGIuNEvYFqGyazR", // Data @ 2020 Index
   rootFolderNameDev: "2020 Index Dev",
   rootFolderIDDev: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", // Data @ 2020 index Dev
-  inputFolderNameProd: "2020 Index - Input Sheets",
+  inputFolderNameProd: "2020 RDR Research Data Collection",
   inputFolderNameDev: "2020 - Dev - Input",
   controlSpreadsheetID: "1r3Hq6m9R3l0yMaiAZXf40Z7Gif54Kd1B08MUBk4n_LM", // 00-Dashboard-X
   YearOnYear: true,
-  urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
-  urlPreviousYearSources: "1gK8M9-4eLwwbWMsgXH6Gi1VqOXZF1iARWE3Q_CNqgr8",
   freezeHead: true,
   // firstScoringStep: 3 // regular index
   scoringSteps: [3, 6],
   collapseAllGroups: false,
   feedbackStep: 3,
   prevYearOutcomeTab: "2019 Outcome",
+  urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
+  prevYearSourcesTab: "2019 Sources",
+  urlPreviousYearSources: "1gK8M9-4eLwwbWMsgXH6Gi1VqOXZF1iARWE3Q_CNqgr8",
   newIndicatorLabel: "New / Revised Indicator",
   newElementLabelResult: "N/A",
   newElementLabelComment: "New / Revised Element",
