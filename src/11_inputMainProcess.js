@@ -120,6 +120,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             let beginStep = activeRow
 
             if (mainStepNr > 0) {
+
+                // HOOK for data range and conditional formatting
+                if (dataStartRow === 0 && mainStepNr > 0) dataStartRow = activeRow
+
                 activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
             }
 
@@ -156,9 +160,6 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "subStepHeader":
-
-                            // HOOK for data range and conditional formatting
-                            if (dataStartRow === 0 && mainStepNr > 0) dataStartRow = activeRow
 
                             activeRow = addSubStepHeader(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, companyNrOfServices)
                             break

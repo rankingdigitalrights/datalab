@@ -18,6 +18,10 @@
 
 // global params init (def with initiateGlobalConfig())
 
+/** --- main Prod vs Dev Toggle --- **/
+var isProduction = true
+/** --- main Prod vs Dev Toggle --- **/
+
 var Config
 var indexPrefix
 var filenamePrefix
@@ -32,11 +36,11 @@ var Styles
 function initiateGlobalConfig() {
     Config = centralConfig
     indexPrefix = Config.indexPrefix
-    filenamePrefix = "2020 - " // end with " -"
-    filenameSuffix = "" // Dev, "", Debug, QC
+    filenamePrefix = Config.filenamePrefix
+    filenameSuffix = isProduction ? Config.filenameSuffixProd : Config.filenameSuffixDev // Dev, "", Debug, QC
     outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
-    rootFolderID = Config.rootFolderID
-    rootFolderName = Config.rootFolderName
+    rootFolderID = isProduction ? Config.rootFolderIDProd : Config.rootFolderIDDev
+    rootFolderName = isProduction ? Config.rootFolderNameProd : Config.rootFolderIDDev
     controlSpreadsheetID = Config.controlSpreadsheetID
     Styles = Config.styles
 }
@@ -50,18 +54,15 @@ function mainInputSheets() {
     let doClearNamedRanges = false // CAUTION
 
     initiateGlobalConfig()
-    outputFolderName = "2020 Index - Input Sheets"
-    // filenameSuffix = "" // Dev, "", Debug, QC
+    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
+    // filenameSuffix = "" // local override : Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename
     let useStepsSubset = true // true := use subset
     let useIndicatorSubset = true // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // Pilot Order //
-        // .slice(1, 4) // Subset #1 1:2
-        // .slice(3,6) // Subset #2 3:5
-        // .slice(6,9) // Subset #3 6:8
+        // .slice(1, 4) // Subset #1 1:3
         // .slice(0, 2)
         // .slice(0, 1) //   0 "Amazon",
         // .slice(1, 2) //   1 "Alibaba",
@@ -69,12 +70,12 @@ function mainInputSheets() {
         // .slice(3, 4) //   3 "Apple",
         //   4 "AT&T",
         //   5 "Axiata",
-        .slice(6, 7) //   6 "Baidu",
-    //   7 "Bharti Airtel",
-    //   8 "Deutsche Telekom",
-    //   9 "Etisalat",
-    //   10 "Facebook",
-    //   11 "Google",
+        // .slice(6, 7) //   6 "Baidu",
+        //   7 "Bharti Airtel",
+        //   8 "Deutsche Telekom",
+        //   9 "Etisalat",
+        //   10 "Facebook",
+        .slice(11, 12) //   11 "Google",
     //   12 "Kakao",
     //   13 "Mail.Ru",
     //   14 "Microsoft",
