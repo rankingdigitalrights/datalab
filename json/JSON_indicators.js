@@ -2620,16 +2620,14 @@ var indicatorsVector = {
           {
             "labelShort": "P11a.6",
             "description": "Does the company include government demands that come from court orders?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false,
-            "isRevised": true
+            "y2yResultRow": 703,
+            "y2yCommentRow": 714
           },
           {
             "labelShort": "P11a.7",
             "description": "Does the company list the number of government demands it complied with, broken down by category of demand?",
-            "y2yResultRow": false,
-            "y2yCommentRow": false,
-            "isRevised": true
+            "y2yResultRow": 705
+            "y2yCommentRow": 716
           },
           {
             "labelShort": "P11a.8",
