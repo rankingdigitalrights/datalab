@@ -2626,7 +2626,7 @@ var indicatorsVector = {
           {
             "labelShort": "P11a.7",
             "description": "Does the company list the number of government demands it complied with, broken down by category of demand?",
-            "y2yResultRow": 705
+            "y2yResultRow": 705,
             "y2yCommentRow": 716
           },
           {
