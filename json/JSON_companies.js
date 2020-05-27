@@ -103,7 +103,7 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": null,
       "numberOfServices": 2,
       "services": [{
-          "id": "mbAM2",
+          "id": "mbAM1",
           "type": "mobile",
           "subtype": "prepaid",
           "label": {
