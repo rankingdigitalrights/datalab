@@ -1,25 +1,31 @@
-function listBrokenRefsSingleSheet(ListSheet, sourceSheet, thisIndLabel) {
-    var namedRangesRaw = sourceSheet.getNamedRanges()
+function listBrokenRefsSingleSheet(SS, ListSheet, sourceSheet, thisIndLabel) {
+    console.log("|--- in " + sourceSheet.getName())
 
-    var lastRow = ListSheet.getLastRow() + 1
+    let namedRangesRaw = SS.getNamedRanges()
 
-    var namedRanges = []
-    var rangeVal
+    let lastRow = ListSheet.getLastRow() + 1
+
+    let namedRanges = []
+    let rangeVal, rangeName
+
+    console.log("--- " + "processing " + thisIndLabel + " named Ranges")
 
     namedRangesRaw.forEach(function (range) {
         rangeVal = range.getRange().getA1Notation().toString()
-        if (rangeVal === "#REF!") {
+        rangeName = range.getName()
+
+        if (rangeVal === "#REF!" && rangeName.includes(thisIndLabel)) {
             namedRanges.push([
                 ["---> " + thisIndLabel],
-                [range.getName()],
+                [rangeName],
                 [rangeVal]
             ])
         }
     })
 
-    var arrayLength = namedRanges.length
+    let arrayLength = namedRanges.length
     if (arrayLength > 0) {
-        var column = ListSheet.getRange(lastRow, 1, arrayLength, 3)
+        let column = ListSheet.getRange(lastRow, 1, arrayLength, 3)
         column.setValues(namedRanges)
     }
 }

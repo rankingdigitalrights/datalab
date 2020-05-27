@@ -7,54 +7,98 @@
     fixBrokenRefsSingleSheet
 */
 
-function processInputSheet(CompanySS, Indicators, Company, ResearchSteps, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs) {
 
-    var hasOpCom = Company.hasOpCom
+function inspectInputSheet(SS, Indicators, Company, ListSheetBroken) {
+
+    let hasOpCom = Company.hasOpCom
     // fetch number of Services once
-    var companyNumberOfServices = Company.services.length
+    let companyNumberOfServices = Company.services.length
 
-    var thisIndCat
-    var thisIndCatLength
-    var nrOfIndCatSubComps = 1
-    var thisInd
-    var thisIndLabel
-    var thisIndScoringScope
-    var Sheet
+    let Category
+    let CategoryLength
+    let nrOfIndCatSubComps = 1
+    let Indicator
+    let IndicatorLabel
+    let Sheet
+
+    for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
+
+        Category = Indicators.indicatorCategories[c]
+
+        CategoryLength = Category.indicators.length
+
+        // for each indicator / distinct Sheet do
+
+        for (let i = 0; i < CategoryLength; i++) {
+
+            Indicator = Category.indicators[i]
+            IndicatorLabel = Indicator.labelShort
+
+            Sheet = getSheetByName(SS, IndicatorLabel)
+
+            if (Sheet === null) {
+                Logger.log("ERROR - Not found: " + IndicatorLabel)
+                continue // skips this i if Sheet already exists
+            }
+
+            Logger.log("|--- inspecting " + IndicatorLabel)
+
+            listBrokenRefsSingleSheet(SS, ListSheetBroken, Sheet, IndicatorLabel)
+
+        } // End of Indicator Sheet
+
+    } // End of Indicator Category ("Class")
+
+} // End of Company Repairs Process
 
 
-    for (var c = 0; c < Indicators.indicatorCategories.length; c++) {
 
-        thisIndCat = Indicators.indicatorCategories[c]
+function processInputSheet(SS, Indicators, Company, ResearchSteps, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs) {
 
-        thisIndCatLength = thisIndCat.indicators.length
+    let hasOpCom = Company.hasOpCom
+    // fetch number of Services once
+    let companyNumberOfServices = Company.services.length
+
+    let Category
+    let CategoryLength
+    let nrOfIndCatSubComps = 1
+    let Indicator
+    let IndicatorLabel
+    let Sheet
 
 
-        if (thisIndCat.hadSubComponents === true) {
-            nrOfIndCatSubComps = thisIndCat.components.length
+    for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
+
+        Category = Indicators.indicatorCategories[c]
+
+        CategoryLength = Category.indicators.length
+
+
+        if (Category.hadSubComponents === true) {
+            nrOfIndCatSubComps = Category.components.length
         }
 
         // for each indicator / distinct Sheet do
 
-        for (var i = 0; i < thisIndCatLength; i++) {
+        for (let i = 0; i < CategoryLength; i++) {
 
-            thisInd = thisIndCat.indicators[i]
-            thisIndLabel = thisInd.labelShort
-            thisIndScoringScope = thisInd.scoringScope
+            Indicator = Category.indicators[i]
+            IndicatorLabel = Indicator.labelShort
 
-            Sheet = getSheetByName(CompanySS, thisIndLabel)
+            Sheet = getSheetByName(SS, IndicatorLabel)
 
             if (Sheet === null) {
-                Logger.log("Skipping " + thisIndLabel)
+                Logger.log("ERROR - Not found: " + IndicatorLabel)
                 continue // skips this i if Sheet already exists
             }
 
-            Logger.log(" --- inspecting " + thisIndLabel)
+            Logger.log("|--- inspecting " + IndicatorLabel)
 
-            listBrokenRefsSingleSheet(ListSheetBroken, Sheet, thisIndLabel)
+            listBrokenRefsSingleSheet(ListSheetBroken, Sheet, IndicatorLabel)
 
             if (doRepairs) {
-                Logger.log(" --- fixing " + thisIndLabel)
-                fixBrokenRefsSingleSheet(CompanySS, ListSheetFixed, Sheet, ResearchSteps, thisInd, thisIndLabel, thisIndCat, nrOfIndCatSubComps, Company, hasOpCom, companyNumberOfServices, includeRGuidanceLink)
+                Logger.log("|--- fixing " + IndicatorLabel)
+                fixBrokenRefsSingleSheet(SS, ListSheetFixed, Sheet, ResearchSteps, Indicator, IndicatorLabel, Category, nrOfIndCatSubComps, Company, hasOpCom, companyNumberOfServices, includeRGuidanceLink)
             }
         } // End of Indicator Sheet
 

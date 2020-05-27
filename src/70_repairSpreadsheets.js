@@ -3,20 +3,20 @@
 /* global
         cleanCompanyName,
         Config,
-        indicatorsVector,
+        IndicatorsObj,
         researchStepsVector,
         spreadSheetFileName,
-        createSpreadsheet,
+        openSpreadsheetByID,
         getISOtimeAsString,
-        processInputSheet
+        inspectInputSheet
 */
 
 function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs) {
 
     var companyShortName = cleanCompanyName(Company)
-    Logger.log("--- // --- begin repairing " + companyShortName + " --- // ---")
+    Logger.log("--- // --- begin processing " + companyShortName + " --- // ---")
 
-    var IndicatorsObj = indicatorsVector
+    var Indicators = IndicatorsObj
     var ResearchStepsObj = researchStepsVector
     var includeRGuidanceLink = Config.includeRGuidanceLink
 
@@ -24,10 +24,10 @@ function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company
 
     var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    var companySS = createSpreadsheet(spreadsheetName, false)
+    var SS = openSpreadsheetByID(Company.urlCurrentDataCollectionSheet)
 
     // skip if company spreadsheet does not exist
-    if (companySS === null) {
+    if (SS === null) {
         Logger.log("!!!ERROR!!! : " + spreadsheetName + " does not exist. Skipping.")
         return null
     }
@@ -43,6 +43,10 @@ function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company
     // --- // MAIN TASK // --- //
     // for each Indicator Class do
 
-    processInputSheet(companySS, IndicatorsObj, Company, ResearchStepsObj, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs)
+    Logger.log("FLOW --- begin Inspection " + companyShortName + " --- // ---")
+
+    inspectInputSheet(SS, Indicators, Company, ListSheetBroken)
+
+    // processInputSheet(SS, Indicators, Company, ResearchStepsObj, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs)
 
 }
