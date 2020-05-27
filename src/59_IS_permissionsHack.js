@@ -52,6 +52,10 @@ function updateAll() {
     }
 }
 
+function updateSingle() {
+    mainProtectFileOpenStepSingleCompany(0)
+}
+
 function mainProtectFileOpenStepSingleCompany(i) {
     // can easily call all the other permissions functions from this function
 
@@ -271,20 +275,20 @@ function protectSheets(Indicators, Editors, SS, companyID) {
     let firstR, lastR
 
     // protecting 2019 Outcome
-    protect = SS.getSheetByName(centralConfig.prevYearOutcomeTab).protect().setDescription(centralConfig.prevYearOutcomeTab)
-    protect.removeEditors(protect.getEditors());
-    protect.addEditors(Editors)
-    if (protect.canDomainEdit()) {
-        protect.setDomainEdit(false);
-    }
+    // protect = SS.getSheetByName(centralConfig.prevYearOutcomeTab).protect().setDescription(centralConfig.prevYearOutcomeTab)
+    // protect.removeEditors(protect.getEditors());
+    // protect.addEditors(Editors)
+    // if (protect.canDomainEdit()) {
+    //     protect.setDomainEdit(false);
+    // }
 
-    // protecting 2019 Sources
-    protect = SS.getSheetByName(centralConfig.prevYearSourcesTab).protect().setDescription(centralConfig.prevYearSourcesTab)
-    protect.removeEditors(protect.getEditors());
-    protect.addEditors(Editors)
-    if (protect.canDomainEdit()) {
-        protect.setDomainEdit(false);
-    }
+    // // protecting 2019 Sources
+    // protect = SS.getSheetByName(centralConfig.prevYearSourcesTab).protect().setDescription(centralConfig.prevYearSourcesTab)
+    // protect.removeEditors(protect.getEditors());
+    // protect.addEditors(Editors)
+    // if (protect.canDomainEdit()) {
+    //     protect.setDomainEdit(false);
+    // }
 
     // looping through the types of indicators
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
