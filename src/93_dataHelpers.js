@@ -1,3 +1,7 @@
+/* global
+    IndicatorsObj
+*/
+
 function determineFirstStep(outputParams) {
     var firstScoringStep
 
@@ -18,17 +22,34 @@ function determineMaxStep(outputParams, ResearchStepsObj) {
 }
 
 function testSelectSingleIndicator() {
-    let Indicators = selectSingleIndicator(indicatorsVector, "P", "P18")
+    let Indicators = filterSingleIndicator(indicatorsVector, "P11a")
+    console.log(Indicators)
 }
 
 
-function selectSingleIndicator(Indicators, catLabel, indLabel) {
+// filters the Indicator JSON by a single Indicator (by String: labelShort)
+// and returns the subset JSON with intact Object structure
 
-    let CategorySubset = Indicators.indicatorCategories.filter(category => category.labelShort == catLabel)
+function filterSingleIndicator(Indicators, indLabel) {
 
-    let Indicator = CategorySubset[0].indicators.filter(indicator => indicator.labelShort == indLabel)
+    let category, indicator
+    let resultVector = {}
 
-    Indicator ? console.log("Indicator " + Indicator[0].labelShort + " found!") : console.log("Indicator " + indLabel + " NOT found!")
+    category = Indicators.indicatorCategories.filter(Category =>
+        Category.indicators.some(indicator =>
+            indicator.labelShort === indLabel)
+    )
 
-    return Indicator
+    indicator = category.map(Category =>
+            Category.indicators.filter(indicator =>
+                indicator.labelShort === indLabel)
+        )
+        .flat()
+
+    category[0].indicators = indicator
+
+    resultVector.indicatorCategories = category
+
+    return resultVector
+
 }
