@@ -9,26 +9,67 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 /* global
     companiesVector,
     centralConfig,
-    indicatorsVector
+    indicatorsVector,
+    filterSingleIndicator
 */
 
 // idea for preventing the sharing of folder: https://developers.google.com/apps-script/reference/drive/folder#setShareableByEditors(Boolean)
 // see setShareableByEditors
 // file also has shareable
 
-function mainProtectFileOpenStepSingleCompany() {
+var editors = [
+    "zhang@rankingdigitalrights.org",
+    "lauraannreed@gmail.com",
+    "luisgar12@gmail.com",
+    "dumitrita.cji@gmail.com",
+    "rogoff@rankingdigitalrights.org",
+    "elonnaiz@gmail.com",
+    "michael.kowen@gmail.com",
+    "elonnaiz@gmail.com",
+    "ahackl2130@gmail.com",
+    "mariam@smex.org",
+    "rydzak@rankingdigitalrights.org",
+    "ahackl2130@gmail.com",
+    "museofu@gmail.com",
+    "itskermoshina@gmail.com",
+    "opeakanbi@gmail.com",
+    "alex.comninos@gmail.com",
+    "moussa@smex.org",
+    "abrougui@rankingdigitalrights.org",
+    "8kkim8@gmail.com",
+    "lucia@karisma.org.co ",
+    "outi.puukko@gmail.com",
+    "zsbchow@gmail.com",
+    "wessenauer@rankingdigitalrights.org",
+    "amy.mcewan.s@googlemail.com",
+    "bojanperkov@sharedefense.org",
+    "tatyana.lockot@gmail.com"
+]
+
+function updateAll() {
+    for (let i = 0; i < companiesVector.companies.length; i++) {
+        mainProtectFileOpenStepSingleCompany(i)
+    }
+}
+
+function updateSingle() {
+    mainProtectFileOpenStepSingleCompany(0)
+}
+
+function mainProtectFileOpenStepSingleCompany(i) {
     // can easily call all the other permissions functions from this function
 
-    let Indicators = indicatorsVector
+    // let Indicators = indicatorsVector
+    let Indicators = filterSingleIndicator(indicatorsVector, "P11a")
 
     // let stepIDs = ["S030", "S031", "S035"]
     // let stepIDs = ["S020", "S021", "S025"]
     let stepIDs = ["S010", "S011", "S015"]
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
-    let Company = companiesVector.companies[25]
+    let Company = companiesVector.companies[i]
 
-    let assignedStepEditors = ["tatyana.lockot@gmail.com"]
+    let assignedStepEditors = [editors[i]]
 
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
@@ -234,20 +275,20 @@ function protectSheets(Indicators, Editors, SS, companyID) {
     let firstR, lastR
 
     // protecting 2019 Outcome
-    protect = SS.getSheetByName(centralConfig.prevYearOutcomeTab).protect().setDescription(centralConfig.prevYearOutcomeTab)
-    protect.removeEditors(protect.getEditors());
-    protect.addEditors(Editors)
-    if (protect.canDomainEdit()) {
-        protect.setDomainEdit(false);
-    }
+    // protect = SS.getSheetByName(centralConfig.prevYearOutcomeTab).protect().setDescription(centralConfig.prevYearOutcomeTab)
+    // protect.removeEditors(protect.getEditors());
+    // protect.addEditors(Editors)
+    // if (protect.canDomainEdit()) {
+    //     protect.setDomainEdit(false);
+    // }
 
-    // protecting 2019 Sources
-    protect = SS.getSheetByName(centralConfig.prevYearSourcesTab).protect().setDescription(centralConfig.prevYearSourcesTab)
-    protect.removeEditors(protect.getEditors());
-    protect.addEditors(Editors)
-    if (protect.canDomainEdit()) {
-        protect.setDomainEdit(false);
-    }
+    // // protecting 2019 Sources
+    // protect = SS.getSheetByName(centralConfig.prevYearSourcesTab).protect().setDescription(centralConfig.prevYearSourcesTab)
+    // protect.removeEditors(protect.getEditors());
+    // protect.addEditors(Editors)
+    // if (protect.canDomainEdit()) {
+    //     protect.setDomainEdit(false);
+    // }
 
     // looping through the types of indicators
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {

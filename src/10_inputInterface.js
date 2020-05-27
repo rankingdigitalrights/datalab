@@ -2,7 +2,7 @@
 
 /* global 
 Config,
-indicatorsVector,
+IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
 createSpreadsheet,
@@ -29,7 +29,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // Refactored to fetching from Google Drive
 
     // let Company = Company // TODO this a JSON Obj now; adapt in scope
-    let Indicators = indicatorsVector
+    let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
     let integrateOutputs = Config.integrateOutputs

@@ -51,10 +51,17 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     for (let i = 0; i < indyCatLength; i++) {
 
         let Indicator = Category.indicators[i]
-        Logger.log("--- Starting Indicator :" + Indicator.labelShort)
+        Logger.log("|--- Starting Indicator :" + Indicator.labelShort)
         let thisIndScoringScope = Indicator.scoringScope
 
+        // TODO: remove
+        let oldSheet = SS.getSheetByName(Indicator.labelShort)
+        let oldIndex = oldSheet.getIndex()
+        SS.deleteSheet(oldSheet)
+
         let Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+
+        moveSheetToPos(SS, Sheet, oldIndex)
 
         if (Sheet === null) {
             continue

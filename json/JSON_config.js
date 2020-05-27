@@ -2,7 +2,7 @@ var centralConfig = {
   dataOwner: "data@rankingdigitalrights.org",
   devs: ["gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "walton@rankingdigitalrights.org"],
   defaultEditors: ["walton@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "ilja.sperling@gmail.com", "wessenauer@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org"],
-  defaultViewers: ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "ilja.sperling@gmail.com", "gutermuth@rankingdigitalrights.org"],
+  defaultViewers: ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "walton@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "ilja.sperling@gmail.com"],
   indexPrefix: "RDR20",
   prevIndexPrefix: "RDR19",
   filenamePrefix: "2020 -",
