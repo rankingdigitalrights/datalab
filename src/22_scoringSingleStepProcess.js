@@ -1,4 +1,4 @@
-function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
+function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
 
     Logger.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -23,9 +23,9 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
     activeRow = setScoringSheetHeader(activeRow, activeCol, Sheet, companyShortName, thisSubStepLabel, blocks)
 
     // For all Indicator Categories
-    for (var c = 0; c < IndicatorsObj.indicatorCategories.length; c++) {
+    for (var c = 0; c < Indicators.indicatorCategories.length; c++) {
 
-        var thisIndCat = IndicatorsObj.indicatorCategories[c]
+        var thisIndCat = Indicators.indicatorCategories[c]
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
         var nrOfIndSubComps = 1

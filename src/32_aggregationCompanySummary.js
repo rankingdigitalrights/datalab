@@ -11,14 +11,14 @@
 
 /**
  * @param {string} thisSubStepID
- * @param {any} IndicatorsObj
+ * @param {any} Indicators
  * @param {number} currentRow
  * @param {number} currentCol
  * @param {{ services: string | any[]; }} Company
  * @param {boolean} includeElements
  */
 
-function addSummarySingleCompany(Sheet, thisSubStepID, IndicatorsObj, indicatorParams, currentRow, currentCol, Company, includeElements) {
+function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements) {
 
     var blockWidth = Company.services.length + 2 // for total + group elems
 
@@ -62,7 +62,7 @@ function addSummarySingleCompany(Sheet, thisSubStepID, IndicatorsObj, indicatorP
 
     // --- // adding Indicator level scores // --- //
 
-    currentRow = addCompanyScores(currentRow, currentCol, Sheet, Company, IndicatorsObj, thisSubStepID, blockWidth, includeElements)
+    currentRow = addCompanyScores(currentRow, currentCol, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements)
 
     return currentCol + blockWidth
 }

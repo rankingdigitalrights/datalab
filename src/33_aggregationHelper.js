@@ -3,7 +3,7 @@
     indexPrefix
  */
 
-function countIndiClassLengths(IndicatorsObj) {
+function countIndiClassLengths(Indicators) {
 
     // structure [[total], [class], [class], [class]]
     // TODO 
@@ -15,8 +15,8 @@ function countIndiClassLengths(IndicatorsObj) {
 
     var i, e
 
-    for (i = 0; i < IndicatorsObj.indicatorCategories.length; i++) {
-        thisClass = IndicatorsObj.indicatorCategories[i]
+    for (i = 0; i < Indicators.indicatorCategories.length; i++) {
+        thisClass = Indicators.indicatorCategories[i]
         thisClassLengthInd = thisClass.indicators.length
         Logger.log("--- Length: " + thisClassLengthInd)
         indicatorLengths[0] += thisClassLengthInd
@@ -24,7 +24,7 @@ function countIndiClassLengths(IndicatorsObj) {
     }
 
     /**
-    IndicatorsObj.indicatorCategories.forEach(function (Class) {
+    Indicators.indicatorCategories.forEach(function (Class) {
         // fetch this Class's indicators length
         thisClassLength = Class.indicators.length
         // add to total indicators length
@@ -50,7 +50,7 @@ function countIndiClassLengths(IndicatorsObj) {
 // creates 1st column with labels for totals and indicators / elements
 // element := if(includeElements)
 
-function insertLabelColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, currentCol, includeElements) {
+function insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, currentCol, includeElements) {
 
     var startRow = currentRow
     var classStartRow
@@ -86,7 +86,7 @@ function insertLabelColumn(Sheet, thisSubStepID, IndicatorsObj, currentRow, curr
     // Individual Indicators / Elements
     currentRow = lastRow++
 
-    IndicatorsObj.indicatorCategories.forEach(function (IndicatorClass) {
+    Indicators.indicatorCategories.forEach(function (IndicatorClass) {
 
         classStartRow = currentRow
 
@@ -190,12 +190,12 @@ function addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, thisLeng
     return currentRow + 1
 }
 
-function addCompanyScores(currentRow, currentCol, Sheet, Company, IndicatorsObj, thisSubStepID, blockWidth, includeElements) {
+function addCompanyScores(currentRow, currentCol, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements) {
 
     var classStartRow, classEndRow, classBlock
     var isElement = false
 
-    IndicatorsObj.indicatorCategories.forEach(function (IndicatorClass) {
+    Indicators.indicatorCategories.forEach(function (IndicatorClass) {
 
         classStartRow = currentRow
 

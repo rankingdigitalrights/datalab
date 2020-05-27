@@ -8,7 +8,7 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     // Refactored to fetching from Google Drive
 
     var CompanyObj = thisCompany
-    var IndicatorsObj = indicatorsVector
+    var Indicators = IndicatorsObj
     var ResearchStepsObj = researchStepsVector
 
     var sheetModeID = "FB"
@@ -40,8 +40,8 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
 
     // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
     var globalNrOfComponents = 1
-    if (IndicatorsObj.indicatorCategories[0].components) {
-        globalNrOfComponents = IndicatorsObj.indicatorCategories[0].components.length
+    if (Indicators.indicatorCategories[0].components) {
+        globalNrOfComponents = Indicators.indicatorCategories[0].components.length
     }
 
     var companyCols = 1
@@ -70,11 +70,11 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
 
     var sourcesSheet = importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite)
 
-    for (var c = 0; c < IndicatorsObj.indicatorCategories.length; c++) {
+    for (var c = 0; c < Indicators.indicatorCategories.length; c++) {
 
         lastCol = 1
 
-        thisIndClass = IndicatorsObj.indicatorCategories[c]
+        thisIndClass = Indicators.indicatorCategories[c]
 
         sheetName = thisIndClass.labelLong
 

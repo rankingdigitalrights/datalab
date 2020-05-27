@@ -1,4 +1,4 @@
-function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow) {
+function dataStoreSingleStepWide(Sheet, subStepNr, Indicators, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, lastRow) {
 
     Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
@@ -22,9 +22,9 @@ function dataStoreSingleStepWide(Sheet, subStepNr, IndicatorsObj, thisSubStep, C
 
 
     // For all Indicator Categories
-    for (var c = 0; c < IndicatorsObj.indicatorCategories.length; c++) {
+    for (var c = 0; c < Indicators.indicatorCategories.length; c++) {
 
-        IndCat = IndicatorsObj.indicatorCategories[c]
+        IndCat = Indicators.indicatorCategories[c]
         indCatLabel = IndCat.labelShort
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + IndCat.labelLong)
