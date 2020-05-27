@@ -21,7 +21,7 @@
 // global params init (def with initiateGlobalConfig())
 
 /** --- main Prod vs Dev Toggle --- **/
-var isProduction = true
+var isProduction = false
 /** --- main Prod vs Dev Toggle --- **/
 
 var Config
@@ -39,8 +39,8 @@ var Styles
 function initiateGlobalConfig() {
     Config = centralConfig
 
-    // IndicatorsObj = indicatorsVector
-    IndicatorsObj = filterSingleIndicator(indicatorsVector, "P11a")
+    IndicatorsObj = indicatorsVector
+    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "P11a")
 
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix

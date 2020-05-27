@@ -55,13 +55,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         let thisIndScoringScope = Indicator.scoringScope
 
         // TODO: remove
-        let oldSheet = SS.getSheetByName(Indicator.labelShort)
-        let oldIndex = oldSheet.getIndex()
-        SS.deleteSheet(oldSheet)
+        // let oldSheet = SS.getSheetByName(Indicator.labelShort)
+        // let oldIndex = oldSheet.getIndex()
+        // SS.deleteSheet(oldSheet)
 
         let Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
 
-        moveSheetToPos(SS, Sheet, oldIndex)
+        // if (oldIndex) {
+        //     moveSheetToPos(SS, Sheet, oldIndex)
+        // }
 
         if (Sheet === null) {
             continue
