@@ -307,7 +307,7 @@ function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
             if (Sheet != null) {
 
                 // creating a protection for the Sheet, description must be name of Sheet for openStep to work
-                sheetProtection = protectSingleSheet(Indicator.labelShort.prevYearSourcesTab, Editors, SS)
+                sheetProtection = protectSingleSheet(Indicator.labelShort, Editors, SS)
                 unprotectedRanges = []
 
                 // unprotecting the guide
