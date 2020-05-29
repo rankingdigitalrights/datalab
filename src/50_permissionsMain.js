@@ -194,10 +194,9 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 subLabel=stepIDs[0].substring(0, 3)
                 rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
 
-                if (Sheet.getRangeByName(rangeName) != null) {
-                    notation = SS.getRangeByName(rangeName).getA1Notation()
-                    range = Sheet.getRange(notation) // getting the range associated with named range
-                }
+                range=SS.getRange(rangeName)
+                rangeNotation=range.getA1Notation()
+                range = Sheet.getRange(rangeNotation) // getting the range associated with named range
 
                 unprotectedRanges.push(range)
 
@@ -206,8 +205,8 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
                     // now need to build the namedRange you want, get A1 notation, then unprotect it
                     // need to make RDR20 and DC variables
-                    rangeNotation=defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step")
-                    range = getNamedRangeRowNotation(rangeNotation, SS)                    
+                    rangeName=defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step")
+                    range=SS.getRange(rangeName)
                     unprotectedRanges.push(range)
 
                 }
