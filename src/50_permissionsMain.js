@@ -166,7 +166,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     let Sheet, Category, Indicator
     let sheetProtection, notation, range, unprotectedRanges
     let editors
-    let rangeName, subLabel
+    let rangeName, subLabel, rangeNotation
 
     // looping through the types of indicators (G,F,P)
     for (let indicatorCategory = 0; indicatorCategory < Indicators.indicatorCategories.length; indicatorCategory++) {
@@ -206,7 +206,8 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
                     // now need to build the namedRange you want, get A1 notation, then unprotect it
                     // need to make RDR20 and DC variables
-                    range = getNamedRangeRowNotation(defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step"), SS)
+                    rangeNotation=defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step")
+                    range = getNamedRangeRowNotation(rangeNotation, SS)                    
                     unprotectedRanges.push(range)
 
                 }
