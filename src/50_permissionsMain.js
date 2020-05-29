@@ -114,7 +114,7 @@ function mainProtectSingleCompany() {
     let currentPrefix = centralConfig.indexPrefix
 
     // removing all protections
-    removeAllProtections(SS)
+    //removeAllProtections(SS)
 
     // close step
     protectSingleCompany(Indicators, Editors, SS, companyID,currentPrefix)
