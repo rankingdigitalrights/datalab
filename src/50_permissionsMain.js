@@ -280,7 +280,7 @@ function protectSingleSheet(sheetName, Editors, SS) {
 function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
     Logger.log("FLOW - Protecting Sheets")
 
-    let sheetProtection, range, unprotectedRanges, Sheet, rangeName
+    let sheetProtection, range, unprotectedRanges, Sheet, rangeName, rangeNotation
 
     // protecting 2019 Outcome
     protectSingleSheet(centralConfig.prevYearOutcomeTab, Editors, SS)
@@ -313,12 +313,14 @@ function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
 
                 // unprotecting the guide
                 rangeName=specialRangeName("Guide", "", Indicator.labelShort)
-                range = getNamedRangeRowNotation(rangeName, SS)
+                rangeNotation = getNamedRangeRowNotation(rangeName, SS)
+                range=Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)
 
                 // unprotecting step 00
                 rangeName=defineNamedRange(currentPrefix, "DC", "S00", Indicator.labelShort, "", companyID, "", "Step")
-                range = getNamedRangeRowNotation(rangeName, SS)
+                rangeNotation = getNamedRangeRowNotation(rangeName, SS)
+                range=Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)
 
                 sheetProtection.setUnprotectedRanges(unprotectedRanges)
