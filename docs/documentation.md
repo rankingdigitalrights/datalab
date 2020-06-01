@@ -38,7 +38,7 @@ To provide contributors with a cognitive model of this project, it is helpful to
 + the **development** environment
   + **collaboration & version control**: source code shared on `git`, edited locally with an IDE
   + `clasp` for **deploying** to Google Apps Script,
-+ the parameters & configuration: `JSON` files for Indicators, Companies, Research Steps, and global Index settings
++ the **parameters & configuration**: `JSON` files for Indicators, Companies, Research Steps, and global Index settings
 + the **execution** / **runtime** environment (Google Apps Script online editor),
 + the **output** environment (Google Drive), and
 + the **UI/frontend** (*currently* Google Spreadsheets).
@@ -51,23 +51,8 @@ To provide contributors with a cognitive model of this project, it is helpful to
 
 ([top ↥](#documentation))
 
-The core idea is that,
-
-a) based on a set of `parameter vectors` (indicators, research steps, companies, Index config) provided as JSON files or JSON Objects (`JSON_companies.js`)
-
-b) for each `company` you
-
-+ first create the `data collection spreadsheet` with `mainAllCompaniesDataCollectionSheets()`, which will be located in `rootFolderID/outputFolderName` of `@rdresearch`'s Drive.
-
-  > The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `JSON_companies.[<company>]` Child.
-
-+ currently defunct: ~~to set step-wise editing `permissions` for the data collection sheet, run `mainPermissions()`~~
-
-+ then create the `company scoring sheet` with `mainCreateScoringSheet()`.
-
-  > ~~In the near future~~ Currently, all outputs are tracked in a `00_XYZ_Dashboard` Spreadsheet.
-
-Eventually, all control should be moved to a `Master Dashboard` Spreadsheet.
++ [/docs/modules/01-environment.md](/docs/modules/01-environment.md)
++ [/docs/modules/02-main-concept.md](/docs/modules/02-main-concept.md)
 
 ---
 
@@ -142,6 +127,10 @@ To subset companies, currently you have to stick to `companies.slice(indexOfFirs
 #### `1_`: Input Sheets (Data Collection Spreadsheets)
 
 ([top ↥](#documentation))
+
++ [/docs/modules/10-input-sheets-main.md](/docs/modules/10-input-sheets-main.md)
+
+> TODO: move into Module Documentation
 
 + `10_inputInterface.js` - Main module interface for the creation of a single company-level data collection spreadsheet
 + `11_inputMainProcess.js` - Main process controller which calls lower-level helper functions for the data collection production
