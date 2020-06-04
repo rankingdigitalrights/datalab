@@ -1,8 +1,6 @@
-#### `6_`: Data Store Layer
+# Layer 1 - Modules: Input Sheets
 
-> TODO
-
----
+> Last update: 2020-06-01
 
 ## Documentation TOC
 
@@ -21,5 +19,6 @@
 
 ---
 
-- [ ] TODO: Split Results & Scoring in 2 separate entities (file vs. sheet)
-- [ ] TODO: add triggered / webhook POST action to feed / update a DB (based on cell ID as unique ID / Key)
+## Description
+
+> Module Purpose: apply and remove permissions to sheets and steps as needed

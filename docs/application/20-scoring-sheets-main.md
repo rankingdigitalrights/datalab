@@ -15,7 +15,7 @@
 + [20 - TBD - Scoring Sheets](20-scoring-sheets-main.md)
 + [30 - TBD - Summary Scores / Aggregation](#)
 + [40 - TBD - Company Feedback](#)
-+ [50 - TBD - Permissions](#)
++ [50 - TBD - Permissions](50_permissions-main.md)
 + [60 - TBD - Data Store](60-data-store-main.md)
 + [9x - TBD - Helper Modules Overview](90-helper-function.md)
 
@@ -69,12 +69,12 @@
 
 ## Submodule Documentation
 
-`21_scoringInterface.js::addSetOfScoringSteps`
++ `21_scoringInterface.js::addSetOfScoringSteps`
     + for each `Step` in `researchSteps[]`
         + call `22_scoringSingleStep::scoringSingleStep` to import results and format column
     + freeze first column
 
-`22_scoringSingleStep::scoringSingleStep`
++ `22_scoringSingleStep::scoringSingleStep`
     + call `23_scoringSubcomponents.js::setScoringSheetHeader` to create header for `Step`
     + for each `IndicatorCategory` in `IndicatorCategories[]`
         + for each `Indicator` in `Indicators[]`
@@ -84,19 +84,17 @@
         + add scoring
         + apply formating
 
-`23_scoringSubcomponents.js::setScoringSheetHeader`
++ `23_scoringSubcomponents.js::setScoringSheetHeader`
     + if `block`== 1
         + create header for `Company`
         + apply formating
     + create header for `Step`
 
-`23_scoringSubcomponents.js::setScoringCompanyHeader`
++ `23_scoringSubcomponents.js::setScoringCompanyHeader`
     + if `block`== 1
         + create header for `Indicator`
         + apply formating
     + for each `Service` in `Services[]`
         + add subheader
         + apply formating
-
-
 

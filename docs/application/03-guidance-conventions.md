@@ -11,7 +11,7 @@
 + [20 - TBD - Scoring Sheets](20-scoring-sheets-main.md)
 + [30 - TBD - Summary Scores / Aggregation](#)
 + [40 - TBD - Company Feedback](#)
-+ [50 - TBD - Permissions](#)
++ [50 - TBD - Permissions](50_permissions-main.md)
 + [60 - TBD - Data Store](60-data-store-main.md)
 + [9x - TBD - Helper Modules Overview](90-helper-function.md)
 
