@@ -98,9 +98,10 @@ function mainProtectFileOpenStepSingleCompany(i) {
 
 }
 
-function mainProtectSingleCompany() {
+function mainProtectSingleCompany(company) {
 
-    let Company = companiesVector.companies.slice(0, 1)[0]
+    //let Company = companiesVector.companies.slice(0, 1)[0]
+    let Company=company
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
 

@@ -311,3 +311,11 @@ function mainRepairInputSheets() {
     })
 
 } */
+
+function mainProtectSheets() {
+    for (let i = 0; i < companiesVector.companies.length; i++) {
+        mainProtectSingleCompany(i)
+    }
+}
+
+
