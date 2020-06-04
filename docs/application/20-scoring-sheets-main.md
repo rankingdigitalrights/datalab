@@ -21,11 +21,82 @@
 
 ---
 
-> TODO
+## Description
 
-+ `20_scoringMain.js` (TODO)
-+ `21_scoringInterface.js` (can be called from `30_aggregationMain.js` & be integrated into `10_inputInterface.js`)
-+ `22_scoringSingleStepProcess.js`(TODO)
-+ `23_scoringSubcomponents.js`
+> Module Purpose: single Company Scoring Collection Spreadsheets (*Company Scoring Sheets*)
 
-> Best, add `DC fileID` to `json/JSON_companies.js/<company>` before casting `SC`. This way SC will immediately be connected to DC.
++ main Module Caller: `00_mainController.js::mainScoringSheets()`
++ main Module Caller: `00_mainController.js::createSpreadsheetOutput(Company)`
+
+
+## Main Procedure
+
++ for each company of `companies[]` / `companies[].slice()`
+    + create a **single** Spreadsheet `<Index> - <Company> - <Mode: Output>`
+    + for each `Indicator` in `Indicators[]`
+        + for each `Step` in `researchSteps[]`
+            + create column header
+            + for each `Indicator` in `Indicators[]`
+                + create header row for `Indicator` and company services
+                + for each `Component` in `Step`
+                    + import label and results from input sheet
+                    + add scoring row
+    + apply formating
+
+
++ Output files are located in `Config.rootFolderID/Config.outputFolderName` of `data@rdr`'s Drive.
++ The `fileID` of new spreadsheet should then be added as value of`<company>.urlCurrentCompanyScoringSheet` in the respective `JSON_companies.[<company>]` Object.
+
+## Parameters
+
+> TBD
+
++ Config[]
++ Companies[]
++ Research Steps[]
++ Indicators[]
++ useStepsSubset
++ Target Folder 
+
+
+## Module Structure
+
++ `20_scoringMain.js`: Main scoring process caller `00_mainController`
+    + `21_scoringInterface.js`: Scoring Interface; iterating over `researchSteps[]` and calls helper functions from lower-level submodules
+    + `22_scoringSingleStepProcess.js`: imports results for all indicators of a single step
+    + `23_scoringSubcomponents.js`: helper functions called in `22_scoringSingleStepProcess.js`
+
+
+## Submodule Documentation
+
+`21_scoringInterface.js::addSetOfScoringSteps`
+    + for each `Step` in `researchSteps[]`
+        + call `22_scoringSingleStep::scoringSingleStep` to import results and format column
+    + freeze first column
+
+`22_scoringSingleStep::scoringSingleStep`
+    + call `23_scoringSubcomponents.js::setScoringSheetHeader` to create header for `Step`
+    + for each `IndicatorCategory` in `IndicatorCategories[]`
+        + for each `Indicator` in `Indicators[]`
+        +  call `23_scoringSubcomponents.js::setScoringCompanyHeader` to create header for `Indicator` and `Services[]`
+        + for each `StepComponent` in `StepComponents[]`
+            + call `23_scoringSubcomponents.js::importElementBlock` or `23_scoringSubcomponents.js::importElementRow` to import results from `InputSheet`
+        + add scoring
+        + apply formating
+
+`23_scoringSubcomponents.js::setScoringSheetHeader`
+    + if `block`== 1
+        + create header for `Company`
+        + apply formating
+    + create header for `Step`
+
+`23_scoringSubcomponents.js::setScoringCompanyHeader`
+    + if `block`== 1
+        + create header for `Indicator`
+        + apply formating
+    + for each `Service` in `Services[]`
+        + add subheader
+        + apply formating
+
+
+
