@@ -19,59 +19,36 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
     Can only open one step at a time using openStep BUT can run same function multiple times with different steps!!!!
 */
 
-var editors = [
-    "zhang@rankingdigitalrights.org",
-    "lauraannreed@gmail.com",
-    "luisgar12@gmail.com",
-    "dumitrita.cji@gmail.com",
-    "rogoff@rankingdigitalrights.org",
-    "elonnaiz@gmail.com",
-    "michael.kowen@gmail.com",
-    "elonnaiz@gmail.com",
-    "ahackl2130@gmail.com",
-    "mariam@smex.org",
-    "rydzak@rankingdigitalrights.org",
-    "ahackl2130@gmail.com",
-    "museofu@gmail.com",
-    "itskermoshina@gmail.com",
-    "opeakanbi@gmail.com",
-    "alex.comninos@gmail.com",
-    "moussa@smex.org",
-    "abrougui@rankingdigitalrights.org",
-    "8kkim8@gmail.com",
-    "lucia@karisma.org.co ",
-    "outi.puukko@gmail.com",
-    "zsbchow@gmail.com",
-    "wessenauer@rankingdigitalrights.org",
-    "amy.mcewan.s@googlemail.com",
-    "bojanperkov@sharedefense.org",
-    "tatyana.lockot@gmail.com"
-]
-
+// TODO: deprecate
 function updateAll() {
     for (let i = 0; i < companiesVector.companies.length; i++) {
         mainProtectFileOpenStepSingleCompany(i)
     }
 }
 
+// TODO: deprecate
 function updateSingle() {
     mainProtectFileOpenStepSingleCompany(0)
 }
 
+// TODO: adapt to updated mainCaller logic / editors-as-parameters
 function mainProtectFileOpenStepSingleCompany(i) {
     // can easily call all the other permissions functions from this function
 
-    // let Indicators = indicatorsVector
-    let Indicators = filterSingleIndicator(indicatorsVector, "P11a")
+    // TODO: move Indicator Logic into Main Caller
+    let Indicators = indicatorsVector
+    // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
 
+    // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
     // let stepIDs = ["S030", "S031", "S035"]
-    // let stepIDs = ["S020", "S021", "S025"]
-    let stepIDs = ["S010", "S011", "S015"]
+    let stepIDs = ["S020", "S021", "S025"]
+    // let stepIDs = ["S010", "S011", "S015"]
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
     let Company = companiesVector.companies[i]
 
-    let assignedStepEditors = [editors[i]]
+    // TODO: adapt to updated mainCaller logic / editors-as-parameters
+    let assignedStepEditors = editors[i]
 
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
@@ -101,7 +78,7 @@ function mainProtectFileOpenStepSingleCompany(i) {
 function mainProtectSingleCompany(company) {
 
     //let Company = companiesVector.companies.slice(0, 1)[0]
-    let Company=company
+    let Company = company
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
 
@@ -118,7 +95,7 @@ function mainProtectSingleCompany(company) {
     //removeAllProtections(SS)
 
     // close step
-    protectSingleCompany(Indicators, Editors, SS, companyID,currentPrefix)
+    protectSingleCompany(Indicators, Editors, SS, companyID, currentPrefix)
 }
 
 function mainUnProtectSingleCompany(company) {
@@ -153,9 +130,9 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 }
 
 // protectSingleCompany simply removes all permissions and then adds only the Sheet permissions back
-function protectSingleCompany(Indicators, SheetEditors, SS, companyID,currentPrefix) {
+function protectSingleCompany(Indicators, SheetEditors, SS, companyID, currentPrefix) {
     removeAllProtections(SS)
-    protectSheets(Indicators, SheetEditors, SS, companyID,currentPrefix)
+    protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 }
 
 
@@ -192,11 +169,11 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 unprotectedRanges = sheetProtection.getUnprotectedRanges()
 
                 // add the name range here as well
-                subLabel=stepIDs[0].substring(0, 3)
+                subLabel = stepIDs[0].substring(0, 3)
                 rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
 
-                range=SS.getRange(rangeName)
-                rangeNotation=range.getA1Notation()
+                range = SS.getRange(rangeName)
+                rangeNotation = range.getA1Notation()
                 range = Sheet.getRange(rangeNotation) // getting the range associated with named range
 
                 unprotectedRanges.push(range)
@@ -206,8 +183,8 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
                     // now need to build the namedRange you want, get A1 notation, then unprotect it
                     // need to make RDR20 and DC variables
-                    rangeName=defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step")
-                    range=SS.getRange(rangeName)
+                    rangeName = defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step")
+                    range = SS.getRange(rangeName)
                     unprotectedRanges.push(range)
 
                 }
@@ -313,15 +290,15 @@ function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
                 unprotectedRanges = []
 
                 // unprotecting the guide
-                rangeName=specialRangeName("Guide", "", Indicator.labelShort)
+                rangeName = specialRangeName("Guide", "", Indicator.labelShort)
                 rangeNotation = getNamedRangeRowNotation(rangeName, SS)
-                range=Sheet.getRange(rangeNotation)
+                range = Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)
 
                 // unprotecting step 00
-                rangeName=defineNamedRange(currentPrefix, "DC", "S00", Indicator.labelShort, "", companyID, "", "Step")
+                rangeName = defineNamedRange(currentPrefix, "DC", "S00", Indicator.labelShort, "", companyID, "", "Step")
                 rangeNotation = getNamedRangeRowNotation(rangeName, SS)
-                range=Sheet.getRange(rangeNotation)
+                range = Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)
 
                 sheetProtection.setUnprotectedRanges(unprotectedRanges)
