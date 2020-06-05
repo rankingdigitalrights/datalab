@@ -121,9 +121,9 @@ function mainProtectSingleCompany(company) {
     protectSingleCompany(Indicators, Editors, SS, companyID,currentPrefix)
 }
 
-function mainUnProtectSingleCompany() {
+function mainUnProtectSingleCompany(company) {
 
-    let Company = companiesVector.companies.slice(0, 1)[0]
+    let Company = company
 
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
