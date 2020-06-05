@@ -38,7 +38,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     let category = Category.labelShort
 
     // Research Steps Subset
-    let mainStepsLength = useStepsSubset ? 3 : ResearchSteps.researchSteps.length
+    let mainStepsLength = useStepsSubset ? (Config.subsetMaxStep + 1) : ResearchSteps.researchSteps.length
 
     // Indicator Subset
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
@@ -69,7 +69,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             continue
         } // skips this i if Sheet already exists
 
-        // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
+        // checks whether this indicator had (!) subcomponents
         let nrOfIndSubComps = (Category.hadSubComponents == true) ? Category.components.length : 1
 
         // checks how many company group/opcom columns to hide for this Indicator

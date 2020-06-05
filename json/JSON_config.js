@@ -18,6 +18,7 @@ var centralConfig = {
   YearOnYear: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
+  subsetMaxStep: 3, // logical, inclusive
   scoringSteps: [3, 6],
   collapseAllGroups: false,
   feedbackStep: 3,
