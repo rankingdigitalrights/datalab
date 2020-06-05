@@ -330,7 +330,9 @@ function DevMainBackupFolder() {
 function mainProtectCompanies() {
     // protects the sheets of a given company vector
 
-    let step = "step1" // maybe better: match ResearchStepObj syntax := S01
+    let stepLabel = "S01" // maybe better: match ResearchStepObj syntax := S01
+    let substepArray=createSubstepArray(stepLabel)
+    Logger.log("Substep Array:"+substepArray)
 
     // TODO: from ResearchObj
     // Signature: function(ResearchObj, mainStepID) {}
@@ -338,7 +340,7 @@ function mainProtectCompanies() {
     // input: given step = "S01"
     // output: should return substeps["S010", "S011", "S015"]
 
-    let editors = EditorsObj[step] // TODO: 
+    let editors = EditorsObj.stepLabel // TODO: 
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
