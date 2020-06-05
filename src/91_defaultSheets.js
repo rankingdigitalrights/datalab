@@ -73,3 +73,18 @@ function insertSheetConnector(SS, Companies) {
 
     return Sheet
 }
+
+// function produceCompanyFeedbackSheet(Sheet, Company, Indicators) {
+
+//     let header = ["Indicator", "Feedback returned?", "Feedback Text"]
+//     Sheet.appendRow([header])
+
+//     let StatusCell, ValueCell, namedRange
+
+
+//     Indicators.forEach(Indicator, index =>
+
+//     )
+
+
+// }
