@@ -1,5 +1,5 @@
 let EditorsObj = {
-  step1: [
+  S01: [
     ["zhang@rankingdigitalrights.org"],
     ["lauraannreed@gmail.com"],
     ["luisgar12@gmail.com"],
@@ -27,7 +27,8 @@ let EditorsObj = {
     ["bojanperkov@sharedefense.org"],
     ["tatyana.lockot@gmail.com"]
   ],
-  step2: []
+  S02: [],
+  Default:["walton@rankingdigitalrights.org","wessenauer@rankingdigitalrights.org","sperling@rankingdigitalrights.org","gutermuth@rankingdigitalrights.org","abrougui@rankingdigitalrights.org"]
 }
 
 
