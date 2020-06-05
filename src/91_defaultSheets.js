@@ -1,39 +1,39 @@
 // --- // creates sources page // --- //
 
-function produceSourceSheet(thisSheet, doFill) {
+function produceSourceSheet(Sheet, doFill) {
 
     let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
 
     let columns = ["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\n\nYYYY-MM-DD", "Saved source link", "Has this policy changed from the previous year's Index?"]
 
     if (doFill) {
-        thisSheet.appendRow(columns)
+        Sheet.appendRow(columns)
     }
 
     let lastCol = columns.length
 
     Logger.log("lastCol: " + lastCol)
 
-    thisSheet.getRange(1, 1, 99, lastCol)
+    Sheet.getRange(1, 1, 99, lastCol)
         .setFontFamily("Roboto")
         .setVerticalAlignment("top")
         .setWrap(true)
         .setFontSize(10)
 
-    thisSheet.getRange(1, 1, 1, lastCol)
+    Sheet.getRange(1, 1, 1, lastCol)
         .setFontWeight("bold")
         .setHorizontalAlignment("center")
         .setFontSize(11)
 
-    thisSheet.setColumnWidths(1, 1, 100)
-    thisSheet.setColumnWidths(2, lastCol, 200)
-    thisSheet.setColumnWidths(4, 2, 140)
-    thisSheet.setFrozenRows(1)
+    Sheet.setColumnWidths(1, 1, 100)
+    Sheet.setColumnWidths(2, lastCol, 200)
+    Sheet.setColumnWidths(4, 2, 140)
+    Sheet.setFrozenRows(1)
 }
 
-function fillPrevOutcomeSheet(thisSheet, importedOutcomeTabName, externalFormula) {
-    thisSheet.setName(importedOutcomeTabName)
-    let cell = thisSheet.getActiveCell()
+function fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula) {
+    Sheet.setName(importedOutcomeTabName)
+    let cell = Sheet.getActiveCell()
     cell.setValue(externalFormula.toString())
 }
 
@@ -73,3 +73,18 @@ function insertSheetConnector(SS, Companies) {
 
     return Sheet
 }
+
+// function produceCompanyFeedbackSheet(Sheet, Company, Indicators) {
+
+//     let header = ["Indicator", "Feedback returned?", "Feedback Text"]
+//     Sheet.appendRow([header])
+
+//     let StatusCell, ValueCell, namedRange
+
+
+//     Indicators.forEach(Indicator, index =>
+
+//     )
+
+
+// }
