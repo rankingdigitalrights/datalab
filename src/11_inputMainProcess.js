@@ -272,8 +272,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
             // group whole step and make main step header row the anchor
             let rangeStep = Sheet.getRange(beginStep, 1, endStep - beginStep, numberOfColumns)
-            Logger.log("grouping whole step for range :" + rangeStep.getA1Notation())
-            rangeStep.shiftRowGroupDepth(1)
+
+            let rangeGroup = rangeStep.shiftRowGroupDepth(1)
+
+            // collapses substeps, than main step
+            if (MainStep.doCollapse) {
+                rangeGroup.collapseGroups()
+                rangeGroup.collapseGroups()
+            }
 
         } // --- // END Main-Step-Wise Procedure // --- //
 
