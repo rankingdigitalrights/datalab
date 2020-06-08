@@ -22,7 +22,7 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 // TODO: deprecate
 function updateAll() {
     for (let i = 0; i < companiesVector.companies.length; i++) {
-        mainProtectFileOpenStepSingleCompany(i)
+        mainProtectFileOpenStepSingleCompany(companiesVector.companies[i])
     }
 }
 
@@ -32,7 +32,7 @@ function updateSingle() {
 }
 
 // TODO: adapt to updated mainCaller logic / editors-as-parameters
-function mainProtectFileOpenStepSingleCompany(i) {
+function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     // can easily call all the other permissions functions from this function
 
     // TODO: move Indicator Logic into Main Caller
@@ -41,14 +41,14 @@ function mainProtectFileOpenStepSingleCompany(i) {
 
     // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
     // let stepIDs = ["S030", "S031", "S035"]
-    let stepIDs = ["S020", "S021", "S025"]
+    let stepIDs = steps
     // let stepIDs = ["S010", "S011", "S015"]
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
-    let Company = companiesVector.companies[i]
+    let Company = company
 
     // TODO: adapt to updated mainCaller logic / editors-as-parameters
-    let assignedStepEditors = editors[i]
+    let assignedStepEditors = editor
 
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
@@ -62,7 +62,8 @@ function mainProtectFileOpenStepSingleCompany(i) {
     let SheetEditors = [] // TODO: remove
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID)
+    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
+    let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
@@ -84,10 +85,13 @@ function mainProtectSingleCompany(company) {
 
     let Indicators = indicatorsVector
 
+    // create an array with default as well as company-specific editors
     let Editors = centralConfig.defaultEditors
+    Logger.log("Editors: "+Editors)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID)
+    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
+    let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
@@ -96,6 +100,7 @@ function mainProtectSingleCompany(company) {
 
     // close step
     protectSingleCompany(Indicators, Editors, SS, companyID, currentPrefix)
+
 }
 
 function mainUnProtectSingleCompany(company) {
@@ -106,7 +111,8 @@ function mainUnProtectSingleCompany(company) {
     Logger.log("CompanyObj :" + companyID)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID)
+    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
+    let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     // close step
     removeAllProtections(SS)
@@ -321,3 +327,4 @@ function getNamedRangeRowNotation(namedRange, SS) {
     return firstR + ":" + lastR
 
 }
+

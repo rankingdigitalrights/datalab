@@ -27,8 +27,7 @@ let EditorsObj = {
     ["bojanperkov@sharedefense.org"],
     ["tatyana.lockot@gmail.com"]
   ],
-  S02: [],
-  Default:["walton@rankingdigitalrights.org","wessenauer@rankingdigitalrights.org","sperling@rankingdigitalrights.org","gutermuth@rankingdigitalrights.org","abrougui@rankingdigitalrights.org"]
+  S02: []
 }
 
 
