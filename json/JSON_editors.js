@@ -27,7 +27,34 @@ let EditorsObj = {
     ["bojanperkov@sharedefense.org"],
     ["tatyana.lockot@gmail.com"]
   ],
-  S02: []
+  S02: [
+    ["zsbchow@gmail.com"],
+    ["wessenauer@rankingdigitalrights.org"],
+    ["lucia@karisma.org.co"],
+    [],
+    ["ahackl2130@gmail.com"],
+    ["abrougui@rankingdigitalrights.org"],
+    ["zhang@rankingdigitalrights.org"],
+    ["basu.arindrajit@gmail.com"],
+    ["michael.kowen@gmail.com"],
+    ["grant@smex.org"],
+    ["rogoff@rankingdigitalrights.org"],
+    ["rydzak@rankingdigitalrights.org"],
+    ["8kkim8@gmail.com"],
+    ["tatyana.lockot@gmail.com"],
+    ["alex.comninos@gmail.com"],
+    ["opeakanbi@gmail.com"],
+    ["grant@smex.org"],
+    ["marechal@rankingdigitalrights.org","rydzak@rankingdigitalrights.org"],
+    ["museofu@gmail.com"],
+    ["luisgar12@gmail.com"],
+    ["amy.mcewan.s@googlemail.com"],
+    ["zhang@rankingdigitalrights.org"],
+    ["ahackl2130@gmail.com"],
+    ["dumitrita.cji@gmail.com"],
+    ["wessenauer@rankingdigitalrights.org"],
+    ["itskermoshina@gmail.com"]
+    ]
 }
 
 

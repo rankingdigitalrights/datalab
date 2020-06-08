@@ -406,9 +406,11 @@ function mainUnProtectCompanies() {
 function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
-    let stepLabel = "S01" // maybe better: match ResearchStepObj syntax := S01
+    let stepLabel = ["S01"] // maybe better: match ResearchStepObj syntax := S01
     let substepArray=createSubstepArray(stepLabel)
     let editors = EditorsObj[stepLabel]
+
+    Logger.log("array: "+substepArray)
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -440,10 +442,16 @@ function mainOpenStepCompanies() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        // let companyId = Company.id
         let companyNr = companiesVector.companies.indexOf(Company)
-        let editor = editors[companyNr]
+        let editors=[]
+        
+        stepLabel.forEach(function(step) {
+          editors.push(EditorsObj[step][companyNr])
+          
+        })
+        
+        Logger.log("editors:"+editors)
 
-        mainProtectFileOpenStepSingleCompany(Company,substepArray, editor)
+        mainProtectFileOpenStepSingleCompany(Company,substepArray, editors)
     })
 }

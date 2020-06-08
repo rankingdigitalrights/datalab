@@ -71,16 +71,18 @@ function isValueInColumn(SS, sheetName, colNr, value) {
 
 function createSubstepArray(stepLabel){
 
-    let substepArray=[]
+    let stepArray=[]
     let Steps=researchStepsVector.researchSteps
 
     Steps.forEach(function (Step) {
-        if(Step.stepID==stepLabel) {
+        if(stepLabel.includes(Step.stepID)) {
+            let substepArray=[]
             Step.substeps.forEach(function (Substep) {
                 substepArray.push(Substep.subStepID)   
             })
+            stepArray.push(substepArray)
         }
     })
 
-    return substepArray
+    return stepArray
 }

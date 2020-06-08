@@ -125,6 +125,7 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 
     DriveApp.getFileById(fileID).setShareableByEditors(false)
 
+    removeAllProtections(SS)
     protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
@@ -173,27 +174,29 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 Logger.log(sheetProtection.getDescription())
 
                 unprotectedRanges = sheetProtection.getUnprotectedRanges()
+                stepIDs.forEach(function (step) {
+                    // add the name range here as well
+                    subLabel = step[0].substring(0, 3)
+                    rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
 
-                // add the name range here as well
-                subLabel = stepIDs[0].substring(0, 3)
-                rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
-
-                range = SS.getRange(rangeName)
-                rangeNotation = range.getA1Notation()
-                range = Sheet.getRange(rangeNotation) // getting the range associated with named range
-
-                unprotectedRanges.push(range)
-
-                // looping through all the steps you want to open
-                for (let stepID = 0; stepID < stepIDs.length; stepID++) {
-
-                    // now need to build the namedRange you want, get A1 notation, then unprotect it
-                    // need to make RDR20 and DC variables
-                    rangeName = defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step")
                     range = SS.getRange(rangeName)
+                    rangeNotation = range.getA1Notation()
+                    range = Sheet.getRange(rangeNotation) // getting the range associated with named range
+
                     unprotectedRanges.push(range)
 
-                }
+                    // looping through all the steps you want to open
+                    for (let substep = 0; substep < step.length; substep++) {
+
+                        // now need to build the namedRange you want, get A1 notation, then unprotect it
+                        // need to make RDR20 and DC variables
+                        rangeName = defineNamedRange(currentPrefix, "DC", step[substep], Indicator.labelShort, "", companyID, "", "Step")
+                        range = SS.getRange(rangeName)
+                        unprotectedRanges.push(range)
+
+                    }
+
+                })
                 sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
 
                 Logger.log("--- Completed " + Category.labelLong)
