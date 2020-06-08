@@ -57,7 +57,7 @@ function filterSingleIndicator(Indicators, indLabel) {
 function isValueInColumn(SS, sheetName, colNr, value) {
     let Range, Sheet, lastRow
     let isInColumn = false
-    Sheet = SS.getSheetByName(mode)
+    Sheet = SS.getSheetByName(sheetName)
     lastRow = Sheet.getLastRow()
     Logger.log("lastRow: " + lastRow)
     if (lastRow >= 1) {
