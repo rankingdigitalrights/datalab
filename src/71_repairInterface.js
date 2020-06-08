@@ -8,50 +8,6 @@
 */
 
 
-function inspectInputSheet(SS, Indicators, Company, ListSheetBroken) {
-
-    let hasOpCom = Company.hasOpCom
-    // fetch number of Services once
-    let companyNumberOfServices = Company.services.length
-
-    let Category
-    let CategoryLength
-    let nrOfIndCatSubComps = 1
-    let Indicator
-    let IndicatorLabel
-    let Sheet
-
-    for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
-
-        Category = Indicators.indicatorCategories[c]
-
-        CategoryLength = Category.indicators.length
-
-        // for each indicator / distinct Sheet do
-
-        for (let i = 0; i < CategoryLength; i++) {
-
-            Indicator = Category.indicators[i]
-            IndicatorLabel = Indicator.labelShort
-
-            Sheet = getSheetByName(SS, IndicatorLabel)
-
-            if (Sheet === null) {
-                Logger.log("ERROR - Not found: " + IndicatorLabel)
-                continue // skips this i if Sheet already exists
-            }
-
-            Logger.log("|--- inspecting " + IndicatorLabel)
-
-            listBrokenRefsSingleSheet(SS, ListSheetBroken, Sheet, IndicatorLabel)
-
-        } // End of Indicator Sheet
-
-    } // End of Indicator Category ("Class")
-
-} // End of Company Repairs Process
-
-
 
 function processInputSheet(SS, Indicators, Company, ResearchSteps, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs) {
 

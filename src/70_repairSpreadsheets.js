@@ -11,7 +11,7 @@
         inspectInputSheet
 */
 
-function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs) {
+function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs) {
 
     var companyShortName = cleanCompanyName(Company)
     Logger.log("--- // --- begin processing " + companyShortName + " --- // ---")
@@ -34,10 +34,10 @@ function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company
 
     var currentDate = getISOtimeAsString()
 
-    ListSheetBroken.appendRow([companyShortName, currentDate])
+    ListSheetBroken.appendRow([currentDate, companyShortName])
 
     if (ListSheetFixed !== null) {
-        ListSheetFixed.appendRow([companyShortName, currentDate])
+        ListSheetFixed.appendRow([currentDate, companyShortName])
     }
 
     // --- // MAIN TASK // --- //
@@ -45,7 +45,7 @@ function processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company
 
     Logger.log("FLOW --- begin Inspection " + companyShortName + " --- // ---")
 
-    inspectInputSheet(SS, Indicators, Company, ListSheetBroken)
+    inspectInputSheet(SS, ListSheetBroken)
 
     // processInputSheet(SS, Indicators, Company, ResearchStepsObj, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs)
 

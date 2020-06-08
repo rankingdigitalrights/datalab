@@ -11,7 +11,7 @@
     createFeedbackForms,
     createAggregationOutput,
     createCompanyDataStore,
-    processHealthSingleSpreadsheet,
+    processCompanyHealth,
     clearNamedRangesFromCompanySheet,
     openSpreadsheetByID,
     insertSheetIfNotExist,
@@ -238,12 +238,10 @@ function mainInspectInputSheets() {
     // ListSheetBroken.clear()
     var ListSheetFixed = null
 
-    var Companies = companiesVector.companies
-        // .slice(1, 2) // Apple
-        .slice(22, 23)
+    var Companies = companiesVector.companies.slice(0, 26)
 
     Companies.forEach(function (Company) {
-        processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
     })
 
 }
@@ -285,7 +283,7 @@ function mainRepairInputSheets() {
     // .slice(8,9) // Vodafone
 
     Companies.forEach(function (Company) {
-        processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
     })
 
 }
