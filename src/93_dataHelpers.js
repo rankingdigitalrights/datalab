@@ -53,3 +53,18 @@ function filterSingleIndicator(Indicators, indLabel) {
     return resultVector
 
 }
+
+function isValueInColumn(SS, sheetName, colNr, value) {
+    let Range, Sheet, lastRow
+    let isInColumn = false
+    Sheet = SS.getSheetByName(sheetName)
+    lastRow = Sheet.getLastRow()
+    Logger.log("lastRow: " + lastRow)
+    if (lastRow >= 1) {
+        Range = Sheet.getRange(1, colNr, lastRow)
+        isInColumn = Range.getValues()
+            .flat(2) // unnest 2D array to flat 1D array
+            .includes(value)
+    }
+    return isInColumn
+}

@@ -74,14 +74,14 @@ function createNewFolder(parentFolderID, folderName) {
 
 function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID) {
 
-    let idColumn = 4
+    let colNr = 4
     let sheetName = outputFolderName
     Logger.log("### sheetName: " + sheetName)
     let SS = openSpreadsheetByID(controlSpreadsheetID)
     let File = DriveApp.getFileById(fileID)
     let path = printParentFolders(File)
     let Sheet = insertSheetIfNotExist(SS, sheetName, true)
-    let isInColumn = isValueInColumn(SS, idColumn, sheetName, fileID)
+    let isInColumn = isValueInColumn(SS, sheetName, colNr, fileID)
     if (!isInColumn) {
         const formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
         Sheet.appendRow([path, sheetName, companyShortName, fileID, formula])
@@ -148,4 +148,35 @@ function getAllSSfromFolder(folder, sheet) {
         Logger.log("Width: " + lastColumn)
         Logger.log(thisId)
     }
+}
+
+
+// single-use function to deep-clone a folder (i.e. incl. all subfolders and files)
+
+function deepCloneFolder(FolderID, targetRootID) {
+
+    var source = DriveApp.getFolderById(FolderID)
+    var target = DriveApp.getFolderById(targetRootID)
+
+    cloneSingleFolder(source, target)
+
+}
+
+function cloneSingleFolder(source, target) {
+
+    var folders = source.getFolders()
+    var files = source.getFiles()
+
+    while (files.hasNext()) {
+        var file = files.next()
+        file.makeCopy(file.getName(), target)
+    }
+
+    while (folders.hasNext()) {
+        var subFolder = folders.next()
+        var folderName = subFolder.getName()
+        var targetFolder = target.createFolder(folderName)
+        cloneSingleFolder(subFolder, targetFolder)
+    }
+
 }

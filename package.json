@@ -21,7 +21,8 @@
     },
     "scripts": {
         "switch-prod": "sh ./env/switch-prod.sh",
-        "switch-dev": "sh ./env/switch-dev.sh",
+        "switch-gw": "sh ./env/switch-gw.sh",
+        "switch-is": "sh ./env/switch-is.sh",
         "cloc": "sh ./docs/stats/cloc.sh",
         "json": "sh ./docs/stats/json.sh",
         "docs": "sh ./docs/stats/docs.sh",
