@@ -43,9 +43,10 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    // let SS = createSpreadsheet(spreadsheetName, true)
+    let SS = createSpreadsheet(spreadsheetName, true)
 
-    let SS = SpreadsheetApp.openById("1YbbOuxJ-pAWoUhLIo7SxarJb4uyPB7zg7iVKEj_AB7c")
+    // HOOK: Override for local development
+    // let SS = SpreadsheetApp.openById("1YbbOuxJ-pAWoUhLIo7SxarJb4uyPB7zg7iVKEj_AB7c")
 
     let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
