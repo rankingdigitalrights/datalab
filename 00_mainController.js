@@ -68,9 +68,9 @@ function mainInputSheets() {
 
     initiateGlobalConfig()
 
-    addNewStep = true
+    addNewStep = false // Caution: does not check if step already exists in sheet
     doRepairsOnly = false
-    startAtMainStepNr = 3 // logical Order
+    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
