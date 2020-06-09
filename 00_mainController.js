@@ -26,6 +26,10 @@ var isProduction = false
 /** --- main Prod vs Dev Toggle --- **/
 
 var Config
+var doRepairsOnly
+var addNewStep
+var skipMainSteps // Global Config
+var startAtMainStepNr // Global Config
 var IndicatorsObj
 var indexPrefix
 var filenamePrefix
@@ -36,12 +40,15 @@ var outputFolderName
 var controlSpreadsheetID
 var Styles
 
-
+// HOOK: override global parameters here
 function initiateGlobalConfig() {
     Config = centralConfig
 
+    doRepairsOnly = false
+    skipMainSteps = false
+
     IndicatorsObj = indicatorsVector
-    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "P11a")
+    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "G2")
 
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
@@ -59,9 +66,11 @@ function initiateGlobalConfig() {
 
 function mainInputSheets() {
 
-    let doClearNamedRanges = false // CAUTION
-
     initiateGlobalConfig()
+
+    addNewStep = true
+    doRepairsOnly = false
+    startAtMainStepNr = 3 // logical Order
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
@@ -102,7 +111,7 @@ function mainInputSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges)
+        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -228,7 +237,6 @@ function mainInspectInputSheets() {
 
     initiateGlobalConfig()
     // IMPORTANT FLAG
-    var doRepairs = false // IMPORTANT FLAG
 
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
@@ -238,10 +246,10 @@ function mainInspectInputSheets() {
     // ListSheetBroken.clear()
     var ListSheetFixed = null
 
-    var Companies = companiesVector.companies.slice(0, 26)
+    var Companies = companiesVector.companies.slice(0, 3)
 
     Companies.forEach(function (Company) {
-        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
 }
@@ -251,7 +259,7 @@ function mainRepairInputSheets() {
 
     initiateGlobalConfig()
     // IMPORTANT FLAG
-    var doRepairs = true // IMPORTANT FLAG
+    var doRepairsOnly = true // IMPORTANT FLAG
 
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
@@ -261,7 +269,7 @@ function mainRepairInputSheets() {
     ListSheetBroken.clear()
     var ListSheetFixed
 
-    if (doRepairs) {
+    if (doRepairsOnly) {
         ListSheetFixed = insertSheetIfNotExist(controlSpreadsheet, "Input - Fixed Refs", true)
         // ListSheetFixed.clear()
     } else {
@@ -283,7 +291,7 @@ function mainRepairInputSheets() {
     // .slice(8,9) // Vodafone
 
     Companies.forEach(function (Company) {
-        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairsOnly)
     })
 
 }

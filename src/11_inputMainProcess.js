@@ -2,6 +2,7 @@
 
 /* global
     Config,
+    doRepairsOnly
     Styles,
     indexPrefix,
     insertSheetIfNotExist,
@@ -38,7 +39,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     let category = Category.labelShort
 
     // Research Steps Subset
-    let mainStepsLength = useStepsSubset ? (Config.subsetMaxStep + 1) : ResearchSteps.researchSteps.length
+    let mainStepsLength = (useStepsSubset || addNewStep) ? (Config.subsetMaxStep + 1) : ResearchSteps.researchSteps.length
 
     // Indicator Subset
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
@@ -47,6 +48,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // for each indicator = distinct Sheet do
 
     let lastRow
+    let Sheet
 
     for (let i = 0; i < indyCatLength; i++) {
 
@@ -59,15 +61,23 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // let oldIndex = oldSheet.getIndex()
         // SS.deleteSheet(oldSheet)
 
-        let Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+        // try to grab existing Indicator sheet or insert new one
+        Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
 
         // if (oldIndex) {
         //     moveSheetToPos(SS, Sheet, oldIndex)
         // }
 
+        // if (doRepairs or addExtraStep) --> try to open Sheet
+        // else skip Indicator 
+
         if (Sheet === null) {
-            continue
-        } // skips this i if Sheet already exists
+            if (doRepairsOnly || addNewStep) {
+                Sheet = SS.getSheetByName(Indicator.labelShort)
+            } else {
+                continue
+            }
+        }
 
         // checks whether this indicator had (!) subcomponents
         let nrOfIndSubComps = (Category.hadSubComponents == true) ? Category.components.length : 1
@@ -89,7 +99,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
         // general formatting of Sheet
         // TODO: think about where to refactor to
-        Sheet.setColumnWidth(1, 140)
+        Sheet.setColumnWidth(1, Styles.dims.labelColumnWidth)
 
         let numberOfColumns = (companyNrOfServices + 2) + 1
 
@@ -107,15 +117,18 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         let activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
-
+        if (addNewStep) {
+            activeRow = Sheet.getLastRow() + 2
+        } else {
+            activeRow = addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
+        }
         // --- // Begin Main Step-Wise Procedure // --- //
 
         let contentStartRow = activeRow
         let dataStartRow = 0
 
         // for each main step
-        for (let mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
+        for (let mainStepNr = startAtMainStepNr; mainStepNr < mainStepsLength; mainStepNr++) {
 
             var MainStep = ResearchSteps.researchSteps[mainStepNr]
             var mainStepColor = MainStep.stepColor

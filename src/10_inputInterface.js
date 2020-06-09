@@ -17,7 +17,7 @@ produceSourceSheet,
 populateDCSheetByCategory
 */
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
+function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     Logger.log("PROCESS: begin main DC --- // ---")
 
@@ -43,7 +43,9 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    let SS = createSpreadsheet(spreadsheetName, true)
+    // let SS = createSpreadsheet(spreadsheetName, true)
+
+    let SS = SpreadsheetApp.openById("1YbbOuxJ-pAWoUhLIo7SxarJb4uyPB7zg7iVKEj_AB7c")
 
     let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
@@ -92,8 +94,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     if (Sheet !== null) {
         produceSourceSheet(Sheet, true)
     }
-
-    // if scoring sheet is integrated into DC, create Points sheet
 
     let hasOpCom = Company.hasOpCom
     let isNewCompany = (Company.isPrevScored) ? false : true
