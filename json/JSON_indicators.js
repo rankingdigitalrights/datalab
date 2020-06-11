@@ -1130,7 +1130,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "F3c.4",
-            "description": "Does the company publish the number of pieces of advertising content it restricts based on which advertising targeting rule was violated?",
+            "description": "Does the company clearly disclose that algorithmically generated advertising audience categories are evaluated by human reviewers before they can be used?",
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
@@ -2395,7 +2395,7 @@ var indicatorsVector = {
           },
           {
             "labelShort": "P8.8",
-            "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?",
+            "description": "(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose that users can obtain all of the user information about them the skill holds?",
             "doExcludeCompanies": true,
             "excludeCompanies": ["telecom"],
             "doExcludeServices": true,

@@ -11,7 +11,7 @@
         inspectInputSheet
 */
 
-function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs) {
+function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     var companyShortName = cleanCompanyName(Company)
     Logger.log("--- // --- begin processing " + companyShortName + " --- // ---")
@@ -22,22 +22,20 @@ function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filename
 
     // connect to Company Input Spreadsheet
 
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
-
     var SS = openSpreadsheetByID(Company.urlCurrentDataCollectionSheet)
 
     // skip if company spreadsheet does not exist
     if (SS === null) {
-        Logger.log("!!!ERROR!!! : " + spreadsheetName + " does not exist. Skipping.")
+        Logger.log("!!!ERROR!!! : " + companyShortName + " does not exist. Skipping.")
         return null
     }
 
     var currentDate = getISOtimeAsString()
 
-    ListSheetBroken.appendRow([currentDate, companyShortName])
+    ListSheetBroken.appendRow([currentDate, companyShortName, Company.urlCurrentDataCollectionSheet])
 
     if (ListSheetFixed !== null) {
-        ListSheetFixed.appendRow([currentDate, companyShortName])
+        ListSheetFixed.appendRow([currentDate, companyShortName, Company.urlCurrentDataCollectionSheet])
     }
 
     // --- // MAIN TASK // --- //
@@ -46,7 +44,5 @@ function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filename
     Logger.log("FLOW --- begin Inspection " + companyShortName + " --- // ---")
 
     inspectInputSheet(SS, ListSheetBroken)
-
-    // processInputSheet(SS, Indicators, Company, ResearchStepsObj, includeRGuidanceLink, ListSheetBroken, ListSheetFixed, doRepairs)
 
 }
