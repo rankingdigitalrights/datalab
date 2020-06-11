@@ -48,7 +48,7 @@ function initiateGlobalConfig() {
     skipMainSteps = false
 
     IndicatorsObj = indicatorsVector
-    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "G2")
+    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "P8")
 
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
@@ -247,10 +247,11 @@ function mainInspectInputSheets() {
     let ListSheetFixed = null
 
     let Companies = companiesVector.companies
-        .slice(3, 26)
+        // .slice(22, 26)
+        .slice(4, 5) //   4 "AT&T",
 
-    Companies.forEach(function (Company) {
-        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+    Companies.forEach(Company => {
+        processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
 }
@@ -271,13 +272,12 @@ function mainRepairInputSheets() {
     let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
-    let ListSheetFixed = null
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
-    // .slice(1, 2) //   1 "Amazon",
-    // .slice(2, 3) //   2 "América Móvil",
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        .slice(2, 3) //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
@@ -306,7 +306,7 @@ function mainRepairInputSheets() {
 
         let fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
-        processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
     })
 

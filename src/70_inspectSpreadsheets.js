@@ -11,7 +11,7 @@
         inspectInputSheet
 */
 
-function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     var companyShortName = cleanCompanyName(Company)
     Logger.log("--- // --- begin processing " + companyShortName + " --- // ---")
@@ -33,10 +33,6 @@ function processCompanyHealth(ListSheetBroken, ListSheetFixed, Company, filename
     var currentDate = getISOtimeAsString()
 
     ListSheetBroken.appendRow([currentDate, companyShortName, Company.urlCurrentDataCollectionSheet])
-
-    if (ListSheetFixed !== null) {
-        ListSheetFixed.appendRow([currentDate, companyShortName, Company.urlCurrentDataCollectionSheet])
-    }
 
     // --- // MAIN TASK // --- //
     // for each Indicator Class do

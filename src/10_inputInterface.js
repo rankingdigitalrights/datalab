@@ -65,7 +65,7 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     let Sheet
 
     // if set in Config, import previous Index Outcome & Sources
-    if (Config.YearOnYear) {
+    if (Config.YearOnYear && !doRepairsOnly && !addNewStep) {
 
         // Previous OUTCOME
         externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
