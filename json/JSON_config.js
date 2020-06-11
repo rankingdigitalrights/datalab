@@ -75,9 +75,9 @@ var centralConfig = {
       includeResults: false
     },
     scoringParams: {
-      subStepNr: 0,
+      subStepNr: 1,
       firstStepNr: 1,
-      lastStepNr: 6,
+      lastStepNr: 2,
       sheetName: "Outcome",
       dataColWidth: 200,
       hasFullScores: true,

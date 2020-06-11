@@ -5,8 +5,8 @@ var indicatorsVector = {
     "description": "Indicators in this category seek evidence that the company has governance processes in place to ensure that it respects the human rights to freedom of expression and privacy. Both rights are part of the Universal Declaration of Human Rights and are enshrined in the International Covenant on Civil and Political Rights. They apply online as well as offline. In order for a company to perform well in this section, the company’s disclosure should at least follow, and ideally surpass, the UN Guiding Principles on Business and Human Rights and other industry-specific human rights standards focused on freedom of expression and privacy such as the Global Network Initiative.",
     "researchGuidance": "TBD",
     "classColor": "#ffe599",
-    "hadSubComponents": true,
-    "components": ["F", "P"],
+    "hadSubComponents": false,
+    "components": null,
     "indicators": [{
         "labelShort": "G1",
         "labelLong": "Policy commitment",

@@ -118,11 +118,11 @@ function mainScoringSheets() {
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
     let useStepsSubset = false // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
-        .slice(1, 9)
-    // .slice(0,1) // Amazon
+        //.slice(1, 9)
+     .slice(0,1) // Amazon
     // .slice(1, 2) // Apple
     // .slice(3,4) //
 

@@ -6,7 +6,7 @@ function determineFirstStep(outputParams) {
     var firstScoringStep
 
     if (outputParams.firstStepNr) {
-        firstScoringStep = outputParams.firstStepNr - 1
+        firstScoringStep = outputParams.firstStepNr
     } else {
         firstScoringStep = 0
     }
