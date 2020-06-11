@@ -6,12 +6,12 @@
     indicatorsVector,
     filterSingleIndicator,
     companiesVector,
-    createSpreadsheetInput,
+    processInputSpreadsheet,
     createSpreadsheetOutput,
     createFeedbackForms,
     createAggregationOutput,
     createCompanyDataStore,
-    processHealthSingleSpreadsheet,
+    processCompanyHealth,
     clearNamedRangesFromCompanySheet,
     openSpreadsheetByID,
     insertSheetIfNotExist,
@@ -26,6 +26,10 @@ var isProduction = false
 /** --- main Prod vs Dev Toggle --- **/
 
 var Config
+var doRepairsOnly
+var addNewStep = false
+var skipMainSteps // Global Config
+var startAtMainStepNr // Global Config
 var IndicatorsObj
 var indexPrefix
 var filenamePrefix
@@ -36,12 +40,15 @@ var outputFolderName
 var controlSpreadsheetID
 var Styles
 
-
+// HOOK: override global parameters here
 function initiateGlobalConfig() {
     Config = centralConfig
 
+    doRepairsOnly = false
+    skipMainSteps = false
+
     IndicatorsObj = indicatorsVector
-    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "P11a")
+    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "P8")
 
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
@@ -59,9 +66,11 @@ function initiateGlobalConfig() {
 
 function mainInputSheets() {
 
-    let doClearNamedRanges = false // CAUTION
-
     initiateGlobalConfig()
+
+    addNewStep = false // Caution: doesn't care if step already exists
+    // also: Hook to skip steps
+    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
@@ -71,9 +80,9 @@ function mainInputSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        .slice(2, 3) //   2 "América Móvil",
+        .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
@@ -102,7 +111,7 @@ function mainInputSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges)
+        fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -228,22 +237,21 @@ function mainInspectInputSheets() {
 
     initiateGlobalConfig()
     // IMPORTANT FLAG
-    var doRepairs = false // IMPORTANT FLAG
 
     var mainSheetMode = "Input" // for filename
     filenameSuffix = ""
 
-    var controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
-    var ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
+    let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
+    let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
-    var ListSheetFixed = null
+    let ListSheetFixed = null
 
-    var Companies = companiesVector.companies
-        // .slice(1, 2) // Apple
-        .slice(22, 23)
+    let Companies = companiesVector.companies
+        // .slice(22, 26)
+        .slice(4, 5) //   4 "AT&T",
 
-    Companies.forEach(function (Company) {
-        processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+    Companies.forEach(Company => {
+        processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode)
     })
 
 }
@@ -252,41 +260,56 @@ function mainInspectInputSheets() {
 function mainRepairInputSheets() {
 
     initiateGlobalConfig()
-    // IMPORTANT FLAG
-    var doRepairs = true // IMPORTANT FLAG
 
-    var mainSheetMode = "Input" // for filename
-    filenameSuffix = ""
+    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
 
-    var controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
-    var ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
-    ListSheetBroken.clear()
-    var ListSheetFixed
+    doRepairsOnly = true // important: if sheet protected, run with data@
 
-    if (doRepairs) {
-        ListSheetFixed = insertSheetIfNotExist(controlSpreadsheet, "Input - Fixed Refs", true)
-        // ListSheetFixed.clear()
-    } else {
-        ListSheetFixed = null
-    }
+    let mainSheetMode = "Input" // for filename | TODO: move to Config
+    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = false // true := use subset
 
-    var Companies = companiesVector.companies
-        // .slice(0,3) // Subset #1
-        // .slice(3,6) // Subset #2
-        // .slice(6,9) // Subset #3
-        // .slice(0,1) // Amazon
-        // .slice(1, 2) // Apple
-        // .slice(2, 3) // Deutsche Telekom
-        // .slice(3, 4) // Facebook
-        // .slice(4,5) // Google
-        // .slice(5,6) // Microsoft
-        .slice(6, 7) // Telefonica
-    // .slice(7,8) // Twitter
-    // .slice(8,9) // Vodafone
+    let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
+    let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
+    // ListSheetBroken.clear()
+
+    const Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        processHealthSingleSpreadsheet(ListSheetBroken, ListSheetFixed, Company, filenamePrefix, filenameSuffix, mainSheetMode, doRepairs)
+
+        let fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+
+        processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+
     })
+
 
 }
 
@@ -359,12 +382,8 @@ function mainProtectCompanies() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-    Companies.forEach(function (Company) {
-        // let companyId = Company.id
-        let companyNr = companiesVector.companies.indexOf(Company)
+    Companies.forEach(Company => mainProtectSingleCompany(Company))
 
-        mainProtectSingleCompany(Company)
-    })
 }
 
 function mainUnProtectCompanies() {
@@ -381,26 +400,24 @@ function mainUnProtectCompanies() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-         .slice(10, 11) //   10 "Facebook",
-        // .slice(11, 12) //   11 "Google",
-        // .slice(12, 13) //   12 "Kakao",
-        // .slice(13, 14) //   13 "Mail.Ru",
-        // .slice(14, 15) //   14 "Microsoft",
-        // .slice(15, 16) //   15 "MTN",
-        // .slice(16, 17) //   16 "Ooredoo",
-        // .slice(17, 18) //   17 "Orange",
-        // .slice(18, 19) //   18 "Samsung",
-        // .slice(19, 20) //   19 "Telefónica",
-        // .slice(20, 21) //   20 "Telenor",
-        // .slice(21, 22) //   21 "Tencent",
-        //.slice(22, 23) //   22 "Twitter",
+        .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    //.slice(22, 23) //   22 "Twitter",
     // .slice(23, 24) //   23 "Verizon Media",
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-    Companies.forEach(function (Company) {
-        mainUnProtectSingleCompany(Company)
-    })
+    Companies.forEach(Company => mainUnProtectSingleCompany(Company))
 }
 
 function mainOpenStepCompanies() {

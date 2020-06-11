@@ -330,3 +330,4 @@ function getNamedRangeRowNotation(namedRange, SS) {
     return firstR + ":" + lastR
 
 }
+

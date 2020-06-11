@@ -108,7 +108,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -117,7 +117,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         }
       ]
@@ -153,7 +153,7 @@ var companiesVector = {
           "type": "messagingVoip",
           "label": {
             "current": "iMessage",
-            "legacy": ["iMessage"]
+            "legacy": [null]
           }
         },
         {
@@ -161,7 +161,7 @@ var companiesVector = {
           "type": "cloud",
           "label": {
             "current": "iCloud",
-            "legacy": ["iCloud"]
+            "legacy": [null]
           }
         }
       ]
@@ -190,7 +190,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -199,7 +199,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -207,7 +207,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -236,7 +236,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -245,7 +245,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -253,7 +253,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -281,7 +281,7 @@ var companiesVector = {
           "type": "search",
           "label": {
             "current": "Baidu Search",
-            "legacy": ["Baidu Search"]
+            "legacy": [null]
           }
         },
         {
@@ -289,7 +289,7 @@ var companiesVector = {
           "type": "cloud",
           "label": {
             "current": "Baidu Cloud",
-            "legacy": ["Baidu Cloud"]
+            "legacy": [null]
           }
         },
         {
@@ -297,7 +297,7 @@ var companiesVector = {
           "type": "socialNetworkBlogs",
           "label": {
             "current": "Baidu PostBar",
-            "legacy": ["Baidu PostBar"]
+            "legacy": [null]
           }
         }
       ]
@@ -326,7 +326,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -335,7 +335,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -343,7 +343,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -372,7 +372,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -381,7 +381,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -389,7 +389,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -418,7 +418,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -427,7 +427,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -435,7 +435,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -463,7 +463,7 @@ var companiesVector = {
           "type": "socialNetworkBlogs",
           "label": {
             "current": "Facebook",
-            "legacy": ["Facebook"]
+            "legacy": [null]
           }
         },
         {
@@ -471,7 +471,7 @@ var companiesVector = {
           "type": "photoVideo",
           "label": {
             "current": "Instagram",
-            "legacy": null
+            "legacy": [null]
           }
         },
         {
@@ -479,7 +479,7 @@ var companiesVector = {
           "type": "messagingVoip",
           "label": {
             "current": "WhatsApp",
-            "legacy": null
+            "legacy": [null]
           }
         },
         {
@@ -487,7 +487,7 @@ var companiesVector = {
           "type": "messagingVoip",
           "label": {
             "current": "Messenger",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -539,7 +539,7 @@ var companiesVector = {
           "type": "mobileEcosystem",
           "label": {
             "current": "Android mobile ecosystem",
-            "legacy": ["Android mobile ecosystem"]
+            "legacy": [null]
           }
         },
         {
@@ -583,7 +583,7 @@ var companiesVector = {
           "type": "email",
           "label": {
             "current": "Daum Mail",
-            "legacy": null
+            "legacy": [null]
           }
         },
         {
@@ -591,7 +591,7 @@ var companiesVector = {
           "type": "messagingVoip",
           "label": {
             "current": "KakaoTalk",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -619,7 +619,7 @@ var companiesVector = {
           "type": "socialNetworkBlogs",
           "label": {
             "current": "VKontakte",
-            "legacy": null
+            "legacy": [null]
           }
         },
         {
@@ -627,7 +627,7 @@ var companiesVector = {
           "type": "email",
           "label": {
             "current": "Mail.Ru email",
-            "legacy": null
+            "legacy": [null]
           }
         },
         {
@@ -635,7 +635,7 @@ var companiesVector = {
           "type": "messagingVoip",
           "label": {
             "current": "Mail.Ru Agent",
-            "legacy": null
+            "legacy": [null]
           }
         },
         {
@@ -643,7 +643,7 @@ var companiesVector = {
           "type": "cloud",
           "label": {
             "current": "Mail.Ru Cloud Solutions",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -724,7 +724,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -733,7 +733,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -741,7 +741,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -770,7 +770,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -779,7 +779,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -787,7 +787,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -816,7 +816,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -825,7 +825,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -833,7 +833,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -898,7 +898,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -907,7 +907,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -915,7 +915,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -944,7 +944,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -953,7 +953,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -961,7 +961,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]
@@ -1096,7 +1096,7 @@ var companiesVector = {
           "subtype": "prepaid",
           "label": {
             "current": "Prepaid mobile",
-            "legacy": ["Prepaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -1105,7 +1105,7 @@ var companiesVector = {
           "subtype": "postpaid",
           "label": {
             "current": "Postpaid mobile",
-            "legacy": ["Postpaid mobile"]
+            "legacy": [null]
           }
         },
         {
@@ -1113,7 +1113,7 @@ var companiesVector = {
           "type": "broadband",
           "label": {
             "current": "Fixed-line broadband",
-            "legacy": null
+            "legacy": [null]
           }
         }
       ]

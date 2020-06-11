@@ -3,6 +3,7 @@
 /* global
     Config,
     indexPrefix,
+    doRepairsOnly,
     defineNamedRange,
     checkIndicatorSpecs,
     checkElementSpecs,
@@ -100,7 +101,10 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
                 }
             }
 
-            Cell.setValue(cellValue)
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
+
             SS.setNamedRange(cellID, Cell)
 
             activeCol += 1
@@ -181,11 +185,15 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
-                Cell.setValue(cellValue)
+                if (!doRepairsOnly) {
+                    Cell.setValue(cellValue)
+                }
             } else {
                 if (serviceNr && !Company.hasOpCom) {
                     cellValue = "N/A"
-                    Cell.setValue(cellValue)
+                    if (!doRepairsOnly) {
+                        Cell.setValue(cellValue)
+                    }
                 }
             }
 
@@ -225,14 +233,17 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
         if (serviceNr == 1) {
             // company group
-            let thisCell = Sheet.getRange(activeRow, activeCol)
+            let Cell = Sheet.getRange(activeRow, activeCol)
 
             let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "group", stepCompID)
 
-            SS.setNamedRange(cellName, thisCell)
-            thisCell.setDataValidation(rule)
-                .setValue("not selected")
+            SS.setNamedRange(cellName, Cell)
+            Cell.setDataValidation(rule)
                 .setFontWeight("bold")
+
+            if (!doRepairsOnly) {
+                Cell.setValue("not selected")
+            }
 
             activeCol += 1
 
@@ -241,14 +252,17 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
         // opCom column
         else if (serviceNr == 2) {
 
-            let thisCell = Sheet.getRange(activeRow, activeCol)
+            let Cell = Sheet.getRange(activeRow, activeCol)
 
             let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "opCom", stepCompID)
 
-            SS.setNamedRange(cellName, thisCell)
-            thisCell.setDataValidation(rule)
-                .setValue("not selected")
+            SS.setNamedRange(cellName, Cell)
+            Cell.setDataValidation(rule)
                 .setFontWeight("bold")
+
+            if (!doRepairsOnly) {
+                Cell.setValue("not selected")
+            }
 
             activeCol += 1
 
@@ -259,14 +273,17 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
             let s = serviceNr - 3
 
-            let thisCell = Sheet.getRange(activeRow, activeCol)
+            let Cell = Sheet.getRange(activeRow, activeCol)
 
             let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, Company.services[s].id, stepCompID)
 
-            SS.setNamedRange(cellName, thisCell)
-            thisCell.setDataValidation(rule)
-                .setValue("not selected")
+            SS.setNamedRange(cellName, Cell)
+            Cell.setDataValidation(rule)
                 .setFontWeight("bold")
+
+            if (!doRepairsOnly) {
+                Cell.setValue("not selected")
+            }
 
             activeCol += 1
         }

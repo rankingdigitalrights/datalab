@@ -19,7 +19,7 @@ var centralConfig = {
   YearOnYear: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
-  subsetMaxStep: 3, // logical, inclusive
+  subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
   feedbackStep: [4, 5],
@@ -40,6 +40,7 @@ var centralConfig = {
       blue: "#4D9ECF"
     },
     dims: {
+      labelColumnWidth: 140,
       serviceColWidth: 320,
       defaultDataColWidth: 100,
     }

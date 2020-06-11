@@ -69,7 +69,7 @@ function isValueInColumn(SS, sheetName, colNr, value) {
     return isInColumn
 }
 
-function createSubstepArray(stepLabel){
+function createSubstepArray(stepLabel) {
 
     let stepArray=[]
     let Steps=researchStepsVector.researchSteps
