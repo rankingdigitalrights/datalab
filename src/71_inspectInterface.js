@@ -12,7 +12,7 @@ function inspectInputSheet(SS, ListSheet) {
     console.log("processing")
 
     namedRangesRaw = namedRangesRaw.filter(namedRange =>
-        namedRange.getRange().getA1Notation() == "#REF!")
+        namedRange.getRange().getA1Notation().match("REF"))
 
     console.log("Filtered Named Ranges: " + namedRangesRaw.length)
 
