@@ -24,7 +24,7 @@
 > Module Purpose: produces single Company Data Collection Spreadsheets (*Company Input Sheets*)
 
 + main Module Caller: `00_mainController.js::mainAllCompaniesDataCollectionSheets()`
-+ main Module Interface: `10_inputInterface.js::createSpreadsheetInput(Company)`
++ main Module Interface: `10_inputInterface.js::processInputSpreadsheet(Company)`
 
 ## Main Procedure
 

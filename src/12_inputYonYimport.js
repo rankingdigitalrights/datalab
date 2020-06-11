@@ -2,7 +2,8 @@
     Config,
     indexPrefix,
     defineNamedRange,
-    columnToLetter
+    columnToLetter,
+    doRepairsOnly
 */
 
 // Imports previous year's outcome as Substep 0
@@ -71,8 +72,8 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
         }
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            .setValue(cellValue)
             .setBackground(Substep.subStepColor)
+            .setValue(cellValue)
 
         if (!isComments) {
             Cell.setFontWeight("bold")
@@ -126,7 +127,10 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
                 cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
             }
 
-            Cell.setValue(cellValue.toString())
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
+
             SS.setNamedRange(cellID, Cell)
 
             activeCol += 1
@@ -155,8 +159,6 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
     return activeRow
 }
-
-// TODO: What to do about G Sources for mixed Subindicator Compositions?
 
 function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany, activeRow, Substep, stepCNr, companyNrOfServices, isComments) {
 
@@ -193,8 +195,11 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
     }
 
     Cell = Sheet.getRange(activeRow, activeCol)
-        .setValue(cellValue)
         .setBackground(Substep.subStepColor)
+
+    if (!doRepairsOnly) {
+        Cell.setValue(cellValue)
+    }
 
     activeCol += 1
 
@@ -247,6 +252,7 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
         }
 
         Cell.setValue(cellValue.toString())
+
         SS.setNamedRange(cellID, Cell)
 
         activeCol += 1
@@ -379,7 +385,8 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
                 }
             }
 
-            Cell.setValue(cellValue.toString()).setFontWeight("bold")
+            Cell.setFontWeight("bold")
+            Cell.setValue(cellValue)
 
             SS.setNamedRange(cellID, Cell) // names cells
 

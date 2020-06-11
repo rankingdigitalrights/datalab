@@ -17,7 +17,7 @@ produceSourceSheet,
 populateDCSheetByCategory
 */
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     Logger.log("PROCESS: begin main DC --- // ---")
 
@@ -32,7 +32,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
-    let integrateOutputs = Config.integrateOutputs
+    // let integrateOutputs = Config.integrateOutputs // old Pilot feature
     let importedOutcomeTabName = Config.prevYearOutcomeTab
     let importedSourcesTabName = "2019 Sources" // TODO: Config
 
@@ -43,12 +43,13 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    let SS = createSpreadsheet(spreadsheetName, true)
-
     // HOOK: Override for local development
-    // let SS = SpreadsheetApp.openById("1YbbOuxJ-pAWoUhLIo7SxarJb4uyPB7zg7iVKEj_AB7c")
+
+    let SS = !doRepairsOnly ? createSpreadsheet(spreadsheetName, true) :
+        SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     let fileID = SS.getId()
+
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
@@ -92,7 +93,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // --- // creates sources page // --- //
 
     Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-    if (Sheet !== null) {
+    if (Sheet !== null && !doRepairsOnly && !addNewStep) {
         produceSourceSheet(Sheet, true)
     }
 
