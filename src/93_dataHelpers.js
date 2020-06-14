@@ -1,6 +1,64 @@
 /* global
-    IndicatorsObj
+    indicatorsVector
 */
+
+// filters IndicatorsObj by a regex String "G1|F9c|P11a"
+// returns intact IndicatorsObj
+// Important: If String is ambiguous (i.e. P1 vs P11)
+// use startsWith (^) / EndsWith ($) Regex, i.e. "^P1$"
+
+function subsetIndicatorsObject(IndicatorsObj, regexString) {
+
+    // filter out categories in question
+    let results = indicatorsVector.indicatorCategories.filter(category => {
+        return category.indicators.some(indicator => indicator.labelShort.match(targets))
+    })
+
+
+    // make deep nested copy of greedy results Object
+    // crazy: https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
+    let newCopy = JSON.parse(JSON.stringify(results))
+
+    let findings = []
+
+    // prepare final results Object with empty indicators[]
+    results.map((category, index) => {
+        newCopy[index].indicators = Array.from([])
+        findings.push(newCopy[index])
+    })
+
+    // category-wise, push only target indicators
+    results.map((category, index) => {
+        let catIndex = index
+        let found = category.indicators.filter(indicator => {
+            return indicator.labelShort.match(targets)
+        })
+        // found.forEach(indicator => findings[catIndex].indicators.push(indicator))
+        // more elegant:
+        findings[catIndex].indicators = found
+
+    })
+
+    // verbose feedback
+    console.log(" ------ SUCCESS ------")
+    console.log(" ------ Returned Indicators Subset:")
+    console.log(findings)
+
+    findings.forEach(category => {
+        console.log(" ------ RESULTS: ------ ")
+        console.log("Category: " + category.labelLong)
+        console.log("Found Indicators: ")
+        console.log(category.indicators)
+    })
+}
+
+function testSubsetOfIndicators() {
+    let targets = "^G1$|P11a"
+
+    subsetIndicatorsObject(indicatorsVector, targets)
+}
+
+// returns first Scoring Step based on Config
 
 function determineFirstStep(outputParams) {
     var firstScoringStep
