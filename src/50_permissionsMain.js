@@ -40,9 +40,7 @@ function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
 
     // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
-    // let stepIDs = ["S030", "S031", "S035"]
     let stepIDs = steps
-    // let stepIDs = ["S010", "S011", "S015"]
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
     let Company = company
@@ -62,8 +60,8 @@ function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     let SheetEditors = [] // TODO: remove
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
-    let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
@@ -90,8 +88,8 @@ function mainProtectSingleCompany(company) {
     Logger.log("Editors: "+Editors)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
-    let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
@@ -111,8 +109,8 @@ function mainUnProtectSingleCompany(company) {
     Logger.log("CompanyObj :" + companyID)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
-    let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     // close step
     removeAllProtections(SS)

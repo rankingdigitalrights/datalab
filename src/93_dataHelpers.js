@@ -54,6 +54,48 @@ function filterSingleIndicator(Indicators, indLabel) {
 
 }
 
+function filterIndicatorList(Indicators, indLabels) {
+
+    let category, indicator, indCategory
+    let resultVector = {}
+    let categories=[]
+
+    for(let cat=0; cat<Indicators.indicatorCategories;cat++){
+        indCategory=Indicators.indicatorCategories[cat]
+        indCategory.indicators=[]
+        categories.push(indCategory)
+    }
+   
+    for(let label=0; label<indLabels.length;label++){
+        category = Indicators.indicatorCategories.filter(Category =>
+            Category.indicators.some(indicator =>
+                indicator.labelShort === indLabels[label])
+        )
+    
+        indicator = category.map(Category =>
+                Category.indicators.filter(indicator =>
+                    indicator.labelShort === indLabels[label])
+            )
+            .flat()
+
+            for(let cate=0; cate<Indicators.indicatorCategories;cate++){
+                if(category.labelShort==categories[cate].labelShort){
+                    categories[cate].indicators.push(Indicators.indicatorCategories[cate])
+                }
+                
+            }
+
+    }
+
+    resultVector={"indicatorCategories": categories}
+
+    return resultVector
+
+}
+
+
+
+
 function isValueInColumn(SS, sheetName, colNr, value) {
     let Range, Sheet, lastRow
     let isInColumn = false
