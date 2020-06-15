@@ -11,7 +11,7 @@ function subsetIndicatorsObject(IndicatorsObj, regexString) {
 
     // filter out categories in question
     let results = indicatorsVector.indicatorCategories.filter(category => {
-        return category.indicators.some(indicator => indicator.labelShort.match(targets))
+        return category.indicators.some(indicator => indicator.labelShort.match(regexString))
     })
 
 
@@ -19,43 +19,48 @@ function subsetIndicatorsObject(IndicatorsObj, regexString) {
     // crazy: https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
     let newCopy = JSON.parse(JSON.stringify(results))
 
-    let findings = []
+    let findings = {
+        "indicatorCategories": []
+    }
 
     // prepare final results Object with empty indicators[]
     results.map((category, index) => {
         newCopy[index].indicators = Array.from([])
-        findings.push(newCopy[index])
+        findings.indicatorCategories.push(newCopy[index])
     })
 
     // category-wise, push only target indicators
     results.map((category, index) => {
         let catIndex = index
         let found = category.indicators.filter(indicator => {
-            return indicator.labelShort.match(targets)
+            return indicator.labelShort.match(regexString)
         })
         // found.forEach(indicator => findings[catIndex].indicators.push(indicator))
         // more elegant:
-        findings[catIndex].indicators = found
+        findings.indicatorCategories[catIndex].indicators = found
 
     })
 
     // verbose feedback
-    console.log(" ------ SUCCESS ------")
+    console.log(" ------ FILTER SUCCESS ------")
     console.log(" ------ Returned Indicators Subset:")
     console.log(findings)
 
-    findings.forEach(category => {
-        console.log(" ------ RESULTS: ------ ")
-        console.log("Category: " + category.labelLong)
-        console.log("Found Indicators: ")
-        console.log(category.indicators)
-    })
+    // findings.indicatorCategories.forEach(category => {
+    //     console.log(" ------ RESULTS: ------ ")
+    //     console.log("Category: " + category.labelLong)
+    //     console.log("Found Indicators: ")
+    //     console.log(category.indicators)
+    // })
+
+    return findings
 }
 
 function testSubsetOfIndicators() {
     let targets = "^G1$|P11a"
 
-    subsetIndicatorsObject(indicatorsVector, targets)
+    let findings = subsetIndicatorsObject(indicatorsVector, targets)
+    console.log(findings)
 }
 
 // returns first Scoring Step based on Config

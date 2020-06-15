@@ -4,7 +4,7 @@ var researchStepsVector = {
       stepID: "S00",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
-      doCollapse: true,
+      doCollapse: false,
       substeps: [{
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
@@ -38,7 +38,7 @@ var researchStepsVector = {
       stepID: "S01",
       rowLabel: "Data Collection and Evaluation",
       stepColor: "#ddd9c3",
-      doCollapse: true,
+      doCollapse: false,
       substeps: [{
           labelShort: "Step 1.0",
           subStepID: "S010",
@@ -177,7 +177,7 @@ var researchStepsVector = {
       stepID: "S02",
       rowLabel: "Fact Check/Review of Step 1",
       stepColor: "#c6d9f0",
-      doCollapse: true,
+      doCollapse: false,
       substeps: [{
         labelShort: "Step 2.0",
         subStepID: "S020",
