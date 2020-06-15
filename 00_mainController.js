@@ -52,8 +52,9 @@ function initiateGlobalConfig() {
     // IndicatorsObj = filterSingleIndicator(indicatorsVector, "F3c")
 
     // IMPORTANT: lazy Regex := G4 will match G4a, G4b, G4c et al.
+    // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G4|^G6a$|P11a")
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "F5a|F8|P5")
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -273,21 +274,21 @@ function mainRepairInputSheets() {
 
     let mainSheetMode = "Input" // for filename | TODO: move to Config
     let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
-    let useIndicatorSubset = false // true := use subset
+    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
 
     let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
 
     const Companies = companiesVector.companies
-    // .slice(0, 0) // on purpose to prevent script from running.
-    // .slice(0, 1) //   0 "Alibaba",
-    // .slice(1, 2) //   1 "Amazon",
-    // .slice(2, 3) //   2 "América Móvil",
-    // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        // .slice(3, 4) //   3 "Apple",
+        // .slice(4, 5) //   4 "AT&T",
+        // .slice(5, 6) //   5 "Axiata",
+        .slice(6, 7) //   6 "Baidu",
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",
