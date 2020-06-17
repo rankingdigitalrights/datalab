@@ -212,6 +212,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     editors = SS.getEditors()
     for (var editor = 0; editor < editors.length; editor++) {
         SS.removeEditor(editors[editor])
+        SS.addViewer(editors[editor])
     }
     SS.addEditors(StepEditors)
 
