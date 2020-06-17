@@ -32,7 +32,7 @@ function updateSingle() {
 }
 
 // TODO: adapt to updated mainCaller logic / editors-as-parameters
-function mainProtectFileOpenStepSingleCompany(company, steps, editor) {
+function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     // can easily call all the other permissions functions from this function
 
     // TODO: move Indicator Logic into Main Caller
@@ -40,9 +40,7 @@ function mainProtectFileOpenStepSingleCompany(company, steps, editor) {
     // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
 
     // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
-    // let stepIDs = ["S030", "S031", "S035"]
     let stepIDs = steps
-    // let stepIDs = ["S010", "S011", "S015"]
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
     let Company = company
@@ -62,8 +60,8 @@ function mainProtectFileOpenStepSingleCompany(company, steps, editor) {
     let SheetEditors = [] // TODO: remove
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
-    let SS = SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
@@ -87,11 +85,11 @@ function mainProtectSingleCompany(company) {
 
     // create an array with default as well as company-specific editors
     let Editors = centralConfig.defaultEditors
-    Logger.log("Editors: " + Editors)
+    Logger.log("Editors: "+Editors)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
-    let SS = SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
@@ -111,8 +109,8 @@ function mainUnProtectSingleCompany(company) {
     Logger.log("CompanyObj :" + companyID)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    //let SS = SpreadsheetApp.openById(fileID) <---------------- undo when we want to edit actual sheets
-    let SS = SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     // close step
     removeAllProtections(SS)
@@ -125,6 +123,7 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 
     DriveApp.getFileById(fileID).setShareableByEditors(false)
 
+    removeAllProtections(SS)
     protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
@@ -167,19 +166,15 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
                 Sheet = SS.getSheetByName(Indicator.labelShort)
 
-                // PSEUDO Code
+                // looking for the protection of the entire Sheet with the indicator name
+                // assumes there are no two Sheet protections with same name
+                sheetProtection = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)[0] // gets the Sheet protection assuming there's only 1
+                Logger.log(sheetProtection.getDescription())
 
-                stepIDs.forEach(substeps => {
-
-                    // looking for the protection of the entire Sheet with the indicator name
-                    // assumes there are no two Sheet protections with same name
-                    sheetProtection = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)[0] // gets the Sheet protection assuming there's only 1
-                    Logger.log(sheetProtection.getDescription())
-
-                    unprotectedRanges = sheetProtection.getUnprotectedRanges()
-
+                unprotectedRanges = sheetProtection.getUnprotectedRanges()
+                stepIDs.forEach(function (step) {
                     // add the name range here as well
-                    subLabel = substeps[0].substring(0, 3)
+                    subLabel = step[0].substring(0, 3)
                     rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
 
                     range = SS.getRange(rangeName)
@@ -189,11 +184,11 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                     unprotectedRanges.push(range)
 
                     // looping through all the steps you want to open
-                    for (let stepID = 0; stepID < substeps.length; stepID++) {
+                    for (let substep = 0; substep < step.length; substep++) {
 
                         // now need to build the namedRange you want, get A1 notation, then unprotect it
                         // need to make RDR20 and DC variables
-                        rangeName = defineNamedRange(currentPrefix, "DC", substeps[stepID], Indicator.labelShort, "", companyID, "", "Step")
+                        rangeName = defineNamedRange(currentPrefix, "DC", step[substep], Indicator.labelShort, "", companyID, "", "Step")
                         range = SS.getRange(rangeName)
                         unprotectedRanges.push(range)
 
@@ -217,6 +212,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     editors = SS.getEditors()
     for (var editor = 0; editor < editors.length; editor++) {
         SS.removeEditor(editors[editor])
+        SS.addViewer(editors[editor])
     }
     SS.addEditors(StepEditors)
 
