@@ -28,6 +28,7 @@ var isProduction = false
 var Config
 var doRepairsOnly
 var updateProduction = false
+var includeFeedback = true
 var addNewStep = false
 var skipMainSteps // Global Config
 var startAtMainStepNr = 0 // Global Config
@@ -49,12 +50,13 @@ function initiateGlobalConfig() {
     doRepairsOnly = false
     // skipMainSteps = false // TBD: not operation right now
 
-    IndicatorsObj = indicatorsVector
+    // IndicatorsObj = indicatorsVector
 
     // IMPORTANT: lazy Regex := G4 will match G4a, G4b, G4c et al.
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G2") // F5a|P1$
+
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -85,8 +87,8 @@ function mainInputSheets() {
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -337,14 +339,14 @@ function mainAddNewInputStep() {
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",

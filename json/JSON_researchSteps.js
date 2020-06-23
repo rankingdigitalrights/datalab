@@ -155,6 +155,7 @@ var researchStepsVector = {
             },
             {
               "type": "comments",
+              id: "C",
               "rowLabel": "Comment ",
               "label2": " ",
               "nameLabel": "Comments"
@@ -304,6 +305,7 @@ var researchStepsVector = {
           },
           {
             "type": "comments",
+            id: "C",
             "rowLabel": "Comment ",
             "label2": " ",
             "nameLabel": "Comments"
@@ -492,6 +494,7 @@ var researchStepsVector = {
             },
             {
               "type": "comments",
+              id: "C",
               "rowLabel": "Comment ",
               "label2": " ",
               "nameLabel": "Comments"
@@ -515,8 +518,7 @@ var researchStepsVector = {
       stepColor: "#d9d2e9",
       doCollapse: false,
       substeps: [{
-          rowLabel: "Step 4: Company Notes",
-          labelShort: "Step 4",
+          labelShort: "Step 4.1",
           subStepID: "S04",
           subStepColor: "#d9d2e9",
           doCollapse: true,
@@ -525,9 +527,9 @@ var researchStepsVector = {
               rowLabel: "Are the Results the same this year?",
             },
             {
-              type: "binaryEvaluation",
+              type: "binaryFeedbackCheck",
               id: "MB",
-              rowLabel: "Does company feedback merit a change??",
+              rowLabel: "Did the Company provide Feedback for this Indicator?",
               dropdown: [
                 "not selected",
                 "yes",
