@@ -4,7 +4,9 @@
 global
     Styles,
     defineNamedRange,
-    indexPrefix
+    indexPrefix,
+    specialRangeName,
+    doRepairsOnly
 */
 
 function addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance) {
@@ -152,7 +154,9 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
 
     let block = Sheet.getRange(2, 1, lastRow - 1, numberOfColumns)
 
-    block.shiftRowGroupDepth(1)
+    if (!doRepairsOnly) {
+        block.shiftRowGroupDepth(1)
+    }
 
     if (collapseRGuidance) {
         block.collapseGroups()
@@ -329,6 +333,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep
 
     // sets up labels in the first column
     let Cell = Sheet.getRange(activeRow, 1)
+
     Cell.setValue("Researcher")
         .setBackground(MainStep.stepColor)
         .setFontStyle("italic")
@@ -344,9 +349,12 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep
     let thisLastCol = ((companyNrOfServices + 2))
     // for remaining company, opCom, and services columns it adds the placeholderText
     Cell = Sheet.getRange(activeRow, thisFirstCol, 1, thisLastCol)
-        .setValue(thisFiller)
         .setFontStyle("italic")
         .setHorizontalAlignment("center")
+
+    if (!doRepairsOnly) {
+        Cell.setValue(thisFiller)
+    }
 
     let cellName
     let component = ""

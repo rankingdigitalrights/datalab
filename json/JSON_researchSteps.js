@@ -4,7 +4,7 @@ var researchStepsVector = {
       stepID: "S00",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
-      doCollapse: true,
+      doCollapse: false,
       substeps: [{
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
@@ -38,7 +38,7 @@ var researchStepsVector = {
       stepID: "S01",
       rowLabel: "Data Collection and Evaluation",
       stepColor: "#ddd9c3",
-      doCollapse: true,
+      doCollapse: false,
       substeps: [{
           labelShort: "Step 1.0",
           subStepID: "S010",
@@ -177,7 +177,7 @@ var researchStepsVector = {
       stepID: "S02",
       rowLabel: "Fact Check/Review of Step 1",
       stepColor: "#c6d9f0",
-      doCollapse: true,
+      doCollapse: false,
       substeps: [{
         labelShort: "Step 2.0",
         subStepID: "S020",
@@ -364,6 +364,7 @@ var researchStepsVector = {
               prevStep: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
+              showOnlyRelevant: true,
               dropdown: [
                 "not selected",
                 "yes",
@@ -385,7 +386,56 @@ var researchStepsVector = {
               variableName: "comment",
               prevStep: "S021",
               evaluationStep: "S030",
-              comparisonType: "C",
+              comparisonType: "R",
+              clipWrap: true
+            },
+            {
+              type: "sources",
+              id: "S",
+              rowLabel: "Sources",
+              variableName: "sources",
+              prevStep: "S021",
+              evaluationStep: "S030",
+              comparisonType: "S",
+            }
+          ]
+        },
+        {
+          labelShort: "Step 3.2",
+          subStepID: "S032",
+          resultStepID: "S030",
+          "subStepColor": "#d9ead3",
+          "components": [{
+              type: "subStepHeader",
+              rowLabel: "Consolidated Results"
+            },
+            {
+              type: "reviewResults",
+              id: "R",
+              scoringId: "SE",
+              rowLabel: "Result ",
+              variableName: "result",
+              prevStep: "S021",
+              evaluationStep: "S030",
+              comparisonType: "R",
+              dropdown: [
+                "not selected",
+                "yes",
+                "partial",
+                "no",
+                "no disclosure found",
+                "N/A"
+              ]
+            },
+            {
+              type: "reviewComments",
+              id: "C",
+              rowLabel: "Comment ",
+              label2: " (explain score)",
+              variableName: "comment",
+              prevStep: "S021",
+              evaluationStep: "S030",
+              comparisonType: "R",
               clipWrap: true
             },
             {

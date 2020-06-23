@@ -2,6 +2,9 @@
 
 /* global 
 Config,
+startAtMainStepNr,
+doRepairsOnly,
+updateProduction,
 IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
@@ -17,7 +20,7 @@ produceSourceSheet,
 populateDCSheetByCategory
 */
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
+function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     Logger.log("PROCESS: begin main DC --- // ---")
 
@@ -32,20 +35,28 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
-    let integrateOutputs = Config.integrateOutputs
+    // let integrateOutputs = Config.integrateOutputs // old Pilot feature
     let importedOutcomeTabName = Config.prevYearOutcomeTab
     let importedSourcesTabName = "2019 Sources" // TODO: Config
 
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
+    // IMPORTANT: if startAtMainStepNr > 0 the make sure then maxStep is at least equal
+    if (startAtMainStepNr > Config.subsetMaxStep) {
+        Config.subsetMaxStep = startAtMainStepNr
+    }
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    let SS = createSpreadsheet(spreadsheetName, true)
+    // HOOK: Override for local development
+
+    let SS = !doRepairsOnly && !updateProduction ? createSpreadsheet(spreadsheetName, true) :
+        SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     let fileID = SS.getId()
+
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
@@ -61,7 +72,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let Sheet
 
     // if set in Config, import previous Index Outcome & Sources
-    if (Config.YearOnYear) {
+    if (Config.YearOnYear && !doRepairsOnly && !addNewStep) {
 
         // Previous OUTCOME
         externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
@@ -89,11 +100,9 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // --- // creates sources page // --- //
 
     Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-    if (Sheet !== null) {
+    if (Sheet !== null && !doRepairsOnly && !addNewStep) {
         produceSourceSheet(Sheet, true)
     }
-
-    // if scoring sheet is integrated into DC, create Points sheet
 
     let hasOpCom = Company.hasOpCom
     let isNewCompany = (Company.isPrevScored) ? false : true

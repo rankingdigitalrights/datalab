@@ -77,6 +77,8 @@ After modules had been introduced and eventually refactored, most modules and me
 + [01 - Architecture](application/01-architecture.md)
 + [02 - Local Setup](application/02-setup.md)
 + [03 - Developer Guidance & Conventions](application/03-guidance-conventions.md)
++ [04 - Maintenance & Repairs](application/04-maintenance.md)
+
 + ...
 
 ### Modules Documentation
@@ -89,6 +91,8 @@ After modules had been introduced and eventually refactored, most modules and me
 + [40 - TBD - Company Feedback](#)
 + [50 - TBD - Permissions](#)
 + [60 - TBD - Data Store](application/60-data-store-main.md)
++ [70 - Input Health](application/70-input-health.md)
++ [9x - TBD - Helper Modules Overview](application/90-helper-function.md)
 
 **Helper Modules**
 
