@@ -107,8 +107,8 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
 
     // -- // For Company Feedback Steps // --- //
     if (includeFeedback) {
-        let doOverwrite = true // flag for overwriting or not
-        insertCompanyFeedbackSheet(SS, "Company Feedback", Company, Indicators, doOverwrite)
+        let doOverwrite = false // flag for overwriting or not
+        insertCompanyFeedbackSheet(SS, Config.compFeedbackSheetName, Company, Indicators, doOverwrite)
     }
 
     let hasOpCom = Company.hasOpCom

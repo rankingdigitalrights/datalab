@@ -24,6 +24,9 @@
     addTwoStepComparison,
     importYonYResults,
     importYonYSources,
+    addBinaryFBCheck,
+    addImportFBText,
+addResearcherFBNotes,
     defineNamedRange,
     cropEmptyColumns
 */
@@ -148,9 +151,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             if (mainStepNr > 0) {
 
                 // HOOK for data range and conditional formatting
-                if (dataStartRow === 0 && mainStepNr > 0) dataStartRow = activeRow
+                if (dataStartRow === 0 && mainStepNr > 0) {
+                    dataStartRow = activeRow
+                }
 
-                activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+                if (!MainStep.omitResearcher) {
+                    activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+                } else {
+                    activeRow += 1
+                }
             }
 
             let endStep = activeRow
@@ -173,13 +182,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 // Begin step component procedure
                 for (let stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
 
-                    let thisStepComponent = SubStep.components[stepCNr].type
+                    let substepCompType = SubStep.components[stepCNr].type
 
-                    Logger.log("----- component : " + SubStep.labelShort + " : " + thisStepComponent)
+                    Logger.log("----- component : " + SubStep.labelShort + " : " + substepCompType)
 
                     // create the type of substep component that is specified in the json
 
-                    switch (thisStepComponent) {
+                    switch (substepCompType) {
 
                         case "stepResearcherRow":
                             //TODO: remove from JSON
@@ -242,6 +251,18 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
                         case "extraQuestion":
                             activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, Company, companyNrOfServices)
+                            break
+
+                        case "binaryFeedbackCheck":
+                            activeRow = addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, companyNrOfServices)
+                            break
+
+                        case "importFeedbackText":
+                            activeRow = addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, companyNrOfServices)
+                            break
+
+                        case "researcherFBNotes":
+                            activeRow = addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, SubStep.components[stepCNr].id, companyNrOfServices)
                             break
 
                         default:

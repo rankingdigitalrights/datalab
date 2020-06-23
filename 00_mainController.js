@@ -80,7 +80,7 @@ function mainInputSheets() {
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename | TODO: move to Config
-    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
+    let useStepsSubset = false // true := use subset; maxStep defined in Config.JSON
     let useIndicatorSubset = globalIndicatorsSubset // true := use subset
 
     const Companies = companiesVector.companies
@@ -322,7 +322,7 @@ function mainAddNewInputStep() {
 
     initiateGlobalConfig()
 
-    updateProduction = true // IMPORTANT flag; ensures that Company DC Sheet is grabbed by sheetID
+    updateProduction = false // IMPORTANT flag; ensures that Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Caution: doesn't care if step already exists
     // also: Hook to skip steps
@@ -338,8 +338,8 @@ function mainAddNewInputStep() {
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",

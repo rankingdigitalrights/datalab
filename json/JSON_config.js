@@ -23,7 +23,7 @@ var centralConfig = {
   scoringSteps: [3, 6],
   collapseAllGroups: false,
   feedbackStep: [4, 5],
-  compFeedbackSheetName: "2020 Feedback",
+  compFeedbackSheetName: "Company Feedback",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   prevYearSourcesTab: "2019 Sources",
