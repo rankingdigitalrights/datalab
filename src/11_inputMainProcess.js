@@ -268,7 +268,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
                 // GROUPING for substep
-                if (subStepsLength > 1 & !doRepairsOnly) {
+                if (subStepsLength > 1 && !doRepairsOnly) {
 
                     range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
                     let substepRange = range.shiftRowGroupDepth(1)
