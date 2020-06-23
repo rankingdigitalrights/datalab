@@ -2,7 +2,10 @@
 
 /* global 
 Config,
-indicatorsVector,
+startAtMainStepNr,
+doRepairsOnly,
+updateProduction,
+IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
 createSpreadsheet,
@@ -17,7 +20,7 @@ produceSourceSheet,
 populateDCSheetByCategory
 */
 
-function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, doClearNamedRanges) {
+function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
 
     Logger.log("PROCESS: begin main DC --- // ---")
 
@@ -29,23 +32,31 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // Refactored to fetching from Google Drive
 
     // let Company = Company // TODO this a JSON Obj now; adapt in scope
-    let Indicators = indicatorsVector
+    let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
-    let integrateOutputs = Config.integrateOutputs
+    // let integrateOutputs = Config.integrateOutputs // old Pilot feature
     let importedOutcomeTabName = Config.prevYearOutcomeTab
     let importedSourcesTabName = "2019 Sources" // TODO: Config
 
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
+    // IMPORTANT: if startAtMainStepNr > 0 the make sure then maxStep is at least equal
+    if (startAtMainStepNr > Config.subsetMaxStep) {
+        Config.subsetMaxStep = startAtMainStepNr
+    }
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
-    let SS = createSpreadsheet(spreadsheetName, true)
+    // HOOK: Override for local development
+
+    let SS = !doRepairsOnly && !updateProduction ? createSpreadsheet(spreadsheetName, true) :
+        SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     let fileID = SS.getId()
+
     Logger.log("SS ID: " + fileID)
     // --- // add previous year's outcome sheet // --- //
 
@@ -61,7 +72,7 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     let Sheet
 
     // if set in Config, import previous Index Outcome & Sources
-    if (Config.YearOnYear) {
+    if (Config.YearOnYear && !doRepairsOnly && !addNewStep) {
 
         // Previous OUTCOME
         externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
@@ -89,11 +100,9 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     // --- // creates sources page // --- //
 
     Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-    if (Sheet !== null) {
+    if (Sheet !== null && !doRepairsOnly && !addNewStep) {
         produceSourceSheet(Sheet, true)
     }
-
-    // if scoring sheet is integrated into DC, create Points sheet
 
     let hasOpCom = Company.hasOpCom
     let isNewCompany = (Company.isPrevScored) ? false : true
@@ -117,50 +126,6 @@ function createSpreadsheetInput(useStepsSubset, useIndicatorSubset, Company, fil
     }
 
     Logger.log("PROCESS: end DC main")
-
-    // --- // additional integrated Outputs // --- //
-    // --- // Pilot Feature, so probably irrelevant // --- //
-    // TODO: remove //
-
-    if (integrateOutputs) {
-        Logger.log("Adding Extra Sheets (Scoring / Feedback / Notes")
-
-        // fetch params
-        let isPilotMode = Config.integrateOutputsArray.isPilotMode
-        let includeNotes = Config.integrateOutputsArray.includeNotes
-        let includeScoring = Config.integrateOutputsArray.includeScoring
-        let hasFullScores = Config.integrateOutputsArray.isFullScoring
-
-        let sheetModeID = "SC"
-
-        let outputParams
-
-        if (includeScoring) {
-
-            Logger.log("Extra Sheet --- Scores --- adding")
-
-            // Scoring Scheme / Validation
-            let pointsSheet = insertPointValidationSheet(SS, "Points")
-
-            outputParams = Config.integrateOutputsArray.scoringParams
-            isPilotMode = false
-            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
-
-            Logger.log("Extra Sheet --- Scores --- added")
-
-            moveHideSheetifExists(SS, pointsSheet, 1)
-
-        }
-
-        if (includeNotes) {
-            Logger.log("Extra Sheet --- Researcher Feedback --- adding")
-            outputParams = Config.integrateOutputsArray.researchNotesParams
-
-            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
-
-            Logger.log("Extra Sheet --- Researcher Feedback --- added")
-        }
-    }
 
     // clean up //
     // if empty Sheet exists, delete

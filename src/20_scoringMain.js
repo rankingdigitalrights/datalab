@@ -8,7 +8,7 @@ function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany
     // Refactored to fetching from Google Drive
 
     var CompanyObj = thisCompany // TODO this a JSON Obj now; adapt in scope
-    var IndicatorsObj = indicatorsVector
+    var Indicators = IndicatorsObj
     var ResearchStepsObj = researchStepsVector
 
     var sheetModeID = "SC"
@@ -39,7 +39,7 @@ function createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, thisCompany
     var isPilotMode = false
     var outputParams = Config.integrateOutputsArray.scoringParams
 
-    addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+    addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
     moveHideSheetifExists(SS, pointsSheet, 1)
 

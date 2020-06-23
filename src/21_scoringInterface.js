@@ -1,7 +1,7 @@
 // Interface for creating a single set of scoring content
 // Single set := either Outcome OR Comments OR Company Feedback
 
-function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
+function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
 
     Logger.log("--- Begin addSetOfScoringSteps")
     var sheetName = outputParams.sheetName
@@ -16,8 +16,8 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
 
     // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
     var globalNrOfComponents = 1
-    if (IndicatorsObj.indicatorCategories[0].components) {
-        globalNrOfComponents = IndicatorsObj.indicatorCategories[0].components.length
+    if (Indicators.indicatorCategories[0].components) {
+        globalNrOfComponents = Indicators.indicatorCategories[0].components.length
     }
 
     var numberOfColumns = (CompanyObj.numberOfServices + 2) * globalNrOfComponents + 1
@@ -49,7 +49,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchSt
 
         // setting up all the substeps for all the indicators
 
-        lastCol = scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, IndicatorsObj, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
+        lastCol = scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
 
         blocks++
 

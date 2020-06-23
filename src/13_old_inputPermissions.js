@@ -21,7 +21,7 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetModeID, filen
     clearAllProtections(filename)
 
     var CompanyObj = importJsonCompany(companyShortName)
-    var IndicatorsObj = importJsonIndicator(useIndicatorSubset)
+    var Indicators = importJsonIndicator(useIndicatorSubset)
     var ResearchStepsObj = importResearchSteps(useStepsSubset)
 
     var companyId = CompanyObj.id
@@ -37,9 +37,9 @@ function mainPermissionsCaller(indexPrefix, companyShortName, sheetModeID, filen
 
     var indicatorArray = []
 
-    for (thisClass in IndicatorsObj.indicatorCategories) {
-        for (indicator in IndicatorsObj.indicatorCategories[thisClass].indicators) {
-            var thisIndicator = IndicatorsObj.indicatorCategories[thisClass].indicators[indicator].labelShort
+    for (thisClass in Indicators.indicatorCategories) {
+        for (indicator in Indicators.indicatorCategories[thisClass].indicators) {
+            var thisIndicator = Indicators.indicatorCategories[thisClass].indicators[indicator].labelShort
             indicatorArray.push(thisIndicator)
         }
     }

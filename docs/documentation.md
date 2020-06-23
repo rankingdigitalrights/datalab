@@ -38,70 +38,14 @@ To provide contributors with a cognitive model of this project, it is helpful to
 + the **development** environment
   + **collaboration & version control**: source code shared on `git`, edited locally with an IDE
   + `clasp` for **deploying** to Google Apps Script,
-+ the parameters & configuration: `JSON` files for Indicators, Companies, Research Steps, and global Index settings
++ the **parameters & configuration**: `JSON` files for Indicators, Companies, Research Steps, and global Index settings
 + the **execution** / **runtime** environment (Google Apps Script online editor),
 + the **output** environment (Google Drive), and
 + the **UI/frontend** (*currently* Google Spreadsheets).
 
 ---
 
-## Architecture
-
-### Basics
-
-([top ↥](#documentation))
-
-The core idea is that,
-
-a) based on a set of `parameter vectors` (indicators, research steps, companies, Index config) provided as JSON files or JSON Objects (`JSON_companies.js`)
-
-b) for each `company` you
-
-+ first create the `data collection spreadsheet` with `mainAllCompaniesDataCollectionSheets()`, which will be located in `rootFolderID/outputFolderName` of `@rdresearch`'s Drive.
-
-  > The `fileID` of this new spreadsheet should then be added to `urlCurrentDataCollectionSheet` in the respective `JSON_companies.[<company>]` Child.
-
-+ currently defunct: ~~to set step-wise editing `permissions` for the data collection sheet, run `mainPermissions()`~~
-
-+ then create the `company scoring sheet` with `mainCreateScoringSheet()`.
-
-  > ~~In the near future~~ Currently, all outputs are tracked in a `00_XYZ_Dashboard` Spreadsheet.
-
-Eventually, all control should be moved to a `Master Dashboard` Spreadsheet.
-
----
-
-### Conventions
-
-([top ↥](#documentation))
-
-#### Code Conventions
-
-+ we now have ES6 / v8 Javascript Engine (cf. [v8 runtime](https://www.labnol.org/es6-google-apps-script-v8-200206); [Google's overview](https://developers.google.com/apps-script/guides/v8-runtime); [good ES6 Intro](https://medium.com/better-programming/modern-javascript-techniques-cf2084236af4) )
-  + use `let` and `const` where possible
-  + try to avoid `var` unless you really want global scope
-+ use ternary operator `condition ? true : false` for simple `if-else` blocks
-+ ...
-
-#### Naming Conventions
-
-+ primitives / simpleVariables start with lower-case letters
-+ `Objects` start with `C`apital letters
-+ Booleans are prefixed with a verb: `isBoolean`; `hasChildren`; etc.
-+ functions() are explicit regarding action and scope: ~~createSingleSheet()~~ addStep() + protectAllSteps()
-+ **important**: in compliance with Google Apps Script API syntax (Classes and methods), a Spreadsheet is a `Spreadsheet`, and a Tab / Sheet is a `Sheet`. This should be considered when naming variables and functions. It is encouraged to use `SS` as an abbreviation for a Spreadsheet Object, and `Sheet` for a single Sheet Object, ..., `Range`, `Cell`, and so on
-+ ...
-
-#### Working with Spreadsheets
-
-+ as soon as input spreadsheets have been produced, grab their IDs from `00-Dashboard` and add them as `currentInputSheetUrl` to the `json/JSON_companies.js`
-+ from here on, **all other modules** should work with the `ID` and not the file name to increase reliability
-  + if `ID` has not been implemented in other modules yet, please do so
-  + if you develop new modules, add getSpreadsheet ``
-
----
-
-### Main Modules
+## Application Overview
 
 ([top ↥](#documentation))
 
@@ -117,135 +61,57 @@ With the exception of the Input Spreadsheets Module, all core modules have been 
 + a module interface (`x1`)
 + lower-level helper submodules (`x2 - xN` )
 
-... in order to improve Code readability and enable affordable maintenance.
+... in order to a single execution interface, to improve Code readability and re-use, and to enable affordable maintenance.
 
-After modules had been introduced and eventually refactored, most modules and methods operate on the same centrally defined set of parameters (the JSON files) and the same set of helper functions (i.e. defining named Ranges). Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` in `JSON_researchSteps.js` while working on `10_inputInterface.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**)  as it might (or rather **will**) break e.g. `21_scoringInterface.js`.
-
----
-
-**Modules**:
-
-#### `00_`Main Controller
-
-([top ↥](#documentation))
-
-> `00_mainController` is the central Point of Entry to any activity.
-
-Here you define only a few global variables such as the `Index prefix`, and the target output folder, or whether to use subsets, and then run the respective modules for creating sets of data collection (DC) spreadsheets or sets of company-level scoring (SC) spreadsheets from here.
-
-Each main method call picks up the global parameters for using subsets of indicators or research steps. ~~Right now, these subsets are hardcoded in JSON files which are then assigned in `99_importJSON`.~~
-
-To subset companies, currently you have to stick to `companies.slice(indexOfFirstCompany,indexOfWhereToStop)` in the respective caller.
+After modules had been introduced and eventually refactored, most modules and methods operate on the same centrally defined set of parameters (the JSON files) and the same set of helper functions (i.e. defining named Ranges). Therefore, if you make changes to e.g. `researchSteps.step.component.labelShort` in `JSON_researchSteps.js` while working on `10_inputInterface.js`, you need to apply this structural change to all modules concerned (**incl. Helpers**) as it might impact e.g. `21_scoringInterface.js`.
 
 ---
 
-#### `1_`: Input Sheets (Data Collection Spreadsheets)
+## Detailed Code / Module Documentation
 
-([top ↥](#documentation))
+> due to grown code base and application complexity the technical documentation is now in standalone chapters:
 
-+ `10_inputInterface.js` - Main module interface for the creation of a single company-level data collection spreadsheet
-+ `11_inputMainProcess.js` - Main process controller which calls lower-level helper functions for the data collection production
-+ `12_inputSubBaseModules.js` - Submodules which produce Substep compontents (result evaluation dropdowns, comment rows, and so on)
-+ `12_inputSubYonY.js` - Submodules for the Step-wise Year-on-Year logic and the **new 2020 Step 0/1 Review**
-+ deprecated `13_old_inputPermissions.js` - old Step-wise permissions submodule. **To be updated & refactored to Main Module `5x_Permissions.js`**
-  + + currently, step-wise for step: 1 & 1.5; step: 2; Protecting works; un-protecting / assigning editors de-facto not effective with external users (due to missing scope permission). This was at least true for when we were using `rdresearch`, and since all non-OTI accounts were external to `rdresearch`...
-  + in theory, generic enough to be applied to any class of spreadsheets, if `named Ranges` utilise the `Steps` suffix.
+### High-level documentation
 
-Extensive documentation for the initial Data Collection Script was created by G.W. ([GDoc](https://docs.google.com/document/d/1972r43uMNTdPMm3xFhtmOvHN3f8S8P1XEzwzju3soCo/edit)). Due to exhaustive refactoring and restructuring it needs to be updated.
++ [00 - Environments](application/00-environment.md)
++ [01 - Architecture](application/01-architecture.md)
++ [02 - Local Setup](application/02-setup.md)
++ [03 - Developer Guidance & Conventions](application/03-guidance-conventions.md)
++ [04 - Maintenance & Repairs](application/04-maintenance.md)
 
----
++ ...
 
-#### `2_`: Company Scoring Spreadsheets
+### Modules Documentation
 
-([top ↥](#documentation))
+> Links to Submodules are in the Main Module chapters
 
-> TODO
++ [10 - Input Sheets](application/10-input-sheets-main.md)
++ [20 - TBD - Scoring Sheets](application/20-scoring-sheets-main.md)
++ [30 - TBD - Summary Scores / Aggregation](#)
++ [40 - TBD - Company Feedback](#)
++ [50 - TBD - Permissions](#)
++ [60 - TBD - Data Store](application/60-data-store-main.md)
++ [70 - Input Health](application/70-input-health.md)
++ [9x - TBD - Helper Modules Overview](application/90-helper-function.md)
 
-+ `20_scoringMain.js` (TODO)
-+ `21_scoringInterface.js` (can be called from `30_aggregationMain.js` & be integrated into `10_inputInterface.js`)
-+ `22_scoringSingleStepProcess.js`(TODO)
-+ `23_scoringSubcomponents.js`
+**Helper Modules**
 
-> Best, add `DC fileID` to `json/JSON_companies.js/<company>` before casting `SC`. This way SC will immediately be connected to DC.
-
----
-
-#### `3_`: Aggregation - Summary Scores Spreadsheets
-
-([top ↥](#documentation))
-
-> TODO
-
-+ `30_aggregationMain.js`
-+ [...]
++ [9x - TBD - Helper Modules Overview](application/90-helper-function.md)
 
 ---
 
-#### `4_`: Feedback Request Forms
+## JSON: Parameters & Config
 
 ([top ↥](#documentation))
 
-> Process will slightly change for 2020; However, Input sheets need to anticipate feedback input based on blind ID
-
-+ `40_feedbackMain.js`
-[...]
-
----
-
-#### `6_`: Data Store Layer
-
-([top ↥](#documentation))
-
-> TODO
-
-- [ ] TODO: Split Results & Scoring in 2 separate entities (file vs. sheet)
-- [ ] TODO: add triggered / webhook POST action to feed / update a DB (based on cell ID as unique ID / Key)
-
----
-
-#### 7_: Input Spreadsheet Health / Repairs
-
-([top ↥](#documentation))
-
-> TODO
-
-> **Important**: Two modes - 1 to just inspect health & 1 to do repairs. Repairs are enabled with `var doRepairs`. Therefore there are 2 main callers for now, `mainInspectInputSheets()` vs. `mainRepairInputSheets()`
-
----
-
-### Helper Modules
-
-([top ↥](#documentation))
-
-> `9_`setOfHelpers
-
-> TODO
-
-+ default Sheets
-+ importJSON
-+ scoringFormula
-+ rangeNaming
-+ cellFormatting
-+ fileNaming
-+ importSpreadsheet
-+ driveOperations
-+ findItems
-+ [...]
-
----
-
-### JSON
-
-([top ↥](#documentation))
-
-> stored in the Git repository (./json)
+> stored in the Git repository as JSON/JS Objects (./json/JSON*.js)
 
 + research steps
 + indicators
 + companies
 + config (not operational yet)
 
-#### Companies JSON
+### Companies JSON
 
 ([top ↥](#documentation))
 
@@ -262,7 +128,7 @@ Extensive documentation for the initial Data Collection Script was created by G.
 
 ---
 
-#### Config JSON
+### Config JSON
 
 ([top ↥](#documentation))
 
@@ -270,13 +136,13 @@ Extensive documentation for the initial Data Collection Script was created by G.
 
 ---
 
-#### indicators
+### indicators
 
 + `JSON_indicators.js`
 
 ---
 
-#### Research Steps
+### Research Steps
 
 + `JSON_researchSteps.js`
 
@@ -324,28 +190,12 @@ Extensive documentation for the initial Data Collection Script was created by G.
 
 ---
 
-### Setup
-
-> TODO
-
-+ [/docs/SETUP.md](/docs/setup.md)
-
 ## FAQ
 
 ([top ↥](#documentation))
 
 > Q: Can we...?\
 > A: Njet.
-
-+ general source for GAS discussions:
-
----
-
-## Issues
-
-([top ↥](#documentation))
-
-+ Permissions https://stackoverflow.com/questions/10796464/transfer-ownership-of-a-file-to-another-user-in-google-apps-script
 
 ---
 
@@ -356,6 +206,9 @@ Extensive documentation for the initial Data Collection Script was created by G.
 + if you update existing files, named ranges are not removed by sheet.clear()
 + max. runtime is 30 minutes / 1800 seconds. If your script breaks due to runtime error, you can see the log (Ctrl+Enter in the online editor) to see which company was processed last, delete the output for this company, and re-run the script with a subset, starting with the unfinished company.
 + also, you can run multiple scripts in parallel… For this, `slice(1,4)` the companies vector in multiple parts in `00_mainController.js`
++ file name ambiguity --> use fileID where possible
++ only owner can delete files for real
++ ...
 
 ---
 

@@ -10,7 +10,7 @@
        resizeSheet
 */
 
-function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, includeWide) {
+function addDataStoreSingleCompany(SS, Indicators, ResearchStepsObj, firstScoringStep, maxScoringStep, Company, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, includeWide) {
 
     Logger.log("--- Begin addDataStoreSingleCompany --- subStep: " + subStepNr)
 
@@ -18,8 +18,6 @@ function addDataStoreSingleCompany(SS, IndicatorsObj, ResearchStepsObj, firstSco
     var urlSC = Company.urlCurrentCompanyScoringSheet
 
     Logger.log("urlSC: " + urlSC)
-
-    var Indicators = IndicatorsObj
 
     // --- // MAIN Procedure // --- //
     // For each Main Research Step

@@ -1,6 +1,6 @@
 /* global 
 Config,
-indicatorsVector,
+IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
 createSpreadsheet,
@@ -22,7 +22,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     var sheetModeID = "SC"
 
-    var IndicatorsObj = indicatorsVector
+    var Indicators = IndicatorsObj
     var ResearchStepsObj = researchStepsVector
     var stepName = "S" + scoringStepNr
     var summarySheetName = Config.summaryParams.sheetNameSimple + " " + stepName
@@ -38,7 +38,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     // Scoring Scheme / Validation
     var pointsSheet = insertPointValidationSheet(SS, "Points")
 
-    var indicatorParams = countIndiClassLengths(IndicatorsObj)
+    var indicatorParams = countIndiClassLengths(Indicators)
 
     // --- // Main Procedure // --- //
 
@@ -63,7 +63,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
         hasOpCom = CompanyObj.hasOpCom
 
-        addSetOfScoringSteps(SS, sheetModeID, Config, IndicatorsObj, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+        addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
         Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
@@ -85,7 +85,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements)
 
         summarySheet.setFrozenColumns(1)
         summarySheet.setFrozenRows(2)
@@ -104,7 +104,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, IndicatorsObj, thisSubStepID, Companies, indicatorParams, includeElements)
+        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements)
 
         summarySheet.setFrozenColumns(1)
         summarySheet.setFrozenRows(2)

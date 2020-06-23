@@ -1,3 +1,5 @@
 node_modules
 .vscode
 clasp.code-workspace
+.clasprc.json
+.clasp.json

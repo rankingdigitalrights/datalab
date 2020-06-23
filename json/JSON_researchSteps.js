@@ -4,6 +4,7 @@ var researchStepsVector = {
       stepID: "S00",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
+      doCollapse: false,
       substeps: [{
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
@@ -37,6 +38,7 @@ var researchStepsVector = {
       stepID: "S01",
       rowLabel: "Data Collection and Evaluation",
       stepColor: "#ddd9c3",
+      doCollapse: false,
       substeps: [{
           labelShort: "Step 1.0",
           subStepID: "S010",
@@ -175,6 +177,7 @@ var researchStepsVector = {
       stepID: "S02",
       rowLabel: "Fact Check/Review of Step 1",
       stepColor: "#c6d9f0",
+      doCollapse: false,
       substeps: [{
         labelShort: "Step 2.0",
         subStepID: "S020",
@@ -322,6 +325,7 @@ var researchStepsVector = {
       stepID: "S03",
       rowLabel: "Reconcilation and Consolidation",
       stepColor: "#d9ead3",
+      doCollapse: false,
       substeps: [{
           labelShort: "Step 3.0",
           subStepID: "S030",
@@ -360,6 +364,7 @@ var researchStepsVector = {
               prevStep: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
+              showOnlyRelevant: true,
               dropdown: [
                 "not selected",
                 "yes",
@@ -381,7 +386,56 @@ var researchStepsVector = {
               variableName: "comment",
               prevStep: "S021",
               evaluationStep: "S030",
-              comparisonType: "C",
+              comparisonType: "R",
+              clipWrap: true
+            },
+            {
+              type: "sources",
+              id: "S",
+              rowLabel: "Sources",
+              variableName: "sources",
+              prevStep: "S021",
+              evaluationStep: "S030",
+              comparisonType: "S",
+            }
+          ]
+        },
+        {
+          labelShort: "Step 3.2",
+          subStepID: "S032",
+          resultStepID: "S030",
+          "subStepColor": "#d9ead3",
+          "components": [{
+              type: "subStepHeader",
+              rowLabel: "Consolidated Results"
+            },
+            {
+              type: "reviewResults",
+              id: "R",
+              scoringId: "SE",
+              rowLabel: "Result ",
+              variableName: "result",
+              prevStep: "S021",
+              evaluationStep: "S030",
+              comparisonType: "R",
+              dropdown: [
+                "not selected",
+                "yes",
+                "partial",
+                "no",
+                "no disclosure found",
+                "N/A"
+              ]
+            },
+            {
+              type: "reviewComments",
+              id: "C",
+              rowLabel: "Comment ",
+              label2: " (explain score)",
+              variableName: "comment",
+              prevStep: "S021",
+              evaluationStep: "S030",
+              comparisonType: "R",
               clipWrap: true
             },
             {
@@ -459,6 +513,7 @@ var researchStepsVector = {
       stepID: "S04",
       rowLabel: "Company Feedback",
       stepColor: "#d9d2e9",
+      doCollapse: false,
       substeps: [{
           rowLabel: "Step 4: Company Notes",
           labelShort: "Step 4",
@@ -538,8 +593,9 @@ var researchStepsVector = {
     {
       step: 5,
       stepID: "S05",
-      rowLabel: "Consolidated Evaluation",
+      rowLabel: "Company Feedback 2",
       stepColor: "#fff2cc",
+      doCollapse: false,
       substeps: [{
           rowLabel: "Step 5: Score consolidation and horizontal review",
           labelShort: "Step 5",
@@ -611,6 +667,7 @@ var researchStepsVector = {
       step: 6,
       rowLabel: "Horizontal review",
       stepColor: "#ead1dc",
+      doCollapse: false,
       substeps: [{
           rowLabel: "Step 6: Final Scores",
           labelShort: "Step 6",
@@ -664,6 +721,78 @@ var researchStepsVector = {
               value: "Researcher",
               id: "N",
               importNameFrom: "S06",
+              placeholderText: ""
+            },
+            {
+              type: "comments",
+              id: "MN",
+              rowLabel: "Notes ",
+              label2: "",
+              variableName: "notes",
+              clipWrap: true
+            }
+          ]
+        }
+      ]
+    }, {
+      step: 7,
+      stepID: "S07",
+      rowLabel: "Final Results",
+      stepColor: "#fff2cc",
+      doCollapse: false,
+      substeps: [{
+          rowLabel: "Step 7: Score consolidation and horizontal review",
+          labelShort: "Step 7",
+          subStepID: "S07",
+          subStepColor: "#fff2cc",
+          doCollapse: true,
+          components: [{
+              type: "subStepHeader",
+              rowLabel: "Are the Results the same this year?",
+            },
+            {
+              type: "evaluation",
+              id: "",
+              scoringId: "SE",
+              rowLabel: "Element ",
+              variableName: "result",
+              dropdown: [
+                "not selected",
+                "yes",
+                "partial",
+                "no",
+                "no disclosure found",
+                "N/A"
+              ]
+            },
+            {
+              type: "comments",
+              id: "C",
+              rowLabel: "Comment ",
+              label2: " (explain score)",
+              variableName: "comment",
+              clipWrap: true
+            },
+            {
+              type: "sources",
+              id: "S",
+              rowLabel: "Sources",
+              variableName: "sources"
+            }
+          ]
+        },
+        {
+          rowLabel: "Step 7a: Notes/comments from researchers",
+          labelShort: "Step 7a",
+          subStepID: "S07a",
+          subStepColor: "#fff2cc",
+          doCollapse: true,
+          components: [{
+              type: "subStepHeader",
+              rowLabel: "Researcher",
+              value: "Researcher",
+              id: "N",
+              importNameFrom: "S07",
               placeholderText: ""
             },
             {
