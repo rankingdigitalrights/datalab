@@ -54,7 +54,36 @@ let EditorsObj = {
     ["dumitrita.cji@gmail.com"],
     ["wessenauer@rankingdigitalrights.org"],
     ["itskermoshina@gmail.com"]
-    ]
+    ],
+
+    S03 : [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+      ]
 }
 
 
