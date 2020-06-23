@@ -38,7 +38,6 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
     let naText = "not selected"
 
-
     // for linking to Named Range of Substep 0
     // TODO: make a shared function() between importYonY & addStepReview
 
@@ -57,6 +56,8 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
     let IndicatorSpecs = checkIndicatorSpecs(Indicator)
     let ElementSpecs
     let companyType = Company.type
+
+    let showOnlyRelevant = StepComp.showOnlyRelevant ? true : false
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
@@ -116,10 +117,10 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
                         reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                        prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                        prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                        // sets up cellValue that compares values
                         cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+
                     } else {
                         cellValue = naText
                     }

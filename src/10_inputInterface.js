@@ -2,6 +2,9 @@
 
 /* global 
 Config,
+startAtMainStepNr,
+doRepairsOnly,
+updateProduction,
 IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
@@ -39,13 +42,17 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
+    // IMPORTANT: if startAtMainStepNr > 0 the make sure then maxStep is at least equal
+    if (startAtMainStepNr > Config.subsetMaxStep) {
+        Config.subsetMaxStep = startAtMainStepNr
+    }
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     // HOOK: Override for local development
 
-    let SS = !doRepairsOnly ? createSpreadsheet(spreadsheetName, true) :
+    let SS = !doRepairsOnly && !updateProduction ? createSpreadsheet(spreadsheetName, true) :
         SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     let fileID = SS.getId()
