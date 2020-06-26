@@ -18,7 +18,7 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
 /*
     Can only open one step at a time using openStep BUT can run same function multiple times with different steps!!!!
 */
-
+/*
 // TODO: adapt to updated mainCaller logic / editors-as-parameters
 function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     // can easily call all the other permissions functions from this function
@@ -318,3 +318,4 @@ function getNamedRangeRowNotation(namedRange, SS) {
 
 }
 
+*/

@@ -133,24 +133,6 @@ function isValueInColumn(SS, sheetName, colNr, value) {
     return isInColumn
 }
 
-function createSubstepArray(stepLabel) {
-
-    let stepArray=[]
-    let Steps=researchStepsVector.researchSteps
-
-    Steps.forEach(function (Step) {
-        if(stepLabel.includes(Step.stepID)) {
-            let substepArray=[]
-            Step.substeps.forEach(function (Substep) {
-                substepArray.push(Substep.subStepID)   
-            })
-            stepArray.push(substepArray)
-        }
-    })
-
-    return stepArray
-}
-
 
 function createFormula(){
     //let Company=companiesVector.companies.slice(0,1)[0]
