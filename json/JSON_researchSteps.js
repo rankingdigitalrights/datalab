@@ -464,7 +464,7 @@ var researchStepsVector = {
               "type": "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
-              prevStep: "S031",
+              prevStep: "S032",
               prevIndexPrefix: "RDR19",
               evaluationStep: "S07",
               comparisonType: "R",
