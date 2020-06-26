@@ -269,9 +269,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 }
 
 
-// NEW: Binary evaluation of whole step
-
-// this function adds an element drop down list to a single row
+// NEW: Binary evaluation of whole step per compüany column
 
 function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNrOfServices) {
 
@@ -284,74 +282,73 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
     let comparisonType = StepComp.comparisonType // "YY"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
 
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let companyType = Company.type
+
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
     let activeCol = 1
 
-    let cellName
+    let cellName, cellValue
 
     // sets up the labels
+    cellValue = StepComp.rowLabel + " " + Indicator.labelShort
     let Cell = Sheet.getRange(activeRow, activeCol)
-        .setValue(StepComp.rowLabel)
+        .setValue(cellValue)
         .setBackground(Substep.subStepColor)
         .setFontWeight("bold")
-        .setFontStyle("italic")
         .setHorizontalAlignment("center")
-        .setFontSize(12)
+        .setFontSize(11)
 
     activeCol += 1
 
     for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // (((companyNrOfServices+2)*nrOfIndSubComps)+1)
 
-        if (serviceNr == 1) {
-            // company group
-            Cell = Sheet.getRange(activeRow, activeCol)
+        // TODO: Switch case
 
-            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "group", stepCompID)
+        let serviceLabel, serviceType, s, cellValue
 
-            SS.setNamedRange(cellName, Cell) // names cells
-            Cell.setDataValidation(rule) // creates dropdown list
-                .setFontWeight("bold") // bolds the answers
+        switch (serviceNr) {
 
-            if (!doRepairsOnly) {
-                Cell.setValue("not selected") // sets default for drop down list
-            }
+            case 1:
+                serviceLabel = "group"
+                serviceType = "group"
+                break
 
-            activeCol += 1
+            case 2:
+                serviceLabel = "opCom"
+                serviceType = "opCom"
+                break
+
+            default:
+                s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+                serviceType = Company.services[s].type
+
         }
 
-        // opCom column
-        else if (serviceNr == 2) {
-            Cell = Sheet.getRange(activeRow, activeCol)
+        Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
+        cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            SS.setNamedRange(cellName, Cell) // names cells
-            Cell.setDataValidation(rule) // creates dropdown list
-                .setFontWeight("bold") // bolds the answers
+        SS.setNamedRange(cellName, Cell) // names cells
+        Cell.setDataValidation(rule) // creates dropdown list
+            .setFontWeight("bold") // bolds the answers
 
-            if (!doRepairsOnly) {
-                Cell.setValue("not selected") // sets default for drop down list
+        cellValue = "not selected"
+
+        if (makeElementNA(companyType, serviceType, IndicatorSpecs, null)) {
+            cellValue = "N/A"
+        } else {
+            if (serviceNr == 2 && Company.hasOpCom == false) {
+                cellValue = "N/A" // if no OpCom, pre-select N/A
             }
-
-            activeCol += 1
         }
 
-        // service columns
-        else {
-            Cell = Sheet.getRange(activeRow, activeCol)
-
-            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
-
-            SS.setNamedRange(cellName, Cell) // names cells
-            Cell.setDataValidation(rule) // creates dropdown list
-                .setFontWeight("bold") // bolds the answers
-
-            if (!doRepairsOnly) {
-                Cell.setValue("not selected") // sets default for drop down list
-            }
-
-            activeCol += 1
+        if (!doRepairsOnly) {
+            Cell.setValue("not selected") // sets default for drop down list
         }
+
+        activeCol += 1
     }
 
     Sheet.getRange(activeRow, 1, 1, activeCol)
