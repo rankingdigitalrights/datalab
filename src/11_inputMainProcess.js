@@ -2,6 +2,9 @@
 
 /* global
     Config,
+    doRepairsOnly,
+    addNewStep,
+    startAtMainStepNr,
     Styles,
     indexPrefix,
     insertSheetIfNotExist,
@@ -15,6 +18,7 @@
     addStepReview,
     addBinaryReview,
     addComments,
+    addCommentsReview,
     addSources,
     addExtraInstruction,
     addTwoStepComparison,
@@ -37,8 +41,8 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
     let category = Category.labelShort
 
-    // Research Steps Subset
-    let mainStepsLength = useStepsSubset ? 3 : ResearchSteps.researchSteps.length
+    // Research Steps Subset: define max main Step
+    let mainStepsLength = (useStepsSubset || addNewStep) ? (Config.subsetMaxStep + 1) : ResearchSteps.researchSteps.length
 
     // Indicator Subset
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
@@ -47,11 +51,12 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // for each indicator = distinct Sheet do
 
     let lastRow
+    let Sheet
 
     for (let i = 0; i < indyCatLength; i++) {
 
         let Indicator = Category.indicators[i]
-        Logger.log("|--- Starting Indicator :" + Indicator.labelShort)
+        Logger.log("|--- Begin Indicator :" + Indicator.labelShort)
         let thisIndScoringScope = Indicator.scoringScope
 
         // TODO: remove
@@ -59,17 +64,25 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // let oldIndex = oldSheet.getIndex()
         // SS.deleteSheet(oldSheet)
 
-        let Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+        // try to grab existing Indicator sheet or insert new one
+        Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
 
         // if (oldIndex) {
         //     moveSheetToPos(SS, Sheet, oldIndex)
         // }
 
-        if (Sheet === null) {
-            continue
-        } // skips this i if Sheet already exists
+        // if (doRepairs or addExtraStep) --> try to open Sheet
+        // else skip Indicator 
 
-        // checks whether this indicator has components. If yes then it is set to that number, else it is defaulted to 1
+        if (Sheet === null) {
+            if (doRepairsOnly || addNewStep) {
+                Sheet = SS.getSheetByName(Indicator.labelShort)
+            } else {
+                continue
+            }
+        }
+
+        // checks whether this indicator had (!) subcomponents
         let nrOfIndSubComps = (Category.hadSubComponents == true) ? Category.components.length : 1
 
         // checks how many company group/opcom columns to hide for this Indicator
@@ -89,7 +102,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
         // general formatting of Sheet
         // TODO: think about where to refactor to
-        Sheet.setColumnWidth(1, 140)
+        Sheet.setColumnWidth(1, Styles.dims.labelColumnWidth)
 
         let numberOfColumns = (companyNrOfServices + 2) + 1
 
@@ -102,27 +115,31 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         Sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
 
 
-        // start Sheet in first top left cell
-        let activeRow = 1
+        // if not adding an additional step
+        // --> start Sheet in first top left cell
+        let activeRow = addNewStep ? (Sheet.getLastRow() + 2) : 1
         let activeCol = 1
 
         // adds up indicator guidance
-        activeRow = addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
-
+        if (!addNewStep) {
+            activeRow = addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
+        }
         // --- // Begin Main Step-Wise Procedure // --- //
 
         let contentStartRow = activeRow
         let dataStartRow = 0
 
-        // for each main step
-        for (let mainStepNr = 0; mainStepNr < mainStepsLength; mainStepNr++) {
+        let MainStep, mainStepNr, mainStepColor, subStepsLength
 
-            var MainStep = ResearchSteps.researchSteps[mainStepNr]
-            var mainStepColor = MainStep.stepColor
+        // for each main step
+        for (mainStepNr = startAtMainStepNr; mainStepNr < mainStepsLength; mainStepNr++) {
+
+            MainStep = ResearchSteps.researchSteps[mainStepNr]
+            mainStepColor = MainStep.stepColor
             // setting up all the substeps for all the indicators
 
             Logger.log("FLOW - main step : " + MainStep.step)
-            let subStepsLength = MainStep.substeps.length
+            subStepsLength = MainStep.substeps.length
 
             activeRow = addMainStepHeader(Sheet, Category, Company, activeRow, companyNrOfServices, MainStep, mainStepColor) // sets up header
 
@@ -251,7 +268,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
                 // GROUPING for substep
-                if (subStepsLength > 1) {
+                if (subStepsLength > 1 & !doRepairsOnly) {
 
                     range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
                     let substepRange = range.shiftRowGroupDepth(1)
@@ -271,11 +288,21 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             // activeRow += 1
 
             // group whole step and make main step header row the anchor
-            let rangeStep = Sheet.getRange(beginStep, 1, endStep - beginStep, numberOfColumns)
-            Logger.log("grouping whole step for range :" + rangeStep.getA1Notation())
-            rangeStep.shiftRowGroupDepth(1)
+            if (!doRepairsOnly) {
+                let rangeStep = Sheet.getRange(beginStep, 1, endStep - beginStep, numberOfColumns)
+
+                let rangeGroup = rangeStep.shiftRowGroupDepth(1)
+
+                // collapses substeps, than main step
+                if (MainStep.doCollapse) {
+                    rangeGroup.collapseGroups()
+                    rangeGroup.collapseGroups()
+                }
+            }
 
         } // --- // END Main-Step-Wise Procedure // --- //
+
+        console.log("DEBUG - lastRow: " + lastRow)
 
         let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
             .setFontFamily("Roboto")

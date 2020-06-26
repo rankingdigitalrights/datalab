@@ -19,59 +19,34 @@ https://developers.google.com/apps-script/reference/spreadsheet/protection
     Can only open one step at a time using openStep BUT can run same function multiple times with different steps!!!!
 */
 
-var editors = [
-    "zhang@rankingdigitalrights.org",
-    "lauraannreed@gmail.com",
-    "luisgar12@gmail.com",
-    "dumitrita.cji@gmail.com",
-    "rogoff@rankingdigitalrights.org",
-    "elonnaiz@gmail.com",
-    "michael.kowen@gmail.com",
-    "elonnaiz@gmail.com",
-    "ahackl2130@gmail.com",
-    "mariam@smex.org",
-    "rydzak@rankingdigitalrights.org",
-    "ahackl2130@gmail.com",
-    "museofu@gmail.com",
-    "itskermoshina@gmail.com",
-    "opeakanbi@gmail.com",
-    "alex.comninos@gmail.com",
-    "moussa@smex.org",
-    "abrougui@rankingdigitalrights.org",
-    "8kkim8@gmail.com",
-    "lucia@karisma.org.co ",
-    "outi.puukko@gmail.com",
-    "zsbchow@gmail.com",
-    "wessenauer@rankingdigitalrights.org",
-    "amy.mcewan.s@googlemail.com",
-    "bojanperkov@sharedefense.org",
-    "tatyana.lockot@gmail.com"
-]
-
+// TODO: deprecate
 function updateAll() {
     for (let i = 0; i < companiesVector.companies.length; i++) {
-        mainProtectFileOpenStepSingleCompany(i)
+        mainProtectFileOpenStepSingleCompany(companiesVector.companies[i])
     }
 }
 
+// TODO: deprecate
 function updateSingle() {
     mainProtectFileOpenStepSingleCompany(0)
 }
 
-function mainProtectFileOpenStepSingleCompany(i) {
+// TODO: adapt to updated mainCaller logic / editors-as-parameters
+function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     // can easily call all the other permissions functions from this function
 
-    // let Indicators = indicatorsVector
-    let Indicators = filterSingleIndicator(indicatorsVector, "P11a")
+    // TODO: move Indicator Logic into Main Caller
+    let Indicators = indicatorsVector
+    // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
 
-    // let stepIDs = ["S030", "S031", "S035"]
-    // let stepIDs = ["S020", "S021", "S025"]
-    let stepIDs = ["S010", "S011", "S015"]
+    // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
+    let stepIDs = steps
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
-    let Company = companiesVector.companies[i]
+    let Company = company
 
-    let assignedStepEditors = [editors[i]]
+    // TODO: adapt to updated mainCaller logic / editors-as-parameters
+    let assignedStepEditors = editor
 
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
@@ -85,50 +60,57 @@ function mainProtectFileOpenStepSingleCompany(i) {
     let SheetEditors = [] // TODO: remove
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID)
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
     // overall open function
     let isSuccess = false
 
-    isSuccess = initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "SNames", Viewers, SheetEditors, fileID, currentPrefix)
+    isSuccess = initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "Names", Viewers, SheetEditors, fileID, currentPrefix)
 
     Logger.log("FLOW - Steps " + stepIDs + " for " + companyID + " opened? - " + isSuccess)
 
 }
 
-function mainProtectSingleCompany() {
+function mainProtectSingleCompany(company) {
 
-    let Company = companiesVector.companies.slice(0, 1)[0]
+    //let Company = companiesVector.companies.slice(0, 1)[0]
+    let Company = company
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
 
     let Indicators = indicatorsVector
 
+    // create an array with default as well as company-specific editors
     let Editors = centralConfig.defaultEditors
+    Logger.log("Editors: "+Editors)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID)
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     let currentPrefix = centralConfig.indexPrefix
 
     // removing all protections
-    removeAllProtections(SS)
+    //removeAllProtections(SS)
 
     // close step
-    protectSingleCompany(Indicators, Editors, SS, currentPrefix)
+    protectSingleCompany(Indicators, Editors, SS, companyID, currentPrefix)
+
 }
 
-function mainUnProtectSingleCompany() {
+function mainUnProtectSingleCompany(company) {
 
-    let Company = companiesVector.companies.slice(0, 1)[0]
+    let Company = company
 
     let companyID = Company.id
     Logger.log("CompanyObj :" + companyID)
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID)
+    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
+    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
     // close step
     removeAllProtections(SS)
@@ -141,6 +123,7 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 
     DriveApp.getFileById(fileID).setShareableByEditors(false)
 
+    removeAllProtections(SS)
     protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
@@ -152,9 +135,9 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 }
 
 // protectSingleCompany simply removes all permissions and then adds only the Sheet permissions back
-function protectSingleCompany(Indicators, SheetEditors, SS, currentPrefix) {
+function protectSingleCompany(Indicators, SheetEditors, SS, companyID, currentPrefix) {
     removeAllProtections(SS)
-    protectSheets(Indicators, SheetEditors, SS, currentPrefix)
+    protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 }
 
 
@@ -166,7 +149,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     let Sheet, Category, Indicator
     let sheetProtection, notation, range, unprotectedRanges
     let editors
-    let rangeName
+    let rangeName, subLabel, rangeNotation
 
     // looping through the types of indicators (G,F,P)
     for (let indicatorCategory = 0; indicatorCategory < Indicators.indicatorCategories.length; indicatorCategory++) {
@@ -189,26 +172,29 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 Logger.log(sheetProtection.getDescription())
 
                 unprotectedRanges = sheetProtection.getUnprotectedRanges()
+                stepIDs.forEach(function (step) {
+                    // add the name range here as well
+                    subLabel = step[0].substring(0, 3)
+                    rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
 
-                // add the name range here as well
-                rangeName = specialRangeName(Label, stepIDs[0].substring(0, 3), Indicator.labelShort)
+                    range = SS.getRange(rangeName)
+                    rangeNotation = range.getA1Notation()
+                    range = Sheet.getRange(rangeNotation) // getting the range associated with named range
 
-                if (Sheet.getRangeByName(rangeName) != null) {
-                    notation = SS.getRangeByName(rangeName).getA1Notation()
-                    range = Sheet.getRange(notation) // getting the range associated with named range
-                }
-
-                unprotectedRanges.push(range)
-
-                // looping through all the steps you want to open
-                for (let stepID = 0; stepID < stepIDs.length; stepID++) {
-
-                    // now need to build the namedRange you want, get A1 notation, then unprotect it
-                    // need to make RDR20 and DC variables
-                    range = getNamedRangeRowNotation(defineNamedRange(currentPrefix, "DC", stepIDs[stepID], Indicator.labelShort, "", companyID, "", "Step"), SS)
                     unprotectedRanges.push(range)
 
-                }
+                    // looping through all the steps you want to open
+                    for (let substep = 0; substep < step.length; substep++) {
+
+                        // now need to build the namedRange you want, get A1 notation, then unprotect it
+                        // need to make RDR20 and DC variables
+                        rangeName = defineNamedRange(currentPrefix, "DC", step[substep], Indicator.labelShort, "", companyID, "", "Step")
+                        range = SS.getRange(rangeName)
+                        unprotectedRanges.push(range)
+
+                    }
+
+                })
                 sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
 
                 Logger.log("--- Completed " + Category.labelLong)
@@ -226,6 +212,7 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
     editors = SS.getEditors()
     for (var editor = 0; editor < editors.length; editor++) {
         SS.removeEditor(editors[editor])
+        SS.addViewer(editors[editor])
     }
     SS.addEditors(StepEditors)
 
@@ -279,7 +266,7 @@ function protectSingleSheet(sheetName, Editors, SS) {
 function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
     Logger.log("FLOW - Protecting Sheets")
 
-    let sheetProtection, range, unprotectedRanges, Sheet
+    let sheetProtection, range, unprotectedRanges, Sheet, rangeName, rangeNotation
 
     // protecting 2019 Outcome
     protectSingleSheet(centralConfig.prevYearOutcomeTab, Editors, SS)
@@ -311,11 +298,15 @@ function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
                 unprotectedRanges = []
 
                 // unprotecting the guide
-                range = getNamedRangeRowNotation(specialRangeName("Guide", "", Indicator.labelShort), SS)
+                rangeName = specialRangeName("Guide", "", Indicator.labelShort)
+                rangeNotation = getNamedRangeRowNotation(rangeName, SS)
+                range = Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)
 
                 // unprotecting step 00
-                range = getNamedRangeRowNotation(defineNamedRange(currentPrefix, "DC", "S00", Indicator.labelShort, "", companyID, "", "Step"), SS)
+                rangeName = defineNamedRange(currentPrefix, "DC", "S00", Indicator.labelShort, "", companyID, "", "Step")
+                rangeNotation = getNamedRangeRowNotation(rangeName, SS)
+                range = Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)
 
                 sheetProtection.setUnprotectedRanges(unprotectedRanges)
@@ -338,3 +329,4 @@ function getNamedRangeRowNotation(namedRange, SS) {
     return firstR + ":" + lastR
 
 }
+

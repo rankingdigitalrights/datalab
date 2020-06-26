@@ -6,8 +6,12 @@
 
 function defineNamedRange(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
 
-    var compCellName = index + sheetModeID + step + indicatorElement
+    let compCellName = index + sheetModeID + step + indicatorElement
     compCellName = compCellName + companyId + service + component
+
+    // let compCellName = sheetModeID + step + indicatorElement
+    // compCellName = compCellName + companyId + service + component
+
     if (suffix) {
         compCellName = compCellName + suffix
     }
@@ -21,13 +25,32 @@ function defineNamedRange(index, sheetModeID, step, indicatorElement, component,
 
 function clearAllNamedRangesFromSheet(sheet) {
 
-    var namedRanges = sheet.getNamedRanges()
-    for (var i = 0; i < namedRanges.length; i++) {
+    let namedRanges = sheet.getNamedRanges()
+    for (let i = 0; i < namedRanges.length; i++) {
         namedRanges[i].remove()
     }
-    return sheet
 }
 
 function specialRangeName(Prefix, Main, Suffix) {
     return Prefix + Main + Suffix
+}
+
+function removeAllNamedRanges(spreadsheetId) {
+    var ss = SpreadsheetApp.openById(spreadsheetId)
+    Logger.log(ss.getName())
+
+    var namedRanges = ss.getNamedRanges()
+    console.log(namedRanges.length)
+
+    namedRanges.forEach(function (range) {
+        //    Logger.log(range.getName() + ": " + range.getRange().getA1Notation())
+        //    ss.removeNamedRange(range.getName())
+        range.remove()
+    })
+
+}
+
+function mainRemoveAllNamedRanges() {
+    var spreadsheetId = "1YbbOuxJ-pAWoUhLIo7SxarJb4uyPB7zg7iVKEj_AB7c";
+    removeAllNamedRanges(spreadsheetId)
 }

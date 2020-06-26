@@ -64,6 +64,8 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
             var StepComp
             var stepCompType
 
+            //var thisSubStep = thisMainStep.substeps[subStepNr]
+
             // for all components of the current Research Step
             for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
 
@@ -82,13 +84,14 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                         }
                         break
 
-                    case "evaluation":
+                    case "reviewResults":
                         if (includeResults) {
                             activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                             Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
                         }
                         break
 
+                    case "reviewComments":
                     case "comments":
                         activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndCat, blocks, integrateOutputs)
                         Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)

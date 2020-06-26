@@ -14,14 +14,15 @@
     "dependencies": {
         "@types/google-apps-script": "^1.0.10",
         "clasp": "^1.0.0",
-        "eslint": "^6.8.0"
+        "eslint": "^7.2.0"
     },
     "devDependencies": {
         "eslint-plugin-googleappsscript": "^1.0.3"
     },
     "scripts": {
-        "switch-prod": "sh ./env/switch-prod.sh",
-        "switch-dev": "sh ./env/switch-dev.sh",
+        "switch-main": "sh ./env/switch-main.sh",
+        "switch-gw": "sh ./env/switch-gw.sh",
+        "switch-is": "sh ./env/switch-is.sh",
         "cloc": "sh ./docs/stats/cloc.sh",
         "json": "sh ./docs/stats/json.sh",
         "docs": "sh ./docs/stats/docs.sh",

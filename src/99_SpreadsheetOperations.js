@@ -2,6 +2,7 @@
 
 /* global
     rootFolderID,
+    doRepairsOnly,
     outputFolderName,
     assignFolderEditors,
     assignFolderOwner,
@@ -105,18 +106,23 @@ function openSpreadsheetByID(ID) {
 
 // Helper Function to overwrite Sheet in Spreadsheet if it is already existing
 
-function insertSheetIfNotExist(SS, SheetName, updateSheet) {
-    let Sheet
-    if (!SS.getSheetByName(SheetName)) {
-        Sheet = SS.insertSheet(SheetName)
+function insertSheetIfNotExist(SS, sheetName, overWriteSheet) {
+    let Sheet = SS.getSheetByName(sheetName)
+    if (!Sheet) {
+        Sheet = SS.insertSheet(sheetName)
     } else {
-        if (updateSheet) {
-            Sheet = SS.getSheetByName(SheetName)
-        } else {
-            Sheet = null
 
-            Logger.log("WARN: " + "Sheet for " + SheetName + " already exists ")
-            Logger.log("|--- Skipping " + SheetName)
+        Logger.log("WARN: " + "Sheet for " + sheetName + " already exists ")
+
+        if (overWriteSheet) {
+            Logger.log("|--- Overwriting " + sheetName)
+        } else {
+            if (doRepairsOnly) {
+                console.log("Repairing / Updating " + sheetName)
+            } else {
+                Sheet = null
+                Logger.log("|--- Skipping " + sheetName)
+            }
         }
     }
     return Sheet
@@ -188,19 +194,4 @@ function resizeSheet(Sheet, newRows) {
     if (oldRows < newRows) {
         Sheet.insertRows(1, rowDiff)
     }
-}
-
-function isValueInColumn(SS, columnNr, mode, value) {
-    let Range, Sheet, lastRow
-    let isInColumn = false
-    Sheet = SS.getSheetByName(mode)
-    lastRow = Sheet.getLastRow()
-    Logger.log("lastRow: " + lastRow)
-    if (lastRow >= 1) {
-        Range = Sheet.getRange(1, columnNr, lastRow)
-        isInColumn = Range.getValues()
-            .flat(2) // unnest 2D array to flat 1D array
-            .includes(value)
-    }
-    return isInColumn
 }

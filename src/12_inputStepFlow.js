@@ -2,7 +2,11 @@
 global
     Config,    
     defineNamedRange,
-    indexPrefix
+    indexPrefix,
+    doRepairsOnly,
+    checkElementSpecs,
+    checkIndicatorSpecs,
+    makeElementNA
 */
 
 // New Substep 1; similar to Substep 1.5 but integrated into old Substep 1
@@ -125,7 +129,10 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
                 }
             }
 
-            Cell.setValue(cellValue.toString())
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
+
             SS.setNamedRange(cellID, Cell) // names cells
 
             activeCol += 1
@@ -246,7 +253,10 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
                 }
             }
 
-            Cell.setValue(cellValue)
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
+
             SS.setNamedRange(cellID, Cell) // names cells
 
             activeCol += 1
@@ -299,8 +309,12 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
 
             SS.setNamedRange(cellName, Cell) // names cells
             Cell.setDataValidation(rule) // creates dropdown list
-                .setValue("not selected") // sets default for drop down list
                 .setFontWeight("bold") // bolds the answers
+
+            if (!doRepairsOnly) {
+                Cell.setValue("not selected") // sets default for drop down list
+            }
+
             activeCol += 1
         }
 
@@ -312,8 +326,12 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
 
             SS.setNamedRange(cellName, Cell) // names cells
             Cell.setDataValidation(rule) // creates dropdown list
-                .setValue("not selected") // sets default for drop down list
                 .setFontWeight("bold") // bolds the answers
+
+            if (!doRepairsOnly) {
+                Cell.setValue("not selected") // sets default for drop down list
+            }
+
             activeCol += 1
         }
 
@@ -325,8 +343,12 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
 
             SS.setNamedRange(cellName, Cell) // names cells
             Cell.setDataValidation(rule) // creates dropdown list
-                .setValue("not selected") // sets default for drop down list
                 .setFontWeight("bold") // bolds the answers
+
+            if (!doRepairsOnly) {
+                Cell.setValue("not selected") // sets default for drop down list
+            }
+
             activeCol += 1
         }
     }
@@ -455,7 +477,9 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
                 }
             }
 
-            Cell.setValue(cellValue.toString())
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
 
             SS.setNamedRange(cellID, Cell) // names cells
 

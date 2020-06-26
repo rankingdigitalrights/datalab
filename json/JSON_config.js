@@ -10,6 +10,7 @@ var centralConfig = {
   filenameSuffixDev: "(Dev)",
   rootFolderNameProd: "2020 RDR Index Data",
   rootFolderIDProd: "19hiRk0NX3s-eF9i-nFGIuNEvYFqGyazR", // Data @ 2020 Index
+  backupFolderID: "1hziGVUl24a1e1iDeMUxZOMjNvm1tnY1V",
   rootFolderNameDev: "2020 Index Dev",
   rootFolderIDDev: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", // Data @ 2020 index Dev
   inputFolderNameProd: "2020 RDR Research Data Collection",
@@ -18,9 +19,11 @@ var centralConfig = {
   YearOnYear: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
+  subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
-  feedbackStep: 3,
+  feedbackStep: [4, 5],
+  compFeedbackSheetName: "2020 Feedback",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   prevYearSourcesTab: "2019 Sources",
@@ -37,6 +40,7 @@ var centralConfig = {
       blue: "#4D9ECF"
     },
     dims: {
+      labelColumnWidth: 140,
       serviceColWidth: 320,
       defaultDataColWidth: 100,
     }
@@ -72,9 +76,9 @@ var centralConfig = {
       includeResults: false
     },
     scoringParams: {
-      subStepNr: 0,
+      subStepNr: 1,
       firstStepNr: 1,
-      lastStepNr: 6,
+      lastStepNr: 2,
       sheetName: "Outcome",
       dataColWidth: 200,
       hasFullScores: true,
