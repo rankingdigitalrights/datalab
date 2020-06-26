@@ -39,6 +39,7 @@ var researchStepsVector = {
       rowLabel: "Data Collection and Evaluation",
       stepColor: "#ddd9c3",
       doCollapse: false,
+      scoringSubStep: "S011",
       substeps: [{
           labelShort: "Step 1.0",
           subStepID: "S010",
@@ -178,6 +179,7 @@ var researchStepsVector = {
       rowLabel: "Fact Check/Review of Step 1",
       stepColor: "#c6d9f0",
       doCollapse: false,
+      scoringSubStep: "S021",
       substeps: [{
         labelShort: "Step 2.0",
         subStepID: "S020",
@@ -326,6 +328,7 @@ var researchStepsVector = {
       rowLabel: "Reconcilation and Consolidation",
       stepColor: "#d9ead3",
       doCollapse: false,
+      scoringSubStep: "S032",
       substeps: [{
           labelShort: "Step 3.0",
           subStepID: "S030",
@@ -759,3 +762,4 @@ var researchStepsVector = {
     }
   ]
 }
+
