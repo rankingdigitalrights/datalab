@@ -261,6 +261,7 @@ function addMainStepHeader(Sheet, Category, Company, activeRow, companyNrOfServi
 
     Sheet.setRowHeight(activeRow, 30)
 
+    // return MainStep.omitResearcher ? activeRow + 2 : activeRow + 1
     return activeRow + 1
 
 }

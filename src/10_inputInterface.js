@@ -5,6 +5,8 @@ Config,
 startAtMainStepNr,
 doRepairsOnly,
 updateProduction,
+includeFeedback,
+insertFeedbackSheet,
 IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
@@ -98,10 +100,15 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     }
 
     // --- // creates sources page // --- //
-
     Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
     if (Sheet !== null && !doRepairsOnly && !addNewStep) {
         produceSourceSheet(Sheet, true)
+    }
+
+    // -- // For Company Feedback Steps // --- //
+    if (includeFeedback) {
+        let doOverwrite = false // flag for overwriting or not
+        insertCompanyFeedbackSheet(SS, Config.compFeedbackSheetName, Company, Indicators, doOverwrite)
     }
 
     let hasOpCom = Company.hasOpCom
