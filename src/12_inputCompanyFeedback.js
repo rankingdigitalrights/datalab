@@ -22,7 +22,7 @@ function addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, ro
     Cell.setValue(rowLabel + " " + indicatorLabel)
         .setBackground(MainStep.stepColor)
         .setFontWeight("bold")
-        .setFontSize(10)
+        .setFontSize(11)
         .setHorizontalAlignment("center")
 
     Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
@@ -74,7 +74,7 @@ function addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, row
     Cell.setValue(rowLabel + " " + indicatorLabel)
         .setBackground(MainStep.stepColor)
         .setFontWeight("bold")
-        .setFontSize(10)
+        .setFontSize(11)
         .setHorizontalAlignment("center")
 
     Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
@@ -104,7 +104,7 @@ function addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep
         Cell.setValue("\nResearcher " + String.fromCharCode(65 + i) + "\n\n" + rowLabel + " " + Indicator.labelShort)
             .setBackground(MainStep.stepColor)
             .setFontWeight("bold")
-            .setFontSize(10)
+            .setFontSize(11)
             .setHorizontalAlignment("center")
             .setVerticalAlignment("middle")
 
