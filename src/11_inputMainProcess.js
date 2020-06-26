@@ -265,6 +265,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             activeRow = addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, SubStep.components[stepCNr].id, companyNrOfServices)
                             break
 
+                        case "feedbackEvaluation":
+                            activeRow = addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
                         default:
                             Sheet.appendRow(["!!!Error: Missed a component!!!"])
                             break

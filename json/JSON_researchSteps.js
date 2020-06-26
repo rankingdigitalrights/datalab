@@ -13,20 +13,20 @@ var researchStepsVector = {
         components: [{
             "type": "importPreviousResults",
             "rowLabel": "Result ",
-            prevStep: "S07",
+            importStepID: "S07",
             comparisonType: "DC",
             id: "R",
           },
           {
             "type": "importPreviousComments",
             "rowLabel": "Comment ",
-            prevStep: "S07",
+            importStepID: "S07",
             comparisonType: "DC",
             id: "C",
           }, {
             "type": "importPreviousSources",
             "rowLabel": "Sources (2019)",
-            prevStep: "S07",
+            importStepID: "S07",
             comparisonType: "DC",
             id: "S",
           }
@@ -54,7 +54,7 @@ var researchStepsVector = {
               scoringId: "SE",
               rowLabel: "Answer ",
               variableName: "result",
-              prevStep: "S07",
+              importStepID: "S07",
               evaluationStep: "S00",
               comparisonType: "DC",
               dropdown: [
@@ -82,7 +82,7 @@ var researchStepsVector = {
               rowLabel: "Result ",
               variableName: "result",
               prevIndexPrefix: "RDR19",
-              prevStep: "S07",
+              importStepID: "S07",
               evaluationStep: "S010",
               comparisonType: "R",
               dropdown: [
@@ -101,7 +101,7 @@ var researchStepsVector = {
               label2: " (explain score)",
               variableName: "comment",
               prevIndexPrefix: "RDR19",
-              prevStep: "S07",
+              importStepID: "S07",
               evaluationStep: "S010",
               comparisonType: "R",
               clipWrap: true
@@ -111,7 +111,7 @@ var researchStepsVector = {
               id: "S",
               rowLabel: "Sources",
               variableName: "sources",
-              prevStep: "S07",
+              importStepID: "S07",
               evaluationStep: "S010",
               comparisonType: "R",
             }
@@ -130,7 +130,7 @@ var researchStepsVector = {
               "type": "comparisonYY",
               id: "YY",
               "rowLabel": "Answer ",
-              prevStep: "S011",
+              importStepID: "S011",
               evaluationIndex: "RDR19",
               evaluationStep: "S07",
               comparisonType: "R"
@@ -142,7 +142,7 @@ var researchStepsVector = {
               scoringId: "SE",
               rowLabel: "Reason ",
               variableName: "result",
-              prevStep: "S011",
+              importStepID: "S011",
               evaluationStep: "S010", // Regular YonY: S015
               comparisonType: "R", // Regular YonY: YY
               dropdown: [
@@ -165,7 +165,7 @@ var researchStepsVector = {
               id: "S",
               rowLabel: "Sources",
               variableName: "sources",
-              prevStep: "S07",
+              importStepID: "S07",
               evaluationStep: "S07",
               comparisonType: "DC",
             }
@@ -217,7 +217,7 @@ var researchStepsVector = {
             scoringId: "SE",
             rowLabel: "Result ",
             variableName: "result",
-            prevStep: "S011",
+            importStepID: "S011",
             evaluationStep: "S020",
             comparisonType: "R",
             dropdown: [
@@ -235,7 +235,7 @@ var researchStepsVector = {
             rowLabel: "Comment ",
             label2: " (explain score)",
             variableName: "comment",
-            prevStep: "S011",
+            importStepID: "S011",
             evaluationStep: "S020",
             comparisonType: "R",
             clipWrap: true
@@ -245,7 +245,7 @@ var researchStepsVector = {
             id: "S",
             rowLabel: "Sources",
             variableName: "sources",
-            prevStep: "S011",
+            importStepID: "S011",
             evaluationStep: "S020",
             comparisonType: "S",
           }
@@ -262,7 +262,7 @@ var researchStepsVector = {
           //     "type": "comparisonYY",
           //     id: "YY",
           //     "rowLabel": "Answer ",
-          //     prevStep: "S021",
+          //     importStepID: "S021",
           //     evaluationIndex: "RDR19",
           //     evaluationStep: "S07",
           //     comparisonType: "R"
@@ -288,7 +288,7 @@ var researchStepsVector = {
           //     scoringId: "SE",
           //     rowLabel: "Reason ",
           //     variableName: "result",
-          //     prevStep: "S021",
+          //     importStepID: "S021",
           //     evaluationStep: "S025",
           //     comparisonType: "YY",
           //     dropdown: [
@@ -301,7 +301,7 @@ var researchStepsVector = {
           //   },
           {
             "type": "extraQuestion",
-            "question": "If you disagree, please explain your reasoning:"
+            "rowLabel": "If you disagree, please explain your reasoning:"
           },
           {
             "type": "comments",
@@ -315,7 +315,7 @@ var researchStepsVector = {
             id: "S",
             rowLabel: "Sources",
             variableName: "sources",
-            prevStep: "S011",
+            importStepID: "S011",
             evaluationStep: "S020",
             comparisonType: "S",
           }
@@ -325,7 +325,7 @@ var researchStepsVector = {
     {
       step: 3,
       stepID: "S03",
-      rowLabel: "Reconcilation and Consolidation",
+      rowLabel: "Reconciliation and Consolidation",
       stepColor: "#d9ead3",
       doCollapse: false,
       substeps: [{
@@ -341,7 +341,7 @@ var researchStepsVector = {
               type: "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
-              prevStep: "S011",
+              importStepID: "S011",
               evaluationStep: "S021",
               comparisonType: "R",
               isInternalEval: true
@@ -363,7 +363,7 @@ var researchStepsVector = {
               scoringId: "SE",
               rowLabel: "Result ",
               variableName: "result",
-              prevStep: "S021",
+              importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
               showOnlyRelevant: true,
@@ -378,7 +378,7 @@ var researchStepsVector = {
             },
             {
               "type": "extraQuestion",
-              "question": "If there is a disagreement, please explain your reasoning:"
+              "rowLabel": "If there is a disagreement, please explain your reasoning:"
             },
             {
               type: "comments",
@@ -386,7 +386,7 @@ var researchStepsVector = {
               rowLabel: "Comment ",
               label2: " (explain score)",
               variableName: "comment",
-              prevStep: "S021",
+              importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
               clipWrap: true
@@ -396,7 +396,7 @@ var researchStepsVector = {
               id: "S",
               rowLabel: "Sources",
               variableName: "sources",
-              prevStep: "S021",
+              importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "S",
             }
@@ -417,7 +417,7 @@ var researchStepsVector = {
               scoringId: "SE",
               rowLabel: "Result ",
               variableName: "result",
-              prevStep: "S021",
+              importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
               dropdown: [
@@ -435,7 +435,7 @@ var researchStepsVector = {
               rowLabel: "Comment ",
               label2: " (explain score)",
               variableName: "comment",
-              prevStep: "S021",
+              importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
               clipWrap: true
@@ -445,7 +445,7 @@ var researchStepsVector = {
               id: "S",
               rowLabel: "Sources",
               variableName: "sources",
-              prevStep: "S021",
+              importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "S",
             }
@@ -464,7 +464,7 @@ var researchStepsVector = {
               "type": "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
-              prevStep: "S032",
+              importStepID: "S032",
               prevIndexPrefix: "RDR19",
               evaluationStep: "S07",
               comparisonType: "R",
@@ -472,7 +472,7 @@ var researchStepsVector = {
             },
             {
               "type": "extraQuestion",
-              "question": "If this Year's Results are different, select Reason for Change:"
+              "rowLabel": "If this Year's Results are different, select Reason for Change:"
             },
             {
               type: "YonYreview", // "evaluation"
@@ -481,7 +481,7 @@ var researchStepsVector = {
               scoringId: "SE",
               rowLabel: "Reason ",
               variableName: "result",
-              prevStep: "S031",
+              importStepID: "S031",
               evaluationStep: "S035", // Regular YonY: S015
               comparisonType: "R", // Regular YonY: YY
               dropdown: [
@@ -503,7 +503,7 @@ var researchStepsVector = {
               id: "S",
               rowLabel: "Sources",
               variableName: "sources",
-              prevStep: "S07",
+              importStepID: "S07",
               evaluationStep: "S07",
               comparisonType: "DC",
             }
@@ -531,16 +531,9 @@ var researchStepsVector = {
               type: "binaryFeedbackCheck",
               id: "MB",
               rowLabel: "Status"
-            }
-          ]
-        },
-        {
-          labelShort: "Step 4.1",
-          subStepID: "S041",
-          subStepColor: "#ffe599",
-          doCollapse: false,
-          components: [{
-              type: "subStepHeader",
+            },
+            {
+              type: "extraQuestion",
               rowLabel: "Company Feedback for this Indicator"
             },
             {
@@ -552,8 +545,8 @@ var researchStepsVector = {
         },
         {
           rowLabel: "Research Team Notes",
-          labelShort: "Step 4.5",
-          subStepID: "S045",
+          labelShort: "Step 4.1",
+          subStepID: "S042",
           subStepColor: "#ffe599",
           doCollapse: false,
           components: [{
@@ -564,6 +557,166 @@ var researchStepsVector = {
               type: "researcherFBNotes",
               id: "FBN",
               rowLabel: "Notes"
+            }
+          ]
+        },
+        {
+          labelShort: "Step 4.2 (Option A)",
+          subStepID: "S047a",
+          subStepColor: "#f1c232",
+          "components": [{
+              type: "subStepHeader",
+              rowLabel: "Does company feedback merit a change?",
+            },
+            {
+              type: "binaryReview",
+              id: "MB",
+              rowLabel: "Answer",
+              dropdown: [
+                "not selected",
+                "yes",
+                "no"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      step: 5,
+      stepID: "S05",
+      rowLabel: "Company Feedback Evaluation",
+      stepColor: "#f1c232",
+      doCollapse: false,
+      substeps: [{
+          labelShort: "Step 5.0",
+          subStepID: "S050",
+          subStepColor: "#f1c232",
+          doCollapse: false,
+          components: [{
+              type: "subStepHeader",
+              rowLabel: "Does company feedback merit a change?",
+            },
+            {
+              type: "feedbackEvaluation",
+              id: "FB",
+              scoringId: "SE",
+              rowLabel: "Result ",
+              variableName: "result",
+              evaluationStep: "S050",
+              comparisonType: "R",
+              dropdown: [
+                "not selected",
+                "yes",
+                "no",
+              ]
+            },
+          ]
+        },
+        {
+          labelShort: "Step 5.1",
+          subStepID: "S051",
+          resultStepID: "S032",
+          "subStepColor": "#f1c232",
+          "components": [{
+              type: "subStepHeader",
+              rowLabel: "If yes, enter the company's consolidated evaluation following company feedback:"
+            },
+            {
+              type: "reviewResults",
+              id: "R",
+              scoringId: "SE",
+              rowLabel: "Result ",
+              variableName: "result",
+              importStepID: "S032",
+              evaluationStep: "S050",
+              comparisonType: "FB",
+              reverseConditional: true,
+              dropdown: [
+                "not selected",
+                "yes",
+                "partial",
+                "no",
+                "no disclosure found",
+                "N/A"
+              ]
+            },
+            {
+              type: "comments",
+              id: "C",
+              rowLabel: "Comment ",
+              label2: " (explain score)",
+              variableName: "comment",
+              importStepID: "S032",
+              evaluationStep: "S050",
+              comparisonType: "R",
+              clipWrap: true
+            },
+            {
+              type: "sources",
+              id: "S",
+              rowLabel: "Sources",
+              variableName: "sources",
+              importStepID: "S021",
+              evaluationStep: "S030",
+              comparisonType: "S",
+            }
+          ]
+        },
+        {
+          labelShort: "Step 5.5",
+          subStepID: "S055",
+          subStepColor: "#f1c232",
+          "components": [{
+              type: "subStepHeader",
+              rowLabel: "Are the Year-on-Year Results the same this Year?",
+            },
+            // regular YonY:
+            {
+              "type": "compareTwoSteps",
+              id: "R",
+              "rowLabel": "Answer ",
+              importStepID: "S051",
+              prevIndexPrefix: "RDR19",
+              evaluationStep: "S07",
+              comparisonType: "R",
+              isInternalEval: false
+            },
+            {
+              "type": "extraQuestion",
+              "rowLabel": "If this Year's Results are different, select Reason for Change:"
+            },
+            {
+              type: "YonYreview", // "evaluation"
+              mode: "YonY",
+              id: "YY",
+              scoringId: "SE",
+              rowLabel: "Reason ",
+              variableName: "result",
+              evaluationStep: "S055", // Regular YonY: S015
+              comparisonType: "R", // Regular YonY: YY
+              dropdown: [
+                "not selected",
+                "no change",
+                "improvement",
+                "decline",
+                "other"
+              ]
+            },
+            {
+              "type": "comments",
+              id: "C",
+              "rowLabel": "Comment ",
+              "label2": " ",
+              "nameLabel": "Comments"
+            }, {
+              type: "sources",
+              id: "S",
+              rowLabel: "Sources",
+              variableName: "sources",
+              importStepID: "S07",
+              evaluationStep: "S07",
+              comparisonType: "DC",
             }
           ]
         }

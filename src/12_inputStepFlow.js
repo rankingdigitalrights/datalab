@@ -28,7 +28,7 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
-    let prevStep = StepComp.prevStep // "S07"
+    let importStepID = StepComp.importStepID // "S07"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
@@ -58,6 +58,8 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
     let companyType = Company.type
 
     let showOnlyRelevant = StepComp.showOnlyRelevant ? true : false
+
+    let conditional = StepComp.reverseConditional ? "no" : "yes"
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
@@ -117,9 +119,9 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
                         reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                        prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                        prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                        cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+                        cellValue = "=IF(" + reviewCell + "=\"" + conditional + "\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
 
                     } else {
                         cellValue = naText
@@ -168,7 +170,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
-    let prevStep = StepComp.prevStep // "S07"
+    let importStepID = StepComp.importStepID // "S07"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
@@ -247,7 +249,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
                 } else {
                     reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
@@ -268,8 +270,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
     return activeRow + elementsNr
 }
 
-
-// NEW: Binary evaluation of whole step per compüany column
+// NEW: Binary evaluation of whole step per company column
 
 function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNrOfServices) {
 
@@ -371,7 +372,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
     let stepCompID = StepComp.id // TODO: add to JSON
 
     let evaluationStep = StepComp.evaluationStep
-    let prevStep = StepComp.prevStep
+    let importStepID = StepComp.importStepID
 
     let isInternalEval = StepComp.isInternalEval
 
@@ -458,7 +459,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
 
                         if (hasPredecessor || (mainStepNr > 1 && isInternalEval)) {
 
-                            prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
+                            prevResultCell = defineNamedRange(indexPrefix, "DC", importStepID, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
 
                             prevYearCell = defineNamedRange(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
 
