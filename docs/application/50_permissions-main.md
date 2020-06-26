@@ -21,6 +21,46 @@
 
 ## Description
 
-> Module Purpose: apply and remove permissions to sheets and steps as needed
+> Module Purpose: apply and remove permissions to entire sheets or individual steps as needed
 
-Add more to this once the final callers are finalized
++ main Module Callers: 
+    + `00_mainController.js::mainProtectCompanies()`
+    + `00_mainController.js::mainUnProtectCompanies()`
+    + `00_mainController.js::mainOpenStepCompanies()`
++ main Module Interfaces: 
+    + `50_permissionsMain.js::mainProtectSingleCompany(Company)`
+    + `50_permissionsMain.js::mainUnprotectSingleCompany(Company)`
+    + `50_permissionsMain.js::mainProtectFileOpenStepSingleCompany(Company)`
+
+
+## Main Procedure main `00_mainController.js::mainProtectCompanies()`
+
++ for each company of `companies[]` / `companies[].slice()`
+    + open a Spreadsheet `<Index> - <Company> - <Mode: Input>`
+    + remove all sheet and range protections
+    + protect `Outcome` & `Sources` Sheets
+    + for each `Indicator` in `Indicators[]`
+        + add a sheet protection
+        + unprotect Front Matter (Indicator Guidance) and Step 0 (previous Year's Step 7 outcome)
+
+
+## Main Procedure main `00_mainController.js::mainUnprotectSingleCompany()`
+
++ for each company of `companies[]` / `companies[].slice()`
+    + open a Spreadsheet `<Index> - <Company> - <Mode: Input>`
+    + remove all sheet and range protections
+
+
+## Main Procedure main `00_mainController.js::mainProtectFileOpenStepSingleCompany()`
+
++ for each company of `companies[]` / `companies[].slice()`
+    + open a Spreadsheet `<Index> - <Company> - <Mode: Input>`
+    + remove all sheet and range protections
+    + protect `Outcome` & `Sources` Sheets
+    + for each `Indicator` in `Indicators[]`
+        + add a sheet protection
+        + unprotect Front Matter (Indicator Guidance) and Step 0 (previous Year's Step 7 outcome)
+        + for each `substep` in `step`
+            + unprotect substep
+
+

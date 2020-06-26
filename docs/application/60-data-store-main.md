@@ -25,3 +25,33 @@
 
 - [ ] TODO: Split Results & Scoring in 2 separate entities (file vs. sheet)
 - [ ] TODO: add triggered / webhook POST action to feed / update a DB (based on cell ID as unique ID / Key)
+
+## Description
+
+> Module Purpose: produces single Company Spreadsheets that contain all data points from the Input Sheets
+
++ main Module Caller: `00_mainController.js::mainDataStore()()`
++ main Module Interface: `60_dataStorageLayer.js::createCompanyDataStore(Company)`
+
+## Main Procedure
+
++ for each company of `companies[]` / `companies[].slice()`
+  + create a **single** Spreadsheet `<Index> - <Company> - <Mode: Data Store>`
+  + for each `<MainStep>` (i.e. `Step 1` & `SubStep` (i.e. `Step 1.5`) from `researchSteps.json`
+    + for each `Indicator` in `Indicators[]`
+        + import data points in substeps as single rows
+
++ Output files are located in `Config.rootFolderID/Config.outputFolderName` of `data@rdr`'s Drive.
+
+
+## Parameters
+
+TBD
+
+## Module Structure
+
++ `60_dataStorageLayer.js`: Module Interface; run from `00_mainController`
+    + `61_dataStorageInterface.js`: Main Company-level procedure; iterates over `<MainStep>` (i.e. `Step 1` & `SubStep` (i.e. `Step 1.5`) from `researchSteps.json` and calls importing helper functions from lower-level submodules
+    + `62a_dataStorageSingleStepWide.js`: TBD (difference between wide and long)
+    + `62b_dataStorageSingleStepLong.js`: 
+
