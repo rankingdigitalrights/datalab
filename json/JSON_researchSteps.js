@@ -554,7 +554,7 @@ var researchStepsVector = {
               type: "feedbackEvaluation",
               id: "FB",
               scoringId: "SE",
-              rowLabel: "Result ",
+              rowLabel: "Answer ",
               variableName: "result",
               evaluationStep: "S050",
               comparisonType: "R",
@@ -756,7 +756,7 @@ var researchStepsVector = {
             id: "YY",
             mode: "YonY",
             scoringId: "SE",
-            rowLabel: "Answer ",
+            rowLabel: "Reason ",
             variableName: "result",
             comparisonType: "DC",
             dropdown: [
@@ -871,7 +871,7 @@ var researchStepsVector = {
             id: "YY",
             mode: "YonY",
             scoringId: "SE",
-            rowLabel: "Answer ",
+            rowLabel: "Reason ",
             variableName: "result",
             comparisonType: "DC",
             dropdown: [
