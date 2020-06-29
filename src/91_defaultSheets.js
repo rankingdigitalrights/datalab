@@ -47,6 +47,16 @@ function insertPointValidationSheet(SS, SheetName) {
     return pointsSheet
 }
 
+function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSheet) {
+    let Sheet = insertSheetIfNotExist(SS, SheetName, updateSheet)
+    if (Sheet !== null) {
+        Sheet.clear()
+        fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators)
+    }
+
+    return Sheet
+}
+
 function insertSheetConnector(SS, Companies) {
 
     let Sheet = insertSheetIfNotExist(SS, "Connector", true)
