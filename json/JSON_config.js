@@ -15,7 +15,7 @@ var centralConfig = {
   rootFolderIDDev: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", // Data @ 2020 index Dev
   inputFolderNameProd: "2020 RDR Research Data Collection",
   inputFolderNameDev: "2020 - Dev - Input",
-  controlSpreadsheetID: "1r3Hq6m9R3l0yMaiAZXf40Z7Gif54Kd1B08MUBk4n_LM", // 00-Dashboard-X
+  controlSpreadsheetID: "1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE", // 00-Dashboard-Dev
   YearOnYear: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
@@ -23,7 +23,7 @@ var centralConfig = {
   scoringSteps: [3, 6],
   collapseAllGroups: false,
   feedbackStep: [4, 5],
-  compFeedbackSheetName: "2020 Feedback",
+  compFeedbackSheetName: "Company Feedback",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   prevYearSourcesTab: "2019 Sources",

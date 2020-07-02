@@ -64,7 +64,7 @@
   + `11_inputMainProcess.js`: Main Company-level procedure; iterates over `Indicators[]` and calls component-specific helper functions from lower-level submodules
     + `12_inputBaseHeaders.js`: Indicator/Sheet-level Front Matter (Guidance, Company header, researcher row)
     + `12_inputBaseModules.js`: Basic Substep Components (evaluation, comments, sources, binary review)
-    + `12_inputStepFlow.js`: New Components to enable results import between steps (`if thisStep.result == prevStep.result` --> `import(prevStep)`)
+    + `12_inputStepFlow.js`: New Components to enable results import between steps (`if thisStep.result == importStepID.result` --> `import(importStepID)`)
     + `12_inputYonYimport.js`: imports previous year's outcome; adds automated year-on-year review
     + deprecated `13_old_inputPermissions.js` - old Step-wise permissions submodule. **--> Replaced with new Main Module `50_Permissions.js`**
 

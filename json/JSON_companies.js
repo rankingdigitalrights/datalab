@@ -1165,3 +1165,11 @@ var companiesVector = {
 
   ]
 }
+
+// Output helpers
+// let companyValues = companiesVector.companies
+//   .map(company =>
+//     company.urlCurrentDataCollectionSheet) // id; label.current
+//   .flat()
+
+// console.log(`Indidcators: ${companyValues}`)

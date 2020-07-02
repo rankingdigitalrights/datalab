@@ -261,6 +261,7 @@ function addMainStepHeader(Sheet, Category, Company, activeRow, companyNrOfServi
 
     Sheet.setRowHeight(activeRow, 30)
 
+    // return MainStep.omitResearcher ? activeRow + 2 : activeRow + 1
     return activeRow + 1
 
 }
@@ -306,7 +307,7 @@ function addExtraInstruction(Substep, stepCNr, activeRow, activeCol, Sheet, Comp
 
     Sheet.getRange(activeRow, 2, 1, titleWidth)
         .merge()
-        .setValue(Substep.components[stepCNr].question)
+        .setValue(Substep.components[stepCNr].rowLabel)
         .setFontStyle("italic")
         .setFontWeight("bold")
         .setFontSize(12)
