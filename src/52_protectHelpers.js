@@ -1,3 +1,8 @@
+function protectSingleCompany(Indicators, SheetEditors, SS, companyID, currentPrefix) {
+    removeAllProtections(SS)
+    protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
+}
+
 function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
     Logger.log("FLOW - Protecting Sheets")
 
