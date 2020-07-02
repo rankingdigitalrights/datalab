@@ -118,7 +118,7 @@ function filterSingleIndicator(Indicators, indLabel) {
 }
 
 function filterSingleSubstep(Step, substepLabel) {
-    for (var i = 0; c < Step.substeps.length; i++) {
+    for (var i = 0; i < Step.substeps.length; i++) {
         if (Step.substeps[i].subStepID==substepLabel) {
             return Step.substeps[i]
         }
