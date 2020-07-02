@@ -39,7 +39,7 @@
   + create a **single** Spreadsheet `<Index> - <Company> - <Mode: Data Store>`
   + for each `<MainStep>` (i.e. `Step 1` & `SubStep` (i.e. `Step 1.5`) from `researchSteps.json`
     + for each `Indicator` in `Indicators[]`
-        + import data points in substeps as single rows
+        + import data points in substeps as blocks
 
 + Output files are located in `Config.rootFolderID/Config.outputFolderName` of `data@rdr`'s Drive.
 
@@ -53,5 +53,5 @@ TBD
 + `60_dataStorageLayer.js`: Module Interface; run from `00_mainController`
     + `61_dataStorageInterface.js`: Main Company-level procedure; iterates over `<MainStep>` (i.e. `Step 1` & `SubStep` (i.e. `Step 1.5`) from `researchSteps.json` and calls importing helper functions from lower-level submodules
     + `62a_dataStorageSingleStepWide.js`: TBD (difference between wide and long)
-    + `62b_dataStorageSingleStepLong.js`: 
+    + `62b_dataStorageSingleStepLong.js`: TBD
 
