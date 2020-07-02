@@ -28,9 +28,9 @@
     + `00_mainController.js::mainUnProtectCompanies()`
     + `00_mainController.js::mainOpenStepCompanies()`
 + main Module Interfaces: 
-    + `50_permissionsMain.js::mainProtectSingleCompany(Company)`
-    + `50_permissionsMain.js::mainUnprotectSingleCompany(Company)`
-    + `50_permissionsMain.js::mainProtectFileOpenStepSingleCompany(Company)`
+    + `51_permissionsMainOpenStep.js::mainProtectSingleCompany(Company)`
+    + `50_permissionsMainUnprotect.js::mainUnprotectSingleCompany(Company)`
+    + `50_permissionsMainProtect.js::mainProtectFileOpenStepSingleCompany(Company)`
 
 
 ## Main Procedure main `00_mainController.js::mainProtectCompanies()`
@@ -62,5 +62,4 @@
         + unprotect Front Matter (Indicator Guidance) and Step 0 (previous Year's Step 7 outcome)
         + for each `substep` in `step`
             + unprotect substep
-
 
