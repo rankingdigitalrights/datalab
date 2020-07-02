@@ -27,9 +27,11 @@ var isProduction = false
 
 var Config
 var doRepairsOnly
+var updateProduction = false
+var includeFeedback = true
 var addNewStep = false
 var skipMainSteps // Global Config
-var startAtMainStepNr // Global Config
+var startAtMainStepNr = 0 // Global Config
 var IndicatorsObj
 var globalIndicatorsSubset
 var indexPrefix
@@ -46,15 +48,15 @@ function initiateGlobalConfig() {
     Config = centralConfig
 
     doRepairsOnly = false
-    skipMainSteps = false
+    // skipMainSteps = false // TBD: not operation right now
 
     // IndicatorsObj = indicatorsVector
-    // IndicatorsObj = filterSingleIndicator(indicatorsVector, "F3c")
 
     // IMPORTANT: lazy Regex := G4 will match G4a, G4b, G4c et al.
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "F5a|F8|P5")
+
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -75,9 +77,63 @@ function mainInputSheets() {
 
     initiateGlobalConfig()
 
-    addNewStep = false // Caution: doesn't care if step already exists
+    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
+    // filenameSuffix = "" // local override : Dev, "", Debug, QC
+    let mainSheetMode = "Input" // for filename | TODO: move to Config
+    let useStepsSubset = false // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
+
+    const Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
+
+    let fileID
+
+    Companies.forEach(function (Company) {
+
+        fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
+
+    })
+
+}
+
+// --- // add a new Main Research Step at position Sheet.lastRow()
+function mainAddNewInputStep() {
+
+    initiateGlobalConfig()
+
+    updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
+
+    addNewStep = true // Just ignore: also caution - doesn't care if step already exists
     // also: Hook to skip steps
-    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
+    startAtMainStepNr = addNewStep ? 5 : 0 // logical Order
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
@@ -89,9 +145,9 @@ function mainInputSheets() {
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        .slice(4, 5) //   4 "AT&T",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
     // .slice(7, 8) //   7 "Bharti Airtel",
@@ -268,7 +324,7 @@ function mainRepairInputSheets() {
 
     initiateGlobalConfig()
 
-    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
+    startAtMainStepNr = 0 // logical Order
 
     doRepairsOnly = true // important: if sheet protected, run with data@
 
@@ -284,11 +340,11 @@ function mainRepairInputSheets() {
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        .slice(6, 7) //   6 "Baidu",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",

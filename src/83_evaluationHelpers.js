@@ -29,9 +29,16 @@ function checkElementSpecs(Element) {
 
 function makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs) {
 
-    let indSpecs = (IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(companyType)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))
+    let indSpecs = false
+    let elemSpecs = false
 
-    let elemSpecs = (ElementSpecs.doExcludeCompanies && ElementSpecs.excludeCompanies.includes(companyType)) || (ElementSpecs.doExcludeServices && ElementSpecs.excludeServices.includes(serviceType))
+    if (IndicatorSpecs !== null) {
+        indSpecs = (IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludeCompanies.includes(companyType)) || (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludeServices.includes(serviceType))
+    }
+
+    if (ElementSpecs !== null) {
+        elemSpecs = (ElementSpecs.doExcludeCompanies && ElementSpecs.excludeCompanies.includes(companyType)) || (ElementSpecs.doExcludeServices && ElementSpecs.excludeServices.includes(serviceType))
+    }
 
     return (indSpecs || elemSpecs) ? true : false
 }

@@ -24,6 +24,9 @@
     addTwoStepComparison,
     importYonYResults,
     importYonYSources,
+    addBinaryFBCheck,
+    addImportFBText,
+addResearcherFBNotes,
     defineNamedRange,
     cropEmptyColumns
 */
@@ -148,9 +151,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             if (mainStepNr > 0) {
 
                 // HOOK for data range and conditional formatting
-                if (dataStartRow === 0 && mainStepNr > 0) dataStartRow = activeRow
+                if (dataStartRow === 0 && mainStepNr > 0) {
+                    dataStartRow = activeRow
+                }
 
-                activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+                if (!MainStep.omitResearcher) {
+                    activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+                } else {
+                    activeRow += 1
+                }
             }
 
             let endStep = activeRow
@@ -173,13 +182,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 // Begin step component procedure
                 for (let stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
 
-                    let thisStepComponent = SubStep.components[stepCNr].type
+                    let substepCompType = SubStep.components[stepCNr].type
 
-                    Logger.log("----- component : " + SubStep.labelShort + " : " + thisStepComponent)
+                    Logger.log("----- component : " + SubStep.labelShort + " : " + substepCompType)
 
                     // create the type of substep component that is specified in the json
 
-                    switch (thisStepComponent) {
+                    switch (substepCompType) {
 
                         case "stepResearcherRow":
                             //TODO: remove from JSON
@@ -244,6 +253,22 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, Company, companyNrOfServices)
                             break
 
+                        case "binaryFeedbackCheck":
+                            activeRow = addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, companyNrOfServices)
+                            break
+
+                        case "importFeedbackText":
+                            activeRow = addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, companyNrOfServices)
+                            break
+
+                        case "researcherFBNotes":
+                            activeRow = addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, SubStep.components[stepCNr].id, companyNrOfServices)
+                            break
+
+                        case "feedbackEvaluation":
+                            activeRow = addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
                         default:
                             Sheet.appendRow(["!!!Error: Missed a component!!!"])
                             break
@@ -268,7 +293,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
                 // GROUPING for substep
-                if (subStepsLength > 1 & !doRepairsOnly) {
+                if (subStepsLength > 1 && !doRepairsOnly) {
 
                     range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
                     let substepRange = range.shiftRowGroupDepth(1)

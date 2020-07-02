@@ -2992,3 +2992,13 @@ var indicatorsVector = {
 //   .reduce((a, b) => a + b)
 
 // console.log(`Number of Elements: ${elementsCounts}`)
+
+
+// let indicatorLabels = indicatorsVector.indicatorCategories
+//   .map(category =>
+//     category.indicators
+//     .map(indicator =>
+//       indicator.labelShort))
+//   .flat()
+
+// console.log(`Indidcators: ${indicatorLabels}`)
