@@ -117,6 +117,17 @@ function filterSingleIndicator(Indicators, indLabel) {
 
 }
 
+function filterSingleSubstep(Step, substepLabel) {
+    for (var i = 0; c < Step.substeps.length; i++) {
+        if (Step.substeps[i].subStepID==substepLabel) {
+            return Step.substeps[i]
+        }
+
+    }
+
+    return null
+}
+
 function isValueInColumn(SS, sheetName, colNr, value) {
     let Range, Sheet, lastRow
     let isInColumn = false
