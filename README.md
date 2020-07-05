@@ -2,9 +2,9 @@
 
 [![clasp](docs/img/built-with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
-> **`development`** branch should always be visited first!  
-> `master` branch will be used for production as a protected branch. Master will always be behind on development  
-> [Drive Project link](https://script.google.com/d/1rZM9rFC9zFPkbxgTzqRBbynz60Bo5xRcdBpL9yi9l6TksLBkJNDAk2Wv/edit)
+> **`development`** branch is authoritative and should always be consulted first!
+> `master` branch is used for production as a protected branch. Master will usually lag behind  development  
+> 🚀 [Drive Project link](https://script.google.com/d/1rZM9rFC9zFPkbxgTzqRBbynz60Bo5xRcdBpL9yi9l6TksLBkJNDAk2Wv/edit)
 
 > Brace yourself: [Why software projects take longer than you think – a statistical model](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html)
 
@@ -25,7 +25,7 @@
 
 > To keep things readable, the documentation is maintained in designated chapters.
 
-+ [**Detailed Documentation**](docs/documentation.md)
++ [**Detailed Documentation**](https://github.com/rankingdigitalrights/datalab/wiki)
 
 ---
 
@@ -95,7 +95,7 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 ## Quick Start
 
-> Local [Setup](docs/setup.md) instructions
+> Local [Setup](wiki/02-Setup) instructions
 
 1. log-in with your regular @rdr account
 2. open [Script/All Projects](https://script.google.com/home/all) to get an overview of your GAS projects or go directly to the [`Datalab` project](https://script.google.com/a/rankingdigitalrights.org/d/1rZM9rFC9zFPkbxgTzqRBbynz60Bo5xRcdBpL9yi9l6TksLBkJNDAk2Wv/edit)
