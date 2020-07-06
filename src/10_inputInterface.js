@@ -69,7 +69,7 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
 
     let tabPrevYearsSources = (Company.tabPrevYearsOutcome != null) ? (companyShortName + "Sources") : "VodafoneSources"
 
-    let sourcesTabName = "2020 Sources"
+    let sourcesTabName = Config.sourcesTabName
 
     let Sheet
 
