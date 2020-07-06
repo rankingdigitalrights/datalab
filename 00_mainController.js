@@ -190,11 +190,11 @@ function mainScoringSheets() {
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
     let useStepsSubset = false // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
-        .slice(1, 9)
-    // .slice(0,1) // Amazon
+        //.slice(1, 9)
+     .slice(0,1) // Amazon
     // .slice(1, 2) // Apple
     // .slice(3,4) //
 
@@ -486,9 +486,11 @@ function mainUnProtectCompanies() {
 function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
-    let stepLabel = ["S01", "S02"] // maybe better: match ResearchStepObj syntax := S01
+    let stepLabel = ["S01"] // maybe better: match ResearchStepObj syntax := S01
+    let substepArray=createSubstepArray(stepLabel)
+    let editors = EditorsObj[stepLabel]
 
-    let substepArray = createSubstepArray(stepLabel)
+    Logger.log("array: "+substepArray)
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -520,12 +522,16 @@ function mainOpenStepCompanies() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        // let companyId = Company.id
         let companyNr = companiesVector.companies.indexOf(Company)
-        let editors
+        let editors=[]
+        
+        stepLabel.forEach(function(step) {
+          editors.push(EditorsObj[step][companyNr])
+          
+        })
+        
+        Logger.log("editors:"+editors)
 
-        stepLabel.forEach(step => editors.push(EditorsObj[step][companyNr]))
-
-        mainProtectFileOpenStepSingleCompany(Company, substepArray, editors)
+        mainProtectFileOpenStepSingleCompany(Company,substepArray, editors)
     })
 }

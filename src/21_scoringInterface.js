@@ -25,6 +25,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
     var firstScoringStep = determineFirstStep(outputParams)
     var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
 
+    Logger.log("first step " + firstScoringStep)
     Logger.log("include Sources? " + outputParams.includeSources)
 
 
