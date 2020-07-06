@@ -1,3 +1,11 @@
+function calculateCompanyWidth(Company) {
+
+    let services = Company.services.length
+    let hasOpCom = Company.hasOpCom
+    let width = hasOpCom ? (services + 2) : (services + 1)
+    return width
+}
+
 function styleScoringIndicatorHeader(currentCell, rowLabel, colorHex) {
     currentCell.setValue(rowLabel)
     currentCell.setWrap(true)
