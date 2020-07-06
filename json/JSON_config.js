@@ -24,6 +24,7 @@ var centralConfig = {
   collapseAllGroups: false,
   feedbackStep: [4, 5],
   compFeedbackSheetName: "Company Feedback",
+  sourcesTabName: "2020 Sources",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   prevYearSourcesTab: "2019 Sources",
