@@ -124,6 +124,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
         if (blocks === 1) {
             var rowLabel = StepComp.rowLabel + Indicator.elements[elemNr].labelShort
             currentCell.setBackground("#FFFFFF")
+            currentCell.setFontWeight("normal")
             currentCell.setValue(rowLabel.toString())
             currentCell.setWrap(true)
             tempCol += 1
@@ -148,6 +149,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
             var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
             currentCell.setFormula(formula)
             currentCell.setBackground("#FFFFFF")
+            currentCell.setFontWeight("normal")
             tempCol += 1
         }
 
@@ -155,6 +157,8 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
         for (var k = 0; k < nrOfIndSubComps; k++) {
             currentCell = sheet.getRange(activeRow, tempCol)
             currentCell.setBackground("#FFFFFF")
+            currentCell.setFontWeight("normal")
+
 
             if (nrOfIndSubComps != 1) {
                 component = indicatorCat.components[k].labelShort
@@ -189,6 +193,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
                 var formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
                 currentCell.setFormula(formula)
                 currentCell.setBackground("#FFFFFF")
+                currentCell.setFontWeight("normal")
 
                 tempCol += 1
             }
