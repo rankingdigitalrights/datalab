@@ -22,7 +22,8 @@ var centralConfig = {
   subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
-  feedbackStep: [4, 5],
+  feedbackStep: 3,
+  feedbackSubstep: 2,
   compFeedbackSheetName: "Company Feedback",
   sourcesTabName: "2020 Sources",
   prevYearOutcomeTab: "2019 Outcome",

@@ -509,6 +509,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "GoogleOutcome",
       "urlCurrentDataCollectionSheet": "1tkOrgUWe0sG5cfNYeoph5IQdYt_A3LGbR2JMkCdwhGg",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": "1TDkZOnUFJbNuaOXve97qLrPlad8JYq3iHyKdNDLgyT0",
       "numberOfServices": 5,
       "services": [{
           "id": "seGO1",

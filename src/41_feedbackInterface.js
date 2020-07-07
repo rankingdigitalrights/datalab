@@ -1,147 +1,108 @@
-function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel) {
+function injectFeedbackBlock(Sheet, Company, Indicator, subStepID) {
 
-    Logger.log("--- Begin Feedback for Single Indicator Class: " + sheetName)
+    let activeRow = Sheet.getLastRow() + 2
+    let offsetCol = 2
 
-    var companyShortName = CompanyObj.label.current
+    let indyLabel = Indicator.labelShort
 
-    Logger.log("Inserting Sheet " + sheetName)
-    var sheet = insertSheetIfNotExist(SS, sheetName, true)
-    if (sheet !== null) {
-        sheet.clear()
-    }
+    let rangeWidth = Company.width
 
-    var firstCol = lastCol
-    var activeCol = firstCol
-    var activeRow = 2
-    var lastRow
-    var offsetCol = firstCol + 2
+    activeRow = appendFBHeader(Sheet, activeRow, offsetCol, rangeWidth)
 
-    // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
-    var nrOfIndSubComps = 1
+    activeRow = appendFBCompany(Sheet, activeRow, offsetCol, rangeWidth, Company, indyLabel)
 
-    if (thisIndClass.hadSubComponents == true) {
-        nrOfIndSubComps = thisIndClass.components.length
-    }
+    let isComments = false
+    // TODO
+    isComments = false
+    activeRow = appendFBRows(isComments)
 
-    // set up header / TODO: remove from steps JSON. Not a component. This is Layout
+    // TODO
+    isComments = true
+    activeRow = appendFBRows(isComments)
 
-    activeRow = setFeedbackSheetHeader(activeRow, offsetCol, sheet, numberOfColumns)
+    // TODO
+    activeRow = appendFBSources(...)
 
-    activeRow = setFeedbackCompanyHeader(activeRow, offsetCol, sheet, CompanyObj, nrOfIndSubComps, thisIndClass, numberOfColumns)
-
-    // TODO: Refactor to main caller
-
-    var thisIndClassLength
-    if (useIndicatorSubset) {
-        thisIndClassLength = 2
-    } else {
-        thisIndClassLength = thisIndClass.indicators.length
-    }
-
-    // --- // For all Indicators of this Class // --- //
-
-    var blockStartRow
-    var blockEndRow
-    var thisBlock
-    var thisInd
-    var StepComp
-    var stepCompType
-
-    for (var i = 0; i < thisIndClassLength; i++) {
-
-        thisInd = thisIndClass.indicators[i]
-
-        Logger.log("begin Indicator: " + thisInd.labelShort)
-
-        activeRow = addIndicatorLabelRow(activeRow, firstCol, sheet, CompanyObj, nrOfIndSubComps, thisInd, numberOfColumns)
-
-        blockStartRow = activeRow
-
-        // --- // Main task // --- //
-
-        // for all components of the current Research Step
-
-        for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
-
-            StepComp = thisSubStep.components[stepCompNr]
-            stepCompType = StepComp.type
-            Logger.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
-
-            switch (stepCompType) {
-
-                // import researcher name from x.0 step
-                case "subStepHeader":
-                    break
-
-                case "evaluation":
-                    // if (includeResults) {
-                    //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                    // }
-                    break
-
-                case "comments":
-                    activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
-                    break
-
-                case "sources":
-
-                    activeRow = importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    Logger.log(" - SC - " + "sources added for: " + thisInd.labelShort)
-
-                    break
-            }
-        }
-
-        blockEndRow = activeRow - 1 // mark end of block
-        activeRow += 1
-
-        lastCol = numberOfColumns * 2 + 2
-
-        sheet.getRange(blockEndRow, firstCol, 1, lastCol)
-            .setBorder(false, false, true, false, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
-
-        thisBlock = sheet.getRange(blockStartRow, 1, blockEndRow - blockStartRow + 1, numberOfColumns)
-
-        thisBlock.shiftRowGroupDepth(1)
-
-    } // END INDICATOR
-
-    // --- // Sheet-Level Formattings // --- //
-
-    lastCol = numberOfColumns * 2 + 2
-
-    Logger.log("Formatting Sheet")
-    lastRow = activeRow - 2
-
-    sheet.getRange(1, 1, lastRow, lastCol)
-        .setFontFamily("Roboto")
-        .setVerticalAlignment("top")
-    // .setWrap(true)
-
-    sheet.setColumnWidth(1, 40)
-    sheet.setColumnWidth(2, 200)
-
-    sheet.setColumnWidths(offsetCol, 2 * numberOfColumns, dataColWidth)
-
-    // label columns
-    sheet.getRange(1, 1, lastRow, 2)
-        .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    // results columns
-    sheet.getRange(1, offsetCol, lastRow, numberOfColumns)
-        .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    // feedback columns
-    sheet.getRange(1, offsetCol + numberOfColumns, lastRow, numberOfColumns)
-        .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    sheet.setFrozenRows(3)
-    sheet.setFrozenColumns(2)
-
-
-    return lastCol += 1
 }
 
-// END MAIN Step & function
+function appendFBHeader(Sheet, activeRow, offsetCol, rangeWidth) {
+    let Range = Sheet.getRange(activeRow, offsetCol, 1, rangeWidth + 1)
+    Range.setValue("PRELIMINARY EVALUATION")
+        .merge()
+        .setHorizontalAlignment("center")
+        .setBackground("#5ca5d9")
+        .setFontColor("white")
+        .setFontSize(14)
+        .setFontWeight("bold")
+        .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_THICK)
+    return activeRow + 2
+}
+
+function appendFBCompany(Sheet, activeRow, offsetCol, rangeWidth, Company, indyLabel) {
+
+    let activeCol = offsetCol
+
+    let Cell, cellValue
+
+    // first cell: MainStep Label
+    Sheet.getRange(activeRow, activeCol)
+        .setValue(indyLabel)
+
+    activeCol += 1
+
+    // Company (group) column(s)
+    Cell = Sheet.getRange(activeRow, activeCol)
+        // .setValue("Group")
+        .setValue(Company.groupLabel)
+        .setBackground("#fff2cc")
+
+    activeCol += 1
+
+    // if no OpCom : skip
+
+    if (Company.hasOpCom) {
+        Cell = Sheet.getRange(activeRow, activeCol)
+            .setBackground("#fff2cc")
+
+        // Cell.setValue("Operating Company")
+        Cell.setValue(Company.opComLabel)
+
+        activeCol += 1
+    }
+
+    // for remaining columns (services)
+    for (let i = 0; i < Company.services.length; i++) {
+        Sheet.getRange(activeRow, activeCol)
+            .setValue(Company.services[i].label.current)
+            .setBackground("#b7e1cd")
+        activeCol += 1
+    }
+
+    Sheet.getRange(activeRow, offsetCol, 1, rangeWidth + 1)
+        .setFontWeight("bold")
+        .setVerticalAlignment("middle")
+        .setHorizontalAlignment("center")
+        .setFontSize(12)
+
+    Sheet.setRowHeight(activeRow, 30)
+
+    // if (Config.freezeHead) {
+    //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
+    // }
+
+    return activeRow + 2
+}
+
+// TODO: one generic function to rowwise import Element-level results or Element-level comments by named range from Input Sheet Step 3.2
+function appendFBRows(isComments) {
+
+    // use isComments to toggle between rowwise import of results vs comments
+    console.log("--- Results")
+}
+
+// TODO:
+function appendFBSources() {
+
+    // use isComments to toggle between rowwise import of results vs comments
+    console.log("--- Results")
+}

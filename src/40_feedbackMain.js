@@ -1,89 +1,71 @@
-// --- Spreadsheet Casting: Company Scoring Sheet --- //
-// Works only for a single ATOMIC step right now //
+// --- Spreadsheet Casting: Company Feedback Sheet --- //
 
-// --------------- This is the Main Scoring Process Caller ---------------- //
-
-function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode) {
+/* global
+    Config,
+    IndicatorsObj,
+    researchStepsVector,
+    openSpreadsheetByID,
+    appendFeedbackBlock,
+    calculateCompanyWidth,
+    importSourcesSheet
+*/
+function injectFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
-    var CompanyObj = thisCompany
-    var Indicators = IndicatorsObj
-    var ResearchStepsObj = researchStepsVector
+    let Indicators = IndicatorsObj
+    let ResearchSteps = researchStepsVector
 
-    var sheetModeID = "FB"
+    Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
-    var companyFilename = cleanCompanyName(CompanyObj)
-
-    Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
-
-    var hasOpCom = CompanyObj.hasOpCom
+    let hasOpCom = Company.hasOpCom
+    Company.width = calculateCompanyWidth(Company)
 
     // define SS name
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
-
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
-    var SS = createSpreadsheet(spreadsheetName, true)
-    var fileID = SS.getId()
 
+    let SS = openSpreadsheetByID(Company.urlCurrentFeedbackSheet)
     // --- // Feedback Parameters // --- //
 
-    var integrateOutputs = false
-    var isPilotMode = false
-    var outputParams = Config.feedbackParams
-    var subStepNr = outputParams.subStepNr
-    var hasFullScores = outputParams.hasFullScores
-    var includeSources = outputParams.includeSources
-    var includeNames = outputParams.includeNames
-    var includeResults = outputParams.includeResults
-    var dataColWidth = outputParams.dataColWidth
-
-    // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
-    var globalNrOfComponents = 1
-    if (Indicators.indicatorCategories[0].components) {
-        globalNrOfComponents = Indicators.indicatorCategories[0].components.length
-    }
-
-    var companyCols = 1
-    if (hasOpCom) {
-        companyCols = 2
-    }
-    var numberOfColumns = (CompanyObj.numberOfServices + companyCols) * globalNrOfComponents
+    let integrateOutputs = false
+    let isPilotMode = false
+    let outputParams = Config.feedbackParams
+    let subStepNr = Config.feedbackSubstep
+    let dataColWidth = outputParams.dataColWidth
 
     // minus for logical -> index
-    var firstScoringStep = outputParams.firstStepNr - 1
-    var thisMainStep = ResearchStepsObj.researchSteps[firstScoringStep]
 
-    var thisSubStep = thisMainStep.substeps[subStepNr]
-    var thisSubStepID = thisSubStep.subStepID
-    var thisSubStepLabel = thisSubStep.labelShort
+    let MainStep = ResearchSteps.researchSteps[Config.feedbackStep]
+
+    let SubStep = MainStep.substeps[subStepNr]
+    let subStepID = SubStep.subStepID
+    let subStepLabel = SubStep.labelShort
 
     // --- // MAIN: create Single Indicator Class Sheet // --- // 
 
-    var thisIndClass
-    var sheetName
-    var lastCol
-    var blocks = 1
+    let sheetName = Config.sourcesTabName
 
-    var doOverwrite = true
-    sheetName = outputParams.sourcesSheetname
+    let doOverwrite = false
 
-    var sourcesSheet = importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite)
+    sheetName = Config.sourcesTabName
+    let sourcesSheet = importSourcesSheet(SS, sheetName, Company, true)
 
-    for (var c = 0; c < Indicators.indicatorCategories.length; c++) {
+    let Category, Indicator
+    let Sheet
 
-        lastCol = 1
+    for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
 
-        thisIndClass = Indicators.indicatorCategories[c]
+        Category = Indicators.indicatorCategories[c]
 
-        sheetName = thisIndClass.labelLong
+        for (let i = 0; i < Category.indicators.length; i++) {
 
-        lastCol = insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel)
+            Indicator = Category.indicators[i]
+            sheetName = Indicator.labelShort
+            Sheet = SS.getSheetByName(sheetName)
+            injectFeedbackBlock(Sheet, Company, Indicator, subStepID)
+        }
+
+        // lastCol = insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, Category, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, SubStep, thisSubStepID, thisSubStepLabel)
     }
 
-    // clean up // 
-    // if empty Sheet exists, delete
-    removeEmptySheet(SS)
-
-    return fileID
 }
