@@ -245,7 +245,7 @@ function mainAggregationSheets() {
 
     var useIndicatorSubset = false // true := use subset
 
-    var scoringStepNr = 6
+    var scoringStepNr = 1
 
     var Companies = companiesVector.companies
         .slice(1, 9) // no Amazon

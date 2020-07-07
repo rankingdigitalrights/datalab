@@ -15,18 +15,15 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
     var dataColWidth = outputParams.dataColWidth
 
     // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
-    var globalNrOfComponents = 1
-    if (Indicators.indicatorCategories[0].components) {
-        globalNrOfComponents = Indicators.indicatorCategories[0].components.length
-    }
-
-    var numberOfColumns = (CompanyObj.numberOfServices + 2) * globalNrOfComponents + 1
+    var numberOfColumns = CompanyObj.numberOfServices + 3
 
     var firstScoringStep = determineFirstStep(outputParams)
     var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
 
     Logger.log("first step " + firstScoringStep)
+    Logger.log("last step " + maxScoringStep)
     Logger.log("include Sources? " + outputParams.includeSources)
+    Logger.log("outputParams:"+outputParams)
 
 
     var lastCol = 1

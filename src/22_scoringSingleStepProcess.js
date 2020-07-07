@@ -4,7 +4,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
 
     var companyShortName = CompanyObj.label.current
 
-    var thisSubStep = thisMainStep.substeps[subStepNr]
+    var thisSubStep = filterSingleSubstep(thisMainStep, thisMainStep.scoringSubStep)
     var thisSubStepID = thisSubStep.subStepID
     var thisSubStepLabel = thisSubStep.labelShort
 
@@ -29,10 +29,6 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
         Logger.log("begin Indicator Category: " + thisIndCat.labelLong)
         var nrOfIndSubComps = 1
-
-        if (thisIndCat.hadSubComponents == true) {
-            nrOfIndSubComps = thisIndCat.components.length
-        }
 
         // TODO: Refactor to main caller
 
@@ -64,8 +60,8 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
             var StepComp
             var stepCompType
 
-            //var thisSubStep = thisMainStep.substeps[subStepNr]
-
+            var thisSubStep = filterSingleSubstep(thisMainStep, thisMainStep.scoringSubStep)
+            
             // for all components of the current Research Step
             for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
 

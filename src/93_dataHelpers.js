@@ -69,7 +69,7 @@ function determineFirstStep(outputParams) {
     var firstScoringStep
 
     if (outputParams.firstStepNr) {
-        firstScoringStep = outputParams.firstStepNr - 1
+        firstScoringStep = outputParams.firstStepNr 
     } else {
         firstScoringStep = 0
     }
@@ -79,7 +79,7 @@ function determineFirstStep(outputParams) {
 
 function determineMaxStep(outputParams, ResearchStepsObj) {
 
-    var maxScoringStep = outputParams.lastStepNr ? outputParams.lastStepNr : ResearchStepsObj.researchSteps.length
+    var maxScoringStep = outputParams.lastStepNr ? outputParams.lastStepNr +1: ResearchStepsObj.researchSteps.length
 
     return maxScoringStep
 }
