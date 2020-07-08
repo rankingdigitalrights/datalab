@@ -9,7 +9,7 @@
     calculateCompanyWidth,
     importSourcesSheet
 */
-function injectFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function injectFeedbackForms(IndicatorsObj, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
@@ -19,7 +19,7 @@ function injectFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filena
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
     let hasOpCom = Company.hasOpCom
-    Company.width = calculateCompanyWidth(Company)
+    //Company.width = calculateCompanyWidth(Company)
 
     // define SS name
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
@@ -62,7 +62,7 @@ function injectFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filena
             Indicator = Category.indicators[i]
             sheetName = Indicator.labelShort
             Sheet = SS.getSheetByName(sheetName)
-            injectFeedbackBlock(Sheet, Company, Indicator, subStepID)
+            injectFeedbackBlock(Sheet, Company, Indicator, subStepID,SS)
         }
 
         // lastCol = insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, Category, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, SubStep, thisSubStepID, thisSubStepLabel)
