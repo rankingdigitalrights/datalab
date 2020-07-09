@@ -1,3 +1,11 @@
+/* global
+    Config
+*/
+
+function returnFBStyleParams(configObjKey) {
+    return Config.feedbackForms[configObjKey]
+}
+
 function calculateCompanyWidth(Company) {
 
     let services = Company.services.length

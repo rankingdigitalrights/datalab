@@ -22,9 +22,27 @@ var centralConfig = {
   subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
-  feedbackStep: 3,
-  feedbackSubstep: 2,
-  compFeedbackSheetName: "Company Feedback",
+  feedbackForms: {
+    feedbackStep: 3,
+    feedbackSubstep: 2,
+    compFeedbackSheetName: "Company Feedback",
+    dataColWidth: 280,
+    mainSection: {
+      label: "PRELIMINARY EVALUATION",
+      backColor: "#5ca5d9",
+      fontColor: "white",
+    },
+    yearOnYearSection: {
+      label: "YEAR-ON-YEAR COMPARISON",
+      backColor: "#d9ead3",
+      fontColor: null,
+    },
+    feedbackBoxSection: {
+      label: "COMPANY RESPONSE",
+      backColor: "#ffe599",
+      fontColor: null
+    }
+  },
   sourcesTabName: "2020 Sources",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
@@ -59,7 +77,6 @@ var centralConfig = {
   integrateOutputs: false, // DC: integrate any output component?
   notesSheetname: "Researcher Comments",
   scoringSheetname: "Scores",
-  feedbackSheetname: "Feedback Base",
   integrateOutputsArray: {
     includeScoring: false, // create regular Outcome?
     isFullScoring: true, // scores or only comments?
@@ -87,30 +104,7 @@ var centralConfig = {
       includeSources: true,
       includeNames: false,
       includeResults: true
-    },
-    feedbackParams: {
-      subStepNr: 0,
-      firstStepNr: 1,
-      lastStepNr: 6,
-      sheetName: "Prototype",
-      dataColWidth: 200,
-      hasFullScores: false,
-      includeSources: true,
-      includeNames: false,
-      includeResults: true
     }
-  },
-  feedbackParams: {
-    subStepNr: 0,
-    firstStepNr: 3,
-    lastStepNr: 3,
-    sheetName: "Prototype",
-    dataColWidth: 300,
-    hasFullScores: false,
-    includeSources: true,
-    includeNames: false,
-    includeResults: true,
-    sourcesSheetname: "Sources referenced"
   },
   dataStoreParams: {
     fileName: "Data Store",

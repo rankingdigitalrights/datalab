@@ -1,49 +1,64 @@
+/* global
+    Config
+*/
+
+
+
 function TestCF() {
-    let Company=companiesVector.companies[5]
-    let SS=SpreadsheetApp.openById("1TF9OmBac2rkIjFAJVCJw7h9VXHcm70sj-6aQOoI9uYY")
+    let Company = companiesVector.companies[5]
+    let SS = SpreadsheetApp.openById("1TF9OmBac2rkIjFAJVCJw7h9VXHcm70sj-6aQOoI9uYY")
     let Sheet = SS.getSheetByName("G1")
     let IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1").indicatorCategories[0].indicators[0]
-    
+
     //Logger.log("indicator"+IndicatorsObj)
-    Logger.log("company:"+Company.id)
-    
+    Logger.log("company:" + Company.id)
+
     injectFeedbackBlock(Sheet, Company, IndicatorsObj)
-   }
-   
-   
-   function injectFeedbackBlock(Sheet, Company, Indicator) {
+}
+
+
+function injectFeedbackBlock(Sheet, Company, Indicator, subStepID, outputParams) {
 
     let activeRow = Sheet.getLastRow() + 2
     let offsetCol = 2
 
     let indyLabel = Indicator.labelShort
 
-    let rangeWidth = Company.numberOfServices+1
-    if(Company.hasOpCom) {rangeWidth=rangeWidth+1}
+    let companyWidth = calculateCompanyWidth(Company)
 
-    activeRow = appendFBHeader(Sheet, activeRow, offsetCol, rangeWidth)
+    let label, backColor, fontColor, StyleSpecs
 
-    activeRow = appendFBCompany(Sheet, activeRow, offsetCol, rangeWidth, Company, indyLabel)
+    // Results Section Header
+    StyleSpecs = returnFBStyleParams("mainSection")
+    activeRow = appendFBHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs)
 
-    // TODO
-    activeRow = appendFBRows(Sheet, Company, Indicator, activeRow)
+    // Company Column Labels Header
+    activeRow = appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, indyLabel)
 
+    // Results Block
+    activeRow = appendFBRows(Sheet, Company, Indicator, subStepID, companyWidth, activeRow, offsetCol)
+
+    // Year-on-Year Text Block
+    StyleSpecs = returnFBStyleParams("yearOnYearSection")
+    activeRow = appendFBHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs)
+
+    activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs)
 }
 
-function appendFBHeader(Sheet, activeRow, offsetCol, rangeWidth) {
-    let Range = Sheet.getRange(activeRow, offsetCol, 1, rangeWidth + 1)
-    Range.setValue("PRELIMINARY EVALUATION")
+function appendFBHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs) {
+    let Range = Sheet.getRange(activeRow, offsetCol, 1, companyWidth + 1)
+    Range.setValue(StyleSpecs.label)
         .merge()
         .setHorizontalAlignment("center")
-        .setBackground("#5ca5d9")
-        .setFontColor("white")
+        .setBackground(StyleSpecs.backColor)
+        .setFontColor(StyleSpecs.fontColor || "black")
         .setFontSize(14)
         .setFontWeight("bold")
         .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_THICK)
     return activeRow + 2
 }
 
-function appendFBCompany(Sheet, activeRow, offsetCol, rangeWidth, Company, indyLabel) {
+function appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, indyLabel) {
 
     let activeCol = offsetCol
 
@@ -83,11 +98,12 @@ function appendFBCompany(Sheet, activeRow, offsetCol, rangeWidth, Company, indyL
         activeCol += 1
     }
 
-    Sheet.getRange(activeRow, offsetCol, 1, rangeWidth + 1)
+    Sheet.getRange(activeRow, offsetCol, 1, companyWidth + 1)
         .setFontWeight("bold")
         .setVerticalAlignment("middle")
         .setHorizontalAlignment("center")
         .setFontSize(12)
+        .setBorder(false, false, true, false, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
 
     Sheet.setRowHeight(activeRow, 30)
 
@@ -95,58 +111,139 @@ function appendFBCompany(Sheet, activeRow, offsetCol, rangeWidth, Company, indyL
     //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
     // }
 
-    return activeRow + 2
+    return activeRow + 1
 }
 
 // TODO: one generic function to rowwise import Element-level results or Element-level comments by named range from Input Sheet Step 3.2
-function appendFBRows(Sheet, Company, Indicator, activeRow) {
+function appendFBRows(Sheet, Company, Indicator, subStepID, companyWidth, activeRow, offsetCol) {
 
-    let namedStepRange=defineNamedRange(centralConfig.indexPrefix, "DC", "S032", Indicator.labelShort, "", Company.id, "", "Step")
+    // row-labels
 
-    let DCurl=Company.urlCurrentDataCollectionSheet
-    let CompanySS=SpreadsheetApp.openById(DCurl)
-    
-    let r1=Sheet.getRange(activeRow-1,1,2)
-    r1.setBackground("white")
-    r1.setFontColor("black")
-    
-    Logger.log("namedRange:"+namedStepRange)
+    let cell, label, type, blockHeight
+    let activeCol = offsetCol
+    let column = []
+
+    for (let i = 0; i < 2; i++) {
+        type = i === 0 ? "Result " : "Comment "
+
+        Indicator.elements.forEach(Element => {
+            label = type + Element.labelShort
+            column.push([label])
+        })
+
+    }
+
+    column.push(["Sources"])
+
+    blockHeight = column.length
+
+    Sheet.getRange(activeRow, activeCol, blockHeight, 1)
+        .setValues(column)
+        .setFontWeight("bold")
+
+    // results / comments
+
+    activeCol += 1
+
+    let namedStepRange = defineNamedRange(Config.indexPrefix, "DC", subStepID, Indicator.labelShort, "", Company.id, "", "Step")
+
+    let DCurl = Company.urlCurrentDataCollectionSheet
+    let CompanySS = SpreadsheetApp.openById(DCurl)
+
+    // let r1 = Sheet.getRange(activeRow - 1, 1, 2)
+    // r1.setBackground("white")
+    // r1.setFontColor("black")
+
+    Logger.log("namedRange:" + namedStepRange)
 
     let range = CompanySS.getRange(namedStepRange)
     let rangeNotation, formula
-    
+
     if (!Company.hasOpCom) {
-      Logger.log("hasOpCom")
-          rangeNotation = '"'+Indicator.labelShort+'!A'+range.getRow()+":B"+range.getLastRow()+'"'  
-           Logger.log("range:"+rangeNotation)
-           formula='=IMPORTRANGE("'+DCurl+'",'+rangeNotation+')'
-           Logger.log("formula:"+formula)
-           Sheet.getRange(activeRow,2).setFormula(formula)
-           
-           rangeNotation = '"'+Indicator.labelShort+'!D'+range.getRow()+":"+columnToLetter(range.getLastColumn())+range.getLastRow()+'"'
-           formula='=IMPORTRANGE("'+DCurl+'",'+rangeNotation+')'
+        Logger.log("hasOpCom")
+        rangeNotation = '"' + Indicator.labelShort + '!B' + range.getRow() + ":B" + range.getLastRow() + '"'
+        Logger.log("range:" + rangeNotation)
+        formula = '=IMPORTRANGE("' + DCurl + '",' + rangeNotation + ')'
+        Logger.log("formula:" + formula)
+        Sheet.getRange(activeRow, activeCol).setFormula(formula)
 
-           Logger.log("formula:"+formula)
+        rangeNotation = '"' + Indicator.labelShort + '!D' + range.getRow() + ":" + columnToLetter(range.getLastColumn()) + range.getLastRow() + '"'
+        formula = '=IMPORTRANGE("' + DCurl + '",' + rangeNotation + ')'
 
-           Sheet.getRange(activeRow,4).setFormula(formula)
-           return activeRow+range.getHeight()
+        Logger.log("formula:" + formula)
+
+        Sheet.getRange(activeRow, 4).setFormula(formula)
+
+    } else {
+
+        range = CompanySS.getRange(namedStepRange)
+        rangeNotation = '"' + Indicator.labelShort + '!B' + range.getRow() + ":" + columnToLetter(range.getLastColumn()) + range.getLastRow() + '"'
+
+        Logger.log("range:" + rangeNotation)
+        Logger.log("activeRow:" + activeRow)
+
+        formula = '=IMPORTRANGE("' + DCurl + '",' + rangeNotation + ')'
+
+        Logger.log("formula:" + formula)
+
+        Sheet.getRange(activeRow, activeCol).setFormula(formula)
 
     }
-     
-       range = CompanySS.getRange(namedStepRange)
-       rangeNotation = '"'+Indicator.labelShort+'!A'+range.getRow()+":"+columnToLetter(range.getLastColumn())+range.getLastRow()+'"'
-   
-       Logger.log("range:"+rangeNotation)
-       Logger.log("activeRow:"+activeRow)
-       
-       formula='=IMPORTRANGE("'+DCurl+'",'+rangeNotation+')'
-   
-       Logger.log("formula:"+formula)
-   
-       Sheet.getRange(activeRow,2).setFormula(formula)
-   
-       
-       return activeRow+range.getHeight()
+
+    // formatting of results block
+
+    let partBlockLength
+
+    Sheet.getRange(activeRow, offsetCol, blockHeight, companyWidth + 1)
+        .setHorizontalAlignment("left")
+        .setVerticalAlignment("top")
+
+    partBlockLength = (blockHeight / 2 - 1)
+    Sheet.getRange(activeRow + partBlockLength, offsetCol, 1, companyWidth + 1)
+        .setBorder(false, false, true, false, false, false, "black", SpreadsheetApp.BorderStyle.DOTTED)
+
+    partBlockLength = (blockHeight - 2)
+    Sheet.getRange(activeRow + partBlockLength, offsetCol, 1, companyWidth + 1)
+        .setBorder(false, false, true, false, false, false, "black", SpreadsheetApp.BorderStyle.DOTTED)
+
+    return activeRow + blockHeight + 1
+}
+
+function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs) {
+
+    let rowLabel = StyleSpecs.rowLabel || ""
+
+    let Cell
+    let activeCol = offsetCol
+
+    // Cell = Sheet.getRange(activeRow, activeCol)
+    //     .setValue(Indicator.labelShort)
+
+    // activeRow += 1
+
+    rowLabel = Indicator.labelShort + "\n\n" + "Change since 2019 Index"
+
+    Cell = Sheet.getRange(activeRow, activeCol)
+        .setValue(rowLabel)
+        .setBackground(StyleSpecs.backColor)
+        .setFontWeight("bold")
+        .setFontSize(13)
+        .setHorizontalAlignment("center")
+        .setVerticalAlignment("middle")
+        .setWrap(true)
+
+    activeCol += 1
+
+    Cell = Sheet.getRange(activeRow, activeCol, 1, companyWidth).merge()
+        .setValue("Dummy Placeholder text to showcase / inspect readability and formatting")
+        .setFontSize(12)
+        .setHorizontalAlignment("left")
+        .setVerticalAlignment("top")
+        .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
+
+    Sheet.setRowHeight(activeRow, 200)
+
+    return activeRow + 2
 }
 
 // TODO:
@@ -157,11 +254,11 @@ function appendFBSources() {
 }
 
 function columnToLetter(column) {
-    var temp, letter = '';
+    var temp, letter = ""
     while (column > 0) {
-      temp = (column - 1) % 26;
-      letter = String.fromCharCode(temp + 65) + letter;
-      column = (column - temp - 1) / 26;
+        temp = (column - 1) % 26
+        letter = String.fromCharCode(temp + 65) + letter
+        column = (column - temp - 1) / 26
     }
-    return letter;
-  }
+    return letter
+}

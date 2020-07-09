@@ -218,17 +218,12 @@ function mainFeedbackSheets() {
 
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Feedback"
-    var mainSheetMode = "Feedback"
-
-    var useIndicatorSubset = false // true := use subset
-
     var Companies = companiesVector.companies
         // .slice(1, 2) // Apple
         .slice(11, 12) // 11 "Google",
 
     Companies.forEach(function (Company) {
-
-        injectFeedbackForms(useIndicatorSubset, Company, mainSheetMode)
+        injectFeedbackForms(Company)
     })
 }
 

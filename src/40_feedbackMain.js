@@ -9,12 +9,14 @@
     calculateCompanyWidth,
     importSourcesSheet
 */
-function injectFeedbackForms(IndicatorsObj, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function injectFeedbackForms(Company) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
     let Indicators = IndicatorsObj
     let ResearchSteps = researchStepsVector
+
+    let mainSheetMode = "Feedback"
 
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
@@ -29,13 +31,13 @@ function injectFeedbackForms(IndicatorsObj, Company, filenamePrefix, filenameSuf
 
     let integrateOutputs = false
     let isPilotMode = false
-    let outputParams = Config.feedbackParams
-    let subStepNr = Config.feedbackSubstep
+    let outputParams = Config.feedbackForms
+    let subStepNr = outputParams.feedbackSubstep
     let dataColWidth = outputParams.dataColWidth
 
     // minus for logical -> index
 
-    let MainStep = ResearchSteps.researchSteps[Config.feedbackStep]
+    let MainStep = ResearchSteps.researchSteps[outputParams.feedbackStep]
 
     let SubStep = MainStep.substeps[subStepNr]
     let subStepID = SubStep.subStepID
@@ -62,10 +64,9 @@ function injectFeedbackForms(IndicatorsObj, Company, filenamePrefix, filenameSuf
             Indicator = Category.indicators[i]
             sheetName = Indicator.labelShort
             Sheet = SS.getSheetByName(sheetName)
-            injectFeedbackBlock(Sheet, Company, Indicator, subStepID,SS)
+            injectFeedbackBlock(Sheet, Company, Indicator, subStepID, outputParams)
         }
 
-        // lastCol = insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, Category, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, SubStep, thisSubStepID, thisSubStepLabel)
     }
 
 }
