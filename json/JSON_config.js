@@ -22,11 +22,19 @@ var centralConfig = {
   subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
+  indicatorsLink: "https://rankingdigitalrights.org/2020-indicators/",
+  glossaryLink: "https://rankingdigitalrights.org/2020-indicators/#glossary",
   feedbackForms: {
     feedbackStep: 3,
     feedbackSubstep: 2,
     compFeedbackSheetName: "Company Feedback",
-    dataColWidth: 280,
+    dataColWidth: 245,
+    frontMatter: {
+      frontMatterColsNr: 4,
+      indicatorGuidanceLabel: "Indicator guidance:",
+      glossaryText: "Terms with bold formatting (in the text above) are defined in RDR's Glossary:",
+      guidanceText: "See full indicator guidance and associated definitions for this indicator here:"
+    },
     mainSection: {
       label: "PRELIMINARY EVALUATION",
       backColor: "#5ca5d9",
@@ -36,11 +44,17 @@ var centralConfig = {
       label: "YEAR-ON-YEAR COMPARISON",
       backColor: "#d9ead3",
       fontColor: null,
+      contentRowHeight: 150,
+      rowLabel: "\n\nChange since 2019 Index:"
     },
     feedbackBoxSection: {
       label: "COMPANY RESPONSE",
       backColor: "#ffe599",
-      fontColor: null
+      fontColor: null,
+      contentRowHeight: 250,
+      rowLabel: "\n\nResponse:",
+      extraRow: true,
+      extraRowLabel: "Sources:"
     }
   },
   sourcesTabName: "2020 Sources",

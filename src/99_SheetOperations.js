@@ -1,15 +1,21 @@
-function cropEmptyColumns(Sheet) {
-    var maxColumns = Sheet.getMaxColumns();
-    var lastColumn = Sheet.getLastColumn();
+function cropEmptyColumns(Sheet, offSet) {
+
+    offSet = offSet || 0
+
+    let maxColumns = Sheet.getMaxColumns()
+    let lastColumn = Sheet.getLastColumn() + offSet
     if (maxColumns - lastColumn != 0) {
-        Sheet.deleteColumns(lastColumn + 1, maxColumns - lastColumn);
+        Sheet.deleteColumns(lastColumn + 1, maxColumns - lastColumn)
     }
 }
 
-function cropEmptyRows(Sheet) {
-    var maxRows = Sheet.getMaxRows();
-    var lastRow = Sheet.getLastRow();
+function cropEmptyRows(Sheet, offSet) {
+
+    offSet = offSet || 0
+
+    let maxRows = Sheet.getMaxRows()
+    let lastRow = Sheet.getLastRow() + offSet
     if (maxRows - lastRow != 0) {
-        Sheet.deleteRows(lastRow + 1, maxRows - lastRow);
+        Sheet.deleteRows(lastRow + 1, maxRows - lastRow)
     }
 }

@@ -64,7 +64,9 @@ function injectFeedbackForms(Company) {
             Indicator = Category.indicators[i]
             sheetName = Indicator.labelShort
             Sheet = SS.getSheetByName(sheetName)
-            injectFeedbackBlock(Sheet, Company, Indicator, subStepID, outputParams)
+
+
+            prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
         }
 
     }
