@@ -525,3 +525,6 @@ var elemsMetadata = {
     "sources": ["Company security center", "Company help pages or community support page", "Company blog"]
   }]
 }
+
+
+// console.log(elemsMetadata.meta.find(indicator => indicator.indicator === "G1"))

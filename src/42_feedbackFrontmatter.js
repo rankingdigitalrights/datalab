@@ -1,10 +1,12 @@
 /* global
-    Styles
+    Styles,
+    elemsMetadata,
+    metaIndyFilter
     */
 
 // Wrapper for Indicator-Level Front Matter Content
 
-function addFBFrontMatter(Sheet, Indicator, activeRow, offsetCol) {
+function addFBFrontMatter(Sheet, Indicator, MetaData, activeRow, offsetCol) {
 
     activeRow += 1
 
@@ -12,13 +14,21 @@ function addFBFrontMatter(Sheet, Indicator, activeRow, offsetCol) {
     let frontMatterSpecs = Config.feedbackForms.frontMatter
     let width = frontMatterSpecs.frontMatterColsNr
 
+    // TODO: Revisit Experiment
+
+    frontMatterSpecs.bold = SpreadsheetApp.newTextStyle()
+        .setBold(true)
+        .build()
+
     rangeStart = activeRow
 
-    activeRow = addFBSheetHeading(Sheet, Indicator, frontMatterSpecs, activeRow, offsetCol, width)
+    activeRow = addFBSheetHeading(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width)
 
-    activeRow = addElementDescriptions(Sheet, Indicator, activeRow, offsetCol, width)
+    activeRow = addFBIndyDescription(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width)
 
-    activeRow = addFBIndicatorGuidance(Sheet, Indicator, frontMatterSpecs, activeRow, offsetCol, width)
+    activeRow = addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width)
+
+    activeRow = addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width)
 
     rangeEnd = activeRow
 
@@ -32,11 +42,9 @@ function addFBFrontMatter(Sheet, Indicator, activeRow, offsetCol) {
 
 // Frontmatter Component Helper Functions
 
-function addFBSheetHeading(Sheet, Indicator, frontMatterSpecs, activeRow, offsetCol, width) {
+function addFBSheetHeading(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
 
     let title = Indicator.labelShort + ". " + Indicator.labelLong
-
-    let description = Indicator.description > 10 ? Indicator.description : "Indicator Description: TBD"
 
     // Indicator Heading
     Sheet.getRange(activeRow, offsetCol, 1, width)
@@ -48,24 +56,31 @@ function addFBSheetHeading(Sheet, Indicator, frontMatterSpecs, activeRow, offset
 
     Sheet.setRowHeight(activeRow, 30)
 
-    activeRow += 2
-
-    // Indicator Description
-
-    Sheet.getRange(activeRow, offsetCol, 1, width)
-        .merge()
-        .setValue(description)
-        .setFontSize(12)
+    // activeRow += 2
 
     return activeRow + 2
 
 }
+
+function addFBIndyDescription(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
+
+    // Indicator Description
+    let description = MetaData.description
+
+    let Cell = Sheet.getRange(activeRow, offsetCol, 1, width)
+        .merge()
+        .setValue(description)
+        .setFontSize(12)
+
+    addRichTextArray(Cell, frontMatterSpecs.bold, description, MetaData.description_terms)
+
+    return activeRow + 2
+}
 // Indicator Guidance for researchers
 
-function addElementDescriptions(Sheet, Indicator, activeRow, offsetCol, width) {
+function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
 
     let startRow, endRow
-    let indicatorLink = Config.indicatorsLink + "#" + Indicator.labelShort
 
     Sheet.getRange(activeRow, offsetCol)
         .setValue("Elements:")
@@ -102,6 +117,9 @@ function addElementDescriptions(Sheet, Indicator, activeRow, offsetCol, width) {
 
     Indicator.elements.forEach((Element, index) => {
         Textrange = Sheet.getRange(elementRow + index, offsetCol + 1, 1, width - 1).merge()
+
+        addRichTextArray(Textrange, frontMatterSpecs.bold, Element.description, MetaData.elements_tags)
+
     })
 
 
@@ -116,9 +134,10 @@ function addElementDescriptions(Sheet, Indicator, activeRow, offsetCol, width) {
 }
 
 
-function addFBIndicatorGuidance(Sheet, Indicator, frontMatterSpecs, activeRow, offsetCol, width) {
+function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
 
-    let indicatorGuidanceText = Indicator.indicatorGuidanceText || "Indicator Guidance Text:\n\nTBD"
+    let indicatorGuidanceText = MetaData.guidance
+    let indicatorLink = Config.indicatorsLink + "#" + Indicator.labelShort
 
     // Research Guidance Caption
 
@@ -158,15 +177,20 @@ function addFBIndicatorGuidance(Sheet, Indicator, frontMatterSpecs, activeRow, o
         .setValue(Config.glossaryLink)
         .setFontSize(11)
 
-    let bold = SpreadsheetApp.newTextStyle()
-        .setBold(true)
-        .build()
-    let richText = SpreadsheetApp.newRichTextValue()
-        .setText(frontMatterSpecs.glossaryText)
-        .setTextStyle(11, 26, bold)
-        .build()
+    // TODO: make function applyStyle(TextRange, Style)
 
-    Cell.setRichTextValue(richText)
+    // let richText = SpreadsheetApp.newRichTextValue()
+    //     // .setText(frontMatterSpecs.glossaryText)
+    //     .setText(Cell.getValue())
+    //     // .setTextStyle(11, 26, frontMatterSpecs.bold)
+    //     .setTextStyle(27, 40, frontMatterSpecs.bold)
+    //     .setLinkUrl(0, 5, "https://bar.foo")
+    //     .setTextStyle(0, 5, frontMatterSpecs.bold)
+    //     .build()
+
+    // Cell.setRichTextValue(richText)
+
+    addRichTextSingle(Cell, frontMatterSpecs.bold, frontMatterSpecs.glossaryText, null)
 
     activeRow += 1
 
@@ -180,7 +204,7 @@ function addFBIndicatorGuidance(Sheet, Indicator, frontMatterSpecs, activeRow, o
     Sheet.getRange(activeRow, offsetCol + 3, 1, 2)
         .merge()
         .setWrap(true)
-        .setValue(Config.indicatorsLink + "#" + Indicator.labelShort)
+        .setValue(indicatorLink)
         .setFontSize(11)
 
     return activeRow + 1

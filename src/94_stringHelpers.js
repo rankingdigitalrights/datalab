@@ -17,6 +17,6 @@ let Container = "Does the company make an explicit, clearly articulated policy c
 let terms = ["explicit", "policy commitment"]
 
 
-let results = locateString(Container, terms)
+// let results = locateString(Container, terms)
 
-console.log(results)
+// console.log(results)

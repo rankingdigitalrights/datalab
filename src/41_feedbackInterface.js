@@ -25,16 +25,18 @@ function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
 
     let companyWidth = calculateCompanyWidth(Company)
 
+    let MetaData = metaIndyFilter(elemsMetadata, Indicator.labelShort)
+
     // let StyleSpecs
 
     // Front Matter
 
     // TODO: maybe implement Company/Service Specifics (N/A et al.)
-    activeRow = addFBFrontMatter(Sheet, Indicator, activeRow, offsetCol)
+    activeRow = addFBFrontMatter(Sheet, Indicator, MetaData, activeRow, offsetCol)
 
     // Content Section
 
-    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol)
+    // activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol)
 
     // cropEmptyColumns(Sheet, 1)
 

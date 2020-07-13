@@ -52,3 +52,45 @@ function textUnderline(cell) {
     cell.setTextStyle(style)
     return cell
 }
+
+// function textStyle(textRange, Style) {
+//     textRange.setTextStyle(Style)
+//     // return textRange
+// }
+
+function addRichTextArray(Cell, Style, content, terms) {
+
+    let richText = SpreadsheetApp.newRichTextValue()
+        .setText(content)
+
+    let cellText = Cell.getValue()
+    let termPos = locateString(cellText, terms)
+
+    // for (let i = 0; i < terms.length; i++) {
+    //     richText.setTextStyle(27, 40, Style)
+    //     richText.setTextStyle(41, 50, Style)
+    // }
+
+    termPos.forEach((term) => {
+        console.log(term)
+        richText.setTextStyle(term[0], term[1], Style)
+    })
+
+    Cell.setRichTextValue(richText.build())
+
+}
+
+function addRichTextSingle(Cell, Style, content, terms) {
+
+    // OLD
+
+    let richText = SpreadsheetApp.newRichTextValue()
+        .setText(content)
+    richText = richText.setTextStyle(11, 26, Style)
+        .setLinkUrl(0, 5, "https://bar.foo")
+        // .setTextStyle(0, 5, Style)
+        .build()
+
+    Cell.setRichTextValue(richText)
+
+}
