@@ -45,7 +45,9 @@ function produceYonYCommentsSheet(Sheet, overwrite) {
             [Indicator.labelShort, "TODO"]))
     )
 
-    Sheet.getRange(1, 1, rows.length, header.length).setValues(rows)
+    Sheet.getRange(1, 1, rows.length, header.length)
+        .setValues(rows)
+        .setVerticalAlignment("top")
 
     Sheet.getRange(1, 1, 1, header.length)
         .setFontSize(12)

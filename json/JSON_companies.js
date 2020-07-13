@@ -319,6 +319,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "BhartiAirtelOutcome",
       "urlCurrentDataCollectionSheet": "1pz7nE153onnNfDPqoPXI_D2V5ZLMNip7g8r6s0OpybQ",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": "1nNQ1VG-tqC6hmKnsBT1crAbDhyOHiTzFtlMOJbvoZiw",
       "numberOfServices": 3,
       "services": [{
           "id": "mbBH1",

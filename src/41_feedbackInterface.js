@@ -44,6 +44,8 @@ function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
     cropEmptyColumns(Sheet, 1)
     cropEmptyRows(Sheet, 1)
 
+    // TODO: resize getLastColumn
+
 }
 
 

@@ -89,14 +89,15 @@ function appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, ind
         activeCol += 1
     }
 
+    Sheet.setRowHeight(activeRow, 30)
+
     Sheet.getRange(activeRow, offsetCol, 1, companyWidth + 1)
         .setFontWeight("bold")
         .setVerticalAlignment("middle")
         .setHorizontalAlignment("center")
         .setFontSize(12)
+        .setWrap(true)
         .setBorder(false, false, true, false, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    Sheet.setRowHeight(activeRow, 30)
 
     // if (Config.freezeHead) {
     //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json

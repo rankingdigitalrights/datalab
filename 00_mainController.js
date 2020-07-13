@@ -55,9 +55,9 @@ function initiateGlobalConfig() {
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    // IndicatorsObj = indicatorsVector
+    IndicatorsObj = indicatorsVector
     // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$
+    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -220,7 +220,8 @@ function mainFeedbackSheets() {
     outputFolderName = "2020 - Dev - Feedback"
     var Companies = companiesVector.companies
         // .slice(1, 2) // Apple
-        .slice(11, 12) // 11 "Google",
+        // .slice(11, 12) // 11 "Google",
+        .slice(7, 8) //   7 "Bharti Airtel",
 
     Companies.forEach(function (Company) {
         injectFeedbackForms(Company)
