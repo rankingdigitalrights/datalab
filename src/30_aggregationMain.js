@@ -71,7 +71,8 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     // --- // Core: Summary Sheet // --- //
 
-    var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
+    var thisSubStepID = filterSingleSubstep(ResearchStepsObj.researchSteps[scoringStepNr], ResearchStepsObj.researchSteps[scoringStepNr].scoringSubStep)
+    thisSubStepID = thisSubStepID.subStepID
 
     var summarySheet
     var includeElements
