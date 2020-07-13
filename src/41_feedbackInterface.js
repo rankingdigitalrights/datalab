@@ -5,7 +5,10 @@
     calculateCompanyWidth,
     returnFBStyleParams,
     addFBFrontMatter,
-    appendFeedbackSection
+    appendFeedbackSection,
+    elemsMetadata,
+    metaIndyFilter
+
 */
 
 function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams) {
@@ -36,11 +39,13 @@ function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
 
     // Content Section
 
-    // activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol)
+    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol, outputParams)
 
-    // cropEmptyColumns(Sheet, 1)
+    cropEmptyColumns(Sheet, 1)
+    cropEmptyRows(Sheet, 1)
 
 }
+
 
 
 function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {

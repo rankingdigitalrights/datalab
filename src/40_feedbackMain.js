@@ -29,8 +29,6 @@ function injectFeedbackForms(Company) {
     let SS = openSpreadsheetByID(Company.urlCurrentFeedbackSheet)
     // --- // Feedback Parameters // --- //
 
-    let integrateOutputs = false
-    let isPilotMode = false
     let outputParams = Config.feedbackForms
     let subStepNr = outputParams.feedbackSubstep
     let dataColWidth = outputParams.dataColWidth
@@ -41,7 +39,6 @@ function injectFeedbackForms(Company) {
 
     let SubStep = MainStep.substeps[subStepNr]
     let subStepID = SubStep.subStepID
-    let subStepLabel = SubStep.labelShort
 
     // --- // MAIN: create Single Indicator Class Sheet // --- // 
 
@@ -52,8 +49,14 @@ function injectFeedbackForms(Company) {
     sheetName = Config.sourcesTabName
     let sourcesSheet = importSourcesSheet(SS, sheetName, Company, true)
 
+    // --- // creates helper sheet for YonY comments editing // --- //
+    sheetName = Config.sourcesTabName
+    let Sheet = insertSheetIfNotExist(SS, outputParams.yearOnYearHelperTabName, false)
+    if (Sheet !== null) {
+        produceYonYCommentsSheet(Sheet, false)
+    }
+
     let Category, Indicator
-    let Sheet
 
     for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
 
@@ -63,12 +66,15 @@ function injectFeedbackForms(Company) {
 
             Indicator = Category.indicators[i]
             sheetName = Indicator.labelShort
-            Sheet = SS.getSheetByName(sheetName)
+            // Sheet = SS.getSheetByName(sheetName)
 
+            Sheet = insertSheetIfNotExist(SS, sheetName, true)
 
             prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
         }
 
     }
+
+    removeEmptySheet(SS)
 
 }

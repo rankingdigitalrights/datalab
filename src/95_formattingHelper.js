@@ -73,7 +73,9 @@ function addRichTextArray(Cell, Style, content, terms) {
 
     termPos.forEach((term) => {
         console.log(term)
-        richText.setTextStyle(term[0], term[1], Style)
+        if (term[0] !== -1) {
+            return richText.setTextStyle(term[0], term[1], Style)
+        }
     })
 
     Cell.setRichTextValue(richText.build())
@@ -87,7 +89,7 @@ function addRichTextSingle(Cell, Style, content, terms) {
     let richText = SpreadsheetApp.newRichTextValue()
         .setText(content)
     richText = richText.setTextStyle(11, 26, Style)
-        .setLinkUrl(0, 5, "https://bar.foo")
+        // .setLinkUrl(0, 5, "https://bar.foo")
         // .setTextStyle(0, 5, Style)
         .build()
 

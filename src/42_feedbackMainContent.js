@@ -4,7 +4,7 @@
     defineNamedRange
 */
 
-function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol) {
+function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol, outputParams) {
     // Results Section Header
 
     let StyleSpecs
@@ -22,13 +22,15 @@ function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, 
     StyleSpecs = returnFBStyleParams("yearOnYearSection")
     activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs)
 
-    activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs)
+    let extraLink = "=VLOOKUP(\"" + Indicator.labelShort + "\",'" + outputParams.yearOnYearHelperTabName + "'!A2:B,2,TRUE)"
+
+    activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs, extraLink)
 
     // Company Feedback Block
     StyleSpecs = returnFBStyleParams("feedbackBoxSection")
     activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs)
 
-    activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs)
+    activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs, false)
 
     return activeRow + 2
 }
@@ -203,7 +205,7 @@ function appendFBRows(Sheet, Company, Indicator, subStepID, companyWidth, active
     return activeRow + blockHeight + 1
 }
 
-function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs) {
+function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, StyleSpecs, extraLink) {
 
     let rowLabel = Indicator.labelShort + StyleSpecs.rowLabel
 
@@ -238,8 +240,9 @@ function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, companyWidth, St
     // Main Row Content
     activeCol += 1
 
+    let cellValue = extraLink ? extraLink : "Dummy Placeholder text to showcase / inspect readability and formatting"
     Sheet.getRange(activeRow, activeCol, 1, companyWidth).merge()
-        .setValue("Dummy Placeholder text to showcase / inspect readability and formatting")
+        .setValue(cellValue)
         .setFontSize(12)
         .setHorizontalAlignment("left")
         .setVerticalAlignment("top")

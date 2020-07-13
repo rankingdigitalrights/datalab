@@ -228,3 +228,7 @@ function createPercentageDone(Company, stepLabel) {
     return formulaNotSelected + formulaAllCells
 
 }
+
+function metaIndyFilter(MetaObj, label) {
+    return MetaObj.meta.find(indicator => indicator.indicator === label)
+}

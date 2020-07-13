@@ -1,8 +1,6 @@
 /* global
     Styles,
-    elemsMetadata,
-    metaIndyFilter
-    */
+*/
 
 // Wrapper for Indicator-Level Front Matter Content
 

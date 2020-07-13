@@ -28,6 +28,7 @@ var centralConfig = {
     feedbackStep: 3,
     feedbackSubstep: 2,
     compFeedbackSheetName: "Company Feedback",
+    yearOnYearHelperTabName: "Year on Year Comments",
     dataColWidth: 245,
     frontMatter: {
       frontMatterColsNr: 4,

@@ -31,3 +31,25 @@ function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
         })
     )
 }
+
+function produceYonYCommentsSheet(Sheet, overwrite) {
+
+    let rows = []
+    let header = ["Indicator", "Year On Year Comment"]
+    rows.push(header)
+
+
+
+    IndicatorsObj.indicatorCategories.forEach(Category =>
+        Category.indicators.forEach(Indicator => rows.push(
+            [Indicator.labelShort, "TODO"]))
+    )
+
+    Sheet.getRange(1, 1, rows.length, header.length).setValues(rows)
+
+    Sheet.getRange(1, 1, 1, header.length)
+        .setFontSize(12)
+        .setFontWeight("bold")
+
+    Sheet.setColumnWidth(2, 500)
+}
