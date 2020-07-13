@@ -135,7 +135,12 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, current
 
 function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
 
-    var rowElems = Sheet.getRange(currentRow, currentCol, 1, 2 + Company.numberOfServices)
+    var additionalCol=2
+    if(Company.type== "telecom") {
+        additionalCol=3
+    }
+
+    var rowElems = Sheet.getRange(currentRow, currentCol, 1, additionalCol + Company.numberOfServices)
     rowElems.setValue(Company.label.current)
     rowElems.setFontWeight("bold").setFontSize(12)
 
@@ -148,8 +153,14 @@ function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
     rowElems.push("Total")
     rowElems.push("Group")
 
+    var range
+
     // --- // --- Services --- // --- //
     for (var i = 0; i < Company.numberOfServices; i++) {
+        if(Company.services[i].subtype=="prepaid"){
+            columnLabel="Mobile Service"
+            rowElems.push(columnLabel)
+        }
         columnLabel = Company.services[i].label.current
         rowElems.push(columnLabel)
     }
@@ -259,6 +270,15 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
 
     // Services
     for (var i = 0; i < Company.numberOfServices; i++) {
+        if(Company.services[i].subtype=="prepaid"){
+            var cellID1 = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
+            var cellID3=defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i+1].id, scoringSuffixLvl)
+
+            formula="=IF(AND("+cellID1+'="N/A",'+cellID3+'="N/A"),"N/A",AVERAGEIF('+columnToLetter(currentCol+3+i)+currentRow+":"+columnToLetter(currentCol+4+i)+currentRow+',"<>N/A"))'
+
+            rowFormulas.push(formula)
+            
+        }
         cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
         formula = cellID
         rowFormulas.push(formula)

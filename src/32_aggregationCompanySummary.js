@@ -20,7 +20,11 @@
 
 function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements) {
 
-    var blockWidth = Company.services.length + 2 // for total + group elems
+    var additionalCol=2
+    if(Company.type== "telecom") {
+        additionalCol=3
+    }
+    var blockWidth = Company.services.length + additionalCol // for total + group elems
 
     var startRow = currentRow
     var lastRow

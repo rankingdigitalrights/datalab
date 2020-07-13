@@ -50,13 +50,13 @@ function initiateGlobalConfig() {
     doRepairsOnly = false
     // skipMainSteps = false // TBD: not operation right now
 
-    // IndicatorsObj = indicatorsVector
+    IndicatorsObj = indicatorsVector
 
     // IMPORTANT: lazy Regex := G4 will match G4a, G4b, G4c et al.
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
+    //IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
