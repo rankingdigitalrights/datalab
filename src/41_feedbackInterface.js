@@ -7,16 +7,21 @@
     addFBFrontMatter,
     appendFeedbackSection,
     elemsMetadata,
-    metaIndyFilter
-
+    metaIndyFilter,
+    cropEmptyColumns,
+    cropEmptyRows,
+    produceSourceSheet,
+    insertSheetIfNotExist
 */
 
-function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams) {
+function prefillFeedbackPage(Sheet, Company, Indicator, SubStep, outputParams) {
+
+    let companyWidth = calculateCompanyWidth(Company, true)
 
     Sheet.setColumnWidth(1, 28)
-    Sheet.setColumnWidth(9, 28)
+    // Sheet.setColumnWidth(9, 28)
     Sheet.setColumnWidth(2, 125)
-    Sheet.setColumnWidths(3, 6, Config.feedbackForms.dataColWidth)
+    Sheet.setColumnWidths(3, companyWidth, Config.feedbackForms.dataColWidth)
 
     Sheet.setHiddenGridlines(true)
 
@@ -26,7 +31,7 @@ function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
 
     let indyLabel = Indicator.labelShort
 
-    let companyWidth = calculateCompanyWidth(Company)
+
 
     let MetaData = metaIndyFilter(elemsMetadata, Indicator.labelShort)
 
@@ -39,24 +44,11 @@ function prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
 
     // Content Section
 
-    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol, outputParams)
+    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, SubStep, companyWidth, activeRow, offsetCol, outputParams)
 
     cropEmptyColumns(Sheet, 1)
     cropEmptyRows(Sheet, 1)
 
-    // TODO: resize getLastColumn
-
-}
-
-
-
-function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {
-    let sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
-    if (sheet !== null && doOverwrite) {
-        sheet.clear()
-    }
-    produceSourceSheet(sheet)
-    let targetCell = sheet.getRange(1, 1)
-    let formula = "=IMPORTRANGE(\"" + CompanyObj.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
-    targetCell.setFormula(formula)
+    let lastCol = Sheet.getLastColumn() + 1
+    Sheet.setColumnWidth(lastCol, 28)
 }

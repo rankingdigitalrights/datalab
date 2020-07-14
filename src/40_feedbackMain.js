@@ -21,7 +21,7 @@ function injectFeedbackForms(Company) {
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
     let hasOpCom = Company.hasOpCom
-    //Company.width = calculateCompanyWidth(Company)
+    // Company.width = calculateCompanyWidth(Company, true)
 
     // define SS name
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
@@ -70,7 +70,7 @@ function injectFeedbackForms(Company) {
 
             Sheet = insertSheetIfNotExist(SS, sheetName, true)
 
-            prefillFeedbackPage(Sheet, Company, Indicator, subStepID, outputParams)
+            prefillFeedbackPage(Sheet, Company, Indicator, SubStep, outputParams)
         }
 
     }

@@ -6,7 +6,7 @@ function returnFBStyleParams(configObjKey) {
     return Config.feedbackForms[configObjKey]
 }
 
-function calculateCompanyWidth(Company) {
+function calculateCompanyWidth(Company, omitOpCom) {
 
     let services = Company.services.length
     let hasOpCom = Company.hasOpCom

@@ -4,10 +4,12 @@
     defineNamedRange
 */
 
-function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, companyWidth, activeRow, offsetCol, outputParams) {
+function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, SubStep, companyWidth, activeRow, offsetCol, outputParams) {
     // Results Section Header
 
     let StyleSpecs
+
+    let omitOpCom = false
 
     StyleSpecs = returnFBStyleParams("mainSection")
     activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs)
@@ -16,7 +18,8 @@ function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, 
     activeRow = appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, indyLabel)
 
     // Results Block
-    activeRow = appendFBRows(Sheet, Company, Indicator, subStepID, companyWidth, activeRow, offsetCol)
+    // activeRow = appendFBRowsOld(Sheet, Company, Indicator, SubStep, companyWidth, activeRow, offsetCol)
+    activeRow = appendFBRows(Sheet, Company, Indicator, SubStep, activeRow, offsetCol, omitOpCom)
 
     // Year-on-Year Text Block
     StyleSpecs = returnFBStyleParams("yearOnYearSection")
@@ -37,15 +40,23 @@ function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, subStepID, 
 
 
 function appendFBSectionHeader(Sheet, activeRow, offsetCol, companyWidth, StyleSpecs) {
+
+    console.log(`DEBUG: ${activeRow}`)
+
     let Range = Sheet.getRange(activeRow, offsetCol, 1, companyWidth + 1)
+
     Range.setValue(StyleSpecs.label)
         .merge()
         .setHorizontalAlignment("center")
+        .setVerticalAlignment("middle")
         .setBackground(StyleSpecs.backColor)
         .setFontColor(StyleSpecs.fontColor || "black")
         .setFontSize(14)
         .setFontWeight("bold")
-        .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_THICK)
+        .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.DOTTED)
+
+    Sheet.setRowHeight(activeRow, 40)
+
     return activeRow + 2
 }
 
@@ -85,7 +96,7 @@ function appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, ind
     for (let i = 0; i < Company.services.length; i++) {
         Sheet.getRange(activeRow, activeCol)
             .setValue(Company.services[i].label.current)
-            .setBackground("#b7e1cd")
+            .setBackground("#fff2cc")
         activeCol += 1
     }
 
@@ -97,7 +108,7 @@ function appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, ind
         .setHorizontalAlignment("center")
         .setFontSize(12)
         .setWrap(true)
-        .setBorder(false, false, true, false, false, false, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
+        .setBorder(false, false, true, false, false, true, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
 
     // if (Config.freezeHead) {
     //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
@@ -107,9 +118,33 @@ function appendFBCompany(Sheet, activeRow, offsetCol, companyWidth, Company, ind
 }
 
 // TODO: one generic function to rowwise import Element-level results or Element-level comments by named range from Input Sheet Step 3.2
-function appendFBRows(Sheet, Company, Indicator, subStepID, companyWidth, activeRow, offsetCol) {
 
-    // row-labels
+function appendFBRows(Sheet, Company, Indicator, SubStep, activeRow, offsetCol, omitOpCom) {
+
+    let startRow, endRow, block
+    let width = calculateCompanyWidth(Company)
+
+    startRow = activeRow
+
+    activeRow = importContentBlock(Sheet, Company, Indicator, SubStep, "reviewResults", activeRow, offsetCol, omitOpCom)
+
+    activeRow = importContentBlock(Sheet, Company, Indicator, SubStep, "reviewComments", activeRow, offsetCol, omitOpCom)
+
+    activeRow = importContentRow(Sheet, Company, Indicator, SubStep, "sources", activeRow, offsetCol, omitOpCom)
+
+    endRow = activeRow
+
+    block = Sheet.getRange(startRow, offsetCol, endRow - startRow, width + 1)
+        .setVerticalAlignment("top")
+        .setBorder(true, null, true, null, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
+        .setFontSize(12)
+
+    return activeRow + 1
+}
+
+function appendFBRowsOld(Sheet, Company, Indicator, SubStep, companyWidth, activeRow, offsetCol) {
+
+    let subStepID = SubStep.subStepID
 
     let label, type, blockHeight
     let startRow = activeRow

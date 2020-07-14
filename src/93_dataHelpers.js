@@ -232,3 +232,8 @@ function createPercentageDone(Company, stepLabel) {
 function metaIndyFilter(MetaObj, label) {
     return MetaObj.meta.find(indicator => indicator.indicator === label)
 }
+
+function findSubStepComponent(stepNr, subStepNr, componentType) {
+    return researchStepsVector.researchSteps[stepNr].substeps[subStepNr].components.find(component =>
+        component.type === componentType)
+}
