@@ -50,13 +50,14 @@ function initiateGlobalConfig() {
     doRepairsOnly = false
     // skipMainSteps = false // TBD: not operation right now
 
-    IndicatorsObj = indicatorsVector
-
+    // --- INDICATOR SUBSETTING --- //
     // IMPORTANT: lazy Regex := G4 will match G4a, G4b, G4c et al.
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    //IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
+    // IndicatorsObj = indicatorsVector
+    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -194,7 +195,7 @@ function mainScoringSheets() {
 
     const Companies = companiesVector.companies
         //.slice(1, 9)
-     .slice(0,1) // Amazon
+        .slice(0, 1) // Amazon
     // .slice(1, 2) // Apple
     // .slice(3,4) //
 
@@ -209,26 +210,21 @@ function mainScoringSheets() {
     })
 }
 
-// create Feedback spreadsheets for all companies
+/** New: Inject (append) Feedback Form Elements to Company-specific Feedback Template
+ * @Param: Spreadsheet ID of Template defined in Company JSON
+ */
 
 function mainFeedbackSheets() {
 
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Feedback"
-    var mainSheetMode = "Feedback"
-
-    var useIndicatorSubset = false // true := use subset
-
     var Companies = companiesVector.companies
-    // .slice(1,2) // Apple
-
-    var fileID
+        // .slice(1, 2) // Apple
+        // .slice(11, 12) // 11 "Google",
+        .slice(7, 8) //   7 "Bharti Airtel",
 
     Companies.forEach(function (Company) {
-
-        fileID = createFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
+        injectFeedbackForms(Company)
     })
 }
 
@@ -487,10 +483,10 @@ function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
     let stepLabel = ["S01"] // maybe better: match ResearchStepObj syntax := S01
-    let substepArray=createSubstepArray(stepLabel)
+    let substepArray = createSubstepArray(stepLabel)
     let editors = EditorsObj[stepLabel]
 
-    Logger.log("array: "+substepArray)
+    Logger.log("array: " + substepArray)
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -523,15 +519,15 @@ function mainOpenStepCompanies() {
 
     Companies.forEach(function (Company) {
         let companyNr = companiesVector.companies.indexOf(Company)
-        let editors=[]
-        
-        stepLabel.forEach(function(step) {
-          editors.push(EditorsObj[step][companyNr])
-          
-        })
-        
-        Logger.log("editors:"+editors)
+        let editors = []
 
-        mainProtectFileOpenStepSingleCompany(Company,substepArray, editors)
+        stepLabel.forEach(function (step) {
+            editors.push(EditorsObj[step][companyNr])
+
+        })
+
+        Logger.log("editors:" + editors)
+
+        mainProtectFileOpenStepSingleCompany(Company, substepArray, editors)
     })
 }

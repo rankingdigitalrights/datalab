@@ -98,7 +98,7 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
 function openSpreadsheetByID(ID) {
 
     let SS = SpreadsheetApp.openById(ID)
-    Logger.log("locally connected to: " + SS.getName())
+    Logger.log("|---- locally connected to: " + SS.getName())
     return SS
 
 }
@@ -107,6 +107,7 @@ function openSpreadsheetByID(ID) {
 // Helper Function to overwrite Sheet in Spreadsheet if it is already existing
 
 function insertSheetIfNotExist(SS, sheetName, overWriteSheet) {
+
     let Sheet = SS.getSheetByName(sheetName)
     if (!Sheet) {
         Sheet = SS.insertSheet(sheetName)

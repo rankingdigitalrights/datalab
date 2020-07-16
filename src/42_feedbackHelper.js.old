@@ -1,9 +1,11 @@
 function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {
     var sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
-    if (sheet !== null) { sheet.clear() }
+    if (sheet !== null & doOverwrite) {
+        sheet.clear()
+    }
     produceSourceSheet(sheet)
-    var targetCell = sheet.getRange(2,1)
-    var formula = "=IMPORTRANGE(\"" + CompanyObj.urlCurrentDataCollectionSheet + "\",\"" + "Sources" + "!" + "A2:Z" + "\")"
+    var targetCell = sheet.getRange(1, 1)
+    var formula = "=IMPORTRANGE(\"" + CompanyObj.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
     targetCell.setFormula(formula)
 }
 
@@ -248,7 +250,7 @@ function importFeedbackElementBlock(SS, activeRow, activeCol, offsetCol, numberO
         .setWrap(true)
         .setVerticalAlignment("top")
         .setHorizontalAlignment("left")
-    
+
     // assign ID to Feedback block
 
     var cellName = defineNamedRange(indexPrefix, "DC", thisSubStepID, Indicator.labelShort, component, CompanyObj.id, "", scoringSuffix)
@@ -343,7 +345,7 @@ function importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepCom
     }
     var lastCol = tempCol
 
-    var thisRange = sheet.getRange(activeRow,offsetCol,1,lastCol - offsetCol)
+    var thisRange = sheet.getRange(activeRow, offsetCol, 1, lastCol - offsetCol)
     thisRange.setBackground("#fff2cc")
         .setNumberFormat("@")
         .setHorizontalAlignment("right")

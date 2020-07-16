@@ -26,6 +26,7 @@
     importYonYSources,
     addBinaryFBCheck,
     addImportFBText,
+    addFeedbackStepReview,
 addResearcherFBNotes,
     defineNamedRange,
     cropEmptyColumns

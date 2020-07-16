@@ -319,6 +319,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "BhartiAirtelOutcome",
       "urlCurrentDataCollectionSheet": "1pz7nE153onnNfDPqoPXI_D2V5ZLMNip7g8r6s0OpybQ",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": "1nNQ1VG-tqC6hmKnsBT1crAbDhyOHiTzFtlMOJbvoZiw",
       "numberOfServices": 3,
       "services": [{
           "id": "mbBH1",
@@ -509,6 +510,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "GoogleOutcome",
       "urlCurrentDataCollectionSheet": "1tkOrgUWe0sG5cfNYeoph5IQdYt_A3LGbR2JMkCdwhGg",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": "1aH6IjSFJfeEzQ9Bu8f9jsWVwuRnQF16PmUV32_FCPys",
       "numberOfServices": 5,
       "services": [{
           "id": "seGO1",
@@ -1172,4 +1174,9 @@ var companiesVector = {
 //     company.urlCurrentDataCollectionSheet) // id; label.current
 //   .flat()
 
-// console.log(`Indidcators: ${companyValues}`)
+// let companyValues = companiesVector.companies
+//   .map(company =>
+//     company.services.length) // id; label.current
+//   .flat()
+
+// console.log(`Indicators: ${companyValues}`)

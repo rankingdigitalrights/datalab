@@ -10,7 +10,8 @@ var indicatorsVector = {
     "indicators": [{
         "labelShort": "G1",
         "labelLong": "Policy commitment",
-        "description": "",
+        "description": "Indicator Description: TBD",
+        "indicatorGuidanceText": "Indicator Guidance Text:\n\nTBD",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91064590",
         "scoringScope": "group",
         "y2yCompColumn": 2,
@@ -579,7 +580,7 @@ var indicatorsVector = {
         "labelLong": "Process for content moderation appeals",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360923",
-        "scoringScope": "full",
+        "scoringScope": "services",
         "doExcludeCompanies": true,
         "excludeCompanies": ["telecom"],
         "doExcludeServices": true,

@@ -22,8 +22,44 @@ var centralConfig = {
   subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
-  feedbackStep: [4, 5],
-  compFeedbackSheetName: "Company Feedback",
+  indicatorsLink: "https://rankingdigitalrights.org/2020-indicators/",
+  glossaryLink: "https://rankingdigitalrights.org/2020-indicators/#glossary",
+  feedbackForms: {
+    feedbackStep: 3,
+    feedbackSubstepResults: 2,
+    feedbackSubstepYonYComments: 3,
+    compFeedbackSheetName: "Company Feedback",
+    yearOnYearHelperTabName: "Year on Year Comments",
+    dataColWidth: 245,
+    frontMatter: {
+      frontMatterColsNr: 4,
+      indicatorGuidanceLabel: "Indicator guidance:",
+      glossaryText: "Terms with bold formatting (in the text above) are defined in RDR's Glossary:",
+      guidanceText: "See full indicator guidance and associated definitions for this indicator here:"
+    },
+    mainSection: {
+      label: "PRELIMINARY EVALUATION",
+      backColor: "#5ca5d9",
+      fontColor: "white",
+    },
+    yearOnYearSection: {
+      label: "YEAR-ON-YEAR COMPARISON",
+      backColor: "#d9ead3",
+      fontColor: null,
+      contentRowHeight: 150,
+      rowLabel: "\n\nChange since 2019 Index:"
+    },
+    feedbackBoxSection: {
+      label: "COMPANY RESPONSE",
+      backColor: "#ffe599",
+      fontColor: null,
+      contentRowHeight: 250,
+      rowLabel: "\n\nResponse:",
+      extraRow: true,
+      extraRowLabel: "Sources:",
+      extraInstructionFB: "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are refercing, as well as any sources (including the url) that you feel we should be evaluating."
+    }
+  },
   sourcesTabName: "2020 Sources",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
@@ -58,7 +94,6 @@ var centralConfig = {
   integrateOutputs: false, // DC: integrate any output component?
   notesSheetname: "Researcher Comments",
   scoringSheetname: "Scores",
-  feedbackSheetname: "Feedback Base",
   integrateOutputsArray: {
     includeScoring: false, // create regular Outcome?
     isFullScoring: true, // scores or only comments?
@@ -86,30 +121,7 @@ var centralConfig = {
       includeSources: true,
       includeNames: false,
       includeResults: true
-    },
-    feedbackParams: {
-      subStepNr: 0,
-      firstStepNr: 1,
-      lastStepNr: 6,
-      sheetName: "Prototype",
-      dataColWidth: 200,
-      hasFullScores: false,
-      includeSources: true,
-      includeNames: false,
-      includeResults: true
     }
-  },
-  feedbackParams: {
-    subStepNr: 0,
-    firstStepNr: 3,
-    lastStepNr: 3,
-    sheetName: "Prototype",
-    dataColWidth: 300,
-    hasFullScores: false,
-    includeSources: true,
-    includeNames: false,
-    includeResults: true,
-    sourcesSheetname: "Sources referenced"
   },
   dataStoreParams: {
     fileName: "Data Store",
