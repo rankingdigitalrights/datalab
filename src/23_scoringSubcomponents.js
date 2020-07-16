@@ -618,7 +618,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
 
     var servicesCompositeCell = sheet.getRange(activeRow, tempCol + (2 * nrOfIndSubComps)) // 2 := group + opCom cols
 
-    servicesCompositeCell.setFormula(aggregateScoreFormula(indyLevelScoresServices))
+    servicesCompositeCell.setFormula(aggregateScoreFormulaServices(indyLevelScoresServices,CompanyObj))
 
     cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
 

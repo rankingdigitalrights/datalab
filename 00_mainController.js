@@ -55,9 +55,9 @@ function initiateGlobalConfig() {
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    // IndicatorsObj = indicatorsVector
+     IndicatorsObj = indicatorsVector
     // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$
+    //IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -241,7 +241,7 @@ function mainAggregationSheets() {
 
     var useIndicatorSubset = false // true := use subset
 
-    var scoringStepNr = 1
+    var scoringStepNr = 3
 
     var Companies = companiesVector.companies
         .slice(1, 9) // no Amazon

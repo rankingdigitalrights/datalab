@@ -104,6 +104,79 @@ function aggregateScoreFormula(cells) {
     return formula
 }
 
+
+function aggregateScoreFormulaServices(cells,Company) {
+
+    var cell
+
+    var formula = "=IF(AND("
+
+    for (cell = 0; cell < cells.length; cell++) {
+        formula += cells[cell] + "=\"N/A\""
+        if (cell < cells.length - 1) {
+            formula += ","
+        }
+    }
+
+    formula += "), \"N/A\""
+
+    formula += ",IF(AND("
+
+    for (cell = 0; cell < cells.length; cell++) {
+        formula += cells[cell] + "=\"N/P\""
+        if (cell < cells.length - 1) {
+            formula += ","
+        }
+    }
+
+    formula += "),\"N/P\""
+
+    formula += ",IF(AND("
+
+    formula += "XOR("
+
+    for (cell = 0; cell < cells.length; cell++) {
+        formula += cells[cell] + "=\"N/A\""
+        if (cell < cells.length - 1) {
+            formula += ","
+        }
+    }
+
+    formula += "),"
+
+    formula += "XOR("
+    for (cell = 0; cell < cells.length; cell++) {
+        formula += cells[cell] + "=\"N/P\""
+        if (cell < cells.length - 1) {
+            formula += ","
+        }
+    }
+
+    formula += ")),\"N/A\""
+
+    formula += ", AVERAGE(" 
+    
+    for (var i = 0; i < cells.length; i++) {
+        if(Company.services[i].subtype=="prepaid") {
+            formula=formula+"AVERAGE("+cells[i]+","+cells[i+1]+")"
+        }
+
+        else if (Company.services[i].subtype=="postpaid"){}
+
+        else{formula=formula+cells[i]}
+
+        if(i!=cells.length-1 &&Company.services[i].subtype!="prepaid") {
+            formula=formula+","
+        }
+
+        
+    }
+     
+    formula=formula + "))))"
+
+    return formula
+}
+
 function checkScoringLogic(indicator, scoringComponent, cell, cellName, elementsArray) {
 
     var thisCell = cell
