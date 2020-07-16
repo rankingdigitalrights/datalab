@@ -1,18 +1,50 @@
 /* global
-    Config
+    Config,
+    locateString
 */
 
 function returnFBStyleParams(configObjKey) {
     return Config.feedbackForms[configObjKey]
 }
 
-function calculateCompanyWidth(Company, omitOpCom) {
+function calculateCompanyWidthNaive(Company) {
 
     let services = Company.services.length
+
     let hasOpCom = Company.hasOpCom
     let width = hasOpCom ? (services + 2) : (services + 1)
+
     return width
 }
+
+function calculateCompanyWidthNet(Company, Indicator, omitOpCom) {
+
+    let services = Company.services.length
+
+    let baseWidth = Company.hasOpCom && !omitOpCom ? 2 : 1
+
+    let width
+
+    let scope = Indicator.scoringScope
+
+    switch (scope) {
+
+        case ("full"):
+            width = baseWidth + services
+            break
+
+        case ("company"):
+            width = baseWidth
+            break
+
+        case ("services"):
+            width = services
+            break
+    }
+
+    return width
+}
+
 
 function styleScoringIndicatorHeader(currentCell, rowLabel, colorHex) {
     currentCell.setValue(rowLabel)
@@ -66,20 +98,14 @@ function addRichTextArray(Cell, Style, content, terms) {
     let cellText = Cell.getValue()
     let termPos = locateString(cellText, terms)
 
-    // for (let i = 0; i < terms.length; i++) {
-    //     richText.setTextStyle(27, 40, Style)
-    //     richText.setTextStyle(41, 50, Style)
-    // }
-
     termPos.forEach((term) => {
-        console.log(term)
+        // console.log(term)
         if (term[0] !== -1) {
             return richText.setTextStyle(term[0], term[1], Style)
         }
     })
 
     Cell.setRichTextValue(richText.build())
-
 }
 
 function addRichTextSingle(Cell, Style, content, terms) {
@@ -88,11 +114,13 @@ function addRichTextSingle(Cell, Style, content, terms) {
 
     let richText = SpreadsheetApp.newRichTextValue()
         .setText(content)
+
     richText = richText.setTextStyle(11, 26, Style)
         // .setLinkUrl(0, 5, "https://bar.foo")
         // .setTextStyle(0, 5, Style)
         .build()
 
     Cell.setRichTextValue(richText)
+        .setFontSize(11)
 
 }

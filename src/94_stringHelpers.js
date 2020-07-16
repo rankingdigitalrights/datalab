@@ -2,7 +2,7 @@ function locateString(Container, terms) {
     let positions = []
     let start, end
 
-    terms.map((term, index) => {
+    terms.map(term => {
         start = Container.indexOf(term)
         end = start > 0 ? start + term.length : null
         positions.push([start, end])
@@ -12,9 +12,9 @@ function locateString(Container, terms) {
 }
 
 
-let Container = "Does the company make an explicit, clearly articulated policy commitment to human rights, including freedom of expression and privacy?"
+// let Container = "Does the company make an explicit, clearly articulated policy commitment to human rights, including freedom of expression and privacy?"
 
-let terms = ["explicit", "policy commitment"]
+// let terms = ["explicit", "policy commitment"]
 
 
 // let results = locateString(Container, terms)

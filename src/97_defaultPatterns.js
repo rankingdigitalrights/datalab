@@ -6,20 +6,21 @@
     calculateCompanyWidth
 */
 
-function importContentBlock(Sheet, Company, Indicator, SubStep, componentType, activeRow, offsetCol, omitOpCom) {
+function importContentBlock(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, componentType, activeRow, offsetCol, omitOpCom, layoutWidth, companyWidth) {
 
     let Cell, cellValue, label, type, blockHeight
     let serviceLabel, serviceType
     let Elements = Indicator.elements
     let ElementSpecs, hasPredecessor, isRevised
     let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let scoringScope = Indicator.scoringScope
     let subStepID = SubStep.subStepID
 
-    let companyWidth = calculateCompanyWidth(Company, omitOpCom)
+    // let companyWidth = calculateCompanyWidth(Company, Indicator, omitOpCom)
     let companyURL = Company.urlCurrentDataCollectionSheet
     let companyType = Company.type
 
-    let StepComp = findSubStepComponent(3, 2, componentType)
+    let StepComp = findSubStepComponent(mainStepNr, subStepNr, componentType)
 
     let stepCompID = StepComp.id
 
@@ -30,10 +31,10 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, componentType, a
 
     // results / comments
 
-    Elements.forEach((Element, index) => {
+    Elements.forEach(Element => {
 
         // Element = Elements[elemNr]
-        ElementSpecs = checkElementSpecs(Element)
+        // ElementSpecs = checkElementSpecs(Element)
 
         // hasPredecessor = Element.y2yResultRow ? true : false
         // isRevised = Element.isRevised ? true : false
@@ -58,34 +59,34 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, componentType, a
 
             // TODO: Switch case
 
-            if (serviceNr == 1) {
+            if (serviceNr == 1 && (scoringScope === "full" || scoringScope == "company")) {
                 serviceLabel = "group"
                 serviceType = "group"
-            } else if (!omitOpCom && serviceNr == 2) {
+            } else if (!omitOpCom && serviceNr == 2 && (scoringScope === "full" || scoringScope == "company")) {
                 serviceLabel = "opCom"
                 serviceType = "opCom"
             } else {
-                let s = serviceNr - 3
+                let s = (scoringScope === "services") ? serviceNr - 1 : serviceNr - 3
                 serviceLabel = Company.services[s].id
                 serviceType = Company.services[s].type
             }
 
             Cell = Sheet.getRange(activeRow, activeCol + serviceNr)
 
-            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
-                cellValue = "N/A"
-            } else {
+            // if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
+            //     cellValue = "N/A"
+            // } else {
 
-                if (!omitOpCom && serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
-                } else {
+            //     if (!omitOpCom && serviceNr == 2 && Company.hasOpCom == false) {
+            //         cellValue = "N/A" // if no OpCom, pre-select N/A
+            //     } else {
 
-                    targetNamedRange = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            targetNamedRange = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                    cellValue = `=IMPORTRANGE("${companyURL}", "${targetNamedRange}")`
-                }
+            cellValue = `=IMPORTRANGE("${companyURL}", "${targetNamedRange}")`
+            // }
 
-            }
+            // }
 
             Cell.setValue(cellValue)
         } // Services End
@@ -98,7 +99,7 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, componentType, a
 
     }) // Elements Row END
 
-    let block = Sheet.getRange(startRow, offsetCol, activeRow - startRow - 1, companyWidth + 1)
+    let block = Sheet.getRange(startRow, offsetCol, activeRow - startRow - 1, layoutWidth + 1)
         .setBorder(true, null, true, null, null, true, "black", SpreadsheetApp.BorderStyle.DOTTED)
         .setBorder(true, null, null, null, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
 
@@ -109,7 +110,7 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, componentType, a
     return activeRow
 }
 
-function importContentRow(Sheet, Company, Indicator, SubStep, componentType, activeRow, offsetCol, omitOpCom) {
+function importContentRow(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, componentType, activeRow, offsetCol, omitOpCom, layoutWidth, companyWidth) {
 
     let Cell, cellValue
     let serviceLabel, serviceType
@@ -117,11 +118,11 @@ function importContentRow(Sheet, Company, Indicator, SubStep, componentType, act
     let IndicatorSpecs = checkIndicatorSpecs(Indicator)
     let subStepID = SubStep.subStepID
 
-    let companyWidth = calculateCompanyWidth(Company, omitOpCom)
+    // let companyWidth = calculateCompanyWidth(Company, Indicator, omitOpCom)
     let companyURL = Company.urlCurrentDataCollectionSheet
     let companyType = Company.type
 
-    let StepComp = findSubStepComponent(3, 2, componentType)
+    let StepComp = findSubStepComponent(mainStepNr, subStepNr, componentType)
 
     let stepCompID = StepComp.id
 
@@ -186,7 +187,7 @@ function importContentRow(Sheet, Company, Indicator, SubStep, componentType, act
 
     // row.setBorder(true, false, true, false, false, true, "black", SpreadsheetApp.BorderStyle.DOTTED)
 
-    let block = Sheet.getRange(startRow, offsetCol, 1, companyWidth + 1)
+    let block = Sheet.getRange(startRow, offsetCol, 1, layoutWidth + 1)
         .setBorder(true, null, true, null, null, true, "black", SpreadsheetApp.BorderStyle.DOTTED)
         .setBorder(true, null, null, null, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
 

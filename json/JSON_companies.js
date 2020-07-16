@@ -1174,4 +1174,9 @@ var companiesVector = {
 //     company.urlCurrentDataCollectionSheet) // id; label.current
 //   .flat()
 
-// console.log(`Indidcators: ${companyValues}`)
+// let companyValues = companiesVector.companies
+//   .map(company =>
+//     company.services.length) // id; label.current
+//   .flat()
+
+// console.log(`Indicators: ${companyValues}`)

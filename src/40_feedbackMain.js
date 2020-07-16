@@ -6,7 +6,7 @@
     researchStepsVector,
     openSpreadsheetByID,
     appendFeedbackBlock,
-    calculateCompanyWidth,
+    calculateCompanyWidthNet,
     importSourcesSheet
 */
 function injectFeedbackForms(Company) {
@@ -20,9 +20,6 @@ function injectFeedbackForms(Company) {
 
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
-    let hasOpCom = Company.hasOpCom
-    // Company.width = calculateCompanyWidth(Company, true)
-
     // define SS name
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
 
@@ -30,15 +27,11 @@ function injectFeedbackForms(Company) {
     // --- // Feedback Parameters // --- //
 
     let outputParams = Config.feedbackForms
-    let subStepNr = outputParams.feedbackSubstep
     let dataColWidth = outputParams.dataColWidth
 
     // minus for logical -> index
 
     let MainStep = ResearchSteps.researchSteps[outputParams.feedbackStep]
-
-    let SubStep = MainStep.substeps[subStepNr]
-    let subStepID = SubStep.subStepID
 
     // --- // MAIN: create Single Indicator Class Sheet // --- // 
 
@@ -50,6 +43,7 @@ function injectFeedbackForms(Company) {
     let sourcesSheet = importSourcesSheet(SS, sheetName, Company, true)
 
     // --- // creates helper sheet for YonY comments editing // --- //
+
     sheetName = Config.sourcesTabName
     let Sheet = insertSheetIfNotExist(SS, outputParams.yearOnYearHelperTabName, false)
     if (Sheet !== null) {
@@ -70,10 +64,15 @@ function injectFeedbackForms(Company) {
 
             Sheet = insertSheetIfNotExist(SS, sheetName, true)
 
-            prefillFeedbackPage(Sheet, Company, Indicator, SubStep, outputParams)
+            prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams)
         }
 
     }
+
+    // add Tab Links to Table of Contents
+
+    Sheet = SS.getSheetByName("Contents")
+    appendTOC(SS, Sheet, Indicators)
 
     removeEmptySheet(SS)
 

@@ -13,7 +13,7 @@ var indicatorsVector = {
         "description": "Indicator Description: TBD",
         "indicatorGuidanceText": "Indicator Guidance Text:\n\nTBD",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91064590",
-        "scoringScope": "full",
+        "scoringScope": "company",
         "y2yCompColumn": 2,
         "y2yCompRow": 3,
         "prevIndicator": "G1",
@@ -475,7 +475,7 @@ var indicatorsVector = {
         "labelLong": "Stakeholder engagement and accountability",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360916",
-        "scoringScope": "full",
+        "scoringScope": "company",
         "y2yCompColumn": 2,
         "y2yCompRow": 97,
         "prevIndicator": "G5",
@@ -506,7 +506,7 @@ var indicatorsVector = {
         "labelLong": "Remedy",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360919",
-        "scoringScope": "full",
+        "scoringScope": "services",
         "y2yCompColumn": 2,
         "y2yCompRow": 117,
         "prevIndicator": "G6",
@@ -580,7 +580,7 @@ var indicatorsVector = {
         "labelLong": "Process for content moderation appeals",
         "description": "",
         "researchGuidance": "https://basecamp.com/2161726/projects/17361333/messages/91360923",
-        "scoringScope": "full",
+        "scoringScope": "services",
         "doExcludeCompanies": true,
         "excludeCompanies": ["telecom"],
         "doExcludeServices": true,
@@ -2995,11 +2995,11 @@ var indicatorsVector = {
 // console.log(`Number of Elements: ${elementsCounts}`)
 
 
-// let indicatorLabels = indicatorsVector.indicatorCategories
-//   .map(category =>
-//     category.indicators
-//     .map(indicator =>
-//       indicator.labelShort))
-//   .flat()
+let indicatorLabels = indicatorsVector.indicatorCategories
+  .map(category =>
+    category.indicators
+    .map(indicator =>
+      indicator.labelShort))
+  .flat()
 
-// console.log(`Indidcators: ${indicatorLabels}`)
+console.log(`Indidcators: ${indicatorLabels}`)

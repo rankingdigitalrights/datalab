@@ -2,7 +2,7 @@
   global
     Config,
     defineNamedRange,
-    calculateCompanyWidth,
+    calculateCompanyWidthNet,
     returnFBStyleParams,
     addFBFrontMatter,
     appendFeedbackSection,
@@ -14,14 +14,15 @@
     insertSheetIfNotExist
 */
 
-function prefillFeedbackPage(Sheet, Company, Indicator, SubStep, outputParams) {
+function prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams) {
 
-    let companyWidth = calculateCompanyWidth(Company, true)
+    let companyWidth = calculateCompanyWidthNet(Company, Indicator, false)
+    let layoutWidth = companyWidth < 3 ? 3 : companyWidth
 
     Sheet.setColumnWidth(1, 28)
     // Sheet.setColumnWidth(9, 28)
     Sheet.setColumnWidth(2, 125)
-    Sheet.setColumnWidths(3, companyWidth, Config.feedbackForms.dataColWidth)
+    Sheet.setColumnWidths(3, layoutWidth, Config.feedbackForms.dataColWidth)
 
     Sheet.setHiddenGridlines(true)
 
@@ -30,8 +31,6 @@ function prefillFeedbackPage(Sheet, Company, Indicator, SubStep, outputParams) {
     let offsetCol = 2
 
     let indyLabel = Indicator.labelShort
-
-
 
     let MetaData = metaIndyFilter(elemsMetadata, Indicator.labelShort)
 
@@ -44,7 +43,7 @@ function prefillFeedbackPage(Sheet, Company, Indicator, SubStep, outputParams) {
 
     // Content Section
 
-    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, SubStep, companyWidth, activeRow, offsetCol, outputParams)
+    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, MainStep, layoutWidth, companyWidth, activeRow, offsetCol, outputParams)
 
     cropEmptyColumns(Sheet, 1)
     cropEmptyRows(Sheet, 1)

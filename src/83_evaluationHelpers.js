@@ -9,6 +9,8 @@ function checkIndicatorSpecs(Indicator) {
     IndicatorSpecs.doExcludeServices = Indicator.doExcludeServices ? true : false
     IndicatorSpecs.excludeServices = IndicatorSpecs.doExcludeServices ? Indicator.excludeServices : []
 
+    IndicatorSpecs.scoringScope = Indicator.scoringScope
+
     return IndicatorSpecs
 }
 

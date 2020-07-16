@@ -237,3 +237,18 @@ function findSubStepComponent(stepNr, subStepNr, componentType) {
     return researchStepsVector.researchSteps[stepNr].substeps[subStepNr].components.find(component =>
         component.type === componentType)
 }
+
+function getIndicatorLabelsList(Indicators, flatten) {
+
+    let indicatorLabels = Indicators.indicatorCategories
+        .map(category =>
+            category.indicators
+            .map(indicator =>
+                indicator.labelShort))
+
+    if (flatten) {
+        indicatorLabels = indicatorLabels.flat()
+    }
+
+    return indicatorLabels
+}

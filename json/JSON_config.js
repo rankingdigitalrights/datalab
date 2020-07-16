@@ -26,7 +26,8 @@ var centralConfig = {
   glossaryLink: "https://rankingdigitalrights.org/2020-indicators/#glossary",
   feedbackForms: {
     feedbackStep: 3,
-    feedbackSubstep: 2,
+    feedbackSubstepResults: 2,
+    feedbackSubstepYonYComments: 3,
     compFeedbackSheetName: "Company Feedback",
     yearOnYearHelperTabName: "Year on Year Comments",
     dataColWidth: 245,
@@ -55,7 +56,8 @@ var centralConfig = {
       contentRowHeight: 250,
       rowLabel: "\n\nResponse:",
       extraRow: true,
-      extraRowLabel: "Sources:"
+      extraRowLabel: "Sources:",
+      extraInstructionFB: "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are refercing, as well as any sources (including the url) that you feel we should be evaluating."
     }
   },
   sourcesTabName: "2020 Sources",

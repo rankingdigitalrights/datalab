@@ -107,7 +107,6 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
 
     Sheet.getRange(startRow, offsetCol, values.length, values[0].length)
         .setValues(values)
-        .setFontSize(12)
         // .setHorizontalAlignment("left")
         .setVerticalAlignment("top")
 
@@ -120,9 +119,13 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
 
     })
 
+    Sheet.getRange(startRow, offsetCol + 1, values.length, 1)
+        .setHorizontalAlignment("left")
+        .setFontSize(12)
 
     Sheet.getRange(startRow, offsetCol, values.length, 1)
         .setHorizontalAlignment("right")
+        .setFontSize(12)
 
     activeRow = startRow + values.length
 
