@@ -31,6 +31,8 @@ var centralConfig = {
     compFeedbackSheetName: "Company Feedback",
     yearOnYearHelperTabName: "Year on Year Comments",
     dataColWidth: 245,
+    masterTemplateUrl: "125ZK69c-1NntgOQfM8_tD6n2jM4eOytfZmodU8FfZrc",
+    outputFolderId: "1e1njzRJoERb9xfDnPsHtsOTr97stcDeG",
     frontMatter: {
       frontMatterColsNr: 4,
       indicatorGuidanceLabel: "Indicator guidance:",
@@ -44,8 +46,8 @@ var centralConfig = {
     },
     yearOnYearSection: {
       label: "YEAR-ON-YEAR COMPARISON",
-      backColor: "#d9ead3",
-      fontColor: null,
+      backColor: "#5ca5d9",
+      fontColor: "white",
       contentRowHeight: 150,
       rowLabel: "\n\nChange since 2019 Index:"
     },

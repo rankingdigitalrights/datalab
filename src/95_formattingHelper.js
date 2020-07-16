@@ -98,14 +98,16 @@ function addRichTextArray(Cell, Style, content, terms) {
     let cellText = Cell.getValue()
     let termPos = locateString(cellText, terms)
 
-    termPos.forEach((term) => {
-        // console.log(term)
-        if (term[0] !== -1) {
-            return richText.setTextStyle(term[0], term[1], Style)
-        }
-    })
+    if (termPos.length > 0) {
+        termPos.forEach((term) => {
+            // console.log(term)
+            if (term[0] !== -1) {
+                return richText.setTextStyle(term[0], term[1], Style)
+            }
+        })
 
-    Cell.setRichTextValue(richText.build())
+        Cell.setRichTextValue(richText.build())
+    }
 }
 
 function addRichTextSingle(Cell, Style, content, terms) {

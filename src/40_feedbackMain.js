@@ -13,17 +13,25 @@ function injectFeedbackForms(Company) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
+    let companyShortName = cleanCompanyName(Company)
+
     let Indicators = IndicatorsObj
     let ResearchSteps = researchStepsVector
 
     let mainSheetMode = "Feedback"
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
+
+    let masterFileId = Config.feedbackForms.masterTemplateUrl
+    let outputFolderId = Config.feedbackForms.outputFolderId
 
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
     // define SS name
-    // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
+    // connect to Spreadsheet if it already exists (Danger!), otherwise make a COPY of Master Template, rename, and return new file
 
-    let SS = openSpreadsheetByID(Company.urlCurrentFeedbackSheet)
+    let makeDataOwner = false // should new file be owned by Data@?
+
+    let SS = Company.urlCurrentFeedbackSheet ? openSpreadsheetByID(Company.urlCurrentFeedbackSheet) : copyMasterSpreadsheet(masterFileId, outputFolderId, spreadsheetName, makeDataOwner)
     // --- // Feedback Parameters // --- //
 
     let outputParams = Config.feedbackForms
@@ -40,17 +48,17 @@ function injectFeedbackForms(Company) {
     let doOverwrite = false
 
     sheetName = Config.sourcesTabName
-    let sourcesSheet = importSourcesSheet(SS, sheetName, Company, true)
+    let sourcesSheet = importSourcesSheet(SS, sheetName, Company, doOverwrite)
 
     // --- // creates helper sheet for YonY comments editing // --- //
 
-    sheetName = Config.sourcesTabName
     let Sheet = insertSheetIfNotExist(SS, outputParams.yearOnYearHelperTabName, false)
     if (Sheet !== null) {
         produceYonYCommentsSheet(Sheet, false)
     }
 
     let Category, Indicator
+
 
     for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
 
@@ -60,13 +68,10 @@ function injectFeedbackForms(Company) {
 
             Indicator = Category.indicators[i]
             sheetName = Indicator.labelShort
-            // Sheet = SS.getSheetByName(sheetName)
-
             Sheet = insertSheetIfNotExist(SS, sheetName, true)
 
             prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams)
         }
-
     }
 
     // add Tab Links to Table of Contents

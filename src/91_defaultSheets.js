@@ -99,13 +99,16 @@ function insertSheetConnector(SS, Companies) {
 
 // }
 
-function importSourcesSheet(SS, sheetName, CompanyObj, doOverwrite) {
+function importSourcesSheet(SS, sheetName, Company, doOverwrite) {
+
     let sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
     if (sheet !== null && doOverwrite) {
         sheet.clear()
+        produceSourceSheet(sheet)
+        let targetCell = sheet.getRange(1, 1)
+        let formula = "=IMPORTRANGE(\"" + Company.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
+        targetCell.setFormula(formula)
+    } else {
+        console.log("WARNING: Sources Tab already exists. Skipping!")
     }
-    produceSourceSheet(sheet)
-    let targetCell = sheet.getRange(1, 1)
-    let formula = "=IMPORTRANGE(\"" + CompanyObj.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
-    targetCell.setFormula(formula)
 }

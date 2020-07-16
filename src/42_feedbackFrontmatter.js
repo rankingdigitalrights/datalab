@@ -70,7 +70,7 @@ function addFBIndyDescription(Sheet, Indicator, MetaData, frontMatterSpecs, acti
         .setValue(description)
         .setFontSize(12)
 
-    addRichTextArray(Cell, frontMatterSpecs.bold, description, MetaData.description_terms)
+    addRichTextArray(Cell, frontMatterSpecs.bold, description, MetaData.descriptionTerms)
 
     return activeRow + 2
 }
@@ -115,7 +115,8 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     Indicator.elements.forEach((Element, index) => {
         Textrange = Sheet.getRange(elementRow + index, offsetCol + 1, 1, width - 1).merge()
 
-        addRichTextArray(Textrange, frontMatterSpecs.bold, Element.description, MetaData.elements_tags)
+        console.log("Found terms " + MetaData.elementsTags[index])
+        addRichTextArray(Textrange, frontMatterSpecs.bold, Element.description, MetaData.elementsTags[index])
 
     })
 
