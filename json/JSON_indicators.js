@@ -2995,11 +2995,11 @@ var indicatorsVector = {
 // console.log(`Number of Elements: ${elementsCounts}`)
 
 
-let indicatorLabels = indicatorsVector.indicatorCategories
-  .map(category =>
-    category.indicators
-    .map(indicator =>
-      indicator.labelShort))
-  .flat()
+// let indicatorLabels = indicatorsVector.indicatorCategories
+//   .map(category =>
+//     category.indicators
+//     .map(indicator =>
+//       indicator.labelShort))
+//   .flat()
 
-console.log(`Indidcators: ${indicatorLabels}`)
+// console.log(`Indidcators: ${indicatorLabels}`)
