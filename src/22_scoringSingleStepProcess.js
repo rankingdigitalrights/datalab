@@ -117,7 +117,18 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                 activeRow = addCompositeScores(SS, sheetModeID, activeRow, firstCol, Sheet, thisSubStepID, thisInd, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
                 Logger.log(" - " + "composite scores added for " + thisInd.labelShort)
 
-                activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
+
+                if(indyCompositeScores.length==0) {
+                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
+                }
+                else if(CompanyObj.type=="internet" || CompanyObj.id=="tAT1"||thisInd.labelShort.substring(0, 1)!="G") {
+                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
+                }
+
+                else {
+                    indyCompositeScores.push(indyCompositeScores[0])
+                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, thisSubStepID, thisInd, CompanyObj, indyCompositeScores, blocks)
+                }
                 Logger.log(" - " + "indicator score added for " + thisInd.labelShort)
 
                 activeRow = activeRow + 1

@@ -626,6 +626,8 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
     // apply scoring Logic
     currentCell = checkScoringLogic(Indicator, scoringComponent, servicesCompositeCell, cellName, indyCompositeScores)
 
+    currentCell.setFontStyle("normal")
+
     Logger.log(" - " + "composite services score added for " + Indicator.labelShort)
 
     return activeRow + 1
@@ -655,10 +657,21 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, current
 
     Logger.log(" - " + "Indicator Scoring Ranges - indyCompositeScores[]:\n --- " + indyCompositeScores)
 
-    currentCell.setFormula(aggregateScoreFormula(indyCompositeScores))
+    if (Indicator.scoringScope=="group") {
+        var cellName1 = cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, "A", CompanyObj.id, "", "SC")
 
+        currentCell.setFormula("="+cellName1)
+
+        Logger.log("in group, cellName1:"+cellName1)
+    }
+
+    else{
+        currentCell.setFormula(aggregateScoreFormula(indyCompositeScores))
+    }
+    currentCell.setFontStyle("normal")
     currentCell.setFontWeight("bold")
     currentCell.setNumberFormat("0.##")
+
 
     // naming the level cell score
     var component = ""
