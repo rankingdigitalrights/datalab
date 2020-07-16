@@ -26,6 +26,19 @@ function mainTestConnectionByID() {
     openSpreadsheetByID(spreadsheetID)
 }
 
+function copyMasterSpreadsheet(masterFileId, outputFolderId, outputFilename, makeDataOwner) {
+
+    let MasterFile = DriveApp.getFileById(masterFileId)
+    let outputFolder = DriveApp.getFolderById(outputFolderId)
+    let newFile = MasterFile.makeCopy(outputFilename, outputFolder)
+    if (makeDataOwner) {
+        newFile.setOwner(centralConfig.dataOwner)
+        newFile.addEditors(centralConfig.devs)
+    }
+    let SS = openSpreadsheetByID(newFile.getId())
+    return SS
+}
+
 // TODO: refactor everywhere into two seperate functions:
 // one to try to connect and return null if file does not exist
 // one to create a new file
