@@ -140,7 +140,7 @@ function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
         additionalCol=3
     }
 
-    var rowElems = Sheet.getRange(currentRow, currentCol, 1, additionalCol + Company.numberOfServices)
+    var rowElems = Sheet.getRange(currentRow, currentCol, 1, additionalCol + Company.services.length)
     rowElems.setValue(Company.label.current)
     rowElems.setFontWeight("bold").setFontSize(12)
 
@@ -156,7 +156,7 @@ function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
     var range
 
     // --- // --- Services --- // --- //
-    for (var i = 0; i < Company.numberOfServices; i++) {
+    for (var i = 0; i < Company.services.length; i++) {
         if(Company.services[i].subtype=="prepaid"){
             columnLabel="Mobile Service"
             rowElems.push(columnLabel)
@@ -269,7 +269,7 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
     rowFormulas.push(formula)
 
     // Services
-    for (var i = 0; i < Company.numberOfServices; i++) {
+    for (var i = 0; i < Company.services.length; i++) {
         if(Company.services[i].subtype=="prepaid"){
             var cellID1 = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
             var cellID3=defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i+1].id, scoringSuffixLvl)

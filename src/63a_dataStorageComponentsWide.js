@@ -21,7 +21,7 @@ function addDataStoreSheetHeaderWide(Sheet, Company, activeRow) {
     columnLabels.push(columnLabel)
 
     // --- // --- Services --- // --- //
-    for (var s = 0; s < Company.numberOfServices; s++) {
+    for (var s = 0; s < Company.services.length; s++) {
         columnLabel = Company.services[s].label.current
         columnLabels.push(columnLabel)
     }

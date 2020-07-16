@@ -78,7 +78,7 @@ function setFeedbackCompanyHeader(activeRow, offsetCol, sheet, companyObj, nrOfI
     }
 
     // --- // --- Services --- // --- //
-    for (var k = 0; k < companyObj.numberOfServices; k++) {
+    for (var k = 0; k < companyObj.services.length; k++) {
         for (g = 0; g < nrOfIndSubComps; g++) {
             currentCell = sheet.getRange(activeRow, offsetCol)
             columnLabel = companyObj.services[k].label.current

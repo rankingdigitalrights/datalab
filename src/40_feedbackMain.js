@@ -48,7 +48,7 @@ function createFeedbackForms(useIndicatorSubset, thisCompany, filenamePrefix, fi
     if (hasOpCom) {
         companyCols = 2
     }
-    var numberOfColumns = (CompanyObj.numberOfServices + companyCols) * globalNrOfComponents
+    var numberOfColumns = (CompanyObj.services.length + companyCols) * globalNrOfComponents
 
     // minus for logical -> index
     var firstScoringStep = outputParams.firstStepNr - 1

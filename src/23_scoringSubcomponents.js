@@ -82,7 +82,7 @@ function setScoringCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfInd
     }
 
     // --- // --- Services --- // --- //
-    for (var s = 0; s < companyObj.numberOfServices; s++) {
+    for (var s = 0; s < companyObj.services.length; s++) {
         for (var g = 0; g < nrOfIndSubComps; g++) {
             currentCell = sheet.getRange(activeRow, activeCol)
             columnLabel = companyObj.services[s].label.current
