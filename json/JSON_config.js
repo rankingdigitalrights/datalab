@@ -30,7 +30,8 @@ var centralConfig = {
     feedbackSubstepYonYComments: 3,
     compFeedbackSheetName: "Company Feedback",
     yearOnYearHelperTabName: "Year on Year Comments",
-    dataColWidth: 245,
+    sourcesSheetName: "Sources",
+    dataColWidth: 300,
     masterTemplateUrl: "125ZK69c-1NntgOQfM8_tD6n2jM4eOytfZmodU8FfZrc",
     outputFolderId: "1e1njzRJoERb9xfDnPsHtsOTr97stcDeG",
     frontMatter: {
@@ -49,7 +50,8 @@ var centralConfig = {
       backColor: "#5ca5d9",
       fontColor: "white",
       contentRowHeight: 150,
-      rowLabel: "\n\nChange since 2019 Index:"
+      rowLabel: "\n\nChange since 2019 Index:",
+      extraInstructionFB: "The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index)."
     },
     feedbackBoxSection: {
       label: "COMPANY RESPONSE",
