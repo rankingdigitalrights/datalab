@@ -39,6 +39,8 @@ function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, MainStep, l
     StyleSpecs = returnFBStyleParams("yearOnYearSection")
     activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, layoutWidth, StyleSpecs)
 
+    activeRow = addFBExtraInstruction(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs)
+
     subStepNr = outputParams.feedbackSubstepYonYComments
     SubStep = MainStep.substeps[subStepNr]
 

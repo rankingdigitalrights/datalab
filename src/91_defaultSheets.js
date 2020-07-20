@@ -99,15 +99,38 @@ function insertSheetConnector(SS, Companies) {
 
 // }
 
+// TODO: Fix this in Aligment with Input Sheet process
+
 function importSourcesSheet(SS, sheetName, Company, doOverwrite) {
 
     let sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
+
     if (sheet !== null && doOverwrite) {
-        sheet.clear()
-        produceSourceSheet(sheet)
-        let targetCell = sheet.getRange(1, 1)
-        let formula = "=IMPORTRANGE(\"" + Company.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
+        // sheet.clear()
+        // produceSourceSheet(sheet)
+        let targetCell = sheet.getRange(4, 2)
+        let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentDataCollectionSheet}","${Config.sourcesTabName} !A1:C"), "select Col1, Col2, Col3", 1)`
+        // let formula = "=IMPORTRANGE(\"" + Company.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
         targetCell.setFormula(formula)
+    } else {
+        console.log("WARNING: Sources Tab already exists. Skipping!")
+    }
+}
+
+// simplified Sources Table Import for Company Feedback Forms
+
+function importFBSourcesSheet(SS, sheetName, Company, doOverwrite) {
+
+    let Sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
+
+    if (Sheet !== null && doOverwrite) {
+        // Sheet.clear()
+        // produceSourceSheet(Sheet)
+        let targetCell = Sheet.getRange(4, 2)
+        // let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentDataCollectionSheet}","${Config.sourcesTabName}!A1:C"), "select Col1, Col2, Col3", 1)`
+        let formula = `IMPORTRANGE("${Company.urlCurrentDataCollectionSheet}","${Config.sourcesTabName}!A1:C")`
+        targetCell.setFormula(formula)
+        // cropEmptyRows(Sheet, 2)
     } else {
         console.log("WARNING: Sources Tab already exists. Skipping!")
     }

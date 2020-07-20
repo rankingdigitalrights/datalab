@@ -45,32 +45,44 @@ function injectFeedbackForms(Company) {
 
     let sheetName = Config.sourcesTabName
 
-    let doOverwrite = false
+    let doOverwrite = true
 
-    sheetName = Config.sourcesTabName
-    let sourcesSheet = importSourcesSheet(SS, sheetName, Company, doOverwrite)
+    sheetName = outputParams.sourcesSheetName
+    let sourcesSheet = importFBSourcesSheet(SS, sheetName, Company, doOverwrite)
 
     // --- // creates helper sheet for YonY comments editing // --- //
 
-    let Sheet = insertSheetIfNotExist(SS, outputParams.yearOnYearHelperTabName, false)
-    if (Sheet !== null) {
-        produceYonYCommentsSheet(Sheet, false)
-    }
+    // let Sheet = insertSheetIfNotExist(SS, outputParams.yearOnYearHelperTabName, false)
+    // if (Sheet !== null) {
+    //     produceYonYCommentsSheet(Sheet, false)
+    // }
 
     let Category, Indicator
 
+    let sheetOverwrite = true
+
+    let ankerSheetPos, sheetPos
 
     for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
 
         Category = Indicators.indicatorCategories[c]
 
+        ankerSheetPos = SS.getSheetByName(Category.labelLong).getIndex()
+        // sheetPos = parseInt(ankerSheetPos)
+        console.log("|--- intitial sheetPos: " + sheetPos)
+
         for (let i = 0; i < Category.indicators.length; i++) {
+
+
 
             Indicator = Category.indicators[i]
             sheetName = Indicator.labelShort
-            Sheet = insertSheetIfNotExist(SS, sheetName, true)
+            console.log(`|---- START Processing ${sheetName}`)
+            console.log("|------- sheetPos: " + (ankerSheetPos + i))
+            Sheet = insertSheetIfNotExist(SS, sheetName, sheetOverwrite, (ankerSheetPos + i))
 
             prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams)
+            console.log(`|---- END Processing ${sheetName}`)
         }
     }
 

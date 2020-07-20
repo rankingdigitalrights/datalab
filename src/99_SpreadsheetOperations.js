@@ -119,11 +119,12 @@ function openSpreadsheetByID(ID) {
 
 // Helper Function to overwrite Sheet in Spreadsheet if it is already existing
 
-function insertSheetIfNotExist(SS, sheetName, overWriteSheet) {
+function insertSheetIfNotExist(SS, sheetName, overWriteSheet, sheetPos) {
 
+    let positon = sheetPos || SS.getNumSheets() + 1
     let Sheet = SS.getSheetByName(sheetName)
     if (!Sheet) {
-        Sheet = SS.insertSheet(sheetName)
+        Sheet = SS.insertSheet(sheetName, positon)
     } else {
 
         Logger.log("WARN: " + "Sheet for " + sheetName + " already exists ")

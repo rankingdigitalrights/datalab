@@ -64,13 +64,15 @@ function addFBIndyDescription(Sheet, Indicator, MetaData, frontMatterSpecs, acti
 
     // Indicator Description
     let description = MetaData.description
+    let descriptionTerms = MetaData.descriptionTerms
+    let descriptionLinks = MetaData.descriptionLinks
 
     let Cell = Sheet.getRange(activeRow, offsetCol, 1, width)
         .merge()
         .setValue(description)
         .setFontSize(12)
 
-    addRichTextArray(Cell, frontMatterSpecs.bold, description, MetaData.descriptionTerms)
+    addRichTextArray(Cell, frontMatterSpecs.bold, description, descriptionTerms, descriptionLinks)
 
     return activeRow + 2
 }
@@ -115,8 +117,8 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     Indicator.elements.forEach((Element, index) => {
         Textrange = Sheet.getRange(elementRow + index, offsetCol + 1, 1, width - 1).merge()
 
-        console.log("Found terms " + MetaData.elementsTags[index])
-        addRichTextArray(Textrange, frontMatterSpecs.bold, Element.description, MetaData.elementsTags[index])
+        // console.log("Found terms " + MetaData.elementsTags[index])
+        addRichTextArray(Textrange, frontMatterSpecs.bold, Element.description, MetaData.elementsTags[index], MetaData.elementsLinks[index])
 
     })
 
@@ -199,6 +201,7 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     Sheet.getRange(activeRow, offsetCol, 1, 3)
         .merge()
         .setValue(frontMatterSpecs.guidanceText)
+        // .setValue(indicatorLink)
         .setFontStyle("italic")
         .setFontWeight("bold")
         .setFontSize(11)

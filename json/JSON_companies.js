@@ -183,7 +183,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "ATTOutcome",
       "urlCurrentDataCollectionSheet": "1KGJUM95bNuvFDzZqXpZaDKbwMa379_HDvff7Rg4Wc3k",
       "urlCurrentCompanyScoringSheet": null,
-      "urlCurrentFeedbackSheet": "1Mr4bzH7z2vLzPMqXdTiaEDIdxeJB_4vVVAHA9hwbryM",
+      "urlCurrentFeedbackSheet": null,
       "numberOfServices": 3,
       "services": [{
           "id": "mbAT1",
@@ -367,6 +367,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "DeutscheTelekomOutcome",
       "urlCurrentDataCollectionSheet": "1qHXyuNG5S52jb02gdcHq9cdc5mTsuaI4-v8GgSi4sFA",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": null,
       "numberOfServices": 3,
       "services": [{
           "id": "mbDT1",
@@ -511,7 +512,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "GoogleOutcome",
       "urlCurrentDataCollectionSheet": "1tkOrgUWe0sG5cfNYeoph5IQdYt_A3LGbR2JMkCdwhGg",
       "urlCurrentCompanyScoringSheet": null,
-      "urlCurrentFeedbackSheet": "1aH6IjSFJfeEzQ9Bu8f9jsWVwuRnQF16PmUV32_FCPys",
+      "urlCurrentFeedbackSheet": null,
       "numberOfServices": 5,
       "services": [{
           "id": "seGO1",
@@ -668,6 +669,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "MicrosoftOutcome",
       "urlCurrentDataCollectionSheet": "1Bw5YfKfBMcLNca39qc7vye42vd_Zk5V2lM_8RYGRSAE",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": null,
       "numberOfServices": 4,
       "services": [{
           "id": "seMS1",
@@ -940,6 +942,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "TelenorOutcome",
       "urlCurrentDataCollectionSheet": "150kTM3p6zcigywbRIUaki9NLtXmKEFHGRY2fNMDhSBk",
       "urlCurrentCompanyScoringSheet": null,
+      "urlCurrentFeedbackSheet": null,
       "numberOfServices": 3,
       "services": [{
           "id": "mbTN1",

@@ -90,19 +90,20 @@ function textUnderline(cell) {
 //     // return textRange
 // }
 
-function addRichTextArray(Cell, Style, content, terms) {
+function addRichTextArray(Cell, Style, content, terms, links) {
 
     let richText = SpreadsheetApp.newRichTextValue()
         .setText(content)
 
     let cellText = Cell.getValue()
     let termPos = locateString(cellText, terms)
-
+    // let termURL
     if (termPos.length > 0) {
-        termPos.forEach((term) => {
+        termPos.forEach(term => {
             // console.log(term)
+            // termURL = Config.indicatorsLink + links[index]
             if (term[0] !== -1) {
-                return richText.setTextStyle(term[0], term[1], Style)
+                return richText.setTextStyle(term[0], term[1], Style) //.setLinkUrl(term[0], term[1], termURL)
             }
         })
 
@@ -117,8 +118,10 @@ function addRichTextSingle(Cell, Style, content, terms) {
     let richText = SpreadsheetApp.newRichTextValue()
         .setText(content)
 
-    richText = richText.setTextStyle(11, 26, Style)
-        // .setLinkUrl(0, 5, "https://bar.foo")
+    richText = richText
+        .setTextStyle(11, 26, Style)
+        .setTextStyle(62, 76, Style)
+        // .setLinkUrl(69, 83, Config.glossaryLink)
         // .setTextStyle(0, 5, Style)
         .build()
 

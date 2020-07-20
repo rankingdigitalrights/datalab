@@ -102,7 +102,9 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, mainStepNr, subS
 
     }) // Elements Row END
 
-    let block = Sheet.getRange(startRow, offsetCol, activeRow - startRow - 1, layoutWidth + 1)
+    let rowLength = Elements.length > 1 ? (activeRow - startRow - 1) : 1
+
+    let block = Sheet.getRange(startRow, offsetCol, rowLength, layoutWidth + 1)
         .setBorder(true, null, true, null, null, true, "black", SpreadsheetApp.BorderStyle.DOTTED)
         .setBorder(true, null, null, null, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
 

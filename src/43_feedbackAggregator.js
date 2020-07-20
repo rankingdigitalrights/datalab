@@ -70,12 +70,15 @@ function appendTOC(SS, Sheet, Indicators) {
 
     let tabs = Sheets.filter(sheet => indicatorLabels.includes(sheet.getName()))
 
-    console.log("tabs")
-    console.log(tabs)
+    let tabCells = []
 
     tabs.map(tab => {
-        Sheet.appendRow([`=HYPERLINK("#gid=${tab.getSheetId()}","${tab.getSheetName()}")`])
+        tabCells.push([`=HYPERLINK("#gid=${tab.getSheetId()}","${tab.getSheetName()}")`])
     })
+
+    Sheet.getRange(7, 9, tabs.length, 1)
+        .setValues(tabCells)
+        .setFontSize(12)
     // return tabs
 
 }
