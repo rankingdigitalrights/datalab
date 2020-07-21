@@ -7,7 +7,7 @@
 
 function addDataStoreSheetHeaderLong(Sheet, activeRow) {
 
-    var columnLabels = ["Step", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "ID", "Value", "Score"]
+    var columnLabels = ["Step","Substep", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "ID", "Value", "Score"]
 
     Sheet.appendRow(columnLabels)
     return activeRow + 1
@@ -37,7 +37,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
 
     // row label / first two Column
 
-    rowLabels.push(currentSubStepID, indCatLabelShort, indLabelShort, elemLabelShort, StepComp.variableName)
+    rowLabels.push(currentSubStepID.substring(2,3), currentSubStepID.substring(3,4),indCatLabelShort, indLabelShort, elemLabelShort.substring(indLabelShort.length+1,elemLabelShort.length+1), StepComp.variableName)
 
     rowCells = rowLabels.slice() //ES5; no Array.from()
 
