@@ -7,7 +7,7 @@
 
 function addDataStoreSheetHeaderLong(Sheet, activeRow) {
 
-    var columnLabels = ["Step","Substep", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "ID", "Value", "Score"]
+    var columnLabels = ["Step","Substep", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "ID", "Value",""]
 
     Sheet.appendRow(columnLabels)
     return activeRow + 1
@@ -49,7 +49,8 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
     compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "group", stepCompID)
 
     formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
-    rowCells.push(compCellName, formula)
+    //rowCells.push(compCellName, formula)
+    rowCells.push(compCellName, "")
 
     if (scoringSuffix) {
         compCellName = defineNamedRange(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "group", scoringSuffix)
@@ -58,7 +59,8 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
         formula = ""
     }
 
-    rowCells.push(formula)
+    //rowCells.push(formula)
+  rowCells.push("")
 
     blockCells.push(rowCells)
 
@@ -72,7 +74,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
 
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     } else {
-        formula = "NA"
+        formula = ""
     }
 
     rowCells.push(compCellName, formula)
@@ -88,7 +90,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
         formula = ""
     }
 
-    rowCells.push(formula)
+    rowCells.push("")
 
     blockCells.push(rowCells)
 
@@ -112,7 +114,8 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
             formula = ""
         }
 
-        rowCells.push(formula)
+        //rowCells.push(formula)
+      rowCells.push("")
 
         blockCells.push(rowCells)
     }
