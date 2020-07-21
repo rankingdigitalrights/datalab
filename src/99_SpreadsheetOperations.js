@@ -132,8 +132,8 @@ function insertSheetIfNotExist(SS, sheetName, overWriteSheet, sheetPos) {
         if (overWriteSheet) {
             Logger.log("|--- Overwriting " + sheetName)
         } else {
-            if (doRepairsOnly) {
-                console.log("Repairing / Updating " + sheetName)
+            if (doRepairsOnly || addNewStep) {
+                console.log("Repairing / Updating / Extending " + sheetName)
             } else {
                 Sheet = null
                 Logger.log("|--- Skipping " + sheetName)

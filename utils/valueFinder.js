@@ -2,10 +2,10 @@ function mainDeleteStepRows() {
 
     let stepString = "^Step 3"
 
-    let SS = openSpreadsheetByID("11gMIs_vZXiLtIOO5I0dJbgqNGBuPoBM6Pfoq_nUxjV8")
+    let SS = openSpreadsheetByID("1phB7j-fh3WZUeeEBAlqB7e0r5XI5N6pzm-PP3UlrqYY")
 
-    let Indicators = subsetIndicatorsObject(indicatorsVector, "G2") // F5a|P1$// indicatorsVector
-    // let Indicators = indicatorsVector
+    // let Indicators = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$// indicatorsVector
+    let Indicators = indicatorsVector
 
     let Sheet, rows
     Indicators.indicatorCategories.forEach(Category =>
@@ -26,10 +26,15 @@ function findStepRows(Sheet, stepString) {
     console.log("starting search")
     let raw = Sheet.getDataRange()
     let data = raw.getValues()
-    let startRow = data.findIndex(r => r[1].match(stepString)) // 1 := second column
+
+    let startRow = data.findIndex(r => {
+        if (r[1] !== null && r[1].length > 0) {
+            return r[1].match(stepString) // 1 := second column
+        }
+    })
 
     let lastRow = Sheet.getLastRow()
-
+    console.log(`Range found: ${startRow} : ${lastRow}`)
     return [startRow + 1, lastRow + 1]
 }
 
