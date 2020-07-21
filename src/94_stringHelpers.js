@@ -2,11 +2,13 @@ function locateString(Container, terms) {
     let positions = []
     let start, end
 
-    terms.map(term => {
-        start = Container.indexOf(term)
-        end = start > 0 ? start + term.length : null
-        positions.push([start, end])
-    })
+    if (terms.length > 0 && terms !== null) {
+        terms.map(term => {
+            start = Container.indexOf(term)
+            end = start > 0 ? start + term.length : null
+            positions.push([start, end])
+        })
+    }
 
     return positions
 }

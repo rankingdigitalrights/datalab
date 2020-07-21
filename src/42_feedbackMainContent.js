@@ -39,6 +39,8 @@ function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, MainStep, l
     StyleSpecs = returnFBStyleParams("yearOnYearSection")
     activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, layoutWidth, StyleSpecs)
 
+    activeRow = addFBExtraInstruction(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs)
+
     subStepNr = outputParams.feedbackSubstepYonYComments
     SubStep = MainStep.substeps[subStepNr]
 
@@ -154,8 +156,6 @@ function appendFBRows(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr,
 
     startRow = activeRow
 
-    console.log(`Array received: ${contentTypes}`)
-
     contentTypes.forEach(contentType =>
         activeRow = importContentBlock(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, contentType, activeRow, offsetCol, omitOpCom, layoutWidth, companyWidth))
 
@@ -168,7 +168,7 @@ function appendFBRows(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr,
     block = Sheet.getRange(startRow, offsetCol, endRow - startRow, layoutWidth + 1)
         .setVerticalAlignment("top")
         .setBorder(true, null, true, null, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
-        .setFontSize(12)
+        .setFontSize(10)
 
     block = Sheet.getRange(startRow, offsetCol + 1, endRow - startRow, layoutWidth)
         .setWrap(true)

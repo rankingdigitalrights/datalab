@@ -55,9 +55,8 @@ function initiateGlobalConfig() {
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-     IndicatorsObj = indicatorsVector
+    IndicatorsObj = indicatorsVector
     // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
-    //IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -134,7 +133,7 @@ function mainAddNewInputStep() {
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
     // also: Hook to skip steps
-    startAtMainStepNr = addNewStep ? 5 : 0 // logical Order
+    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
@@ -144,9 +143,9 @@ function mainAddNewInputStep() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        .slice(2, 3) //   2 "América Móvil",
+        .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
@@ -220,8 +219,9 @@ function mainFeedbackSheets() {
     outputFolderName = "2020 - Dev - Feedback"
     var Companies = companiesVector.companies
         // .slice(1, 2) // Apple
-        // .slice(11, 12) // 11 "Google",
-        .slice(7, 8) //   7 "Bharti Airtel",
+        .slice(4, 5) //   4 "AT&T",
+    // .slice(11, 12) // 11 "Google",
+    // .slice(7, 8) //   7 "Bharti Airtel",
 
     Companies.forEach(function (Company) {
         injectFeedbackForms(Company)

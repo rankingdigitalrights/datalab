@@ -375,13 +375,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // hides opCom column(s) if opCom == false
         // TODO: make dynamic
 
-        if (thisIndScoringScope == "full") {
-            if (!hasOpCom) {
-                Sheet.hideColumns(3)
-            }
-        } else {
-            Sheet.hideColumns(2, bridgeCompColumnsNr)
+        // if (thisIndScoringScope == "full") {
+        if (!hasOpCom) {
+            Sheet.hideColumns(3)
         }
+        // } else {
+        //     Sheet.hideColumns(2, bridgeCompColumnsNr)
+        // }
 
         cropEmptyColumns(Sheet)
 

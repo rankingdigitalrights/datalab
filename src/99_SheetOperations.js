@@ -15,7 +15,7 @@ function cropEmptyRows(Sheet, offSet) {
 
     let maxRows = Sheet.getMaxRows()
     let lastRow = Sheet.getLastRow() + offSet
-    if (maxRows - lastRow != 0) {
+    if (maxRows - lastRow > 0) {
         Sheet.deleteRows(lastRow + 1, maxRows - lastRow)
     }
 }

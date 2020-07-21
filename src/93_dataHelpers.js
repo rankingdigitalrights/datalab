@@ -42,9 +42,9 @@ function subsetIndicatorsObject(IndicatorsObj, regexString) {
     })
 
     // verbose feedback
-    console.log(" ------ FILTER SUCCESS ------")
-    console.log(" ------ Returned Indicators Subset:")
-    console.log(findings)
+    // console.log(" ------ FILTER SUCCESS ------")
+    // console.log(" ------ Returned Indicators Subset:")
+    // console.log(findings)
 
     // findings.indicatorCategories.forEach(category => {
     //     console.log(" ------ RESULTS: ------ ")
@@ -240,7 +240,7 @@ function createPercentageDone(Company, stepLabel) {
 }
 
 function metaIndyFilter(MetaObj, label) {
-    return MetaObj.meta.find(indicator => indicator.indicator === label)
+    return MetaObj.indicators.find(indicator => indicator.indicator === label)
 }
 
 function findSubStepComponent(stepNr, subStepNr, componentType) {

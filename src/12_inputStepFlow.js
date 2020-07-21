@@ -455,7 +455,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
                     cellValue = "N/A"
                 } else {
 
-                    if (!isNewCompany) {
+                    if (!isNewCompany || isInternalEval) {
 
                         if (hasPredecessor || (mainStepNr > 1 && isInternalEval)) {
 
@@ -469,6 +469,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
                         } else {
                             cellValue = naText
                         }
+
                     } else {
                         cellValue = Config.newCompanyLabelResult
 
