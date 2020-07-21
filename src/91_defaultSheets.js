@@ -49,7 +49,7 @@ function insertPointValidationSheet(SS, SheetName) {
 
 function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSheet) {
     let Sheet = insertSheetIfNotExist(SS, SheetName, updateSheet)
-    if (Sheet !== null) {
+    if (Sheet !== null && updateSheet) {
         Sheet.clear()
         fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators)
     }
