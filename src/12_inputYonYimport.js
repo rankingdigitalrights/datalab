@@ -386,7 +386,10 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
             }
 
             Cell.setFontWeight("bold")
-            Cell.setValue(cellValue)
+
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
 
             SS.setNamedRange(cellID, Cell) // names cells
 

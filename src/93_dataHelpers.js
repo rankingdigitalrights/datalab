@@ -7,11 +7,11 @@
 // Important: If String is ambiguous (i.e. P1 vs P11)
 // use startsWith (^) / EndsWith ($) Regex, i.e. "^P1$"
 
-function subsetIndicatorsObject(IndicatorsObj, regexString) {
+function subsetIndicatorsObject(IndicatorsObj, labelsArray) {
 
     // filter out categories in question
     let results = indicatorsVector.indicatorCategories.filter(category => {
-        return category.indicators.some(indicator => indicator.labelShort.match(regexString))
+        return category.indicators.some(indicator => labelsArray.includes(indicator.labelShort))
     })
 
 
@@ -33,7 +33,7 @@ function subsetIndicatorsObject(IndicatorsObj, regexString) {
     results.map((category, index) => {
         let catIndex = index
         let found = category.indicators.filter(indicator => {
-            return indicator.labelShort.match(regexString)
+            return labelsArray.includes(indicator.labelShort)
         })
         // found.forEach(indicator => findings[catIndex].indicators.push(indicator))
         // more elegant:
@@ -55,6 +55,7 @@ function subsetIndicatorsObject(IndicatorsObj, regexString) {
 
     return findings
 }
+
 
 function testSubsetOfIndicators() {
     let targets = "^G1$|P11a"
