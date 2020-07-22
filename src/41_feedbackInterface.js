@@ -19,10 +19,11 @@ function prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams) 
     let companyWidth = calculateCompanyWidthNet(Company, Indicator, false)
     let layoutWidth = companyWidth < 3 ? 3 : companyWidth
 
+    let localDataColWidth = companyWidth > 5 ? Math.floor(1680 / companyWidth) : Config.feedbackForms.dataColWidth
     Sheet.setColumnWidth(1, 28)
     // Sheet.setColumnWidth(9, 28)
     Sheet.setColumnWidth(2, 125)
-    Sheet.setColumnWidths(3, layoutWidth, Config.feedbackForms.dataColWidth)
+    Sheet.setColumnWidths(3, layoutWidth, localDataColWidth)
 
     Sheet.setHiddenGridlines(true)
 
