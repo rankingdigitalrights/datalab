@@ -87,14 +87,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         }
 
         // checks whether this indicator had (!) subcomponents
-        let nrOfIndSubComps = (Category.hadSubComponents == true) ? Category.components.length : 1
+        let nrOfIndSubComps = (Category.hadSubComponents === true) ? Category.components.length : 1
 
         // checks how many company group/opcom columns to hide for this Indicator
         // (based on Scoring Scope)
 
         let bridgeCompColumnsNr = 2 // default:: no company columns
 
-        if (Indicator.scoringScope == "full") {
+        if (Indicator.scoringScope === "full") {
             if (hasOpCom) {
                 bridgeCompColumnsNr = 0
             } else {
@@ -112,7 +112,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
         let thisColWidth = Styles.dims.serviceColWidth
 
-        // if (Company.services.length == 1) {
+        // if (Company.services.length === 1) {
         //     thisColWidth = Styles.dims.serviceColWidth * 1.33
         // }
 
@@ -178,7 +178,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 // step-wise evaluate components of current research Step, execute the according building function and return the active row, which is then picked up by next building function
 
                 // stores first row of a step to use later in naming a step
-                let firstRow = mainStepNr == 0 ? activeRow : activeRow + 1
+                let firstRow = mainStepNr === 0 ? activeRow : activeRow + 1
 
                 // Begin step component procedure
                 for (let stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
@@ -277,7 +277,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 } // END substep component procedure
 
                 // if there are no more substeps, store the final row and name the step
-                // if (stepCNr == subStepLength - 1) {
+                // if (stepCNr === subStepLength - 1) {
 
                 lastRow = activeRow
 
@@ -372,10 +372,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             Sheet.collapseAllRowGroups()
         }
 
-        // hides opCom column(s) if opCom == false
+        // hides opCom column(s) if opCom === false
         // TODO: make dynamic
 
-        // if (thisIndScoringScope == "full") {
+        // if (thisIndScoringScope === "full") {
         if (!hasOpCom) {
             Sheet.hideColumns(3)
         }

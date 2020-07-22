@@ -666,6 +666,7 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, current
     } else {
         currentCell.setFormula(aggregateScoreFormula(indyCompositeScores))
     }
+
     currentCell.setFontStyle("normal")
     currentCell.setFontWeight("bold")
     currentCell.setNumberFormat("0.##")
