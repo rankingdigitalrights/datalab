@@ -19,6 +19,8 @@ function injectFeedbackForms(Company, makeDataOwner) {
     let ResearchSteps = researchStepsVector
 
     let mainSheetMode = "Feedback"
+
+    filenameSuffix += " Source"
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     let masterFileId = Config.feedbackForms.masterTemplateUrl
