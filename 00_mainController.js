@@ -215,6 +215,8 @@ function mainScoringSheets() {
 
 function mainFeedbackSheets() {
 
+    isProduction = true
+
     initiateGlobalConfig()
 
     let makeDataOwner = true // should new file be owned by Data@?
