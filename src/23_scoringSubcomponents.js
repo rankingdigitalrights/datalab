@@ -657,7 +657,7 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, current
 
     Logger.log(" - " + "Indicator Scoring Ranges - indyCompositeScores[]:\n --- " + indyCompositeScores)
 
-    if (Indicator.scoringScope == "group") {
+    if (Indicator.scoringScope === "company") {
         var cellName1 = cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, "A", CompanyObj.id, "", "SC")
 
         currentCell.setFormula("=" + cellName1)
