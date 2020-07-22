@@ -110,9 +110,12 @@ function addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep
 
         Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
 
-        Cell.merge()
-            .setValue("Dummy Placeholder text to showcase / inspect readability and formatting")
-            .setFontStyle("italic")
+        if (!doRepairsOnly) {
+            Cell.merge()
+                .setValue("Dummy Placeholder text to showcase / inspect readability and formatting")
+        }
+
+        Cell.setFontStyle("italic")
             .setFontSize(10)
             .setHorizontalAlignment("left")
             .setVerticalAlignment("top")

@@ -19,7 +19,7 @@ var centralConfig = {
   YearOnYear: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
-  subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
+  subsetMaxStep: 3, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
   indicatorsLink: "https://rankingdigitalrights.org/2020-indicators/",

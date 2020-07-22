@@ -42,6 +42,20 @@ function findStepRows(Sheet, stepString, columnNr) {
     return [startRow + 1, lastRow + 1]
 }
 
+function findValueRowStart(Sheet, stepString, columnNr) {
+    console.log("starting search")
+    let raw = Sheet.getDataRange()
+    let data = raw.getValues()
+
+    let startRow = data.findIndex(r => {
+        if (r[columnNr] !== null && r[columnNr].length > 0) {
+            return r[columnNr].match(stepString) // 1 := second column
+        }
+    })
+    // console.log(`Range found: ${startRow} : ${lastRow}`)
+    return (startRow + 1) || null
+}
+
 function deleteRows(Sheet, startRow, lastRow) {
     if (startRow > 2) {
         console.log([startRow, lastRow - startRow])
