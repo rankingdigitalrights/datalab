@@ -54,7 +54,7 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
 
     // HOOK: Override for local development
 
-    let SS = !doRepairsOnly && !updateProduction ? createSpreadsheet(spreadsheetName, true) :
+    let SS = (!doRepairsOnly && !updateProduction) ? createSpreadsheet(spreadsheetName, true) :
         SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     let fileID = SS.getId()
@@ -100,13 +100,15 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     }
 
     // --- // creates sources page // --- //
-    Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-    if (Sheet !== null && !doRepairsOnly && !addNewStep) {
-        produceSourceSheet(Sheet, true)
+    if (!doRepairsOnly) {
+        Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
+        if (Sheet !== null && !doRepairsOnly && !addNewStep) {
+            produceSourceSheet(Sheet, true)
+        }
     }
 
     // -- // For Company Feedback Steps // --- //
-    if (includeFeedback) {
+    if (includeFeedback && !doRepairsOnly) {
         let doOverwrite = false // flag for overwriting or not
         insertCompanyFeedbackSheet(SS, Config.compFeedbackSheetName, Company, Indicators, doOverwrite)
     }

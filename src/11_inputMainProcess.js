@@ -55,7 +55,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // for each indicator = distinct Sheet do
 
     let lastRow
-    let Sheet
+
 
     for (let i = 0; i < indyCatLength; i++) {
 
@@ -69,7 +69,12 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // SS.deleteSheet(oldSheet)
 
         // try to grab existing Indicator sheet or insert new one
-        Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+
+        let Sheet
+
+        if (!doRepairsOnly && !addNewStep) {
+            Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+        }
 
         // if (oldIndex) {
         //     moveSheetToPos(SS, Sheet, oldIndex)
@@ -78,7 +83,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // if (doRepairs or addExtraStep) --> try to open Sheet
         // else skip Indicator 
 
-        if (Sheet === null) {
+        if (Sheet === null || Sheet === undefined) {
             if (doRepairsOnly || addNewStep) {
                 Sheet = SS.getSheetByName(Indicator.labelShort)
             } else {
@@ -338,6 +343,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // console.log("DEBUG - lastRow: " + lastRow)
         console.log("|--- Substeps done")
         console.log("|--- Applying Sheet-level Formatting")
+
         let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
             .setFontFamily("Roboto")
             // .setFontSize(10)
