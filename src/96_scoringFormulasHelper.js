@@ -45,6 +45,8 @@ function levelScoreFormula(serviceCells) {
 
 function aggregateScoreFormula(cells) {
 
+    console.log(`|--- DEBUG --- target Cells received ${cells}`)
+
     let cell
 
     let formula = "=IF(AND("
@@ -66,86 +68,45 @@ function aggregateScoreFormula(cells) {
     return formula
 }
 
+function applyCompositeScoringLogic(indicator, scoringComponent, Cell, cellName, CompositeScoreCells) {
 
-function aggregateScoreFormulaServices(cells, Company) {
-
-    let cell
-
-    let formula = "=IF(AND("
-
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/A\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += "), \"N/A\""
-
-    formula += ",IF(AND("
-
-    formula += "XOR("
-
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/A\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += "),"
-
-    formula += ")),\"N/A\""
-
-    formula += ", AVERAGE("
-
-    for (let i = 0; i < cells.length; i++) {
-        if (Company.services[i].subtype == "prepaid") {
-            formula = formula + "AVERAGE(" + cells[i] + "," + cells[i + 1] + ")"
-        } else if (Company.services[i].subtype == "postpaid") {} else {
-            formula = formula + cells[i]
-        }
-
-        if (i != cells.length - 1 && Company.services[i].subtype != "prepaid") {
-            formula = formula + ","
-        }
-
-
-    }
-
-    formula += ")))"
-
-    return formula
-}
-
-function checkScoringLogic(indicator, scoringComponent, cell, cellName, elementsArray) {
-
-    let thisCell = cell
     switch (scoringComponent) {
 
-        case "A":
+        case "C":
             if (indicator.scoringScope === "full" || indicator.scoringScope === "company") {
-                elementsArray.push(cellName)
-                thisCell.setFontWeight("bold")
+                CompositeScoreCells.push(cellName)
+                Cell.setFontWeight("bold")
             } else {
-                thisCell.setFontStyle("italic")
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
             }
             break
 
-        case "B":
+        case "M":
             if (indicator.scoringScope === "full" || indicator.scoringScope === "services") {
-                elementsArray.push(cellName)
-                thisCell.setFontWeight("bold")
+                CompositeScoreCells.push(cellName)
+                Cell.setFontWeight("bold")
             } else {
-                thisCell.setFontStyle("italic")
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
+            }
+            break
+
+        case "S":
+            if (indicator.scoringScope === "full" || indicator.scoringScope === "services") {
+                CompositeScoreCells.push(cellName)
+                Cell.setFontWeight("bold")
+            } else {
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
             }
             break
 
         default:
-            elementsArray.push(cellName)
-            thisCell.setFontWeight("bold")
+            CompositeScoreCells.push(cellName)
+            Cell.setFontWeight("bold")
             break
     }
-    thisCell.setNumberFormat("0.##")
-    return thisCell
+    Cell.setNumberFormat("0.##")
+    return Cell
 }

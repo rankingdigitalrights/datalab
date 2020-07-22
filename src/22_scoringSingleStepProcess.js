@@ -59,9 +59,10 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
 
             // variable used for indicator average later
 
-            let indyLevelScoresCompany = []
-            let indyLevelScoresServices = []
-            let indyCompositeScores = []
+            let levelScoresCompany = []
+            let levelScoresServices = []
+            let levelScoresMobile = []
+            let CompositeScoreCells = []
 
             activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, nrOfIndSubComps, Category, CompanyObj, blocks)
             console.log(" - company header added for " + Indicator.labelShort)
@@ -121,19 +122,19 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
                 activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, CompanyObj, hasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores)
                 console.log(" - " + "element scores added for " + Indicator.labelShort)
 
-                activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, CompanyObj, hasOpCom, nrOfIndSubComps, Category, indyLevelScoresCompany, indyLevelScoresServices, blocks)
+                activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, CompanyObj, hasOpCom, nrOfIndSubComps, Category, levelScoresCompany, levelScoresServices, levelScoresMobile, blocks)
                 console.log(" - " + "level scores added for " + Indicator.labelShort)
 
-                activeRow = addCompositeScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, nrOfIndSubComps, indyLevelScoresCompany, indyLevelScoresServices, indyCompositeScores, blocks)
+                activeRow = addCompositeScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, nrOfIndSubComps, levelScoresCompany, levelScoresServices, levelScoresMobile, CompositeScoreCells, blocks)
                 console.log(" - " + "composite scores added for " + Indicator.labelShort)
 
-                if (indyCompositeScores.length === 0) {
-                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, indyCompositeScores, blocks)
+                if (CompositeScoreCells.length === 0) {
+                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, CompositeScoreCells, blocks)
                 } else if (CompanyObj.type === "internet" || CompanyObj.id === "tAT1" || Indicator.labelShort.substring(0, 1) !== "G") {
-                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, indyCompositeScores, blocks)
+                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, CompositeScoreCells, blocks)
                 } else {
-                    indyCompositeScores.push(indyCompositeScores[0])
-                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, indyCompositeScores, blocks)
+
+                    activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, CompanyObj, CompositeScoreCells, blocks)
                 }
                 console.log(" - " + "indicator score added for " + Indicator.labelShort)
 
