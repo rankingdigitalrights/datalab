@@ -61,7 +61,7 @@ var centralConfig = {
       rowLabel: "\n\nResponse:",
       extraRow: true,
       extraRowLabel: "Sources:",
-      extraInstructionFB: "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are refercing, as well as any sources (including the url) that you feel we should be evaluating."
+      extraInstructionFB: "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating."
     }
   },
   sourcesTabName: "2020 Sources",
