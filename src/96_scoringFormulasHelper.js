@@ -10,17 +10,17 @@ function getISOtimeAsString() {
 }
 
 function elementScoreFormula(range) {
-    var cell = range.getA1Notation()
+    let cell = range.getA1Notation()
     /* legacy Formula */
-    // var formula = '=IF(' + cell + '=Points!$B1,Points!$B2,IF(' + cell + '=Points!$C1,Points!$C2,IF(' + cell + '=Points!$D1,Points!$D2,IF(' + cell + '=Points!$E1,Points!$E2,IF(' + cell + '=Points!$F1,Points!$F2,IF(' + cell + '=Points!$G1, Points!$G2,"checkx"))))))'
-    var formula = "=HLOOKUP(" + cell + ",Points!$B$1:$H$2,2,FALSE)"
+    // let formula = '=IF(' + cell + '=Points!$B1,Points!$B2,IF(' + cell + '=Points!$C1,Points!$C2,IF(' + cell + '=Points!$D1,Points!$D2,IF(' + cell + '=Points!$E1,Points!$E2,IF(' + cell + '=Points!$F1,Points!$F2,IF(' + cell + '=Points!$G1, Points!$G2,"checkx"))))))'
+    let formula = "=HLOOKUP(" + cell + ",Points!$B$1:$H$2,2,FALSE)"
     return formula
 }
 
 function levelScoreFormula(serviceCells) {
 
-    var formula = "=IF(AND("
-    for (var cell = 0; cell < serviceCells.length; cell++) {
+    let formula = "=IF(AND("
+    for (let cell = 0; cell < serviceCells.length; cell++) {
         formula += serviceCells[cell] + "=" + "\"exclude (N/A)\""
         if (cell < serviceCells.length - 1) {
             formula += ","
@@ -45,9 +45,9 @@ function levelScoreFormula(serviceCells) {
 
 function aggregateScoreFormula(cells) {
 
-    var cell
+    let cell
 
-    var formula = "=IF(AND("
+    let formula = "=IF(AND("
 
     for (cell = 0; cell < cells.length; cell++) {
         formula += cells[cell] + "=\"N/A\""
@@ -69,9 +69,9 @@ function aggregateScoreFormula(cells) {
 
 function aggregateScoreFormulaServices(cells, Company) {
 
-    var cell
+    let cell
 
-    var formula = "=IF(AND("
+    let formula = "=IF(AND("
 
     for (cell = 0; cell < cells.length; cell++) {
         formula += cells[cell] + "=\"N/A\""
@@ -99,7 +99,7 @@ function aggregateScoreFormulaServices(cells, Company) {
 
     formula += ", AVERAGE("
 
-    for (var i = 0; i < cells.length; i++) {
+    for (let i = 0; i < cells.length; i++) {
         if (Company.services[i].subtype == "prepaid") {
             formula = formula + "AVERAGE(" + cells[i] + "," + cells[i + 1] + ")"
         } else if (Company.services[i].subtype == "postpaid") {} else {
@@ -120,7 +120,7 @@ function aggregateScoreFormulaServices(cells, Company) {
 
 function checkScoringLogic(indicator, scoringComponent, cell, cellName, elementsArray) {
 
-    var thisCell = cell
+    let thisCell = cell
     switch (scoringComponent) {
 
         case "A":
