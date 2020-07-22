@@ -1,7 +1,7 @@
 function fillPointsSheet(pointsSheet) {
-    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A", "not piloted"])
-    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)", "exclude (N/P)"])
-    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)", "exclude (N/P)"])
+    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)"])
 }
 
 
@@ -27,25 +27,18 @@ function levelScoreFormula(serviceCells) {
         }
     }
 
-    formula += "), \"N/A\", IF(OR("
+    formula += "), \"N/A\","
 
-    /* just for Pilot START*/
-    for (cell = 0; cell < serviceCells.length; cell++) {
-        formula += serviceCells[cell] + "=" + "\"exclude (N/P)\""
-        if (cell < serviceCells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += "), \"N/P\", IF(OR("
-
-    /* just for Pilot END */
+    formula += " IF(OR("
 
     for (cell = 0; cell < serviceCells.length; cell++) {
         formula = formula + serviceCells[cell] + "=" + "\"---\"" + ","
     }
 
-    formula = formula + "), \"---\", AVERAGE(" + serviceCells + "))))"
+    formula += "), \"---\", AVERAGE(" + serviceCells + ")))"
+
+    // Pilot
+    // formula += ")"
 
     return formula
 }
@@ -65,47 +58,16 @@ function aggregateScoreFormula(cells) {
 
     formula += "), \"N/A\""
 
-    formula += ",IF(AND("
+    formula += ", AVERAGE(" + cells + "))"
 
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/P\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += "),\"N/P\""
-
-    formula += ",IF(AND("
-
-    formula += "XOR("
-
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/A\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += "),"
-
-    formula += "XOR("
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/P\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += ")),\"N/A\""
-
-    formula += ", AVERAGE(" + cells + "))))"
+    // Pilot
+    // formula += ")"
 
     return formula
 }
 
 
-function aggregateScoreFormulaServices(cells,Company) {
+function aggregateScoreFormulaServices(cells, Company) {
 
     var cell
 
@@ -122,17 +84,6 @@ function aggregateScoreFormulaServices(cells,Company) {
 
     formula += ",IF(AND("
 
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/P\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += "),\"N/P\""
-
-    formula += ",IF(AND("
-
     formula += "XOR("
 
     for (cell = 0; cell < cells.length; cell++) {
@@ -144,35 +95,25 @@ function aggregateScoreFormulaServices(cells,Company) {
 
     formula += "),"
 
-    formula += "XOR("
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/P\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
     formula += ")),\"N/A\""
 
-    formula += ", AVERAGE(" 
-    
+    formula += ", AVERAGE("
+
     for (var i = 0; i < cells.length; i++) {
-        if(Company.services[i].subtype=="prepaid") {
-            formula=formula+"AVERAGE("+cells[i]+","+cells[i+1]+")"
+        if (Company.services[i].subtype == "prepaid") {
+            formula = formula + "AVERAGE(" + cells[i] + "," + cells[i + 1] + ")"
+        } else if (Company.services[i].subtype == "postpaid") {} else {
+            formula = formula + cells[i]
         }
 
-        else if (Company.services[i].subtype=="postpaid"){}
-
-        else{formula=formula+cells[i]}
-
-        if(i!=cells.length-1 &&Company.services[i].subtype!="prepaid") {
-            formula=formula+","
+        if (i != cells.length - 1 && Company.services[i].subtype != "prepaid") {
+            formula = formula + ","
         }
 
-        
+
     }
-     
-    formula=formula + "))))"
+
+    formula += ")))"
 
     return formula
 }
@@ -183,7 +124,7 @@ function checkScoringLogic(indicator, scoringComponent, cell, cellName, elements
     switch (scoringComponent) {
 
         case "A":
-            if (indicator.scoringScope === "full" | indicator.scoringScope === "company") {
+            if (indicator.scoringScope === "full" || indicator.scoringScope === "company") {
                 elementsArray.push(cellName)
                 thisCell.setFontWeight("bold")
             } else {
@@ -192,7 +133,7 @@ function checkScoringLogic(indicator, scoringComponent, cell, cellName, elements
             break
 
         case "B":
-            if (indicator.scoringScope === "full" | indicator.scoringScope === "services") {
+            if (indicator.scoringScope === "full" || indicator.scoringScope === "services") {
                 elementsArray.push(cellName)
                 thisCell.setFontWeight("bold")
             } else {

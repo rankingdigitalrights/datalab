@@ -618,7 +618,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
 
     var servicesCompositeCell = sheet.getRange(activeRow, tempCol + (2 * nrOfIndSubComps)) // 2 := group + opCom cols
 
-    servicesCompositeCell.setFormula(aggregateScoreFormulaServices(indyLevelScoresServices,CompanyObj))
+    servicesCompositeCell.setFormula(aggregateScoreFormula(indyLevelScoresServices))
 
     cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, scoringComponent, CompanyObj.id, "", scoringSuffix)
 
@@ -657,15 +657,13 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, current
 
     Logger.log(" - " + "Indicator Scoring Ranges - indyCompositeScores[]:\n --- " + indyCompositeScores)
 
-    if (Indicator.scoringScope=="group") {
+    if (Indicator.scoringScope == "group") {
         var cellName1 = cellName = defineNamedRange(indexPrefix, sheetModeID, currentStepLabelShort, Indicator.labelShort, "A", CompanyObj.id, "", "SC")
 
-        currentCell.setFormula("="+cellName1)
+        currentCell.setFormula("=" + cellName1)
 
-        Logger.log("in group, cellName1:"+cellName1)
-    }
-
-    else{
+        Logger.log("in group, cellName1:" + cellName1)
+    } else {
         currentCell.setFormula(aggregateScoreFormula(indyCompositeScores))
     }
     currentCell.setFontStyle("normal")
