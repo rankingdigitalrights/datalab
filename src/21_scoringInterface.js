@@ -23,7 +23,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
     Logger.log("first step " + firstScoringStep)
     Logger.log("last step " + maxScoringStep)
     Logger.log("include Sources? " + outputParams.includeSources)
-    Logger.log("outputParams:"+outputParams)
+    Logger.log("outputParams:" + outputParams)
 
 
     var lastCol = 1
@@ -37,6 +37,9 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
     if (Sheet === null) {
         Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
         return lastCol
+    } else {
+        let maxRows = Sheet.getMaxRows
+        if (maxRows < 2000) Sheet.insertRowsAfter(maxRows, 1000)
     }
 
     for (var mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
@@ -57,6 +60,8 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
 
     var thisSheet = SS.getSheetByName(sheetName)
     thisSheet.setFrozenColumns(1)
+    cropEmptyColumns(thisSheet, 1)
+    cropEmptyRows(thisSheet, 1)
     singleSheetProtect(thisSheet, sheetName)
 
     if (integrateOutputs) moveSheetifExists(SS, thisSheet, 1)
