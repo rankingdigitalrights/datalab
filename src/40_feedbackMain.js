@@ -24,14 +24,14 @@ function injectFeedbackForms(Company, makeDataOwner) {
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     let masterFileId = Config.feedbackForms.masterTemplateUrl
-    let outputFolderId = Config.feedbackForms.outputFolderId
+    let outputFolderId = isProduction ? Config.feedbackForms.outputFolderId : "1e1njzRJoERb9xfDnPsHtsOTr97stcDeG"
 
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + Company.label.current)
 
     // define SS name
     // connect to Spreadsheet if it already exists (Danger!), otherwise make a COPY of Master Template, rename, and return new file
 
-    let SS = Company.urlCurrentFeedbackSheet ? openSpreadsheetByID(Company.urlCurrentFeedbackSheet) : copyMasterSpreadsheet(masterFileId, outputFolderId, spreadsheetName, makeDataOwner)
+    let SS = Company.urlCurrentFeedbackSheet && isProduction ? openSpreadsheetByID(Company.urlCurrentFeedbackSheet) : copyMasterSpreadsheet(masterFileId, outputFolderId, spreadsheetName, makeDataOwner)
 
     let fileID = SS.getId()
 
@@ -40,7 +40,6 @@ function injectFeedbackForms(Company, makeDataOwner) {
     // --- // Feedback Parameters // --- //
 
     let outputParams = Config.feedbackForms
-    let dataColWidth = outputParams.dataColWidth
 
     // minus for logical -> index
 
