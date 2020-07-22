@@ -194,9 +194,9 @@ function mainScoringSheets() {
 
     const Companies = companiesVector.companies
         //.slice(1, 9)
-        .slice(0, 1) // Amazon
-    // .slice(1, 2) // Apple
-    // .slice(3,4) //
+        .slice(1, 2) // Amazon
+    // .slice(2, 3) // Apple
+
 
     let fileID
 
@@ -217,11 +217,11 @@ function mainFeedbackSheets() {
 
     initiateGlobalConfig()
 
-    let makeDataOwner = true // should new file be owned by Data@?
+    let makeDataOwner = false // should new file be owned by Data@?
 
     // outputFolderName = "2020 - Dev - Feedback"
     let Companies = companiesVector.companies
-        .slice(1, 2) // Apple
+        .slice(3, 4) // Apple
     // .slice(4, 5) //   4 "AT&T",
     // .slice(11, 12) // 11 "Google",
     // .slice(7, 8) //   7 "Bharti Airtel",
