@@ -22,7 +22,7 @@
 // global params init (def with initiateGlobalConfig())
 
 /** --- main Prod vs Dev Toggle --- **/
-var isProduction = false
+var isProduction = true
 /** --- main Prod vs Dev Toggle --- **/
 
 var Config
@@ -216,16 +216,23 @@ function mainScoringSheets() {
 function mainFeedbackSheets() {
 
     initiateGlobalConfig()
-    outputFolderName = "2020 - Dev - Feedback"
-    var Companies = companiesVector.companies
-        // .slice(1, 2) // Apple
-        .slice(4, 5) //   4 "AT&T",
+
+    let makeDataOwner = true // should new file be owned by Data@?
+
+    // outputFolderName = "2020 - Dev - Feedback"
+    let Companies = companiesVector.companies
+        .slice(1, 2) // Apple
+    // .slice(4, 5) //   4 "AT&T",
     // .slice(11, 12) // 11 "Google",
     // .slice(7, 8) //   7 "Bharti Airtel",
 
     Companies.forEach(function (Company) {
-        injectFeedbackForms(Company)
+        let fileID = injectFeedbackForms(Company, makeDataOwner)
+
+        addFileIDtoControl("Company Feedback", Company.label.current, fileID, controlSpreadsheetID)
     })
+
+
 }
 
 // create Summary Scores spreadsheets for all companies
