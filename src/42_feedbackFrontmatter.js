@@ -169,14 +169,15 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
 
     activeRow += 2
 
+    // Glossary Link Row
+
     let Cell = Sheet.getRange(activeRow, offsetCol, 1, 3)
         .merge()
         // .setValue(frontMatterSpecs.glossaryText)
         .setFontStyle("italic")
         .setFontSize(11)
 
-    Sheet.getRange(activeRow, offsetCol + 3, 1, 2)
-        .merge()
+    Sheet.getRange(activeRow, offsetCol + 3, 1, 1)
         .setWrap(true)
         .setValue(Config.glossaryLink)
         .setFontSize(11)
@@ -198,6 +199,8 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
 
     activeRow += 1
 
+    // Indicator Guidance Link Row
+
     Sheet.getRange(activeRow, offsetCol, 1, 3)
         .merge()
         .setValue(frontMatterSpecs.guidanceText)
@@ -206,8 +209,7 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
         .setFontWeight("bold")
         .setFontSize(11)
 
-    Sheet.getRange(activeRow, offsetCol + 3, 1, 2)
-        .merge()
+    Sheet.getRange(activeRow, offsetCol + 3, 1, 1)
         .setWrap(true)
         .setValue(indicatorLink)
         .setFontSize(11)

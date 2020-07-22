@@ -211,7 +211,7 @@ function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, layoutWidth, Sty
     // Main Row Content
     activeCol += 1
 
-    let cellValue = extraLink ? extraLink : "Dummy Placeholder text to showcase / inspect readability and formatting"
+    let cellValue = extraLink ? extraLink : ""
     Sheet.getRange(activeRow, activeCol, 1, layoutWidth).merge()
         .setValue(cellValue)
         .setFontSize(12)

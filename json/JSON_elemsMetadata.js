@@ -1,6 +1,6 @@
 var elemsMetadata = {
   "index": "RDR2020",
-  "lastRevised": "2020-07-20",
+  "lastRevised": "2020-07-22",
   "indicators": [{
       "indicator": "G1",
       "label": "G1. Policy Commitment",
@@ -75,7 +75,7 @@ var elemsMetadata = {
       "description": "Companies should conduct regular, comprehensive, and credible due diligence, through robust human rights impact assessments, to identify how government regulations and policies affect freedom of expression and information and privacy, and to mitigate any risks posed by those impacts in the jurisdictions in which it operates.",
       "descriptionTerms": ["human rights impact assessments"],
       "descriptionLinks": ["#glossary-hria"],
-      "elements": ["Does the company assess how laws affect freedom of expression and information in jurisdictions where it operates?", "Does the company assess how laws affect privacy in jurisdictions where it operates?", "Does the company assess freedom of expression and information risks associated with existing products and services in jurisdictions where it operates?", "Does the company assess privacy risks associated with existing products and services in jurisdictions where it operates?", "Does the company assess freedom of expression and information risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?", "Does the company assess privacy risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?", "Does the company conduct additional evaluation whenever the company’s risk assessments identify concerns?", "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?", "Does the company conduct assessments on a regular schedule?", "Are the company’s assessments assured by an external third party?"],
+      "elements": ["Does the company assess how laws affect freedom of expression and information in jurisdictions where it operates?", "Does the company assess how laws affect privacy in jurisdictions where it operates?", "Does the company assess freedom of expression and information risks associated with existing products and services in jurisdictions where it operates?", "Does the company assess privacy risks associated with existing products and services in jurisdictions where it operates?", "Does the company assess freedom of expression and information risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?", "Does the company assess privacy risks associated with a new activity, including the launch and/or acquisition of new products, services, or companies, or entry into new markets or jurisdictions?", "Does the company conduct additional evaluation whenever the company’s risk assessments identify concerns?", "Do senior executives and/or members of the company’s board of directors review and consider the results of assessments and due diligence in their decision-making?", "Does the company conduct assessments on a regular schedule?", "Are the company’s assessments assured by an external third party?", "Is the external ​third party​ that assures the ​assessment​ accredited to a relevant and reputable human rights standard by a credible organization?"],
       "elementsTags": [
         ["assess"],
         ["assess"],
@@ -86,7 +86,8 @@ var elemsMetadata = {
         ["risk assessments"],
         ["senior executives", "board of directors", "assessments"],
         ["assessments"],
-        ["assessments", "third party"]
+        ["assessments", "third party"],
+        ["​third party​", "​assessment​"]
       ],
       "elementsLinks": [
         ["#glossary-hria"],
@@ -98,7 +99,8 @@ var elemsMetadata = {
         ["#glossary-hria"],
         ["#glossary-seniorleadership", "#glossary-boardofdirectors", "#glossary-hria"],
         ["#glossary-hria"],
-        ["#glossary-hria", "#glossary-thirdparty"]
+        ["#glossary-hria", "#glossary-thirdparty"],
+        ["#glossary-thirdparty", "#glossary-hria"]
       ],
       "guidance": "This indicator examines whether companies conduct regular, robust, and accountable human rights risk assessments of government regulations and policies in the jurisdictions in which they operate. These assessments should be part of the company’s formal, systematic due diligence activities that are aimed at ensuring that their decisions and practices do not cause, contribute to, or exacerbate human rights harms. Assessments enable companies to identify possible risks to users’ freedom of expression and privacy rights and to take steps to mitigate possible harms if they are identified. Note that this indicator does not expect companies to publish detailed results of their human rights impact assessments, since assessments may include sensitive information. Rather, it expects that companies should disclose that they conduct HRIAs and provide information on what their HRIA process encompasses.",
       "sources": ["Company CSR/sustainability reports", "Company human rights policy", "Global Network Initiative assessment reports"]

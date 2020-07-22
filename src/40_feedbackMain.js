@@ -9,7 +9,7 @@
     calculateCompanyWidthNet,
     importSourcesSheet
 */
-function injectFeedbackForms(Company) {
+function injectFeedbackForms(Company, makeDataOwner) {
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
 
@@ -19,6 +19,8 @@ function injectFeedbackForms(Company) {
     let ResearchSteps = researchStepsVector
 
     let mainSheetMode = "Feedback"
+
+    filenameSuffix += " Source"
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     let masterFileId = Config.feedbackForms.masterTemplateUrl
@@ -29,9 +31,12 @@ function injectFeedbackForms(Company) {
     // define SS name
     // connect to Spreadsheet if it already exists (Danger!), otherwise make a COPY of Master Template, rename, and return new file
 
-    let makeDataOwner = false // should new file be owned by Data@?
-
     let SS = Company.urlCurrentFeedbackSheet ? openSpreadsheetByID(Company.urlCurrentFeedbackSheet) : copyMasterSpreadsheet(masterFileId, outputFolderId, spreadsheetName, makeDataOwner)
+
+    let fileID = SS.getId()
+
+    Logger.log("SS ID: " + fileID)
+
     // --- // Feedback Parameters // --- //
 
     let outputParams = Config.feedbackForms
@@ -93,4 +98,5 @@ function injectFeedbackForms(Company) {
 
     removeEmptySheet(SS)
 
+    return fileID
 }
