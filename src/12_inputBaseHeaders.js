@@ -15,11 +15,13 @@ function addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, 
 
     width = 1 + 2 + companyNrOfServices
 
+    let offsetCol = 1
+
     rangeStart = activeRow
 
     activeRow = addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
 
-    activeRow = addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfServices)
+    activeRow = addMainCompanyHeader(Sheet, Company, activeRow, companyNrOfServices, offsetCol)
 
     rangeEnd = activeRow
 
@@ -178,9 +180,9 @@ function addIndicatorGuidance(Sheet, Category, Indicator, activeRow, activeCol, 
 
 // Company + Services Header
 
-function addMainCompanyHeader(Sheet, Category, Company, activeRow, companyNrOfServices) {
+function addMainCompanyHeader(Sheet, Company, activeRow, companyNrOfServices, offSetCol) {
 
-    let activeCol = 1
+    let activeCol = offSetCol
 
     let rowRange = (activeRow + ":" + activeRow).toString()
     Sheet.getRange(rowRange).setHorizontalAlignment("center") // aligns header row
@@ -307,7 +309,7 @@ function addExtraInstruction(Substep, stepCNr, activeRow, activeCol, Sheet, Comp
 
     Sheet.getRange(activeRow, 2, 1, titleWidth)
         .merge()
-        .setValue(Substep.components[stepCNr].question)
+        .setValue(Substep.components[stepCNr].rowLabel)
         .setFontStyle("italic")
         .setFontWeight("bold")
         .setFontSize(12)

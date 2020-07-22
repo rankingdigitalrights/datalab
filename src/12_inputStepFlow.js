@@ -28,7 +28,7 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
-    let prevStep = StepComp.prevStep // "S07"
+    let importStepID = StepComp.importStepID // "S07"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
@@ -58,6 +58,8 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
     let companyType = Company.type
 
     let showOnlyRelevant = StepComp.showOnlyRelevant ? true : false
+
+    let conditional = StepComp.reverseConditional ? "no" : "yes"
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
 
@@ -117,9 +119,9 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
                         reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                        prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                        prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                        cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
+                        cellValue = "=IF(" + reviewCell + "=\"" + conditional + "\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
 
                     } else {
                         cellValue = naText
@@ -168,7 +170,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
-    let prevStep = StepComp.prevStep // "S07"
+    let importStepID = StepComp.importStepID // "S07"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
@@ -247,7 +249,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
                 } else {
                     reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
                     // sets up cellValue that compares values
                     cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
@@ -268,10 +270,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
     return activeRow + elementsNr
 }
 
-
-// NEW: Binary evaluation of whole step
-
-// this function adds an element drop down list to a single row
+// NEW: Binary evaluation of whole step per company column
 
 function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNrOfServices) {
 
@@ -284,74 +283,73 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
     let comparisonType = StepComp.comparisonType // "YY"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
 
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let companyType = Company.type
+
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
     let activeCol = 1
 
-    let cellName
+    let cellName, cellValue
 
     // sets up the labels
+    cellValue = StepComp.rowLabel + " " + Indicator.labelShort
     let Cell = Sheet.getRange(activeRow, activeCol)
-        .setValue(StepComp.rowLabel)
+        .setValue(cellValue)
         .setBackground(Substep.subStepColor)
         .setFontWeight("bold")
-        .setFontStyle("italic")
         .setHorizontalAlignment("center")
-        .setFontSize(12)
+        .setFontSize(11)
 
     activeCol += 1
 
     for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // (((companyNrOfServices+2)*nrOfIndSubComps)+1)
 
-        if (serviceNr == 1) {
-            // company group
-            Cell = Sheet.getRange(activeRow, activeCol)
+        // TODO: Switch case
 
-            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "group", stepCompID)
+        let serviceLabel, serviceType, s, cellValue
 
-            SS.setNamedRange(cellName, Cell) // names cells
-            Cell.setDataValidation(rule) // creates dropdown list
-                .setFontWeight("bold") // bolds the answers
+        switch (serviceNr) {
 
-            if (!doRepairsOnly) {
-                Cell.setValue("not selected") // sets default for drop down list
-            }
+            case 1:
+                serviceLabel = "group"
+                serviceType = "group"
+                break
 
-            activeCol += 1
+            case 2:
+                serviceLabel = "opCom"
+                serviceType = "opCom"
+                break
+
+            default:
+                s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+                serviceType = Company.services[s].type
+
         }
 
-        // opCom column
-        else if (serviceNr == 2) {
-            Cell = Sheet.getRange(activeRow, activeCol)
+        Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
+        cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            SS.setNamedRange(cellName, Cell) // names cells
-            Cell.setDataValidation(rule) // creates dropdown list
-                .setFontWeight("bold") // bolds the answers
+        SS.setNamedRange(cellName, Cell) // names cells
+        Cell.setDataValidation(rule) // creates dropdown list
+            .setFontWeight("bold") // bolds the answers
 
-            if (!doRepairsOnly) {
-                Cell.setValue("not selected") // sets default for drop down list
+        cellValue = "not selected"
+
+        if (makeElementNA(companyType, serviceType, IndicatorSpecs, null)) {
+            cellValue = "N/A"
+        } else {
+            if (serviceNr == 2 && Company.hasOpCom == false) {
+                cellValue = "N/A" // if no OpCom, pre-select N/A
             }
-
-            activeCol += 1
         }
 
-        // service columns
-        else {
-            Cell = Sheet.getRange(activeRow, activeCol)
-
-            cellName = defineNamedRange(indexPrefix, comparisonType, evaluationStep, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
-
-            SS.setNamedRange(cellName, Cell) // names cells
-            Cell.setDataValidation(rule) // creates dropdown list
-                .setFontWeight("bold") // bolds the answers
-
-            if (!doRepairsOnly) {
-                Cell.setValue("not selected") // sets default for drop down list
-            }
-
-            activeCol += 1
+        if (!doRepairsOnly) {
+            Cell.setValue("not selected") // sets default for drop down list
         }
+
+        activeCol += 1
     }
 
     Sheet.getRange(activeRow, 1, 1, activeCol)
@@ -374,7 +372,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
     let stepCompID = StepComp.id // TODO: add to JSON
 
     let evaluationStep = StepComp.evaluationStep
-    let prevStep = StepComp.prevStep
+    let importStepID = StepComp.importStepID
 
     let isInternalEval = StepComp.isInternalEval
 
@@ -457,11 +455,11 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
                     cellValue = "N/A"
                 } else {
 
-                    if (!isNewCompany) {
+                    if (!isNewCompany || isInternalEval) {
 
                         if (hasPredecessor || (mainStepNr > 1 && isInternalEval)) {
 
-                            prevResultCell = defineNamedRange(indexPrefix, "DC", prevStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
+                            prevResultCell = defineNamedRange(indexPrefix, "DC", importStepID, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
 
                             prevYearCell = defineNamedRange(compIndexPrefix, "DC", evaluationStep, Element.labelShort, subIndicator, Company.id, serviceLabel, comparisonType)
 
@@ -471,6 +469,7 @@ function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainS
                         } else {
                             cellValue = naText
                         }
+
                     } else {
                         cellValue = Config.newCompanyLabelResult
 

@@ -22,7 +22,7 @@ function addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, ro
     Cell.setValue(rowLabel + " " + indicatorLabel)
         .setBackground(MainStep.stepColor)
         .setFontWeight("bold")
-        .setFontSize(10)
+        .setFontSize(11)
         .setHorizontalAlignment("center")
 
     Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
@@ -74,7 +74,7 @@ function addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, row
     Cell.setValue(rowLabel + " " + indicatorLabel)
         .setBackground(MainStep.stepColor)
         .setFontWeight("bold")
-        .setFontSize(10)
+        .setFontSize(11)
         .setHorizontalAlignment("center")
 
     Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
@@ -104,7 +104,7 @@ function addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep
         Cell.setValue("\nResearcher " + String.fromCharCode(65 + i) + "\n\n" + rowLabel + " " + Indicator.labelShort)
             .setBackground(MainStep.stepColor)
             .setFontWeight("bold")
-            .setFontSize(10)
+            .setFontSize(11)
             .setHorizontalAlignment("center")
             .setVerticalAlignment("middle")
 
@@ -129,6 +129,146 @@ function addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep
     return activeRow
 }
 
+// special feedback evaluation helper
+// checks if input was provided
+function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
+
+    let subStepID = Substep.subStepID
+
+    let Elements = Indicator.elements
+    let elementsNr = Elements.length
+
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = StepComp.id
+    let mode = Substep.mode
+
+    // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
+
+    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
+
+    let importStepID = StepComp.importStepID // "S07"
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let comparisonType = StepComp.comparisonType // "DC",
+
+    let reviewCell, prevResultCell
+
+    let yesAnswer = StepComp.mode === "YonY" ? "no change" : "not selected"
+
+    let naText = "not selected"
+
+    // for linking to Named Range of Substep 0
+    // TODO: make a shared function() between importYonY & addStepReview
+
+    let rangeStartRow = activeRow
+    let rangeStartCol = 1
+    let rangeRows
+    let rangeCols
+    let rule
+
+    rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
+
+    let Cell, cellValue, Element, noteString, cellID, hasPredecessor, isRevised
+
+    let activeCol
+
+    let IndicatorSpecs = checkIndicatorSpecs(Indicator)
+    let ElementSpecs
+    let companyType = Company.type
+
+    let id = Company.id
+
+    for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
+
+        Element = Elements[elemNr]
+        ElementSpecs = checkElementSpecs(Element)
+
+        hasPredecessor = Element.y2yResultRow ? true : false
+        isRevised = Element.isRevised ? true : false
+
+        // 1.) Row Labels
+
+        activeCol = 1
+        cellValue = StepComp.rowLabel + Element.labelShort
+
+        noteString = Element.labelShort + ": " + Element.description
+
+        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+
+        Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            .setValue(cellValue)
+            .setBackground(Substep.subStepColor)
+            .setFontWeight("bold")
+            .setNote(noteString)
+
+        activeCol += 1
+
+        let serviceLabel, serviceType
+
+        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
+
+            // TODO: Switch case
+
+            if (serviceNr == 1) {
+                serviceLabel = "group"
+                serviceType = "group"
+            } else if (serviceNr == 2) {
+                serviceLabel = "opCom"
+                serviceType = "opCom"
+            } else {
+                let s = serviceNr - 3
+                serviceLabel = Company.services[s].id
+                serviceType = Company.services[s].type
+            }
+
+            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
+            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
+                cellValue = "N/A"
+            } else {
+
+                if (serviceNr == 2 && Company.hasOpCom == false) {
+                    cellValue = "N/A" // if no OpCom, pre-select N/A
+                } else {
+
+                    if (hasPredecessor || mainStepNr > 1) {
+
+                        reviewCell = specialRangeName(id, Indicator.labelShort, "CoFBstatus")
+
+                        cellValue = "=IF(" + reviewCell + "=\"no\"" + "," + "\"no\"" + "," + "\"not selected\"" + ")"
+
+                    } else {
+                        cellValue = naText
+                    }
+
+                    // creates dropdown list
+                    Cell.setDataValidation(rule)
+                }
+            }
+
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
+
+            SS.setNamedRange(cellID, Cell) // names cells
+
+            activeCol += 1
+
+        } // Element END
+    } // Elements Iteration END
+
+    activeRow = activeRow + elementsNr
+
+    rangeCols = activeCol
+    rangeRows = elementsNr
+
+    Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
+        .setFontWeight("bold")
+        .setHorizontalAlignment("center")
+
+    return activeRow
+}
+
 
 function checkFeedbackFormula(fbStatusRange) {
     let formula = '=SWITCH(' + fbStatusRange + ',"yes","yes","no","no","...pending...")'
@@ -140,16 +280,3 @@ function importFeedbackFormula(fbStatusRange, fbStatusText) {
     let formula = '=SWITCH(' + fbStatusRange + ',"yes",' + fbStatusText + ', "no", "No Feedback provided", "...pending...")'
     return formula
 }
-
-
-// Backend Logic would be like this:
-
-/*
-function companyHasFeedBack(SS, indLabel) {
-    let sheetName = Config.compFeedbackSheetName
-    let indExists = isValueInColumn(SS, sheetName, 1, indLabel)
-    let indFeedbackExists = indHasFeedback()
-    let indFeedback = indReadFeedback()
-    // TODO: Logic
-}
-*/

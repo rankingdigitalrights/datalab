@@ -26,6 +26,7 @@
     importYonYSources,
     addBinaryFBCheck,
     addImportFBText,
+    addFeedbackStepReview,
 addResearcherFBNotes,
     defineNamedRange,
     cropEmptyColumns
@@ -265,6 +266,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             activeRow = addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, SubStep.components[stepCNr].id, companyNrOfServices)
                             break
 
+                        case "feedbackEvaluation":
+                            activeRow = addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
                         default:
                             Sheet.appendRow(["!!!Error: Missed a component!!!"])
                             break
@@ -370,13 +375,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // hides opCom column(s) if opCom == false
         // TODO: make dynamic
 
-        if (thisIndScoringScope == "full") {
-            if (!hasOpCom) {
-                Sheet.hideColumns(3)
-            }
-        } else {
-            Sheet.hideColumns(2, bridgeCompColumnsNr)
+        // if (thisIndScoringScope == "full") {
+        if (!hasOpCom) {
+            Sheet.hideColumns(3)
         }
+        // } else {
+        //     Sheet.hideColumns(2, bridgeCompColumnsNr)
+        // }
 
         cropEmptyColumns(Sheet)
 

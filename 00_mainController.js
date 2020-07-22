@@ -22,7 +22,7 @@
 // global params init (def with initiateGlobalConfig())
 
 /** --- main Prod vs Dev Toggle --- **/
-var isProduction = false
+var isProduction = true
 /** --- main Prod vs Dev Toggle --- **/
 
 var Config
@@ -50,13 +50,13 @@ function initiateGlobalConfig() {
     doRepairsOnly = false
     // skipMainSteps = false // TBD: not operation right now
 
-    // IndicatorsObj = indicatorsVector
-
+    // --- INDICATOR SUBSETTING --- //
     // IMPORTANT: lazy Regex := G4 will match G4a, G4b, G4c et al.
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
+    IndicatorsObj = indicatorsVector
+    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -124,6 +124,64 @@ function mainInputSheets() {
 
 }
 
+// --- // add a new Main Research Step at position Sheet.lastRow()
+function mainAddNewInputStep() {
+
+    initiateGlobalConfig()
+
+    updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
+
+    addNewStep = true // Just ignore: also caution - doesn't care if step already exists
+    // also: Hook to skip steps
+    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
+
+    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
+    // filenameSuffix = "" // local override : Dev, "", Debug, QC
+    let mainSheetMode = "Input" // for filename | TODO: move to Config
+    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
+
+    const Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
+
+    let fileID
+
+    Companies.forEach(function (Company) {
+
+        fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+
+        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
+
+    })
+
+}
+
 // create Scoring spreadsheets for all companies
 
 function mainScoringSheets() {
@@ -132,13 +190,13 @@ function mainScoringSheets() {
     outputFolderName = "2020 - Dev - Scores"
     let mainSheetMode = "Output"
     let useStepsSubset = false // true := use subset
-    let useIndicatorSubset = true // true := use subset
+    let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
-        .slice(1, 9)
-    // .slice(0,1) // Amazon
-    // .slice(1, 2) // Apple
-    // .slice(3,4) //
+        //.slice(1, 9)
+        .slice(1, 2) // Amazon
+    // .slice(2, 3) // Apple
+
 
     let fileID
 
@@ -151,27 +209,53 @@ function mainScoringSheets() {
     })
 }
 
-// create Feedback spreadsheets for all companies
+/** New: Inject (append) Feedback Form Elements to Company-specific Feedback Template
+ * @Param: Spreadsheet ID of Template defined in Company JSON
+ */
 
 function mainFeedbackSheets() {
 
     initiateGlobalConfig()
-    outputFolderName = "2020 - Dev - Feedback"
-    var mainSheetMode = "Feedback"
 
-    var useIndicatorSubset = false // true := use subset
+    let makeDataOwner = true // should new file be owned by Data@?
 
-    var Companies = companiesVector.companies
-    // .slice(1,2) // Apple
-
-    var fileID
+    // outputFolderName = "2020 - Dev - Feedback"
+    let Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        // .slice(3, 4) //   3 "Apple",
+        // .slice(4, 5) //   4 "AT&T",
+        // .slice(5, 6) //   5 "Axiata",
+        // .slice(6, 7) //   6 "Baidu",
+        // .slice(7, 8) //   7 "Bharti Airtel",
+        // .slice(8, 9) //   8 "Deutsche Telekom",
+        // .slice(9, 10) //   9 "Etisalat",
+        // .slice(10, 11) //   10 "Facebook",
+        // .slice(11, 12) //   11 "Google",
+        // .slice(12, 13) //   12 "Kakao",
+        // .slice(13, 14) //   13 "Mail.Ru",
+        // .slice(14, 15) //   14 "Microsoft",
+        // .slice(15, 16) //   15 "MTN",
+        // .slice(16, 17) //   16 "Ooredoo",
+        // .slice(17, 18) //   17 "Orange",
+        // .slice(18, 19) //   18 "Samsung",
+        // .slice(19, 20) //   19 "Telefónica",
+        // .slice(20, 21) //   20 "Telenor",
+        // .slice(21, 22) //   21 "Tencent",
+        // .slice(22, 23) //   22 "Twitter",
+        // .slice(23, 24) //   23 "Verizon Media",
+        .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
+        let fileID = injectFeedbackForms(Company, makeDataOwner)
 
-        fileID = createFeedbackForms(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
+        addFileIDtoControl("Company Feedback", Company.label.current, fileID, controlSpreadsheetID)
     })
+
+
 }
 
 // create Summary Scores spreadsheets for all companies
@@ -282,8 +366,8 @@ function mainRepairInputSheets() {
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -315,63 +399,6 @@ function mainRepairInputSheets() {
 
     })
 
-
-}
-
-function mainAddNewInputStep() {
-
-    initiateGlobalConfig()
-
-    updateProduction = false // IMPORTANT flag; ensures that Company DC Sheet is grabbed by sheetID
-
-    addNewStep = true // Caution: doesn't care if step already exists
-    // also: Hook to skip steps
-    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
-
-    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
-    // filenameSuffix = "" // local override : Dev, "", Debug, QC
-    let mainSheetMode = "Input" // for filename | TODO: move to Config
-    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
-    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
-
-    const Companies = companiesVector.companies
-        // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        .slice(2, 3) //   2 "América Móvil",
-    // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
-    // .slice(7, 8) //   7 "Bharti Airtel",
-    // .slice(8, 9) //   8 "Deutsche Telekom",
-    // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
-
-    let fileID
-
-    Companies.forEach(function (Company) {
-
-        fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
-
-    })
 
 }
 
@@ -485,9 +512,11 @@ function mainUnProtectCompanies() {
 function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
-    let stepLabel = ["S01", "S02"] // maybe better: match ResearchStepObj syntax := S01
-
+    let stepLabel = ["S01"] // maybe better: match ResearchStepObj syntax := S01
     let substepArray = createSubstepArray(stepLabel)
+    let editors = EditorsObj[stepLabel]
+
+    Logger.log("array: " + substepArray)
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -519,11 +548,15 @@ function mainOpenStepCompanies() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        // let companyId = Company.id
         let companyNr = companiesVector.companies.indexOf(Company)
-        let editors
+        let editors = []
 
-        stepLabel.forEach(step => editors.push(EditorsObj[step][companyNr]))
+        stepLabel.forEach(function (step) {
+            editors.push(EditorsObj[step][companyNr])
+
+        })
+
+        Logger.log("editors:" + editors)
 
         mainProtectFileOpenStepSingleCompany(Company, substepArray, editors)
     })
