@@ -118,7 +118,7 @@ var centralConfig = {
     scoringParams: {
       subStepNr: 1,
       firstStepNr: 1,
-      lastStepNr: 3,
+      lastStepNr: 2,
       sheetName: "Outcome",
       dataColWidth: 200,
       hasFullScores: true,

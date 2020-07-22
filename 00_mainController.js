@@ -55,8 +55,8 @@ function initiateGlobalConfig() {
     // IMPORTANT: For ambiguous Indicator Strings (P1 will also match P11) use "P1$"
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    IndicatorsObj = indicatorsVector
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G1|G2|F1a|F1b|P1a|P1b") // F5a|P1$
+    // IndicatorsObj = indicatorsVector
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, "G|F1a|F1b|P1a|P1b") // F5a|P1$
     globalIndicatorsSubset = false
 
     indexPrefix = Config.indexPrefix
@@ -235,16 +235,17 @@ function mainAggregationSheets() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = "Dev" // DANGER
+    filenameSuffix = "Dev IS" // DANGER
     outputFolderName = "2020 - Dev - Summary"
     var mainSheetMode = "Summary Scores"
 
     var useIndicatorSubset = false // true := use subset
 
-    var scoringStepNr = 3
+    var scoringStepNr = 2
 
     var Companies = companiesVector.companies
-        .slice(1, 9) // no Amazon
+        .slice(5, 7) // Axiata & Baidu,
+    // .slice(1, 9) // no Amazon
     // .slice(1, 3) // for debugging
     // .slice(0,3) // Amazon
     // .slice(1, 2) // Apple
