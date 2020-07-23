@@ -1,147 +1,54 @@
-function insertFeedbackSheet(SS, sheetName, lastCol, isPilotMode, hasFullScores, thisIndClass, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults, thisSubStep, thisSubStepID, thisSubStepLabel) {
+/* 
+  global
+    Config,
+    defineNamedRange,
+    calculateCompanyWidthNet,
+    returnFBStyleParams,
+    addFBFrontMatter,
+    appendFeedbackSection,
+    elemsMetadata,
+    metaIndyFilter,
+    cropEmptyColumns,
+    cropEmptyRows,
+    produceSourceSheet,
+    insertSheetIfNotExist
+*/
 
-    Logger.log("--- Begin Feedback for Single Indicator Class: " + sheetName)
+function prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams) {
 
-    var companyShortName = CompanyObj.label.current
+    let companyWidth = calculateCompanyWidthNet(Company, Indicator, false)
+    let layoutWidth = companyWidth < 3 ? 3 : companyWidth
 
-    Logger.log("Inserting Sheet " + sheetName)
-    var sheet = insertSheetIfNotExist(SS, sheetName, true)
-    if (sheet !== null) {
-        sheet.clear()
-    }
+    let localDataColWidth = companyWidth > 5 ? Math.floor(1680 / companyWidth) : Config.feedbackForms.dataColWidth
+    Sheet.setColumnWidth(1, 28)
+    // Sheet.setColumnWidth(9, 28)
+    Sheet.setColumnWidth(2, 125)
+    Sheet.setColumnWidths(3, layoutWidth, localDataColWidth)
 
-    var firstCol = lastCol
-    var activeCol = firstCol
-    var activeRow = 2
-    var lastRow
-    var offsetCol = firstCol + 2
+    Sheet.setHiddenGridlines(true)
 
-    // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
-    var nrOfIndSubComps = 1
+    let activeRow = 1
 
-    if (thisIndClass.hadSubComponents == true) {
-        nrOfIndSubComps = thisIndClass.components.length
-    }
+    let offsetCol = 2
 
-    // set up header / TODO: remove from steps JSON. Not a component. This is Layout
+    let indyLabel = Indicator.labelShort
 
-    activeRow = setFeedbackSheetHeader(activeRow, offsetCol, sheet, numberOfColumns)
+    let MetaData = metaIndyFilter(elemsMetadata, Indicator.labelShort)
 
-    activeRow = setFeedbackCompanyHeader(activeRow, offsetCol, sheet, CompanyObj, nrOfIndSubComps, thisIndClass, numberOfColumns)
+    // let StyleSpecs
 
-    // TODO: Refactor to main caller
+    // Front Matter
 
-    var thisIndClassLength
-    if (useIndicatorSubset) {
-        thisIndClassLength = 2
-    } else {
-        thisIndClassLength = thisIndClass.indicators.length
-    }
+    // TODO: maybe implement Company/Service Specifics (N/A et al.)
+    activeRow = addFBFrontMatter(Sheet, Indicator, MetaData, activeRow, offsetCol)
 
-    // --- // For all Indicators of this Class // --- //
+    // Content Section
 
-    var blockStartRow
-    var blockEndRow
-    var thisBlock
-    var thisInd
-    var StepComp
-    var stepCompType
+    activeRow = appendFeedbackSection(Sheet, Company, Indicator, indyLabel, MainStep, layoutWidth, companyWidth, activeRow, offsetCol, outputParams)
 
-    for (var i = 0; i < thisIndClassLength; i++) {
+    cropEmptyColumns(Sheet, 1)
+    cropEmptyRows(Sheet, 1)
 
-        thisInd = thisIndClass.indicators[i]
-
-        Logger.log("begin Indicator: " + thisInd.labelShort)
-
-        activeRow = addIndicatorLabelRow(activeRow, firstCol, sheet, CompanyObj, nrOfIndSubComps, thisInd, numberOfColumns)
-
-        blockStartRow = activeRow
-
-        // --- // Main task // --- //
-
-        // for all components of the current Research Step
-
-        for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
-
-            StepComp = thisSubStep.components[stepCompNr]
-            stepCompType = StepComp.type
-            Logger.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
-
-            switch (stepCompType) {
-
-                // import researcher name from x.0 step
-                case "subStepHeader":
-                    break
-
-                case "evaluation":
-                    // if (includeResults) {
-                    //     activeRow = importElementBlock(activeRow, firstCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    //     Logger.log(' - SC - ' + stepCompType + " added for: " + thisInd.labelShort)
-                    // }
-                    break
-
-                case "comments":
-                    activeRow = importFeedbackElementBlock(SS, activeRow, firstCol, offsetCol, numberOfColumns, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    Logger.log(" - SC - " + stepCompType + " added for: " + thisInd.labelShort)
-                    break
-
-                case "sources":
-
-                    activeRow = importFeedbackSourcesRow(activeRow, firstCol, offsetCol, sheet, StepComp, thisSubStepID, thisInd, CompanyObj, hasOpCom, nrOfIndSubComps, thisIndClass, blocks, integrateOutputs)
-                    Logger.log(" - SC - " + "sources added for: " + thisInd.labelShort)
-
-                    break
-            }
-        }
-
-        blockEndRow = activeRow - 1 // mark end of block
-        activeRow += 1
-
-        lastCol = numberOfColumns * 2 + 2
-
-        sheet.getRange(blockEndRow, firstCol, 1, lastCol)
-            .setBorder(false, false, true, false, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
-
-        thisBlock = sheet.getRange(blockStartRow, 1, blockEndRow - blockStartRow + 1, numberOfColumns)
-
-        thisBlock.shiftRowGroupDepth(1)
-
-    } // END INDICATOR
-
-    // --- // Sheet-Level Formattings // --- //
-
-    lastCol = numberOfColumns * 2 + 2
-
-    Logger.log("Formatting Sheet")
-    lastRow = activeRow - 2
-
-    sheet.getRange(1, 1, lastRow, lastCol)
-        .setFontFamily("Roboto")
-        .setVerticalAlignment("top")
-    // .setWrap(true)
-
-    sheet.setColumnWidth(1, 40)
-    sheet.setColumnWidth(2, 200)
-
-    sheet.setColumnWidths(offsetCol, 2 * numberOfColumns, dataColWidth)
-
-    // label columns
-    sheet.getRange(1, 1, lastRow, 2)
-        .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    // results columns
-    sheet.getRange(1, offsetCol, lastRow, numberOfColumns)
-        .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    // feedback columns
-    sheet.getRange(1, offsetCol + numberOfColumns, lastRow, numberOfColumns)
-        .setBorder(false, true, true, true, null, null, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-
-    sheet.setFrozenRows(3)
-    sheet.setFrozenColumns(2)
-
-
-    return lastCol += 1
+    let lastCol = Sheet.getLastColumn() + 1
+    Sheet.setColumnWidth(lastCol, 28)
 }
-
-// END MAIN Step & function

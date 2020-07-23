@@ -19,11 +19,52 @@ var centralConfig = {
   YearOnYear: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
-  subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
+  subsetMaxStep: 3, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [3, 6],
   collapseAllGroups: false,
-  feedbackStep: [4, 5],
-  compFeedbackSheetName: "2020 Feedback",
+  indicatorsLink: "https://rankingdigitalrights.org/2020-indicators/",
+  glossaryLink: "https://rankingdigitalrights.org/2020-indicators/#glossary",
+  feedbackForms: {
+    feedbackStep: 3,
+    feedbackSubstepResults: 2,
+    feedbackSubstepYonYComments: 3,
+    compFeedbackSheetName: "Company Feedback",
+    yearOnYearHelperTabName: "Year on Year Comments",
+    sourcesSheetName: "Sources",
+    dataColWidth: 300,
+    masterTemplateUrl: "125ZK69c-1NntgOQfM8_tD6n2jM4eOytfZmodU8FfZrc",
+    outputFolderId: "1oqphurm6AEZT0CFyvT6Rt57Iyb8JLPxe",
+    frontMatter: {
+      frontMatterColsNr: 4,
+      indicatorGuidanceLabel: "Indicator guidance:",
+      glossaryText: "Terms with bold formatting (in the text above) are defined in RDR's Glossary:",
+      guidanceText: "See full indicator guidance and associated definitions for this indicator here:"
+    },
+    mainSection: {
+      label: "PRELIMINARY EVALUATION",
+      backColor: "#5ca5d9",
+      fontColor: "white",
+    },
+    yearOnYearSection: {
+      label: "YEAR-ON-YEAR COMPARISON",
+      backColor: "#5ca5d9",
+      fontColor: "white",
+      contentRowHeight: 150,
+      rowLabel: "\n\nChange since 2019 Index:",
+      extraInstructionFB: "The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index)."
+    },
+    feedbackBoxSection: {
+      label: "COMPANY RESPONSE",
+      backColor: "#ffe599",
+      fontColor: null,
+      contentRowHeight: 250,
+      rowLabel: "\n\nResponse:",
+      extraRow: true,
+      extraRowLabel: "Sources:",
+      extraInstructionFB: "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating."
+    }
+  },
+  sourcesTabName: "2020 Sources",
   prevYearOutcomeTab: "2019 Outcome",
   urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
   prevYearSourcesTab: "2019 Sources",
@@ -57,7 +98,6 @@ var centralConfig = {
   integrateOutputs: false, // DC: integrate any output component?
   notesSheetname: "Researcher Comments",
   scoringSheetname: "Scores",
-  feedbackSheetname: "Feedback Base",
   integrateOutputsArray: {
     includeScoring: false, // create regular Outcome?
     isFullScoring: true, // scores or only comments?
@@ -76,39 +116,16 @@ var centralConfig = {
       includeResults: false
     },
     scoringParams: {
-      subStepNr: 0,
+      subStepNr: 1,
       firstStepNr: 1,
-      lastStepNr: 6,
+      lastStepNr: 2,
       sheetName: "Outcome",
       dataColWidth: 200,
       hasFullScores: true,
       includeSources: true,
       includeNames: false,
       includeResults: true
-    },
-    feedbackParams: {
-      subStepNr: 0,
-      firstStepNr: 1,
-      lastStepNr: 6,
-      sheetName: "Prototype",
-      dataColWidth: 200,
-      hasFullScores: false,
-      includeSources: true,
-      includeNames: false,
-      includeResults: true
     }
-  },
-  feedbackParams: {
-    subStepNr: 0,
-    firstStepNr: 3,
-    lastStepNr: 3,
-    sheetName: "Prototype",
-    dataColWidth: 300,
-    hasFullScores: false,
-    includeSources: true,
-    includeNames: false,
-    includeResults: true,
-    sourcesSheetname: "Sources referenced"
   },
   dataStoreParams: {
     fileName: "Data Store",

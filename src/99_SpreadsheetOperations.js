@@ -26,6 +26,19 @@ function mainTestConnectionByID() {
     openSpreadsheetByID(spreadsheetID)
 }
 
+function copyMasterSpreadsheet(masterFileId, outputFolderId, outputFilename, makeDataOwner) {
+
+    let MasterFile = DriveApp.getFileById(masterFileId)
+    let outputFolder = DriveApp.getFolderById(outputFolderId)
+    let newFile = MasterFile.makeCopy(outputFilename, outputFolder)
+    if (makeDataOwner) {
+        newFile.setOwner(centralConfig.dataOwner)
+        newFile.addEditors(centralConfig.devs)
+    }
+    let SS = openSpreadsheetByID(newFile.getId())
+    return SS
+}
+
 // TODO: refactor everywhere into two seperate functions:
 // one to try to connect and return null if file does not exist
 // one to create a new file
@@ -98,7 +111,7 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
 function openSpreadsheetByID(ID) {
 
     let SS = SpreadsheetApp.openById(ID)
-    Logger.log("locally connected to: " + SS.getName())
+    Logger.log("|---- locally connected to: " + SS.getName())
     return SS
 
 }
@@ -106,10 +119,12 @@ function openSpreadsheetByID(ID) {
 
 // Helper Function to overwrite Sheet in Spreadsheet if it is already existing
 
-function insertSheetIfNotExist(SS, sheetName, overWriteSheet) {
+function insertSheetIfNotExist(SS, sheetName, overWriteSheet, sheetPos) {
+
+    let positon = sheetPos || SS.getNumSheets() + 1
     let Sheet = SS.getSheetByName(sheetName)
     if (!Sheet) {
-        Sheet = SS.insertSheet(sheetName)
+        Sheet = SS.insertSheet(sheetName, positon)
     } else {
 
         Logger.log("WARN: " + "Sheet for " + sheetName + " already exists ")
@@ -117,8 +132,8 @@ function insertSheetIfNotExist(SS, sheetName, overWriteSheet) {
         if (overWriteSheet) {
             Logger.log("|--- Overwriting " + sheetName)
         } else {
-            if (doRepairsOnly) {
-                console.log("Repairing / Updating " + sheetName)
+            if (doRepairsOnly || addNewStep) {
+                console.log("Repairing / Updating / Extending " + sheetName)
             } else {
                 Sheet = null
                 Logger.log("|--- Skipping " + sheetName)

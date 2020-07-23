@@ -24,6 +24,10 @@
     addTwoStepComparison,
     importYonYResults,
     importYonYSources,
+    addBinaryFBCheck,
+    addImportFBText,
+    addFeedbackStepReview,
+addResearcherFBNotes,
     defineNamedRange,
     cropEmptyColumns
 */
@@ -42,7 +46,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     let category = Category.labelShort
 
     // Research Steps Subset: define max main Step
-    let mainStepsLength = (useStepsSubset || addNewStep) ? (Config.subsetMaxStep + 1) : ResearchSteps.researchSteps.length
+    let mainStepsLength = (useStepsSubset || addNewStep || startAtMainStepNr > 0) ? (Config.subsetMaxStep + 1) : ResearchSteps.researchSteps.length
 
     // Indicator Subset
     let indyCatLength = useIndicatorSubset ? minIndicators : Category.indicators.length
@@ -51,7 +55,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // for each indicator = distinct Sheet do
 
     let lastRow
-    let Sheet
+
 
     for (let i = 0; i < indyCatLength; i++) {
 
@@ -65,7 +69,12 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // SS.deleteSheet(oldSheet)
 
         // try to grab existing Indicator sheet or insert new one
-        Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+
+        let Sheet
+
+        if (!doRepairsOnly && !addNewStep) {
+            Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
+        }
 
         // if (oldIndex) {
         //     moveSheetToPos(SS, Sheet, oldIndex)
@@ -74,7 +83,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // if (doRepairs or addExtraStep) --> try to open Sheet
         // else skip Indicator 
 
-        if (Sheet === null) {
+        if (Sheet === null || Sheet === undefined) {
             if (doRepairsOnly || addNewStep) {
                 Sheet = SS.getSheetByName(Indicator.labelShort)
             } else {
@@ -115,13 +124,20 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         Sheet.setColumnWidths(2, numberOfColumns - 1, thisColWidth)
 
 
-        // if not adding an additional step
+        // if not adding an additional step or repairing a particular Step Range
         // --> start Sheet in first top left cell
-        let activeRow = addNewStep ? (Sheet.getLastRow() + 2) : 1
+
+        let mainStepString
+        if (startAtMainStepNr > 0 && doRepairsOnly) {
+            mainStepString = "^Step " + ResearchSteps.researchSteps[startAtMainStepNr].step
+        }
+
+        let activeRow = (addNewStep && !doRepairsOnly) ? (Sheet.getLastRow() + 2) : (doRepairsOnly && startAtMainStepNr > 0 && !addNewStep) ? findValueRowStart(Sheet, mainStepString, 1) : 1
+
         let activeCol = 1
 
         // adds up indicator guidance
-        if (!addNewStep) {
+        if (!addNewStep && !(startAtMainStepNr > 0)) {
             activeRow = addMainSheetHeader(SS, Sheet, Category, Indicator, Company, activeRow, activeCol, hasOpCom, numberOfColumns, bridgeCompColumnsNr, companyNrOfServices, includeRGuidanceLink, collapseRGuidance)
         }
         // --- // Begin Main Step-Wise Procedure // --- //
@@ -148,9 +164,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             if (mainStepNr > 0) {
 
                 // HOOK for data range and conditional formatting
-                if (dataStartRow === 0 && mainStepNr > 0) dataStartRow = activeRow
+                if (dataStartRow === 0 && mainStepNr > 0) {
+                    dataStartRow = activeRow
+                }
 
-                activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+                if (!MainStep.omitResearcher) {
+                    activeRow = addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep, companyNrOfServices)
+                } else {
+                    activeRow += 1
+                }
             }
 
             let endStep = activeRow
@@ -173,13 +195,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 // Begin step component procedure
                 for (let stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
 
-                    let thisStepComponent = SubStep.components[stepCNr].type
+                    let substepCompType = SubStep.components[stepCNr].type
 
-                    Logger.log("----- component : " + SubStep.labelShort + " : " + thisStepComponent)
+                    Logger.log("----- component : " + SubStep.labelShort + " : " + substepCompType)
 
                     // create the type of substep component that is specified in the json
 
-                    switch (thisStepComponent) {
+                    switch (substepCompType) {
 
                         case "stepResearcherRow":
                             //TODO: remove from JSON
@@ -244,6 +266,22 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             activeRow = addExtraInstruction(SubStep, stepCNr, activeRow, activeCol, Sheet, Company, companyNrOfServices)
                             break
 
+                        case "binaryFeedbackCheck":
+                            activeRow = addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, companyNrOfServices)
+                            break
+
+                        case "importFeedbackText":
+                            activeRow = addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, companyNrOfServices)
+                            break
+
+                        case "researcherFBNotes":
+                            activeRow = addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStep.components[stepCNr].rowLabel, SubStep.components[stepCNr].id, companyNrOfServices)
+                            break
+
+                        case "feedbackEvaluation":
+                            activeRow = addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
                         default:
                             Sheet.appendRow(["!!!Error: Missed a component!!!"])
                             break
@@ -268,7 +306,7 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                 SS.setNamedRange(stepNamedRange, range) // names an entire step
 
                 // GROUPING for substep
-                if (subStepsLength > 1 & !doRepairsOnly) {
+                if (subStepsLength > 1 && !doRepairsOnly) {
 
                     range = Sheet.getRange(firstRow, 2, lastRow - firstRow, maxCol - 1)
                     let substepRange = range.shiftRowGroupDepth(1)
@@ -302,7 +340,9 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
 
         } // --- // END Main-Step-Wise Procedure // --- //
 
-        console.log("DEBUG - lastRow: " + lastRow)
+        // console.log("DEBUG - lastRow: " + lastRow)
+        console.log("|--- Substeps done")
+        console.log("|--- Applying Sheet-level Formatting")
 
         let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
             .setFontFamily("Roboto")
@@ -349,13 +389,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // hides opCom column(s) if opCom == false
         // TODO: make dynamic
 
-        if (thisIndScoringScope == "full") {
-            if (!hasOpCom) {
-                Sheet.hideColumns(3)
-            }
-        } else {
-            Sheet.hideColumns(2, bridgeCompColumnsNr)
+        // if (thisIndScoringScope == "full") {
+        if (!hasOpCom) {
+            Sheet.hideColumns(3)
         }
+        // } else {
+        //     Sheet.hideColumns(2, bridgeCompColumnsNr)
+        // }
 
         cropEmptyColumns(Sheet)
 

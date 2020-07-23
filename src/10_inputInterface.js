@@ -2,6 +2,11 @@
 
 /* global 
 Config,
+startAtMainStepNr,
+doRepairsOnly,
+updateProduction,
+includeFeedback,
+insertFeedbackSheet,
 IndicatorsObj,
 researchStepsVector,
 spreadSheetFileName,
@@ -39,13 +44,17 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
 
+    // IMPORTANT: if startAtMainStepNr > 0 the make sure then maxStep is at least equal
+    if (startAtMainStepNr > Config.subsetMaxStep) {
+        Config.subsetMaxStep = startAtMainStepNr
+    }
 
     // connect to existing spreadsheet or creat a blank spreadsheet
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     // HOOK: Override for local development
 
-    let SS = !doRepairsOnly ? createSpreadsheet(spreadsheetName, true) :
+    let SS = (!doRepairsOnly && !updateProduction) ? createSpreadsheet(spreadsheetName, true) :
         SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
 
     let fileID = SS.getId()
@@ -60,7 +69,7 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
 
     let tabPrevYearsSources = (Company.tabPrevYearsOutcome != null) ? (companyShortName + "Sources") : "VodafoneSources"
 
-    let sourcesTabName = "2020 Sources"
+    let sourcesTabName = Config.sourcesTabName
 
     let Sheet
 
@@ -91,10 +100,17 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     }
 
     // --- // creates sources page // --- //
+    if (!doRepairsOnly) {
+        Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
+        if (Sheet !== null && !doRepairsOnly && !addNewStep) {
+            produceSourceSheet(Sheet, true)
+        }
+    }
 
-    Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-    if (Sheet !== null && !doRepairsOnly && !addNewStep) {
-        produceSourceSheet(Sheet, true)
+    // -- // For Company Feedback Steps // --- //
+    if (includeFeedback && !doRepairsOnly) {
+        let doOverwrite = false // flag for overwriting or not
+        insertCompanyFeedbackSheet(SS, Config.compFeedbackSheetName, Company, Indicators, doOverwrite)
     }
 
     let hasOpCom = Company.hasOpCom

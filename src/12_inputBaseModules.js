@@ -121,8 +121,6 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
     return activeRow
 }
 
-
-
 // this function creates a cell for comments for each subindicator and names the ranges
 
 function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, stepCNr, Category, companyNrOfServices) {
@@ -189,7 +187,7 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
                     Cell.setValue(cellValue)
                 }
             } else {
-                if (serviceNr && !Company.hasOpCom) {
+                if (serviceNr == 2 && !Company.hasOpCom) {
                     cellValue = "N/A"
                     if (!doRepairsOnly) {
                         Cell.setValue(cellValue)

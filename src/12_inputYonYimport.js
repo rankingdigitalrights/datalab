@@ -18,7 +18,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
     let StepComp = Substep.components[stepCNr]
     let stepCompID = Substep.components[stepCNr].id
 
-    let prevStep = StepComp.prevStep // "S07"
+    let importStepID = StepComp.importStepID // "S07"
     let comparisonType = StepComp.comparisonType // "DC",
 
     // for stepwise formatting
@@ -107,7 +107,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
             subIndicator = ""
 
-            cellID = defineNamedRange(comparisonIndexPrefix, comparisonType, prevStep, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(comparisonIndexPrefix, comparisonType, importStepID, Elements[elemNr].labelShort, subIndicator, Company.id, serviceLabel, stepCompID)
 
             if (!isNewCompany) {
 
@@ -280,7 +280,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
-    let prevStep = StepComp.prevStep // "S07"
+    let importStepID = StepComp.importStepID // "S07"
     let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
@@ -371,7 +371,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
                             reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                            prevResultCell = defineNamedRange(compIndexPrefix, "DC", prevStep, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+                            prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
                             // sets up cellValue that compares values
                             cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
@@ -386,7 +386,10 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
             }
 
             Cell.setFontWeight("bold")
-            Cell.setValue(cellValue)
+
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
 
             SS.setNamedRange(cellID, Cell) // names cells
 

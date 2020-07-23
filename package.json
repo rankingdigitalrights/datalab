@@ -14,7 +14,7 @@
     "dependencies": {
         "@types/google-apps-script": "^1.0.10",
         "clasp": "^1.0.0",
-        "eslint": "^7.2.0"
+        "eslint": "^7.5.0"
     },
     "devDependencies": {
         "eslint-plugin-googleappsscript": "^1.0.3"
