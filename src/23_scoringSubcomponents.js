@@ -1,15 +1,10 @@
 // --- Scoring HELPER FUNCTIONS --- //
 
 /* global
-    indexPrefix,
-    defineNamedRange,
-    styleScoringIndicatorHeader,
-    importRangeFormula,
-    elementScoreFormula,
-    levelScoreFormula,
-    aggregateScoreFormula,
-    applyCompositeScoringLogic
+    indexPrefix, defineNamedRange, styleScoringIndicatorHeader, importRangeFormula, elementScoreFormula, levelScoreFormula, aggregateScoreFormula, applyCompositeScoringLogic
 */
+
+// eslint-disable-next-line no-unused-vars
 function setScoringSheetHeader(activeRow, activeCol, sheet, companyShortName, thisSubStepLabel, blocks) {
 
     // -- // add Step Header to top-left cell // -- //
@@ -36,6 +31,7 @@ function setScoringSheetHeader(activeRow, activeCol, sheet, companyShortName, th
 }
 
 // --- BEGIN setScoringCompanyHeader() --- //
+// eslint-disable-next-line no-unused-vars
 function setScoringCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfIndSubComps, indicatorCat, companyObj, blocks) {
 
     console.log("|--- company header " + Indicator.labelShort)
@@ -110,6 +106,7 @@ function setScoringCompanyHeader(activeRow, activeCol, sheet, Indicator, nrOfInd
 }
 
 // generic : imports both,element level evaluation results and comments
+// eslint-disable-next-line no-unused-vars
 function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs) {
 
     let stepCompID = StepComp.id
@@ -233,7 +230,7 @@ function importElementBlock(activeRow, activeCol, sheet, StepComp, thisSubStepID
 
 
 // --- // Begin Sources // --- //
-
+// eslint-disable-next-line no-unused-vars
 function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, Indicator, Company, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, integrateOutputs, isPilotMode) {
 
     let stepCompID = StepComp.id
@@ -255,7 +252,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
     let tempCol = activeCol
     let currentCell = sheet.getRange(activeRow, activeCol)
     let component = ""
-    let rowLabel, compCellName, formula
+    let compCellName, formula
 
     // row label / first Column
     // skip first Column for subsequent steps    
@@ -334,6 +331,7 @@ function importElementRow(activeRow, activeCol, sheet, StepComp, thisSubStepID, 
 
 // --- // Core function: SCORING // --- //
 
+// eslint-disable-next-line no-unused-vars
 function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, indicatorCat, blocks, hasFullScores) {
 
     console.log(" - " + "in element scoring for " + " " + Indicator.labelShort)
@@ -349,7 +347,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentS
 
     let tempCol
     let component = ""
-    let rowLabel, currentCell, cellName, compCellName, formula
+    let rowLabel, currentCell, cellName
     let range, elementScore
 
     let scoringSuffix = "SE"
@@ -458,6 +456,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, sheet, currentS
 
 // --- // Level Scoring // --- //
 
+// eslint-disable-next-line no-unused-vars
 function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, indicatorCat, levelScoresCompany, levelScoresServices, levelScoresMobile, blocks) {
 
     console.log(" - " + "in level scoring for " + " " + Indicator.labelShort)
@@ -634,6 +633,7 @@ function addLevelScores(SS, sheetModeID, activeRow, activeCol, sheet, currentSte
     return activeRow + 1
 }
 
+// eslint-disable-next-line no-unused-vars
 function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, Indicator, Company, nrOfIndSubComps, levelScoresCompany, levelScoresServices, levelScoresMobile, CompositeScoreCells, blocks) {
 
     let addMobileComposite = levelScoresMobile.length > 0 ? true : false
@@ -706,6 +706,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, sheet, curren
     return activeRow + 1
 }
 
+// eslint-disable-next-line no-unused-vars
 function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, sheet, currentStepLabelShort, Indicator, Company, CompositeScoreCells, blocks) {
 
     console.log("|--- INDICATOR score for " + " " + Indicator.labelShort)

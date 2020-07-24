@@ -1,14 +1,16 @@
+// eslint-disable-next-line no-unused-vars
 function fillPointsSheet(pointsSheet) {
     pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
     pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)"])
     pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)"])
 }
 
-
+// eslint-disable-next-line no-unused-vars
 function getISOtimeAsString() {
     return new Date().toISOString().substr(0, 16).split("T").join(": ")
 }
 
+// eslint-disable-next-line no-unused-vars
 function elementScoreFormula(range) {
     let cell = range.getA1Notation()
     /* legacy Formula */
@@ -17,6 +19,7 @@ function elementScoreFormula(range) {
     return formula
 }
 
+// eslint-disable-next-line no-unused-vars
 function levelScoreFormula(serviceCells) {
 
     let formula = "=IF(AND("
@@ -31,7 +34,7 @@ function levelScoreFormula(serviceCells) {
 
     formula += " IF(OR("
 
-    for (cell = 0; cell < serviceCells.length; cell++) {
+    for (let cell = 0; cell < serviceCells.length; cell++) {
         formula = formula + serviceCells[cell] + "=" + "\"---\"" + ","
     }
 
@@ -43,6 +46,7 @@ function levelScoreFormula(serviceCells) {
     return formula
 }
 
+// eslint-disable-next-line no-unused-vars
 function aggregateScoreFormula(cells) {
 
     console.log(`|--- DEBUG --- target Cells received ${cells}`)
@@ -68,6 +72,7 @@ function aggregateScoreFormula(cells) {
     return formula
 }
 
+// eslint-disable-next-line no-unused-vars
 function applyCompositeScoringLogic(indicator, scoringComponent, Cell, cellName, CompositeScoreCells) {
 
     switch (scoringComponent) {

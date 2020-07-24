@@ -1,15 +1,8 @@
 /* global
-    filterSingleSubstep,
-    setScoringSheetHeader,
-    setScoringCompanyHeader,
-    importElementRow,
-    importElementBlock,
-    addElementScores,
-    addLevelScores,
-    addCompositeScores,
-    addIndicatorScore
+    filterSingleSubstep, setScoringSheetHeader, setScoringCompanyHeader, importElementRow, importElementBlock, addElementScores, addLevelScores, addCompositeScores, addIndicatorScore
 */
 
+// eslint-disable-next-line no-unused-vars
 function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
 
     console.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
