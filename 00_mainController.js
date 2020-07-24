@@ -335,10 +335,12 @@ function mainInspectInputSheets() {
     let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
-    let ListSheetFixed = null
 
     let Companies = companiesVector.companies
-    // .slice(22, 26)
+        // .slice(0, 12) // Batch 1
+        // .slice(12, 24) // Batch 2
+        // .slice(24,26) // Batch 3
+        .slice(2, 12) // 
     // .slice(4, 5) //   4 "AT&T",
     // .slice(6, 7) //   6 "Baidu",
     // .slice(7, 8) //   7 "Bharti Airtel",
