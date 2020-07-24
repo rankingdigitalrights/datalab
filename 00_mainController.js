@@ -359,6 +359,8 @@ function mainRepairInputSheets() {
 
     startAtMainStepNr = 3 // logical Order
 
+    Config.subsetMaxStep = startAtMainStepNr
+
     doRepairsOnly = true // don't touch
 
     updateProduction = true // DANGER
