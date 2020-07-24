@@ -1,18 +1,19 @@
 function inspectInputSheet(SS, ListSheet) {
 
     let namedRangesRaw = SS.getNamedRanges()
-    console.log("named Range received: " + namedRangesRaw.length)
+    console.log(`Length of Named Ranges received: ${namedRangesRaw.length}`)
 
     let namedRanges = []
 
-    let sheetName, range, rangeVal, rangeName
+    let indicator, step, range, rangeVal, rangeName
 
-    let regexPattern = new RegExp("[G|F|P]\\d+[a-z]?")
+    let regexInd = new RegExp("[G|F|P]\\d+[a-z]?")
+    let regexStep = new RegExp("S\\d{3}")
 
     console.log("processing")
 
     namedRangesRaw = namedRangesRaw.filter(namedRange =>
-        namedRange.getRange().getA1Notation().match("REF"))
+        namedRange.getRange().getA1Notation() === "#REF!")
 
     console.log("Filtered Named Ranges: " + namedRangesRaw.length)
 
@@ -24,11 +25,13 @@ function inspectInputSheet(SS, ListSheet) {
             rangeVal = range.getA1Notation()
 
             rangeName = namedRange.getName()
-            sheetName = rangeName.match(regexPattern)
+            indicator = rangeName.match(regexInd)
+            step = rangeName.match(regexStep)
 
             namedRanges.push([
                 ["|------"],
-                [sheetName],
+                [indicator],
+                [step],
                 [rangeName],
                 [rangeVal]
             ])
@@ -42,7 +45,7 @@ function inspectInputSheet(SS, ListSheet) {
         let height = namedRanges.length
         ListSheet.getRange(ListSheet.getLastRow() + 1, 1, height, width).setValues(namedRanges)
     } else {
-        ListSheet.appendRow(["---", "no broken ranges found"])
+        ListSheet.appendRow(["| --- |", "OK"])
     }
 
 }

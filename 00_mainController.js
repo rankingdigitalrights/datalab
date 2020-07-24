@@ -332,20 +332,19 @@ function mainInspectInputSheets() {
     initiateGlobalConfig()
     // IMPORTANT FLAG
 
-    var mainSheetMode = "Input" // for filename
-    filenameSuffix = ""
-
     let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
     let ListSheetFixed = null
 
     let Companies = companiesVector.companies
-        // .slice(22, 26)
-        .slice(4, 5) //   4 "AT&T",
+    // .slice(22, 26)
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
 
     Companies.forEach(Company => {
-        processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        processCompanyHealth(ListSheetBroken, Company)
     })
 
 }
@@ -358,6 +357,8 @@ function mainRepairInputSheets() {
     initiateGlobalConfig()
 
     startAtMainStepNr = 3 // logical Order
+
+    Config.subsetMaxStep = startAtMainStepNr
 
     doRepairsOnly = true // don't touch
 
