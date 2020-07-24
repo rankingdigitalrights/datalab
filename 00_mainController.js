@@ -55,7 +55,6 @@ function initiateGlobalConfig() {
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
     // IndicatorsObj = indicatorsVector
-
     /* OR */
     // param has to be Array[]
     IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "G2", "G3", "G4a", "G4b", "G4c", "G4d", "G4e", "G5", "G6a", "G6b", "F1a", "F1b", "P1a", "P1b"])
@@ -334,20 +333,21 @@ function mainInspectInputSheets() {
     initiateGlobalConfig()
     // IMPORTANT FLAG
 
-    var mainSheetMode = "Input" // for filename
-    filenameSuffix = ""
-
     let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
     let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
     // ListSheetBroken.clear()
-    let ListSheetFixed = null
 
     let Companies = companiesVector.companies
-        // .slice(22, 26)
-        .slice(4, 5) //   4 "AT&T",
+        // .slice(0, 12) // Batch 1
+        // .slice(12, 24) // Batch 2
+        // .slice(24,26) // Batch 3
+        .slice(2, 12) // 
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
 
     Companies.forEach(Company => {
-        processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        processCompanyHealth(ListSheetBroken, Company)
     })
 
 }

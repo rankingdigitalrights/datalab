@@ -11,14 +11,10 @@
         inspectInputSheet
 */
 
-function processCompanyHealth(ListSheetBroken, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+function processCompanyHealth(ListSheetBroken, Company) {
 
     var companyShortName = cleanCompanyName(Company)
     Logger.log("--- // --- begin processing " + companyShortName + " --- // ---")
-
-    var Indicators = IndicatorsObj
-    var ResearchStepsObj = researchStepsVector
-    var includeRGuidanceLink = Config.includeRGuidanceLink
 
     // connect to Company Input Spreadsheet
 

@@ -6,7 +6,7 @@ function fillPointsSheet(pointsSheet) {
 
 
 function getISOtimeAsString() {
-    return new Date().toISOString()
+    return new Date().toISOString().substr(0, 16).split("T").join(": ")
 }
 
 function elementScoreFormula(range) {
