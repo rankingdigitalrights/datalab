@@ -66,7 +66,7 @@ function insertSheetConnector(SS, Companies) {
     let companyUrl
     let formula
     let formulaPrefix = "=IMPORTRANGE(\""
-    let formulaSuffix = "\", \"G1!B5\")"
+    let formulaSuffix = "\", \"G1!A9\")"
 
     Companies.forEach(function (company) {
         companyName = company.label.current

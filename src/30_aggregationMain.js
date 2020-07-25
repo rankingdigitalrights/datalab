@@ -1,21 +1,8 @@
 /* global 
-Config,
-IndicatorsObj,
-researchStepsVector,
-spreadSheetFileName,
-createSpreadsheet,
-insertPointValidationSheet,
-countIndiClassLengths,
-cleanCompanyName,
-addSetOfScoringSteps
-insertSheetIfNotExist,
-fillSummaryScoresSheet,
-moveSheetifExists,
-insertSheetConnector,
-moveHideSheetifExists,
-removeEmptySheet
+Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadsheet, insertPointValidationSheet, countIndiClassLengths, cleanCompanyName, addSetOfScoringSteps, insertSheetIfNotExist, fillSummaryScoresSheet, moveSheetifExists, insertSheetConnector, moveHideSheetifExists, removeEmptySheet, filterSingleSubstep
 */
 
+// eslint-disable-next-line no-unused-vars
 function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
 
     // scroing step number should be passed via main method call
@@ -116,7 +103,8 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     var connectorSheet = insertSheetConnector(SS, Companies)
 
-    moveSheetifExists(SS, connectorSheet, 1)
+    // moveSheetifExists(SS, connectorSheet, 1)
+    moveHideSheetifExists(SS, connectorSheet, 1)
 
     moveHideSheetifExists(SS, pointsSheet, 1)
 

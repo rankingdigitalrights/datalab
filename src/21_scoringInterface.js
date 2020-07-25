@@ -1,6 +1,18 @@
 // Interface for creating a single set of scoring content
 // Single set := either Outcome OR Comments OR Company Feedback
 
+/* global
+    determineFirstStep,
+    determineMaxStep,
+    insertSheetIfNotExist,
+    scoringSingleStep,
+    cropEmptyColumns,
+    cropEmptyRows,
+    singleSheetProtect,
+    moveSheetifExists
+*/
+
+// eslint-disable-next-line no-unused-vars
 function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
 
     Logger.log("--- Begin addSetOfScoringSteps")
@@ -38,6 +50,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
         Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
         return lastCol
     } else {
+        Sheet.clear()
         let maxRows = Sheet.getMaxRows
         if (maxRows < 2000) Sheet.insertRowsAfter(maxRows, 1000)
     }
