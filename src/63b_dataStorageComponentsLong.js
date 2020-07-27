@@ -36,8 +36,15 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
     var formula
 
     // row label / first two Column
-
-    rowLabels.push(currentSubStepID.substring(2,3), currentSubStepID.substring(3,4),indCatLabelShort, indLabelShort, elemLabelShort.substring(indLabelShort.length+1,elemLabelShort.length+1), StepComp.variableName)
+    let c = elemLabelShort
+    Logger.log("---------------------------------------------elem"+elemLabelShort)
+    if (elemLabelShort!=null) {
+      Logger.log("here")
+      c=elemLabelShort.substring(indLabelShort.length+1,elemLabelShort.length+1)
+      Logger.log(c)
+      }
+ 
+    rowLabels.push(currentSubStepID.substring(2,3), currentSubStepID.substring(3,4),indCatLabelShort, indLabelShort, c, StepComp.variableName)
 
     rowCells = rowLabels.slice() //ES5; no Array.from()
 
@@ -49,8 +56,8 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
     compCellName = defineNamedRange(indexPrefix, "DC", currentSubStepID, importID, component, Company.id, "group", stepCompID)
 
     formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
-    //rowCells.push(compCellName, formula)
-    rowCells.push(compCellName, "")
+    rowCells.push(compCellName, formula)
+    //rowCells.push(compCellName, "")
 
     if (scoringSuffix) {
         compCellName = defineNamedRange(indexPrefix, "SC", currentSubStepID, importID, component, Company.id, "group", scoringSuffix)
@@ -74,7 +81,7 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
 
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
     } else {
-        formula = ""
+        formula = "N/A"
     }
 
     rowCells.push(compCellName, formula)
@@ -87,8 +94,9 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubS
             formula = "NA"
         }
     } else {
-        formula = ""
+        formula = "NA"
     }
+    
 
     rowCells.push("")
 
