@@ -62,3 +62,73 @@ function deleteRows(Sheet, startRow, lastRow) {
         Sheet.deleteRows(startRow, lastRow - startRow)
     }
 }
+
+function testingRowFunction(){
+    let value="^The following is a preliminary evaluation"
+  //let value="^Please add your response"
+    let SS=SpreadsheetApp.openById("1g1t3PCVTQOltRRsJqugBGBq7uYqkf8yHGsSH6ZkfDig")
+
+    let Sheets=SS.getSheets()
+
+    let Sheet
+    let rows=['""','""','""','""','""','""','""','""']
+    let row=""
+    let lastCol
+
+    for (let i=8;i<Sheets.length;i++){
+        Sheet=Sheets[i]
+        //Logger.log(Sheet.getName())
+
+        row=findValueRowStart(Sheet, value, 2)
+
+        if(row==null){rows.push('""')}
+        else{
+            lastCol=Sheet.getLastColumn()
+            //Logger.log("firstRow="+row+", lastCol="+lastCol)
+            
+            rows.push('"C'+row+":"+columnToLetter(lastCol, 0)+row+'"')
+            
+        }
+      
+      Logger.log("row:"+rows)
+
+
+    }
+
+
+}
+function UnprotectedCellsFunction(){
+    let value="^Dummy Placeholder text"
+    let SS=SpreadsheetApp.openById("1g1t3PCVTQOltRRsJqugBGBq7uYqkf8yHGsSH6ZkfDig")
+
+    let Sheets=SS.getSheets()
+
+    let Sheet
+    let rows=['""','""','""','""','""','""','""','""']
+    let row=""
+    let lastCol, lastRow
+
+    for (let i=8;i<Sheets.length;i++){
+        Sheet=Sheets[i]
+        //Logger.log(Sheet.getName())
+
+        row=findValueRowStart(Sheet, value, 2)
+        lastRow=row+1
+
+        if(row==null){rows.push('""')}
+        else{
+            lastCol=Sheet.getLastColumn()
+            //Logger.log("firstRow="+row+", lastCol="+lastCol)
+            
+            rows.push('"C'+row+":"+columnToLetter(lastCol, 0)+lastRow+'"')
+            
+        }
+      
+      Logger.log("row:"+rows)
+
+
+    }
+
+
+}
+
