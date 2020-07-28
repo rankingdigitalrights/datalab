@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 function fillPointsSheet(pointsSheet) {
-    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A"])
-    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)"])
-    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)"])
+    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A", "New / Revised Element"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)", "exclude (N/A)"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)", "exclude (N/A)"])
 }
 
 // eslint-disable-next-line no-unused-vars
