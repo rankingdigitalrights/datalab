@@ -1099,7 +1099,7 @@ var companiesVector = {
         "legacy": [null]
       },
       "type": "internet",
-      "groupLabel": "Yahoo Mail",
+      "groupLabel": "Verizon Media",
       "hasOpCom": false,
       "opComLabel": null,
       "isPrevScored": true,
