@@ -54,10 +54,10 @@ function initiateGlobalConfig() {
     // IMPORTANT: subsetting function now only accepts Array
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    IndicatorsObj = indicatorsVector
+    // IndicatorsObj = indicatorsVector
     /* OR */
     // param has to be Array[]
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["P1a", "P1b", "P2a", "P2b", "P3a", "P3b", "P4", "P5", "P6", "P7", "P8", "P9", "P10a", "P10b", "P11a", "P11b", "P12", "P13", "P14", "P15", "P16", "P17", "P18"])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G4a", "G4b", "G4c", "G4d", "G4e", "F3a", "F3b", "F3c", "F4a", "F4b", "F4c", "F6", "P3a", "P3b", "P4", "P9", "P11a", "P11b"])
     globalIndicatorsSubset = false
     // Indicator Labels:
     // ["G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"]
@@ -196,9 +196,33 @@ function mainScoringSheets() {
     let useIndicatorSubset = false // true := use subset
 
     const Companies = companiesVector.companies
-        //.slice(1, 9)
-        .slice(1, 2) // Amazon
-    // .slice(2, 3) // Apple
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        // .slice(3, 4) //   3 "Apple",
+        // .slice(4, 5) //   4 "AT&T",
+        // .slice(5, 6) //   5 "Axiata",
+        // .slice(6, 7) //   6 "Baidu",
+        // .slice(7, 8) //   7 "Bharti Airtel",
+        // .slice(8, 9) //   8 "Deutsche Telekom",
+        // .slice(9, 10) //   9 "Etisalat",
+        .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
 
 
     let fileID
