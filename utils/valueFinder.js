@@ -64,71 +64,130 @@ function deleteRows(Sheet, startRow, lastRow) {
 }
 
 function testingRowFunction(){
-    let value="^The following is a preliminary evaluation"
-  //let value="^Please add your response"
-    let SS=SpreadsheetApp.openById("1g1t3PCVTQOltRRsJqugBGBq7uYqkf8yHGsSH6ZkfDig")
-
-    let Sheets=SS.getSheets()
-
-    let Sheet
-    let rows=['""','""','""','""','""','""','""','""']
-    let row=""
-    let lastCol
-
-    for (let i=8;i<Sheets.length;i++){
-        Sheet=Sheets[i]
-        //Logger.log(Sheet.getName())
-
-        row=findValueRowStart(Sheet, value, 2)
-
-        if(row==null){rows.push('""')}
-        else{
-            lastCol=Sheet.getLastColumn()
-            //Logger.log("firstRow="+row+", lastCol="+lastCol)
-            
-            rows.push('"C'+row+":"+columnToLetter(lastCol, 0)+row+'"')
-            
+    //  let value="^The following is a preliminary evaluation"
+    let value="^Please add your response"
+      let SS=SpreadsheetApp.openById("1lrOcTjf-_zqaLKz1qKNi9UrbmOVei1nLzcrHFxuMDYo")
+  
+      let Sheets=SS.getSheets()
+  
+      let Sheet
+      let rows=['""','""','""','""','""','""','""','""']
+      let row=""
+      let lastCol
+  
+      for (let i=8;i<Sheets.length;i++){
+          Sheet=Sheets[i]
+          //Logger.log(Sheet.getName())
+  
+          row=findValueRowStart(Sheet, value, 2)
+  
+          if(row==null){rows.push('""')}
+          else{
+              lastCol=Sheet.getLastColumn()
+              //Logger.log("firstRow="+row+", lastCol="+lastCol)
+              
+              rows.push('"C'+row+":"+columnToLetter(lastCol, 0)+row+'"')
+              
+          }
+        
+        //Logger.log("row:"+rows)
+  
+  
+      }
+    Logger.log("row:"+rows)
+  
+  
+  }
+  function UnprotectedCellsFunction(){
+    let value="Sources:"
+      let SS=SpreadsheetApp.openById("18p3m5OFfteCUxRyefa9hyMwmuzVTRbwXm85sLxizcnA")
+  
+      let Sheets=SS.getSheets()
+  
+      let Sheet
+      let rows=['""','""','""','""','""','""','""','""']
+      let row=""
+      let row1=""
+      let rows1=['""','""','""','""','""','""','""','""']
+      let lastCol, lastRow
+  
+      for (let i=8;i<Sheets.length;i++){
+          Sheet=Sheets[i]
+          //Logger.log(Sheet.getName())
+  
+          row=findValueRowStart(Sheet, value, 1)-1
+   
+          lastRow=row+1
+  
+          if(row==null){
+            rows.push('""')
+            rows1.push('""')}
+        else if (Sheet.getName()=="Governance"||Sheet.getName()=="Freedom of Expression"||Sheet.getName()=="Privacy") {
+          rows.push('""')
+        rows1.push('""')
         }
-      
-      Logger.log("row:"+rows)
-
-
-    }
-
-
-}
-function UnprotectedCellsFunction(){
-    let value="^Dummy Placeholder text"
-    let SS=SpreadsheetApp.openById("1g1t3PCVTQOltRRsJqugBGBq7uYqkf8yHGsSH6ZkfDig")
-
-    let Sheets=SS.getSheets()
-
-    let Sheet
-    let rows=['""','""','""','""','""','""','""','""']
-    let row=""
-    let lastCol, lastRow
-
-    for (let i=8;i<Sheets.length;i++){
-        Sheet=Sheets[i]
-        //Logger.log(Sheet.getName())
-
-        row=findValueRowStart(Sheet, value, 2)
-        lastRow=row+1
-
-        if(row==null){rows.push('""')}
-        else{
-            lastCol=Sheet.getLastColumn()
-            //Logger.log("firstRow="+row+", lastCol="+lastCol)
-            
-            rows.push('"C'+row+":"+columnToLetter(lastCol, 0)+lastRow+'"')
-            
-        }
-      
-      Logger.log("row:"+rows)
-
-
-    }
-
-
-}
-
+          else{
+              lastCol=Sheet.getLastColumn()
+              //Logger.log("firstRow="+row+", lastCol="+lastCol)
+              
+              
+              rows.push('"C'+row+":"+columnToLetter(lastCol, 0)+lastRow+'"')
+              rows1.push('"'+row+":"+row+'"')
+              
+          }
+        
+       
+  
+  
+      }
+     Logger.log("row:"+rows)
+     Logger.log("row1:"+rows1)
+  
+  
+  }
+  
+  function testingFont(){
+      //let value="^The following is a preliminary evaluation"
+    let value="^Indicator guidance:"
+      let SS=SpreadsheetApp.openById("18p3m5OFfteCUxRyefa9hyMwmuzVTRbwXm85sLxizcnA")
+  
+      let Sheets=SS.getSheets()
+  
+      let Sheet
+      let rows1=['""','""','""','""','""','""','""','""']
+      let rows2=['""','""','""','""','""','""','""','""']
+      let row=""
+      let lastRow, lr3, lastCol
+  
+      for (let i=8;i<Sheets.length;i++){
+          Sheet=Sheets[i]
+          //Logger.log(Sheet.getName())
+  
+          row=findValueRowStart(Sheet, value, 1)
+          //row=findValueRowStart(Sheet, value, 2)
+  
+          if(row==null){
+            rows1.push('""')
+          rows2.push('""')}
+          else{
+              lastRow=row+2
+              lr3=row+4
+              lastCol=Sheet.getLastColumn()
+              
+              //Logger.log("firstRow="+row+", lastCol="+lastCol)
+              
+              rows1.push('"A'+4+":"+columnToLetter(lastCol, 0)+lastRow+'"')
+              rows2.push('"A'+lastRow+":"+columnToLetter(lastCol, 0)+lr3+'"')
+              
+          }
+        
+        //Logger.log("row:"+rows)
+  
+  
+      }
+    Logger.log("row1:"+rows1)
+    Logger.log("row2:"+rows2)
+  
+  
+  }
+  
