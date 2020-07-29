@@ -20,6 +20,7 @@
         "eslint-plugin-googleappsscript": "^1.0.3"
     },
     "scripts": {
+        "print-env": "sh ./env/print-envID.sh",
         "switch-main": "sh ./env/switch-main.sh",
         "switch-gw": "sh ./env/switch-gw.sh",
         "switch-is": "sh ./env/switch-is.sh",
