@@ -479,6 +479,7 @@ var researchStepsVector = {
       stepColor: "#ffe599",
       doCollapse: false,
       omitResearcher: true,
+      excludeFromOutputs: true,
       substeps: [{
           labelShort: "Step 4.0",
           subStepID: "S040",

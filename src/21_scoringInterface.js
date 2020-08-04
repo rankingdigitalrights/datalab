@@ -6,9 +6,10 @@
 // eslint-disable-next-line no-unused-vars
 function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode) {
 
-    Logger.log("--- Begin addSetOfScoringSteps")
+    Logger.log("|--- Begin addSetOfScoringSteps")
     let sheetName = outputParams.sheetName
-    Logger.log("sheetName received: " + sheetName)
+    Logger.log("|--- sheetName received: " + sheetName)
+    Logger.log("|--- File ID: " + SS.getId())
 
     // let subStepNr = outputParams.subStepNr
 
@@ -51,6 +52,10 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
+
+        if (MainStep.excludeFromOutputs) {
+            break // i.e. ignore Step 4 Feedback Debate
+        }
 
         console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
         let subStepNr = MainStep.altScoringSubstepNr > -1 ? MainStep.altScoringSubstepNr : outputParams.subStepNr

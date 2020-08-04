@@ -1,5 +1,5 @@
 /* global
-    filterSingleSubstep, setScoringSheetHeader, setScoringCompanyHeader, importElementRow, importElementBlock, addElementScores, addLevelScores, addCompositeScores, addIndicatorScore
+    Config, setScoringSheetHeader, setScoringCompanyHeader, importElementRow, importElementBlock, addElementScores, addLevelScores, addCompositeScores, addIndicatorScore
 */
 
 // eslint-disable-next-line no-unused-vars
@@ -181,7 +181,16 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
     }
 
     let columns = Sheet.getRange(1, hookFirstDataCol + 1, 1, numberOfColumns - 2)
-    columns.shiftColumnGroupDepth(1)
+    let Group = columns.shiftColumnGroupDepth(1)
+
+    if (MainStep.step === 0) {
+        Group.collapseGroups()
+    }
+
+    if (!Config.scoringSteps.includes(MainStep.step)) {
+        Sheet.hideColumns(hookFirstDataCol, numberOfColumns)
+    }
+
     return lastCol += 1
 }
 
