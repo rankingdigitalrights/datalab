@@ -1,24 +1,17 @@
 // Interface for creating a single set of scoring content
 // Single set := either Outcome OR Comments OR Company Feedback
 
-/* global
-    determineFirstStep,
-    determineMaxStep,
-    insertSheetIfNotExist,
-    scoringSingleStep,
-    cropEmptyColumns,
-    cropEmptyRows,
-    singleSheetProtect,
-    moveSheetifExists
-*/
+/* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
 
 // eslint-disable-next-line no-unused-vars
-function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode) {
+function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode) {
 
     Logger.log("--- Begin addSetOfScoringSteps")
     let sheetName = outputParams.sheetName
     Logger.log("sheetName received: " + sheetName)
-    let subStepNr = outputParams.subStepNr
+
+    // let subStepNr = outputParams.subStepNr
+
     let hasFullScores = outputParams.hasFullScores
     let includeSources = outputParams.includeSources
     let includeNames = outputParams.includeNames
@@ -51,19 +44,27 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
         return lastCol
     } else {
         Sheet.clear()
-        let maxRows = Sheet.getMaxRows
-        if (maxRows < 2000) Sheet.insertRowsAfter(maxRows, 1000)
+        // temporarily add more rows to improve Script performance
+        let maxRows = Sheet.getLastRow()
+        if (maxRows !== 0 && maxRows < 2000) Sheet.insertRowsAfter(maxRows, 2000)
     }
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
-        let thisMainStep = ResearchSteps.researchSteps[mainStepNr]
-        Logger.log("--- Main Step : " + thisMainStep.step + " ---")
-        // let subStepsLength = thisMainStep.substeps.length
+        let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
-        // setting up all the substeps for all the indicators
+        console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
+        let subStepNr = MainStep.altScoringSubstepNr > -1 ? MainStep.altScoringSubstepNr : outputParams.subStepNr
 
-        lastCol = scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, thisMainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults)
+        let indexPref = MainStep.altIndexID ? MainStep.altIndexID : indexPrefix
+
+        Logger.log(`|--- Main Step : ${MainStep.step}`)
+        Logger.log(`|---- Sub Step : ${subStepNr}`)
+
+
+        // producing single Scoring Step for all indicators
+
+        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults)
 
         blocks++
 

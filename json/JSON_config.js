@@ -20,7 +20,7 @@ var centralConfig = {
   freezeHead: true,
   // firstScoringStep: 3 // regular index
   subsetMaxStep: 3, // logical, inclusive; TODO: maybe move into mainController
-  scoringSteps: [3, 6],
+  scoringSteps: [3, 5, 6, 7],
   collapseAllGroups: false,
   indicatorsLink: "https://rankingdigitalrights.org/2020-indicators/",
   glossaryLink: "https://rankingdigitalrights.org/2020-indicators/#glossary",
@@ -117,8 +117,8 @@ var centralConfig = {
     },
     scoringParams: {
       subStepNr: 1,
-      firstStepNr: 1,
-      lastStepNr: 2,
+      firstStepNr: 0,
+      lastStepNr: 3,
       sheetName: "Outcome",
       dataColWidth: 200,
       hasFullScores: true,

@@ -3,6 +3,9 @@ var researchStepsVector = {
   regularIndex: true,
   researchSteps: [{
       step: 0,
+      altScoringSubstepNr: 0,
+      altIndexID: "RDR19",
+      altYear: "2019",
       stepID: "S00",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
@@ -10,6 +13,7 @@ var researchStepsVector = {
       substeps: [{
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
+        importStepID: "S07",
         subStepColor: "#faca0f",
         doCollapse: false,
         components: [{
@@ -289,6 +293,7 @@ var researchStepsVector = {
     },
     {
       step: 3,
+      altScoringSubstepNr: 2,
       stepID: "S03",
       rowLabel: "Reconciliation and Consolidation",
       stepColor: "#d9ead3",
@@ -905,4 +910,3 @@ var researchStepsVector = {
     }
   ]
 }
-

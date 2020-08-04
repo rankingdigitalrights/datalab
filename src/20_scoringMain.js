@@ -25,6 +25,7 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSh
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
+    // TODO: Check if has urlID & updateProduction --> grab by ID
     let SS = createSpreadsheet(spreadsheetName, true)
     let fileID = SS.getId()
 
@@ -39,12 +40,11 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSh
     let isPilotMode = false
     let outputParams = Config.integrateOutputsArray.scoringParams
 
-    addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode)
+    addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode)
 
     moveHideSheetifExists(SS, pointsSheet, 1)
 
-    // clean up // 
-    // if empty Sheet exists, delete
+    // clean up: if empty Sheet exists, delete
     removeEmptySheet(SS)
 
     Logger.log("--- --- END: main Scoring for " + companyFilename)

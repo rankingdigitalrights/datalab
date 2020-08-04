@@ -191,9 +191,7 @@ function mainScoringSheets() {
 
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Scores"
-    let mainSheetMode = "2019 Output"
-    let useStepsSubset = false // true := use subset
-    let useIndicatorSubset = false // true := use subset
+    let mainSheetMode = "Output"
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -205,9 +203,9 @@ function mainScoringSheets() {
         // .slice(5, 6) //   5 "Axiata",
         // .slice(6, 7) //   6 "Baidu",
         // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -229,7 +227,7 @@ function mainScoringSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
