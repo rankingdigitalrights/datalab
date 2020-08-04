@@ -127,3 +127,33 @@ function addRichTextSingle(Cell, Style, content, terms) {
         .setFontSize(11)
 
 }
+
+
+function returnCompanyFBColWidth() {
+
+    let widths = []
+
+    let SS = SpreadsheetApp.openById("1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE")
+    let Sheet = insertSheetIfNotExist(SS, "Company Dimensions", true)
+    let opCom
+    companiesVector.companies.forEach(Company => {
+
+        Sheet.appendRow([Company.label.current, Company.type, Company.services.length, Company.hasOpCom])
+
+        indicatorsVector.indicatorCategories.forEach(Category => {
+
+            Category.indicators.forEach(Indicator => {
+
+                let thisWidth = calculateCompanyWidthNet(Company, Indicator, false)
+                let indicatorSpecs = ["---", Indicator.labelShort, Indicator.scoringScope, thisWidth]
+                Sheet.appendRow(indicatorSpecs)
+            })
+
+        })
+
+    })
+
+    console.log(widths)
+
+
+}
