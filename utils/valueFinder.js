@@ -64,14 +64,15 @@ function deleteRows(Sheet, startRow, lastRow) {
 }
 
 function testingRowFunction(){
-    //  let value="^The following is a preliminary evaluation"
-    let value="^Please add your response"
-      let SS=SpreadsheetApp.openById("1lrOcTjf-_zqaLKz1qKNi9UrbmOVei1nLzcrHFxuMDYo")
+    let value="^The following is a preliminary evaluation"
+    let value1="^Please add your response"
+      let SS=SpreadsheetApp.openById("18ylfgtOW2fw1Fs7HaL3UEsxhmk4_73Ru7sTcmHA2t24")
   
       let Sheets=SS.getSheets()
   
       let Sheet
       let rows=['""','""','""','""','""','""','""','""']
+      let rows1=['""','""','""','""','""','""','""','""']
       let row=""
       let lastCol
   
@@ -90,17 +91,29 @@ function testingRowFunction(){
               
           }
         
+        row=findValueRowStart(Sheet, value1, 2)
+  
+          if(row==null){rows1.push('""')}
+          else{
+              lastCol=Sheet.getLastColumn()
+              //Logger.log("firstRow="+row+", lastCol="+lastCol)
+              
+              rows1.push('"C'+row+":"+columnToLetter(lastCol, 0)+row+'"')
+              
+          }
+        
         //Logger.log("row:"+rows)
   
   
       }
     Logger.log("row:"+rows)
+    Logger.log("row1:"+rows1)
   
   
   }
   function UnprotectedCellsFunction(){
     let value="Sources:"
-      let SS=SpreadsheetApp.openById("18p3m5OFfteCUxRyefa9hyMwmuzVTRbwXm85sLxizcnA")
+      let SS=SpreadsheetApp.openById("1pRnFSD5256vgvYBHji-tq8OuEyuhKltWY_vaoSVjGow")
   
       let Sheets=SS.getSheets()
   
@@ -190,4 +203,7 @@ function testingRowFunction(){
   
   
   }
+  
+  
+  
   
