@@ -45,8 +45,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     } else {
         Sheet.clear()
         // temporarily add more rows to improve Script performance
-        let maxRows = Sheet.getLastRow()
-        if (maxRows !== 0 && maxRows < 2000) Sheet.insertRowsAfter(maxRows, 2000)
+        Sheet.insertRowsAfter(Sheet.getMaxRows(), 2000)
     }
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
