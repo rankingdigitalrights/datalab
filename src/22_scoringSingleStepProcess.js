@@ -47,6 +47,8 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
             let Indicator = Category.indicators[i]
 
+            Indicator.description = elemsMetadata.indicators.find(Indy => Indy.indicator === Indicator.labelShort).description
+
             console.log("begin Indicator: " + Indicator.labelShort)
 
             // Object later used for indicator composites and indicator scores

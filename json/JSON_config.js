@@ -15,6 +15,8 @@ var centralConfig = {
   rootFolderIDDev: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", // Data @ 2020 index Dev
   inputFolderNameProd: "2020 RDR Research Data Collection",
   inputFolderNameDev: "2020 - Dev - Input",
+  outputFolderNameProd: "2020 RDR Company Scoring",
+  outputFolderNameDev: "2020 - Dev - Scoring",
   controlSpreadsheetID: "1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE", // 00-Dashboard-Dev
   YearOnYear: true,
   freezeHead: true,
