@@ -3,7 +3,7 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults) {
+function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults) {
 
     console.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -37,12 +37,7 @@ function scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, h
 
         // TODO: Refactor to main caller
 
-        let categoryLength
-        if (useIndicatorSubset) {
-            categoryLength = 2
-        } else {
-            categoryLength = Category.indicators.length
-        }
+        let categoryLength = Category.indicators.length
 
         // For all Indicators
         for (let i = 0; i < categoryLength; i++) {

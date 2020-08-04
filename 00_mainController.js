@@ -229,7 +229,7 @@ function mainScoringSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetOutput(useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
