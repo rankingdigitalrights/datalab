@@ -10,7 +10,7 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSh
     // Refactored to fetching from Google Drive
 
     let Indicators = IndicatorsObj
-    let ResearchStepsObj = researchStepsVector
+    let ResearchSteps = researchStepsVector
 
     let sheetModeID = "SC"
 
@@ -20,7 +20,6 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSh
     Logger.log("--- --- START: creating " + mainSheetMode + " Spreadsheet for " + companyFilename)
 
     let hasOpCom = Company.hasOpCom
-    Logger.log(companyFilename + " opCom? - " + hasOpCom)
 
     // define SS name
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
@@ -40,7 +39,7 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSh
     let isPilotMode = false
     let outputParams = Config.integrateOutputsArray.scoringParams
 
-    addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode)
+    addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode)
 
     moveHideSheetifExists(SS, pointsSheet, 1)
 
