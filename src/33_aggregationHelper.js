@@ -249,7 +249,7 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
     // var formulaSuffix = ',"pending")'
     // var formulaPrefix = "=AVERAGE("
     // var formulaSuffix = ")"
-    var formula
+    var formula='=IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'
     var cellID
     var range
 
@@ -257,15 +257,16 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
     if (!isElement) {
         cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "", scoringSuffixTotal)
         // formula = formulaPrefix + cellID + formulaSuffix
-        formula = cellID
+        formula = formula+cellID+'")'
     } else {
         formula = "=\"---\""
     }
     rowFormulas.push(formula)
 
     // Group
+    formula='=IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'
     cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "group", scoringSuffixLvl)
-    formula = cellID
+    formula=formula+cellID+'")'
     rowFormulas.push(formula)
 
     // Services
@@ -274,13 +275,14 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
             var cellID1 = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
             var cellID3=defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i+1].id, scoringSuffixLvl)
 
-            formula="=IF(AND("+cellID1+'="N/A",'+cellID3+'="N/A"),"N/A",AVERAGEIF('+columnToLetter(currentCol+3+i)+currentRow+":"+columnToLetter(currentCol+4+i)+currentRow+',"<>N/A"))'
+            formula="=IF(AND("+'IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'+cellID1+'")'+'="N/A",'+'IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'+cellID3+'")'+'="N/A"),"N/A",AVERAGEIF('+columnToLetter(currentCol+3+i)+currentRow+":"+columnToLetter(currentCol+4+i)+currentRow+',"<>N/A"))'
 
             rowFormulas.push(formula)
             
         }
         cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
-        formula = cellID
+        formula='=IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'
+        formula = formula+cellID+'")'
         rowFormulas.push(formula)
     }
 
