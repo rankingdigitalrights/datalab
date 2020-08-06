@@ -9,29 +9,36 @@
 
 /* exported addSummarySingleCompany */ // TODO: test whether this works
 
-/**
- * @param {string} thisSubStepID
- * @param {any} Indicators
- * @param {number} currentRow
- * @param {number} currentCol
- * @param {{ services: string | any[]; }} Company
- * @param {boolean} includeElements
- */
+// eslint-disable-next-line no-unused-vars
+function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, row, col, Company, includeElements) {
 
-function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements) {
-
-    var additionalCol=2
-    if(Company.type== "telecom") {
-        additionalCol=3
+    let additionalCol = 2
+    if (Company.type === "telecom") {
+        additionalCol = 3
     }
-    var blockWidth = Company.services.length + additionalCol // for total + group elems
+    let blockWidth = Company.services.length + additionalCol // for total + group elems
 
-    var startRow = currentRow
-    var lastRow
-    var blockRange
+    let startRow = row
+    let lastRow
+    let blockRange
+
+    // Mobile Total of Pre/Postpaid Hack
+
+    if (Company.type === "telecom" && Company.services.some(service => service.type === "mobile")) {
+
+        Company.services.splice(0, 0, {
+            "type": "mobile",
+            "subtype": "mobileTotal",
+            "label": {
+                "current": "Mobile Services"
+            }
+        })
+    }
 
     // 2 rows; company + service labels
-    currentRow = addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company)
+    row = addSummaryCompanyHeader(row, col, Sheet, Company)
+
+    let totalsRowStart = row
 
     // --- // adding Total Scores // --- //
 
@@ -39,34 +46,43 @@ function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorPara
 
     // TODO: test insertRows(SummaryBlock)
 
-    var thisLength = 0
-    var totalLength = 0
-    var nrOfClasses = indicatorParams.length
-    var classesLeft = 0
+    let catLength = 0
+    let totalLength = 0
+    let nrOfClasses = indicatorParams.length
+    let classesLeft = 0
+
+
+    // --- // adding Indicator level scores // --- //
+
+    let resultCells = []
+
+    row = row + nrOfClasses
+    row = addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells)
+
+    lastRow = row
+
+    // --- // adding Totals // --- //
 
     // TODO: implement includeElements with Array of Indicator Cells
 
-    for (var i = 0; i < nrOfClasses; i++) {
-        thisLength = parseInt(indicatorParams[i])
-        // Logger.log("thisLength: " + thisLength)
+    row = totalsRowStart
+
+    for (let i = 0; i < nrOfClasses; i++) {
+        catLength = parseInt(indicatorParams[i])
+        // Logger.log("catLength: " + catLength)
         classesLeft = nrOfClasses - i
 
-        currentRow = addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, thisLength, totalLength, classesLeft)
+        row = addSummaryScoresRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells)
 
         if (i > 0) {
-            totalLength += thisLength
+            totalLength += catLength
             // Logger.log("totalLength: " + totalLength)
         }
     }
 
-    lastRow = currentRow
-
-    blockRange = Sheet.getRange(startRow, currentCol, lastRow - startRow, blockWidth)
+    blockRange = Sheet.getRange(startRow, col, lastRow - startRow, blockWidth)
     blockRange.setBorder(true, true, true, true, null, null, "black", null)
 
-    // --- // adding Indicator level scores // --- //
 
-    currentRow = addCompanyScores(currentRow, currentCol, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements)
-
-    return currentCol + blockWidth
+    return col + blockWidth
 }

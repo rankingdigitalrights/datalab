@@ -1,19 +1,17 @@
-/* global
-    defineNamedRange,
-    indexPrefix
+/* global defineNamedRange, indexPrefix, columnToLetter, 
  */
 
 function countIndiClassLengths(Indicators) {
 
     // structure [[total], [class], [class], [class]]
     // TODO 
-    var indicatorLengths = [0]
+    let indicatorLengths = [0]
 
-    var thisClass
-    var thisClassLengthInd
-    var thisIndLength
+    let thisClass
+    let thisClassLengthInd
+    let thisIndLength
 
-    var i, e
+    let i, e
 
     for (i = 0; i < Indicators.indicatorCategories.length; i++) {
         thisClass = Indicators.indicatorCategories[i]
@@ -50,17 +48,17 @@ function countIndiClassLengths(Indicators) {
 // creates 1st column with labels for totals and indicators / elements
 // element := if(includeElements)
 
-function insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, currentCol, includeElements) {
+function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeElements) {
 
-    var startRow = currentRow
-    var classStartRow
-    var lastRow
-    var blockRange
+    let startRow = row
+    let classStartRow
+    let lastRow
+    let blockRange
 
-    var indStartRow, indEndRow, indBlock
+    let indStartRow, indEndRow, indBlock
 
-    var indicatorNotes = []
-    var indicatorCells = [
+    let indicatorNotes = []
+    let indicatorCells = [
         [thisSubStepID],
         ["Scope"],
         ["Total"],
@@ -71,31 +69,31 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, current
 
     indicatorNotes = indicatorCells.slice()
 
-    var elementCells = []
+    let elementCells = []
 
     // Totals block
 
     lastRow = startRow + indicatorCells.length
 
     Sheet
-        .getRange(startRow, currentCol, lastRow - startRow, 1)
+        .getRange(startRow, col, lastRow - startRow, 1)
         .setBorder(true, true, true, true, null, null, "black", null)
         .setFontWeight("bold")
         .setBackground("Lavender")
 
     // Individual Indicators / Elements
-    currentRow = lastRow++
+    row = lastRow++
 
     Indicators.indicatorCategories.forEach(function (IndicatorClass) {
 
-        classStartRow = currentRow
+        classStartRow = row
 
         IndicatorClass.indicators.forEach(function (Indicator) {
 
-            indStartRow = currentRow
+            indStartRow = row
             indicatorCells.push([Indicator.labelShort])
             indicatorNotes.push([Indicator.labelLong])
-            currentRow++
+            row++
             // Elements
 
             if (includeElements) {
@@ -103,137 +101,135 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, current
                 Indicator.elements.forEach(function (Element) {
                     indicatorCells.push([Element.labelShort])
                     indicatorNotes.push([Element.description])
-                    currentRow++
+                    row++
                 })
 
             }
 
-            indEndRow = currentRow
+            indEndRow = row
 
             if (includeElements) {
                 Sheet
-                    .getRange(indStartRow + 1, currentCol, indEndRow - indStartRow - 1, 1)
+                    .getRange(indStartRow + 1, col, indEndRow - indStartRow - 1, 1)
                     .shiftRowGroupDepth(1)
             }
         })
 
         lastRow = indEndRow
 
-        Sheet.getRange(classStartRow, currentCol, lastRow - classStartRow, 1)
+        Sheet.getRange(classStartRow, col, lastRow - classStartRow, 1)
             .setBorder(true, true, true, true, null, null, "black", null)
             .setFontWeight("bold")
             .setBackground(IndicatorClass.classColor)
     })
 
-    var column = Sheet.getRange(startRow, currentCol, indicatorCells.length, 1)
+    let column = Sheet.getRange(startRow, col, indicatorCells.length, 1)
 
     column.setValues(indicatorCells)
     column.setNotes(indicatorNotes)
 
-    return currentCol + 1
+    return col + 1
 }
 
-function addSummaryCompanyHeader(currentRow, currentCol, Sheet, Company) {
+function addSummaryCompanyHeader(row, col, Sheet, Company) {
 
-    var additionalCol=2
-    if(Company.type== "telecom") {
-        additionalCol=3
+    let additionalCol = 2
+    if (Company.type == "telecom") {
+        additionalCol = 3
     }
 
-    var rowElems = Sheet.getRange(currentRow, currentCol, 1, additionalCol + Company.services.length)
+    let rowElems = Sheet.getRange(row, col, 1, additionalCol + Company.services.length)
     rowElems.setValue(Company.label.current)
     rowElems.setFontWeight("bold").setFontSize(12)
 
-    currentRow += 1
+    row += 1
 
     rowElems = []
 
-    var columnLabel
+    let columnLabel
 
     rowElems.push("Total")
     rowElems.push("Group")
 
-    var range
-
     // --- // --- Services --- // --- //
-    for (var i = 0; i < Company.services.length; i++) {
-        if(Company.services[i].subtype=="prepaid"){
-            columnLabel="Mobile Service"
-            rowElems.push(columnLabel)
-        }
+    for (let i = 0; i < Company.services.length; i++) {
         columnLabel = Company.services[i].label.current
         rowElems.push(columnLabel)
     }
 
-    var range = Sheet.getRange(currentRow, currentCol, 1, rowElems.length)
-    range.setValues([rowElems]).setFontWeight("bold").setWrap(true)
+    Sheet.getRange(row, col, 1, rowElems.length)
+        .setValues([rowElems])
+        .setFontWeight("bold")
+        .setWrap(true)
 
-    return currentRow + 1
+    return row + 1
 }
 
 /* adds service class totals per company per row */
 
-function addSummaryScoresRow(currentRow, currentCol, Sheet, blockWidth, thisLength, totalLength, classesLeft) {
+function addSummaryScoresRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells) {
 
-    var tempCol = currentCol
-    var rowFormulas = []
-    var range
-    var formula
-    var formulaPrefix = "=IFERROR(AVERAGE("
-    var formulaSuffix = "),\"incomplete\")"
+    let rowFormulas = []
+    let range
+    let formula
+    let formulaPrefix = "=IFERROR(AVERAGE("
+    let formulaSuffix = "),\"incomplete\")"
 
-    var startRow = currentRow + totalLength + classesLeft // TODO: pass Array of SI / SL cells
+    let startRow = row + totalLength + classesLeft // TODO: pass Array of SI / SL cells
 
     // for each company service
-    for (var i = 0; i < blockWidth; i++) {
+    for (let i = 0; i < blockWidth; i++) {
         // TODO: work with array of cells
-        range = Sheet.getRange(startRow, tempCol, thisLength, 1).getA1Notation()
+        // range = Sheet.getRange(startRow, tempCol, catLength, 1).getA1Notation()
+        range = getColumnFromArray(resultCells, i).slice(totalLength, totalLength + catLength)
+
         formula = formulaPrefix + range + formulaSuffix
         rowFormulas.push(formula)
-        tempCol += 1
     }
 
-    range = Sheet.getRange(currentRow, currentCol, 1, rowFormulas.length)
+    range = Sheet.getRange(row, col, 1, rowFormulas.length)
     range.setFormulas([rowFormulas])
         .setNumberFormat("0.##")
         .setFontWeight("bold")
 
-    return currentRow + 1
+    return row + 1
 }
 
-function addCompanyScores(currentRow, currentCol, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements) {
+function addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells) {
 
-    var classStartRow, classEndRow, classBlock
-    var isElement = false
+    let classStartRow, classEndRow, classBlock
+    let isElement = false
 
-    Indicators.indicatorCategories.forEach(function (IndicatorClass) {
+    Indicators.indicatorCategories.forEach(IndicatorClass => {
 
-        classStartRow = currentRow
+        classStartRow = row
 
-        IndicatorClass.indicators.forEach(function (Indicator) {
-            currentRow = addCompanyScoresRow(currentRow, currentCol, Sheet, Company, Indicator, thisSubStepID, isElement)
+        IndicatorClass.indicators.forEach(Indicator => {
+            row = addCompanyScoresRow(row, col, Sheet, Company, Indicator, thisSubStepID, isElement, resultCells)
+
             if (includeElements) {
                 isElement = true
-                Indicator.elements.forEach(function (Element) {
-                    currentRow = addCompanyScoresRow(currentRow, currentCol, Sheet, Company, Element, thisSubStepID, isElement)
+                Indicator.elements.forEach(Element => {
+                    row = addCompanyScoresRow(row, col, Sheet, Company, Element, thisSubStepID, isElement, resultCells)
                 })
             }
+
             isElement = false
         })
-        classEndRow = currentRow
+        classEndRow = row
 
-        classBlock = Sheet.getRange(classStartRow, currentCol, classEndRow - classStartRow, blockWidth)
+        classBlock = Sheet.getRange(classStartRow, col, classEndRow - classStartRow, blockWidth)
         classBlock.setBorder(true, true, true, true, null, null, "black", null)
     })
 
 
-    return currentRow
+    return row
 }
 
-function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj, thisSubStepID, isElement) {
+function addCompanyScoresRow(row, col, Sheet, Company, ScoringObj, thisSubStepID, isElement, resultCells) {
 
-    var scoringSuffixTotal
-    var scoringSuffixLvl
+    let scoringSuffixTotal
+    let scoringSuffixLvl
 
     if (!isElement) {
         scoringSuffixTotal = "SI"
@@ -242,53 +238,91 @@ function addCompanyScoresRow(currentRow, currentCol, Sheet, Company, ScoringObj,
         scoringSuffixLvl = "SE"
     }
 
-    var component = ""
-    var rowFormulas = []
+    let sheetUrl = Company.urlCurrentCompanyScoringSheet
 
-    // var formulaPrefix = 'IFERROR('
-    // var formulaSuffix = ',"pending")'
-    // var formulaPrefix = "=AVERAGE("
-    // var formulaSuffix = ")"
-    var formula='=IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'
-    var cellID
-    var range
+    let component = ""
+    let rowFormulas = []
+    let rowResultRanges = []
+
+    // let formulaPrefix = 'IFERROR('
+    // let formulaSuffix = ',"pending")'
+    // let formulaPrefix = "=AVERAGE("
+    // let formulaSuffix = ")"
+    let formula = '=IMPORTRANGE("' + sheetUrl + '","'
+    let cellID
+    let range
+
+    let helperRow, helperCol, helperCell
+
+    helperRow = row
+    helperCol = col
 
     // Total
     if (!isElement) {
         cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "", scoringSuffixTotal)
         // formula = formulaPrefix + cellID + formulaSuffix
-        formula = formula+cellID+'")'
+        formula = formula + cellID + '")'
+
+        helperCell = columnToLetter(col) + row
+        rowResultRanges.push(helperCell)
+
     } else {
         formula = "=\"---\""
     }
     rowFormulas.push(formula)
 
     // Group
-    formula='=IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'
+    formula = '=IMPORTRANGE("' + sheetUrl + '","'
     cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, "group", scoringSuffixLvl)
-    formula=formula+cellID+'")'
+    formula = formula + cellID + '")'
+
+    if (!isElement) {
+        helperCell = columnToLetter(col + 1) + row
+        rowResultRanges.push(helperCell)
+    }
+
     rowFormulas.push(formula)
 
     // Services
-    for (var i = 0; i < Company.services.length; i++) {
-        if(Company.services[i].subtype=="prepaid"){
-            var cellID1 = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
-            var cellID3=defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i+1].id, scoringSuffixLvl)
 
-            formula="=IF(AND("+'IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'+cellID1+'")'+'="N/A",'+'IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'+cellID3+'")'+'="N/A"),"N/A",AVERAGEIF('+columnToLetter(currentCol+3+i)+currentRow+":"+columnToLetter(currentCol+4+i)+currentRow+',"<>N/A"))'
+    let servicesLength = Company.services.length
 
-            rowFormulas.push(formula)
-            
+    for (let i = 0; i < servicesLength; i++) {
+
+        if (Company.services[i].subtype === "mobileTotal") {
+
+            let cellA, cellB
+
+            // next two cells to the right := prepaid, postpaid
+            cellA = `${columnToLetter(col + 2 + i + 1)}${row}`
+            cellB = `${columnToLetter(col + 2 + i + 2)}${row}`
+
+            formula = `=IF(AND(${cellA}="N/A",${cellB}="N/A"),"N/A",AVERAGEIF(${cellA}:${cellB},"<>N/A"))`
+
+        } else {
+
+            cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
+            formula = `=IMPORTRANGE("${sheetUrl}","${cellID}")`
+
         }
-        cellID = defineNamedRange(indexPrefix, "SC", thisSubStepID, ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
-        formula='=IMPORTRANGE("'+Company.urlCurrentCompanyScoringSheet+'","'
-        formula = formula+cellID+'")'
+        if (!isElement) {
+            helperCell = columnToLetter(col + 2 + i) + row
+            rowResultRanges.push(helperCell)
+        }
+
         rowFormulas.push(formula)
     }
 
-    range = Sheet.getRange(currentRow, currentCol, 1, rowFormulas.length)
-    range.setFormulas([rowFormulas])
-    range.setNumberFormat("0.##")
+    Sheet.getRange(row, col, 1, rowFormulas.length)
+        .setFormulas([rowFormulas])
+        .setNumberFormat("0.##")
 
-    return currentRow + 1
+    if (!isElement) {
+        resultCells.push(rowResultRanges)
+    }
+
+    console.log("DEBUG")
+    console.log(resultCells)
+
+    return row + 1
 }
