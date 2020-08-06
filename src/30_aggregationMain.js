@@ -51,7 +51,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
             hasOpCom = CompanyObj.hasOpCom
 
-            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode)
 
             Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
