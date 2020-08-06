@@ -7,6 +7,7 @@ var researchStepsVector = {
       altIndexID: "RDR19",
       altYear: "2019",
       stepID: "S00",
+      altStepID: "S07",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
       doCollapse: false,
@@ -14,11 +15,13 @@ var researchStepsVector = {
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
         importStepID: "S07",
+        altStepID: "S07",
         subStepColor: "#faca0f",
         doCollapse: false,
         components: [{
             type: "importPreviousResults",
             rowLabel: "Result ",
+            variableName: "prev_result",
             importStepID: "S07",
             comparisonType: "DC",
             id: "R",
@@ -26,12 +29,14 @@ var researchStepsVector = {
           {
             type: "importPreviousComments",
             rowLabel: "Comment ",
+            variableName: "prev_comment",
             importStepID: "S07",
             comparisonType: "DC",
             id: "C",
           }, {
             type: "importPreviousSources",
             rowLabel: "Sources (2019)",
+            variableName: "prev_sources",
             importStepID: "S07",
             comparisonType: "DC",
             id: "S",
@@ -60,7 +65,7 @@ var researchStepsVector = {
               id: "R",
               scoringId: "SE",
               rowLabel: "Answer ",
-              variableName: "result",
+              variableName: "review",
               importStepID: "S07",
               evaluationStep: "S00",
               comparisonType: "DC",
@@ -145,7 +150,7 @@ var researchStepsVector = {
               id: "YY",
               scoringId: "SE",
               rowLabel: "Reason ",
-              variableName: "result",
+              variableName: "yony_result",
               importStepID: "S011",
               evaluationStep: "S010", // Regular YonY: S015
               comparisonType: "R", // Regular YonY: YY
@@ -161,6 +166,7 @@ var researchStepsVector = {
               "type": "comments",
               id: "C",
               "rowLabel": "Comment ",
+              variableName: "yony_comment",
               "label2": " ",
               "nameLabel": "Comments"
             },
@@ -168,7 +174,7 @@ var researchStepsVector = {
               type: "sources",
               id: "S",
               rowLabel: "Sources",
-              variableName: "sources"
+              variableName: "yony_sources"
             }
           ]
         }
@@ -195,7 +201,7 @@ var researchStepsVector = {
             id: "R",
             scoringId: "SE",
             rowLabel: "Answer ",
-            variableName: "result",
+            variableName: "review",
             comparisonType: "DC",
             dropdown: [
               "not selected",
@@ -263,7 +269,7 @@ var researchStepsVector = {
             mode: "YonY",
             scoringId: "SE",
             rowLabel: "Answer ",
-            variableName: "result",
+            variableName: "review",
             comparisonType: "DC",
             dropdown: [
               "not selected",
@@ -278,6 +284,7 @@ var researchStepsVector = {
           {
             "type": "comments",
             id: "C",
+            variableName: "comment",
             "rowLabel": "Comment ",
             "label2": " ",
             "nameLabel": "Comments"
@@ -312,6 +319,7 @@ var researchStepsVector = {
               type: "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
+              variableName: "review",
               importStepID: "S011",
               evaluationStep: "S021",
               comparisonType: "R",
@@ -333,7 +341,7 @@ var researchStepsVector = {
               id: "R",
               scoringId: "SE",
               rowLabel: "Result ",
-              variableName: "result",
+              variableName: "result_suggested",
               importStepID: "S021",
               evaluationStep: "S030",
               comparisonType: "R",
@@ -428,6 +436,7 @@ var researchStepsVector = {
               "type": "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
+              variableName: "yony_review",
               importStepID: "S032",
               prevIndexPrefix: "RDR19",
               evaluationStep: "S07",
@@ -445,6 +454,7 @@ var researchStepsVector = {
               scoringId: "SE",
               rowLabel: "Reason ",
               variableName: "result",
+              variableName: "yony_result",
               importStepID: "S031",
               evaluationStep: "S035", // Regular YonY: S015
               comparisonType: "R", // Regular YonY: YY
@@ -460,12 +470,14 @@ var researchStepsVector = {
               "type": "comments",
               id: "C",
               "rowLabel": "Comment ",
+              variableName: "yony_comment",
               "label2": " ",
               "nameLabel": "Comments"
             }, {
               type: "sources",
               id: "S",
               rowLabel: "Sources",
+              variableName: "yony_sources",
               variableName: "sources"
             }
           ]
@@ -564,7 +576,7 @@ var researchStepsVector = {
               id: "FB",
               scoringId: "SE",
               rowLabel: "Answer ",
-              variableName: "result",
+              variableName: "review",
               evaluationStep: "S050",
               comparisonType: "R",
               dropdown: [
@@ -635,6 +647,7 @@ var researchStepsVector = {
               "type": "compareTwoSteps",
               id: "R",
               "rowLabel": "Answer ",
+              variableName: "yony_review",
               importStepID: "S051",
               prevIndexPrefix: "RDR19",
               evaluationStep: "S07",
@@ -651,7 +664,7 @@ var researchStepsVector = {
               id: "YY",
               scoringId: "SE",
               rowLabel: "Reason ",
-              variableName: "result",
+              variableName: "yony_result",
               evaluationStep: "S055", // Regular YonY: S015
               comparisonType: "R", // Regular YonY: YY
               dropdown: [
@@ -666,13 +679,14 @@ var researchStepsVector = {
               "type": "comments",
               id: "C",
               "rowLabel": "Comment ",
+              variableName: "yony_comment",
               "label2": " ",
               "nameLabel": "Comments"
             }, {
               type: "sources",
               id: "S",
               rowLabel: "Sources",
-              variableName: "sources"
+              variableName: "yony_sources"
             }
           ]
         }
@@ -698,7 +712,7 @@ var researchStepsVector = {
             id: "R",
             scoringId: "SE",
             rowLabel: "Answer ",
-            variableName: "result",
+            variableName: "review",
             comparisonType: "DC",
             dropdown: [
               "not selected",
@@ -766,7 +780,7 @@ var researchStepsVector = {
             mode: "YonY",
             scoringId: "SE",
             rowLabel: "Reason ",
-            variableName: "result",
+            variableName: "yony_review",
             comparisonType: "DC",
             dropdown: [
               "not selected",
@@ -782,6 +796,7 @@ var researchStepsVector = {
             "type": "comments",
             id: "C",
             "rowLabel": "Comment ",
+            variableName: "yony_comment",
             "label2": " ",
             "nameLabel": "Comments"
           },
@@ -789,7 +804,7 @@ var researchStepsVector = {
             type: "sources",
             id: "S",
             rowLabel: "Sources",
-            variableName: "sources"
+            variableName: "yony_sources",
           }
         ]
       }]
@@ -881,7 +896,7 @@ var researchStepsVector = {
             mode: "YonY",
             scoringId: "SE",
             rowLabel: "Reason ",
-            variableName: "result",
+            variableName: "yony_review",
             comparisonType: "DC",
             dropdown: [
               "not selected",
@@ -897,6 +912,7 @@ var researchStepsVector = {
             "type": "comments",
             id: "C",
             "rowLabel": "Comment ",
+            variableName: "yony_comment",
             "label2": " ",
             "nameLabel": "Comments"
           },
@@ -904,7 +920,7 @@ var researchStepsVector = {
             type: "sources",
             id: "S",
             rowLabel: "Sources",
-            variableName: "sources"
+            variableName: "yony_sources",
           }
         ]
       }]

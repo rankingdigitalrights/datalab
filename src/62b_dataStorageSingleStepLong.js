@@ -5,136 +5,93 @@
 */
 
 
-function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Company, hasOpCom, useIndicatorSubset, integrateOutputs, urlDC, urlSC, lastRow) {
+function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
 
-    Logger.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
+    console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
-    var thisSubStepID = thisSubStep.subStepID
+    let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
 
-    var activeRow = lastRow
+    let activeRow = lastRow
 
-    Logger.log("--- Beginning Substep " + thisSubStepID)
+    console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
         activeRow = addDataStoreSheetHeaderLong(Sheet, activeRow)
-        Logger.log(" - company header added for " + thisSubStepID)
+        console.log(" - company header added for " + subStepID)
     }
 
 
-    var indCatLength = Indicators.indicatorCategories.length
-    Logger.log("!!!indCatLength: " + indCatLength)
+    let indCatLength = Indicators.indicatorCategories.length
 
-    var IndyClass
-    var IndyClassLength
-    var indCatLabelShort
-    var nrOfIndSubComps = 1
-    var stepCompID
-
-
-    var StepComp
-    var stepCompType
-    var Indicator
-    var indLabelShort
+    let Category, catLength, catLabel, stepCompID, StepComp, stepCompType, Indicator, indLabelShort
 
     // For all Indicator Categories
-    for (var c = 0; c < indCatLength; c++) {
+    for (let c = 0; c < indCatLength; c++) {
 
-        IndyClass = Indicators.indicatorCategories[c]
-        Logger.log("IndyClass: " + IndyClass)
-        Logger.log("IndyClass.indicators.length: " + IndyClass.indicators.length)
-        indCatLabelShort = IndyClass.labelShort
+        Category = Indicators.indicatorCategories[c]
+        catLength = Category.indicators.length
+        console.log("Category: " + Category)
+        console.log("Category.indicators.length: " + catLength)
+        catLabel = Category.labelShort
 
-        Logger.log(" --- begin Indicator Category: " + indCatLabelShort)
+        console.log(" --- begin Indicator Category: " + catLabel)
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
-        if (IndyClass.hadSubComponents) {
-            nrOfIndSubComps = IndyClass.components.length
-        }
-
-        // TODO: Refactor to main caller
-
-
-        if (useIndicatorSubset) {
-            IndyClassLength = 2
-        } else {
-            IndyClassLength = IndyClass.indicators.length
-        }
-
-        Logger.log("!!!indCatLength: " + indCatLength)
-
         // For all Indicators
 
-        for (var i = 0; i < IndyClassLength; i++) {
+        for (let i = 0; i < catLength; i++) {
 
-            Indicator = IndyClass.indicators[i]
+            Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            Logger.log("begin Indicator: " + indLabelShort)
+            console.log("begin Indicator: " + indLabelShort)
 
             // for all components of the current Research Step
-            for (var stepCompNr = 0; stepCompNr < thisSubStep.components.length; stepCompNr++) {
+            for (let stepCompNr = 0; stepCompNr < SubStep.components.length; stepCompNr++) {
 
-                StepComp = thisSubStep.components[stepCompNr]
+                StepComp = SubStep.components[stepCompNr]
                 stepCompType = StepComp.type
-                Logger.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
+                console.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
 
                 switch (stepCompType) {
 
                     // imports researcher name from x.0 step
                     case "subStepHeader":
                         // stepCompID = StepComp.id
-                        // activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        // Logger.log(Indicator.labelShort + stepCompType + " added ")
+                        // activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
 
                     case "evaluation":
-                        stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        Logger.log(Indicator.labelShort + stepCompType + " added ")
-                        break
                     case "reviewResults":
-                        stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        Logger.log(Indicator.labelShort + stepCompType + " added ")
-                        break
                     case "importPreviousResults":
-                            stepCompID = StepComp.id
-                            activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                            Logger.log(Indicator.labelShort + stepCompType + " added ")
-                            break
-
-                    case "comments:
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        Logger.log(Indicator.labelShort + stepCompType + " added ")
+                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref)
+                        console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
+                    case "comments":
                     case "reviewComments":
-                        stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator,indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        Logger.log(Indicator.labelShort + stepCompType + " added ")
-                        break
-
                     case "importPreviousComments":
-                            stepCompID = StepComp.id
-                            activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)                                
-                            Logger.log(Indicator.labelShort + stepCompType + " added ")
-                            break
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref)
+                        console.log(Indicator.labelShort + stepCompType + " added ")
+                        break
 
                     case "sources":
-                        stepCompID = StepComp.id
-                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        Logger.log(Indicator.labelShort + " sources added")
-                        break
                     case "importPreviousSources":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        Logger.log(Indicator.labelShort + " sources added")
+                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC, false, indexPref)
+                        console.log(Indicator.labelShort + " sources added")
+                        break
+
+                    default:
+                        console.log(" - ignoring " + stepCompType)
                         break
 
                 }
-            }
+            } // END Substep Components
 
         } // END INDICATOR
     } // END INDICATOR CATEGORY

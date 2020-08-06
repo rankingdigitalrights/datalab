@@ -54,10 +54,10 @@ function initiateGlobalConfig() {
     // IMPORTANT: subsetting function now only accepts Array
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    IndicatorsObj = indicatorsVector
+    // IndicatorsObj = indicatorsVector
     /* OR */
     // param has to be Array[]
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "G2", "G3", "G4a", "G4b", "G4c", "G4d", "G4e", "G5", "G6a", "G6b", "F1a", "F1b", "P1a", "P1b"])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "G2", "G3", "G4a", "G4b", "G4c", "G4d", "G4e", "G5", "G6a", "G6b", "F1a", "F1b", "P1a", "P1b"])
     globalIndicatorsSubset = false
     // Indicator Labels:
     // ["G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"]
@@ -323,28 +323,24 @@ function mainAggregationSheets() {
 
 function mainDataStore() {
 
-    var includeWide = false
+    let DataMode = "results" // "scores"
+    let includeWide = false
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 
-    filenameSuffix = "Test" // + long or wide is decided in main logic
-    // filename fragments defined in 
-    // Config.summaryParams.spreadsheetName
-    var mainSheetMode = Config.dataStoreParams.fileName
+    filenameSuffix = "Test"
+    // filename fragments defined in Config.summaryParams.spreadsheetName
+    let mainSheetMode = Config.dataStoreParams.fileName
 
-    var useStepsSubset = false // true := use subset
-    var useIndySubset = false // true := use subset
+    let Companies = companiesVector.companies
+        .slice(3, 4) //   3 "Apple",
 
-    var Companies = companiesVector.companies
-        // .slice(1, 9) // exclude Amazon
-        // .slice(1, 2) // Apple
-        .slice(1, 9)
 
-    var fileID
+    let fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(useStepsSubset, useIndySubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide)
+        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide, DataMode)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)

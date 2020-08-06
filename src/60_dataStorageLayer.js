@@ -5,51 +5,38 @@
  * shall become main endpoint for fetching input data
  */
 
-/* global
-        Config,
-        IndicatorsObj,
-        researchStepsVector,
-        cleanCompanyName,
-        spreadSheetFileName,
-        createSpreadsheet,
-        addDataStoreSingleCompany,
-        removeEmptySheet,
-        determineFirstStep,
-        determineMaxStep,
-*/
+/* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, addDataStoreSingleCompany, removeEmptySheet, determineFirstStep, determineMaxStep */
 
-function createCompanyDataStore(useStepsSubset, useIndicatorSubset, thisCompany, filenamePrefix, filenameSuffix, mainSheetMode, includeWide) {
+// eslint-disable-next-line no-unused-vars
+function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide, DataMode) {
 
-    var Indicators = IndicatorsObj
-    var ResearchStepsObj = researchStepsVector
+    let Indicators = IndicatorsObj
+    let ResearchSteps = researchStepsVector
 
-    var CompanyObj = thisCompany
-
-    var companyFilename = cleanCompanyName(CompanyObj)
+    let companyFilename = cleanCompanyName(Company)
 
     Logger.log("begin main Data Layer Process for " + companyFilename + filenameSuffix)
 
-    var hasOpCom = CompanyObj.hasOpCom
+    let hasOpCom = Company.hasOpCom
 
     // define SS name
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyFilename, filenameSuffix)
 
     // connect to SS or create a new one
-    var SS = createSpreadsheet(spreadsheetName, true)
-    var fileID = SS.getId()
+    let SS = createSpreadsheet(spreadsheetName, true)
+    let fileID = SS.getId()
 
-    var outputParams = Config.dataStoreParams
-    var integrateOutputs = outputParams.integrateOutputs
-    var subStepNr = 0 // param for global control substep processing
-    var dataColWidth = outputParams.dataColWidth
+    let outputParams = Config.dataStoreParams
+    let integrateOutputs = outputParams.integrateOutputs
+    let dataColWidth = outputParams.dataColWidth
 
-    var firstScoringStep = determineFirstStep(outputParams)
-    var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
+    let firstScoringStep = determineFirstStep(outputParams)
+    let maxScoringStep = determineMaxStep(outputParams, ResearchSteps)
 
-    addDataStoreSingleCompany(SS, Indicators, ResearchStepsObj, firstScoringStep, maxScoringStep, CompanyObj, hasOpCom, useIndicatorSubset, subStepNr, integrateOutputs, dataColWidth, includeWide)
+    addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, includeWide, DataMode)
 
-    // var subStepNr = 1 // param for global control substep processing
-    // addDataStoreSingleCompany(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
+    // let subStepNr = 1 // param for global control substep processing
+    // addDataStoreSingleCompany(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
 
     // clean up // 
 

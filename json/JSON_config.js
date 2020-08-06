@@ -133,8 +133,8 @@ var centralConfig = {
     fileName: "Data Store",
     summarySheetName: "Aggregated",
     // subStepNr: 0,
-    firstStepNr: 1,
-    lastStepNr: 6,
+    firstStepNr: 0,
+    lastStepNr: 7,
     dataColWidth: 200,
     integrateOutputs: false
   }
