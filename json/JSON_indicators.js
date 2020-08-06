@@ -1702,6 +1702,7 @@ var indicatorsVector = {
         "elements": [{
           "labelShort": "F11.1",
           "description": "Does the company require users to verify their identity with their government-issued identification, or with other forms of identification that could be connected to their offline identity?",
+          "scoringScaleReversed": true,
           "y2yResultRow": 422,
           "y2yCommentRow": 423
         }]

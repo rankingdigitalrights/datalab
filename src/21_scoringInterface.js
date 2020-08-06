@@ -1,56 +1,74 @@
 // Interface for creating a single set of scoring content
 // Single set := either Outcome OR Comments OR Company Feedback
 
-function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode) {
+/* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
 
-    Logger.log("--- Begin addSetOfScoringSteps")
-    var sheetName = outputParams.sheetName
-    Logger.log("sheetName received: " + sheetName)
-    var subStepNr = outputParams.subStepNr
-    var hasFullScores = outputParams.hasFullScores
-    var includeSources = outputParams.includeSources
-    var includeNames = outputParams.includeNames
-    var includeResults = outputParams.includeResults
+// eslint-disable-next-line no-unused-vars
+function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode) {
 
-    var dataColWidth = outputParams.dataColWidth
+    Logger.log("|--- Begin addSetOfScoringSteps")
+    let sheetName = outputParams.sheetName
+    Logger.log("|--- sheetName received: " + sheetName)
+    Logger.log("|--- File ID: " + SS.getId())
+
+    // let subStepNr = outputParams.subStepNr
+
+    let hasFullScores = outputParams.hasFullScores
+    let includeSources = outputParams.includeSources
+    let includeNames = outputParams.includeNames
+    let includeResults = outputParams.includeResults
+
+    let dataColWidth = outputParams.dataColWidth
 
     // var to estimate max sheet width in terms of columns based on whether G has subcomponents. This is needed for formatting the whole sheet at end of script. More performant than using getLastCol() esp. when executed per Sheet (think 45 indicators)
-    var globalNrOfComponents = 1
-    if (Indicators.indicatorCategories[0].components) {
-        globalNrOfComponents = Indicators.indicatorCategories[0].components.length
-    }
+    let numberOfColumns = Company.services.length + 3
 
-    var numberOfColumns = (CompanyObj.numberOfServices + 2) * globalNrOfComponents + 1
-
-    var firstScoringStep = determineFirstStep(outputParams)
-    var maxScoringStep = determineMaxStep(outputParams, ResearchStepsObj)
+    let firstScoringStep = determineFirstStep(outputParams)
+    let maxScoringStep = determineMaxStep(outputParams, ResearchSteps)
 
     Logger.log("first step " + firstScoringStep)
+    Logger.log("last step " + maxScoringStep)
     Logger.log("include Sources? " + outputParams.includeSources)
+    Logger.log("outputParams:" + outputParams)
 
 
-    var lastCol = 1
-    var blocks = 1
+    let lastCol = 1
+    let blocks = 1
 
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
 
     Logger.log("Inserting Sheet " + sheetName)
-    var Sheet = insertSheetIfNotExist(SS, sheetName, true)
+    let Sheet = insertSheetIfNotExist(SS, sheetName, true)
     if (Sheet === null) {
         Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
         return lastCol
+    } else {
+        Sheet.clear()
+        // temporarily add more rows to improve Script performance
+        Sheet.insertRowsAfter(Sheet.getMaxRows(), 2000)
     }
 
-    for (var mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
+    for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
-        var thisMainStep = ResearchStepsObj.researchSteps[mainStepNr]
-        Logger.log("--- Main Step : " + thisMainStep.step + " ---")
-        // var subStepsLength = thisMainStep.substeps.length
+        let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
-        // setting up all the substeps for all the indicators
+        if (MainStep.excludeFromOutputs) {
+            break // i.e. ignore Step 4 Feedback Debate
+        }
 
-        lastCol = scoringSingleStep(SS, Sheet, subStepNr, lastCol, Config, isPilotMode, hasFullScores, Indicators, sheetModeID, thisMainStep, CompanyObj, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, useIndicatorSubset, includeSources, includeNames, includeResults)
+        console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
+        let subStepNr = MainStep.altScoringSubstepNr > -1 ? MainStep.altScoringSubstepNr : outputParams.subStepNr
+
+        let indexPref = MainStep.altIndexID ? MainStep.altIndexID : indexPrefix
+
+        Logger.log(`|--- Main Step : ${MainStep.step}`)
+        Logger.log(`|---- Sub Step : ${subStepNr}`)
+
+
+        // producing single Scoring Step for all indicators
+
+        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults)
 
         blocks++
 
@@ -58,8 +76,10 @@ function addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchSteps
 
     // apply layouting
 
-    var thisSheet = SS.getSheetByName(sheetName)
+    let thisSheet = SS.getSheetByName(sheetName)
     thisSheet.setFrozenColumns(1)
+    cropEmptyColumns(thisSheet, 1)
+    cropEmptyRows(thisSheet, 1)
     singleSheetProtect(thisSheet, sheetName)
 
     if (integrateOutputs) moveSheetifExists(SS, thisSheet, 1)

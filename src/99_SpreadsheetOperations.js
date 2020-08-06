@@ -173,6 +173,8 @@ function moveSheetToPos(SS, Sheet, posInt) {
 
 function importRangeFormula(url, range, integrateOutputs) {
 
+    //Logger.log("importRangeFormula:"+url)
+
     let formula
     if (integrateOutputs) {
         formula = "=" + range

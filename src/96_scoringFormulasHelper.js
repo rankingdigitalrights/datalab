@@ -1,137 +1,146 @@
+// eslint-disable-next-line no-unused-vars
 function fillPointsSheet(pointsSheet) {
-    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A", "not piloted"])
-    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)", "exclude (N/P)"])
-    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)", "exclude (N/P)"])
+    pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A", "New / Revised Element"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)", "exclude (N/A)"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)", "exclude (N/A)"])
 }
 
-
+// eslint-disable-next-line no-unused-vars
 function getISOtimeAsString() {
-    return new Date().toISOString()
+    return new Date().toISOString().substr(0, 16).split("T").join(": ")
 }
 
-function elementScoreFormula(range) {
-    var cell = range.getA1Notation()
-    /* legacy Formula */
-    // var formula = '=IF(' + cell + '=Points!$B1,Points!$B2,IF(' + cell + '=Points!$C1,Points!$C2,IF(' + cell + '=Points!$D1,Points!$D2,IF(' + cell + '=Points!$E1,Points!$E2,IF(' + cell + '=Points!$F1,Points!$F2,IF(' + cell + '=Points!$G1, Points!$G2,"checkx"))))))'
-    var formula = "=HLOOKUP(" + cell + ",Points!$B$1:$H$2,2,FALSE)"
+// eslint-disable-next-line no-unused-vars
+function elementScoreFormula(range, scoringScaleReversed) {
+    let Cell = range.getA1Notation()
+    const evalRow = scoringScaleReversed ? 3 : 2
+    let formula = `=HLOOKUP(${Cell},Points!$B$1:$H$${evalRow},${evalRow},FALSE)`
     return formula
 }
 
+// eslint-disable-next-line no-unused-vars
 function levelScoreFormula(serviceCells) {
 
-    var formula = "=IF(AND("
-    for (var cell = 0; cell < serviceCells.length; cell++) {
+    let formula = "=IF(AND("
+    for (let cell = 0; cell < serviceCells.length; cell++) {
         formula += serviceCells[cell] + "=" + "\"exclude (N/A)\""
         if (cell < serviceCells.length - 1) {
             formula += ","
         }
     }
 
-    formula += "), \"N/A\", IF(OR("
+    formula += "), \"N/A\","
 
-    /* just for Pilot START*/
-    for (cell = 0; cell < serviceCells.length; cell++) {
-        formula += serviceCells[cell] + "=" + "\"exclude (N/P)\""
-        if (cell < serviceCells.length - 1) {
-            formula += ","
-        }
-    }
+    formula += " IF(OR("
 
-    formula += "), \"N/P\", IF(OR("
-
-    /* just for Pilot END */
-
-    for (cell = 0; cell < serviceCells.length; cell++) {
+    for (let cell = 0; cell < serviceCells.length; cell++) {
         formula = formula + serviceCells[cell] + "=" + "\"---\"" + ","
     }
 
-    formula = formula + "), \"---\", AVERAGE(" + serviceCells + "))))"
+    formula += "), \"---\", AVERAGE(" + serviceCells + ")))"
+
+    // Pilot
+    // formula += ")"
 
     return formula
 }
 
-function aggregateScoreFormula(cells) {
+// eslint-disable-next-line no-unused-vars
+function aggregateScoreFormula(CompositeScoringEntity) {
 
-    var cell
+    console.log(`|--- DEBUG --- target Cells received ${CompositeScoringEntity.cells}`)
 
-    var formula = "=IF(AND("
+    let formula
 
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/A\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
+    let levelCells = CompositeScoringEntity.cells
+    let hasMobile = CompositeScoringEntity.hasMobile
+    let subLevelCells
+    let allLevelCells
+
+    if (hasMobile) {
+        subLevelCells = CompositeScoringEntity.sublevelScoresMobile.cells
+        allLevelCells = [...subLevelCells, ...levelCells]
+    } else {
+        allLevelCells = levelCells
     }
 
-    formula += "), \"N/A\""
+    if (allLevelCells) {
+        formula = "=IF(AND("
 
-    formula += ",IF(AND("
-
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/P\""
-        if (cell < cells.length - 1) {
-            formula += ","
+        for (let i = 0; i < allLevelCells.length; i++) {
+            formula += allLevelCells[i] + "=\"N/A\""
+            if (i < allLevelCells.length - 1) {
+                formula += ","
+            }
         }
-    }
 
-    formula += "),\"N/P\""
+        formula += "), \"N/A\""
 
-    formula += ",IF(AND("
+        formula += ", AVERAGE("
 
-    formula += "XOR("
-
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/A\""
-        if (cell < cells.length - 1) {
-            formula += ","
+        if (hasMobile) {
+            formula += `AVERAGE(${subLevelCells}),`
         }
+
+        formula += levelCells + "))"
+    } else {
+        formula = "N/A"
     }
-
-    formula += "),"
-
-    formula += "XOR("
-    for (cell = 0; cell < cells.length; cell++) {
-        formula += cells[cell] + "=\"N/P\""
-        if (cell < cells.length - 1) {
-            formula += ","
-        }
-    }
-
-    formula += ")),\"N/A\""
-
-    formula += ", AVERAGE(" + cells + "))))"
-
     return formula
 }
 
-function checkScoringLogic(indicator, scoringComponent, cell, cellName, elementsArray) {
+// eslint-disable-next-line no-unused-vars
+function applyCompositeScoringLogic(Indicator, compositeID, Cell, cellName, ScoreCells) {
 
-    var thisCell = cell
-    switch (scoringComponent) {
+    switch (compositeID) {
 
-        case "A":
-            if (indicator.scoringScope === "full" | indicator.scoringScope === "company") {
-                elementsArray.push(cellName)
-                thisCell.setFontWeight("bold")
+        case "G":
+            if (Indicator.scoringScope === "full" || Indicator.scoringScope === "company") {
+                ScoreCells.CompositeScoreCells.cells.push(cellName)
+                Cell.setFontWeight("bold")
             } else {
-                thisCell.setFontStyle("italic")
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
             }
             break
 
-        case "B":
-            if (indicator.scoringScope === "full" | indicator.scoringScope === "services") {
-                elementsArray.push(cellName)
-                thisCell.setFontWeight("bold")
+        case "O":
+            if ((Indicator.scoringScope === "full" || Indicator.scoringScope === "company") && ScoreCells.companyScores.levelScoresOpCom.hasOpCom) {
+                ScoreCells.CompositeScoreCells.cells.push(cellName)
+                Cell.setFontWeight("bold")
             } else {
-                thisCell.setFontStyle("italic")
+                // Cell.setValue("N/A")
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
+            }
+            break
+
+
+        case "M":
+            if (Indicator.scoringScope === "full" || Indicator.scoringScope === "services") {
+                ScoreCells.CompositeScoreCells.cells.push(cellName)
+                Cell.setFontWeight("bold")
+            } else {
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
+            }
+            break
+
+        case "S":
+            if (Indicator.scoringScope === "full" || Indicator.scoringScope === "services") {
+                ScoreCells.CompositeScoreCells.cells.push(cellName)
+                Cell.setFontWeight("bold")
+            } else {
+                Cell.setFontStyle("italic")
+                Cell.setFontLine("line-through")
             }
             break
 
         default:
-            elementsArray.push(cellName)
-            thisCell.setFontWeight("bold")
+            ScoreCells.CompositeScoreCells.cells.push(cellName)
+            Cell.setFontWeight("bold")
             break
     }
-    thisCell.setNumberFormat("0.##")
-    return thisCell
+    Cell.setNumberFormat("0.##")
+    return Cell
 }

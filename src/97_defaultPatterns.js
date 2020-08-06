@@ -62,10 +62,10 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, mainStepNr, subS
 
             // TODO: Switch case
 
-            if (serviceNr == 0 && (scoringScope === "full" || scoringScope == "company")) {
+            if (serviceNr === 0 && (scoringScope === "full" || scoringScope === "company")) {
                 serviceLabel = "group"
                 serviceType = "group"
-            } else if (!omitOpCom && serviceNr == 1 && hasOpCom && (scoringScope === "full" || scoringScope == "company")) {
+            } else if (!omitOpCom && serviceNr === 1 && hasOpCom && (scoringScope === "full" || scoringScope === "company")) {
                 serviceLabel = "opCom"
                 serviceType = "opCom"
             } else {
@@ -80,7 +80,7 @@ function importContentBlock(Sheet, Company, Indicator, SubStep, mainStepNr, subS
             //     cellValue = "N/A"
             // } else {
 
-            //     if (!omitOpCom && serviceNr == 2 && Company.hasOpCom == false) {
+            //     if (!omitOpCom && serviceNr === 2 && Company.hasOpCom === false) {
             //         cellValue = "N/A" // if no OpCom, pre-select N/A
             //     } else {
 
@@ -159,10 +159,10 @@ function importContentRow(Sheet, Company, Indicator, SubStep, mainStepNr, subSte
 
         // TODO: Switch case
 
-        if (serviceNr == 0 && (scoringScope === "full" || scoringScope == "company")) {
+        if (serviceNr === 0 && (scoringScope === "full" || scoringScope === "company")) {
             serviceLabel = "group"
             serviceType = "group"
-        } else if (!omitOpCom && serviceNr == 1 && hasOpCom && (scoringScope === "full" || scoringScope == "company")) {
+        } else if (!omitOpCom && serviceNr === 1 && hasOpCom && (scoringScope === "full" || scoringScope === "company")) {
             serviceLabel = "opCom"
             serviceType = "opCom"
         } else {
@@ -176,7 +176,7 @@ function importContentRow(Sheet, Company, Indicator, SubStep, mainStepNr, subSte
         //     cellValue = "N/A"
         // } else {
 
-        //     if (!omitOpCom && serviceNr == 2 && Company.hasOpCom == false) {
+        //     if (!omitOpCom && serviceNr === 2 && Company.hasOpCom === false) {
         //         cellValue = "N/A" // if no OpCom, pre-select N/A
         //     } else {
 

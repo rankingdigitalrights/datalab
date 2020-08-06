@@ -46,28 +46,26 @@ function calculateCompanyWidthNet(Company, Indicator, omitOpCom) {
 }
 
 
-function styleScoringIndicatorHeader(currentCell, rowLabel, colorHex) {
-    currentCell.setValue(rowLabel)
-    currentCell.setWrap(true)
-    currentCell.setBackground(colorHex)
-    currentCell.setVerticalAlignment("top")
-    currentCell.setHorizontalAlignment("center")
+function styleScoringIndicatorHeader(currentCell, label, colorHex) {
+    currentCell.setValue(label)
+        .setFontWeight("bold")
+        .setWrap(true)
+        .setBackground(colorHex)
+        .setVerticalAlignment("middle")
+        .setHorizontalAlignment("center")
     return currentCell
 }
 
 // functions to convert column numbers to letters and vice versa
 // for easier translation of column number to column letter in formulas
-function columnToLetter(column, offset) {
-    var temp, letter = ""
-
-    if (offset) column += offset
-
+function columnToLetter(column) {
+    var temp, letter = '';
     while (column > 0) {
-        temp = (column - 1) % 26
-        letter = String.fromCharCode(temp + 65) + letter
-        column = (column - temp - 1) / 26
+        temp = (column - 1) % 26;
+        letter = String.fromCharCode(temp + 65) + letter;
+        column = (column - temp - 1) / 26;
     }
-    return letter
+    return letter;
 }
 
 function letterToColumn(letter) {
@@ -127,5 +125,35 @@ function addRichTextSingle(Cell, Style, content, terms) {
 
     Cell.setRichTextValue(richText)
         .setFontSize(11)
+
+}
+
+
+function returnCompanyFBColWidth() {
+
+    let widths = []
+
+    let SS = SpreadsheetApp.openById("1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE")
+    let Sheet = insertSheetIfNotExist(SS, "Company Dimensions", true)
+    let opCom
+    companiesVector.companies.forEach(Company => {
+
+        Sheet.appendRow([Company.label.current, Company.type, Company.services.length, Company.hasOpCom])
+
+        indicatorsVector.indicatorCategories.forEach(Category => {
+
+            Category.indicators.forEach(Indicator => {
+
+                let thisWidth = calculateCompanyWidthNet(Company, Indicator, false)
+                let indicatorSpecs = ["---", Indicator.labelShort, Indicator.scoringScope, thisWidth]
+                Sheet.appendRow(indicatorSpecs)
+            })
+
+        })
+
+    })
+
+    console.log(widths)
+
 
 }

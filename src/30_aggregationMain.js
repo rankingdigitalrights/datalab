@@ -1,80 +1,70 @@
 /* global 
-Config,
-IndicatorsObj,
-researchStepsVector,
-spreadSheetFileName,
-createSpreadsheet,
-insertPointValidationSheet,
-countIndiClassLengths,
-cleanCompanyName,
-addSetOfScoringSteps
-insertSheetIfNotExist,
-fillSummaryScoresSheet,
-moveSheetifExists,
-insertSheetConnector,
-moveHideSheetifExists,
-removeEmptySheet
+Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadsheet, insertPointValidationSheet, countIndiClassLengths, cleanCompanyName, addSetOfScoringSteps, insertSheetIfNotExist, fillSummaryScoresSheet, moveSheetifExists, insertSheetConnector, moveHideSheetifExists, removeEmptySheet, filterSingleSubstep
 */
 
-function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
+// eslint-disable-next-line no-unused-vars
+function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets) {
 
     // scroing step number should be passed via main method call
 
-    var sheetModeID = "SC"
+    let sheetModeID = "SC"
 
-    var Indicators = IndicatorsObj
-    var ResearchStepsObj = researchStepsVector
-    var stepName = "S" + scoringStepNr
-    var summarySheetName = Config.summaryParams.sheetNameSimple + " " + stepName
+    let Indicators = IndicatorsObj
+    let ResearchStepsObj = researchStepsVector
+    let stepName = "S" + scoringStepNr
+    let summarySheetName = Config.summaryParams.sheetNameSimple + " " + stepName
 
     // connect to existing spreadsheet or creat a blank spreadsheet
-    var spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
 
-    var SS = createSpreadsheet(spreadsheetName, true)
+    let SS = createSpreadsheet(spreadsheetName, true)
 
-    var fileID = SS.getId()
+    let fileID = SS.getId()
     Logger.log("SS ID: " + fileID)
 
     // Scoring Scheme / Validation
-    var pointsSheet = insertPointValidationSheet(SS, "Points")
+    let pointsSheet = insertPointValidationSheet(SS, "Points")
 
-    var indicatorParams = countIndiClassLengths(Indicators)
+    let indicatorParams = countIndiClassLengths(Indicators)
 
     // --- // Main Procedure // --- //
 
-    var integrateOutputs = false
-    var isPilotMode = false
-    var outputParams = Config.integrateOutputsArray.scoringParams
+    let integrateOutputs = false
+    let isPilotMode = false
+    let outputParams = Config.integrateOutputsArray.scoringParams
     outputParams.firstStepNr = scoringStepNr
     outputParams.lastStepNr = scoringStepNr
 
     // --- // Individual Company Outcome Sheets // --- //
 
-    var companyFilename
-    var hasOpCom
+    let companyFilename
+    let hasOpCom
 
-    Companies.forEach(function (CompanyObj) {
+    if (includeCompanyOutcomeSheets) {
+        Companies.forEach(function (CompanyObj) {
 
-        companyFilename = cleanCompanyName(CompanyObj)
+            companyFilename = cleanCompanyName(CompanyObj)
 
-        outputParams.sheetName = companyFilename
+            outputParams.sheetName = companyFilename
 
-        Logger.log("--- --- START: creating " + mainSheetMode + " Sheet for " + companyFilename)
+            Logger.log("--- --- START: creating " + mainSheetMode + " Sheet for " + companyFilename)
 
-        hasOpCom = CompanyObj.hasOpCom
+            hasOpCom = CompanyObj.hasOpCom
 
-        addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode)
 
-        Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
+            Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
-    })
+        })
+    }
 
     // --- // Core: Summary Sheet // --- //
 
-    var thisSubStepID = ResearchStepsObj.researchSteps[scoringStepNr - 1].substeps[0].subStepID
+    let thisSubStepID = filterSingleSubstep(ResearchStepsObj.researchSteps[scoringStepNr], ResearchStepsObj.researchSteps[scoringStepNr].scoringSubStep)
+    thisSubStepID = thisSubStepID.subStepID
 
-    var summarySheet
-    var includeElements
+    let summarySheet
+    let includeElements
 
     includeElements = false
 
@@ -113,9 +103,10 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     // --- // Final formatiing // --- //
 
-    var connectorSheet = insertSheetConnector(SS, Companies)
+    let connectorSheet = insertSheetConnector(SS, Companies, "Scores")
 
-    moveSheetifExists(SS, connectorSheet, 1)
+    // moveSheetifExists(SS, connectorSheet, 1)
+    moveHideSheetifExists(SS, connectorSheet, 1)
 
     moveHideSheetifExists(SS, pointsSheet, 1)
 

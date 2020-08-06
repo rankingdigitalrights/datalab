@@ -5,10 +5,12 @@
     addSummarySingleCompany
 */
 
+
+// eslint-disable-next-line no-unused-vars
 function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements) {
 
-    var currentRow = 1
-    var currentCol = 1
+    let currentRow = 1
+    let currentCol = 1
 
     // left column: indicator labels
 
@@ -25,8 +27,8 @@ function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, ind
         Sheet.collapseAllRowGroups()
     }
 
-    var lastRow = Sheet.getLastRow();
-    var lastColumn = Sheet.getLastColumn();
+    let lastRow = Sheet.getLastRow()
+    let lastColumn = Sheet.getLastColumn()
 
     Sheet.getRange(1, 1, lastRow, lastColumn)
         .setFontFamily("Roboto")

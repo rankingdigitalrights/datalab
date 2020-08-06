@@ -3,6 +3,9 @@ var researchStepsVector = {
   regularIndex: true,
   researchSteps: [{
       step: 0,
+      altScoringSubstepNr: 0,
+      altIndexID: "RDR19",
+      altYear: "2019",
       stepID: "S00",
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
@@ -10,6 +13,7 @@ var researchStepsVector = {
       substeps: [{
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",
+        importStepID: "S07",
         subStepColor: "#faca0f",
         doCollapse: false,
         components: [{
@@ -41,6 +45,7 @@ var researchStepsVector = {
       rowLabel: "Data Collection and Evaluation",
       stepColor: "#ddd9c3",
       doCollapse: false,
+      scoringSubStep: "S011",
       substeps: [{
           labelShort: "Step 1.0",
           subStepID: "S010",
@@ -175,6 +180,7 @@ var researchStepsVector = {
       rowLabel: "Fact Check/Review of Step 1",
       stepColor: "#c6d9f0",
       doCollapse: false,
+      scoringSubStep: "S021",
       substeps: [{
         labelShort: "Step 2.0",
         subStepID: "S020",
@@ -287,10 +293,12 @@ var researchStepsVector = {
     },
     {
       step: 3,
+      altScoringSubstepNr: 2,
       stepID: "S03",
       rowLabel: "Reconciliation and Consolidation",
       stepColor: "#d9ead3",
       doCollapse: false,
+      scoringSubStep: "S032",
       substeps: [{
           labelShort: "Step 3.0",
           subStepID: "S030",
@@ -471,6 +479,7 @@ var researchStepsVector = {
       stepColor: "#ffe599",
       doCollapse: false,
       omitResearcher: true,
+      excludeFromOutputs: true,
       substeps: [{
           labelShort: "Step 4.0",
           subStepID: "S040",
