@@ -294,7 +294,7 @@ function mainAggregationSheets() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = "Dev IS" // DANGER
+    filenameSuffix = "Dev Review" // DANGER
     outputFolderName = "2020 - Dev - Summary"
     let mainSheetMode = "Summary Scores"
 
@@ -305,7 +305,7 @@ function mainAggregationSheets() {
     let scoringStepNr = 3
 
     let Companies = companiesVector.companies
-        .slice(5, 7) // Axiata & Baidu,
+    // .slice(5, 7) // Axiata & Baidu,
     // .slice(1, 9) // no Amazon
     // .slice(1, 3) // for debugging
     // .slice(0,3) // Amazon
@@ -314,9 +314,9 @@ function mainAggregationSheets() {
 
     let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets)
 
-    addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
+    // addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 
-    Logger.log("added " + mainSheetMode + ";fileID: " + fileID)
+    Logger.log("|--- added " + mainSheetMode + ";fileID: " + fileID)
 }
 
 // create Data Store spreadsheets for all companies
