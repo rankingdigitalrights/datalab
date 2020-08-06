@@ -93,14 +93,41 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, thisSubStep, Comp
                         activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
                         Logger.log(Indicator.labelShort + stepCompType + " added ")
                         break
+                    case "reviewResults":
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        Logger.log(Indicator.labelShort + stepCompType + " added ")
+                        break
+                    case "importPreviousResults":
+                            stepCompID = StepComp.id
+                            activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                            Logger.log(Indicator.labelShort + stepCompType + " added ")
+                            break
 
-                    case "comments":
+                    case "comments:
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
                         Logger.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
+                    case "reviewComments":
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator,indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        Logger.log(Indicator.labelShort + stepCompType + " added ")
+                        break
+
+                    case "importPreviousComments":
+                            stepCompID = StepComp.id
+                            activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC)                                
+                            Logger.log(Indicator.labelShort + stepCompType + " added ")
+                            break
+
                     case "sources":
+                        stepCompID = StepComp.id
+                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        Logger.log(Indicator.labelShort + " sources added")
+                        break
+                    case "importPreviousSources":
                         stepCompID = StepComp.id
                         activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, thisSubStepID, Indicator, indCatLabelShort, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
                         Logger.log(Indicator.labelShort + " sources added")

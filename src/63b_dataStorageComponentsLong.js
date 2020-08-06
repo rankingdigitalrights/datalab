@@ -7,7 +7,7 @@
 
 function addDataStoreSheetHeaderLong(Sheet, activeRow) {
 
-    var columnLabels = ["Step","Substep", "Category", "Indicator", "Element", "Data Type", "Class", "Service", "ID", "Value",""]
+    var columnLabels = ["Step","Substep", "Category", "Indicator", "Element", "Datatype", "Class", "Service", "ID", "Value",""]
 
     Sheet.appendRow(columnLabels)
     return activeRow + 1
