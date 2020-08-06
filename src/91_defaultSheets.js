@@ -57,7 +57,7 @@ function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSh
     return Sheet
 }
 
-function insertSheetConnector(SS, Companies) {
+function insertSheetConnector(SS, Companies, Mode) {
 
     let Sheet = insertSheetIfNotExist(SS, "Connector", true)
 
@@ -70,7 +70,19 @@ function insertSheetConnector(SS, Companies) {
 
     Companies.forEach(function (company) {
         companyName = company.label.current
-        companyUrl = company.urlCurrentDataCollectionSheet
+
+        switch (Mode) {
+            case "Scores":
+                companyUrl = company.urlCurrentCompanyScoringSheet
+                break
+            case "Input":
+                companyUrl = company.urlCurrentDataCollectionSheet
+                break
+            default:
+                companyUrl = company.urlCurrentCompanyScoringSheet
+                break
+        }
+
         formula = formulaPrefix + companyUrl + formulaSuffix
         companyCells.push([companyName, formula])
     })
