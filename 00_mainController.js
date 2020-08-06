@@ -296,13 +296,15 @@ function mainAggregationSheets() {
     initiateGlobalConfig()
     filenameSuffix = "Dev IS" // DANGER
     outputFolderName = "2020 - Dev - Summary"
-    var mainSheetMode = "Summary Scores"
+    let mainSheetMode = "Summary Scores"
 
-    var useIndicatorSubset = false // true := use subset
+    let includeCompanyOutcomeSheets = false
 
-    var scoringStepNr = 2
+    let useIndicatorSubset = false // true := use subset
 
-    var Companies = companiesVector.companies
+    let scoringStepNr = 3
+
+    let Companies = companiesVector.companies
         .slice(5, 7) // Axiata & Baidu,
     // .slice(1, 9) // no Amazon
     // .slice(1, 3) // for debugging
@@ -310,7 +312,7 @@ function mainAggregationSheets() {
     // .slice(1, 2) // Apple
     // .slice(3,4) //
 
-    var fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr)
+    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets)
 
     addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 

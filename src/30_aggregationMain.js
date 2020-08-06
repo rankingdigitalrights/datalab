@@ -3,7 +3,7 @@ Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadshe
 */
 
 // eslint-disable-next-line no-unused-vars
-function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr) {
+function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets) {
 
     // scroing step number should be passed via main method call
 
@@ -40,21 +40,23 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     var companyFilename
     var hasOpCom
 
-    Companies.forEach(function (CompanyObj) {
+    if (includeCompanyOutcomeSheets) {
+        Companies.forEach(function (CompanyObj) {
 
-        companyFilename = cleanCompanyName(CompanyObj)
+            companyFilename = cleanCompanyName(CompanyObj)
 
-        outputParams.sheetName = companyFilename
+            outputParams.sheetName = companyFilename
 
-        Logger.log("--- --- START: creating " + mainSheetMode + " Sheet for " + companyFilename)
+            Logger.log("--- --- START: creating " + mainSheetMode + " Sheet for " + companyFilename)
 
-        hasOpCom = CompanyObj.hasOpCom
+            hasOpCom = CompanyObj.hasOpCom
 
-        addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Config, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, useIndicatorSubset, integrateOutputs, outputParams, isPilotMode)
 
-        Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
+            Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
-    })
+        })
+    }
 
     // --- // Core: Summary Sheet // --- //
 
