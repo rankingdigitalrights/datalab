@@ -312,16 +312,16 @@ function importDataStoreBlockLongScoring(Sheet, activeRow, StepComp, stepCompID,
 }
 
 function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref, scoringSuffix) {
-
+    
     let importID = Indicator.labelShort
-    console.log(" - " + "in " + StepComp.type + " " + importID)
+    //console.log(" - " + "in " + StepComp.type + " " + importID)
 
     console.log(`DEBUG - ${indexPref}`)
 
     // PILOT: adjusting substep number for Researcher Name import
-    if (StepComp.importNameFrom) {
+    /*if (StepComp.importNameFrom) {
         subStepID = StepComp.importNameFrom
-    }
+    }*/
 
     let rowLabels = []
     let rowCells = []
@@ -426,13 +426,14 @@ function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, s
 
         blockCells.push(rowCells)
     }
+    /*
 
     rowCells = rowLabels.slice()
     rowCells.push("Company", "")
     compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, "", "SI")
     formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
     rowCells.push(compCellName, formula)
-    rowCells.push("")
+    rowCells.push("")*/
     blockCells.push(rowCells)
     
 

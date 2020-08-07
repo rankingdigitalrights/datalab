@@ -22,12 +22,14 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     let firstCol = 1
     let lastCol
-    let lastRow
+    let lastRow, lastRowC, lastRowI
     let hookFirstDataCol
 
     // --- // long output // --- //
 
     let longSheet = insertSheetIfNotExist(SS, DataMode, true) // ToDo set as FALSE later
+    let compositeSS=insertSheetIfNotExist(SS, "composite scores", true)
+    let indicatorSS=insertSheetIfNotExist(SS, "indicator scores", true)
 
     if (longSheet !== null) {
         longSheet.clear()
@@ -35,6 +37,8 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
     }
 
     lastRow = 1
+    lastRowC = 1
+    lastRowI = 1
 
     for (mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
@@ -61,6 +65,8 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
             else if(DataMode=="scores"&&Substep.subStepID==MainStep.scoringSubStep) {
                 
                 lastRow = dataStoreSingleStepLongScoring(longSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref)
+                lastRowC=dataStoreSingleStepLongCompositeScoring(compositeSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowC, indexPref)
+                lastRowI=dataStoreSingleStepLongIndicatorScoring(indicatorSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowI, indexPref)
             }
             
 
