@@ -328,7 +328,7 @@ function mainDataStore() {
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 
-    filenameSuffix = "Test"
+    filenameSuffix = "Test GW"
     // filename fragments defined in Config.summaryParams.spreadsheetName
     let mainSheetMode = Config.dataStoreParams.fileName
 

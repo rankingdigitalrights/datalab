@@ -11,6 +11,7 @@ var researchStepsVector = {
       rowLabel: "2019 Final Outcome",
       stepColor: "#faca0f",
       doCollapse: false,
+      scoringSubStep: "S00",
       substeps: [{
         labelShort: "Step 0 - 2019 S7 Outcome",
         subStepID: "S00",

@@ -52,8 +52,17 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
             console.log("--- Main Step : " + MainStep.step)
             console.log("--- Main Step has " + MainStep.substeps.length + " Substeps")
+            Logger.log("substepNr===="+subStepNr+", MainStep.scoring==="+MainStep.scoring)
 
-            lastRow = dataStoreSingleStepLong(longSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref)
+            if(DataMode=="results"){
+                lastRow = dataStoreSingleStepLong(longSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref)
+            }
+
+            else if(DataMode=="scores"&&Substep.subStepID==MainStep.scoringSubStep) {
+                
+                lastRow = dataStoreSingleStepLongScoring(longSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref)
+            }
+            
 
         } // END SUBSTEP
     } // END MAIN STEP
@@ -114,5 +123,14 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
     //     wideSheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
     //     wideSheet.setColumnWidth(lastCol + 1, 25)
     // }
+
+}
+
+
+function addDataStoreScoringSingleCompay(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode) {
+
+
+
+
 
 }

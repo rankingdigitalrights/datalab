@@ -35,6 +35,10 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
 
     addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, includeWide, DataMode)
 
+    addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, includeWide, "scores")
+
+    
+
     // let subStepNr = 1 // param for global control substep processing
     // addDataStoreSingleCompany(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
 
