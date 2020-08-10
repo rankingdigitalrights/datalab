@@ -135,8 +135,11 @@ function mainAddNewInputStep() {
     updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
+
     // also: Hook to skip steps
-    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
+    startAtMainStepNr = addNewStep ? 4 : 0 // logical Order
+
+    Config.subsetMaxStep = 4
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
