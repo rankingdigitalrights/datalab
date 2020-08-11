@@ -196,6 +196,8 @@ function mainScoringSheets() {
 
     outputFolderName = isProduction ? Config.outputFolderNameProd : Config.outputFolderNameDev
 
+    // Config.subsetMaxStep = 4
+
     let mainSheetMode = "Output"
 
     const Companies = companiesVector.companies
