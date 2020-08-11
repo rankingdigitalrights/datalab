@@ -261,6 +261,7 @@ var companiesVector = {
           }
         },
         {
+          "isNewService": true,
           "id": "bbAX1",
           "type": "broadband",
           "label": {

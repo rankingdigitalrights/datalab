@@ -2,7 +2,7 @@
     Config,
     indexPrefix,
     defineNamedRange,
-    columnToLetter,
+    columnToLetterYonY,
     doRepairsOnly
 */
 
@@ -85,6 +85,7 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
         let serviceLabel
         let serviceType = ""
+        let isNewService = false
 
         for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // address hard-coded offset 3 with company JSON
 
@@ -100,6 +101,9 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
                 serviceType = Company.services[s].type
+                if (Company.services[s].isNewService) {
+                    isNewService = true
+                }
             }
 
 
@@ -111,13 +115,13 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
 
             if (!isNewCompany) {
 
-                if ((serviceNr == 2 && Company.hasOpCom == false)) {
+                if ((serviceNr == 2 && Company.hasOpCom == false) || (isNewService)) {
                     cellValue = "N/A" // if no OpCom, pre-select N/A
                 } else {
                     if (hasPredecessor) {
                         // calculates which column
                         targetColumn = Indicator.y2yCompColumn + ((serviceNr - 1) * nrOfSubIndicators)
-                        let col = columnToLetter(targetColumn, subIndOffset)
+                        let col = columnToLetterYonY(targetColumn, subIndOffset)
                         cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + hasPredecessor
                     } else {
                         cellValue = naText
@@ -207,6 +211,7 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
     /* element-wise procedure from labels column 1 over services (~columns) */
 
     let serviceLabel
+    let isNewService = false
 
     for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // address hard-coded offset 3 with company JSON
 
@@ -217,6 +222,9 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
         } else {
             let s = serviceNr - 3
             serviceLabel = Company.services[s].id
+            if (Company.services[s].isNewService) {
+                isNewService = true
+            }
         }
 
         Cell = Sheet.getRange(activeRow, activeCol)
@@ -225,17 +233,17 @@ function importYonYSources(SS, Sheet, Indicator, category, Company, isNewCompany
 
         if (!isNewCompany) {
 
-            if (hasPredecessor) {
+            if (hasPredecessor && !isNewService) {
                 // calculates which column
                 targetColumn = Indicator.y2yCompColumn + (serviceNr - 1)
-                let col = columnToLetter(targetColumn, 0)
+                let col = columnToLetterYonY(targetColumn, 0)
 
                 if (!hasSubindicator) {
 
                     cellValue = "=" + "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
                 } else {
 
-                    let col2 = columnToLetter(targetColumn, 1)
+                    let col2 = columnToLetterYonY(targetColumn, 1)
 
                     let cellA = "'" + Config.prevYearOutcomeTab + "'" + "!$" + col + "$" + targetRow
                     let cellB = "'" + Config.prevYearOutcomeTab + "'" + "!$" + col2 + "$" + targetRow
@@ -337,6 +345,8 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
         // 2.) Value Cells
 
         let serviceLabel, serviceType
+
+        let isNewService = false // TODO: Confirm with RT and implement
 
         for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
 
