@@ -19,7 +19,23 @@ function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, ind
     // now operating in currentCol + 1
     // Main part: horizontal company-wise results
 
-    Companies.forEach(function (Company) {
+    Companies.forEach(Company => {
+
+        // Mobile Total of Pre/Postpaid Hack
+
+        if (Company.type === "telecom" &&
+            Company.services.some(service => service.type === "mobile") &&
+            Company.services[0].subtype !== "mobileTotal") {
+
+            Company.services.splice(0, 0, {
+                "type": "mobile",
+                "subtype": "mobileTotal",
+                "label": {
+                    "current": "Mobile Services"
+                }
+            })
+        }
+
         currentCol = addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements)
     })
 

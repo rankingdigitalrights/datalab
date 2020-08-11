@@ -134,9 +134,6 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeEl
 function addSummaryCompanyHeader(row, col, Sheet, Company) {
 
     let additionalCol = 2
-    if (Company.type == "telecom") {
-        additionalCol = 3
-    }
 
     let rowElems = Sheet.getRange(row, col, 1, additionalCol + Company.services.length)
     rowElems.setValue(Company.label.current)
@@ -167,7 +164,7 @@ function addSummaryCompanyHeader(row, col, Sheet, Company) {
 
 /* adds service class totals per company per row */
 
-function addSummaryScoresRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells) {
+function addCompanyTotalsRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells) {
 
     let rowFormulas = []
     let range
@@ -321,8 +318,8 @@ function addCompanyScoresRow(row, col, Sheet, Company, ScoringObj, thisSubStepID
         resultCells.push(rowResultRanges)
     }
 
-    console.log("DEBUG")
-    console.log(resultCells)
+    // console.log("DEBUG")
+    // console.log(resultCells)
 
     return row + 1
 }

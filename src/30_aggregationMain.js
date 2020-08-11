@@ -79,7 +79,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
         summarySheet.setFrozenColumns(1)
         summarySheet.setFrozenRows(2)
-        moveSheetifExists(SS, summarySheet, 1)
+        moveSheetifExists(SS, summarySheet, 2)
     }
 
     // Prototype: with Element Level //
@@ -98,7 +98,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
         summarySheet.setFrozenColumns(1)
         summarySheet.setFrozenRows(2)
-        moveSheetifExists(SS, summarySheet, 2)
+        moveSheetifExists(SS, summarySheet, 3)
     }
 
     // --- // Final formatiing // --- //

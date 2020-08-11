@@ -3,7 +3,7 @@
 
 /* global 
     addSummaryCompanyHeader,
-    addSummaryScoresRow,
+    addCompanyTotalsRow,
     addCompanyScores
 */
 
@@ -13,27 +13,12 @@
 function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, row, col, Company, includeElements) {
 
     let additionalCol = 2
-    if (Company.type === "telecom") {
-        additionalCol = 3
-    }
+
     let blockWidth = Company.services.length + additionalCol // for total + group elems
 
     let startRow = row
     let lastRow
     let blockRange
-
-    // Mobile Total of Pre/Postpaid Hack
-
-    if (Company.type === "telecom" && Company.services.some(service => service.type === "mobile")) {
-
-        Company.services.splice(0, 0, {
-            "type": "mobile",
-            "subtype": "mobileTotal",
-            "label": {
-                "current": "Mobile Services"
-            }
-        })
-    }
 
     // 2 rows; company + service labels
     row = addSummaryCompanyHeader(row, col, Sheet, Company)
@@ -72,7 +57,7 @@ function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorPara
         // Logger.log("catLength: " + catLength)
         classesLeft = nrOfClasses - i
 
-        row = addSummaryScoresRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells)
+        row = addCompanyTotalsRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells)
 
         if (i > 0) {
             totalLength += catLength
