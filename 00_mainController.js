@@ -132,7 +132,7 @@ function mainAddNewInputStep() {
 
     initiateGlobalConfig()
 
-    updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
+    updateProduction = true // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
 
@@ -149,10 +149,10 @@ function mainAddNewInputStep() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
-    // .slice(1, 2) //   1 "Amazon",
-    // .slice(2, 3) //   2 "América Móvil",
-    // .slice(3, 4) //   3 "Apple",
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
