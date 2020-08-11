@@ -299,7 +299,7 @@ function mainAggregationSheets() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = "Dev Review" // DANGER
+    filenameSuffix = "Dev Review 4 MASTER" // DANGER
     outputFolderName = "2020 - Dev - Summary"
     let mainSheetMode = "Summary Scores"
 

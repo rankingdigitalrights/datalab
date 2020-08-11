@@ -61,7 +61,7 @@ function styleScoringIndicatorHeader(currentCell, label, colorHex) {
 
 function columnToLetter(column) {
     let temp, letter = ""
-    if (column > 0) {
+    while (column > 0) {
         temp = (column - 1) % 26
         letter = String.fromCharCode(temp + 65) + letter
         column = (column - temp - 1) / 26
@@ -72,7 +72,7 @@ function columnToLetter(column) {
 function columnToLetterYonY(column, offset) {
     let temp, letter = '';
     let shift = offset ? offset : 0
-    if (column > 0) {
+    while (column > 0) {
         temp = (column - 1 + offset) % 26;
         letter = String.fromCharCode(temp + 65) + letter;
         column = (column - temp - 1) / 26;

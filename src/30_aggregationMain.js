@@ -68,7 +68,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     includeElements = false
 
-    summarySheet = insertSheetIfNotExist(SS, summarySheetName, false)
+    summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
 
     if (summarySheet === null) {
         Logger.log("BREAK: Sheet for " + summarySheetName + " already exists. Skipping.")

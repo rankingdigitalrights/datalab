@@ -17,6 +17,9 @@ function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, ind
     currentCol = insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, currentCol, includeElements)
 
     // now operating in currentCol + 1
+    if (!includeElements) {
+        currentCol = 7
+    }
     // Main part: horizontal company-wise results
 
     Companies.forEach(Company => {
