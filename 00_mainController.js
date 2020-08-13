@@ -132,7 +132,7 @@ function mainAddNewInputStep() {
 
     initiateGlobalConfig()
 
-    updateProduction = true // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
+    updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
 
@@ -328,28 +328,51 @@ function mainAggregationSheets() {
 
 function mainDataStore() {
 
-    var includeWide = false
+    let DataMode = ["results", "scores"]
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 
-    filenameSuffix = "Test" // + long or wide is decided in main logic
-    // filename fragments defined in 
-    // Config.summaryParams.spreadsheetName
-    var mainSheetMode = Config.dataStoreParams.fileName
+    filenameSuffix = " v2"
+    // filename fragments defined in Config.summaryParams.spreadsheetName
+    let mainSheetMode = Config.dataStoreParams.fileName
 
-    var useStepsSubset = false // true := use subset
-    var useIndySubset = false // true := use subset
+    Config.subsetMaxStep = 7
 
-    var Companies = companiesVector.companies
-        // .slice(1, 9) // exclude Amazon
-        // .slice(1, 2) // Apple
-        .slice(1, 9)
+    let Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
 
-    var fileID
+
+    let fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(useStepsSubset, useIndySubset, Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide)
+        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
