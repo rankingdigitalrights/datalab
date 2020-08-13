@@ -25,3 +25,10 @@ function removeDeadReferences() {
         }
     }
 }
+
+function removeAllNamedRangesFromSS() {
+    var namedRanges = SpreadsheetApp.openById("1_rHmoDJefai11vBrEW3FWWAPoomlfVUYvCHQWFVbZvE").getNamedRanges();
+    for (var i = 0; i < namedRanges.length; i++) {
+        namedRanges[i].remove();
+    }
+}
