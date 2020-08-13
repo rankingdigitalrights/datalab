@@ -58,10 +58,22 @@ function styleScoringIndicatorHeader(currentCell, label, colorHex) {
 
 // functions to convert column numbers to letters and vice versa
 // for easier translation of column number to column letter in formulas
+
 function columnToLetter(column) {
-    var temp, letter = '';
+    let temp, letter = ""
     while (column > 0) {
-        temp = (column - 1) % 26;
+        temp = (column - 1) % 26
+        letter = String.fromCharCode(temp + 65) + letter
+        column = (column - temp - 1) / 26
+    }
+    return letter
+}
+
+function columnToLetterYonY(column, offset) {
+    let temp, letter = '';
+    let shift = offset ? offset : 0
+    while (column > 0) {
+        temp = (column - 1 + offset) % 26;
         letter = String.fromCharCode(temp + 65) + letter;
         column = (column - temp - 1) / 26;
     }

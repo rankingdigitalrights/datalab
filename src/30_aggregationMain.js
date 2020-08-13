@@ -68,7 +68,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     includeElements = false
 
-    summarySheet = insertSheetIfNotExist(SS, summarySheetName, false)
+    summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
 
     if (summarySheet === null) {
         Logger.log("BREAK: Sheet for " + summarySheetName + " already exists. Skipping.")
@@ -79,7 +79,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
         summarySheet.setFrozenColumns(1)
         summarySheet.setFrozenRows(2)
-        moveSheetifExists(SS, summarySheet, 1)
+        moveSheetifExists(SS, summarySheet, 2)
     }
 
     // Prototype: with Element Level //
@@ -98,7 +98,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
         summarySheet.setFrozenColumns(1)
         summarySheet.setFrozenRows(2)
-        moveSheetifExists(SS, summarySheet, 2)
+        moveSheetifExists(SS, summarySheet, 3)
     }
 
     // --- // Final formatiing // --- //

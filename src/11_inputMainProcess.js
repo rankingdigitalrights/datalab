@@ -350,8 +350,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             .setVerticalAlignment("top")
 
         // set font for whole data range
-        sheetRange = Sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
-            .setWrap(true)
+        if (dataStartRow) {
+            sheetRange = Sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
+                .setWrap(true)
+        }
 
         let condRuleNames = SpreadsheetApp.newConditionalFormatRule()
             .whenTextEqualTo("Your Name")

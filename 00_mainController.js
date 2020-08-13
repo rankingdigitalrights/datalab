@@ -135,8 +135,11 @@ function mainAddNewInputStep() {
     updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
+
     // also: Hook to skip steps
-    startAtMainStepNr = addNewStep ? 3 : 0 // logical Order
+    startAtMainStepNr = addNewStep ? 4 : 0 // logical Order
+
+    Config.subsetMaxStep = 4
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
@@ -146,10 +149,10 @@ function mainAddNewInputStep() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
-    // .slice(1, 2) //   1 "Amazon",
-    // .slice(2, 3) //   2 "América Móvil",
-    // .slice(3, 4) //   3 "Apple",
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -192,6 +195,8 @@ function mainScoringSheets() {
     initiateGlobalConfig()
 
     outputFolderName = isProduction ? Config.outputFolderNameProd : Config.outputFolderNameDev
+
+    // Config.subsetMaxStep = 4
 
     let mainSheetMode = "Output"
 
@@ -294,7 +299,7 @@ function mainAggregationSheets() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = "Dev Review" // DANGER
+    filenameSuffix = "Dev Review 4 MASTER" // DANGER
     outputFolderName = "2020 - Dev - Summary"
     let mainSheetMode = "Summary Scores"
 
