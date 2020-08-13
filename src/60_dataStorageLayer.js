@@ -8,7 +8,7 @@
 /* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, addDataStoreSingleCompany, removeEmptySheet, determineFirstStep, determineMaxStep */
 
 // eslint-disable-next-line no-unused-vars
-function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, includeWide, DataMode) {
+function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode) {
 
     let Indicators = IndicatorsObj
     let ResearchSteps = researchStepsVector
@@ -30,14 +30,12 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
     let integrateOutputs = outputParams.integrateOutputs
     let dataColWidth = outputParams.dataColWidth
 
-    let firstScoringStep = determineFirstStep(outputParams)
-    let maxScoringStep = determineMaxStep(outputParams, ResearchSteps)
+    let firstScoringStep = 0
+    let maxScoringStep = Config.subsetMaxStep + 1
+    console.log("DEBUG - maxScoringStep " + maxScoringStep)
 
-    addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, includeWide, DataMode)
-
-    addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, includeWide, "scores")
-
-    
+    DataMode.forEach(mode =>
+        addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, mode))
 
     // let subStepNr = 1 // param for global control substep processing
     // addDataStoreSingleCompany(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)

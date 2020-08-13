@@ -7,17 +7,17 @@
 
 function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
 
-    console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
+    // console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
 
     let activeRow = lastRow
 
-    console.log("--- Beginning Substep " + subStepID)
+    // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
         activeRow = addDataStoreSheetHeaderLong(Sheet, activeRow)
-        console.log(" - company header added for " + subStepID)
+        // console.log(" - company header added for " + subStepID)
     }
 
 
@@ -30,11 +30,11 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
 
         Category = Indicators.indicatorCategories[c]
         catLength = Category.indicators.length
-        console.log("Category: " + Category)
-        console.log("Category.indicators.length: " + catLength)
+        // console.log("Category: " + Category)
+        // console.log("Category.indicators.length: " + catLength)
         catLabel = Category.labelShort
 
-        console.log(" --- begin Indicator Category: " + catLabel)
+        // console.log(" --- begin Indicator Category: " + catLabel)
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
@@ -44,14 +44,14 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
 
             Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            console.log("begin Indicator: " + indLabelShort)
+            // console.log("begin Indicator: " + indLabelShort)
 
             // for all components of the current Research Step
             for (let stepCompNr = 0; stepCompNr < SubStep.components.length; stepCompNr++) {
 
                 StepComp = SubStep.components[stepCompNr]
                 stepCompType = StepComp.type
-                console.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
+                // console.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
 
                 switch (stepCompType) {
 
@@ -108,18 +108,18 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
 
 function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
 
-    console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
+    // console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
 
     let activeRow = lastRow
 
-    console.log("--- Beginning Substep " + subStepID)
+    // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
         activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
-        console.log(" - company header added for " + subStepID)
+        // console.log(" - company header added for " + subStepID)
     }
 
 
@@ -132,11 +132,11 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
 
         Category = Indicators.indicatorCategories[c]
         catLength = Category.indicators.length
-        console.log("Category: " + Category)
-        console.log("Category.indicators.length: " + catLength)
+        // console.log("Category: " + Category)
+        // console.log("Category.indicators.length: " + catLength)
         catLabel = Category.labelShort
 
-        console.log(" --- begin Indicator Category: " + catLabel)
+        // console.log(" --- begin Indicator Category: " + catLabel)
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
@@ -146,14 +146,14 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
 
             Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            console.log("begin Indicator: " + indLabelShort)
+            // console.log("begin Indicator: " + indLabelShort)
 
             // for all components of the current Research Step
             for (let stepCompNr = 0; stepCompNr < SubStep.components.length; stepCompNr++) {
 
                 StepComp = SubStep.components[stepCompNr]
                 stepCompType = StepComp.type
-                console.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
+                // console.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
 
                 switch (stepCompType) {
 
@@ -161,7 +161,7 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
                     case "subStepHeader":
                         // stepCompID = StepComp.id
                         // activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        // console.log(Indicator.labelShort + stepCompType + " added ")
+                        console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
 
@@ -170,7 +170,7 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
                     case "importPreviousResults":
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockLongScoring(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref)
-                        console.log(Indicator.labelShort + stepCompType + " added ")
+                        console.log(Indicator.labelShort + " " + stepCompType + " added ")
                         break
 
 
@@ -194,18 +194,18 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
 
 }
 
-function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref){
+function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
 
     let activeRow = lastRow
 
-    console.log("--- Beginning Substep " + subStepID)
+    // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
         activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
-        console.log(" - company header added for " + subStepID)
+        // console.log(" - company header added for " + subStepID)
     }
 
 
@@ -217,11 +217,11 @@ function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubSt
 
         Category = Indicators.indicatorCategories[c]
         catLength = Category.indicators.length
-        console.log("Category: " + Category)
-        console.log("Category.indicators.length: " + catLength)
+        // console.log("Category: " + Category)
+        // console.log("Category.indicators.length: " + catLength)
         catLabel = Category.labelShort
 
-        console.log(" --- begin Indicator Category: " + catLabel)
+        // console.log(" --- begin Indicator Category: " + catLabel)
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
@@ -231,10 +231,10 @@ function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubSt
 
             Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            console.log("begin Indicator: " + indLabelShort)
-        
+            // console.log("begin Indicator: " + indLabelShort)
 
-            activeRow=importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref,"SL")
+
+            activeRow = importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref, "SL")
 
 
         } // END INDICATOR
@@ -247,18 +247,18 @@ function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubSt
 
 }
 
-function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref){
+function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
 
     let activeRow = lastRow
 
-    console.log("--- Beginning Substep " + subStepID)
+    // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
         activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
-        console.log(" - company header added for " + subStepID)
+        // console.log(" - company header added for " + subStepID)
     }
 
 
@@ -270,11 +270,11 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
 
         Category = Indicators.indicatorCategories[c]
         catLength = Category.indicators.length
-        console.log("Category: " + Category)
-        console.log("Category.indicators.length: " + catLength)
+        // console.log("Category: " + Category)
+        // console.log("Category.indicators.length: " + catLength)
         catLabel = Category.labelShort
 
-        console.log(" --- begin Indicator Category: " + catLabel)
+        // console.log(" --- begin Indicator Category: " + catLabel)
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
@@ -284,12 +284,12 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
 
             Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            console.log("begin Indicator: " + indLabelShort)
-        
+            // console.log("begin Indicator: " + indLabelShort)
+
 
             Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            console.log("begin Indicator: " + indLabelShort)
+            // console.log("begin Indicator: " + indLabelShort)
 
             let importID = Indicator.labelShort
 
@@ -336,7 +336,7 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
 
 
             blockCells.push(rowCells)
-            
+
 
             // --- write block --- //
 
@@ -345,7 +345,7 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
             Sheet.getRange(activeRow, 1, nrOfRows, nrOfCols)
                 .setValues(blockCells)
 
-            activeRow= activeRow + nrOfRows
+            activeRow = activeRow + nrOfRows
 
 
         } // END INDICATOR
@@ -358,18 +358,18 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
 
 }
 
-function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref){
+function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
 
     let activeRow = lastRow
 
-    console.log("--- Beginning Substep " + subStepID)
+    // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
         activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
-        console.log(" - company header added for " + subStepID)
+        // console.log(" - company header added for " + subStepID)
     }
 
 
@@ -381,11 +381,11 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
 
         Category = Indicators.indicatorCategories[c]
         catLength = Category.indicators.length
-        console.log("Category: " + Category)
-        console.log("Category.indicators.length: " + catLength)
+        // console.log("Category: " + Category)
+        // console.log("Category.indicators.length: " + catLength)
         catLabel = Category.labelShort
 
-        console.log(" --- begin Indicator Category: " + catLabel)
+        // console.log(" --- begin Indicator Category: " + catLabel)
 
         // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
 
@@ -395,7 +395,7 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
 
             Indicator = Category.indicators[i]
             indLabelShort = Indicator.labelShort
-            console.log("begin Indicator: " + indLabelShort)
+            // console.log("begin Indicator: " + indLabelShort)
 
             let importID = Indicator.labelShort
 
@@ -418,7 +418,7 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
             rowCells.push(compCellName, formula)
             rowCells.push("")
             blockCells.push(rowCells)
-            
+
 
             // --- write block --- //
 
@@ -427,7 +427,7 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
             Sheet.getRange(activeRow, 1, nrOfRows, nrOfCols)
                 .setValues(blockCells)
 
-            activeRow= activeRow + nrOfRows
+            activeRow = activeRow + nrOfRows
 
 
         } // END INDICATOR

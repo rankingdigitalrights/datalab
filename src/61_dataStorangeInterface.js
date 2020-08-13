@@ -6,7 +6,7 @@
 /* global Config, insertSheetIfNotExist,dataStoreSingleStepWide,dataStoreSingleStepLong,resizeSheet */
 
 // eslint-disable-next-line no-unused-vars
-function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, includeWide, DataMode) {
+function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode) {
 
     let urlDC = Company.urlCurrentDataCollectionSheet
     let urlSC = Company.urlCurrentCompanyScoringSheet
@@ -22,39 +22,52 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     let firstCol = 1
     let lastCol
-    let lastRow, lastRowC, lastRowI, lastRowL
+    let lastRowR, lastRowS, lastRowC, lastRowI, lastRowL
     let hookFirstDataCol
+
+    let elementSheet, levelSS, compositeSS, indicatorSS
 
     // --- // long output // --- //
 
-    let longSheet = insertSheetIfNotExist(SS, "results", true) // ToDo set as FALSE later
-    let elementSS=insertSheetIfNotExist(SS, "element scores", true)
-    let levelSS=insertSheetIfNotExist(SS, "level scores", true)
-    let compositeSS=insertSheetIfNotExist(SS, "composite scores", true)
-    let indicatorSS=insertSheetIfNotExist(SS, "indicator scores", true)
+    elementSheet = DataMode === "scores" ? insertSheetIfNotExist(SS, "element scores", true) : insertSheetIfNotExist(SS, "results", true)
 
-    if(DataMode=="scores"){
-        longSheet=elementSS
+    if (elementSheet !== null) {
+        elementSheet.clear()
+        resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K
     }
 
-    if (longSheet !== null) {
-        longSheet.clear()
-        resizeSheet(longSheet, 65000) // approaching upper limit of allowed cell limit of 500K
+    if (DataMode === "scores") {
+
+        levelSS = insertSheetIfNotExist(SS, "level scores", true)
+        if (levelSS !== null) {
+            levelSS.clear()
+        }
+
+        compositeSS = insertSheetIfNotExist(SS, "composite scores", true)
+        if (compositeSS !== null) {
+            compositeSS.clear()
+        }
+
+        indicatorSS = insertSheetIfNotExist(SS, "indicator scores", true)
+        if (indicatorSS !== null) {
+            indicatorSS.clear()
+        }
+
     }
 
-    lastRow = 1
-    lastRowL = 1
-    lastRowC = 1
-    lastRowI = 1
+    lastRowR = lastRowS = lastRowL = lastRowC = lastRowI = 1
 
     for (mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
+        console.log("DEBUG - " + mainStepNr)
         MainStep = ResearchSteps.researchSteps[mainStepNr]
 
         indexPref = MainStep.altIndexID ? Config.prevIndexPrefix : Config.indexPrefix
 
+        let scoringSubStepNr = MainStep.altScoringSubstepNr ? MainStep.altScoringSubstepNr : 1
+
         if (MainStep.excludeFromOutputs) {
-            break // i.e. ignore Step 4 Feedback Debate
+            continue // i.e. ignore Step 4 Feedback Debate
         }
 
         for (let subStepNr = 0; subStepNr < MainStep.substeps.length; subStepNr++) {
@@ -63,36 +76,44 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
             console.log("--- Main Step : " + MainStep.step)
             console.log("--- Main Step has " + MainStep.substeps.length + " Substeps")
-            Logger.log("substepNr===="+subStepNr+", MainStep.scoring==="+MainStep.scoring)
+            // Logger.log("substepNr====" + subStepNr + ", MainStep.scoring===" + MainStep.scoring)
 
-            if(DataMode=="results"){
-                lastRow = dataStoreSingleStepLong(longSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref)
+            if (DataMode === "results") {
+
+                console.log("MAIN - Beginning Results")
+                lastRowR = dataStoreSingleStepLong(elementSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowR, indexPref)
+                console.log("MAIN - Produced Results")
+
+            } else if (DataMode === "scores" && subStepNr === scoringSubStepNr) {
+
+                console.log("MAIN - Beginning Scoring")
+                lastRowS = dataStoreSingleStepLongScoring(elementSheet, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowS, indexPref)
+
+                lastRowL = dataStoreSingleStepLongLevelScoring(levelSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowL, indexPref)
+
+                lastRowC = dataStoreSingleStepLongCompositeScoring(compositeSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowC, indexPref)
+
+                lastRowI = dataStoreSingleStepLongIndicatorScoring(indicatorSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowI, indexPref)
+
+                console.log("MAIN - Ended Scoring")
             }
 
-            else if(DataMode=="scores"&&Substep.subStepID==MainStep.scoringSubStep) {
-                
-                lastRow = dataStoreSingleStepLongScoring(elementSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref)
-                lastRowL=dataStoreSingleStepLongLevelScoring(levelSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowC, indexPref)
-                lastRowC=dataStoreSingleStepLongCompositeScoring(compositeSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowC, indexPref)
-                lastRowI=dataStoreSingleStepLongIndicatorScoring(indicatorSS, subStepNr, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRowI, indexPref)
-            }
-            
 
         } // END SUBSTEP
     } // END MAIN STEP
 
     console.log("Formatting Sheet")
-    lastCol = longSheet.getLastColumn()
+    lastCol = elementSheet.getLastColumn()
 
-    longSheet.getRange(1, 1, lastRow, lastCol)
+    elementSheet.getRange(1, 1, lastRowR, lastCol)
         .setFontFamily("Roboto")
         .setVerticalAlignment("top")
         .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
     // .setWrap(true)
 
     hookFirstDataCol = firstCol + 2
-    longSheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
-    longSheet.setColumnWidth(lastCol + 1, 25)
+    elementSheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
+    elementSheet.setColumnWidth(lastCol + 1, 25)
 
     // --- // wide output // --- //
 
@@ -137,14 +158,5 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
     //     wideSheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
     //     wideSheet.setColumnWidth(lastCol + 1, 25)
     // }
-
-}
-
-
-function addDataStoreScoringSingleCompay(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode) {
-
-
-
-
 
 }

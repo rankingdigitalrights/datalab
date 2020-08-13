@@ -24,9 +24,9 @@ function addDataStoreSheetHeaderLongScoring(Sheet, activeRow) {
 function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, elemLabelShort, elemNr, Company, hasOpCom, integrateOutputs, urlDC, urlSC, scoringSuffix, indexPref) {
 
     let importID = Indicator.labelShort
-    console.log(" - " + "in " + StepComp.type + " " + importID)
+    // console.log(" - " + "in " + StepComp.type + " " + importID)
 
-    console.log(`DEBUG - ${indexPref}`)
+    // console.log(`DEBUG - ${indexPref}`)
 
     // PILOT: adjusting substep number for Researcher Name import
     if (StepComp.importNameFrom) {
@@ -42,9 +42,9 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepI
 
     let c = elemLabelShort
     if (elemLabelShort != null) {
-        console.log("here")
+        // console.log("here")
         c = elemLabelShort.substring(indLabelShort.length + 1, elemLabelShort.length + 1)
-        console.log(c)
+        // console.log(c)
     }
 
     rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), indCatLabelShort, indLabelShort, c, StepComp.variableName)
@@ -136,9 +136,9 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepI
 function importDataStoreRowLongScoring(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, elemLabelShort, elemNr, Company, hasOpCom, integrateOutputs, urlDC, urlSC, scoringSuffix, indexPref) {
 
     let importID = Indicator.labelShort
-    console.log(" - " + "in " + StepComp.type + " " + importID)
+    // console.log(" - " + "in " + StepComp.type + " " + importID)
 
-    console.log(`DEBUG - ${indexPref}`)
+    // console.log(`DEBUG - ${indexPref}`)
 
     // PILOT: adjusting substep number for Researcher Name import
     if (StepComp.importNameFrom) {
@@ -154,9 +154,9 @@ function importDataStoreRowLongScoring(activeRow, Sheet, StepComp, stepCompID, s
 
     let c = elemLabelShort
     if (elemLabelShort != null) {
-        console.log("here")
+        // console.log("here")
         c = elemLabelShort.substring(indLabelShort.length + 1, elemLabelShort.length + 1)
-        console.log(c)
+        // console.log(c)
     }
 
     rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), indCatLabelShort, indLabelShort, c, "score")
@@ -198,13 +198,13 @@ function importDataStoreRowLongScoring(activeRow, Sheet, StepComp, stepCompID, s
     //compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, "opCom", stepCompID)
     //formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
 
-    if(Company.hasOpCom){
+    if (Company.hasOpCom) {
 
         compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, "opCom", scoringSuffix)
         formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
+    } else {
+        formula = "N/A"
     }
-
-    else{formula="N/A"}
 
     rowCells.push(compCellName, formula)
 
@@ -235,7 +235,7 @@ function importDataStoreRowLongScoring(activeRow, Sheet, StepComp, stepCompID, s
         compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, Company.services[s].id, stepCompID)
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         */
-       compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
+        compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
         formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
         rowCells.push(compCellName, formula)
 
@@ -272,11 +272,11 @@ function importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, subSte
 
     let scoringSuffix = StepComp.scoringId || false
 
-    console.log("- Element Data Type: " + stepCompID)
+    // console.log("- Element Data Type: " + stepCompID)
 
     let currentRow = activeRow
 
-    console.log(" - " + "in " + StepComp.type + " " + indLabelShort)
+    // console.log(" - " + "in " + StepComp.type + " " + indLabelShort)
 
     let indLength = Indicator.elements.length
     let elemLabelShort
@@ -290,14 +290,14 @@ function importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, subSte
     return currentRow
 }
 
-function importDataStoreBlockLongScoring(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref){
+function importDataStoreBlockLongScoring(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref) {
     let scoringSuffix = StepComp.scoringId || false
 
-    console.log("- Element Data Type: " + stepCompID)
+    // console.log("- Element Data Type: " + stepCompID)
 
     let currentRow = activeRow
 
-    console.log(" - " + "in " + StepComp.type + " " + indLabelShort)
+    // console.log(" - " + "in " + StepComp.type + " " + indLabelShort)
 
     let indLength = Indicator.elements.length
     let elemLabelShort
@@ -312,11 +312,11 @@ function importDataStoreBlockLongScoring(Sheet, activeRow, StepComp, stepCompID,
 }
 
 function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref, scoringSuffix) {
-    
-    let importID = Indicator.labelShort
-    //console.log(" - " + "in " + StepComp.type + " " + importID)
 
-    console.log(`DEBUG - ${indexPref}`)
+    let importID = Indicator.labelShort
+    // console.log(" - " + "in " + StepComp.type + " " + importID)
+
+    // console.log(`DEBUG - ${indexPref}`)
 
     // PILOT: adjusting substep number for Researcher Name import
     /*if (StepComp.importNameFrom) {
@@ -331,7 +331,7 @@ function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, s
     let formula
 
     let c = ""
-    
+
 
     rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), catLabel, indLabelShort, c, "score")
 
@@ -372,13 +372,13 @@ function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, s
     //compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, "opCom", stepCompID)
     //formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
 
-    if(Company.hasOpCom){
+    if (Company.hasOpCom) {
 
         compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, "opCom", scoringSuffix)
         formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
+    } else {
+        formula = "N/A"
     }
-
-    else{formula="N/A"}
 
     rowCells.push(compCellName, formula)
 
@@ -409,7 +409,7 @@ function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, s
         compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, Company.services[s].id, stepCompID)
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         */
-       compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
+        compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
         formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
         rowCells.push(compCellName, formula)
 
@@ -435,7 +435,7 @@ function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, s
     rowCells.push(compCellName, formula)
     rowCells.push("")*/
     blockCells.push(rowCells)
-    
+
 
     // --- write block --- //
 
