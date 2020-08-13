@@ -22,7 +22,7 @@ var researchStepsVector = {
         components: [{
             type: "importPreviousResults",
             rowLabel: "Result ",
-            variableName: "prev_result",
+            variableName: "result",
             importStepID: "S07",
             comparisonType: "DC",
             id: "R",
@@ -30,14 +30,14 @@ var researchStepsVector = {
           {
             type: "importPreviousComments",
             rowLabel: "Comment ",
-            variableName: "prev_comment",
+            variableName: "comment",
             importStepID: "S07",
             comparisonType: "DC",
             id: "C",
           }, {
             type: "importPreviousSources",
             rowLabel: "Sources (2019)",
-            variableName: "prev_sources",
+            variableName: "sources",
             importStepID: "S07",
             comparisonType: "DC",
             id: "S",

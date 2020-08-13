@@ -62,8 +62,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
                         // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
-
-                    case "evaluation":
+                        // case "evaluation":
                     case "reviewResults":
                     case "importPreviousResults":
                         stepCompID = StepComp.id
