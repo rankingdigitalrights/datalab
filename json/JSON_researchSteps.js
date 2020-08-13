@@ -22,7 +22,7 @@ var researchStepsVector = {
         components: [{
             type: "importPreviousResults",
             rowLabel: "Result ",
-            variableName: "result",
+            variableName: "prev_result",
             importStepID: "S07",
             comparisonType: "DC",
             id: "R",
@@ -30,14 +30,14 @@ var researchStepsVector = {
           {
             type: "importPreviousComments",
             rowLabel: "Comment ",
-            variableName: "comment",
+            variableName: "prev_comment",
             importStepID: "S07",
             comparisonType: "DC",
             id: "C",
           }, {
             type: "importPreviousSources",
             rowLabel: "Sources (2019)",
-            variableName: "sources",
+            variableName: "prev_sources",
             importStepID: "S07",
             comparisonType: "DC",
             id: "S",
@@ -454,7 +454,6 @@ var researchStepsVector = {
               id: "YY",
               scoringId: "SE",
               rowLabel: "Reason ",
-              variableName: "result",
               variableName: "yony_result",
               importStepID: "S031",
               evaluationStep: "S035", // Regular YonY: S015
@@ -479,7 +478,6 @@ var researchStepsVector = {
               id: "S",
               rowLabel: "Sources",
               variableName: "yony_sources",
-              variableName: "sources"
             }
           ]
         }
@@ -773,25 +771,40 @@ var researchStepsVector = {
         subStepColor: "#6aa84f",
         "components": [{
             type: "subStepHeader",
-            rowLabel: "If this Year's Results are different, select Reason for Change",
+            rowLabel: "Are the Year-on-Year Results the same this Year?",
           },
+          // regular YonY:
           {
-            type: "evaluation",
-            id: "YY",
-            mode: "YonY",
-            scoringId: "SE",
-            rowLabel: "Reason ",
+            "type": "compareTwoSteps",
+            id: "R",
+            "rowLabel": "Answer ",
             variableName: "yony_review",
-            comparisonType: "DC",
-            dropdown: [
-              "not selected",
-              "yes",
-              "no"
-            ]
+            importStepID: "S061",
+            prevIndexPrefix: "RDR19",
+            evaluationStep: "S07",
+            comparisonType: "R",
+            isInternalEval: false
           },
           {
             "type": "extraQuestion",
-            "rowLabel": "If you disagree, please explain your reasoning:"
+            "rowLabel": "If this Year's Results are different, select Reason for Change:"
+          },
+          {
+            type: "YonYreview", // "evaluation"
+            mode: "YonY",
+            id: "YY",
+            scoringId: "SE",
+            rowLabel: "Reason ",
+            variableName: "yony_result",
+            evaluationStep: "S065", // Regular YonY: S015
+            comparisonType: "R", // Regular YonY: YY
+            dropdown: [
+              "not selected",
+              "no change",
+              "improvement",
+              "decline",
+              "other"
+            ]
           },
           {
             "type": "comments",
@@ -800,12 +813,11 @@ var researchStepsVector = {
             variableName: "yony_comment",
             "label2": " ",
             "nameLabel": "Comments"
-          },
-          {
+          }, {
             type: "sources",
             id: "S",
             rowLabel: "Sources",
-            variableName: "yony_sources",
+            variableName: "yony_sources"
           }
         ]
       }]
@@ -889,25 +901,40 @@ var researchStepsVector = {
         subStepColor: "#a4c2f4",
         "components": [{
             type: "subStepHeader",
-            rowLabel: "If this Year's Results are different, select Reason for Change",
+            rowLabel: "Are the Year-on-Year Results the same this Year?",
           },
+          // regular YonY:
           {
-            type: "evaluation",
-            id: "YY",
-            mode: "YonY",
-            scoringId: "SE",
-            rowLabel: "Reason ",
+            "type": "compareTwoSteps",
+            id: "R",
+            "rowLabel": "Answer ",
             variableName: "yony_review",
-            comparisonType: "DC",
-            dropdown: [
-              "not selected",
-              "yes",
-              "no"
-            ]
+            importStepID: "S071",
+            prevIndexPrefix: "RDR19",
+            evaluationStep: "S07",
+            comparisonType: "R",
+            isInternalEval: false
           },
           {
             "type": "extraQuestion",
-            "rowLabel": "If you disagree, please explain your reasoning:"
+            "rowLabel": "If this Year's Results are different, select Reason for Change:"
+          },
+          {
+            type: "YonYreview", // "evaluation"
+            mode: "YonY",
+            id: "YY",
+            scoringId: "SE",
+            rowLabel: "Reason ",
+            variableName: "yony_result",
+            evaluationStep: "S075", // Regular YonY: S015
+            comparisonType: "R", // Regular YonY: YY
+            dropdown: [
+              "not selected",
+              "no change",
+              "improvement",
+              "decline",
+              "other"
+            ]
           },
           {
             "type": "comments",
@@ -916,12 +943,11 @@ var researchStepsVector = {
             variableName: "yony_comment",
             "label2": " ",
             "nameLabel": "Comments"
-          },
-          {
+          }, {
             type: "sources",
             id: "S",
             rowLabel: "Sources",
-            variableName: "yony_sources",
+            variableName: "yony_sources"
           }
         ]
       }]
