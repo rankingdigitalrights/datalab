@@ -57,7 +57,7 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     lastRowR = lastRowS = lastRowL = lastRowC = lastRowI = 1
 
-    for (mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
+    for (mainStepNr = firstScoringStep; mainStepNr <= maxScoringStep; mainStepNr++) {
 
         console.log("DEBUG - " + mainStepNr)
         MainStep = ResearchSteps.researchSteps[mainStepNr]

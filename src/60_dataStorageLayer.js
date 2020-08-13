@@ -31,7 +31,7 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
     let dataColWidth = outputParams.dataColWidth
 
     let firstScoringStep = 0
-    let maxScoringStep = Config.subsetMaxStep + 1
+    let maxScoringStep = Config.subsetMaxStep
     console.log("DEBUG - maxScoringStep " + maxScoringStep)
 
     DataMode.forEach(mode =>
