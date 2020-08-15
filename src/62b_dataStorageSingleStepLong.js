@@ -300,8 +300,10 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
             let formula
 
             let c = ""
+            let subStepLabel=subStepID.substring(3, 4)
+            if(indexPref=="RDR19"){subStepLabel="0"}
 
-            rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), catLabel, indLabelShort, c, "score")
+            rowLabels.push(subStepID.substring(2, 3), subStepLabel, catLabel, indLabelShort, c, "score")
             rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
             rowCells = rowLabels.slice()
@@ -406,8 +408,10 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
             let formula
 
             let c = ""
+            let subStepLabel=subStepID.substring(3, 4)
+            if(indexPref=="RDR19"){subStepLabel="0"}
 
-            rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), catLabel, indLabelShort, c, "score")
+            rowLabels.push(subStepID.substring(2, 3), subStepLabel, catLabel, indLabelShort, c, "score")
             rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
             rowCells = rowLabels.slice()

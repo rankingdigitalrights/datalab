@@ -65,6 +65,8 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
         indexPref = MainStep.altIndexID ? Config.prevIndexPrefix : Config.indexPrefix
 
         let scoringSubStepNr = MainStep.altScoringSubstepNr ? MainStep.altScoringSubstepNr : 1
+        if(mainStepNr==0){scoringSubStepNr=0} 
+
 
         if (MainStep.excludeFromOutputs) {
             continue // i.e. ignore Step 4 Feedback Debate

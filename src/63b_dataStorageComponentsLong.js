@@ -47,7 +47,10 @@ function importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepI
         // console.log(c)
     }
 
-    rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), indCatLabelShort, indLabelShort, c, StepComp.variableName)
+    let subStepLabel=subStepID.substring(3, 4)
+    if(indexPref=="RDR19"){subStepLabel="0"}
+
+    rowLabels.push(subStepID.substring(2, 3), subStepLabel, indCatLabelShort, indLabelShort, c, StepComp.variableName)
 
     rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
@@ -159,7 +162,10 @@ function importDataStoreRowLongScoring(activeRow, Sheet, StepComp, stepCompID, s
         // console.log(c)
     }
 
-    rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), indCatLabelShort, indLabelShort, c, "score")
+    let subStepLabel=subStepID.substring(3, 4)
+    if(indexPref=="RDR19"){subStepLabel="0"}
+
+    rowLabels.push(subStepID.substring(2, 3), subStepLabel, indCatLabelShort, indLabelShort, c, "score")
 
     rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
@@ -328,12 +334,13 @@ function importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, s
     let blockCells = []
     let component = ""
     let compCellName
-    let formula
+    let formula, subStepLabel
 
     let c = ""
+    subStepLabel=subStepID.substring(3, 4)
+    if(indexPref=="RDR19"){subStepLabel="0"}
 
-
-    rowLabels.push(subStepID.substring(2, 3), subStepID.substring(3, 4), catLabel, indLabelShort, c, "score")
+    rowLabels.push(subStepID.substring(2, 3), subStepLabel, catLabel, indLabelShort, c, "score")
 
     rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
