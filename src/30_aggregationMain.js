@@ -3,7 +3,7 @@ Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadshe
 */
 
 // eslint-disable-next-line no-unused-vars
-function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets) {
+function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets,yoy) {
 
     // scroing step number should be passed via main method call
 
@@ -51,7 +51,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
             hasOpCom = CompanyObj.hasOpCom
 
-            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode)
+            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy)
 
             Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 

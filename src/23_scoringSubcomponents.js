@@ -5,10 +5,12 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepNr, subStepID, blocks) {
+function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepNr, subStepID, blocks,yoy) {
 
     // -- // add Step Header to top-left cell // -- //
     // TODO: refactor to components
+
+    let stepSuffix=yoy&&mainStepNr!="S0"?" Adjusted":""
 
     if (blocks == 1) {
         Sheet.getRange(activeRow, activeCol)
@@ -30,7 +32,7 @@ function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShor
     stepLabel += ` (${subStepID})`
 
     Sheet.getRange(activeRow, activeCol)
-        .setValue(stepLabel)
+        .setValue(stepLabel+stepSuffix)
         .setFontWeight("bold")
         .setFontSize(14)
 
@@ -353,7 +355,7 @@ function importElementRow(activeRow, activeCol, Sheet, StepComp, subStepID, Indi
 // --- // Core function: SCORING // --- //
 
 // eslint-disable-next-line no-unused-vars
-function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepID, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells) {
+function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepID, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells,yoy) {
 
     console.log(" - " + "in element scoring for " + " " + Indicator.labelShort)
 
@@ -410,8 +412,18 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
             // console.log("let up: " + up)
             range = Sheet.getRange(activeRow - up, tempCol)
             // Cell.setValue(range.getA1Notation())
-            elementScore = elementScoreFormula(range, scoringScaleReversed)
-            Cell.setFormula(elementScore)
+
+            
+            cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, "group", scoringSuffix)
+            if(yoy&&subStepID!="S07"&&SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()=="exclude (N/A)"){
+                Cell.setValue("N/A")
+            }
+
+            else{
+                elementScore = elementScoreFormula(range, scoringScaleReversed)
+                Cell.setFormula(elementScore)
+            }
+
             Cell.setNumberFormat("0.##")
 
             // cell name formula; output defined in 44_rangeNamingHelper.js
@@ -442,6 +454,19 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 if (nrOfIndSubComps != 1) {
                     component = Category.components[k].labelShort
                 }
+
+                cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, "opCom", scoringSuffix)
+                if(yoy&&subStepID!="S07"&&SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()=="exclude (N/A)"){
+                    Cell.setValue("N/A")
+                }
+
+                else{
+                    elementScore = elementScoreFormula(range, scoringScaleReversed)
+                    Cell.setFormula(elementScore)
+                }
+
+                Cell.setNumberFormat("0.##")
+
                 cellName = defineNamedRange(indexPref, sheetModeID, subStepID, elementLabel, component, Company.id, "opCom", scoringSuffix)
                 SS.setNamedRange(cellName, Cell)
 
@@ -465,8 +490,20 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 range = Sheet.getRange(activeRow - up, tempCol)
                 // Cell.setValue(range.getA1Notation())
                 // let elementScore = '=LEN(' + range.getA1Notation() + ')'
-                elementScore = elementScoreFormula(range, scoringScaleReversed)
-                Cell.setFormula(elementScore)
+                if (nrOfIndSubComps != 1) {
+                    component = Category.components[k].labelShort
+                }
+
+                cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, Company.services[g].id, scoringSuffix)
+                if(yoy&&subStepID!="S07"&&SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()=="exclude (N/A)"){
+                    Cell.setValue("N/A")
+                }
+
+                else{
+                    elementScore = elementScoreFormula(range, scoringScaleReversed)
+                    Cell.setFormula(elementScore)
+                }
+
                 Cell.setNumberFormat("0.##")
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 component = ""

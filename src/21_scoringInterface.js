@@ -4,7 +4,7 @@
 /* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
 
 // eslint-disable-next-line no-unused-vars
-function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode) {
+function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy, compStep) {
 
     Logger.log("|--- Begin addSetOfScoringSteps")
     let sheetName = outputParams.sheetName
@@ -51,6 +51,8 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
+        if(yoy && mainStepNr>0 && mainStepNr!=compStep){continue} 
+
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
         if (MainStep.excludeFromOutputs) {
@@ -68,7 +70,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
 
         // producing single Scoring Step for all indicators
 
-        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults)
+        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,yoy)
 
         blocks++
 

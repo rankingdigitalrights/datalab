@@ -198,7 +198,9 @@ function mainScoringSheets() {
 
     // Config.subsetMaxStep = 4
 
-    let mainSheetMode = "Output"
+    let yoy = true
+    let compStep=3
+    let mainSheetMode=yoy?"Output Yoy":"Output"
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -234,7 +236,7 @@ function mainScoringSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, yoy, compStep)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -309,6 +311,8 @@ function mainAggregationSheets() {
 
     let scoringStepNr = 3
 
+    let yoy=false
+
     let Companies = companiesVector.companies
     // .slice(5, 7) // Axiata & Baidu,
     // .slice(1, 9) // no Amazon
@@ -317,7 +321,7 @@ function mainAggregationSheets() {
     // .slice(1, 2) // Apple
     // .slice(3,4) //
 
-    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets)
+    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets,yoy)
 
     // addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 
