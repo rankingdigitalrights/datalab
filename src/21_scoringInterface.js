@@ -4,7 +4,7 @@
 /* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
 
 // eslint-disable-next-line no-unused-vars
-function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy, compStep) {
+function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy,yoyComp) {
 
     Logger.log("|--- Begin addSetOfScoringSteps")
     let sheetName = outputParams.sheetName
@@ -51,7 +51,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
-        if(yoy && mainStepNr>0 && mainStepNr!=compStep){continue} 
+        if(mainStepNr>0&&mainStepNr!=yoyComp){continue}
 
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 

@@ -378,6 +378,9 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
 
     let scoringSuffix = "SE"
     let indexPref = ScoreCells.indexPref
+    let compCellValue, rule
+
+    let rules = Sheet.getConditionalFormatRules()
 
     // for each indicator.Element
     for (let elemNr = 0; elemNr < Indicator.elements.length; elemNr++) {
@@ -413,18 +416,31 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
             range = Sheet.getRange(activeRow - up, tempCol)
             // Cell.setValue(range.getA1Notation())
 
-            
-            cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, "group", scoringSuffix)
-            if(yoy&&subStepID!="S07"&&SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()=="exclude (N/A)"){
-                Cell.setValue("N/A")
+
+            if(yoy){
+                cellName = defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", elementLabel, component, Company.id, "group", scoringSuffix)
+                compCellValue=SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()
+
+                if(indexPrefix!=Config.prevIndexPrefix&&compCellValue=="exclude (N/A)") {Cell.setValue("N/A")}
+
+                else if (indexPrefix!=Config.prevIndexPrefix){
+                    elementScore = elementScoreFormula(range, scoringScaleReversed)
+                    Cell.setFormula(elementScore)
+                    rule = SpreadsheetApp.newConditionalFormatRule()
+                        .whenFormulaSatisfied("="+cellName)
+                        .setBackground("#FF0000")
+                        .setRanges([Cell])
+                        .build();
+
+                    rules.push(rule)
+
+                }
+
             }
 
-            else{
-                elementScore = elementScoreFormula(range, scoringScaleReversed)
-                Cell.setFormula(elementScore)
-            }
 
             Cell.setNumberFormat("0.##")
+
 
             // cell name formula; output defined in 44_rangeNamingHelper.js
             component = ""
@@ -520,7 +536,10 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
         activeRow += 1
     }
 
+    if(yoy){Sheet.setConditionalFormatRules(rules)}
+
     return activeRow + 1
+
 }
 
 // --- // Level Scoring // --- //

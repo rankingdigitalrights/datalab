@@ -199,7 +199,7 @@ function mainScoringSheets() {
     // Config.subsetMaxStep = 4
 
     let yoy = true
-    let compStep=3
+    let yoyComp=3
     let mainSheetMode=yoy?"Output Yoy":"Output"
 
     const Companies = companiesVector.companies
@@ -236,7 +236,7 @@ function mainScoringSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, yoy, compStep)
+        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, yoy,yoyComp)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -301,7 +301,7 @@ function mainAggregationSheets() {
     // filename fragments defined in 
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = "Dev Review 4 MASTER" // DANGER
+    filenameSuffix = "YoY Test" // DANGER
     outputFolderName = "2020 - Dev - Summary"
     let mainSheetMode = "Summary Scores"
 
@@ -311,7 +311,7 @@ function mainAggregationSheets() {
 
     let scoringStepNr = 3
 
-    let yoy=false
+    let yoy=true
 
     let Companies = companiesVector.companies
     // .slice(5, 7) // Axiata & Baidu,
