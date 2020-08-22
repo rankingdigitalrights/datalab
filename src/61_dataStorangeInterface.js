@@ -6,10 +6,13 @@
 /* global Config, insertSheetIfNotExist,dataStoreSingleStepWide,dataStoreSingleStepLong,resizeSheet */
 
 // eslint-disable-next-line no-unused-vars
-function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode) {
+function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode,yoy) {
 
     let urlDC = Company.urlCurrentDataCollectionSheet
-    let urlSC = Company.urlCurrentCompanyScoringSheet
+    let urlSC 
+    
+    if(!yoy){urlSC= Company.urlCurrentCompanyScoringSheet}
+    else{urlSC=Company.urlCurrentYoyScoringSheet}
 
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
