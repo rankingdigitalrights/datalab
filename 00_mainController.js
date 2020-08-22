@@ -319,7 +319,7 @@ function mainAggregationSheets() {
     // .slice(1, 3) // for debugging
     // .slice(0,3) // Amazon
     // .slice(1, 2) // Apple
-    // .slice(3,4) //
+     .slice(3,4) //
 
     let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets,yoy)
 
@@ -336,9 +336,10 @@ function mainDataStore() {
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 
-    filenameSuffix = " v2"
+    filenameSuffix = " yoy"
     // filename fragments defined in Config.summaryParams.spreadsheetName
     let mainSheetMode = Config.dataStoreParams.fileName
+    let yoy=true
 
     Config.subsetMaxStep = 7
 
@@ -376,7 +377,7 @@ function mainDataStore() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode)
+        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode,yoy)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)

@@ -23,7 +23,7 @@ function levelScoreFormula(serviceCells) {
 
     let formula = "=IF(AND("
     for (let cell = 0; cell < serviceCells.length; cell++) {
-        formula += serviceCells[cell] + "=" + "\"exclude (N/A)\""
+        formula += "REGEXMATCH(TEXT("+serviceCells[cell] + ',"$0.00"),"N/A")'
         if (cell < serviceCells.length - 1) {
             formula += ","
         }

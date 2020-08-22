@@ -155,6 +155,10 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
                 console.log(`${Indicator.labelShort} INDICATOR score added`)
 
+                if(yoy){
+                    activeRow=addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells)
+                }
+
                 activeRow = activeRow + 1
             } // END SUBSTEP COMPONENTS
         } // END INDICATOR

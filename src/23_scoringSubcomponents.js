@@ -422,24 +422,19 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 compCellValue=SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()
 
                 if(indexPrefix!=Config.prevIndexPrefix&&compCellValue=="exclude (N/A)") {Cell.setValue("N/A")}
-
+                
                 else if (indexPrefix!=Config.prevIndexPrefix){
                     elementScore = elementScoreFormula(range, scoringScaleReversed)
                     Cell.setFormula(elementScore)
-                    rule = SpreadsheetApp.newConditionalFormatRule()
-                        .whenFormulaSatisfied("="+cellName)
-                        .setBackground("#FF0000")
-                        .setRanges([Cell])
-                        .build();
-
-                    rules.push(rule)
 
                 }
+                
 
             }
 
 
             Cell.setNumberFormat("0.##")
+            
 
 
             // cell name formula; output defined in 44_rangeNamingHelper.js
@@ -536,7 +531,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
         activeRow += 1
     }
 
-    if(yoy){Sheet.setConditionalFormatRules(rules)}
+    //if(yoy){Sheet.setConditionalFormatRules(rules)}
 
     return activeRow + 1
 
@@ -855,4 +850,61 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, Sheet, subStep
     // --- INDICATOR END --- //
 
     return activeRow + 1
+}
+
+function addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells){
+
+    Logger.log("Adding change row")
+
+    let Cell
+    activeRow=activeRow+2
+    if(firstCol==1){
+        Logger.log("in if statement")
+        Cell = Sheet.getRange(activeRow, firstCol)
+        Cell.setValue("Change")
+        Cell.setFontStyle("normal")
+        Cell.setFontWeight("bold")
+
+        Cell = Sheet.getRange(activeRow, firstCol+1)
+        Cell.setValue("N/A")
+
+        activeRow=activeRow+2
+
+
+        Cell = Sheet.getRange(activeRow, firstCol)
+        Cell.setValue("Comments")
+        Cell.setFontStyle("normal")
+        Cell.setFontWeight("bold")
+        Cell.setVerticalAlignment("top")
+
+        Sheet.setRowHeight(activeRow,75)
+
+        return activeRow+2
+    
+    }
+
+
+    Cell = Sheet.getRange(activeRow, firstCol+1)
+
+    Logger.log("Cell:"+activeRow+","+firstCol+"------------------------------")
+
+
+    let formula="="
+    let cellID=defineNamedRange(Config.indexPrefix, sheetModeID, subStepID, Indicator.labelShort, "", Company.id, "", "SI")
+    formula=formula+cellID+"-"
+    cellID=defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", Indicator.labelShort, "", Company.id, "", "SI")
+    formula=formula+cellID
+
+    Cell.setFormula(formula)
+    Cell.setFontStyle("normal")
+    Cell.setFontWeight("bold")
+
+    Cell.setNumberFormat("0.##")
+
+    
+
+    activeRow=activeRow+4
+
+    return activeRow
+
 }
