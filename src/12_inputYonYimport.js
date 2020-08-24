@@ -365,7 +365,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"
