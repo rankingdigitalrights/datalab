@@ -146,15 +146,14 @@ var researchStepsVector = {
               comparisonType: "R"
             }, */
             {
-              type: "YonYreview", // "evaluation"
+              type: "YonYreview",
               mode: "YonY",
               id: "YY",
-              scoringId: "SE",
+              scoringId: "YY",
               rowLabel: "Reason ",
-              variableName: "yony_result",
-              importStepID: "S011",
-              evaluationStep: "S010", // Regular YonY: S015
-              comparisonType: "R", // Regular YonY: YY
+              variableName: "yony_reason",
+              evaluationStep: "S010",
+              comparisonType: "R",
               dropdown: [
                 "not selected",
                 "no change",
@@ -449,15 +448,14 @@ var researchStepsVector = {
               "rowLabel": "If this Year's Results are different, select Reason for Change:"
             },
             {
-              type: "YonYreview", // "evaluation"
+              type: "YonYreview",
               mode: "YonY",
               id: "YY",
-              scoringId: "SE",
+              scoringId: "YY",
               rowLabel: "Reason ",
-              variableName: "yony_result",
-              importStepID: "S031",
-              evaluationStep: "S035", // Regular YonY: S015
-              comparisonType: "R", // Regular YonY: YY
+              variableName: "yony_reason",
+              evaluationStep: "S035",
+              comparisonType: "R",
               dropdown: [
                 "not selected",
                 "no change",
@@ -658,14 +656,14 @@ var researchStepsVector = {
               "rowLabel": "If this Year's Results are different, select Reason for Change:"
             },
             {
-              type: "YonYreview", // "evaluation"
+              type: "YonYreview",
               mode: "YonY",
               id: "YY",
-              scoringId: "SE",
+              scoringId: "YY",
               rowLabel: "Reason ",
-              variableName: "yony_result",
-              evaluationStep: "S055", // Regular YonY: S015
-              comparisonType: "R", // Regular YonY: YY
+              variableName: "yony_reason",
+              evaluationStep: "S055",
+              comparisonType: "R",
               dropdown: [
                 "not selected",
                 "no change",
@@ -790,14 +788,14 @@ var researchStepsVector = {
             "rowLabel": "If this Year's Results are different, select Reason for Change:"
           },
           {
-            type: "YonYreview", // "evaluation"
+            type: "YonYreview",
             mode: "YonY",
             id: "YY",
-            scoringId: "SE",
+            scoringId: "YY",
             rowLabel: "Reason ",
-            variableName: "yony_result",
-            evaluationStep: "S065", // Regular YonY: S015
-            comparisonType: "R", // Regular YonY: YY
+            variableName: "yony_reason",
+            evaluationStep: "S065",
+            comparisonType: "R",
             dropdown: [
               "not selected",
               "no change",
@@ -920,14 +918,14 @@ var researchStepsVector = {
             "rowLabel": "If this Year's Results are different, select Reason for Change:"
           },
           {
-            type: "YonYreview", // "evaluation"
+            type: "YonYreview",
             mode: "YonY",
             id: "YY",
-            scoringId: "SE",
+            scoringId: "YY",
             rowLabel: "Reason ",
-            variableName: "yony_result",
-            evaluationStep: "S075", // Regular YonY: S015
-            comparisonType: "R", // Regular YonY: YY
+            variableName: "yony_reason",
+            evaluationStep: "S075",
+            comparisonType: "R",
             dropdown: [
               "not selected",
               "no change",
