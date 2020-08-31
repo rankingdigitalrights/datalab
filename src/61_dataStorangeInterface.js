@@ -20,10 +20,7 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
     let MainStep
     let Substep
 
-    let firstCol = 1
-    let lastCol
     let lastRowR, lastRowS, lastRowC, lastRowI, lastRowL
-    let hookFirstDataCol
 
     let elementSheet, levelSS, compositeSS, indicatorSS
 

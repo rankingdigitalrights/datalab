@@ -1,5 +1,5 @@
 /* global
-        addDataStoreSheetHeaderResults, addDataStoreSheetHeaderScoring, importDataStoreRow, importDataStoreBlock, importDataStoreBlockScoring, importDataStoreScoringLevelScores, defineNamedRange, importRangeFormula
+        addDataStoreSheetHeaderResults, addDataStoreSheetHeaderScoring, importDataStoreBlockResults, importDataStoreRowResults, importDataStoreBlockScoring, importDataStoreScoringLevelScores, defineNamedRange, importRangeFormula
 */
 
 
