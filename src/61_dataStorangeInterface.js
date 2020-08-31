@@ -124,32 +124,4 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
         } // END SUBSTEP
     } // END MAIN STEP
-
-    console.log("Formatting Sheet")
-    lastCol = elementSheet.getLastColumn()
-
-    elementSheet.getRange(1, 1, lastRowR, lastCol)
-        .setFontFamily("Roboto")
-        .setVerticalAlignment("top")
-        .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-    // .setWrap(true)
-
-    hookFirstDataCol = firstCol + 2
-    elementSheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
-    elementSheet.setColumnWidth(lastCol + 1, 25)
-
-    //     console.log("Formatting Sheet")
-    //     lastCol = wideSheet.getLastColumn()
-
-    //     wideSheet.getRange(1, 1, lastRow, lastCol)
-    //         .setFontFamily("Roboto")
-    //         .setVerticalAlignment("top")
-    //         .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP)
-    //     // .setWrap(true)
-
-    //     hookFirstDataCol = firstCol + 2
-    //     wideSheet.setColumnWidths(hookFirstDataCol, lastCol, dataColWidth)
-    //     wideSheet.setColumnWidth(lastCol + 1, 25)
-    // }
-
 }

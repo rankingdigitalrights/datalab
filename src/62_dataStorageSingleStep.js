@@ -65,7 +65,7 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
                     case "reviewResults":
                     case "importPreviousResults":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreBlock(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
+                        activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
@@ -73,14 +73,14 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
                     case "reviewComments":
                     case "importPreviousComments":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreBlock(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
+                        activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
                     case "sources":
                     case "importPreviousSources":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, false, indexPref)
+                        activeRow = importDataStoreRowResults(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, false, indexPref)
                         // console.log(Indicator.labelShort + " sources added")
                         break
 

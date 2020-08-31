@@ -22,7 +22,7 @@ function addDataStoreSheetHeaderScoring(Sheet, activeRow) {
     return activeRow + 1
 }
 
-function importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, elemLabelShort, elemNr, Company, hasOpCom, integrateOutputs, urlDC, urlSC, scoringSuffix, indexPref) {
+function importDataStoreRowResults(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, elemLabelShort, elemNr, Company, hasOpCom, integrateOutputs, urlDC, scoringSuffix, indexPref) {
 
     let importID = Indicator.labelShort
     // console.log(" - " + "in " + StepComp.type + " " + importID)
@@ -68,16 +68,6 @@ function importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, I
     rowCells.push(compCellName, formula)
     //rowCells.push(compCellName, "")
 
-    if (scoringSuffix) {
-        compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, "group", scoringSuffix)
-        formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
-    } else {
-        formula = ""
-    }
-
-    //rowCells.push(formula)
-    rowCells.push("")
-
     blockCells.push(rowCells)
 
 
@@ -89,16 +79,6 @@ function importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, I
     formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
 
     rowCells.push(compCellName, formula)
-
-    if (scoringSuffix) {
-        compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, "opCom", scoringSuffix)
-        formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
-    } else {
-        formula = "NA"
-    }
-
-    //rowCells.push(formula)
-    rowCells.push("")
 
     blockCells.push(rowCells)
 
@@ -114,16 +94,6 @@ function importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, I
         compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, Company.services[s].id, stepCompID)
         formula = importRangeFormula(urlDC, compCellName, integrateOutputs)
         rowCells.push(compCellName, formula)
-
-        if (scoringSuffix) {
-            compCellName = defineNamedRange(indexPref, "SC", subStepID, importID, component, Company.id, Company.services[s].id, scoringSuffix)
-            formula = importRangeFormula(urlSC, compCellName, integrateOutputs)
-        } else {
-            formula = ""
-        }
-
-        //rowCells.push(formula)
-        rowCells.push("")
 
         blockCells.push(rowCells)
     }
@@ -279,7 +249,7 @@ function importDataStoreRowScoring(activeRow, Sheet, StepComp, stepCompID, subSt
 // proceeds row-wise per element
 
 // eslint-disable-next-line no-unused-vars
-function importDataStoreBlock(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref) {
+function importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref) {
 
     let scoringSuffix = StepComp.scoringId || false
 
@@ -295,7 +265,7 @@ function importDataStoreBlock(Sheet, activeRow, StepComp, stepCompID, subStepID,
     // for each element
     for (let elemNr = 0; elemNr < indLength; elemNr++) {
         elemLabelShort = Indicator.elements[elemNr].labelShort
-        currentRow = importDataStoreRow(currentRow, Sheet, StepComp, stepCompID, subStepID, Indicator.elements[elemNr], indCatLabelShort, indLabelShort, elemLabelShort, elemNr, Company, hasOpCom, integrateOutputs, urlDC, scoringSuffix, indexPref)
+        currentRow = importDataStoreRowResults(currentRow, Sheet, StepComp, stepCompID, subStepID, Indicator.elements[elemNr], indCatLabelShort, indLabelShort, elemLabelShort, elemNr, Company, hasOpCom, integrateOutputs, urlDC, scoringSuffix, indexPref)
     }
 
     return currentRow
