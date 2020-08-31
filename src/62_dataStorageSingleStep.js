@@ -174,7 +174,7 @@ function dataStoreSingleStepElementScoring(Sheet, Indicators, SubStep, Company, 
 
 
                     default:
-                        console.log("--- WARN --- ignoring " + stepCompType)
+                        // console.log("--- WARN --- ignoring " + stepCompType)
                         break
 
                 }
