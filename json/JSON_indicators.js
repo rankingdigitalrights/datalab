@@ -2995,7 +2995,6 @@ var indicatorsVector = {
 
 // console.log(`Number of Elements: ${elementsCounts}`)
 
-
 // let indicatorLabels = indicatorsVector.indicatorCategories
 //   .map(category =>
 //     category.indicators
@@ -3006,3 +3005,14 @@ var indicatorsVector = {
 //   .flat()
 
 // console.log(`Indidcators: ${indicatorLabels}`)
+
+// let indicatorLabels = indicatorsVector.indicatorCategories
+//   .map(category =>
+//     category.indicators.map(indicator =>
+//       //   `"${indicator.labelShort}"`)) // String Array
+//       // .map(indicator =>
+//       indicator.elements.map(element =>
+//         element.labelShort))) // Plain Vector
+//   .flat()
+
+// console.table(`${indicatorLabels}`)
