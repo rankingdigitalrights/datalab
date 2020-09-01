@@ -865,35 +865,22 @@ function addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID
         Cell.setFontStyle("normal")
         Cell.setFontWeight("bold")
 
-        Cell = Sheet.getRange(activeRow, firstCol+1)
-        Cell.setValue("N/A")
-
-        activeRow=activeRow+2
-
-
-        Cell = Sheet.getRange(activeRow, firstCol)
-        Cell.setValue("Comments")
-        Cell.setFontStyle("normal")
-        Cell.setFontWeight("bold")
-        Cell.setVerticalAlignment("top")
-
-        Sheet.setRowHeight(activeRow,75)
+    
 
         return activeRow+2
     
     }
 
 
-    Cell = Sheet.getRange(activeRow, firstCol+1)
+    Cell = Sheet.getRange(activeRow, firstCol)
 
     Logger.log("Cell:"+activeRow+","+firstCol+"------------------------------")
 
-
-    let formula="="
+    let formula="=IF(OR("
     let cellID=defineNamedRange(Config.indexPrefix, sheetModeID, subStepID, Indicator.labelShort, "", Company.id, "", "SI")
-    formula=formula+cellID+"-"
-    cellID=defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", Indicator.labelShort, "", Company.id, "", "SI")
-    formula=formula+cellID
+    formula=formula+cellID+'="N/A",'
+    let cellID1=defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", Indicator.labelShort, "", Company.id, "", "SI")
+    formula=formula+cellID1+'="N/A"),"N/A",'+cellID+"-"+cellID1+")"
 
     Cell.setFormula(formula)
     Cell.setFontStyle("normal")
@@ -903,7 +890,7 @@ function addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID
 
     
 
-    activeRow=activeRow+4
+    activeRow=activeRow+2
 
     return activeRow
 
