@@ -7,19 +7,21 @@
 
 
 // eslint-disable-next-line no-unused-vars
-function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements) {
+function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements,yoy) {
 
     let currentRow = 1
     let currentCol = 1
 
     // left column: indicator labels
 
-    currentCol = insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, currentCol, includeElements)
+    currentCol = insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, currentCol, includeElements,yoy)
 
     // now operating in currentCol + 1
     if (!includeElements) {
         currentCol = 7
     }
+
+    if(yoy){currentCol=2}
     // Main part: horizontal company-wise results
 
     Companies.forEach(Company => {
@@ -39,7 +41,13 @@ function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, ind
             })
         }
 
-        currentCol = addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements)
+
+
+        if(!yoy){currentCol = addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements)}
+        
+        else{
+            currentCol=addSummarySingleCompanyYoy(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements)
+        }
     })
 
     if (includeElements) {

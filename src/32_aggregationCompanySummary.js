@@ -42,7 +42,7 @@ function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorPara
     let resultCells = []
 
     row = row + nrOfClasses
-    row = addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells)
+    row = addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells,false)
 
     lastRow = row
 
@@ -67,6 +67,69 @@ function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorPara
 
     blockRange = Sheet.getRange(startRow, col, lastRow - startRow, blockWidth)
     blockRange.setBorder(true, true, true, true, null, null, "black", null)
+
+
+    return col + blockWidth
+}
+
+function addSummarySingleCompanyYoy(Sheet, thisSubStepID, Indicators, indicatorParams, row, col, Company, includeElements) {
+
+    let additionalCol = 2
+
+    let blockWidth = 3*(Company.services.length + additionalCol) // for total + group elems
+
+    let startRow = row
+    let lastRow
+    let blockRange
+
+    // 2 rows; company + service labels
+    row = addSummaryCompanyHeaderYoy(row, col, Sheet, Company)
+
+    let totalsRowStart = row
+
+    // --- // adding Total Scores // --- //
+
+    /** as according to default Index layout this is happening in the wrong order twice (summary scores first, with overall totals before class totals, indicator results second) we need to anticipate the position and length of indicator class blocks. To do so, we sum up individual indicator class lengths only after passing totals and completing the first class. Other than that, this implementation can handle n classes with m indicators without additional modifications */
+
+    // TODO: test insertRows(SummaryBlock)
+
+    let catLength = 0
+    let totalLength = 0
+    let nrOfClasses = indicatorParams.length
+    let classesLeft = 0
+
+
+    // --- // adding Indicator level scores // --- //
+
+    let resultCells = []
+
+    //row = row + nrOfClasses
+    row = addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells,true)
+
+    lastRow = row
+
+    // --- // adding Totals // --- //
+
+    // TODO: implement includeElements with Array of Indicator Cells
+
+    row = totalsRowStart
+
+    for (let i = 0; i < nrOfClasses; i++) {
+        catLength = parseInt(indicatorParams[i])
+        // Logger.log("catLength: " + catLength)
+        classesLeft = nrOfClasses - i
+
+        row = addCompanyTotalsRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells)
+
+        if (i > 0) {
+            totalLength += catLength
+            // Logger.log("totalLength: " + totalLength)
+        }
+    }
+
+    blockRange = Sheet.getRange(startRow, col, lastRow - startRow, blockWidth)
+    blockRange.setBorder(true, true, true, true, null, null, "black", null)
+    
 
 
     return col + blockWidth

@@ -51,7 +51,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
             hasOpCom = CompanyObj.hasOpCom
 
-            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy)
+            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy,scoringStepNr)
 
             Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
@@ -75,10 +75,11 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements)
+        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements,yoy)
 
         summarySheet.setFrozenColumns(1)
-        summarySheet.setFrozenRows(2)
+        if(!yoy){summarySheet.setFrozenRows(2)}
+        else{summarySheet.setFrozenRows(3)}
         moveSheetifExists(SS, summarySheet, 2)
     }
 
@@ -94,10 +95,11 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements)
+        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements,yoy)
 
         summarySheet.setFrozenColumns(1)
-        summarySheet.setFrozenRows(2)
+        if(!yoy){summarySheet.setFrozenRows(2)}
+        else{summarySheet.setFrozenRows(3)}
         moveSheetifExists(SS, summarySheet, 3)
     }
 
