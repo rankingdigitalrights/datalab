@@ -133,7 +133,7 @@ function mainAddNewInputStep() {
 
     initiateGlobalConfig()
 
-    updateProduction = false // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
+    updateProduction = true // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
 
