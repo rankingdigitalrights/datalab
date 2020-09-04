@@ -8,7 +8,7 @@ function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
     let Cell
     let rangeName
     let rowNr = 1
-    let header = ["Indicator", "Feedback received?", "Feedback"]
+    let header = ["Indicator", "Feedback received?", "Feedback", "Sources"]
     Sheet.getRange(rowNr, 1, 1, header.length).setValues([header])
     let id = Company.id
 
@@ -26,6 +26,11 @@ function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
             rangeName = specialRangeName(id, Indicator.labelShort, "CoFBtext")
             Cell = Sheet.getRange(rowNr, 3)
             Cell.setValue("placeholder text")
+            SS.setNamedRange(rangeName, Cell)
+
+            rangeName = specialRangeName(id, Indicator.labelShort, "CoFBsources")
+            Cell = Sheet.getRange(rowNr, 4)
+            Cell.setValue("optional")
             SS.setNamedRange(rangeName, Cell)
 
         })
