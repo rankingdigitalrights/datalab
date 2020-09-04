@@ -2999,12 +2999,11 @@ var indicatorsVector = {
 //   .map(category =>
 //     category.indicators
 //     .map(indicator =>
-//       `"${indicator.labelShort}"`)) // String Array
-//   // .map(indicator =>
-//   //   indicator.labelShort)) // Plain Vector
+//       //   `"${indicator.labelShort}"`)) // String Array
+//       indicator.labelShort)) // Plain Vector
 //   .flat()
 
-// console.log(`Indidcators: ${indicatorLabels}`)
+// console.table(`${indicatorLabels}`)
 
 // let indicatorLabels = indicatorsVector.indicatorCategories
 //   .map(category =>
