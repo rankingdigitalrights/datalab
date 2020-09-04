@@ -54,23 +54,23 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
         elementSheet = insertSheetIfNotExist(SS, "element scores", true)
         if (elementSheet !== null) {
-            // elementSheet.clear()
+            elementSheet.clear()
             resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K
         }
 
         levelSS = insertSheetIfNotExist(SS, "level scores", true)
         if (levelSS !== null) {
-            // levelSS.clear()
+            levelSS.clear()
         }
 
         compositeSS = insertSheetIfNotExist(SS, "composite scores", true)
         if (compositeSS !== null) {
-            // compositeSS.clear()
+            compositeSS.clear()
         }
 
         indicatorSS = insertSheetIfNotExist(SS, "indicator scores", true)
         if (indicatorSS !== null) {
-            // indicatorSS.clear()
+            indicatorSS.clear()
         }
 
     }
@@ -113,23 +113,23 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
                 console.log("MAIN - Beginning Scoring " + mainStepNr)
 
                 console.log("|----- Element Scores")
-                // lastRowS = dataStoreSingleStepElementScoring(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowS, indexPref)
+                lastRowS = dataStoreSingleStepElementScoring(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowS, indexPref)
                 cropEmptyColumns(elementSheet)
                 console.log("|----- Element Scores OK")
 
                 console.log("|----- Level Scores")
-                // lastRowL = dataStoreSingleStepLevelScoring(levelSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowL, indexPref)
+                lastRowL = dataStoreSingleStepLevelScoring(levelSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowL, indexPref)
                 cropEmptyColumns(levelSS)
                 console.log("|----- Level Scores OK")
 
                 console.log("|----- Composite Scores")
-                // lastRowC = dataStoreSingleStepCompositeScoring(compositeSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowC, indexPref)
+                lastRowC = dataStoreSingleStepCompositeScoring(compositeSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowC, indexPref)
                 cropEmptyColumns(compositeSS)
                 console.log("|----- Composite Scores OK")
 
 
                 console.log("|----- Indicator Scores")
-                // lastRowI = dataStoreSingleStepIndicatorScoring(indicatorSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowI, indexPref)
+                lastRowI = dataStoreSingleStepIndicatorScoring(indicatorSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowI, indexPref)
                 cropEmptyColumns(indicatorSS)
                 console.log("|----- Indicator Scores OK")
 
