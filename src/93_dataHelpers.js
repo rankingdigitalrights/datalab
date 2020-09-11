@@ -271,3 +271,13 @@ function getColumnFromArray(array, col) {
     }
     return column
 }
+
+function elementsTotalLength(Indicators) {
+    return Indicators.indicatorCategories
+        .map(category =>
+            category.indicators
+            .map(indicator =>
+                indicator.elements.length))
+        .flat()
+        .reduce((a, b) => a + b)
+}

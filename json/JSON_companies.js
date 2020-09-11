@@ -1204,4 +1204,4 @@ var companiesVector = {
 //     company.services.length) // id; label.current
 //   .flat()
 
-// console.log(`Indicators: ${companyValues}`)
+// console.log(${companyValues}`)

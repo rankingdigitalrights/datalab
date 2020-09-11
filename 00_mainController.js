@@ -329,7 +329,7 @@ function mainAggregationSheets() {
 // Scores: ~2 minutes runtime? TBC
 function mainDataStore() {
 
-    let DataMode = ["scores"] // ["results", "scores"]
+    let DataMode = ["transpose"] // ["results", "transpose", "scores"]
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 
@@ -341,19 +341,19 @@ function mainDataStore() {
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-        // .slice(11, 12) //   11 "Google",
-        .slice(12, 13) //   12 "Kakao",
+        .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
     // .slice(14, 15) //   14 "Microsoft",
     // .slice(15, 16) //   15 "MTN",

@@ -399,6 +399,19 @@ function importDataStoreScoringLevelScores(Sheet, activeRow, StepComp, stepCompI
         .setValues(blockCells)
 
     return activeRow + nrOfRows
+}
 
+function addTransposedSheet(Sheet, sourceTab, rowLength, maxSteps) {
+    let catCellLabel = Sheet.getRange(1, 1)
+    catCellLabel.setValue("CatOrder")
 
+    let elementsTotalNr = rowLength * 2 * maxSteps
+    let pivotAnchorCell = Sheet.getRange(1, 2)
+
+    let formula = `=QUERY(${sourceTab}!A1:J,"Select B,C,D,A,G,max(J) Where G='prev_result' OR G='result' OR G='prev_comment' OR G='comment' Group by B,C,D,A,F,G Pivot I",1)`
+    pivotAnchorCell.setFormula(formula)
+
+    let catFormula = `=SWITCH(INDIRECT(ADDRESS(ROW(),COLUMN()+3)),"G",1,"F",2,"P",3)`
+    let catCells = Sheet.getRange(2, 1, 1 + elementsTotalNr)
+    catCells.setFormula(catFormula)
 }

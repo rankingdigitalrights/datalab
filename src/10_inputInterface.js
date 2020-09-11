@@ -110,7 +110,9 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     // -- // For Company Feedback Steps // --- //
     if (includeFeedback && !doRepairsOnly) {
         let doOverwrite = false // flag for overwriting or not
+        console.log("producing / updating Feedback Tab")
         insertCompanyFeedbackSheet(SS, Config.feedbackForms.compFeedbackSheetName, Company, Indicators, doOverwrite)
+        console.log("Feedback Tab produced / updated")
     }
 
     let hasOpCom = Company.hasOpCom
