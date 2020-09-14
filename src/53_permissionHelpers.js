@@ -10,14 +10,16 @@ function getNamedRangeRowNotation(namedRange, SS) {
 
 function createSubstepArray(stepLabel) {
 
-    let stepArray=[]
-    let Steps=researchStepsVector.researchSteps
+    let stepArray = []
+    let Steps = researchStepsVector.researchSteps
 
     Steps.forEach(function (Step) {
-        if(stepLabel.includes(Step.stepID)) {
-            let substepArray=[]
+        if (stepLabel.includes(Step.stepID)) {
+            let substepArray = []
             Step.substeps.forEach(function (Substep) {
-                substepArray.push(Substep.subStepID)   
+                if (!Substep.keepProtected) {
+                    substepArray.push(Substep.subStepID)
+                }
             })
             stepArray.push(substepArray)
         }

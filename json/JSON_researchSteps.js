@@ -494,6 +494,7 @@ var researchStepsVector = {
           subStepID: "S040",
           subStepColor: "#ffe599",
           doCollapse: false,
+          keepProtected: true,
           components: [{
               type: "subStepHeader",
               rowLabel: "Did the Company provide Feedback for this Indicator?",
