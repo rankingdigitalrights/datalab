@@ -4,8 +4,10 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 
     DriveApp.getFileById(fileID).setShareableByEditors(false)
 
-    removeAllProtections(SS)
-    protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
+    // TODO: this should not be part of this function or be optional with a boolean
+
+    // removeAllProtections(SS)
+    // protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
 
@@ -43,19 +45,23 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 // looking for the protection of the entire Sheet with the indicator name
                 // assumes there are no two Sheet protections with same name
                 sheetProtection = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)[0] // gets the Sheet protection assuming there's only 1
-                Logger.log(sheetProtection.getDescription())
 
                 unprotectedRanges = sheetProtection.getUnprotectedRanges()
                 stepIDs.forEach(function (step) {
                     // add the name range here as well
+                    console.log(`|--- STARTING ${step}`)
+
+                    /* this should be optional with a boolean 
                     subLabel = step[0].substring(0, 3)
-                    rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
+                    // rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
+                    // console.log(`|--- fetching ${rangeName}`)
 
-                    range = SS.getRange(rangeName)
-                    rangeNotation = range.getA1Notation()
-                    range = Sheet.getRange(rangeNotation) // getting the range associated with named range
+                    // range = SS.getRange(rangeName)
+                    // rangeNotation = range.getA1Notation()
+                    // range = Sheet.getRange(rangeNotation) // getting the range associated with named range
+                    // unprotectedRanges.push(range)
 
-                    unprotectedRanges.push(range)
+                    */
 
                     // looping through all the steps you want to open
                     for (let substep = 0; substep < step.length; substep++) {
@@ -67,15 +73,17 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                         unprotectedRanges.push(range)
 
                     }
-
+                    console.log(`|--- ADDED ${step} to list of ranges`)
                 })
+                console.log(`|--- Applying unprotections for ${stepIDs}`)
+
                 sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
 
-                Logger.log("--- Completed " + Category.labelLong)
             } // end if statement
 
         } // end individual indicator
 
+        Logger.log("|---|--- Completed " + Category.labelLong)
     } // end category
 
     // now need to update the editors for the entire sheet

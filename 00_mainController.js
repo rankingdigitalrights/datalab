@@ -580,9 +580,13 @@ function mainUnProtectCompanies() {
 function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
-    let stepLabel = ["S01"] // maybe better: match ResearchStepObj syntax := S01
+    let stepLabel = ["S04", "S05"] // maybe better: match ResearchStepObj syntax := S01
     let substepArray = createSubstepArray(stepLabel)
-    let editors = EditorsObj[stepLabel]
+
+    // let editors = EditorsObj[stepLabel]
+
+    /* custom Core editors list for Steps 4++ */
+    let editors = centralConfig.defaultViewers.concat("ahackl2130@gmail.com")
 
     Logger.log("array: " + substepArray)
 
@@ -598,9 +602,9 @@ function mainOpenStepCompanies() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
+        // .slice(10, 11) //   10 "Facebook",
+        // .slice(11, 12) //   11 "Google",
+        .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
     // .slice(14, 15) //   14 "Microsoft",
     // .slice(15, 16) //   15 "MTN",
@@ -617,13 +621,13 @@ function mainOpenStepCompanies() {
 
     Companies.forEach(function (Company) {
         let companyNr = companiesVector.companies.indexOf(Company)
-        let editors = []
+        /* TODO: enable overriding editors from Step 3 on */
+        // let editors = []
 
-        stepLabel.forEach(function (step) {
-            editors.push(EditorsObj[step][companyNr])
+        // stepLabel.forEach(function (step) {
+        //     editors.push(EditorsObj[step][companyNr])
 
-        })
-
+        // })
         Logger.log("editors:" + editors)
 
         mainProtectFileOpenStepSingleCompany(Company, substepArray, editors)
