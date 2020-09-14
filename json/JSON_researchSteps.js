@@ -517,7 +517,7 @@ var researchStepsVector = {
         {
           rowLabel: "Research Team Notes",
           labelShort: "Step 4.1",
-          subStepID: "S041",
+          subStepID: "S042",
           subStepColor: "#ffe599",
           doCollapse: false,
           components: [{
