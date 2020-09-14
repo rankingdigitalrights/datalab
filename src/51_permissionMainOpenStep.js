@@ -1,8 +1,6 @@
-function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
+function mainProtectFileOpenStepSingleCompany(company, steps, editor, Indicators) {
     // can easily call all the other permissions functions from this function
 
-    // TODO: move Indicator Logic into Main Caller
-    let Indicators = indicatorsVector
     // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
 
     // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
@@ -22,6 +20,8 @@ function mainProtectFileOpenStepSingleCompany(company,steps, editor) {
     let defaultStepEditors = centralConfig.defaultEditors
 
     let StepEditors = defaultStepEditors.concat(assignedStepEditors)
+
+    StepEditors = [...new Set(StepEditors)]
 
     let SheetEditors = [] // TODO: remove
 

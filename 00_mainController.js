@@ -580,6 +580,8 @@ function mainUnProtectCompanies() {
 function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
+    initiateGlobalConfig()
+
     let stepLabel = ["S04", "S05"] // maybe better: match ResearchStepObj syntax := S01
     let substepArray = createSubstepArray(stepLabel)
 
@@ -630,6 +632,6 @@ function mainOpenStepCompanies() {
         // })
         Logger.log("editors:" + editors)
 
-        mainProtectFileOpenStepSingleCompany(Company, substepArray, editors)
+        mainProtectFileOpenStepSingleCompany(Company, substepArray, editors, IndicatorsObj)
     })
 }
