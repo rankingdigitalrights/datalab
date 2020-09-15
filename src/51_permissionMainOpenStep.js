@@ -1,10 +1,7 @@
-function mainProtectFileOpenStepSingleCompany(company, steps, editor, Indicators) {
+function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indicators) {
     // can easily call all the other permissions functions from this function
 
     // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
-
-    // TODO: adapt to stepIDs logic from mainCaller / substeps[] as parameter
-    let stepIDs = steps
 
     // let Company = companiesVector.companies.slice(5, 6)[0]
     let Company = company
@@ -21,21 +18,20 @@ function mainProtectFileOpenStepSingleCompany(company, steps, editor, Indicators
 
     let StepEditors = defaultStepEditors.concat(assignedStepEditors)
 
-    StepEditors = [...new Set(StepEditors)]
+    StepEditors = [...new Set(StepEditors)] // creates new Set with unique values
 
     let SheetEditors = [] // TODO: remove
 
     let fileID = Company.urlCurrentDataCollectionSheet
-    let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
-    //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
+    let SS = SpreadsheetApp.openById(fileID)
 
     let currentPrefix = centralConfig.indexPrefix
 
     // overall open function
     let isSuccess = false
 
-    isSuccess = initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, "Names", Viewers, SheetEditors, fileID, currentPrefix)
+    isSuccess = initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, "Names", Viewers, SheetEditors, fileID, currentPrefix)
 
-    Logger.log("FLOW - Steps " + stepIDs + " for " + companyID + " opened? - " + isSuccess)
+    Logger.log("FLOW - Steps " + subStepIDs + " for " + companyID + " opened? - " + isSuccess)
 
 }

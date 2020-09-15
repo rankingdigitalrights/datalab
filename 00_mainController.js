@@ -583,14 +583,14 @@ function mainOpenStepCompanies() {
     initiateGlobalConfig()
 
     let stepLabel = ["S04", "S05"] // maybe better: match ResearchStepObj syntax := S01
-    let substepArray = createSubstepArray(stepLabel)
+    let subStepIDs = createSubstepArray(stepLabel)
 
     // let editors = EditorsObj[stepLabel]
 
     /* custom Core editors list for Steps 4++ */
     let editors = centralConfig.defaultViewers.concat("ahackl2130@gmail.com")
 
-    Logger.log("array: " + substepArray)
+    Logger.log("array: " + subStepIDs)
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -632,6 +632,6 @@ function mainOpenStepCompanies() {
         // })
         Logger.log("editors:" + editors)
 
-        mainProtectFileOpenStepSingleCompany(Company, substepArray, editors, IndicatorsObj)
+        mainProtectFileOpenStepSingleCompany(Company, subStepIDs, editors, IndicatorsObj)
     })
 }

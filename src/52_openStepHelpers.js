@@ -1,4 +1,4 @@
-function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames, Viewers, SheetEditors, fileID, currentPrefix) {
+function initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, Viewers, SheetEditors, fileID, currentPrefix) {
 
     let isSuccess = false
 
@@ -11,14 +11,14 @@ function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS,
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
 
-    isSuccess = openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames, currentPrefix)
+    isSuccess = openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, currentPrefix)
 
     return isSuccess
 
 }
 
 
-function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, Label, currentPrefix) {
+function openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, Label, currentPrefix) {
     // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
     Logger.log("FLOW - Open Steps")
 
@@ -47,37 +47,45 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 sheetProtection = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)[0] // gets the Sheet protection assuming there's only 1
 
                 unprotectedRanges = sheetProtection.getUnprotectedRanges()
-                stepIDs.forEach(function (step) {
+                subStepIDs.forEach(function (substep) {
                     // add the name range here as well
-                    console.log(`|--- STARTING ${step}`)
+                    console.log(`|--- STARTING ${substep}`)
 
-                    /* this should be optional with a boolean 
-                    subLabel = step[0].substring(0, 3)
-                    // rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
-                    // console.log(`|--- fetching ${rangeName}`)
+                    /* this should be optional with a boolean */
+                    /* or should evaluate MainStep.omitResearcher */
 
-                    // range = SS.getRange(rangeName)
-                    // rangeNotation = range.getA1Notation()
-                    // range = Sheet.getRange(rangeNotation) // getting the range associated with named range
-                    // unprotectedRanges.push(range)
+                    subLabel = substep[0].substring(0, 3)
+                    rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
+                    console.log(`|--- try: fetching ${rangeName}`)
 
-                    */
+                    try {
+                        range = SS.getRange(rangeName)
+                        rangeNotation = range.getA1Notation()
+                        range = Sheet.getRange(rangeNotation) // getting the range associated with named range
+                        unprotectedRanges.push(range)
+                    } catch (error) {
+                        console.log(`try-catch Error:\n${error}`)
+                    }
+
+                    /*       --------------------------      */
 
                     // looping through all the steps you want to open
-                    for (let substep = 0; substep < step.length; substep++) {
+                    for (let substepNr = 0; substepNr < substep.length; substepNr++) {
+
+                        console.log(`DEBUG - substepNr: ${substepNr}`)
 
                         // now need to build the namedRange you want, get A1 notation, then unprotect it
                         // need to make RDR20 and DC variables
-                        rangeName = defineNamedRange(currentPrefix, "DC", step[substep], Indicator.labelShort, "", companyID, "", "Step")
+                        rangeName = defineNamedRange(currentPrefix, "DC", substep[substepNr], Indicator.labelShort, "", companyID, "", "Step")
                         range = SS.getRange(rangeName)
                         unprotectedRanges.push(range)
 
                     }
-                    console.log(`|--- ADDED ${step} to list of ranges`)
+                    console.log(`|--- ADDED ${substep} to list of ranges`)
                 })
-                console.log(`|--- Applying unprotections for ${stepIDs}`)
+                console.log(`|--- Applying unprotections for ${subStepIDs}`)
 
-                sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
+                sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this substep is unprotected
 
             } // end if statement
 
