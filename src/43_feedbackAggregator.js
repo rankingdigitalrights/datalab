@@ -8,8 +8,13 @@ function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
     let Cell
     let rangeName
     let rowNr = 1
-    let header = ["Indicator", "Feedback received?", "Feedback", "Sources"]
-    Sheet.getRange(rowNr, 1, 1, header.length).setValues([header])
+    let header = ["Indicator", "Feedback received?", "Feedback", "Sources", "Additional Feedback 1", "Additional Feedback 2", "Additional Feedback 3", "Additional Feedback 4", "Additional Feedback 5"]
+    Sheet
+        .getRange(rowNr, 1, 1, header.length)
+        .setValues([header])
+        .setFontFamily("Roboto Condensed")
+        .setFontWeight("bold")
+
     let id = Company.id
 
     Indicators.indicatorCategories.forEach(Category =>
@@ -33,8 +38,29 @@ function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
             Cell.setValue("optional")
             SS.setNamedRange(rangeName, Cell)
 
+            let extraRange = Sheet.getRange(rowNr, 5, 1, 5)
+
+            rangeName = specialRangeName(id, Indicator.labelShort, "CoFBextra")
+            SS.setNamedRange(rangeName, extraRange)
+            extraRange.setValues([
+                [" --- ", "", "", "", ""]
+            ])
+            extraRange.setWrap(true)
+
         })
     )
+
+    Sheet.getRange(2, 1, rowNr, 9)
+        .setWrap(true)
+        .setVerticalAlignment("top")
+        .setHorizontalAlignment("left")
+        .setFontFamily("Roboto")
+
+    Sheet.setColumnWidth(3, 720)
+    Sheet.setColumnWidths(4, 6, 200)
+    Sheet.setFrozenRows(1)
+    Sheet.setFrozenColumns(1)
+
 }
 
 function produceYonYCommentsSheet(Sheet, overwrite) {
