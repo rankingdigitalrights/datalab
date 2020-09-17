@@ -212,3 +212,25 @@ function resizeSheet(Sheet, newRows) {
         Sheet.insertRows(1, rowDiff)
     }
 }
+
+function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, Content, linkedRange, stepcolor) {
+
+    Sheet.insertRows(position, nrOfRows)
+
+    let rangeLabel, rangeContent, rangeID
+
+    rangeLabel = Sheet
+        .getRange(position + rowOffset, 1, 1, 1)
+        .setValue(Content.rangeLabel)
+        .setBackground(stepcolor)
+        .setFontWeight("bold")
+        .setFontSize(11)
+        .setHorizontalAlignment("center")
+        .setVerticalAlignment("middle")
+
+    rangeContent = Sheet
+        .getRange(position + rowOffset, 2, 1, contentWidth)
+        .merge()
+        .setValue(`=${linkedRange}`)
+
+}
