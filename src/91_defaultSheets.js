@@ -58,6 +58,9 @@ function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSh
         console.log("ignoring Feedback tab")
     }
 
+    cropEmptyColumns(Sheet, 1)
+    cropEmptyRows(Sheet, 1)
+
     return Sheet
 }
 
