@@ -213,7 +213,7 @@ function resizeSheet(Sheet, newRows) {
     }
 }
 
-function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, Content, linkedRange, stepcolor) {
+function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, rowLabel, linkedRange, stepcolor) {
 
     Sheet.insertRows(position, nrOfRows)
 
@@ -221,7 +221,7 @@ function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, Con
 
     rangeLabel = Sheet
         .getRange(position + rowOffset, 1, 1, 1)
-        .setValue(Content.rangeLabel)
+        .setValue(rowLabel)
         .setBackground(stepcolor)
         .setFontWeight("bold")
         .setFontSize(11)
