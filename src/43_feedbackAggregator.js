@@ -14,6 +14,7 @@ function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
         .setValues([header])
         .setFontFamily("Roboto Condensed")
         .setFontWeight("bold")
+        .setWrap(true)
 
     let id = Company.id
 
