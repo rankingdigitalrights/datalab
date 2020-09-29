@@ -79,10 +79,10 @@ function mainInputSheets() {
 
     initiateGlobalConfig()
 
-    includeFeedback = true // Sheet for parsed Company Feedback
+    includeFeedback = false // Sheet for parsed Company Feedback
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
-    // filenameSuffix = "" // local override : Dev, "", Debug, QC
+    filenameSuffix = "TESTING" // local override : Dev, "", Debug, QC
     let mainSheetMode = "Input" // for filename | TODO: move to Config
     let useStepsSubset = false // true := use subset; maxStep defined in Config.JSON
     let useIndicatorSubset = globalIndicatorsSubset // true := use subset
@@ -91,8 +91,8 @@ function mainInputSheets() {
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        .slice(2, 3) //   2 "América Móvil",
-    // .slice(3, 4) //   3 "Apple",
+        // .slice(2, 3) //   2 "América Móvil",
+        .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",

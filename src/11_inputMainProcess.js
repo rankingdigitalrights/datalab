@@ -208,7 +208,6 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "subStepHeader":
-
                             activeRow = addSubStepHeader(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, companyNrOfServices)
                             break
 

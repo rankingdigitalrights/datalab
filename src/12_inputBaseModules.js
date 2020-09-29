@@ -15,7 +15,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
 
     let Elements = Indicator.elements
-    let elementsNr = Elements.length
+    let elemsLength = Elements.length
 
     let StepComp = Substep.components[stepCNr]
     let stepCompID = Substep.components[stepCNr].id
@@ -34,7 +34,12 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
     let ElementSpecs
     let companyType = Company.type
 
-    for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
+    let valuesRange, fullRowRange
+
+    let cellValues = []
+    let rowCellValues = []
+
+    for (let elemNr = 0; elemNr < elemsLength; elemNr++) {
 
         Element = Elements[elemNr]
         ElementSpecs = checkElementSpecs(Element)
@@ -62,6 +67,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
         let serviceLabel
         let serviceType = ""
 
+        // begin of cell values loop
         for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
 
             // TODO: Switch case
@@ -78,7 +84,6 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
                 serviceType = Company.services[s].type
             }
 
-            Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
@@ -93,32 +98,39 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
                     cellValue = "not selected" // default for drop down list
 
                     if ((hasPredecessor && !isNewCompany) || (mainStepNr > 1 && stepCompID != "YY")) {
-                        Cell.setDataValidation(rule)
+                        // Cell.setDataValidation(rule) 
                     } else {
                         cellValue = isNewCompany ? Config.newCompanyLabelResult : naText
                     }
 
                 }
             }
-
-            if (!doRepairsOnly) {
-                Cell.setValue(cellValue)
-            }
-
+            rowCellValues.push(cellValue)
             SS.setNamedRange(cellID, Cell)
-
             activeCol += 1
-        }
+        } // end of named range loop
+
+        cellValues.push(rowCellValues)
+        // end of cell values loop
     }
 
+    let lastRow = activeRow + elemsLength
+
+
+    // valuesRange = Sheet.getRange(activeRow, 2, lastRow, companyNrOfServices + 2)
+    fullRowRange = Sheet.getRange(activeRow, 1, lastRow, companyNrOfServices + 3)
+
+    // valuesRange.setValues(cellValues)
+    fullRowRange.setDataValidation(rule)
+
     rangeCols = activeCol
-    rangeRows = elementsNr
+    rangeRows = elemsLength
     Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
         .setFontWeight("bold")
         .setHorizontalAlignment("center")
+        .setValues(cellValues)
 
-    activeRow = activeRow + elementsNr
-    return activeRow
+    return lastRow
 }
 
 // this function creates a cell for comments for each subindicator and names the ranges
