@@ -42,6 +42,7 @@ var rootFolderName // "2019 Back-End Dev"
 var outputFolderName
 var controlSpreadsheetID
 var Styles
+var includeFormatting = true
 
 // HOOK: override global parameters here
 function initiateGlobalConfig() {
@@ -57,7 +58,7 @@ function initiateGlobalConfig() {
     IndicatorsObj = indicatorsVector
     /* OR */
     // param has to be Array[]
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "G4a", "G4b", "G5", "G6a", "F1a", "F11", "P1a"])
+    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"])
     globalIndicatorsSubset = false
     // Indicator Labels:
     // ["G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"]
@@ -415,7 +416,9 @@ function mainRepairInputSheets() {
 
     initiateGlobalConfig()
 
-    startAtMainStepNr = 3 // logical Order
+    includeFormatting = false // toggle costly Sheet-level formatting updates
+
+    startAtMainStepNr = 5 // logical Order
 
     Config.subsetMaxStep = startAtMainStepNr
 
@@ -437,13 +440,13 @@ function mainRepairInputSheets() {
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",

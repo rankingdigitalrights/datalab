@@ -1,35 +1,7 @@
 // ## Main: populateDCSheetByCategory ## //
 
 /* global
-    Config,
-    doRepairsOnly,
-    addNewStep,
-    startAtMainStepNr,
-    Styles,
-    indexPrefix,
-    insertSheetIfNotExist,
-    addMainSheetHeader
-    addMainStepHeader,
-    addStepResearcherRow,
-    addSubStepHeader,
-    addStepEvaluation,
-    addYonYReview,
-    addBinaryEvaluation,
-    addResultsReview,
-    addBinaryReview,
-    addComments,
-    addCommentsReview,
-    addSources,
-    addExtraInstruction,
-    addTwoStepComparison,
-    importYonYResults,
-    importYonYSources,
-    addBinaryFBCheck,
-    addImportFBText,
-    addFeedbackStepReview,
-addResearcherFBNotes,
-    defineNamedRange,
-    cropEmptyColumns
+    Config, doRepairsOnly, addNewStep, startAtMainStepNr, Styles, indexPrefix, insertSheetIfNotExist, addMainSheetHeader, addMainStepHeader, addStepResearcherRow, addSubStepHeader, addStepEvaluation, addYonYReview, addBinaryEvaluation, addResultsReview, addBinaryReview, addComments, addCommentsReview, addSources, addExtraInstruction, addTwoStepComparison, importYonYResults, importYonYSources, addBinaryFBCheck, addImportFBText, addFeedbackStepReview, addResearcherFBNotes, defineNamedRange, cropEmptyColumns, addSourcesReview, findValueRowStart
 */
 
 function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, companyNrOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset) {
@@ -55,13 +27,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     // for each indicator = distinct Sheet do
 
     let lastRow
-
+    let Indicator
+    let Sheet
 
     for (let i = 0; i < indyCatLength; i++) {
 
-        let Indicator = Category.indicators[i]
+        Indicator = Category.indicators[i]
         Logger.log("|--- Begin Indicator :" + Indicator.labelShort)
-        let thisIndScoringScope = Indicator.scoringScope
+        // let thisIndScoringScope = Indicator.scoringScope
 
         // TODO: remove
         // let oldSheet = SS.getSheetByName(Indicator.labelShort)
@@ -69,8 +42,6 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         // SS.deleteSheet(oldSheet)
 
         // try to grab existing Indicator sheet or insert new one
-
-        let Sheet
 
         if (!doRepairsOnly && !addNewStep) {
             Sheet = insertSheetIfNotExist(SS, Indicator.labelShort, false)
@@ -345,57 +316,63 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         console.log("|--- Substeps done")
         console.log("|--- Applying Sheet-level Formatting")
 
-        let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
-            .setFontFamily("Roboto")
-            // .setFontSize(10)
-            .setVerticalAlignment("top")
+        // TODO: undo after Step 5 extension
 
-        // set font for whole data range
-        if (dataStartRow) {
-            sheetRange = Sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
-                .setWrap(true)
-        }
+        if (includeFormatting) {
 
-        let condRuleNames = SpreadsheetApp.newConditionalFormatRule()
-            .whenTextEqualTo("Your Name")
-            .setFontColor("#ea4335")
-            .setBold(true)
-            .setRanges([sheetRange])
-            .build()
+            let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
+                .setFontFamily("Roboto")
+                // .setFontSize(10)
+                .setVerticalAlignment("top")
 
-        let condRuleValues = SpreadsheetApp.newConditionalFormatRule()
-            .whenTextEqualTo("not selected")
-            .setFontColor("#ea4335")
-            .setBold(true)
-            .setRanges([sheetRange])
-            .build()
+            // set font for whole data range
+            if (dataStartRow) {
+                sheetRange = Sheet.getRange(dataStartRow, 1, lastRow, numberOfColumns)
+                    .setWrap(true)
+            }
 
-        let condRuleTODO = SpreadsheetApp.newConditionalFormatRule()
-            .whenTextEqualTo("TODO")
-            .setFontColor("#ea4335")
-            .setBold(true)
-            .setRanges([sheetRange])
-            .build()
+            let condRuleNames = SpreadsheetApp.newConditionalFormatRule()
+                .whenTextEqualTo("Your Name")
+                .setFontColor("#ea4335")
+                .setBold(true)
+                .setRanges([sheetRange])
+                .build()
 
-        // let condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
-        //     .whenTextEqualTo(Config.newElementLabelResult)
-        //     .setFontColor("#ea4335")
-        //     .setBold(true)
-        //     .setRanges([sheetRange])
-        //     .build()
+            let condRuleValues = SpreadsheetApp.newConditionalFormatRule()
+                .whenTextEqualTo("not selected")
+                .setFontColor("#ea4335")
+                .setBold(true)
+                .setRanges([sheetRange])
+                .build()
 
-        let rules = Sheet.getConditionalFormatRules()
-        rules.push(condRuleNames)
-        rules.push(condRuleValues)
-        rules.push(condRuleTODO)
+            let condRuleTODO = SpreadsheetApp.newConditionalFormatRule()
+                .whenTextEqualTo("TODO")
+                .setFontColor("#ea4335")
+                .setBold(true)
+                .setRanges([sheetRange])
+                .build()
 
-        // rules.push(condRuleNewElem)
-        Sheet.setConditionalFormatRules(rules)
+            let condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
+                .whenTextEqualTo(Config.newElementLabelResult)
+                .setFontColor("#ea4335")
+                .setBold(true)
+                .setRanges([sheetRange])
+                .build()
+
+            let rules = Sheet.getConditionalFormatRules()
+            rules.push(condRuleNames)
+            rules.push(condRuleValues)
+            rules.push(condRuleTODO)
+
+            // rules.push(condRuleNewElem)
+            Sheet.setConditionalFormatRules(rules)
 
 
-        // collapse all groups
-        if (doCollapseAll) {
-            Sheet.collapseAllRowGroups()
+            // collapse all groups
+            if (doCollapseAll) {
+                Sheet.collapseAllRowGroups()
+            }
+
         }
 
         // hides opCom column(s) if opCom === false
@@ -409,10 +386,14 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         //     Sheet.hideColumns(2, bridgeCompColumnsNr)
         // }
 
+        console.log("cropping")
         cropEmptyColumns(Sheet)
+        console.log("cropping done")
 
         // color Indicator Sheet (Tab) in Class Color when done
-        Sheet.setTabColor(Category.classColor)
+        // Sheet.setTabColor(Category.classColor)
+
+        console.log("|--- All Sheet-level Formatting applied")
 
     } // End of Indicator Sheet
 
