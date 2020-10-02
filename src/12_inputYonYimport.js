@@ -299,7 +299,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     let naText = Config.newElementLabelResult
 
     // for linking to Named Range of Substep 0
-    // TODO: make a shared function() between importYonY & addStepReview
+    // TODO: make a shared function() between importYonY & addResultsReview
 
     let rangeStartRow = activeRow
     let rangeStartCol = 1

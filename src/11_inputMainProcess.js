@@ -15,7 +15,7 @@
     addStepEvaluation,
     addYonYReview,
     addBinaryEvaluation,
-    addStepReview,
+    addResultsReview,
     addBinaryReview,
     addComments,
     addCommentsReview,
@@ -233,11 +233,15 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "reviewResults":
-                            activeRow = addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            activeRow = addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, companyNrOfServices)
                             break
 
                         case "reviewComments":
                             activeRow = addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, SubStep, stepCNr, Category, companyNrOfServices)
+                            break
+
+                        case "reviewSources":
+                            activeRow = addSourcesReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, companyNrOfServices)
                             break
 
                         case "evaluation":
@@ -245,15 +249,12 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
                             break
 
                         case "binaryReview":
-
                             activeRow = addBinaryReview(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
 
                         case "binaryEvaluation":
-
                             activeRow = addBinaryEvaluation(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
-
                         case "comments":
                             activeRow = addComments(SS, Sheet, Indicator, Company, activeRow, SubStep, stepCNr, Category, companyNrOfServices)
                             break
@@ -369,6 +370,13 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             .setRanges([sheetRange])
             .build()
 
+        let condRuleTODO = SpreadsheetApp.newConditionalFormatRule()
+            .whenTextEqualTo("TODO")
+            .setFontColor("#ea4335")
+            .setBold(true)
+            .setRanges([sheetRange])
+            .build()
+
         // let condRuleNewElem = SpreadsheetApp.newConditionalFormatRule()
         //     .whenTextEqualTo(Config.newElementLabelResult)
         //     .setFontColor("#ea4335")
@@ -379,6 +387,8 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         let rules = Sheet.getConditionalFormatRules()
         rules.push(condRuleNames)
         rules.push(condRuleValues)
+        rules.push(condRuleTODO)
+
         // rules.push(condRuleNewElem)
         Sheet.setConditionalFormatRules(rules)
 

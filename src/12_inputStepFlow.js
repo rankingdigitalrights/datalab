@@ -13,7 +13,9 @@ global
 // - has dropdown with evaluation options
 // - compares result of step 0 review (yes/no/not selected)
 // - and either pulls element results or picks "not selected"
-function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
+
+// eslint-disable-next-line no-unused-vars
+function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, companyNrOfServices) {
 
     let subStepID = Substep.subStepID
 
@@ -22,7 +24,6 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
 
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
-    let mode = Substep.mode
 
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
 
@@ -39,7 +40,7 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
     let naText = "not selected"
 
     // for linking to Named Range of Substep 0
-    // TODO: make a shared function() between importYonY & addStepReview
+    // TODO: make a shared function() between importYonY & addResultsReview
 
     let rangeStartRow = activeRow
     let rangeStartCol = 1
@@ -107,30 +108,26 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs) || (serviceNr == 2 && Company.hasOpCom == false)) {
                 cellValue = "N/A"
             } else {
 
-                if (serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
+                if (hasPredecessor || mainStepNr > 1) {
+
+                    reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
+
+                    prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+                    cellValue = `=IF(${reviewCell}="${conditional}",${prevResultCell},"${yesAnswer}")`
+
                 } else {
-
-                    if (hasPredecessor || mainStepNr > 1) {
-
-                        reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
-
-                        prevResultCell = showOnlyRelevant ? "" : defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
-
-                        cellValue = "=IF(" + reviewCell + "=\"" + conditional + "\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-
-                    } else {
-                        cellValue = naText
-                    }
-
-                    // creates dropdown list
-                    Cell.setDataValidation(rule)
+                    cellValue = naText
                 }
+
+                // creates dropdown list
+                Cell.setDataValidation(rule)
             }
+
 
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
@@ -155,6 +152,7 @@ function addStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, m
     return activeRow
 }
 
+// eslint-disable-next-line no-unused-vars
 function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
 
     let subStepID = Substep.subStepID
@@ -182,7 +180,7 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
 
     // for linking to Named Range of Substep 0
-    // TODO: make a shared function() between importYonY & addStepReview
+    // TODO: make a shared function() between importYonY & addResultsReview
 
     let rangeStartRow = activeRow
     let rangeStartCol = 1
@@ -221,6 +219,8 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
         let serviceLabel, serviceType
 
+        let conditional = StepComp.reverseConditional ? "no" : "yes"
+
         for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
 
             // TODO: Switch case
@@ -240,25 +240,20 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
+            if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs) || (serviceNr == 2 && Company.hasOpCom == false)) {
                 cellValue = "N/A"
             } else {
+                reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
 
-                if (serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
-                } else {
-                    reviewCell = defineNamedRange(indexPrefix, "DC", evaluationStep, Element.labelShort, "", Company.id, serviceLabel, comparisonType)
+                prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                    prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
-
-                    // sets up cellValue that compares values
-                    cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + prevResultCell + "," + "\"" + yesAnswer + "\"" + ")"
-                }
+                cellValue = `=IF(${reviewCell}="${conditional}",${prevResultCell},"${yesAnswer}")`
             }
 
-            if (!doRepairsOnly) {
-                Cell.setValue(cellValue)
-            }
+            // TODO: undo!!!
+            // if (!doRepairsOnly) {
+            Cell.setValue(cellValue)
+            // }
 
             SS.setNamedRange(cellID, Cell) // names cells
 
@@ -270,8 +265,97 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
     return activeRow + elementsNr
 }
 
+// eslint-disable-next-line no-unused-vars
+function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, companyNrOfServices) {
+
+    let subStepID = Substep.subStepID
+    let StepComp = Substep.components[stepCNr]
+    let stepCompID = StepComp.id
+
+    // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
+
+    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
+
+    let importStepID = StepComp.importStepID // "S07"
+    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let comparisonType = StepComp.comparisonType // "DC",
+
+    let prevResultCell
+
+    let yesAnswer = "TODO"
+
+    let Cell, cellValue, cellID
+
+    let activeCol
+
+    // 1.) Row Label
+
+    activeCol = 1
+    cellValue = StepComp.rowLabel
+
+    Cell = Sheet.getRange(activeRow, activeCol)
+        .setBackground(Substep.subStepColor)
+
+    if (!doRepairsOnly) {
+        Cell.setValue(cellValue)
+    }
+
+    activeCol += 1
+
+    let serviceLabel
+
+    let conditional = StepComp.reverseConditional ? "no" : "yes"
+
+    let Elements = Indicator.elements
+
+    let namedRange
+
+    for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
+
+        // TODO: Switch case
+
+        if (serviceNr == 1) {
+            serviceLabel = "group"
+        } else if (serviceNr == 2) {
+            serviceLabel = "opCom"
+        } else {
+            let s = serviceNr - 3
+            serviceLabel = Company.services[s].id
+        }
+
+        let reviewCells = []
+        let reviewFormula
+
+        Cell = Sheet.getRange(activeRow, activeCol)
+        cellID = defineNamedRange(indexPrefix, "DC", subStepID, Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+        Elements.forEach(element => {
+            namedRange = defineNamedRange(indexPrefix, "DC", evaluationStep, element.labelShort, "", Company.id, serviceLabel, comparisonType)
+            reviewCells.push(namedRange)
+        })
+
+        reviewFormula = reviewCells.map(cell => `${cell}="${conditional}"`)
+
+        prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
+
+        cellValue = `=IF(AND(${reviewFormula}),${prevResultCell},"${yesAnswer}")`
+
+        // TODO: undo!!!
+        // if (!doRepairsOnly) {
+        Cell.setValue(cellValue)
+        // }
+
+        SS.setNamedRange(cellID, Cell) // names cells
+
+        activeCol += 1
+    }
+
+    return activeRow + 1
+}
+
 // NEW: Binary evaluation of whole step per company column
 
+// eslint-disable-next-line no-unused-vars
 function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, currentClass, companyNrOfServices) {
 
     activeRow += 1
@@ -346,7 +430,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
         }
 
         if (!doRepairsOnly) {
-            Cell.setValue("not selected") // sets default for drop down list
+            Cell.setValue(cellValue) // sets default for drop down list
         }
 
         activeCol += 1
@@ -361,6 +445,7 @@ function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, step
     return activeRow + 1
 }
 
+// eslint-disable-next-line no-unused-vars
 function addTwoStepComparison(SS, Sheet, Indicator, Company, isNewCompany, mainStepNr, activeRow, Substep, stepCNr, companyNrOfServices) {
 
     let subStepID = Substep.subStepID

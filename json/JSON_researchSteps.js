@@ -614,21 +614,26 @@ var researchStepsVector = {
               ]
             },
             {
-              type: "comments",
+              type: "reviewComments",
               id: "C",
               rowLabel: "Comment ",
               label2: " (explain score)",
               variableName: "comment",
               importStepID: "S032",
               evaluationStep: "S050",
-              comparisonType: "R",
+              comparisonType: "FB",
+              reverseConditional: true,
               clipWrap: true
             },
             {
-              type: "sources",
+              type: "reviewSources",
               id: "S",
               rowLabel: "Sources",
-              variableName: "sources"
+              variableName: "sources",
+              importStepID: "S032",
+              evaluationStep: "S050",
+              comparisonType: "FB",
+              reverseConditional: true
             }
           ]
         },
