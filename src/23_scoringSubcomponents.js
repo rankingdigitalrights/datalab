@@ -19,7 +19,10 @@ function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShor
             .setNote(`Company Type: ${Company.type}`)
         Sheet.setColumnWidth(activeCol, 200)
         activeCol += 1
+        
     }
+
+    
 
     let stepLabel = mainStepNr
 

@@ -198,6 +198,8 @@ function mainScoringSheets() {
     initiateGlobalConfig()
 
     outputFolderName = isProduction ? Config.outputFolderNameProd : Config.outputFolderNameDev
+    let addNewStep=true
+    let stepToAdd=5
 
     // Config.subsetMaxStep = 4
 
@@ -237,7 +239,7 @@ function mainScoringSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode,addNewStep,stepToAdd)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
