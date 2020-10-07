@@ -316,8 +316,8 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         console.log("|--- Substeps done")
         console.log("|--- Applying Sheet-level Formatting")
 
-        // TODO: undo after Step 5 extension
-
+        // TODO: refactor to Interface, run over array of Sheets with array of sheetRanges
+        // just collect ranges here and push to global array
         if (includeFormatting) {
 
             let sheetRange = Sheet.getRange(contentStartRow, 1, lastRow, numberOfColumns)
@@ -376,8 +376,6 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
         }
 
         // hides opCom column(s) if opCom === false
-        // TODO: make dynamic
-
         // if (thisIndScoringScope === "full") {
         if (!hasOpCom) {
             Sheet.hideColumns(3)

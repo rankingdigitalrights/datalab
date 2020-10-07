@@ -250,10 +250,9 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
                 cellValue = `=IF(${reviewCell}="${conditional}",${prevResultCell},"${yesAnswer}")`
             }
 
-            // TODO: undo!!!
-            // if (!doRepairsOnly) {
-            Cell.setValue(cellValue)
-            // }
+            if (!doRepairsOnly) {
+                Cell.setValue(cellValue)
+            }
 
             SS.setNamedRange(cellID, Cell) // names cells
 
@@ -340,10 +339,9 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
         cellValue = `=IF(AND(${reviewFormula}),${prevResultCell},"${yesAnswer}")`
 
-        // TODO: undo!!!
-        // if (!doRepairsOnly) {
-        Cell.setValue(cellValue)
-        // }
+        if (!doRepairsOnly) {
+            Cell.setValue(cellValue)
+        }
 
         SS.setNamedRange(cellID, Cell) // names cells
 
