@@ -760,13 +760,16 @@ var researchStepsVector = {
             importStepID: "S051",
             evaluationStep: "S060",
             comparisonType: "R",
+            reverseConditional: true,
             clipWrap: true
-          },
-          {
-            type: "sources",
+          }, {
+            type: "reviewSources",
             id: "S",
             rowLabel: "Sources",
-            variableName: "sources"
+            variableName: "sources",
+            importStepID: "S051",
+            evaluationStep: "S060",
+            comparisonType: "R"
           }
         ]
       }, {
