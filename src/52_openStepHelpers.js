@@ -1,4 +1,4 @@
-function initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, Viewers, SheetEditors, fileID, currentPrefix) {
+function initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, Viewers, SheetEditors, fileID, currentPrefix, doUpdateEditors) {
 
     let isSuccess = false
 
@@ -11,14 +11,14 @@ function initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, 
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
 
-    isSuccess = openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, currentPrefix)
+    isSuccess = openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, currentPrefix, doUpdateEditors)
 
     return isSuccess
 
 }
 
 
-function openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, Label, currentPrefix) {
+function openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, Label, currentPrefix, doUpdateEditors) {
     // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
     Logger.log("FLOW - Open Steps")
 
@@ -99,12 +99,30 @@ function openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Co
 
 
     // removes old editors and adds new editors
-    editors = SS.getEditors()
-    for (var editor = 0; editor < editors.length; editor++) {
-        SS.removeEditor(editors[editor])
-        SS.addViewer(editors[editor])
+    // editors = SS.getEditors()
+    // for (var editor = 0; editor < editors.length; editor++) {
+    //     SS.removeEditor(editors[editor])
+    //     SS.addViewer(editors[editor])
+    // }
+    // SS.addEditors(StepEditors)
+
+    if (doUpdateEditors) {
+        updateFileEditors(SS, StepEditors)
     }
-    SS.addEditors(StepEditors)
 
     return true
 } // end function
+
+
+/*  assigns old editors as file viewers
+    assigns new Editors as file editors */
+function updateFileEditors(SS, newEditors) {
+
+    let editors = SS.getEditors()
+    for (let editor = 0; editor < editors.length; editor++) {
+        SS.removeEditor(editors[editor])
+        SS.addViewer(editors[editor])
+    }
+
+    SS.addEditors(newEditors)
+}

@@ -1,4 +1,4 @@
-function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indicators) {
+function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indicators, doUpdateEditors) {
     // can easily call all the other permissions functions from this function
 
     // let Indicators = filterSingleIndicator(indicatorsVector, "P11a") // TODO: move subsetting logic into main Caller
@@ -30,7 +30,7 @@ function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indic
     // overall open function
     let isSuccess = false
 
-    isSuccess = initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, "Names", Viewers, SheetEditors, fileID, currentPrefix)
+    isSuccess = initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, "Names", Viewers, SheetEditors, fileID, currentPrefix, doUpdateEditors)
 
     Logger.log("FLOW - Steps " + subStepIDs + " for " + companyID + " opened? - " + isSuccess)
 
