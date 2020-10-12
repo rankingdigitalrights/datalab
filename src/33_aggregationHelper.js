@@ -371,7 +371,7 @@ function addCompanyScoresRow(row, col, Sheet, Company, ScoringObj, thisSubStepID
             cellA = `${columnToLetter(col + 2 + i + 1)}${row}`
             cellB = `${columnToLetter(col + 2 + i + 2)}${row}`
 
-            formula = `=IF(AND(${cellA}="N/A",${cellB}="N/A"),"N/A",AVERAGEIF(${cellA}:${cellB},"<>N/A"))`
+            formula = `=IF(AND(REGEXMATCH(${cellA},"N/A"),REGEXMATCH(${cellB},"N/A")),"N/A",AVERAGEIF(${cellA}:${cellB},"N/A"))`
 
         } else {
 

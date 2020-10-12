@@ -51,12 +51,12 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
-        if(mainStepNr>0&&mainStepNr!=yoyComp){continue}
+        if(mainStepNr>0&&!yoyComp.includes(mainStepNr)){continue}
 
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
         if (MainStep.excludeFromOutputs) {
-            break // i.e. ignore Step 4 Feedback Debate
+            continue // i.e. ignore Step 4 Feedback Debate
         }
 
         console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)

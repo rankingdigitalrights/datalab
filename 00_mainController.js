@@ -199,7 +199,7 @@ function mainScoringSheets() {
     // Config.subsetMaxStep = 4
 
     let yoy = true
-    let yoyComp=3
+    let yoyComp=[3,5,7]
     let mainSheetMode=yoy?"Output Yoy":"Output"
 
     const Companies = companiesVector.companies
