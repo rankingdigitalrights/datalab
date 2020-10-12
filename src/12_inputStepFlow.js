@@ -303,7 +303,7 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
     let serviceLabel
 
-    let conditional = StepComp.reverseConditional ? "no" : "yes"
+    let conditional = StepComp.reverseConditional ? "yes" : "no"
 
     let Elements = Indicator.elements
 
@@ -333,7 +333,7 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
             reviewCells.push(namedRange)
         })
 
-        reviewFormula = reviewCells.map(cell => `${cell}="${conditional}"`)
+        reviewFormula = reviewCells.map(cell => `${cell}<>"${conditional}"`)
 
         prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Indicator.labelShort, "", Company.id, serviceLabel, stepCompID)
 

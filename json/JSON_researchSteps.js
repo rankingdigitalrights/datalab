@@ -907,7 +907,7 @@ var researchStepsVector = {
           labelShort: "Step 7.2",
           subStepID: "S072",
           resultStepID: "S070",
-          "subStepColor": "#d9ead3",
+          "subStepColor": "#a4c2f4",
           "components": [{
               type: "subStepHeader",
               rowLabel: "Consolidated Results"
@@ -936,15 +936,18 @@ var researchStepsVector = {
               label2: " (explain score)",
               variableName: "comment",
               importStepID: "S071",
-              evaluationStep: "S030",
+              evaluationStep: "S070",
               comparisonType: "R",
               clipWrap: true
             },
             {
-              type: "sources",
+              type: "reviewSources",
               id: "S",
               rowLabel: "Sources",
-              variableName: "sources"
+              variableName: "sources",
+              importStepID: "S071",
+              evaluationStep: "S070",
+              comparisonType: "R"
             }
           ]
         },
