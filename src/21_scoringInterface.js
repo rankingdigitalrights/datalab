@@ -4,7 +4,8 @@
 /* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
 
 // eslint-disable-next-line no-unused-vars
-function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy,yoyComp) {
+function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy,yoyComp,addNewStep,stepToAdd) {
+
 
     Logger.log("|--- Begin addSetOfScoringSteps")
     let sheetName = outputParams.sheetName
@@ -35,6 +36,11 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     let lastCol = 1
     let blocks = 1
 
+    if(addNewStep){
+        blocks=2
+    }
+
+
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
 
@@ -44,19 +50,30 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
         Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
         return lastCol
     } else {
-        Sheet.clear()
+        //Sheet.clear()
         // temporarily add more rows to improve Script performance
-        Sheet.insertRowsAfter(Sheet.getMaxRows(), 2000)
+        if(!addNewStep){
+            Sheet.insertRowsAfter(Sheet.getMaxRows(), 2000)
+        }
+    }
+
+    if(addNewStep){
+        lastCol=Sheet.getLastColumn()+2
     }
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
-        if(mainStepNr>0&&!yoyComp.includes(mainStepNr)){continue}
 
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
+        if(mainStepNr>0&&!yoyComp.includes(mainStepNr)){continue}
+
         if (MainStep.excludeFromOutputs) {
             continue // i.e. ignore Step 4 Feedback Debate
+        }
+
+        if(addNewStep&&mainStepNr<stepToAdd){
+            continue
         }
 
         console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
@@ -70,7 +87,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
 
         // producing single Scoring Step for all indicators
 
-        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,yoy)
+        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,yoy,addNewStep)
 
         blocks++
 

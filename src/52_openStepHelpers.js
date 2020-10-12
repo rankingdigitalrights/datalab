@@ -1,22 +1,24 @@
-function initializationOpenStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames, Viewers, SheetEditors, fileID, currentPrefix) {
+function initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, Viewers, SheetEditors, fileID, currentPrefix, doUpdateEditors) {
 
     let isSuccess = false
 
     DriveApp.getFileById(fileID).setShareableByEditors(false)
 
-    removeAllProtections(SS)
-    protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
+    // TODO: this should not be part of this function or be optional with a boolean
+
+    // removeAllProtections(SS)
+    // protectSheets(Indicators, SheetEditors, SS, companyID, currentPrefix)
 
     // assignFileViewers(SS, Viewers) // we don't assign specific file viewers currently as viewers are all added to the main index folder and are then inherited
 
-    isSuccess = openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, SNames, currentPrefix)
+    isSuccess = openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, SNames, currentPrefix, doUpdateEditors)
 
     return isSuccess
 
 }
 
 
-function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Company, Label, currentPrefix) {
+function openResearchStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, Label, currentPrefix, doUpdateEditors) {
     // might want to call removeAll and then protect sheets to make sure all the permissions are correct?????
     Logger.log("FLOW - Open Steps")
 
@@ -43,39 +45,53 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
                 // looking for the protection of the entire Sheet with the indicator name
                 // assumes there are no two Sheet protections with same name
                 sheetProtection = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)[0] // gets the Sheet protection assuming there's only 1
-                Logger.log(sheetProtection.getDescription())
 
                 unprotectedRanges = sheetProtection.getUnprotectedRanges()
-                stepIDs.forEach(function (step) {
+                subStepIDs.forEach(function (substep) {
                     // add the name range here as well
-                    subLabel = step[0].substring(0, 3)
+                    console.log(`|--- STARTING ${substep}`)
+
+                    /* this should be optional with a boolean */
+                    /* or should evaluate MainStep.omitResearcher */
+
+                    subLabel = substep[0].substring(0, 3)
                     rangeName = specialRangeName(Label, subLabel, Indicator.labelShort)
+                    console.log(`|--- try: fetching ${rangeName}`)
 
-                    range = SS.getRange(rangeName)
-                    rangeNotation = range.getA1Notation()
-                    range = Sheet.getRange(rangeNotation) // getting the range associated with named range
+                    try {
+                        range = SS.getRange(rangeName)
+                        rangeNotation = range.getA1Notation()
+                        range = Sheet.getRange(rangeNotation) // getting the range associated with named range
+                        unprotectedRanges.push(range)
+                    } catch (error) {
+                        console.log(`try-catch Error:\n${error}`)
+                    }
 
-                    unprotectedRanges.push(range)
+                    /*       --------------------------      */
 
                     // looping through all the steps you want to open
-                    for (let substep = 0; substep < step.length; substep++) {
+                    for (let substepNr = 0; substepNr < substep.length; substepNr++) {
+
+                        console.log(`DEBUG - substepNr: ${substepNr}`)
 
                         // now need to build the namedRange you want, get A1 notation, then unprotect it
                         // need to make RDR20 and DC variables
-                        rangeName = defineNamedRange(currentPrefix, "DC", step[substep], Indicator.labelShort, "", companyID, "", "Step")
+                        rangeName = defineNamedRange(currentPrefix, "DC", substep[substepNr], Indicator.labelShort, "", companyID, "", "Step")
                         range = SS.getRange(rangeName)
                         unprotectedRanges.push(range)
 
                     }
-
+                    console.log(`|--- ADDED ${substep} to list of ranges`)
                 })
-                sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this step is unprotected
+                console.log(`|--- Applying unprotections for ${subStepIDs}`)
 
-                Logger.log("--- Completed " + Category.labelLong)
+                sheetProtection.setUnprotectedRanges(unprotectedRanges) // now this substep is unprotected
+
             } // end if statement
 
         } // end individual indicator
 
+        Logger.log("|---|--- Completed " + Category.labelLong)
     } // end category
 
     // now need to update the editors for the entire sheet
@@ -83,12 +99,30 @@ function openResearchStep(Indicators, stepIDs, companyID, StepEditors, SS, Compa
 
 
     // removes old editors and adds new editors
-    editors = SS.getEditors()
-    for (var editor = 0; editor < editors.length; editor++) {
-        SS.removeEditor(editors[editor])
-        SS.addViewer(editors[editor])
+    // editors = SS.getEditors()
+    // for (var editor = 0; editor < editors.length; editor++) {
+    //     SS.removeEditor(editors[editor])
+    //     SS.addViewer(editors[editor])
+    // }
+    // SS.addEditors(StepEditors)
+
+    if (doUpdateEditors) {
+        updateFileEditors(SS, StepEditors)
     }
-    SS.addEditors(StepEditors)
 
     return true
 } // end function
+
+
+/*  assigns old editors as file viewers
+    assigns new Editors as file editors */
+function updateFileEditors(SS, newEditors) {
+
+    let editors = SS.getEditors()
+    for (let editor = 0; editor < editors.length; editor++) {
+        SS.removeEditor(editors[editor])
+        SS.addViewer(editors[editor])
+    }
+
+    SS.addEditors(newEditors)
+}

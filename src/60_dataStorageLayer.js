@@ -15,7 +15,7 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
 
     let companyFilename = cleanCompanyName(Company)
 
-    Logger.log("begin main Data Layer Process for " + companyFilename + filenameSuffix)
+    Logger.log("START --- begin main Data Layer Process for " + companyFilename + filenameSuffix)
 
     let hasOpCom = Company.hasOpCom
 
@@ -32,15 +32,10 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
 
     let firstScoringStep = 0
     let maxScoringStep = Config.subsetMaxStep
-    console.log("DEBUG - maxScoringStep " + maxScoringStep)
+    // console.log("DEBUG - maxScoringStep " + maxScoringStep)
 
     DataMode.forEach(mode =>
         addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, mode,yoy))
-
-    // let subStepNr = 1 // param for global control substep processing
-    // addDataStoreSingleCompany(SS, sheetModeID, Config, Indicators, ResearchSteps, Company, hasOpCom, useIndicatorSubset, outputParams, subStepNr, integrateOutputs)
-
-    // clean up // 
 
     // if empty Sheet exists, delete
     removeEmptySheet(SS)

@@ -8,7 +8,7 @@ function mainProtectSingleCompany(company) {
     let Indicators = indicatorsVector
 
     // create an array with default as well as company-specific editors
-    let Editors = centralConfig.defaultEditors
+    let Editors = centralConfig.devs
     Logger.log("Editors: "+Editors)
 
     let fileID = Company.urlCurrentDataCollectionSheet

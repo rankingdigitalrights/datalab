@@ -24,7 +24,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "10kB6eIKaSft7le_Jw_jQ-m6V3w_Q4KxS_2ifK3ebt7g",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 2,
       "services": [{
           "id": "ecAL1",
           "type": "eCommerce",
@@ -61,7 +60,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1ynSoO0rLhnaorj1kX0S0NtVFQJOCuBatwMo-td9VVLU",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "ecAZ1",
           "type": "eCommerce",
@@ -107,7 +105,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1cRT_I5me7moYN3p6DR4Y8ssTd1xXKgrMrvf2wTxmwyQ",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 2,
       "services": [{
           "id": "mbAM1",
           "type": "mobile",
@@ -148,7 +145,6 @@ var companiesVector = {
       "urlCurrentYoyScoringSheet":"1HTtZHkaVipDOc3j-WszZI3xZGy-RDgewTFuP7egbPvw",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "meAP1",
           "type": "mobileEcosystem",
@@ -194,7 +190,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1l0XO3oiPo_Ffzf-cSbfm9ynJ30kWsVn6_QiXO4G76CI",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbAT1",
           "type": "mobile",
@@ -242,7 +237,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1tGDUSlM68H6PFNtDAgBg53JD-cp6plzcqWLCpR0s4oI",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbAX1",
           "type": "mobile",
@@ -291,7 +285,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1vZ9kDPaNRqQ-o3ckskuwX6mu5hjnlYi8Qo06ExpMEJs",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "seBA1",
           "type": "search",
@@ -337,7 +330,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "11xYk6eYpwPSZW6TAXtEWqxcfIfuevNDFz0d_zSZa1-I",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbBH1",
           "type": "mobile",
@@ -385,7 +377,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1NIzkuylsr_2zkK8H7eh8UiJbmBZIs9ul48eod-sLcxU",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbDT1",
           "type": "mobile",
@@ -433,7 +424,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "19X9iO4Q6uoW5CJ_K39v_llZJ59dj2HazHkux2WrXMPQ",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbET1",
           "type": "mobile",
@@ -481,7 +471,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "12TvSEnAQURFoWGWTBEkUrrmORs_Zdz9cDhd9h3qH0eU",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 4,
       "services": [{
           "id": "snFB1",
           "type": "socialNetworkBlogs",
@@ -535,7 +524,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1yizjORRCaxzvc8yQD8JrQ-gzW8RaVlK4HRA_Pc990gI",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 5,
       "services": [{
           "id": "seGO1",
           "type": "search",
@@ -597,7 +585,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1Fdc0UotXXgWV84lTWJaP9rl9wCY5c5o49wswMF5VVcc",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "seKA1",
           "type": "search",
@@ -643,7 +630,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1oLxTggmytYBvigz6k97-zPkfT2LX47KGhj9TeIE1NV0",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 4,
       "services": [{
           "id": "snMA1",
           "type": "socialNetworkBlogs",
@@ -697,7 +683,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1X2-cvOtXuq0Ex8oiIHFKYKhBVeTkS92Pcqm3tIofqc8",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 4,
       "services": [{
           "id": "seMS1",
           "type": "search",
@@ -751,7 +736,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1B-Lhd1vEhUzdwfqX-TucZV1qjxArDiK-zLGbfbsf9gg",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbMT1",
           "type": "mobile",
@@ -799,7 +783,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1HBt3nm9qVBbfbAOgqbB2lYpM8nOmBV0uB2v-JXZX4lQ",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbOD1",
           "type": "mobile",
@@ -847,7 +830,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1S1MFdcMo0CdrplDADwtgqv_nRcXgfDimZqzYiRk3Ass",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbOR1",
           "type": "mobile",
@@ -895,7 +877,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "12plehZS80RuiGSen7QsPFVY2vjtG9smC6FjknXcFZIY",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 2,
       "services": [{
           "id": "meSA1",
           "type": "mobileEcosystem",
@@ -933,7 +914,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1YT4I-A58Z5gaDjpxr_SLIXtG5zjbfQcmK-AL2URM5sw",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbTF1",
           "type": "mobile",
@@ -981,7 +961,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1UOzidB_ECjpu1BFChzeSkJpUMutRL1A6kE86pJr1cD4",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbTN1",
           "type": "mobile",
@@ -1029,7 +1008,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1GLSFkoSYzatMOaRQjNyGbkgJEWZbTtatZsASxcH5LYs",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 4,
       "services": [{
           "id": "snTC1",
           "type": "socialNetworkBlogs",
@@ -1083,7 +1061,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1DxsufAJtnphzfdSs5GDMw5mYfjK99_Z3U5AZvAg1FTM",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 1,
       "services": [{
         "id": "smTW1",
         "type": "socialNetworkBlogs",
@@ -1112,7 +1089,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1i59E864IJ-AaeuamOc9YpLLEDYWtVZi5Q9CbGJm-Rmc",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 1,
       "services": [{
         "id": "emVM1",
         "type": "email",
@@ -1141,7 +1117,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "114H9ADnPen_mRUnpAu9Ppdf97QIJ2HCwnHb_Ik6majU",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "mbVF1",
           "type": "mobile",
@@ -1189,7 +1164,6 @@ var companiesVector = {
       "urlCurrentCompanyScoringSheet": "1Pemf9q3HlZcXJDfm-10nQNx9oMGtNtHn1mhpvWABHZ4",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": null,
-      "numberOfServices": 3,
       "services": [{
           "id": "emYA1",
           "type": "email",
@@ -1231,4 +1205,4 @@ var companiesVector = {
 //     company.services.length) // id; label.current
 //   .flat()
 
-// console.log(`Indicators: ${companyValues}`)
+// console.log(${companyValues}`)

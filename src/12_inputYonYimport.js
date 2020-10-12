@@ -299,7 +299,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     let naText = Config.newElementLabelResult
 
     // for linking to Named Range of Substep 0
-    // TODO: make a shared function() between importYonY & addStepReview
+    // TODO: make a shared function() between importYonY & addResultsReview
 
     let rangeStartRow = activeRow
     let rangeStartCol = 1
@@ -365,7 +365,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, "opCom", stepCompID)
+            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
                 cellValue = "N/A"

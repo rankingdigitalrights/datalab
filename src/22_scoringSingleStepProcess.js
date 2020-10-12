@@ -3,7 +3,7 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,yoy) {
+function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,yoy,addNewStep) {
 
     console.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -82,8 +82,10 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 }
             }
 
-            activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, nrOfIndSubComps, Category, Company, blocks)
-            console.log(" - company header added for " + Indicator.labelShort)
+            
+                activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, nrOfIndSubComps, Category, Company, blocks)
+                console.log(" - company header added for " + Indicator.labelShort)
+               
 
             // --- // Main task // --- //
 
@@ -135,7 +137,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 }
             }
 
-            activeRow += 1
+            activeRow +=2
 
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
@@ -160,14 +162,16 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 }
 
                 activeRow = activeRow + 1
+                if(addNewStep&&blocks==2){activeRow++}
             } // END SUBSTEP COMPONENTS
         } // END INDICATOR
     } // END INDICATOR CATEGORY
 
-    lastCol = numberOfColumns * blocks + 1
+    lastCol = Sheet.getLastColumn()+1
 
     console.log("Formatting Sheet")
     lastRow = activeRow
+
 
     Sheet.getRange(1, 1, lastRow, lastCol)
         .setFontFamily("Roboto")

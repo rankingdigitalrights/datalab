@@ -50,9 +50,16 @@ function insertPointValidationSheet(SS, SheetName) {
 function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSheet) {
     let Sheet = insertSheetIfNotExist(SS, SheetName, updateSheet)
     if (Sheet !== null && updateSheet) {
+        console.log("overwriting Feedback tab")
+        console.log(Indicators.indicatorCategories)
         Sheet.clear()
         fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators)
+    } else {
+        console.log("ignoring Feedback tab")
     }
+
+    cropEmptyColumns(Sheet, 1)
+    cropEmptyRows(Sheet, 1)
 
     return Sheet
 }

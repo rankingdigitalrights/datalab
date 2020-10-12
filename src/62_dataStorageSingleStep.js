@@ -1,11 +1,10 @@
 /* global
-        addDataStoreSheetHeaderLong,
-        importDataStoreRowLong,
-        importDataStoreBlockLong
+        addDataStoreSheetHeaderResults, addDataStoreSheetHeaderScoring, importDataStoreBlockResults, importDataStoreRowResults, importDataStoreBlockScoring, importDataStoreScoringLevelScores, defineNamedRange, importRangeFormula
 */
 
 
-function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
+// eslint-disable-next-line no-unused-vars
+function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, lastRow, indexPref) {
 
     // console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
@@ -16,7 +15,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
     // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
-        activeRow = addDataStoreSheetHeaderLong(Sheet, activeRow)
+        activeRow = addDataStoreSheetHeaderResults(Sheet, activeRow)
         // console.log(" - company header added for " + subStepID)
     }
 
@@ -58,7 +57,7 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
                     // imports researcher name from x.0 step
                     case "subStepHeader":
                         // stepCompID = StepComp.id
-                        // activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        // activeRow = importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
@@ -66,27 +65,27 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
                     case "reviewResults":
                     case "importPreviousResults":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref)
-                        console.log(Indicator.labelShort + stepCompType + " added ")
+                        activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
+                        // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
                     case "comments":
                     case "reviewComments":
                     case "importPreviousComments":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLong(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref)
-                        console.log(Indicator.labelShort + stepCompType + " added ")
+                        activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
+                        // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
                     case "sources":
                     case "importPreviousSources":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC, false, indexPref)
-                        console.log(Indicator.labelShort + " sources added")
+                        activeRow = importDataStoreRowResults(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, false, indexPref)
+                        // console.log(Indicator.labelShort + " sources added")
                         break
 
                     default:
-                        console.log(" - ignoring " + stepCompType)
+                        // console.log(" - ignoring " + stepCompType)
                         break
 
                 }
@@ -105,7 +104,8 @@ function dataStoreSingleStepLong(Sheet, subStepNr, Indicators, SubStep, Company,
 
 
 
-function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
+// eslint-disable-next-line no-unused-vars
+function dataStoreSingleStepElementScoring(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlSC, lastRow, indexPref) {
 
     // console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
@@ -117,7 +117,7 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
     // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
-        activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
+        activeRow = addDataStoreSheetHeaderScoring(Sheet, activeRow)
         // console.log(" - company header added for " + subStepID)
     }
 
@@ -159,8 +159,8 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
                     // imports researcher name from x.0 step
                     case "subStepHeader":
                         // stepCompID = StepComp.id
-                        // activeRow = importDataStoreRowLong(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
-                        console.log(Indicator.labelShort + stepCompType + " added ")
+                        // activeRow = importDataStoreRow(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, urlSC)
+                        // console.log(Indicator.labelShort + stepCompType + " added ")
                         break
 
 
@@ -168,21 +168,17 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
                     case "reviewResults":
                     case "importPreviousResults":
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreBlockLongScoring(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref)
-                        console.log(Indicator.labelShort + " " + stepCompType + " added ")
+                        activeRow = importDataStoreBlockScoring(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlSC, indexPref)
+                        // console.log(Indicator.labelShort + " " + stepCompType + " added ")
                         break
 
 
                     default:
-                        console.log(" - ignoring " + stepCompType)
+                        // console.log("--- WARN --- ignoring " + stepCompType)
                         break
 
                 }
             } // END Substep Components
-
-
-            //activeRow=importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref,"SL")
-
 
         } // END INDICATOR
     } // END INDICATOR CATEGORY
@@ -193,7 +189,8 @@ function dataStoreSingleStepLongScoring(Sheet, subStepNr, Indicators, SubStep, C
 
 }
 
-function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
+// eslint-disable-next-line no-unused-vars
+function dataStoreSingleStepLevelScoring(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlSC, lastRow, indexPref) {
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
@@ -203,14 +200,14 @@ function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubSt
     // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
-        activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
+        activeRow = addDataStoreSheetHeaderScoring(Sheet, activeRow)
         // console.log(" - company header added for " + subStepID)
     }
 
 
     let indCatLength = Indicators.indicatorCategories.length
 
-    let Category, catLength, catLabel, stepCompID, StepComp, stepCompType, Indicator, indLabelShort
+    let Category, catLength, catLabel, stepCompID, StepComp, Indicator, indLabelShort
 
     for (let c = 0; c < indCatLength; c++) {
 
@@ -233,7 +230,7 @@ function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubSt
             // console.log("begin Indicator: " + indLabelShort)
 
 
-            activeRow = importDataStoreScoringOverall(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, urlSC, indexPref, "SL")
+            activeRow = importDataStoreScoringLevelScores(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlSC, indexPref, "SL")
 
 
         } // END INDICATOR
@@ -246,7 +243,8 @@ function dataStoreSingleStepLongLevelScoring(Sheet, subStepNr, Indicators, SubSt
 
 }
 
-function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
+// eslint-disable-next-line no-unused-vars
+function dataStoreSingleStepCompositeScoring(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlSC, lastRow, indexPref) {
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
@@ -256,14 +254,14 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
     // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
-        activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
+        activeRow = addDataStoreSheetHeaderScoring(Sheet, activeRow)
         // console.log(" - company header added for " + subStepID)
     }
 
 
     let indCatLength = Indicators.indicatorCategories.length
 
-    let Category, catLength, catLabel, stepCompID, StepComp, stepCompType, Indicator, indLabelShort
+    let Category, catLength, catLabel, Indicator, indLabelShort
 
     for (let c = 0; c < indCatLength; c++) {
 
@@ -300,8 +298,10 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
             let formula
 
             let c = ""
-            let subStepLabel=subStepID.substring(3, 4)
-            if(indexPref=="RDR19"){subStepLabel="0"}
+            let subStepLabel = subStepID.substring(3, 4)
+            if (indexPref == "RDR19") {
+                subStepLabel = "0"
+            }
 
             rowLabels.push(subStepID.substring(2, 3), subStepLabel, catLabel, indLabelShort, c, "score")
             rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
@@ -335,9 +335,7 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
             rowCells.push(compCellName, formula)
             rowCells.push("")
 
-
             blockCells.push(rowCells)
-
 
             // --- write block --- //
 
@@ -347,7 +345,6 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
                 .setValues(blockCells)
 
             activeRow = activeRow + nrOfRows
-
 
         } // END INDICATOR
     } // END INDICATOR CATEGORY
@@ -359,7 +356,8 @@ function dataStoreSingleStepLongCompositeScoring(Sheet, subStepNr, Indicators, S
 
 }
 
-function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, urlSC, lastRow, indexPref) {
+// eslint-disable-next-line no-unused-vars
+function dataStoreSingleStepIndicatorScoring(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlSC, lastRow, indexPref) {
 
     let subStepID = SubStep.altStepID ? SubStep.altStepID : SubStep.subStepID
     //let subStepID=SubStep.subStepID
@@ -369,14 +367,14 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
     // console.log("--- Beginning Substep " + subStepID)
 
     if (activeRow === 1) {
-        activeRow = addDataStoreSheetHeaderLongScoring(Sheet, activeRow)
+        activeRow = addDataStoreSheetHeaderScoring(Sheet, activeRow)
         // console.log(" - company header added for " + subStepID)
     }
 
 
     let indCatLength = Indicators.indicatorCategories.length
 
-    let Category, catLength, catLabel, stepCompID, StepComp, stepCompType, Indicator, indLabelShort
+    let Category, catLength, catLabel, Indicator, indLabelShort
 
     for (let c = 0; c < indCatLength; c++) {
 
@@ -408,8 +406,10 @@ function dataStoreSingleStepLongIndicatorScoring(Sheet, subStepNr, Indicators, S
             let formula
 
             let c = ""
-            let subStepLabel=subStepID.substring(3, 4)
-            if(indexPref=="RDR19"){subStepLabel="0"}
+            let subStepLabel = subStepID.substring(3, 4)
+            if (indexPref == "RDR19") {
+                subStepLabel = "0"
+            }
 
             rowLabels.push(subStepID.substring(2, 3), subStepLabel, catLabel, indLabelShort, c, "score")
             rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()

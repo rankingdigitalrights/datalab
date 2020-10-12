@@ -7,6 +7,11 @@ function returnFBStyleParams(configObjKey) {
     return Config.feedbackForms[configObjKey]
 }
 
+function calculateCompanyWidthFull(Company) {
+    return Company.services.length + 2
+}
+
+
 function calculateCompanyWidthNaive(Company) {
 
     let services = Company.services.length
