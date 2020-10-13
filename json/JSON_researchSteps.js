@@ -802,6 +802,7 @@ var researchStepsVector = {
             scoringId: "YY",
             rowLabel: "Reason ",
             variableName: "yony_reason",
+            //   importPreviousResult: true,
             evaluationStep: "S065",
             comparisonType: "R",
             dropdown: [
