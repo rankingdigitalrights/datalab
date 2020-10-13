@@ -29,6 +29,8 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
     let lastRow
     let Indicator
 
+    let lastColumn = 0
+
     for (let i = 0; i < indyCatLength; i++) {
 
         let Sheet
@@ -387,8 +389,10 @@ function populateDCSheetByCategory(SS, Category, Company, ResearchSteps, company
             //     Sheet.hideColumns(2, bridgeCompColumnsNr)
             // }
 
+            lastColumn = lastColumn > 0 ? lastColumn : Sheet.getLastColumn()
+
             console.log("cropping")
-            cropEmptyColumns(Sheet)
+            cropEmptyColumns(Sheet, 0, lastColumn)
             console.log("cropping done")
 
             // color Indicator Sheet (Tab) in Class Color when done
