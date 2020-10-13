@@ -284,6 +284,8 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
 
+    let importPreviousResult = StepComp.importPreviousResult === true ? true : false
+
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
@@ -383,9 +385,11 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
                             prevResultCell = defineNamedRange(compIndexPrefix, "DC", importStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
 
-                            // sets up cellValue that compares values
-                            cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
-                            Cell.setDataValidation(rule)
+                            if (importPreviousResult) {
+                                cellValue = `=IF(${reviewCell}="yes", ${prevResultCell}, "not selected")`
+                            } else {
+                                cellValue = "=IF(" + reviewCell + "=\"yes\"" + "," + "\"" + yesAnswer + "\"" + "," + "\"not selected\"" + ")"
+                            }
                         } else {
                             cellValue = naText
                         }
@@ -417,6 +421,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
         .setFontWeight("bold")
         .setHorizontalAlignment("center")
+        .setDataValidation(rule)
 
     return activeRow
 }
