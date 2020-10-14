@@ -162,7 +162,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 }
 
                 activeRow = activeRow + 1
-                if(addNewStep&&blocks==2){activeRow++}
+                //if(addNewStep&&blocks==2){activeRow++}
             } // END SUBSTEP COMPONENTS
         } // END INDICATOR
     } // END INDICATOR CATEGORY
