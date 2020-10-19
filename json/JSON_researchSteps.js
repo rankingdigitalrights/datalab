@@ -802,8 +802,9 @@ var researchStepsVector = {
             scoringId: "YY",
             rowLabel: "Reason ",
             variableName: "yony_reason",
-            //   importPreviousResult: true,
-            evaluationStep: "S065",
+            evaluationStep: "S060",
+            importPreviousResult: true,
+            importStepID: "S055",
             comparisonType: "R",
             dropdown: [
               "not selected",
@@ -812,19 +813,24 @@ var researchStepsVector = {
               "decline",
               "other"
             ]
-          },
-          {
-            "type": "comments",
-            id: "C",
-            "rowLabel": "Comment ",
-            variableName: "yony_comment",
-            "label2": " ",
-            "nameLabel": "Comments"
           }, {
-            type: "sources",
+            type: "reviewComments",
+            id: "C",
+            rowLabel: "Comment ",
+            label2: " (explain score)",
+            variableName: "comment",
+            importStepID: "S055",
+            evaluationStep: "S060",
+            comparisonType: "R",
+            clipWrap: true
+          }, {
+            type: "reviewSources",
             id: "S",
             rowLabel: "Sources",
-            variableName: "yony_sources"
+            variableName: "sources",
+            importStepID: "S055",
+            evaluationStep: "S060",
+            comparisonType: "R"
           }
         ]
       }]
