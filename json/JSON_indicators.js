@@ -1614,6 +1614,7 @@ var indicatorsVector = {
           {
             "labelShort": "F9.2",
             "description": "Does the company engage in practices, such as offering zero-rating programs, that prioritize network traffic for reasons beyond assuring quality of service and reliability of the network?",
+            "scoringScaleReversed": true,
             "y2yResultRow": false,
             "y2yCommentRow": false
           },
