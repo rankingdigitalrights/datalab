@@ -131,10 +131,9 @@ function importYonYResults(SS, Sheet, Indicator, category, Company, isNewCompany
                 cellValue = (isComments) ? Config.newCompanyLabelComment : Config.newCompanyLabelResult
             }
 
-            // TODO: undo
-            // if (!doRepairsOnly) {
+            if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
-            // }
+            }
 
             SS.setNamedRange(cellID, Cell)
 
@@ -402,10 +401,9 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
             Cell.setFontWeight("bold")
 
-            // TODO: undo
-            // if (!doRepairsOnly) {
+            if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
-            // }
+            }
 
             SS.setNamedRange(cellID, Cell) // names cells
 
