@@ -58,7 +58,7 @@ function initiateGlobalConfig() {
     IndicatorsObj = indicatorsVector
     /* OR */
     // param has to be Array[]
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["P2b"])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "F1a", "P1a"])
     globalIndicatorsSubset = false
     // Indicator Labels:
     // ["G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"]
@@ -197,21 +197,21 @@ function mainScoringSheets() {
     initiateGlobalConfig()
 
     outputFolderName = isProduction ? Config.outputFolderNameProd : Config.outputFolderNameDev
-    let addNewStep = true
+    let addNewStep = false
     let stepToAdd = 5
 
     // Config.subsetMaxStep = 4
 
-    let yoy = true
-    let yoyComp=[3,5,7]
-    let mainSheetMode=yoy?"Output Yoy":"Output"
+    let yoy = false
+    let yoyComp = [3, 5, 7]
+    let mainSheetMode = yoy ? "Output Yoy" : "Output"
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -240,7 +240,7 @@ function mainScoringSheets() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, yoy,yoyComp,addNewStep, stepToAdd)
+        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, yoy, yoyComp, addNewStep, stepToAdd)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -315,17 +315,17 @@ function mainAggregationSheets() {
 
     let scoringStepNr = 3
 
-    let yoy=true
+    let yoy = true
 
     let Companies = companiesVector.companies
-    // .slice(5, 7) // Axiata & Baidu,
-    // .slice(1, 9) // no Amazon
-    // .slice(1, 3) // for debugging
-    // .slice(0,3) // Amazon
-    // .slice(1, 2) // Apple
-     .slice(3,4) //
+        // .slice(5, 7) // Axiata & Baidu,
+        // .slice(1, 9) // no Amazon
+        // .slice(1, 3) // for debugging
+        // .slice(0,3) // Amazon
+        // .slice(1, 2) // Apple
+        .slice(3, 4) //
 
-    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets,yoy)
+    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets, yoy)
 
     // addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 
@@ -343,7 +343,7 @@ function mainDataStore() {
     filenameSuffix = " yoy"
     // filename fragments defined in Config.summaryParams.spreadsheetName
     let mainSheetMode = Config.dataStoreParams.fileName
-    let yoy=true
+    let yoy = true
 
     Config.subsetMaxStep = 7
 
@@ -381,7 +381,7 @@ function mainDataStore() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode,yoy)
+        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode, yoy)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
