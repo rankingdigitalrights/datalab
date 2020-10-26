@@ -162,7 +162,6 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
-    let mode = Substep.mode
 
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
 
@@ -176,17 +175,8 @@ function addCommentsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr,
 
     let yesAnswer = ""
 
-    let naText = Config.newElementLabelResult
-
-
     // for linking to Named Range of Substep 0
     // TODO: make a shared function() between importYonY & addResultsReview
-
-    let rangeStartRow = activeRow
-    let rangeStartCol = 1
-    let rangeRows
-    let rangeCols
-    let rule
 
     let Cell, cellValue, Element, cellID, hasPredecessor, isRevised
 
