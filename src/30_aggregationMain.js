@@ -3,7 +3,7 @@ Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadshe
 */
 
 // eslint-disable-next-line no-unused-vars
-function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets,yoy) {
+function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets, isYoyMode) {
 
     // scroing step number should be passed via main method call
 
@@ -51,7 +51,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
             hasOpCom = CompanyObj.hasOpCom
 
-            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy,scoringStepNr)
+            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode, isYoyMode, scoringStepNr)
 
             Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
 
@@ -75,11 +75,14 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements,yoy)
+        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements, isYoyMode)
 
         summarySheet.setFrozenColumns(1)
-        if(!yoy){summarySheet.setFrozenRows(2)}
-        else{summarySheet.setFrozenRows(3)}
+        if (!isYoyMode) {
+            summarySheet.setFrozenRows(2)
+        } else {
+            summarySheet.setFrozenRows(3)
+        }
         moveSheetifExists(SS, summarySheet, 2)
     }
 
@@ -95,11 +98,14 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements,yoy)
+        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements, isYoyMode)
 
         summarySheet.setFrozenColumns(1)
-        if(!yoy){summarySheet.setFrozenRows(2)}
-        else{summarySheet.setFrozenRows(3)}
+        if (!isYoyMode) {
+            summarySheet.setFrozenRows(2)
+        } else {
+            summarySheet.setFrozenRows(3)
+        }
         moveSheetifExists(SS, summarySheet, 3)
     }
 

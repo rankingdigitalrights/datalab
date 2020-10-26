@@ -48,7 +48,7 @@ function countIndiClassLengths(Indicators) {
 // creates 1st column with labels for totals and indicators / elements
 // element := if(includeElements)
 
-function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeElements,yoy) {
+function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeElements, isYoyMode) {
 
     let startRow = row
     let classStartRow
@@ -58,9 +58,9 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeEl
     let indStartRow, indEndRow, indBlock
 
     let indicatorNotes = []
-    let indicatorCells=[]
+    let indicatorCells = []
 
-    if(!yoy){ 
+    if (!isYoyMode) {
         indicatorCells = [
             [thisSubStepID],
             ["Scope"],
@@ -68,9 +68,8 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeEl
             ["Governance"],
             ["Freedom of Expression"],
             ["Privacy"]
-    ]}
-
-    else{
+        ]
+    } else {
         indicatorCells = [
             [thisSubStepID],
             ["Year"],
@@ -79,8 +78,9 @@ function insertLabelColumn(Sheet, thisSubStepID, Indicators, row, col, includeEl
             ["Governance"],
             ["Freedom of Expression"],
             ["Privacy"]
-        ]}
-   
+        ]
+    }
+
 
     indicatorNotes = indicatorCells.slice()
 
@@ -180,7 +180,7 @@ function addSummaryCompanyHeader(row, col, Sheet, Company) {
 function addSummaryCompanyHeaderYoy(row, col, Sheet, Company) {
 
     let additionalCol = 2
-    let totalCols=3*(additionalCol + Company.services.length)
+    let totalCols = 3 * (additionalCol + Company.services.length)
 
     let rowElems = Sheet.getRange(row, col, 1, totalCols)
         .setValue(Company.label.current)
@@ -192,11 +192,11 @@ function addSummaryCompanyHeaderYoy(row, col, Sheet, Company) {
     rowElems = []
 
     let columnLabel
-    let currentYearlLabel="20"+Config.indexPrefix.substring(3,5)+" Adjusted Scores"
-    let prevYearlLabel="20"+Config.prevIndexPrefix.substring(3,5)+" Scores"
+    let currentYearlLabel = "20" + Config.indexPrefix.substring(3, 5) + " Adjusted Scores"
+    let prevYearlLabel = "20" + Config.prevIndexPrefix.substring(3, 5) + " Scores"
 
 
-    for(let i=0; i<totalCols/3;i++){
+    for (let i = 0; i < totalCols / 3; i++) {
         rowElems.push(currentYearlLabel)
         rowElems.push(prevYearlLabel)
         rowElems.push("Change")
@@ -266,7 +266,7 @@ function addCompanyTotalsRow(row, col, Sheet, blockWidth, catLength, totalLength
 }
 
 
-function addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells,yoy) {
+function addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells, isYoyMode) {
 
     let classStartRow, classEndRow, classBlock
     let isElement = false
@@ -276,15 +276,21 @@ function addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, b
         classStartRow = row
 
         IndicatorClass.indicators.forEach(Indicator => {
-            if(!yoy){row = addCompanyScoresRow(row, col, Sheet, Company, Indicator, thisSubStepID, isElement, resultCells)}
-            else{row = addCompanyScoresRowYoy(row, col, Sheet, Company, Indicator, thisSubStepID, isElement, resultCells)}
+            if (!isYoyMode) {
+                row = addCompanyScoresRow(row, col, Sheet, Company, Indicator, thisSubStepID, isElement, resultCells)
+            } else {
+                row = addCompanyScoresRowYoy(row, col, Sheet, Company, Indicator, thisSubStepID, isElement, resultCells)
+            }
 
             if (includeElements) {
                 isElement = true
                 Indicator.elements.forEach(Element => {
-                    if(yoy){row = addCompanyScoresRow(row, col, Sheet, Company, Element, thisSubStepID, isElement, resultCells)}
-                    else{row = addCompanyScoresRowYoy(row, col, Sheet, Company, Element, thisSubStepID, isElement, resultCells)}
-                    
+                    if (isYoyMode) {
+                        row = addCompanyScoresRow(row, col, Sheet, Company, Element, thisSubStepID, isElement, resultCells)
+                    } else {
+                        row = addCompanyScoresRowYoy(row, col, Sheet, Company, Element, thisSubStepID, isElement, resultCells)
+                    }
+
                 })
             }
 
@@ -424,7 +430,7 @@ function addCompanyScoresRowYoy(row, col, Sheet, Company, ScoringObj, thisSubSte
     // let formulaPrefix = "=AVERAGE("
     // let formulaSuffix = ")"
     let formula = '=IMPORTRANGE("' + sheetUrl + '","'
-    let formula1=formula
+    let formula1 = formula
     let cellID
 
     let helperRow, helperCol, helperCell, helperCell1
@@ -442,28 +448,28 @@ function addCompanyScoresRowYoy(row, col, Sheet, Company, ScoringObj, thisSubSte
 
         helperCell = columnToLetter(col) + row
         rowResultRanges.push(helperCell)
-        changeFormula="="+helperCell
+        changeFormula = "=" + helperCell
 
         cellID = defineNamedRange(Config.prevIndexPrefix, "SC", "S07", ScoringObj.labelShort, component, Company.id, "", scoringSuffixTotal)
         // formula = formulaPrefix + cellID + formulaSuffix
         formula1 = formula1 + cellID + '")'
 
-        helperCell1 = columnToLetter(col+1) + row
+        helperCell1 = columnToLetter(col + 1) + row
         rowResultRanges.push(helperCell1)
-        changeFormula=changeFormula+"-"+helperCell1
+        changeFormula = changeFormula + "-" + helperCell1
 
     } else {
         formula = "=\"---\""
-        formula1=formula
-        changeFormula=""
+        formula1 = formula
+        changeFormula = ""
     }
     rowFormulas.push(formula)
     rowFormulas.push(formula1)
     rowFormulas.push(changeFormula)
 
-    
-    col=col+3
-    
+
+    col = col + 3
+
 
     // Group
     formula = '=IMPORTRANGE("' + sheetUrl + '","'
@@ -471,19 +477,19 @@ function addCompanyScoresRowYoy(row, col, Sheet, Company, ScoringObj, thisSubSte
     formula = formula + cellID + '")'
     helperCell = columnToLetter(col) + row
     rowResultRanges.push(helperCell)
-    changeFormula="="+helperCell
+    changeFormula = "=" + helperCell
 
     formula1 = '=IMPORTRANGE("' + sheetUrl + '","'
     cellID = defineNamedRange(Config.prevIndexPrefix, "SC", "S07", ScoringObj.labelShort, component, Company.id, "group", scoringSuffixLvl)
     formula1 = formula1 + cellID + '")'
-    
-    helperCell1 = columnToLetter(col+1) + row
+
+    helperCell1 = columnToLetter(col + 1) + row
     rowResultRanges.push(helperCell1)
-    changeFormula=changeFormula+"-"+helperCell1
+    changeFormula = changeFormula + "-" + helperCell1
 
     if (!isElement) {
         helperCell = columnToLetter(col) + row
-        helperCell1 = columnToLetter(col+1) + row
+        helperCell1 = columnToLetter(col + 1) + row
         rowResultRanges.push(helperCell)
         rowResultRanges.push(helperCell1)
     }
@@ -492,7 +498,7 @@ function addCompanyScoresRowYoy(row, col, Sheet, Company, ScoringObj, thisSubSte
     rowFormulas.push(formula1)
     rowFormulas.push(changeFormula)
 
-    col=col+3
+    col = col + 3
 
     // Services
 
@@ -518,7 +524,7 @@ function addCompanyScoresRowYoy(row, col, Sheet, Company, ScoringObj, thisSubSte
             cellID = defineNamedRange(Config.prevIndexPrefix, "SC", "S07", ScoringObj.labelShort, component, Company.id, Company.services[i].id, scoringSuffixLvl)
             formula1 = `=IMPORTRANGE("${sheetUrl}","${cellID}")`
 
-            changeFormula="" // <------------------------ fix
+            changeFormula = "" // <------------------------ fix
 
         }
 

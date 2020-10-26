@@ -5,7 +5,7 @@
 
 // --------------- This is the Main Scoring Process Caller ---------------- //
 
-function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode,yoy,yoyComp,addNewStep,stepToAdd) {
+function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, isYoyMode, yoyComp, addNewStep, stepsToAdd) {
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
@@ -41,8 +41,8 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSh
     let isPilotMode = false
     let outputParams = Config.integrateOutputsArray.scoringParams
 
-    addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,yoy,yoyComp,addNewStep,stepToAdd)
-   
+    addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode, isYoyMode, yoyComp, addNewStep, stepsToAdd)
+
 
     moveHideSheetifExists(SS, pointsSheet, 1)
 

@@ -5,12 +5,12 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepNr, subStepID, blocks, yoy) {
+function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepNr, subStepID, blocks, isYoyMode) {
 
     // -- // add Step Header to top-left cell // -- //
     // TODO: refactor to components
 
-    let stepSuffix = yoy && mainStepNr != "S0" ? " Adjusted" : ""
+    let stepSuffix = isYoyMode && mainStepNr != "S0" ? " Adjusted" : ""
 
     if (blocks == 1) {
         Sheet.getRange(activeRow, activeCol)
@@ -140,7 +140,7 @@ function importElementBlock(activeRow, activeCol, Sheet, StepComp, subStepID, In
     let tempCol
     let component = ""
     let rowLabel, Cell, compCellName, formula
-    console.log("Element Data Type: " + stepCompID)
+    // console.log("Element Data Type: " + stepCompID)
 
     console.log(" - " + "in " + StepComp.type + " " + Indicator.labelShort)
 
@@ -358,7 +358,7 @@ function importElementRow(activeRow, activeCol, Sheet, StepComp, subStepID, Indi
 // --- // Core function: SCORING // --- //
 
 // eslint-disable-next-line no-unused-vars
-function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepID, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, yoy) {
+function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepID, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, isYoyMode) {
 
     console.log(" - " + "in element scoring for " + " " + Indicator.labelShort)
 
@@ -420,7 +420,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
             // Cell.setValue(range.getA1Notation())
 
 
-            if (yoy) {
+            if (isYoyMode) {
                 cellName = defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", elementLabel, component, Company.id, "group", scoringSuffix)
                 compCellValue = SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()
 
@@ -466,7 +466,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 }
 
                 cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, "opCom", scoringSuffix)
-                if (yoy && subStepID != "S07" && SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue() == "exclude (N/A)") {
+                if (isYoyMode && subStepID != "S07" && SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue() == "exclude (N/A)") {
                     Cell.setValue("N/A")
                 } else {
                     elementScore = elementScoreFormula(range, scoringScaleReversed)
@@ -503,7 +503,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 }
 
                 cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, Company.services[g].id, scoringSuffix)
-                if (yoy && subStepID != "S07" && SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue() == "exclude (N/A)") {
+                if (isYoyMode && subStepID != "S07" && SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue() == "exclude (N/A)") {
                     Cell.setValue("N/A")
                 } else {
                     elementScore = elementScoreFormula(range, scoringScaleReversed)
@@ -526,7 +526,7 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
         activeRow += 1
     }
 
-    //if(yoy){Sheet.setConditionalFormatRules(rules)}
+    //if(isYoyMode){Sheet.setConditionalFormatRules(rules)}
 
     return activeRow + 1
 
@@ -796,7 +796,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, Sheet, subSte
 
     }
 
-    console.log(`|---- DEBUG ${ScoreCells.CompositeScoreCells.cells}`)
+    // console.log(`|---- DEBUG ${ScoreCells.CompositeScoreCells.cells}`)
 
     return activeRow + 1
 }

@@ -266,50 +266,50 @@ function mainScoringSheets() {
     initiateGlobalConfig()
 
     outputFolderName = isProduction ? Config.outputFolderNameProd : Config.outputFolderNameDev
-    let addNewStep = false
-    let stepToAdd = 5
+    let addNewStep = true
+    let stepsToAdd = [6, 7]
 
     // Config.subsetMaxStep = 4
 
-    let yoy = false
-    let yoyComp = [3, 5, 7]
-    let mainSheetMode = yoy ? "Output Yoy" : "Output"
+    let isYoyMode = false
+    let yoySteps = [3, 5, 7]
+    let mainSheetMode = isYoyMode ? "Output Yoy" : "Output"
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
-    // .slice(1, 2) //   1 "Amazon",
-    // .slice(2, 3) //   2 "América Móvil",
-    // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
-    // .slice(7, 8) //   7 "Bharti Airtel",
-    // .slice(8, 9) //   8 "Deutsche Telekom",
-    // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Alibaba",
+        // .slice(1, 2) //   1 "Amazon",
+        // .slice(2, 3) //   2 "América Móvil",
+        // .slice(3, 4) //   3 "Apple",
+        // .slice(4, 5) //   4 "AT&T",
+        // .slice(5, 6) //   5 "Axiata",
+        // .slice(6, 7) //   6 "Baidu",
+        // .slice(7, 8) //   7 "Bharti Airtel",
+        // .slice(8, 9) //   8 "Deutsche Telekom",
+        // .slice(9, 10) //   9 "Etisalat",
+        // .slice(10, 11) //   10 "Facebook",
+        // .slice(11, 12) //   11 "Google",
+        // .slice(12, 13) //   12 "Kakao",
+        // .slice(13, 14) //   13 "Mail.Ru",
+        // .slice(14, 15) //   14 "Microsoft",
+        // .slice(15, 16) //   15 "MTN",
+        // .slice(16, 17) //   16 "Ooredoo",
+        // .slice(17, 18) //   17 "Orange",
+        // .slice(18, 19) //   18 "Samsung",
+        // .slice(19, 20) //   19 "Telefónica",
+        // .slice(20, 21) //   20 "Telenor",
+        // .slice(21, 22) //   21 "Tencent",
+        // .slice(22, 23) //   22 "Twitter",
+        // .slice(23, 24) //   23 "Verizon Media",
+        // .slice(24, 25) //   24 "Vodafone",
+        .slice(25, 26) //   25 "Yandex"
 
 
     let fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, yoy, yoyComp, addNewStep, stepToAdd)
+        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, isYoyMode, yoySteps, addNewStep, stepsToAdd)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
 
@@ -384,7 +384,7 @@ function mainAggregationSheets() {
 
     let scoringStepNr = 3
 
-    let yoy = true
+    let isYoyMode = true
 
     let Companies = companiesVector.companies
         // .slice(5, 7) // Axiata & Baidu,
@@ -394,7 +394,7 @@ function mainAggregationSheets() {
         // .slice(1, 2) // Apple
         .slice(3, 4) //
 
-    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets, yoy)
+    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets, yoisYoyModey)
 
     // addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 
@@ -412,7 +412,7 @@ function mainDataStore() {
     filenameSuffix = " yoy"
     // filename fragments defined in Config.summaryParams.spreadsheetName
     let mainSheetMode = Config.dataStoreParams.fileName
-    let yoy = true
+    let isYoyMode = true
 
     Config.subsetMaxStep = 7
 
@@ -450,7 +450,7 @@ function mainDataStore() {
 
     Companies.forEach(function (Company) {
 
-        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode, yoy)
+        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode, isYoyMode)
 
         Logger.log("received fileID: " + fileID)
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)

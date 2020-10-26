@@ -3,7 +3,7 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults, yoy, addNewStep) {
+function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults, isYoyMode, addNewStep) {
 
     console.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -28,7 +28,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
     // TODO: remove from steps JSON. Not a component. This is Layout
 
-    activeRow = setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepLabel, subStepID, blocks, yoy)
+    activeRow = setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepLabel, subStepID, blocks, isYoyMode)
 
     // For all Indicator Categories
     for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
@@ -143,7 +143,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
             if (hasFullScores) {
-                activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, yoy)
+                activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, isYoyMode)
                 console.log(Indicator.labelShort + " - " + "element scores added")
 
                 activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, ScoreCells, blocks)
@@ -158,7 +158,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
                 console.log(`${Indicator.labelShort} INDICATOR score added`)
 
-                if (yoy) {
+                if (isYoyMode) {
                     activeRow = addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells)
                 }
 

@@ -6,13 +6,16 @@
 /* global Config, insertSheetIfNotExist, dataStoreSingleStepResults, dataStoreSingleStepElementScoring, dataStoreSingleStepLevelScoring, dataStoreSingleStepCompositeScoring, dataStoreSingleStepIndicatorScoring, resizeSheet */
 
 // eslint-disable-next-line no-unused-vars
-function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode,yoy) {
+function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode, isYoyMode) {
 
     let urlDC = Company.urlCurrentDataCollectionSheet
-    let urlSC 
-    
-    if(!yoy){urlSC= Company.urlCurrentCompanyScoringSheet}
-    else{urlSC=Company.urlCurrentYoyScoringSheet}
+    let urlSC
+
+    if (!isYoyMode) {
+        urlSC = Company.urlCurrentCompanyScoringSheet
+    } else {
+        urlSC = Company.urlCurrentYoyScoringSheet
+    }
 
     let elementsTotalNr = elementsTotalLength(Indicators)
 
