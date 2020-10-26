@@ -58,10 +58,19 @@ function initiateGlobalConfig() {
     IndicatorsObj = indicatorsVector
     /* OR */
     // param has to be Array[]
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "F1a", "P1a"])
+    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "G2", "G3", "G4a", "G4b", "G4c", "G4d", "G4e", "G5", "G6a", "G6b", "F1a", "F1b", "F1c", "F1d", "F2a", "F2b", "F2c", "F2d", "F3a", "F3b", "F3c", "F4a", "F4b", "F4c", "F5a", "F5b", "F6", "F7"])
     globalIndicatorsSubset = false
-    // Indicator Labels:
-    // ["G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"]
+
+    /* Indicator Labels:
+    
+    Batch 1:
+    "G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7"
+    
+    Batch 2:
+    "F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"
+    */
+
+    // "G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"
 
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
@@ -135,18 +144,79 @@ function mainAddNewInputStep() {
 
     initiateGlobalConfig()
 
-    includeFormatting = true // toggle costly Sheet-level formatting updates
+    includeFormatting = false // toggle costly Sheet-level formatting updates
 
     updateProduction = true // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
 
     // also: Hook to skip steps
-    startAtMainStepNr = 6 // logical Order
+    startAtMainStepNr = 7 // logical Order
     Config.subsetMaxStep = startAtMainStepNr
 
     outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
+    let mainSheetMode = "Input" // for filename | TODO: move to Config
+    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
+
+    const Companies = companiesVector.companies
+        // .slice(0, 0) // on purpose to prevent script from running.
+        .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
+    // .slice(3, 4) //   3 "Apple",
+    // .slice(4, 5) //   4 "AT&T",
+    // .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
+    // .slice(25, 26) //   25 "Yandex"
+
+
+    Companies.forEach(function (Company) {
+
+        // Company.urlCurrentDataCollectionSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg"
+
+        processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+    })
+
+}
+
+
+// --- // repairing // --- // 
+function mainRepairInputSheets() {
+
+    // IMPORTANT: if SS is protected, run with data@
+
+    initiateGlobalConfig()
+
+    includeFormatting = false // toggle costly Sheet-level formatting updates
+
+    startAtMainStepNr = 6 // logical Order
+
+    Config.subsetMaxStep = startAtMainStepNr
+
+    doRepairsOnly = true // don't touch
+
+    updateProduction = true // DANGER
+
     let mainSheetMode = "Input" // for filename | TODO: move to Config
     let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
     let useIndicatorSubset = globalIndicatorsSubset // true := use subset
@@ -158,36 +228,35 @@ function mainAddNewInputStep() {
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
         // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-        // .slice(11, 12) //   11 "Google",
-        // .slice(12, 13) //   12 "Kakao",
-        // .slice(13, 14) //   13 "Mail.Ru",
-        // .slice(14, 15) //   14 "Microsoft",
-        // .slice(15, 16) //   15 "MTN",
-        // .slice(16, 17) //   16 "Ooredoo",
-        // .slice(17, 18) //   17 "Orange",
-        // .slice(18, 19) //   18 "Samsung",
-        // .slice(19, 20) //   19 "Telefónica",
-        // .slice(20, 21) //   20 "Telenor",
-        // .slice(21, 22) //   21 "Tencent",
-        // .slice(22, 23) //   22 "Twitter",
-        // .slice(23, 24) //   23 "Verizon Media",
-        .slice(24, 25) //   24 "Vodafone",
+        .slice(5, 6) //   5 "Axiata",
+    // .slice(6, 7) //   6 "Baidu",
+    // .slice(7, 8) //   7 "Bharti Airtel",
+    // .slice(8, 9) //   8 "Deutsche Telekom",
+    // .slice(9, 10) //   9 "Etisalat",
+    // .slice(10, 11) //   10 "Facebook",
+    // .slice(11, 12) //   11 "Google",
+    // .slice(12, 13) //   12 "Kakao",
+    // .slice(13, 14) //   13 "Mail.Ru",
+    // .slice(14, 15) //   14 "Microsoft",
+    // .slice(15, 16) //   15 "MTN",
+    // .slice(16, 17) //   16 "Ooredoo",
+    // .slice(17, 18) //   17 "Orange",
+    // .slice(18, 19) //   18 "Samsung",
+    // .slice(19, 20) //   19 "Telefónica",
+    // .slice(20, 21) //   20 "Telenor",
+    // .slice(21, 22) //   21 "Tencent",
+    // .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Verizon Media",
+    // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
-
-    let fileID
 
     Companies.forEach(function (Company) {
 
-        fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        // Company.urlCurrentDataCollectionSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg"
+
+        processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
 
     })
-
 }
 
 // create Scoring spreadsheets for all companies
@@ -208,9 +277,9 @@ function mainScoringSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        .slice(2, 3) //   2 "América Móvil",
+        .slice(0, 1) //   0 "Alibaba",
+    // .slice(1, 2) //   1 "Amazon",
+    // .slice(2, 3) //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
@@ -412,65 +481,6 @@ function mainInspectInputSheets() {
     Companies.forEach(Company => {
         processCompanyHealth(ListSheetBroken, Company)
     })
-
-}
-
-// --- // repairing // --- // 
-function mainRepairInputSheets() {
-
-    // IMPORTANT: if SS is protected, run with data@
-
-    initiateGlobalConfig()
-
-    includeFormatting = false // toggle costly Sheet-level formatting updates
-
-    startAtMainStepNr = 6 // logical Order
-
-    Config.subsetMaxStep = startAtMainStepNr
-
-    doRepairsOnly = true // don't touch
-
-    updateProduction = true // DANGER
-
-    let mainSheetMode = "Input" // for filename | TODO: move to Config
-    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
-    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
-
-    const Companies = companiesVector.companies
-        // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-        // .slice(11, 12) //   11 "Google",
-        // .slice(12, 13) //   12 "Kakao",
-        // .slice(13, 14) //   13 "Mail.Ru",
-        // .slice(14, 15) //   14 "Microsoft",
-        // .slice(15, 16) //   15 "MTN",
-        // .slice(16, 17) //   16 "Ooredoo",
-        // .slice(17, 18) //   17 "Orange",
-        // .slice(18, 19) //   18 "Samsung",
-        // .slice(19, 20) //   19 "Telefónica",
-        // .slice(20, 21) //   20 "Telenor",
-        // .slice(21, 22) //   21 "Tencent",
-        // .slice(22, 23) //   22 "Twitter",
-        // .slice(23, 24) //   23 "Verizon Media",
-        .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
-
-    Companies.forEach(function (Company) {
-
-        let fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-
-    })
-
 
 }
 
