@@ -3,7 +3,7 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,addNewStep) {
+function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults, isYoyMode, addNewStep) {
 
     console.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
 
@@ -28,10 +28,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
     // TODO: remove from steps JSON. Not a component. This is Layout
 
-        activeRow = setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepLabel, subStepID, blocks)
-        console.log("Adding Scoring Sheet Header")
-
-    
+    activeRow = setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepLabel, subStepID, blocks, isYoyMode)
 
     // For all Indicator Categories
     for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
@@ -85,10 +82,10 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 }
             }
 
-            
-                activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, nrOfIndSubComps, Category, Company, blocks)
-                console.log(" - company header added for " + Indicator.labelShort)
-               
+
+            activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, nrOfIndSubComps, Category, Company, blocks)
+            console.log(" - company header added for " + Indicator.labelShort)
+
 
             // --- // Main task // --- //
 
@@ -131,6 +128,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
                     case "sources":
                     case "importPreviousSources":
+                    case "reviewSources":
                         if (includeSources) {
                             activeRow = importElementRow(activeRow, firstCol, Sheet, StepComp, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, integrateOutputs, false, indexPref)
                             console.log(Indicator.labelShort + " - SC - " + "sources added")
@@ -140,12 +138,12 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 }
             }
 
-            activeRow +=2
+            activeRow += 1
 
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
             if (hasFullScores) {
-                activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells)
+                activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, isYoyMode)
                 console.log(Indicator.labelShort + " - " + "element scores added")
 
                 activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, ScoreCells, blocks)
@@ -160,12 +158,17 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
                 console.log(`${Indicator.labelShort} INDICATOR score added`)
 
-                if(addNewStep&&blocks==2){activeRow++}
+                if (isYoyMode) {
+                    activeRow = addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells)
+                }
+
+                activeRow = activeRow + 1
+                //if(addNewStep&&blocks==2){activeRow++}
             } // END SUBSTEP COMPONENTS
         } // END INDICATOR
     } // END INDICATOR CATEGORY
 
-    lastCol = Sheet.getLastColumn()+1
+    lastCol = Sheet.getLastColumn() + 1
 
     console.log("Formatting Sheet")
     lastRow = activeRow

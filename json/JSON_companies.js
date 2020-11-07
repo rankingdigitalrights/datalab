@@ -142,6 +142,7 @@ var companiesVector = {
       "tabPrevYearsOutcome": "AppleOutcome",
       "urlCurrentDataCollectionSheet": "1tvk9IH-BJ5QL-MWrAG-pHURXLVsodnG_XIKZtSK6SP0",
       "urlCurrentCompanyScoringSheet": "17YVnTQrPZc-OcKQCN4hvvzGYjJ9GRIF783xs-u3c47o",
+      "urlCurrentYoyScoringSheet":"1HTtZHkaVipDOc3j-WszZI3xZGy-RDgewTFuP7egbPvw",
       "urlCurrentFeedbackSheet": null,
       "urlCurrentDataStoreSheet": "1H5vklBAtRWz9INVWr5lvoLn41Hp6Wfyu9Jcii6mRS9E",
       "services": [{

@@ -4,7 +4,10 @@
 /* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
 
 // eslint-disable-next-line no-unused-vars
-function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode,addNewStep,stepToAdd) {
+function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode, isYoyMode, yoyComp, addNewStep, stepsToAdd) {
+
+
+    // stepsToAdd = stepsToAdd.map(stepNr => stepNr - 1)
 
     Logger.log("|--- Begin addSetOfScoringSteps")
     let sheetName = outputParams.sheetName
@@ -31,14 +34,12 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     Logger.log("include Sources? " + outputParams.includeSources)
     Logger.log("outputParams:" + outputParams)
 
-
     let lastCol = 1
     let blocks = 1
 
-    if(addNewStep){
-        blocks=2
+    if (addNewStep) {
+        blocks = 2
     }
-
 
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
@@ -51,28 +52,28 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     } else {
         //Sheet.clear()
         // temporarily add more rows to improve Script performance
-        if(!addNewStep){
+        if (!addNewStep) {
             Sheet.insertRowsAfter(Sheet.getMaxRows(), 2000)
         }
     }
 
-    if(addNewStep){
-        lastCol=Sheet.getLastColumn()+2
+    if (addNewStep) {
+        lastCol = Sheet.getLastColumn() + 2
     }
 
     for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
 
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
-        if (MainStep.excludeFromOutputs) {
-            continue // i.e. ignore Step 4 Feedback Debate
-        }
+        // if current StepNr isn't in yony array / addNewStep Array / or is exclude in the research steps JSON --> skip Main Step
 
-        if(addNewStep&&mainStepNr<stepToAdd){
+        if ((mainStepNr > 0 && isYoyMode && !yoyComp.includes(mainStepNr)) ||
+            addNewStep && !stepsToAdd.includes(mainStepNr) ||
+            MainStep.excludeFromOutputs) {
             continue
         }
 
-        console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
+        // console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
         let subStepNr = MainStep.altScoringSubstepNr > -1 ? MainStep.altScoringSubstepNr : outputParams.subStepNr
 
         let indexPref = MainStep.altIndexID ? MainStep.altIndexID : indexPrefix
@@ -83,8 +84,7 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
 
         // producing single Scoring Step for all indicators
 
-        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults,addNewStep)
-
+        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults, isYoyMode, addNewStep)
 
         blocks++
 
