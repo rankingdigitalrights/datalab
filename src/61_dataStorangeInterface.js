@@ -75,6 +75,24 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     }
 
+    // --- // Scoring Subset Results and Comments // --- //
+
+    if (DataMode === "simple results") {
+        elementSheet = insertSheetIfNotExist(SS, "simple results", true)
+        if (elementSheet !== null) {
+            elementSheet.clear()
+            resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K
+        }
+    }
+
+    if (DataMode === "reason for change") {
+        elementSheet = insertSheetIfNotExist(SS, "reason for change", true)
+        if (elementSheet !== null) {
+            elementSheet.clear()
+            resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K
+        }
+    }
+
     lastRowR = lastRowS = lastRowL = lastRowC = lastRowI = 1
 
     for (mainStepNr = firstScoringStep; mainStepNr <= maxScoringStep; mainStepNr++) {
@@ -94,17 +112,21 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
             continue // i.e. ignore Step 4 Feedback Debate
         }
 
+        if(mainStepNr==5&&DataMode=="simple results"){continue}
+        if(mainStepNr==5&&DataMode=="reason for change"){continue}
+
+
         for (let subStepNr = 0; subStepNr < MainStep.substeps.length; subStepNr++) {
 
             Substep = MainStep.substeps[subStepNr]
 
-            // console.log("--- Main Step : " + mainStepNr)
+             console.log("--- Main Step : " + mainStepNr)
             // console.log("--- Main Step has " + MainStep.substeps.length + " Substeps")
             // Logger.log("substepNr====" + subStepNr + ", MainStep.scoring===" + MainStep.scoring)
 
             if (DataMode === "results") {
                 console.log("MAIN - Beginning Results " + mainStepNr)
-                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref)
+                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref,DataMode)
                 cropEmptyColumns(elementSheet)
                 console.log("MAIN - Produced Results " + mainStepNr)
 
@@ -134,6 +156,18 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
                 console.log("|----- Indicator Scores OK")
 
                 console.log("MAIN - Ended Scoring " + mainStepNr)
+            }
+
+            else if(DataMode === "simple results" && subStepNr === scoringSubStepNr){
+                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref,DataMode)
+                cropEmptyColumns(elementSheet)
+                console.log("MAIN - Produced Results " + mainStepNr)
+            }
+
+            else if(DataMode === "reason for change"){
+                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref,DataMode)
+                cropEmptyColumns(elementSheet)
+                console.log("MAIN - Produced Results " + mainStepNr)
             }
 
         } // END SUBSTEP

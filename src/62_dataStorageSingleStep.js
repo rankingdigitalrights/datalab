@@ -4,7 +4,7 @@
 
 
 // eslint-disable-next-line no-unused-vars
-function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, lastRow, indexPref) {
+function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCom, integrateOutputs, urlDC, lastRow, indexPref,DataMode) {
 
     // console.log("--- Begin Data Layer Single (Sub)Step: " + subStepNr)
 
@@ -64,6 +64,7 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
                         // case "evaluation":
                     case "reviewResults":
                     case "importPreviousResults":
+                        if(DataMode=="reason for change"){break}
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
@@ -72,6 +73,7 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
                     case "comments":
                     case "reviewComments":
                     case "importPreviousComments":
+                        if(DataMode=="reason for change"){break}
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
@@ -79,10 +81,20 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
 
                     case "sources":
                     case "importPreviousSources":
+                        if(DataMode=="simple results"){break}
+                        if(DataMode=="reason for change"){break}
                         stepCompID = StepComp.id
-                        activeRow = importDataStoreRowResults(activeRow, Sheet, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, null, null, Company, hasOpCom, integrateOutputs, urlDC, false, indexPref)
+                        activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + " sources added")
                         break
+
+                    case "YonYreview":
+                            if(DataMode=="results"){break}
+                            if(DataMode=="simple results"){break}
+                            stepCompID = StepComp.id
+                            activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
+                             console.log(Indicator.labelShort + " yony_reason added")
+                            break
 
                     default:
                         // console.log(" - ignoring " + stepCompType)

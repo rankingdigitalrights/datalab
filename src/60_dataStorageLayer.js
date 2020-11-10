@@ -8,7 +8,7 @@
 /* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, addDataStoreSingleCompany, removeEmptySheet, determineFirstStep, determineMaxStep */
 
 // eslint-disable-next-line no-unused-vars
-function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode) {
+function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode,resultsOnlyMode) {
 
     let Indicators = IndicatorsObj
     let ResearchSteps = researchStepsVector
