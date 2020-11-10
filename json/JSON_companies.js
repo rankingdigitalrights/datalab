@@ -23,7 +23,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1WmI5QXq2p4tVY3JdfFV8Ra5DV3wp7bhH6ufo2Mzpkhw",
       "urlCurrentCompanyScoringSheet": "10kB6eIKaSft7le_Jw_jQ-m6V3w_Q4KxS_2ifK3ebt7g",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1a50nKAhi14oEoh5Hxba4iZQNFg0A3IUT8vohGfLPfH0",
       "services": [{
           "id": "ecAL1",
           "type": "eCommerce",
@@ -59,7 +59,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1B35t-vsT4E-PCg5MKCHwBOj3o3XwYYVUuDrZKg756sQ",
       "urlCurrentCompanyScoringSheet": "1ynSoO0rLhnaorj1kX0S0NtVFQJOCuBatwMo-td9VVLU",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1jEl6aapmghkdc51Ki78lIzJvSoNg_FVTigGGImQ7tIQ",
       "services": [{
           "id": "ecAZ1",
           "type": "eCommerce",
@@ -104,7 +104,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1UwQa0iIfWcEFW6cRxlmw-Sfw3qvs3bwQQ5vwmptrD8o",
       "urlCurrentCompanyScoringSheet": "1cRT_I5me7moYN3p6DR4Y8ssTd1xXKgrMrvf2wTxmwyQ",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1kPMGzJZoPjuOFqkg7R9ODi8vy9NCwNP3l-ngYoSLUW0",
       "services": [{
           "id": "mbAM1",
           "type": "mobile",
@@ -143,7 +143,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1tvk9IH-BJ5QL-MWrAG-pHURXLVsodnG_XIKZtSK6SP0",
       "urlCurrentCompanyScoringSheet": "17YVnTQrPZc-OcKQCN4hvvzGYjJ9GRIF783xs-u3c47o",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1H5vklBAtRWz9INVWr5lvoLn41Hp6Wfyu9Jcii6mRS9E",
       "services": [{
           "id": "meAP1",
           "type": "mobileEcosystem",
@@ -188,7 +188,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1KGJUM95bNuvFDzZqXpZaDKbwMa379_HDvff7Rg4Wc3k",
       "urlCurrentCompanyScoringSheet": "1l0XO3oiPo_Ffzf-cSbfm9ynJ30kWsVn6_QiXO4G76CI",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1sNnrGmHyRsjlgfWbItDc-bRKmfOnLZQdwlwhAXlLe30",
       "services": [{
           "id": "mbAT1",
           "type": "mobile",
@@ -235,7 +235,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1bi7WVri0AsI0wqOjQ9XNQXeW_KZ1FuEz-mkBGiLE3Cc",
       "urlCurrentCompanyScoringSheet": "1tGDUSlM68H6PFNtDAgBg53JD-cp6plzcqWLCpR0s4oI",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1q7aG-ziQi0vVQBvpYSZPkNOnTJtpRMjDoBHVKrKrBTA",
       "services": [{
           "id": "mbAX1",
           "type": "mobile",
@@ -283,7 +283,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "17LIVa6Mj2ARm7E7aRHmIdvaD0UWxY4SA0C5YY166GBE",
       "urlCurrentCompanyScoringSheet": "1vZ9kDPaNRqQ-o3ckskuwX6mu5hjnlYi8Qo06ExpMEJs",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1SsVuZ2VIX9EIBikjPF0PfQYurfPg2q82yrVRKXg_xsI",
       "services": [{
           "id": "seBA1",
           "type": "search",
@@ -328,7 +328,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1pz7nE153onnNfDPqoPXI_D2V5ZLMNip7g8r6s0OpybQ",
       "urlCurrentCompanyScoringSheet": "11xYk6eYpwPSZW6TAXtEWqxcfIfuevNDFz0d_zSZa1-I",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1gegrdeFVFW-J4UqClvmRl58WWabNnolsdi9uQsUqjsc",
       "services": [{
           "id": "mbBH1",
           "type": "mobile",
@@ -375,7 +375,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1qHXyuNG5S52jb02gdcHq9cdc5mTsuaI4-v8GgSi4sFA",
       "urlCurrentCompanyScoringSheet": "1NIzkuylsr_2zkK8H7eh8UiJbmBZIs9ul48eod-sLcxU",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1kBFsD1cLNW1v2YyVYxobC0PyJwxfmEUmPATGGUV44r4",
       "services": [{
           "id": "mbDT1",
           "type": "mobile",
@@ -422,7 +422,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1G4PznxQg_h_xMi5JJOIyHd8N47Waa508RcblC9Sfz94",
       "urlCurrentCompanyScoringSheet": "19X9iO4Q6uoW5CJ_K39v_llZJ59dj2HazHkux2WrXMPQ",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1FpbkqeozMf-YGqfA17PfY0X38mLcUXfzafEcf_Y5Vmw",
       "services": [{
           "id": "mbET1",
           "type": "mobile",
@@ -469,7 +469,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1LkJlcXq3wx4cInqjaxpqC3Udf8MeGvzX607RCWtCffw",
       "urlCurrentCompanyScoringSheet": "12TvSEnAQURFoWGWTBEkUrrmORs_Zdz9cDhd9h3qH0eU",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1mKA6erBPbTMu5DYiz6wqhLbMQ11-uxk36cPoFTsqw0o",
       "services": [{
           "id": "snFB1",
           "type": "socialNetworkBlogs",
@@ -522,7 +522,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1tkOrgUWe0sG5cfNYeoph5IQdYt_A3LGbR2JMkCdwhGg",
       "urlCurrentCompanyScoringSheet": "1yizjORRCaxzvc8yQD8JrQ-gzW8RaVlK4HRA_Pc990gI",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1e1MsG6euhGvNXj12E5KAwvH70QBTwdFe3uI7C0TvyPs",
       "services": [{
           "id": "seGO1",
           "type": "search",
@@ -583,7 +583,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1Ld1w8GS3Rn7AncE3AQBx5z4Ad5ww4lL0xe3lhlVDLu4",
       "urlCurrentCompanyScoringSheet": "1Fdc0UotXXgWV84lTWJaP9rl9wCY5c5o49wswMF5VVcc",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1emUUw9pUzjBPEqatrQFzGWqoG8F0wGHR4ywvmQYDmFA",
       "services": [{
           "id": "seKA1",
           "type": "search",
@@ -628,7 +628,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1qYiP2KP2xB7SRM1br6LunjF6PoqWvGoCIeE8G8hXbB4",
       "urlCurrentCompanyScoringSheet": "1oLxTggmytYBvigz6k97-zPkfT2LX47KGhj9TeIE1NV0",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1U_OOQpcSK_p66UyXWXyFPXddKN9Ez9kidZgnUXEyaIM",
       "services": [{
           "id": "snMA1",
           "type": "socialNetworkBlogs",
@@ -681,7 +681,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1Bw5YfKfBMcLNca39qc7vye42vd_Zk5V2lM_8RYGRSAE",
       "urlCurrentCompanyScoringSheet": "1X2-cvOtXuq0Ex8oiIHFKYKhBVeTkS92Pcqm3tIofqc8",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1NfQRjLQeeOOqtsNpJDtpl3DOwAUYKvbpqqi2iupbU4s",
       "services": [{
           "id": "seMS1",
           "type": "search",
@@ -734,7 +734,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1KjK1n2SbLkxGYmu7iIF7N5cScIYHm8pvJzGB89UemtI",
       "urlCurrentCompanyScoringSheet": "1B-Lhd1vEhUzdwfqX-TucZV1qjxArDiK-zLGbfbsf9gg",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1oi-ePx4y7n25A-fuXujK1rwAfP0o0fVIISjsJB4wK2E",
       "services": [{
           "id": "mbMT1",
           "type": "mobile",
@@ -781,7 +781,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "18nbBe8yAIF2vjwZjioohW1BoiYPg9OE916-1pWT7Stk",
       "urlCurrentCompanyScoringSheet": "1HBt3nm9qVBbfbAOgqbB2lYpM8nOmBV0uB2v-JXZX4lQ",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1iLiZv6JL_RTfO4XJGyGYACak-BEhXDxQ7edLj2_SrtI",
       "services": [{
           "id": "mbOD1",
           "type": "mobile",
@@ -828,7 +828,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "12hQjVpLb3i3WxVYNEzUqdZyBncI6L69MO3e7iMYfIck",
       "urlCurrentCompanyScoringSheet": "1S1MFdcMo0CdrplDADwtgqv_nRcXgfDimZqzYiRk3Ass",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1ombvC3x2n25_84R8Mz8vXD0TJ6iHUo5UgeIODB8vMUo",
       "services": [{
           "id": "mbOR1",
           "type": "mobile",
@@ -875,7 +875,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "116hQwK-fOJF46G4XmK-FpiSHpQbUeD4XXWc9Cx-8Euk",
       "urlCurrentCompanyScoringSheet": "12plehZS80RuiGSen7QsPFVY2vjtG9smC6FjknXcFZIY",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1RmYTNyzRMJ63l8IpVEwrMNVpY7GIkAH2TQYLehSToZw",
       "services": [{
           "id": "meSA1",
           "type": "mobileEcosystem",
@@ -912,7 +912,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1pF6YV_FzlKr6sHbV3Id8pV9rouD9Rs6r9g-fcBGlmj4",
       "urlCurrentCompanyScoringSheet": "1YT4I-A58Z5gaDjpxr_SLIXtG5zjbfQcmK-AL2URM5sw",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1RsNd0lons-btB7nOEH6Tgr3PDLArNcPLXF4O9HzpOlo",
       "services": [{
           "id": "mbTF1",
           "type": "mobile",
@@ -959,7 +959,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "150kTM3p6zcigywbRIUaki9NLtXmKEFHGRY2fNMDhSBk",
       "urlCurrentCompanyScoringSheet": "1UOzidB_ECjpu1BFChzeSkJpUMutRL1A6kE86pJr1cD4",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1PBecu3rYlDfKpYeLTMZo_M67OqVfo0KkYg2GjloLz0Q",
       "services": [{
           "id": "mbTN1",
           "type": "mobile",
@@ -1006,7 +1006,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1LxyBnEMep0OP9r-jOGTMLaIRmizOaHHDwNSTbWJ1wHg",
       "urlCurrentCompanyScoringSheet": "1GLSFkoSYzatMOaRQjNyGbkgJEWZbTtatZsASxcH5LYs",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1rUGzQl68AAsS3CL2Senabd9LVciTZY5P8b26YaESHL8",
       "services": [{
           "id": "snTC1",
           "type": "socialNetworkBlogs",
@@ -1059,7 +1059,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "18_EcR5oZIdF-UvP47kLlD1Lj8U8ES1DdbVlLaitjwfI",
       "urlCurrentCompanyScoringSheet": "1DxsufAJtnphzfdSs5GDMw5mYfjK99_Z3U5AZvAg1FTM",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1hc-jQp9rds3e6FnZiyLA-gKcIHlmpKaEjrwJYP2IQgw",
       "services": [{
         "id": "smTW1",
         "type": "socialNetworkBlogs",
@@ -1087,7 +1087,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1lLXsyxGnIlTf3tSMTtrJObxy6hf0yjBlmcbTSgYV32M",
       "urlCurrentCompanyScoringSheet": "1i59E864IJ-AaeuamOc9YpLLEDYWtVZi5Q9CbGJm-Rmc",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1wmdzz7a1v8lIKgjNFCVtm6_P_AohgT5Y9prHufiG4dk",
       "services": [{
         "id": "emVM1",
         "type": "email",
@@ -1115,7 +1115,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1FwJrdsdWXC1A4bSohbFWAPyeVIiS4g3Mjm_1Kl09i1E",
       "urlCurrentCompanyScoringSheet": "114H9ADnPen_mRUnpAu9Ppdf97QIJ2HCwnHb_Ik6majU",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1gDVS-9jltEoEgfWmsQAIcYVnEZK1rpEhur-uD60_Qco",
       "services": [{
           "id": "mbVF1",
           "type": "mobile",
@@ -1162,7 +1162,7 @@ var companiesVector = {
       "urlCurrentDataCollectionSheet": "1Svrmp9T0JgdETzJ8Opo5WOyVomjxHip691ixlwbPtA8",
       "urlCurrentCompanyScoringSheet": "1Pemf9q3HlZcXJDfm-10nQNx9oMGtNtHn1mhpvWABHZ4",
       "urlCurrentFeedbackSheet": null,
-      "urlCurrentDataStoreSheet": null,
+      "urlCurrentDataStoreSheet": "1D_188l__7GMlMIG7g6JUTxfxkqAzc1GtnxeyobppLCE",
       "services": [{
           "id": "emYA1",
           "type": "email",
@@ -1196,12 +1196,12 @@ var companiesVector = {
 // Output helpers
 // let companyValues = companiesVector.companies
 //   .map(company =>
-//     company.urlCurrentDataCollectionSheet) // id; label.current
-//   .flat()
+//     `"${company.urlCurrentDataStoreSheet}"`) // id; label.current
+// //   .flat()
 
-// let companyValues = companiesVector.companies
-//   .map(company =>
-//     company.services.length) // id; label.current
-//   .flat()
+// // let companyValues = companiesVector.companies
+// //   .map(company =>
+// //     company.services.length) // id; label.current
+// //   .flat()
 
-// console.log(${companyValues}`)
+// console.log(`${companyValues}`)
