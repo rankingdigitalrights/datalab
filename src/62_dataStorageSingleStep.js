@@ -64,7 +64,7 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
                         // case "evaluation":
                     case "reviewResults":
                     case "importPreviousResults":
-                        if(DataMode=="reason for change"){break}
+                        if(DataMode=="changes"){break}
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
@@ -73,7 +73,7 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
                     case "comments":
                     case "reviewComments":
                     case "importPreviousComments":
-                        if(DataMode=="reason for change"){break}
+                        if(DataMode=="changes"){break}
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + stepCompType + " added ")
@@ -81,16 +81,14 @@ function dataStoreSingleStepResults(Sheet, Indicators, SubStep, Company, hasOpCo
 
                     case "sources":
                     case "importPreviousSources":
-                        if(DataMode=="simple results"){break}
-                        if(DataMode=="reason for change"){break}
+                        if(DataMode=="simple results"||DataMode=="changes"){break}
                         stepCompID = StepComp.id
                         activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                         // console.log(Indicator.labelShort + " sources added")
                         break
 
                     case "YonYreview":
-                            if(DataMode=="results"){break}
-                            if(DataMode=="simple results"){break}
+                            if(DataMode=="results"||DataMode=="simple results"){break}
                             stepCompID = StepComp.id
                             activeRow = importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, catLabel, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref)
                              console.log(Indicator.labelShort + " yony_reason added")

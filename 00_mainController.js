@@ -401,7 +401,7 @@ function mainAggregationSheets() {
 // Scores: ~2 minutes runtime? TBC
 function mainDataStore() {
 
-    let DataMode = ["simple results","reason for change"] // ["results", "transpose", "scores","simple results","reason for change"]
+    let DataMode = ["simple results","changes"] // ["results", "transpose", "scores","simple results","changes"]
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 

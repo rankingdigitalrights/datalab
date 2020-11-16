@@ -251,6 +251,8 @@ function importDataStoreRowScoring(activeRow, Sheet, StepComp, stepCompID, subSt
 // eslint-disable-next-line no-unused-vars
 function importDataStoreBlockResults(Sheet, activeRow, StepComp, stepCompID, subStepID, Indicator, indCatLabelShort, indLabelShort, Company, hasOpCom, integrateOutputs, urlDC, indexPref) {
 
+    // TODO: get rid of cellID
+
     let scoringSuffix = StepComp.scoringId || false
 
     // console.log("- Element Data Type: " + stepCompID)
