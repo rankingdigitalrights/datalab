@@ -80,7 +80,7 @@ var companiesVector = {
           "id": "clAZ1",
           "type": "cloud",
           "label": {
-            "current": "Amazon Cloud",
+            "current": "Amazon Drive",
             "legacy": [null]
           }
         }
@@ -634,7 +634,7 @@ var companiesVector = {
           "id": "snMA1",
           "type": "socialNetworkBlogs",
           "label": {
-            "current": "VKontakte",
+            "current": "VK",
             "legacy": [null]
           }
         },
