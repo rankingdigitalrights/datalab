@@ -3,8 +3,8 @@
 
 var companiesVector = {
   "collection": "companies",
-  "indexYear": 2019,
-  "indexType": "RDR Pilot",
+  "indexYear": 2020,
+  "indexType": "RDR Index",
   "companies": [{
       "id": "iAL1",
       "label": {
