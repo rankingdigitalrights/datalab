@@ -405,11 +405,13 @@ function mainAggregationSheets() {
 // Scores: ~2 minutes runtime? TBC
 function mainDataStore() {
 
-    let DataMode = ["transpose"] // ["results", "transpose", "scores"]
+  let DataMode = ["results","changes"] // ["results", "transpose", "scores","results","changes"]
+
     initiateGlobalConfig()
     outputFolderName = "2020 - Dev - Data Store"
 
-    filenameSuffix = " yoy"
+    filenameSuffix = " v3"
+
     // filename fragments defined in Config.summaryParams.spreadsheetName
     let mainSheetMode = Config.dataStoreParams.fileName
     let isYoyMode = true

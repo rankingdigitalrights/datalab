@@ -34,8 +34,8 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     // --- // Element Level Results // --- //
 
-    if (DataMode === "results") {
-        elementSheet = insertSheetIfNotExist(SS, "results", true)
+    if (DataMode === "results" || DataMode === "changes") {
+        elementSheet = insertSheetIfNotExist(SS, DataMode, true)
         if (elementSheet !== null) {
             elementSheet.clear()
             resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K
@@ -81,6 +81,7 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     }
 
+
     lastRowR = lastRowS = lastRowL = lastRowC = lastRowI = 1
 
     for (mainStepNr = firstScoringStep; mainStepNr <= maxScoringStep; mainStepNr++) {
@@ -100,17 +101,20 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
             continue // i.e. ignore Step 4 Feedback Debate
         }
 
+        if(mainStepNr === 5 && (DataMode === "results" || DataMode==="changes")){continue}
+
+
         for (let subStepNr = 0; subStepNr < MainStep.substeps.length; subStepNr++) {
 
             Substep = MainStep.substeps[subStepNr]
 
-            // console.log("--- Main Step : " + mainStepNr)
+             console.log("--- Main Step : " + mainStepNr)
             // console.log("--- Main Step has " + MainStep.substeps.length + " Substeps")
             // Logger.log("substepNr====" + subStepNr + ", MainStep.scoring===" + MainStep.scoring)
 
-            if (DataMode === "results") {
+            if (DataMode === "results" || DataMode === "changes" || (DataMode === "results" && subStepNr === scoringSubStepNr)) {
                 console.log("MAIN - Beginning Results " + mainStepNr)
-                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref)
+                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref,DataMode)
                 cropEmptyColumns(elementSheet)
                 console.log("MAIN - Produced Results " + mainStepNr)
 
