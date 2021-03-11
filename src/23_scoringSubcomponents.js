@@ -5,10 +5,12 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepNr, subStepID, blocks) {
+function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepNr, subStepID, blocks, isYoyMode) {
 
     // -- // add Step Header to top-left cell // -- //
     // TODO: refactor to components
+
+    let stepSuffix = isYoyMode && mainStepNr != "S0" ? " Adjusted" : ""
 
     if (blocks == 1) {
         Sheet.getRange(activeRow, activeCol)
@@ -19,10 +21,10 @@ function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShor
             .setNote(`Company Type: ${Company.type}`)
         Sheet.setColumnWidth(activeCol, 200)
         activeCol += 1
-        
+
     }
 
-    
+
 
     let stepLabel = mainStepNr
 
@@ -33,7 +35,7 @@ function setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShor
     stepLabel += ` (${subStepID})`
 
     Sheet.getRange(activeRow, activeCol)
-        .setValue(stepLabel)
+        .setValue(stepLabel + stepSuffix)
         .setFontWeight("bold")
         .setFontSize(14)
 
@@ -138,7 +140,7 @@ function importElementBlock(activeRow, activeCol, Sheet, StepComp, subStepID, In
     let tempCol
     let component = ""
     let rowLabel, Cell, compCellName, formula
-    console.log("Element Data Type: " + stepCompID)
+    // console.log("Element Data Type: " + stepCompID)
 
     console.log(" - " + "in " + StepComp.type + " " + Indicator.labelShort)
 
@@ -356,7 +358,7 @@ function importElementRow(activeRow, activeCol, Sheet, StepComp, subStepID, Indi
 // --- // Core function: SCORING // --- //
 
 // eslint-disable-next-line no-unused-vars
-function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepID, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells) {
+function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepID, currentStepComponent, Indicator, Company, companyHasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, isYoyMode) {
 
     console.log(" - " + "in element scoring for " + " " + Indicator.labelShort)
 
@@ -379,6 +381,9 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
 
     let scoringSuffix = "SE"
     let indexPref = ScoreCells.indexPref
+    let compCellValue, rule
+
+    let rules = Sheet.getConditionalFormatRules()
 
     // for each indicator.Element
     for (let elemNr = 0; elemNr < Indicator.elements.length; elemNr++) {
@@ -413,8 +418,22 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
             // console.log("let up: " + up)
             range = Sheet.getRange(activeRow - up, tempCol)
             // Cell.setValue(range.getA1Notation())
-            elementScore = elementScoreFormula(range, scoringScaleReversed)
-            Cell.setFormula(elementScore)
+
+
+            if (isYoyMode) {
+                cellName = defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", elementLabel, component, Company.id, "group", scoringSuffix)
+                compCellValue = SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue()
+
+                if (indexPrefix != Config.prevIndexPrefix && compCellValue == "exclude (N/A)") {
+                    Cell.setValue("N/A")
+                }
+
+            } else if (indexPrefix != Config.prevIndexPrefix) {
+                elementScore = elementScoreFormula(range, scoringScaleReversed)
+                Cell.setFormula(elementScore)
+
+            }
+
             Cell.setNumberFormat("0.##")
 
             // cell name formula; output defined in 44_rangeNamingHelper.js
@@ -445,6 +464,17 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 if (nrOfIndSubComps != 1) {
                     component = Category.components[k].labelShort
                 }
+
+                cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, "opCom", scoringSuffix)
+                if (isYoyMode && subStepID != "S07" && SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue() == "exclude (N/A)") {
+                    Cell.setValue("N/A")
+                } else {
+                    elementScore = elementScoreFormula(range, scoringScaleReversed)
+                    Cell.setFormula(elementScore)
+                }
+
+                Cell.setNumberFormat("0.##")
+
                 cellName = defineNamedRange(indexPref, sheetModeID, subStepID, elementLabel, component, Company.id, "opCom", scoringSuffix)
                 SS.setNamedRange(cellName, Cell)
 
@@ -468,8 +498,18 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
                 range = Sheet.getRange(activeRow - up, tempCol)
                 // Cell.setValue(range.getA1Notation())
                 // let elementScore = '=LEN(' + range.getA1Notation() + ')'
-                elementScore = elementScoreFormula(range, scoringScaleReversed)
-                Cell.setFormula(elementScore)
+                if (nrOfIndSubComps != 1) {
+                    component = Category.components[k].labelShort
+                }
+
+                cellName = defineNamedRange("RDR19", sheetModeID, "S07", elementLabel, component, Company.id, Company.services[g].id, scoringSuffix)
+                if (isYoyMode && subStepID != "S07" && SpreadsheetApp.openById(Company.urlCurrentCompanyScoringSheet).getRangeByName(cellName).getValue() == "exclude (N/A)") {
+                    Cell.setValue("N/A")
+                } else {
+                    elementScore = elementScoreFormula(range, scoringScaleReversed)
+                    Cell.setFormula(elementScore)
+                }
+
                 Cell.setNumberFormat("0.##")
                 // cell name formula; output defined in 44_rangeNamingHelper.js
                 component = ""
@@ -486,7 +526,10 @@ function addElementScores(SS, sheetModeID, activeRow, activeCol, Sheet, subStepI
         activeRow += 1
     }
 
+    //if(isYoyMode){Sheet.setConditionalFormatRules(rules)}
+
     return activeRow + 1
+
 }
 
 // --- // Level Scoring // --- //
@@ -753,7 +796,7 @@ function addCompositeScores(SS, sheetModeID, activeRow, activeCol, Sheet, subSte
 
     }
 
-    console.log(`|---- DEBUG ${ScoreCells.CompositeScoreCells.cells}`)
+    // console.log(`|---- DEBUG ${ScoreCells.CompositeScoreCells.cells}`)
 
     return activeRow + 1
 }
@@ -802,4 +845,48 @@ function addIndicatorScore(SS, sheetModeID, activeRow, activeCol, Sheet, subStep
     // --- INDICATOR END --- //
 
     return activeRow + 1
+}
+
+function addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells) {
+
+    Logger.log("Adding change row")
+
+    let Cell
+    activeRow = activeRow + 2
+    if (firstCol == 1) {
+        Logger.log("in if statement")
+        Cell = Sheet.getRange(activeRow, firstCol)
+        Cell.setValue("Change")
+        Cell.setFontStyle("normal")
+        Cell.setFontWeight("bold")
+
+
+
+        return activeRow + 2
+
+    }
+
+
+    Cell = Sheet.getRange(activeRow, firstCol)
+
+    Logger.log("Cell:" + activeRow + "," + firstCol + "------------------------------")
+
+    let formula = "=IF(OR("
+    let cellID = defineNamedRange(Config.indexPrefix, sheetModeID, subStepID, Indicator.labelShort, "", Company.id, "", "SI")
+    formula = formula + cellID + '="N/A",'
+    let cellID1 = defineNamedRange(Config.prevIndexPrefix, sheetModeID, "S07", Indicator.labelShort, "", Company.id, "", "SI")
+    formula = formula + cellID1 + '="N/A"),"N/A",' + cellID + "-" + cellID1 + ")"
+
+    Cell.setFormula(formula)
+    Cell.setFontStyle("normal")
+    Cell.setFontWeight("bold")
+
+    Cell.setNumberFormat("0.##")
+
+
+
+    activeRow = activeRow + 2
+
+    return activeRow
+
 }

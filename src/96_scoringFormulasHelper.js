@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 function fillPointsSheet(pointsSheet) {
     pointsSheet.appendRow(["Results:", "not selected", "yes", "partial", "no", "no disclosure found", "N/A", "New / Revised Element"])
-    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "exclude (N/A)", "exclude (N/A)"])
-    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "exclude (N/A)", "exclude (N/A)"])
+    pointsSheet.appendRow(["Score A:", "---", "100", "50", "0", "0", "N/A", "N/A"])
+    pointsSheet.appendRow(["Score B:", "---", "0", "50", "100", "0", "N/A", "N/A"])
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -23,7 +23,7 @@ function levelScoreFormula(serviceCells) {
 
     let formula = "=IF(AND("
     for (let cell = 0; cell < serviceCells.length; cell++) {
-        formula += serviceCells[cell] + "=" + "\"exclude (N/A)\""
+        formula += "REGEXMATCH(TEXT(" + serviceCells[cell] + ',"$0.00"),"N/A")'
         if (cell < serviceCells.length - 1) {
             formula += ","
         }
@@ -48,7 +48,7 @@ function levelScoreFormula(serviceCells) {
 // eslint-disable-next-line no-unused-vars
 function aggregateScoreFormula(CompositeScoringEntity) {
 
-    console.log(`|--- DEBUG --- target Cells received ${CompositeScoringEntity.cells}`)
+    // console.log(`|--- DEBUG --- target Cells received ${CompositeScoringEntity.cells}`)
 
     let formula
 

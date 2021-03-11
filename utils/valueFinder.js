@@ -1,15 +1,17 @@
 /* Brute: takes a start String and Sheet.getLastRow() */
 function mainDeleteStepRowsA() {
 
-    let stepString = "^[G|F|P].*\n+Response" // "^Step 3"
-    let columnNr = 1 // starts with 0 := A so 1 := B
+    let stepString = "^Step 7.0" // "^[G|F|P].*\n+Response" // "^Step 3"
+    let columnNr = 0 // starts with 0 := A so 1 := B
 
-    let SS = openSpreadsheetByID("1rsjAvw06vWjWZx3A1bptRpH8RL0-Ax-SfM3Zny4j_zY")
+    let SS = openSpreadsheetByID("1UwQa0iIfWcEFW6cRxlmw-Sfw3qvs3bwQQ5vwmptrD8o")
 
     // let Indicators = subsetIndicatorsObject(indicatorsVector, "G1") // F5a|P1$// indicatorsVector
     let Indicators = indicatorsVector
 
     let result = []
+    result.push(["indicator", "elements", "scope", "startRow", "endRow", "maxCol"])
+
     let Sheet, rows
     Indicators.indicatorCategories.forEach(Category =>
         Category.indicators.forEach(Indicator => {
@@ -18,9 +20,9 @@ function mainDeleteStepRowsA() {
             if (Sheet !== null) {
                 rows = findStepRows(Sheet, stepString, columnNr)
                 // deleteRows(Sheet, rows[0], rows[1]) // DA-A-A-NGER
-                result.push([Indicator.labelShort, rows[0]])
+                result.push([Indicator.labelShort, Indicator.elements.length, Indicator.scoringScope, rows[0], rows[1], Sheet.getLastColumn()])
             } else {
-                console.log("Sheet for " + Indicator.labelShort + " not found")
+                result.push([Indicator.labelShort, Indicator.elements.length, Indicator.scoringScope, "Sheet not found", "", ""])
             }
         }))
 
@@ -30,9 +32,9 @@ function mainDeleteStepRowsA() {
 /* Segmented: takes a start String and an End String */
 function mainDeleteStepRowsB() {
 
-    let stepString = "^Old Step 5"
-    let endStepString = "^Step 6"
-    let columnNr = 1 // starts with 0 := A so 1 := B
+    let stepString = "^Step 7.0" // "^Old Step 5"
+    let endStepString = "^Step 7.1" // "^Step 6"
+    let columnNr = 0 // starts with 0 := A so 1 := B
 
     let SS = openSpreadsheetByID("18nbBe8yAIF2vjwZjioohW1BoiYPg9OE916-1pWT7Stk")
 
@@ -40,6 +42,8 @@ function mainDeleteStepRowsB() {
     // let Indicators = indicatorsVector
 
     let result = []
+    result.push(["indicator", "elements", "scope", "startRow", "endRow", "maxCol"])
+
     let Sheet, rowsStart, rowsEnd
     Indicators.indicatorCategories.forEach(Category =>
         Category.indicators.forEach(Indicator => {
@@ -48,13 +52,14 @@ function mainDeleteStepRowsB() {
             if (Sheet !== null) {
                 rowsStart = findStepRows(Sheet, stepString, columnNr)
                 rowsEnd = findStepRows(Sheet, endStepString, columnNr)
-                deleteRows(Sheet, rowsStart[0], rowsEnd[0]) // DA-A-A-NGER}
-                result.push([Indicator.labelShort, rowsStart[0], rowsEnd[0]])
+                // deleteRows(Sheet, rowsStart[0], rowsEnd[0]) // DA-A-A-NGER}
+                result.push([Indicator.labelShort, Indicator.elements.length, Indicator.scoringScope, rowsStart[0], rowsEnd[0], Sheet.getLastColumn()])
             } else {
-                console.log("Sheet for " + Indicator.labelShort + " not found")
+                result.push([Indicator.labelShort, Indicator.elements.length, Indicator.scoringScope, "Sheet not found", "", ""])
             }
         }))
 
+    console.log("results\n\n")
     console.log(result)
 }
 
