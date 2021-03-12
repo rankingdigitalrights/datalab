@@ -1,10 +1,36 @@
 var centralConfig = {
-  dataOwner: "data@rankingdigitalrights.org",
-  devs: ["gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "walton@rankingdigitalrights.org"],
-  defaultEditors: ["walton@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "ilja.sperling@gmail.com", "wessenauer@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org"],
-  defaultViewers: ["wessenauer@rankingdigitalrights.org", "rogoff@rankingdigitalrights.org", "zhang@rankingdigitalrights.org", "brouillette@rankingdigitalrights.org", "abrougui@rankingdigitalrights.org", "rydzak@rankingdigitalrights.org", "walton@rankingdigitalrights.org", "gutermuth@rankingdigitalrights.org", "sperling@rankingdigitalrights.org", "ilja.sperling@gmail.com"],
+  collection: "config",
+  indexYear: 2020,
+  indexType: "RDR Index",
+  lastRevised: "2021-03-12",
   indexPrefix: "RDR20",
   prevIndexPrefix: "RDR19",
+  dataOwner: "data@rankingdigitalrights.org",
+  devs: [
+    "gutermuth@rankingdigitalrights.org",
+    "sperling@rankingdigitalrights.org",
+    "walton@rankingdigitalrights.org",
+  ],
+  defaultEditors: [
+    "walton@rankingdigitalrights.org",
+    "gutermuth@rankingdigitalrights.org",
+    "sperling@rankingdigitalrights.org",
+    "ilja.sperling@gmail.com",
+    "wessenauer@rankingdigitalrights.org",
+    "brouillette@rankingdigitalrights.org",
+  ],
+  defaultViewers: [
+    "wessenauer@rankingdigitalrights.org",
+    "rogoff@rankingdigitalrights.org",
+    "zhang@rankingdigitalrights.org",
+    "brouillette@rankingdigitalrights.org",
+    "abrougui@rankingdigitalrights.org",
+    "rydzak@rankingdigitalrights.org",
+    "walton@rankingdigitalrights.org",
+    "gutermuth@rankingdigitalrights.org",
+    "sperling@rankingdigitalrights.org",
+    "ilja.sperling@gmail.com",
+  ],
   filenamePrefix: "2020 -",
   filenameSuffixProd: "",
   filenameSuffixDev: "(Dev)",
@@ -39,8 +65,10 @@ var centralConfig = {
     frontMatter: {
       frontMatterColsNr: 4,
       indicatorGuidanceLabel: "Indicator guidance:",
-      glossaryText: "Terms with bold formatting (in the text above) are defined in RDR's Glossary:",
-      guidanceText: "See full indicator guidance and associated definitions for this indicator here:"
+      glossaryText:
+        "Terms with bold formatting (in the text above) are defined in RDR's Glossary:",
+      guidanceText:
+        "See full indicator guidance and associated definitions for this indicator here:",
     },
     mainSection: {
       label: "PRELIMINARY EVALUATION",
@@ -53,7 +81,8 @@ var centralConfig = {
       fontColor: "white",
       contentRowHeight: 150,
       rowLabel: "\n\nChange since 2019 Index:",
-      extraInstructionFB: "The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index)."
+      extraInstructionFB:
+        "The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index).",
     },
     feedbackBoxSection: {
       label: "COMPANY RESPONSE",
@@ -63,8 +92,9 @@ var centralConfig = {
       rowLabel: "\n\nResponse:",
       extraRow: true,
       extraRowLabel: "Sources:",
-      extraInstructionFB: "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating."
-    }
+      extraInstructionFB:
+        "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating.",
+    },
   },
   sourcesTabName: "2020 Sources",
   prevYearOutcomeTab: "2019 Outcome",
@@ -80,18 +110,19 @@ var centralConfig = {
   collapseRGuidance: true,
   styles: {
     colors: {
-      blue: "#4D9ECF"
+      blue: "#4D9ECF",
     },
     dims: {
       labelColumnWidth: 140,
       serviceColWidth: 320,
       defaultDataColWidth: 100,
-    }
+    },
   },
-  summaryParams: { // should be in sync with scoringParams in Prod
+  summaryParams: {
+    // should be in sync with scoringParams in Prod
     spreadsheetName: "Summary Scores",
     sheetNameSimple: "Summary Minimal",
-    splitPrePost: false // TODO
+    splitPrePost: false, // TODO
   },
   aggregationParams: {
     // TBD
@@ -115,7 +146,7 @@ var centralConfig = {
       hasFullScores: false,
       includeSources: false,
       includeNames: true,
-      includeResults: false
+      includeResults: false,
     },
     scoringParams: {
       subStepNr: 1,
@@ -126,8 +157,8 @@ var centralConfig = {
       hasFullScores: true,
       includeSources: true,
       includeNames: false,
-      includeResults: true
-    }
+      includeResults: true,
+    },
   },
   dataStoreParams: {
     fileName: "Data Store",
@@ -136,6 +167,6 @@ var centralConfig = {
     firstStepNr: 0,
     lastStepNr: 7,
     dataColWidth: 200,
-    integrateOutputs: false
-  }
-}
+    integrateOutputs: false,
+  },
+};

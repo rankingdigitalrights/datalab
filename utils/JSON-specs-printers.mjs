@@ -1,13 +1,12 @@
-// Stats
+/* Indicators */
 
 // let indicatorCount = indicatorsVector.indicatorCategories
-//   .map(function (category) {
-//     return category.indicators.length
-//   })
-//   .reduce((sum, singleLength) =>
-//     sum + singleLength)
+//     .map(function (category) {
+//         return category.indicators.length;
+//     })
+//     .reduce((sum, singleLength) => sum + singleLength);
 
-// console.log(`Number of Indicators: ${indicatorCount}`)
+// console.log(`Number of Indicators: ${indicatorCount}`);
 
 // let elementsCounts = indicatorsVector.indicatorCategories
 //   .map(category =>
@@ -39,3 +38,18 @@
 //   .flat()
 
 // console.table(`${indicatorLabels}`)
+
+/* Companies */
+
+// Output helpers
+// let companyValues = companiesVector.companies
+//   .map(company =>
+//     `"${company.urlCurrentDataStoreSheet}"`) // id; label.current
+// //   .flat()
+
+// // let companyValues = companiesVector.companies
+// //   .map(company =>
+// //     company.services.length) // id; label.current
+// //   .flat()
+
+// console.log(`${companyValues}`)

@@ -1,6 +1,6 @@
 // --- // Main Controller // --- //
 // --- //  Branch: Development  // --- //
-import indicatorsVector from "json/JSON_indicators.js";
+
 /* global
     centralConfig,
     indicatorsVector,
