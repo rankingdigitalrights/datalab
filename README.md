@@ -110,8 +110,8 @@ Following the initial proof-of-concept with G.W., the `project` has been migrate
 
 > If you created new data collection or scoring Spreadsheets, and you intend to continue working with them, make sure to grab the new file IDs from `00_Dashboard` spreadsheet and update them for the respective `01_JSON_companies.js/<company>`, i.e. params
 
-+ `companies.<company>.urlCurrentDataCollectionSheet`
-+ `companies.<company>.urlCurrentCompanyScoringSheet`
++ `companies.<company>.urlCurrentInputSheet`
++ `companies.<company>.urlCurrentOutputSheet`
 
 Otherwise, you will have to update `=IMPORTRANGE(ID)` in the spreadsheets by hand.
 

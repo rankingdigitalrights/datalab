@@ -4,31 +4,35 @@
 */
 
 function mainListFolderFiles() {
-    var controlSS = createSpreadsheet("00_2019_Pilot_Dashboard", false)
-    var rootFolderName = "2019 Back-End Dev"
+    var controlSS = createSpreadsheet('00_2019_Pilot_Dashboard', false)
+    var rootFolderName = '2019 Back-End Dev'
     listFolderFiles(controlSS, rootFolderName)
 }
 
-
 function listFolderFiles(controlSS, folder) {
-
     // connect to Output Spreadsheet
-    var resultsSpreadsheet = createSpreadsheet("ActivityDCNamed")
+    var resultsSpreadsheet = createSpreadsheet('ActivityDCNamed')
 
     // define name of Overview Sheet
-    var overviewSheetName = "2019 DC"
+    var overviewSheetName = '2019 DC'
 
     // check if Overview Sheet exists
-    var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName);
-    // if not - process 
+    var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
+    // if not - process
     if (!overViewSheet) {
-        overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
+        overViewSheet = insertSheetIfNotExist(
+            resultsSpreadsheet,
+            overviewSheetName,
+            true
+        )
         overViewSheet.clear()
-        overViewSheet.appendRow(["Sheet", "Id", "Date First", "Date Last"])
+        overViewSheet.appendRow(['Sheet', 'Id', 'Date First', 'Date Last'])
     }
 
     // fetch target folder with Spreadsheets of interest
-    var folderOfInterest = DriveApp.getFoldersByName("2019 RDR Research Data Collection").next()
+    var folderOfInterest = DriveApp.getFoldersByName(
+        '2019 RDR Research Data Collection'
+    ).next()
 
     // as Data Collection is structured into subfolders
     // fetch all subfolders with Spreadsheets of interest
@@ -42,7 +46,9 @@ function listFolderFiles(controlSS, folder) {
         // enter subfolder
         var thisFolder = subFoldersOfInterest.next()
         // fetch all Spreadsheets
-        var spreadsheets = thisFolder.getFilesByType("application/vnd.google-apps.ritz")
+        var spreadsheets = thisFolder.getFilesByType(
+            'application/vnd.google-apps.ritz'
+        )
         // for each Spreadsheet of this subfolder
         while (spreadsheets.hasNext()) {
             // enter Spreadsheet
@@ -52,20 +58,37 @@ function listFolderFiles(controlSS, folder) {
             var thisCompany = spreadsheet.getName()
 
             // check if company is already in results
-            var testGet = resultsSpreadsheet.getSheetByName(thisCompany);
+            var testGet = resultsSpreadsheet.getSheetByName(thisCompany)
 
-            // if not - process 
+            // if not - process
             if (!testGet) {
-
-                Logger.log(thisCompany + " yet missing")
+                console.log(thisCompany + ' yet missing')
 
                 // add general Spreadsheet info to Overview Sheet
-                overViewSheet.appendRow([spreadsheet.getName(), spreadsheet.getId(), spreadsheet.getDateCreated(), spreadsheet.getLastUpdated()])
+                overViewSheet.appendRow([
+                    spreadsheet.getName(),
+                    spreadsheet.getId(),
+                    spreadsheet.getDateCreated(),
+                    spreadsheet.getLastUpdated(),
+                ])
 
                 // create a Results Sheet for this Spreadsheet
-                var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
+                var resultsSheet = insertSheetIfNotExist(
+                    resultsSpreadsheet,
+                    thisCompany,
+                    true
+                )
                 resultsSheet.clear()
-                resultsSheet.appendRow(["entry", "activity", "event", "time", "target", "main", "secondary", "user"])
+                resultsSheet.appendRow([
+                    'entry',
+                    'activity',
+                    'event',
+                    'time',
+                    'target',
+                    'main',
+                    'secondary',
+                    'user',
+                ])
 
                 var fileId = spreadsheet.getId()
 
@@ -79,14 +102,13 @@ function listFolderFiles(controlSS, folder) {
                 do {
                     var result = AppsActivity.Activities.list({
                         'drive.fileId': fileId,
-                        'source': 'drive.google.com',
-                        'pageToken': pageToken
+                        source: 'drive.google.com',
+                        pageToken: pageToken,
                     })
-                    var activities = result.activities;
+                    var activities = result.activities
 
                     // for each distinct activity
                     for (var i = 0; i < activities.length; i++) {
-
                         entry += 1
 
                         // pull out activity
@@ -99,18 +121,23 @@ function listFolderFiles(controlSS, folder) {
                             var event = events[j]
                             // add event data to resultsSheet
                             // vars: entry, activityNr, eventNr, time (POSIX), file, primary Action, secondary Action, user
-                            resultsSheet.appendRow([entry, i + 1, j + 1, event.eventTimeMillis, event.target.name, event.primaryEventType, event.additionalEventTypes.toString(), event.user])
+                            resultsSheet.appendRow([
+                                entry,
+                                i + 1,
+                                j + 1,
+                                event.eventTimeMillis,
+                                event.target.name,
+                                event.primaryEventType,
+                                event.additionalEventTypes.toString(),
+                                event.user,
+                            ])
                         }
-
                     }
-                    pageToken = result.nextPageToken;
+                    pageToken = result.nextPageToken
                 } while (pageToken)
-
             } else {
-                Logger.log(thisCompany + " already processed")
+                console.log(thisCompany + ' already processed')
             }
         } // end spreadsheet
-
     } // end subfolder
-
 }

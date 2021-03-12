@@ -1,15 +1,16 @@
 env:
-  browser: true
+  browser: false
   es6: true
   node: true
   googleappsscript/googleappsscript: true
-extends: "eslint:recommended"
+extends: 
+    - eslint:recommended
+    - prettier
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
 parserOptions:
   ecmaVersion: 2018
-  sourceType: module
 rules:
   indent:
     - off
@@ -19,6 +20,9 @@ rules:
     - unix
   quotes:
     - error
-    - double
+    - single
+  prettier:
+    - error
 plugins:
   - googleappsscript
+  - prettier

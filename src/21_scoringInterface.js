@@ -1,18 +1,29 @@
 // Interface for creating a single set of scoring content
 // Single set := either Outcome OR Comments OR Company Feedback
 
-/* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, singleSheetProtect, moveSheetifExists */
+/* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, moveSheetifExists */
 
 // eslint-disable-next-line no-unused-vars
-function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Company, hasOpCom, integrateOutputs, outputParams, isPilotMode, isYoyMode, yoyComp, addNewStep, stepsToAdd) {
-
-
+function addSetOfScoringSteps(
+    SS,
+    sheetModeID,
+    Indicators,
+    ResearchSteps,
+    Company,
+    hasOpCom,
+    outputParams,
+    isPilotMode,
+    isYoyMode,
+    yoyComp,
+    addNewStep,
+    stepsToAdd
+) {
     // stepsToAdd = stepsToAdd.map(stepNr => stepNr - 1)
 
-    Logger.log("|--- Begin addSetOfScoringSteps")
+    console.log('|--- Begin addSetOfScoringSteps')
     let sheetName = outputParams.sheetName
-    Logger.log("|--- sheetName received: " + sheetName)
-    Logger.log("|--- File ID: " + SS.getId())
+    console.log('|--- sheetName received: ' + sheetName)
+    console.log('|--- File ID: ' + SS.getId())
 
     // let subStepNr = outputParams.subStepNr
 
@@ -29,10 +40,10 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     let firstScoringStep = determineFirstStep(outputParams)
     let maxScoringStep = determineMaxStep(outputParams, ResearchSteps)
 
-    Logger.log("first step " + firstScoringStep)
-    Logger.log("last step " + maxScoringStep)
-    Logger.log("include Sources? " + outputParams.includeSources)
-    Logger.log("outputParams:" + outputParams)
+    console.log('first step ' + firstScoringStep)
+    console.log('last step ' + maxScoringStep)
+    console.log('include Sources? ' + outputParams.includeSources)
+    console.log('outputParams:' + outputParams)
 
     let lastCol = 1
     let blocks = 1
@@ -44,10 +55,12 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     // --- // MAIN Procedure // --- //
     // For each Main Research Step
 
-    Logger.log("Inserting Sheet " + sheetName)
+    console.log('Inserting Sheet ' + sheetName)
     let Sheet = insertSheetIfNotExist(SS, sheetName, true)
     if (Sheet === null) {
-        Logger.log("BREAK: Sheet for " + sheetName + " already exists. Skipping.")
+        console.log(
+            'BREAK: Sheet for ' + sheetName + ' already exists. Skipping.'
+        )
         return lastCol
     } else {
         //Sheet.clear()
@@ -61,33 +74,60 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
         lastCol = Sheet.getLastColumn() + 2
     }
 
-    for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
-
+    for (
+        let mainStepNr = firstScoringStep;
+        mainStepNr < maxScoringStep;
+        mainStepNr++
+    ) {
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
         // if current StepNr isn't in yony array / addNewStep Array / or is exclude in the research steps JSON --> skip Main Step
 
-        if ((mainStepNr > 0 && isYoyMode && !yoyComp.includes(mainStepNr)) ||
-            addNewStep && !stepsToAdd.includes(mainStepNr) ||
-            MainStep.excludeFromOutputs) {
+        if (
+            (mainStepNr > 0 && isYoyMode && !yoyComp.includes(mainStepNr)) ||
+            (addNewStep && !stepsToAdd.includes(mainStepNr)) ||
+            MainStep.excludeFromOutputs
+        ) {
             continue
         }
 
         // console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
-        let subStepNr = MainStep.altScoringSubstepNr > -1 ? MainStep.altScoringSubstepNr : outputParams.subStepNr
+        let subStepNr =
+            MainStep.altScoringSubstepNr > -1
+                ? MainStep.altScoringSubstepNr
+                : outputParams.subStepNr
 
         let indexPref = MainStep.altIndexID ? MainStep.altIndexID : indexPrefix
 
-        Logger.log(`|--- Main Step : ${MainStep.step}`)
-        Logger.log(`|---- Sub Step : ${subStepNr}`)
-
+        console.log(`|--- Main Step : ${MainStep.step}`)
+        console.log(`|---- Sub Step : ${subStepNr}`)
 
         // producing single Scoring Step for all indicators
 
-        lastCol = scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults, isYoyMode, addNewStep)
+        lastCol = scoringSingleStep(
+            SS,
+            Sheet,
+            indexPref,
+            subStepNr,
+            lastCol,
+            isPilotMode,
+            hasFullScores,
+            Indicators,
+            sheetModeID,
+            MainStep,
+            Company,
+            numberOfColumns,
+            hasOpCom,
+            blocks,
+            dataColWidth,
+            includeSources,
+            includeNames,
+            includeResults,
+            isYoyMode,
+            addNewStep
+        )
 
         blocks++
-
     } // END MAIN STEP
 
     // apply layouting
@@ -96,7 +136,5 @@ function addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchSteps, Compan
     thisSheet.setFrozenColumns(1)
     cropEmptyColumns(thisSheet, 1)
     cropEmptyRows(thisSheet, 1)
-    singleSheetProtect(thisSheet, sheetName)
-
-    if (integrateOutputs) moveSheetifExists(SS, thisSheet, 1)
+    thisSheet.protect().setDescription(sheetName + ' protected')
 }

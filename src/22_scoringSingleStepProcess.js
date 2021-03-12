@@ -1,14 +1,34 @@
 /* global
-    Config, setScoringSheetHeader, setScoringCompanyHeader, importElementRow, importElementBlock, addElementScores, addLevelScores, addCompositeScores, addIndicatorScore
+    Config, setScoringSheetHeader, setScoringCompanyHeader, importElementRow, importElementBlock, addElementScores, addLevelScores, addCompositeScores, addIndicatorScore, elemsMetadata, addChangeComment
 */
 
 // eslint-disable-next-line no-unused-vars
-function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode, hasFullScores, Indicators, sheetModeID, MainStep, Company, numberOfColumns, hasOpCom, blocks, dataColWidth, integrateOutputs, includeSources, includeNames, includeResults, isYoyMode, addNewStep) {
-
-    console.log("--- Begin Scoring Single (Sub)Step: " + subStepNr)
+function scoringSingleStep(
+    SS,
+    Sheet,
+    indexPref,
+    subStepNr,
+    lastCol,
+    isPilotMode,
+    hasFullScores,
+    Indicators,
+    sheetModeID,
+    MainStep,
+    Company,
+    numberOfColumns,
+    hasOpCom,
+    blocks,
+    dataColWidth,
+    includeSources,
+    includeNames,
+    includeResults,
+    isYoyMode,
+    addNewStep
+) {
+    console.log('--- Begin Scoring Single (Sub)Step: ' + subStepNr)
 
     let companyShortName = Company.label.current
-    let hasMobile = Company.services.some(service => service.type === "mobile")
+    let hasMobile = Company.services.some((service) => service.type === 'mobile')
 
     // let SubStep = filterSingleSubstep(MainStep, MainStep.scoringSubStep)
     let SubStep = MainStep.substeps[subStepNr]
@@ -22,21 +42,29 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
     let activeRow = 1
     let lastRow
 
-    console.log("--- Beginning Substep " + subStepID)
+    console.log('--- Beginning Substep ' + subStepID)
 
     // set up header
 
     // TODO: remove from steps JSON. Not a component. This is Layout
 
-    activeRow = setScoringSheetHeader(activeRow, activeCol, Sheet, Company, companyShortName, MainStep, mainStepLabel, subStepID, blocks, isYoyMode)
+    activeRow = setScoringSheetHeader(
+        activeRow,
+        activeCol,
+        Sheet,
+        Company,
+        companyShortName,
+        MainStep,
+        mainStepLabel,
+        subStepID,
+        blocks,
+        isYoyMode
+    )
 
     // For all Indicator Categories
     for (let c = 0; c < Indicators.indicatorCategories.length; c++) {
-
         let Category = Indicators.indicatorCategories[c]
-        // Check whether Indicator Category has Sub-Components (i.e. G: FoE + P)
-        console.log("begin Indicator Category: " + Category.labelLong)
-        let nrOfIndSubComps = 1
+        console.log('begin Indicator Category: ' + Category.labelLong)
 
         // TODO: Refactor to main caller
 
@@ -44,12 +72,13 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
         // For all Indicators
         for (let i = 0; i < categoryLength; i++) {
-
             let Indicator = Category.indicators[i]
 
-            Indicator.description = elemsMetadata.indicators.find(Indy => Indy.indicator === Indicator.labelShort).description
+            Indicator.description = elemsMetadata.indicators.find(
+                (Indy) => Indy.indicator === Indicator.labelShort
+            ).description
 
-            console.log("begin Indicator: " + Indicator.labelShort)
+            console.log('begin Indicator: ' + Indicator.labelShort)
 
             // Object later used for indicator composites and indicator scores
 
@@ -57,35 +86,33 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
                 indexPref: indexPref,
                 companyScores: {
                     levelScoresGroup: {
-                        id: "G",
-                        cells: []
+                        id: 'G',
+                        cells: [],
                     },
                     levelScoresOpCom: {
                         hasOpCom: hasOpCom,
-                        id: "O",
-                        cells: []
-                    }
+                        id: 'O',
+                        cells: [],
+                    },
                 },
                 serviceScores: {
                     levelScoresServices: {
-                        id: "S",
+                        id: 'S',
                         cells: [],
                         hasMobile: hasMobile,
                         sublevelScoresMobile: {
-                            id: "M",
-                            cells: []
+                            id: 'M',
+                            cells: [],
                         },
-                    }
+                    },
                 },
                 CompositeScoreCells: {
-                    cells: []
-                }
+                    cells: [],
+                },
             }
 
-
-            activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, nrOfIndSubComps, Category, Company, blocks)
-            console.log(" - company header added for " + Indicator.labelShort)
-
+            activeRow = setScoringCompanyHeader(activeRow, firstCol, Sheet, Indicator, Category, Company, blocks)
+            console.log(' - company header added for ' + Indicator.labelShort)
 
             // --- // Main task // --- //
 
@@ -95,43 +122,90 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
             // for all components of the current Research Step
             for (stepCompNr = 0; stepCompNr < SubStep.components.length; stepCompNr++) {
-
                 StepComp = SubStep.components[stepCompNr]
                 stepCompType = StepComp.type
-                console.log(" - begin stepCompNr: " + stepCompNr + " - " + stepCompType)
+                console.log(' - begin stepCompNr: ' + stepCompNr + ' - ' + stepCompType)
 
                 switch (stepCompType) {
-
                     // import researcher name from x.0 step
-                    case "subStepHeader":
+                    case 'subStepHeader':
                         if (includeNames) {
-
-                            activeRow = importElementRow(activeRow, firstCol, Sheet, StepComp, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, integrateOutputs, isPilotMode, indexPref)
-                            console.log(Indicator.labelShort + " - SC - " + stepCompType + " added")
+                            activeRow = importElementRow(
+                                activeRow,
+                                firstCol,
+                                Sheet,
+                                StepComp,
+                                subStepID,
+                                Indicator,
+                                Company,
+                                hasOpCom,
+                                Category,
+                                blocks,
+                                isPilotMode,
+                                indexPref
+                            )
+                            console.log(Indicator.labelShort + ' - SC - ' + stepCompType + ' added')
                         }
                         break
 
-                    case "reviewResults":
-                    case "importPreviousResults":
+                    case 'reviewResults':
+                    case 'importPreviousResults':
                         if (includeResults) {
-                            activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, integrateOutputs, indexPref)
-                            console.log(Indicator.labelShort + " - SC - " + stepCompType + " added")
+                            activeRow = importElementBlock(
+                                activeRow,
+                                firstCol,
+                                Sheet,
+                                StepComp,
+                                subStepID,
+                                Indicator,
+                                Company,
+                                hasOpCom,
+                                Category,
+                                blocks,
+                                indexPref
+                            )
+                            console.log(Indicator.labelShort + ' - SC - ' + stepCompType + ' added')
                         }
                         break
 
-                    case "reviewComments":
-                    case "importPreviousComments":
-                    case "comments":
-                        activeRow = importElementBlock(activeRow, firstCol, Sheet, StepComp, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, integrateOutputs, indexPref)
-                        console.log(Indicator.labelShort + " - SC - " + stepCompType + " added")
+                    case 'reviewComments':
+                    case 'importPreviousComments':
+                    case 'comments':
+                        activeRow = importElementBlock(
+                            activeRow,
+                            firstCol,
+                            Sheet,
+                            StepComp,
+                            subStepID,
+                            Indicator,
+                            Company,
+                            hasOpCom,
+                            Category,
+                            blocks,
+                            indexPref
+                        )
+                        console.log(Indicator.labelShort + ' - SC - ' + stepCompType + ' added')
                         break
 
-                    case "sources":
-                    case "importPreviousSources":
-                    case "reviewSources":
+                    case 'sources':
+                    case 'importPreviousSources':
+                    case 'reviewSources':
                         if (includeSources) {
-                            activeRow = importElementRow(activeRow, firstCol, Sheet, StepComp, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, integrateOutputs, false, indexPref)
-                            console.log(Indicator.labelShort + " - SC - " + "sources added")
+                            activeRow = importElementRow(
+                                activeRow,
+                                firstCol,
+                                Sheet,
+                                StepComp,
+                                subStepID,
+                                Indicator,
+                                Company,
+                                hasOpCom,
+                                Category,
+                                blocks,
+                                false,
+                                indexPref
+                            )
+                            console.log(Indicator.labelShort + ' - SC - ' + 'sources added')
                         }
 
                         break
@@ -143,23 +217,74 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
             // ADD SCORING AFTER ALL OTHER COMPONENTS
 
             if (hasFullScores) {
-                activeRow = addElementScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, stepCompNr, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, blocks, hasFullScores, ScoreCells, isYoyMode)
-                console.log(Indicator.labelShort + " - " + "element scores added")
+                activeRow = addElementScores(
+                    SS,
+                    sheetModeID,
+                    activeRow,
+                    firstCol,
+                    Sheet,
+                    subStepID,
+                    stepCompNr,
+                    Indicator,
+                    Company,
+                    hasOpCom,
+                    Category,
+                    blocks,
+                    hasFullScores,
+                    ScoreCells,
+                    isYoyMode
+                )
+                console.log(Indicator.labelShort + ' - ' + 'element scores added')
 
-                activeRow = addLevelScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, hasOpCom, nrOfIndSubComps, Category, ScoreCells, blocks)
-                console.log(Indicator.labelShort + " - " + "level scores added")
+                activeRow = addLevelScores(
+                    SS,
+                    sheetModeID,
+                    activeRow,
+                    firstCol,
+                    Sheet,
+                    subStepID,
+                    Indicator,
+                    Company,
+                    hasOpCom,
+                    Category,
+                    ScoreCells,
+                    blocks
+                )
+                console.log(Indicator.labelShort + ' - ' + 'level scores added')
 
-                activeRow = addCompositeScores(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, nrOfIndSubComps, ScoreCells, blocks)
-                console.log(Indicator.labelShort + " - " + "composite scores added")
+                activeRow = addCompositeScores(
+                    SS,
+                    sheetModeID,
+                    activeRow,
+                    firstCol,
+                    Sheet,
+                    subStepID,
+                    Indicator,
+                    Company,
+                    ScoreCells,
+                    blocks
+                )
+                console.log(Indicator.labelShort + ' - ' + 'composite scores added')
 
                 // Indicator Score
 
-                activeRow = addIndicatorScore(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells, blocks)
+                activeRow = addIndicatorScore(
+                    SS,
+                    sheetModeID,
+                    activeRow,
+                    firstCol,
+                    Sheet,
+                    subStepID,
+                    Indicator,
+                    Company,
+                    ScoreCells,
+                    blocks
+                )
 
                 console.log(`${Indicator.labelShort} INDICATOR score added`)
 
                 if (isYoyMode) {
-                    activeRow = addChangeComment(SS, sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company, ScoreCells)
+                    activeRow = addChangeComment(sheetModeID, activeRow, firstCol, Sheet, subStepID, Indicator, Company)
                 }
 
                 activeRow = activeRow + 1
@@ -170,12 +295,10 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
 
     lastCol = Sheet.getLastColumn() + 1
 
-    console.log("Formatting Sheet")
+    console.log('Formatting Sheet')
     lastRow = activeRow
 
-
-    Sheet.getRange(1, 1, lastRow, lastCol)
-        .setFontFamily("Roboto")
+    Sheet.getRange(1, 1, lastRow, lastCol).setFontFamily('Roboto')
     // .setVerticalAlignment("top")
     // .setWrap(true)
 
@@ -202,7 +325,7 @@ function scoringSingleStep(SS, Sheet, indexPref, subStepNr, lastCol, isPilotMode
         Sheet.hideColumns(hookFirstDataCol, numberOfColumns)
     }
 
-    return lastCol += 1
+    return (lastCol += 1)
 }
 
 // END MAIN Step & function

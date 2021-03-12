@@ -1,17 +1,16 @@
 function mainProtectSingleCompany(company) {
-
     //let Company = companiesVector.companies.slice(0, 1)[0]
     let Company = company
     let companyID = Company.id
-    Logger.log("CompanyObj :" + companyID)
+    console.log('CompanyObj :' + companyID)
 
     let Indicators = indicatorsVector
 
     // create an array with default as well as company-specific editors
     let Editors = centralConfig.devs
-    Logger.log("Editors: "+Editors)
+    console.log('Editors: ' + Editors)
 
-    let fileID = Company.urlCurrentDataCollectionSheet
+    let fileID = Company.urlCurrentInputSheet
     let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
     //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
@@ -22,5 +21,4 @@ function mainProtectSingleCompany(company) {
 
     // close step
     protectSingleCompany(Indicators, Editors, SS, companyID, currentPrefix)
-
 }

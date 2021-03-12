@@ -3,35 +3,46 @@ Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadshe
 */
 
 // eslint-disable-next-line no-unused-vars
-function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets, isYoyMode) {
-
+function createAggregationOutput(
+    Companies,
+    filenamePrefix,
+    filenameSuffix,
+    mainSheetMode,
+    scoringStepNr,
+    includeCompanyOutcomeSheets,
+    isYoyMode
+) {
     // scroing step number should be passed via main method call
 
-    let sheetModeID = "SC"
+    let sheetModeID = 'SC'
 
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
-    let stepName = "S" + scoringStepNr
-    let summarySheetName = Config.summaryParams.sheetNameSimple + " " + stepName
+    let stepName = 'S' + scoringStepNr
+    let summarySheetName = Config.summaryParams.sheetNameSimple + ' ' + stepName
 
     // connect to existing spreadsheet or creat a blank spreadsheet
-    let spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
+    let spreadsheetName = spreadSheetFileName(
+        filenamePrefix,
+        stepName,
+        mainSheetMode,
+        filenameSuffix
+    )
 
     let SS = createSpreadsheet(spreadsheetName, true)
 
     let fileID = SS.getId()
-    Logger.log("SS ID: " + fileID)
+    console.log('SS ID: ' + fileID)
 
     // Scoring Scheme / Validation
-    let pointsSheet = insertPointValidationSheet(SS, "Points")
+    let pointsSheet = insertPointValidationSheet(SS, 'Points')
 
     let indicatorParams = countIndiClassLengths(Indicators)
 
     // --- // Main Procedure // --- //
 
-    let integrateOutputs = false
     let isPilotMode = false
-    let outputParams = Config.integrateOutputsArray.scoringParams
+    let outputParams = Config.scoringParams
     outputParams.firstStepNr = scoringStepNr
     outputParams.lastStepNr = scoringStepNr
 
@@ -42,25 +53,47 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     if (includeCompanyOutcomeSheets) {
         Companies.forEach(function (CompanyObj) {
-
             companyFilename = cleanCompanyName(CompanyObj)
 
             outputParams.sheetName = companyFilename
 
-            Logger.log("--- --- START: creating " + mainSheetMode + " Sheet for " + companyFilename)
+            console.log(
+                '--- --- START: creating ' +
+                    mainSheetMode +
+                    ' Sheet for ' +
+                    companyFilename
+            )
 
             hasOpCom = CompanyObj.hasOpCom
 
-            addSetOfScoringSteps(SS, sheetModeID, Indicators, ResearchStepsObj, CompanyObj, hasOpCom, integrateOutputs, outputParams, isPilotMode, isYoyMode, scoringStepNr)
+            addSetOfScoringSteps(
+                SS,
+                sheetModeID,
+                Indicators,
+                ResearchStepsObj,
+                CompanyObj,
+                hasOpCom,
+                outputParams,
+                isPilotMode,
+                isYoyMode,
+                scoringStepNr
+            )
 
-            Logger.log("--- --- END: created " + mainSheetMode + " Sheet for " + companyFilename)
-
+            console.log(
+                '--- --- END: created ' +
+                    mainSheetMode +
+                    ' Sheet for ' +
+                    companyFilename
+            )
         })
     }
 
     // --- // Core: Summary Sheet // --- //
 
-    let thisSubStepID = filterSingleSubstep(ResearchStepsObj.researchSteps[scoringStepNr], ResearchStepsObj.researchSteps[scoringStepNr].scoringSubStep)
+    let thisSubStepID = filterSingleSubstep(
+        ResearchStepsObj.researchSteps[scoringStepNr],
+        ResearchStepsObj.researchSteps[scoringStepNr].scoringSubStep
+    )
     thisSubStepID = thisSubStepID.subStepID
 
     let summarySheet
@@ -71,11 +104,23 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
     summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
 
     if (summarySheet === null) {
-        Logger.log("BREAK: Sheet for " + summarySheetName + " already exists. Skipping.")
+        console.log(
+            'BREAK: Sheet for ' +
+                summarySheetName +
+                ' already exists. Skipping.'
+        )
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements, isYoyMode)
+        summarySheet = fillSummaryScoresSheet(
+            summarySheet,
+            Indicators,
+            thisSubStepID,
+            Companies,
+            indicatorParams,
+            includeElements,
+            isYoyMode
+        )
 
         summarySheet.setFrozenColumns(1)
         if (!isYoyMode) {
@@ -90,15 +135,27 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     includeElements = true
 
-    summarySheetName = "Summary w Elements "
+    summarySheetName = 'Summary w Elements '
     summarySheet = insertSheetIfNotExist(SS, summarySheetName + stepName, false)
 
     if (summarySheet === null) {
-        Logger.log("BREAK: Sheet for " + summarySheetName + " already exists. Skipping.")
+        console.log(
+            'BREAK: Sheet for ' +
+                summarySheetName +
+                ' already exists. Skipping.'
+        )
     } else {
         summarySheet.clear()
 
-        summarySheet = fillSummaryScoresSheet(summarySheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements, isYoyMode)
+        summarySheet = fillSummaryScoresSheet(
+            summarySheet,
+            Indicators,
+            thisSubStepID,
+            Companies,
+            indicatorParams,
+            includeElements,
+            isYoyMode
+        )
 
         summarySheet.setFrozenColumns(1)
         if (!isYoyMode) {
@@ -111,7 +168,7 @@ function createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, 
 
     // --- // Final formatiing // --- //
 
-    let connectorSheet = insertSheetConnector(SS, Companies, "Scores")
+    let connectorSheet = insertSheetConnector(SS, Companies, 'Scores')
 
     // moveSheetifExists(SS, connectorSheet, 1)
     moveHideSheetifExists(SS, connectorSheet, 1)

@@ -1,8 +1,11 @@
 // search folder and create a new one if needed
 
+/* global 
+    Config
+*/
+
 // TODO: Test
 function assignFileOwner(File, lastName) {
-
     if (typeof File === 'string') {
         File = DriveApp.getFileById(File)
     }
@@ -40,62 +43,84 @@ function assignFolderViewers(Folder, accounts) {
 function tryAccessParent(parentFolderID) {
     let Parent = DriveApp.getFolderById(parentFolderID)
     let canAccessParent = isEmptyObj(Parent) ? true : false
-    Logger.log("CORE: can access rootFolder? --> " + canAccessParent)
+    console.log('CORE: can access rootFolder? --> ' + canAccessParent)
     return canAccessParent ? Parent : null
 }
 
 function createNewFolder(parentFolderID, folderName) {
-
     let ParentFolder = tryAccessParent(parentFolderID)
 
     if (ParentFolder) {
-        Logger.log("CORE: Connected to ROOT " + ParentFolder.getName())
+        console.log('CORE: Connected to ROOT ' + ParentFolder.getName())
         let Children = ParentFolder.getFoldersByName(folderName)
         let Folder
         let folderID
         if (!Children.hasNext()) {
-            Logger.log("CORE: Folder " + folderName + " does not exist. Creating a new one")
+            console.log(
+                'CORE: Folder ' +
+                    folderName +
+                    ' does not exist. Creating a new one'
+            )
             Folder = ParentFolder.createFolder(folderName)
-            Folder.setOwner("data@rankingdigitalrights.org") // TODO: from config
+            Folder.setOwner(Config.dataOwner) // TODO: from config
             assignFolderEditors(Folder, Config.devs)
             folderID = Folder.getId()
         } else {
             Folder = Children.next()
             folderID = Folder.getId()
         }
-        Logger.log("CORE: Found Folder: " + Folder.getName())
+        console.log('CORE: Found Folder: ' + Folder.getName())
         return folderID
     } else {
-        Logger.log("CORE ERROR: Can not access ROOT " + parentFolderID)
-        Logger.log("CORE ERROR: Can create Folder " + folderName)
+        console.log('CORE ERROR: Can not access ROOT ' + parentFolderID)
+        console.log('CORE ERROR: Can create Folder ' + folderName)
         return null
     }
 }
 
-function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID) {
-
+function addFileIDtoControl(
+    mode,
+    companyShortName,
+    fileID,
+    controlSpreadsheetID
+) {
     let colNr = 4
     let sheetName = outputFolderName
-    Logger.log("### sheetName: " + sheetName)
+    console.log('### sheetName: ' + sheetName)
     let SS = openSpreadsheetByID(controlSpreadsheetID)
     let File = DriveApp.getFileById(fileID)
     let path = printParentFolders(File)
     let Sheet = insertSheetIfNotExist(SS, sheetName, true)
     let isInColumn = isValueInColumn(SS, sheetName, colNr, fileID)
     if (!isInColumn) {
-        const formula = "=HYPERLINK(CONCAT(\"https://docs.google.com/spreadsheets/d/\",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))"
+        const formula =
+            '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
         Sheet.appendRow([path, sheetName, companyShortName, fileID, formula])
-        Logger.log("created " + sheetName + " File for " + companyShortName + ";\nfileID: " + fileID + " added to Control")
+        console.log(
+            'created ' +
+                sheetName +
+                ' File for ' +
+                companyShortName +
+                ';\nfileID: ' +
+                fileID +
+                ' added to Control'
+        )
     } else {
-        Logger.log("SKIP: " + sheetName + " " + companyShortName + " FileID already added")
+        console.log(
+            'SKIP: ' +
+                sheetName +
+                ' ' +
+                companyShortName +
+                ' FileID already added'
+        )
     }
 }
 
 function printParentFolders(File) {
     let Parents = File.getParents()
-    let path = "/"
+    let path = '/'
     while (Parents.hasNext()) {
-        path += Parents.next().getName() + "/"
+        path += Parents.next().getName() + '/'
     }
     return path.toString()
 }
@@ -103,32 +128,31 @@ function printParentFolders(File) {
 function findFilePath(fileID) {
     let File = DriveApp.getFileById(fileID)
     let path = printParentFolders(File)
-    Logger.log("Filepath " + fileID + ":")
-    Logger.log(path)
+    console.log('Filepath ' + fileID + ':')
+    console.log(path)
 }
 
 function runFindFilePath() {
-    let fileID = "1ycl2JbD0P9KFEIwWDZAepMekfXSQR74w-7XdJOFJqvI"
+    let fileID = '1ycl2JbD0P9KFEIwWDZAepMekfXSQR74w-7XdJOFJqvI'
     findFilePath(fileID)
 }
 
 function test_getSSfromFolder() {
-    var trackingSheets = createSpreadsheet("00_2019_Pilot_Dashboard", false)
-    var folder = "2019 Pilot Data Store"
-    var sheet = "S04"
+    var trackingSheets = createSpreadsheet('00_2019_Pilot_Dashboard', false)
+    var folder = '2019 Pilot Data Store'
+    var sheet = 'S04'
     getAllSSfromFolder(folder, sheet)
 }
 
 // TODO: make function print to 00-Dashboard
 
 function getAllSSfromFolder(folder, sheet) {
-
     let Folder = DriveApp.getFoldersByName(folder).next()
-    Logger.log(Folder.getName())
+    console.log(Folder.getName())
 
     let File, SS, Sheet, thisCompany, thisId, lastColumn
 
-    let spreadsheets = Folder.getFilesByType("application/vnd.google-apps.ritz")
+    let spreadsheets = Folder.getFilesByType('application/vnd.google-apps.ritz')
     // for each Spreadsheet of this subfolder
     while (spreadsheets.hasNext()) {
         // enter Spreadsheet
@@ -139,31 +163,27 @@ function getAllSSfromFolder(folder, sheet) {
         thisId = File.getId()
 
         SS = SpreadsheetApp.openById(thisId)
-        Logger.log(SS.getName())
+        console.log(SS.getName())
         Sheet = SS.getSheetByName(sheet)
-        Logger.log(Sheet)
+        console.log(Sheet)
         lastColumn = Sheet.getLastColumn()
 
-        Logger.log(thisCompany)
-        Logger.log("Width: " + lastColumn)
-        Logger.log(thisId)
+        console.log(thisCompany)
+        console.log('Width: ' + lastColumn)
+        console.log(thisId)
     }
 }
-
 
 // single-use function to deep-clone a folder (i.e. incl. all subfolders and files)
 
 function deepCloneFolder(FolderID, targetRootID) {
-
     var source = DriveApp.getFolderById(FolderID)
     var target = DriveApp.getFolderById(targetRootID)
 
     cloneSingleFolder(source, target)
-
 }
 
 function cloneSingleFolder(source, target) {
-
     var folders = source.getFolders()
     var files = source.getFiles()
 
@@ -178,5 +198,4 @@ function cloneSingleFolder(source, target) {
         var targetFolder = target.createFolder(folderName)
         cloneSingleFolder(subFolder, targetFolder)
     }
-
 }

@@ -1,7 +1,6 @@
 /* global companiesVector */
 
 function mainConvertSheetProtectionsToWarning() {
-
     let Companies = companiesVector.companies
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
@@ -33,10 +32,8 @@ function mainConvertSheetProtectionsToWarning() {
     let SS
 
     Companies.forEach(function (Company) {
-
-        SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
+        SS = SpreadsheetApp.openById(Company.urlCurrentInputSheet)
 
         convertProtectionsToWarning(SS)
     })
-
 }

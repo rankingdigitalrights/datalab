@@ -1,116 +1,110 @@
-var centralConfig = {
-  collection: "config",
-  indexYear: 2020,
-  indexType: "RDR Index",
-  lastRevised: "2021-03-12",
-  indexPrefix: "RDR20",
-  prevIndexPrefix: "RDR19",
-  dataOwner: "data@rankingdigitalrights.org",
-  devs: [
-    "gutermuth@rankingdigitalrights.org",
-    "sperling@rankingdigitalrights.org",
-    "walton@rankingdigitalrights.org",
-  ],
+const centralConfig = {
+  collection: 'config',
+  indexYear: 2021,
+  indexType: 'RDR Index',
+  lastRevised: '2021-03-12',
+  indexPrefix: 'RDR21',
+  prevIndexPrefix: 'RDR20',
+  subsetMaxStep: 4, // logical, inclusive; TODO: maybe move into mainController
+  dataOwner: 'data@rankingdigitalrights.org',
+  devs: ['gutermuth@rankingdigitalrights.org', 'sperling@rankingdigitalrights.org', 'walton@rankingdigitalrights.org'],
   defaultEditors: [
-    "walton@rankingdigitalrights.org",
-    "gutermuth@rankingdigitalrights.org",
-    "sperling@rankingdigitalrights.org",
-    "ilja.sperling@gmail.com",
-    "wessenauer@rankingdigitalrights.org",
-    "brouillette@rankingdigitalrights.org",
+    'walton@rankingdigitalrights.org',
+    'gutermuth@rankingdigitalrights.org',
+    'sperling@rankingdigitalrights.org',
+    'ilja.sperling@gmail.com',
+    // "wessenauer@rankingdigitalrights.org",
+    // "brouillette@rankingdigitalrights.org",
   ],
   defaultViewers: [
-    "wessenauer@rankingdigitalrights.org",
-    "rogoff@rankingdigitalrights.org",
-    "zhang@rankingdigitalrights.org",
-    "brouillette@rankingdigitalrights.org",
-    "abrougui@rankingdigitalrights.org",
-    "rydzak@rankingdigitalrights.org",
-    "walton@rankingdigitalrights.org",
-    "gutermuth@rankingdigitalrights.org",
-    "sperling@rankingdigitalrights.org",
-    "ilja.sperling@gmail.com",
+    // "wessenauer@rankingdigitalrights.org",
+    // "rogoff@rankingdigitalrights.org",
+    // "zhang@rankingdigitalrights.org",
+    // "brouillette@rankingdigitalrights.org",
+    // "abrougui@rankingdigitalrights.org",
+    // "rydzak@rankingdigitalrights.org",
+    'walton@rankingdigitalrights.org',
+    'gutermuth@rankingdigitalrights.org',
+    'sperling@rankingdigitalrights.org',
+    'ilja.sperling@gmail.com',
   ],
-  filenamePrefix: "2020 -",
-  filenameSuffixProd: "",
-  filenameSuffixDev: "(Dev)",
-  rootFolderNameProd: "2020 RDR Index Data",
-  rootFolderIDProd: "19hiRk0NX3s-eF9i-nFGIuNEvYFqGyazR", // Data @ 2020 Index
-  backupFolderID: "1hziGVUl24a1e1iDeMUxZOMjNvm1tnY1V",
-  rootFolderNameDev: "2020 Index Dev",
-  rootFolderIDDev: "1cTmm5BbvyYlO0FvYHaU3y588Rvgns_47", // Data @ 2020 index Dev
-  inputFolderNameProd: "2020 RDR Research Data Collection",
-  inputFolderNameDev: "2020 - Dev - Input",
-  outputFolderNameProd: "2020 RDR Company Scoring",
-  outputFolderNameDev: "2020 - Dev - Scoring",
-  controlSpreadsheetID: "1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE", // 00-Dashboard-Dev
-  YearOnYear: true,
+  filenamePrefix: '2021 -',
+  filenameSuffixProd: '',
+  filenameSuffixDev: '(Dev)',
+  rootFolderNameProd: '2021 RDR Index Data',
+  rootFolderIDProd: '19hiRk0NX3s-eF9i-nFGIuNEvYFqGyazR', // TODO: Data @ 2020 Index
+  backupFolderID: '1hziGVUl24a1e1iDeMUxZOMjNvm1tnY1V', // TODO:
+  rootFolderNameDev: '2021 Index Dev',
+  rootFolderIDDev: '13RJjg0hFGz2u-RHQnyHmUi6qTl1XT9PR', // Data @ 2021 Index Dev
+  inputFolderNameProd: '2021 RDR Research Data Collection',
+  inputFolderNameDev: '2021 - Dev - Input',
+  outputFolderNameProd: '2021 RDR Company Scoring',
+  outputFolderNameDev: '2021 - Dev - Scoring',
+  controlSpreadsheetID: '1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE', // TODO: 00-Dashboard-Dev
+  importPrevOutcome: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
-  subsetMaxStep: 7, // logical, inclusive; TODO: maybe move into mainController
   scoringSteps: [0, 3, 5, 6, 7],
   collapseAllGroups: false,
-  indicatorsLink: "https://rankingdigitalrights.org/2020-indicators/",
-  glossaryLink: "https://rankingdigitalrights.org/2020-indicators/#glossary",
+  indicatorsLink: 'https://rankingdigitalrights.org/2020-indicators/',
+  glossaryLink: 'https://rankingdigitalrights.org/2020-indicators/#glossary',
   feedbackForms: {
     feedbackStep: 3,
     feedbackSubstepResults: 2,
     feedbackSubstepYonYComments: 3,
-    compFeedbackSheetName: "Company Feedback",
-    yearOnYearHelperTabName: "Year on Year Comments",
-    sourcesSheetName: "Sources",
+    compFeedbackSheetName: 'Company Feedback',
+    yearOnYearHelperTabName: 'Year on Year Comments',
+    sourcesSheetName: 'Sources',
     dataColWidth: 300,
-    masterTemplateUrl: "125ZK69c-1NntgOQfM8_tD6n2jM4eOytfZmodU8FfZrc",
-    outputFolderId: "1oqphurm6AEZT0CFyvT6Rt57Iyb8JLPxe",
+    masterTemplateUrl: '125ZK69c-1NntgOQfM8_tD6n2jM4eOytfZmodU8FfZrc',
+    outputFolderId: '1oqphurm6AEZT0CFyvT6Rt57Iyb8JLPxe', // TODO:
     frontMatter: {
       frontMatterColsNr: 4,
-      indicatorGuidanceLabel: "Indicator guidance:",
-      glossaryText:
-        "Terms with bold formatting (in the text above) are defined in RDR's Glossary:",
-      guidanceText:
-        "See full indicator guidance and associated definitions for this indicator here:",
+      indicatorGuidanceLabel: 'Indicator guidance:',
+      glossaryText: 'Terms with bold formatting (in the text above) are defined in RDR’s Glossary:',
+      guidanceText: 'See full indicator guidance and associated definitions for this indicator here:',
     },
     mainSection: {
-      label: "PRELIMINARY EVALUATION",
-      backColor: "#5ca5d9",
-      fontColor: "white",
+      label: 'PRELIMINARY EVALUATION',
+      backColor: '#5ca5d9',
+      fontColor: 'white',
     },
     yearOnYearSection: {
-      label: "YEAR-ON-YEAR COMPARISON",
-      backColor: "#5ca5d9",
-      fontColor: "white",
+      label: 'YEAR-ON-YEAR COMPARISON',
+      backColor: '#5ca5d9',
+      fontColor: 'white',
       contentRowHeight: 150,
-      rowLabel: "\n\nChange since 2019 Index:",
+      rowLabel: '\n\nChange since 2019 Index:',
       extraInstructionFB:
-        "The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index).",
+        'The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index).',
     },
     feedbackBoxSection: {
-      label: "COMPANY RESPONSE",
-      backColor: "#ffe599",
+      label: 'COMPANY RESPONSE',
+      backColor: '#ffe599',
       fontColor: null,
       contentRowHeight: 250,
-      rowLabel: "\n\nResponse:",
+      rowLabel: '\n\nResponse:',
       extraRow: true,
-      extraRowLabel: "Sources:",
+      extraRowLabel: 'Sources:',
       extraInstructionFB:
-        "Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating.",
+        'Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating.',
     },
   },
-  sourcesTabName: "2020 Sources",
-  prevYearOutcomeTab: "2019 Outcome",
-  urlPreviousYearResults: "1pxgQMrvL5EfERUvdYXXuHaLo1qunAjDnkWd5ovF-N74", // 2019 Summary Step 7
-  prevYearSourcesTab: "2019 Sources",
-  urlPreviousYearSources: "1gK8M9-4eLwwbWMsgXH6Gi1VqOXZF1iARWE3Q_CNqgr8",
-  newIndicatorLabel: "New / Revised Indicator",
-  newElementLabelResult: "N/A",
-  newElementLabelComment: "New / Revised Element",
-  newCompanyLabelResult: "N/A",
-  newCompanyLabelComment: "New Company",
+  sourcesTabName: '2021 Sources',
+  prevYearOutcomeTab: '2020 Outcome',
+  urlPrevOutputSheet: '1HJp7i2RVBGrPm7XbyrafYEtSZqjc9t6Qm3ov4bmHdu0', // 2020 - Excel - Master
+  prevYearSourcesTab: '2020 Sources',
+  urlPreviousYearSources: '1HJp7i2RVBGrPm7XbyrafYEtSZqjc9t6Qm3ov4bmHdu0', // 2020 - Excel - Master
+  newIndicatorLabel: 'New / Revised Indicator',
+  newElementLabelResult: 'N/A',
+  newElementLabelComment: 'New / Revised Element',
+  newCompanyLabelResult: 'N/A',
+  newCompanyLabelComment: 'New Company',
   includeRGuidanceLink: true, // TODO
   collapseRGuidance: true,
   styles: {
     colors: {
-      blue: "#4D9ECF",
+      blue: '#4D9ECF',
     },
     dims: {
       labelColumnWidth: 140,
@@ -120,53 +114,34 @@ var centralConfig = {
   },
   summaryParams: {
     // should be in sync with scoringParams in Prod
-    spreadsheetName: "Summary Scores",
-    sheetNameSimple: "Summary Minimal",
+    spreadsheetName: 'Summary Scores',
+    sheetNameSimple: 'Summary Minimal',
     splitPrePost: false, // TODO
   },
   aggregationParams: {
     // TBD
   },
   // maxScoringStep: false, // otherwise number
-  integrateOutputs: false, // DC: integrate any output component?
-  notesSheetname: "Researcher Comments",
-  scoringSheetname: "Scores",
-  integrateOutputsArray: {
-    includeScoring: false, // create regular Outcome?
-    isFullScoring: true, // scores or only comments?
-    includeCompFeedback: false, // TODO
-    includeNotes: false,
-    isPilotMode: false, // if true then disable scoring
-    researchNotesParams: {
-      subStepNr: 1,
-      firstStepNr: 1,
-      lastStepNr: 6,
-      sheetName: "Researcher Comments",
-      dataColWidth: 200,
-      hasFullScores: false,
-      includeSources: false,
-      includeNames: true,
-      includeResults: false,
-    },
-    scoringParams: {
-      subStepNr: 1,
-      firstStepNr: 0,
-      lastStepNr: 7,
-      sheetName: "Outcome",
-      dataColWidth: 200,
-      hasFullScores: true,
-      includeSources: true,
-      includeNames: false,
-      includeResults: true,
-    },
+  notesSheetname: 'Researcher Comments',
+  scoringSheetname: 'Scores',
+  scoringParams: {
+    subStepNr: 1,
+    firstStepNr: 0,
+    lastStepNr: 7,
+    sheetName: 'Outcome',
+    dataColWidth: 200,
+    hasFullScores: true,
+    includeSources: true,
+    includeNames: false,
+    includeResults: true,
   },
   dataStoreParams: {
-    fileName: "Data Store",
-    summarySheetName: "Aggregated",
+    outputFolderName: '2021 - Dev - Data Store',
+    fileName: 'Data Store',
+    summarySheetName: 'Aggregated',
     // subStepNr: 0,
     firstStepNr: 0,
     lastStepNr: 7,
-    dataColWidth: 200,
     integrateOutputs: false,
   },
-};
+}

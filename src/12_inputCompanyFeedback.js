@@ -1,124 +1,124 @@
 // subcomponent moduloe to import company feedback from internal Company Feedback Sheet
 
 /* global
-    Config,
-
+    indexPrefix, specialRangeName, doRepairsOnly, checkIndicatorSpecs, checkElementSpecs, defineNamedRange, makeElementNA
 */
 
+// eslint-disable-next-line no-unused-vars
 function addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, rowLabel, companyNrOfServices) {
-
     let id = Company.id
-    let horizontalDim = 1 + 2 + companyNrOfServices
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
     let indicatorLabel = Indicator.labelShort
 
-    let fbStatusRange = specialRangeName(id, Indicator.labelShort, "CoFBstatus")
-    let fbStatusText = specialRangeName(id, Indicator.labelShort, "CoFBtext")
+    let fbStatusRange = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
 
     let fbStatusFormula = checkFeedbackFormula(fbStatusRange)
 
     let Cell = Sheet.getRange(activeRow, 1)
 
-    Cell.setValue(rowLabel + " " + indicatorLabel)
+    Cell.setValue(rowLabel + ' ' + indicatorLabel)
         .setBackground(MainStep.stepColor)
-        .setFontWeight("bold")
+        .setFontWeight('bold')
         .setFontSize(11)
-        .setHorizontalAlignment("center")
+        .setHorizontalAlignment('center')
 
     Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
     Cell.merge()
         .setFormula(fbStatusFormula)
-        .setFontStyle("italic")
-        .setFontWeight("bold")
+        .setFontStyle('italic')
+        .setFontWeight('bold')
         .setFontSize(14)
-        .setHorizontalAlignment("center")
-        .setVerticalAlignment("middle")
+        .setHorizontalAlignment('center')
+        .setVerticalAlignment('middle')
 
     let rules = Sheet.getConditionalFormatRules()
 
     let yesRule = SpreadsheetApp.newConditionalFormatRule()
-        .whenTextEqualTo("yes")
-        .setFontColor("#ff0000")
+        .whenTextEqualTo('yes')
+        .setFontColor('#ff0000')
         .setRanges([Cell])
         .build()
 
     let noRule = SpreadsheetApp.newConditionalFormatRule()
-        .whenTextEqualTo("no")
-        .setBackground("#b7e1cd")
+        .whenTextEqualTo('no')
+        .setBackground('#b7e1cd')
         .setRanges([Cell])
         .build()
 
     rules.push(yesRule)
     rules.push(noRule)
 
-    // rules.push(condRuleNewElem)
     Sheet.setConditionalFormatRules(rules)
 
     return activeRow + 1
 }
 
+// eslint-disable-next-line no-unused-vars
 function addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, rowLabel, companyNrOfServices) {
-
     let id = Company.id
-    let horizontalDim = 1 + 2 + companyNrOfServices
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
     let indicatorLabel = Indicator.labelShort
 
-    let fbStatusRange = specialRangeName(id, Indicator.labelShort, "CoFBstatus")
-    let fbStatusText = specialRangeName(id, Indicator.labelShort, "CoFBtext")
+    let fbStatusRange = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
+    let fbStatusText = specialRangeName(id, Indicator.labelShort, 'CoFBtext')
 
     let fbImportFormula = importFeedbackFormula(fbStatusRange, fbStatusText)
 
     let Cell = Sheet.getRange(activeRow, 1)
 
-    Cell.setValue(rowLabel + " " + indicatorLabel)
+    Cell.setValue(rowLabel + ' ' + indicatorLabel)
         .setBackground(MainStep.stepColor)
-        .setFontWeight("bold")
+        .setFontWeight('bold')
         .setFontSize(11)
-        .setHorizontalAlignment("center")
+        .setHorizontalAlignment('center')
 
     Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
     Cell.merge()
         .setFormula(fbImportFormula)
-        .setFontStyle("italic")
+        .setFontStyle('italic')
         .setFontSize(10)
-        .setHorizontalAlignment("left")
-        .setVerticalAlignment("top")
+        .setHorizontalAlignment('left')
+        .setVerticalAlignment('top')
 
     Sheet.setRowHeight(activeRow, 100)
 
     return activeRow + 1
 }
 
-function addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep, rowLabel, subCompId, companyNrOfServices) {
+// eslint-disable-next-line no-unused-vars
+function addResearcherFBNotes(
+    SS,
+    Sheet,
+    Indicator,
+    Company,
+    activeRow,
+    MainStep,
+    rowLabel,
+    subCompId,
+    companyNrOfServices
+) {
     let id = Company.id
-    let horizontalDim = 1 + 2 + companyNrOfServices
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
-    let indicatorLabel = Indicator.labelShort
 
     let Cell, rangeName
 
     for (let i = 0; i < 2; i++) {
         Cell = Sheet.getRange(activeRow, 1)
 
-        Cell.setValue("\nResearcher " + String.fromCharCode(65 + i) + "\n\n" + rowLabel + " " + Indicator.labelShort)
+        Cell.setValue('\nResearcher ' + String.fromCharCode(65 + i) + '\n\n' + rowLabel + ' ' + Indicator.labelShort)
             .setBackground(MainStep.stepColor)
-            .setFontWeight("bold")
+            .setFontWeight('bold')
             .setFontSize(11)
-            .setHorizontalAlignment("center")
-            .setVerticalAlignment("middle")
+            .setHorizontalAlignment('center')
+            .setVerticalAlignment('middle')
 
         Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
 
         if (!doRepairsOnly) {
-            Cell.merge()
-                .setValue("Dummy Placeholder text to showcase / inspect readability and formatting")
+            Cell.merge().setValue('Dummy Placeholder text to showcase / inspect readability and formatting')
         }
 
-        Cell.setFontStyle("italic")
-            .setFontSize(10)
-            .setHorizontalAlignment("left")
-            .setVerticalAlignment("top")
+        Cell.setFontStyle('italic').setFontSize(10).setHorizontalAlignment('left').setVerticalAlignment('top')
 
         let suffix = subCompId + (i + 1)
         rangeName = specialRangeName(id, Indicator.labelShort, suffix)
@@ -134,8 +134,21 @@ function addResearcherFBNotes(SS, Sheet, Indicator, Company, activeRow, MainStep
 
 // special feedback evaluation helper
 // checks if input was provided
-function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
 
+// eslint-disable-next-line no-unused-vars
+function addFeedbackStepReview(
+    SS,
+    Sheet,
+    Indicator,
+    Company,
+    isNewCompany,
+    activeRow,
+    mainStepNr,
+    Substep,
+    stepCNr,
+    Category,
+    companyNrOfServices
+) {
     let subStepID = Substep.subStepID
 
     let Elements = Indicator.elements
@@ -143,21 +156,12 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
 
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
-    let mode = Substep.mode
 
-    // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix 
+    // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix
 
-    let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
+    let reviewCell
 
-    let importStepID = StepComp.importStepID // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
-    let comparisonType = StepComp.comparisonType // "DC",
-
-    let reviewCell, prevResultCell
-
-    let yesAnswer = StepComp.mode === "YonY" ? "no change" : "not selected"
-
-    let naText = "not selected"
+    let naText = 'not selected'
 
     // for linking to Named Range of Substep 0
     // TODO: make a shared function() between importYonY & addResultsReview
@@ -170,7 +174,7 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
 
     rule = SpreadsheetApp.newDataValidation().requireValueInList(StepComp.dropdown).build()
 
-    let Cell, cellValue, Element, noteString, cellID, hasPredecessor, isRevised
+    let Cell, cellValue, Element, noteString, cellID, isNewElement, isRevised
 
     let activeCol
 
@@ -181,11 +185,10 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
     let id = Company.id
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
-
         Element = Elements[elemNr]
         ElementSpecs = checkElementSpecs(Element)
 
-        hasPredecessor = Element.y2yResultRow ? true : false
+        isNewElement = Element.isNew ? true : false
         isRevised = Element.isRevised ? true : false
 
         // 1.) Row Labels
@@ -193,30 +196,29 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
         activeCol = 1
         cellValue = StepComp.rowLabel + Element.labelShort
 
-        noteString = Element.labelShort + ": " + Element.description
+        noteString = Element.labelShort + ': ' + Element.description
 
-        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+        cellValue += isRevised ? ' (rev.)' : isNewElement ? ' (new)' : ''
 
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(cellValue)
             .setBackground(Substep.subStepColor)
-            .setFontWeight("bold")
+            .setFontWeight('bold')
             .setNote(noteString)
 
         activeCol += 1
 
         let serviceLabel, serviceType
 
-        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
-
+        for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
             // TODO: Switch case
 
             if (serviceNr == 1) {
-                serviceLabel = "group"
-                serviceType = "group"
+                serviceLabel = 'group'
+                serviceType = 'group'
             } else if (serviceNr == 2) {
-                serviceLabel = "opCom"
-                serviceType = "opCom"
+                serviceLabel = 'opCom'
+                serviceType = 'opCom'
             } else {
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
@@ -224,22 +226,27 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRange(indexPrefix, "DC", subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(
+                indexPrefix,
+                'DC',
+                subStepID,
+                Element.labelShort,
+                '',
+                Company.id,
+                serviceLabel,
+                stepCompID
+            )
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
-                cellValue = "N/A"
+                cellValue = 'N/A'
             } else {
-
                 if (serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
+                    cellValue = 'N/A' // if no OpCom, pre-select N/A
                 } else {
+                    if (!isNewElement || mainStepNr > 1) {
+                        reviewCell = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
 
-                    if (hasPredecessor || mainStepNr > 1) {
-
-                        reviewCell = specialRangeName(id, Indicator.labelShort, "CoFBstatus")
-
-                        cellValue = "=IF(" + reviewCell + "=\"no\"" + "," + "\"no\"" + "," + "\"not selected\"" + ")"
-
+                        cellValue = `=IF(${reviewCell}="no","no","not selected")`
                     } else {
                         cellValue = naText
                     }
@@ -256,7 +263,6 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
             SS.setNamedRange(cellID, Cell) // names cells
 
             activeCol += 1
-
         } // Element END
     } // Elements Iteration END
 
@@ -266,20 +272,18 @@ function addFeedbackStepReview(SS, Sheet, Indicator, Company, isNewCompany, acti
     rangeRows = elementsNr
 
     Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
-        .setFontWeight("bold")
-        .setHorizontalAlignment("center")
+        .setFontWeight('bold')
+        .setHorizontalAlignment('center')
 
     return activeRow
 }
 
-
 function checkFeedbackFormula(fbStatusRange) {
-    let formula = '=SWITCH(' + fbStatusRange + ',"yes","yes","no","no","...pending...")'
+    let formula = `=SWITCH(${fbStatusRange},"yes","yes","no","no","...pending...")`
     return formula
 }
 
-
 function importFeedbackFormula(fbStatusRange, fbStatusText) {
-    let formula = '=SWITCH(' + fbStatusRange + ',"yes",' + fbStatusText + ', "no", "No Feedback provided", "...pending...")'
+    let formula = `=SWITCH(${fbStatusRange},"yes",${fbStatusText}, "no", "No Feedback provided", "...pending...")`
     return formula
 }

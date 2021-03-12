@@ -1,5 +1,5 @@
 function removeAllProtections(SS) {
-    Logger.log("In removeAllProtections")
+    console.log('In removeAllProtections')
 
     let sheets = SS.getSheets()
     let sheetProtections, rangeProtections
@@ -8,12 +8,15 @@ function removeAllProtections(SS) {
     for (let sheet = 0; sheet < sheets.length; sheet++) {
         let Sheet = SS.getSheets()[sheet]
 
-        Logger.log("In " + Sheet)
-
+        console.log('In ' + Sheet)
 
         // getting all the protections on a Sheet and then removing them
-        sheetProtections = Sheet.getProtections(SpreadsheetApp.ProtectionType.RANGE)
-        rangeProtections = Sheet.getProtections(SpreadsheetApp.ProtectionType.SHEET)
+        sheetProtections = Sheet.getProtections(
+            SpreadsheetApp.ProtectionType.RANGE
+        )
+        rangeProtections = Sheet.getProtections(
+            SpreadsheetApp.ProtectionType.SHEET
+        )
 
         // removing Sheet protections
         for (let j = 0; j < sheetProtections.length; j++) {
@@ -24,7 +27,5 @@ function removeAllProtections(SS) {
         for (let j = 0; j < rangeProtections.length; j++) {
             rangeProtections[j].remove()
         }
-
     }
 }
-

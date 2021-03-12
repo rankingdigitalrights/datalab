@@ -1,11 +1,11 @@
 /* global
-    Styles,
+    Config, Styles, addRichTextSingle, addRichTextArray
 */
 
 // Wrapper for Indicator-Level Front Matter Content
 
+// eslint-disable-next-line no-unused-vars
 function addFBFrontMatter(Sheet, Indicator, MetaData, activeRow, offsetCol) {
-
     activeRow += 1
 
     let rangeStart, rangeEnd
@@ -14,9 +14,7 @@ function addFBFrontMatter(Sheet, Indicator, MetaData, activeRow, offsetCol) {
 
     // TODO: Revisit Experiment
 
-    frontMatterSpecs.bold = SpreadsheetApp.newTextStyle()
-        .setBold(true)
-        .build()
+    frontMatterSpecs.bold = SpreadsheetApp.newTextStyle().setBold(true).build()
 
     rangeStart = activeRow
 
@@ -32,24 +30,23 @@ function addFBFrontMatter(Sheet, Indicator, MetaData, activeRow, offsetCol) {
 
     Sheet.getRange(rangeStart, offsetCol, rangeEnd, width)
         // .setHorizontalAlignment("left")
-        .setVerticalAlignment("top")
+        .setVerticalAlignment('top')
         .setWrap(true)
 
-    return activeRow += 2
+    return (activeRow += 2)
 }
 
 // Frontmatter Component Helper Functions
 
 function addFBSheetHeading(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
-
-    let title = Indicator.labelShort + ". " + Indicator.labelLong
+    let title = Indicator.labelShort + '. ' + Indicator.labelLong
 
     // Indicator Heading
     Sheet.getRange(activeRow, offsetCol, 1, width)
         .merge()
         .setValue(title)
         .setFontSize(18)
-        .setFontWeight("bold")
+        .setFontWeight('bold')
         .setFontColor(Styles.colors.blue)
 
     Sheet.setRowHeight(activeRow, 30)
@@ -57,20 +54,15 @@ function addFBSheetHeading(Sheet, Indicator, MetaData, frontMatterSpecs, activeR
     // activeRow += 2
 
     return activeRow + 2
-
 }
 
 function addFBIndyDescription(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
-
     // Indicator Description
     let description = MetaData.description
     let descriptionTerms = MetaData.descriptionTerms
     let descriptionLinks = MetaData.descriptionLinks
 
-    let Cell = Sheet.getRange(activeRow, offsetCol, 1, width)
-        .merge()
-        .setValue(description)
-        .setFontSize(12)
+    let Cell = Sheet.getRange(activeRow, offsetCol, 1, width).merge().setValue(description).setFontSize(12)
 
     addRichTextArray(Cell, frontMatterSpecs.bold, description, descriptionTerms, descriptionLinks)
 
@@ -79,14 +71,13 @@ function addFBIndyDescription(Sheet, Indicator, MetaData, frontMatterSpecs, acti
 // Indicator Guidance for researchers
 
 function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
-
-    let startRow, endRow
+    let startRow
 
     Sheet.getRange(activeRow, offsetCol)
-        .setValue("Elements:")
+        .setValue('Elements:')
         .setFontSize(12)
-        .setFontWeight("bold")
-        .setFontStyle("italic")
+        .setFontWeight('bold')
+        .setFontStyle('italic')
     // .setHorizontalAlignment("right")
 
     activeRow += 1
@@ -97,20 +88,14 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     let values = []
     let Textrange
 
-    // let prefix, hasPredecessor, isRevised
-
     Indicator.elements.forEach((Element) => {
-
-        values.push(
-            [(Element.labelShort + ": "), Element.description]
-        )
-
+        values.push([Element.labelShort + ': ', Element.description])
     })
 
     Sheet.getRange(startRow, offsetCol, values.length, values[0].length)
         .setValues(values)
         // .setHorizontalAlignment("left")
-        .setVerticalAlignment("top")
+        .setVerticalAlignment('top')
 
     let elementRow = startRow
 
@@ -118,17 +103,20 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
         Textrange = Sheet.getRange(elementRow + index, offsetCol + 1, 1, width - 1).merge()
 
         // console.log("Found terms " + MetaData.elementsTags[index])
-        addRichTextArray(Textrange, frontMatterSpecs.bold, Element.description, MetaData.elementsTags[index], MetaData.elementsLinks[index])
-
+        addRichTextArray(
+            Textrange,
+            frontMatterSpecs.bold,
+            Element.description,
+            MetaData.elementsTags[index],
+            MetaData.elementsLinks[index]
+        )
     })
 
     Sheet.getRange(startRow, offsetCol + 1, values.length, 1)
-        .setHorizontalAlignment("left")
+        .setHorizontalAlignment('left')
         .setFontSize(12)
 
-    Sheet.getRange(startRow, offsetCol, values.length, 1)
-        .setHorizontalAlignment("right")
-        .setFontSize(12)
+    Sheet.getRange(startRow, offsetCol, values.length, 1).setHorizontalAlignment('right').setFontSize(12)
 
     activeRow = startRow + values.length
 
@@ -137,11 +125,9 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     return activeRow + 1
 }
 
-
 function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, activeRow, offsetCol, width) {
-
     let indicatorGuidanceText = MetaData.guidance
-    let indicatorLink = Config.indicatorsLink + "#" + Indicator.labelShort
+    let indicatorLink = Config.indicatorsLink + '#' + Indicator.labelShort
 
     // Research Guidance Caption
 
@@ -149,19 +135,15 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
         .merge()
         .setValue(frontMatterSpecs.indicatorGuidanceLabel)
         .setFontSize(12)
-        .setFontWeight("bold")
-        .setFontStyle("italic")
+        .setFontWeight('bold')
+        .setFontStyle('italic')
     // .setHorizontalAlignment("right")
 
     activeRow += 1
 
     // Research guidance Text
 
-    Sheet.getRange(activeRow, offsetCol, 1, width)
-        .merge()
-        .setWrap(true)
-        .setValue(indicatorGuidanceText)
-        .setFontSize(12)
+    Sheet.getRange(activeRow, offsetCol, 1, width).merge().setWrap(true).setValue(indicatorGuidanceText).setFontSize(12)
 
     if (indicatorGuidanceText.length < 100) {
         Sheet.setRowHeight(activeRow, 100)
@@ -174,7 +156,7 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     let Cell = Sheet.getRange(activeRow, offsetCol, 1, 3)
         .merge()
         // .setValue(frontMatterSpecs.glossaryText)
-        .setFontStyle("italic")
+        .setFontStyle('italic')
         .setFontSize(11)
 
     Sheet.getRange(activeRow, offsetCol + 3, 1, 1)
@@ -205,8 +187,8 @@ function addFBIndicatorGuidance(Sheet, Indicator, MetaData, frontMatterSpecs, ac
         .merge()
         .setValue(frontMatterSpecs.guidanceText)
         // .setValue(indicatorLink)
-        .setFontStyle("italic")
-        .setFontWeight("bold")
+        .setFontStyle('italic')
+        .setFontWeight('bold')
         .setFontSize(11)
 
     Sheet.getRange(activeRow, offsetCol + 3, 1, 1)

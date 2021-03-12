@@ -10,8 +10,16 @@
 /* exported addSummarySingleCompany */ // TODO: test whether this works
 
 // eslint-disable-next-line no-unused-vars
-function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, row, col, Company, includeElements) {
-
+function addSummarySingleCompany(
+    Sheet,
+    thisSubStepID,
+    Indicators,
+    indicatorParams,
+    row,
+    col,
+    Company,
+    includeElements
+) {
     let additionalCol = 2
 
     let blockWidth = Company.services.length + additionalCol // for total + group elems
@@ -36,13 +44,23 @@ function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorPara
     let nrOfClasses = indicatorParams.length
     let classesLeft = 0
 
-
     // --- // adding Indicator level scores // --- //
 
     let resultCells = []
 
     row = row + nrOfClasses
-    row = addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells,false)
+    row = addCompanyScores(
+        row,
+        col,
+        Sheet,
+        Company,
+        Indicators,
+        thisSubStepID,
+        blockWidth,
+        includeElements,
+        resultCells,
+        false
+    )
 
     lastRow = row
 
@@ -54,29 +72,45 @@ function addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorPara
 
     for (let i = 0; i < nrOfClasses; i++) {
         catLength = parseInt(indicatorParams[i])
-        // Logger.log("catLength: " + catLength)
+        // console.log("catLength: " + catLength)
         classesLeft = nrOfClasses - i
 
-        row = addCompanyTotalsRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells)
+        row = addCompanyTotalsRow(
+            row,
+            col,
+            Sheet,
+            blockWidth,
+            catLength,
+            totalLength,
+            classesLeft,
+            resultCells
+        )
 
         if (i > 0) {
             totalLength += catLength
-            // Logger.log("totalLength: " + totalLength)
+            // console.log("totalLength: " + totalLength)
         }
     }
 
     blockRange = Sheet.getRange(startRow, col, lastRow - startRow, blockWidth)
-    blockRange.setBorder(true, true, true, true, null, null, "black", null)
-
+    blockRange.setBorder(true, true, true, true, null, null, 'black', null)
 
     return col + blockWidth
 }
 
-function addSummarySingleCompanyYoy(Sheet, thisSubStepID, Indicators, indicatorParams, row, col, Company, includeElements) {
-
+function addSummarySingleCompanyYoy(
+    Sheet,
+    thisSubStepID,
+    Indicators,
+    indicatorParams,
+    row,
+    col,
+    Company,
+    includeElements
+) {
     let additionalCol = 2
 
-    let blockWidth = 3*(Company.services.length + additionalCol) // for total + group elems
+    let blockWidth = 3 * (Company.services.length + additionalCol) // for total + group elems
 
     let startRow = row
     let lastRow
@@ -98,13 +132,23 @@ function addSummarySingleCompanyYoy(Sheet, thisSubStepID, Indicators, indicatorP
     let nrOfClasses = indicatorParams.length
     let classesLeft = 0
 
-
     // --- // adding Indicator level scores // --- //
 
     let resultCells = []
 
     //row = row + nrOfClasses
-    row = addCompanyScores(row, col, Sheet, Company, Indicators, thisSubStepID, blockWidth, includeElements, resultCells,true)
+    row = addCompanyScores(
+        row,
+        col,
+        Sheet,
+        Company,
+        Indicators,
+        thisSubStepID,
+        blockWidth,
+        includeElements,
+        resultCells,
+        true
+    )
 
     lastRow = row
 
@@ -116,21 +160,28 @@ function addSummarySingleCompanyYoy(Sheet, thisSubStepID, Indicators, indicatorP
 
     for (let i = 0; i < nrOfClasses; i++) {
         catLength = parseInt(indicatorParams[i])
-        // Logger.log("catLength: " + catLength)
+        // console.log("catLength: " + catLength)
         classesLeft = nrOfClasses - i
 
-        row = addCompanyTotalsRow(row, col, Sheet, blockWidth, catLength, totalLength, classesLeft, resultCells)
+        row = addCompanyTotalsRow(
+            row,
+            col,
+            Sheet,
+            blockWidth,
+            catLength,
+            totalLength,
+            classesLeft,
+            resultCells
+        )
 
         if (i > 0) {
             totalLength += catLength
-            // Logger.log("totalLength: " + totalLength)
+            // console.log("totalLength: " + totalLength)
         }
     }
 
     blockRange = Sheet.getRange(startRow, col, lastRow - startRow, blockWidth)
-    blockRange.setBorder(true, true, true, true, null, null, "black", null)
-    
-
+    blockRange.setBorder(true, true, true, true, null, null, 'black', null)
 
     return col + blockWidth
 }

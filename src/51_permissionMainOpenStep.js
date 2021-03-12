@@ -10,7 +10,7 @@ function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indic
     let assignedStepEditors = editor
 
     let companyID = Company.id
-    Logger.log("CompanyObj :" + companyID)
+    console.log('CompanyObj :' + companyID)
 
     let Viewers = centralConfig.defaultViewers
 
@@ -22,7 +22,7 @@ function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indic
 
     let SheetEditors = [] // TODO: remove
 
-    let fileID = Company.urlCurrentDataCollectionSheet
+    let fileID = Company.urlCurrentInputSheet
     let SS = SpreadsheetApp.openById(fileID)
 
     let currentPrefix = centralConfig.indexPrefix
@@ -30,8 +30,20 @@ function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indic
     // overall open function
     let isSuccess = false
 
-    isSuccess = initializationOpenStep(Indicators, subStepIDs, companyID, StepEditors, SS, Company, "Names", Viewers, SheetEditors, fileID, currentPrefix, doUpdateEditors)
+    isSuccess = initializationOpenStep(
+        Indicators,
+        subStepIDs,
+        companyID,
+        StepEditors,
+        SS,
+        Company,
+        'Names',
+        Viewers,
+        SheetEditors,
+        fileID,
+        currentPrefix,
+        doUpdateEditors
+    )
 
-    Logger.log("FLOW - Steps " + subStepIDs + " for " + companyID + " opened? - " + isSuccess)
-
+    console.log('FLOW - Steps ' + subStepIDs + ' for ' + companyID + ' opened? - ' + isSuccess)
 }

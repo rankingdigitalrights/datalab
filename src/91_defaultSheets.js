@@ -1,10 +1,21 @@
 // --- // creates sources page // --- //
 
+/* global
+    Config, insertSheetIfNotExist, fillPointsSheet, fillCompanyFeedbackInputSheet, cropEmptyColumns, cropEmptyRows
+*/
+// eslint-disable-next-line no-unused-vars
 function produceSourceSheet(Sheet, doFill) {
+    // let webArchiveLink = '=HYPERLINK("https://archive.org/web/", "Internet Archive")'
 
-    let webArchiveLink = "=HYPERLINK(\"https://archive.org/web/\", \"Internet Archive\")"
-
-    let columns = ["Source\nreference\nnumber", "Document title", "URL", "Date of document\n(if applicable)\nYYYY-MM-DD", "Date accessed\n\nYYYY-MM-DD", "Saved source link", "Has this policy changed from the previous year's Index?"]
+    let columns = [
+        'Source\nreference\nnumber',
+        'Document title',
+        'URL',
+        'Date of document\n(if applicable)\nYYYY-MM-DD',
+        'Date accessed\n\nYYYY-MM-DD',
+        'Saved source link',
+        'Has this policy changed from the previous year’s Index?',
+    ]
 
     if (doFill) {
         Sheet.appendRow(columns)
@@ -12,18 +23,11 @@ function produceSourceSheet(Sheet, doFill) {
 
     let lastCol = columns.length
 
-    Logger.log("lastCol: " + lastCol)
+    console.log('lastCol: ' + lastCol)
 
-    Sheet.getRange(1, 1, 99, lastCol)
-        .setFontFamily("Roboto")
-        .setVerticalAlignment("top")
-        .setWrap(true)
-        .setFontSize(10)
+    Sheet.getRange(1, 1, 99, lastCol).setFontFamily('Roboto').setVerticalAlignment('top').setWrap(true).setFontSize(10)
 
-    Sheet.getRange(1, 1, 1, lastCol)
-        .setFontWeight("bold")
-        .setHorizontalAlignment("center")
-        .setFontSize(11)
+    Sheet.getRange(1, 1, 1, lastCol).setFontWeight('bold').setHorizontalAlignment('center').setFontSize(11)
 
     Sheet.setColumnWidths(1, 1, 100)
     Sheet.setColumnWidths(2, lastCol, 200)
@@ -31,12 +35,14 @@ function produceSourceSheet(Sheet, doFill) {
     Sheet.setFrozenRows(1)
 }
 
-function fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula) {
-    Sheet.setName(importedOutcomeTabName)
-    let cell = Sheet.getActiveCell()
-    cell.setValue(externalFormula.toString())
+// eslint-disable-next-line no-unused-vars
+function fillSheetWithImportRanges(Sheet, sheetname, formulas) {
+    Sheet.setName(sheetname)
+    let range = Sheet.getRange(1, 1, 1, formulas.length)
+    range.setValues([formulas])
 }
 
+// eslint-disable-next-line no-unused-vars
 function insertPointValidationSheet(SS, SheetName) {
     let pointsSheet = insertSheetIfNotExist(SS, SheetName, true)
     if (pointsSheet !== null) {
@@ -47,46 +53,45 @@ function insertPointValidationSheet(SS, SheetName) {
     return pointsSheet
 }
 
-function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSheet) {
+// eslint-disable-next-line no-unused-vars
+function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSheet = false) {
     let Sheet = insertSheetIfNotExist(SS, SheetName, updateSheet)
-    if (Sheet !== null && updateSheet) {
-        console.log("overwriting Feedback tab")
-        console.log(Indicators.indicatorCategories)
+    if (Sheet !== null) {
+        console.log('--- writing Feedback tab')
         Sheet.clear()
         fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators)
+        cropEmptyColumns(Sheet, 1)
+        cropEmptyRows(Sheet, 1)
+        console.log('Feedback Tab produced / updated')
     } else {
-        console.log("ignoring Feedback tab")
+        console.log('ignoring Feedback tab')
     }
-
-    cropEmptyColumns(Sheet, 1)
-    cropEmptyRows(Sheet, 1)
-
     return Sheet
 }
 
+// eslint-disable-next-line no-unused-vars
 function insertSheetConnector(SS, Companies, Mode) {
-
-    let Sheet = insertSheetIfNotExist(SS, "Connector", true)
+    let Sheet = insertSheetIfNotExist(SS, 'Connector', true)
 
     let companyCells = []
     let companyName
     let companyUrl
     let formula
-    let formulaPrefix = "=IMPORTRANGE(\""
-    let formulaSuffix = "\", \"G1!A9\")"
+    let formulaPrefix = '=IMPORTRANGE("'
+    let formulaSuffix = '", "G1!A9")'
 
     Companies.forEach(function (company) {
         companyName = company.label.current
 
         switch (Mode) {
-            case "Scores":
-                companyUrl = company.urlCurrentCompanyScoringSheet
+            case 'Scores':
+                companyUrl = company.urlCurrentOutputSheet
                 break
-            case "Input":
-                companyUrl = company.urlCurrentDataCollectionSheet
+            case 'Input':
+                companyUrl = company.urlCurrentInputSheet
                 break
             default:
-                companyUrl = company.urlCurrentCompanyScoringSheet
+                companyUrl = company.urlCurrentOutputSheet
                 break
         }
 
@@ -110,47 +115,45 @@ function insertSheetConnector(SS, Companies, Mode) {
 
 //     let StatusCell, ValueCell, namedRange
 
-
 //     Indicators.forEach(Indicator, index =>
 
 //     )
-
 
 // }
 
 // TODO: Fix this in Aligment with Input Sheet process
 
+// eslint-disable-next-line no-unused-vars
 function importSourcesSheet(SS, sheetName, Company, doOverwrite) {
-
     let sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
 
     if (sheet !== null && doOverwrite) {
         // sheet.clear()
         // produceSourceSheet(sheet)
         let targetCell = sheet.getRange(4, 2)
-        let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentDataCollectionSheet}","${Config.sourcesTabName} !A1:C"), "select Col1, Col2, Col3", 1)`
-        // let formula = "=IMPORTRANGE(\"" + Company.urlCurrentDataCollectionSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
+        let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentInputSheet}","${Config.sourcesTabName} !A1:C"), "select Col1, Col2, Col3", 1)`
+        // let formula = "=IMPORTRANGE(\"" + Company.urlCurrentInputSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
         targetCell.setFormula(formula)
     } else {
-        console.log("WARNING: Sources Tab already exists. Skipping!")
+        console.log('WARNING: Sources Tab already exists. Skipping!')
     }
 }
 
 // simplified Sources Table Import for Company Feedback Forms
 
+// eslint-disable-next-line no-unused-vars
 function importFBSourcesSheet(SS, sheetName, Company, doOverwrite) {
-
     let Sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
 
     if (Sheet !== null && doOverwrite) {
         // Sheet.clear()
         // produceSourceSheet(Sheet)
         let targetCell = Sheet.getRange(4, 2)
-        // let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentDataCollectionSheet}","${Config.sourcesTabName}!A1:C"), "select Col1, Col2, Col3", 1)`
-        let formula = `IMPORTRANGE("${Company.urlCurrentDataCollectionSheet}","${Config.sourcesTabName}!A1:C")`
+        // let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentInputSheet}","${Config.sourcesTabName}!A1:C"), "select Col1, Col2, Col3", 1)`
+        let formula = `IMPORTRANGE("${Company.urlCurrentInputSheet}","${Config.sourcesTabName}!A1:C")`
         targetCell.setFormula(formula)
         // cropEmptyRows(Sheet, 2)
     } else {
-        console.log("WARNING: Sources Tab already exists. Skipping!")
+        console.log('WARNING: Sources Tab already exists. Skipping!')
     }
 }

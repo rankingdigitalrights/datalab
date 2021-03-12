@@ -11,19 +11,16 @@ function calculateCompanyWidthFull(Company) {
     return Company.services.length + 2
 }
 
-
 function calculateCompanyWidthNaive(Company) {
-
     let services = Company.services.length
 
     let hasOpCom = Company.hasOpCom
-    let width = hasOpCom ? (services + 2) : (services + 1)
+    let width = hasOpCom ? services + 2 : services + 1
 
     return width
 }
 
 function calculateCompanyWidthNet(Company, Indicator, omitOpCom) {
-
     let services = Company.services.length
 
     let baseWidth = Company.hasOpCom && !omitOpCom ? 2 : 1
@@ -33,16 +30,15 @@ function calculateCompanyWidthNet(Company, Indicator, omitOpCom) {
     let scope = Indicator.scoringScope
 
     switch (scope) {
-
-        case ("full"):
+        case 'full':
             width = baseWidth + services
             break
 
-        case ("company"):
+        case 'company':
             width = baseWidth
             break
 
-        case ("services"):
+        case 'services':
             width = services
             break
     }
@@ -50,14 +46,14 @@ function calculateCompanyWidthNet(Company, Indicator, omitOpCom) {
     return width
 }
 
-
 function styleScoringIndicatorHeader(currentCell, label, colorHex) {
-    currentCell.setValue(label)
-        .setFontWeight("bold")
+    currentCell
+        .setValue(label)
+        .setFontWeight('bold')
         .setWrap(true)
         .setBackground(colorHex)
-        .setVerticalAlignment("middle")
-        .setHorizontalAlignment("center")
+        .setVerticalAlignment('middle')
+        .setHorizontalAlignment('center')
     return currentCell
 }
 
@@ -65,7 +61,8 @@ function styleScoringIndicatorHeader(currentCell, label, colorHex) {
 // for easier translation of column number to column letter in formulas
 
 function columnToLetter(column) {
-    let temp, letter = ""
+    let temp,
+        letter = ''
     while (column > 0) {
         temp = (column - 1) % 26
         letter = String.fromCharCode(temp + 65) + letter
@@ -75,14 +72,15 @@ function columnToLetter(column) {
 }
 
 function columnToLetterYonY(column, offset) {
-    let temp, letter = '';
+    let temp,
+        letter = ''
     let shift = offset ? offset : 0
     while (column > 0) {
-        temp = (column - 1 + offset) % 26;
-        letter = String.fromCharCode(temp + 65) + letter;
-        column = (column - temp - 1) / 26;
+        temp = (column - 1 + offset) % 26
+        letter = String.fromCharCode(temp + 65) + letter
+        column = (column - temp - 1) / 26
     }
-    return letter;
+    return letter
 }
 
 function letterToColumn(letter) {
@@ -106,15 +104,13 @@ function textUnderline(cell) {
 // }
 
 function addRichTextArray(Cell, Style, content, terms, links) {
-
-    let richText = SpreadsheetApp.newRichTextValue()
-        .setText(content)
+    let richText = SpreadsheetApp.newRichTextValue().setText(content)
 
     let cellText = Cell.getValue()
     let termPos = locateString(cellText, terms)
     // let termURL
     if (termPos.length > 0) {
-        termPos.forEach(term => {
+        termPos.forEach((term) => {
             // console.log(term)
             // termURL = Config.indicatorsLink + links[index]
             if (term[0] !== -1) {
@@ -127,11 +123,9 @@ function addRichTextArray(Cell, Style, content, terms, links) {
 }
 
 function addRichTextSingle(Cell, Style, content, terms) {
-
     // OLD
 
-    let richText = SpreadsheetApp.newRichTextValue()
-        .setText(content)
+    let richText = SpreadsheetApp.newRichTextValue().setText(content)
 
     richText = richText
         .setTextStyle(11, 26, Style)
@@ -140,37 +134,42 @@ function addRichTextSingle(Cell, Style, content, terms) {
         // .setTextStyle(0, 5, Style)
         .build()
 
-    Cell.setRichTextValue(richText)
-        .setFontSize(11)
-
+    Cell.setRichTextValue(richText).setFontSize(11)
 }
 
-
 function returnCompanyFBColWidth() {
-
     let widths = []
 
-    let SS = SpreadsheetApp.openById("1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE")
-    let Sheet = insertSheetIfNotExist(SS, "Company Dimensions", true)
+    let SS = SpreadsheetApp.openById(
+        '1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE'
+    )
+    let Sheet = insertSheetIfNotExist(SS, 'Company Dimensions', true)
     let opCom
-    companiesVector.companies.forEach(Company => {
+    companiesVector.companies.forEach((Company) => {
+        Sheet.appendRow([
+            Company.label.current,
+            Company.type,
+            Company.services.length,
+            Company.hasOpCom,
+        ])
 
-        Sheet.appendRow([Company.label.current, Company.type, Company.services.length, Company.hasOpCom])
-
-        indicatorsVector.indicatorCategories.forEach(Category => {
-
-            Category.indicators.forEach(Indicator => {
-
-                let thisWidth = calculateCompanyWidthNet(Company, Indicator, false)
-                let indicatorSpecs = ["---", Indicator.labelShort, Indicator.scoringScope, thisWidth]
+        indicatorsVector.indicatorCategories.forEach((Category) => {
+            Category.indicators.forEach((Indicator) => {
+                let thisWidth = calculateCompanyWidthNet(
+                    Company,
+                    Indicator,
+                    false
+                )
+                let indicatorSpecs = [
+                    '---',
+                    Indicator.labelShort,
+                    Indicator.scoringScope,
+                    thisWidth,
+                ]
                 Sheet.appendRow(indicatorSpecs)
             })
-
         })
-
     })
 
     console.log(widths)
-
-
 }

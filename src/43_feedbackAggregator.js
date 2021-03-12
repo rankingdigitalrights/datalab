@@ -2,97 +2,99 @@
     specialRangeName
 */
 
-
 function fillCompanyFeedbackInputSheet(SS, Sheet, Company, Indicators) {
-
     let Cell
     let rangeName
     let rowNr = 1
-    let header = ["Indicator", "Feedback received?", "Feedback", "Sources", "Additional Feedback 1", "Additional Feedback 2", "Additional Feedback 3", "Additional Feedback 4", "Additional Feedback 5"]
-    Sheet
-        .getRange(rowNr, 1, 1, header.length)
+    let header = [
+        'Indicator',
+        'Feedback received?',
+        'Feedback',
+        'Sources',
+        'Additional Feedback 1',
+        'Additional Feedback 2',
+        'Additional Feedback 3',
+        'Additional Feedback 4',
+        'Additional Feedback 5',
+    ]
+    Sheet.getRange(rowNr, 1, 1, header.length)
         .setValues([header])
-        .setFontFamily("Roboto Condensed")
-        .setFontWeight("bold")
+        .setFontFamily('Roboto Condensed')
+        .setFontWeight('bold')
         .setWrap(true)
 
     let id = Company.id
 
-    Indicators.indicatorCategories.forEach(Category =>
-        Category.indicators.forEach(Indicator => {
+    Indicators.indicatorCategories.forEach((Category) =>
+        Category.indicators.forEach((Indicator) => {
             rowNr += 1
 
             Sheet.getRange(rowNr, 1).setValue(Indicator.labelShort)
 
-            rangeName = specialRangeName(id, Indicator.labelShort, "CoFBstatus")
+            rangeName = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
             Cell = Sheet.getRange(rowNr, 2)
-            Cell.setValue("pending")
+            Cell.setValue('pending')
             SS.setNamedRange(rangeName, Cell)
 
-            rangeName = specialRangeName(id, Indicator.labelShort, "CoFBtext")
+            rangeName = specialRangeName(id, Indicator.labelShort, 'CoFBtext')
             Cell = Sheet.getRange(rowNr, 3)
-            Cell.setValue("placeholder text")
+            Cell.setValue('placeholder text')
             SS.setNamedRange(rangeName, Cell)
 
-            rangeName = specialRangeName(id, Indicator.labelShort, "CoFBsources")
+            rangeName = specialRangeName(
+                id,
+                Indicator.labelShort,
+                'CoFBsources'
+            )
             Cell = Sheet.getRange(rowNr, 4)
-            Cell.setValue("optional")
+            Cell.setValue('optional')
             SS.setNamedRange(rangeName, Cell)
 
             let extraRange = Sheet.getRange(rowNr, 5, 1, 5)
 
-            rangeName = specialRangeName(id, Indicator.labelShort, "CoFBextra")
+            rangeName = specialRangeName(id, Indicator.labelShort, 'CoFBextra')
             SS.setNamedRange(rangeName, extraRange)
-            extraRange.setValues([
-                [" --- ", "", "", "", ""]
-            ])
+            extraRange.setValues([[' --- ', '', '', '', '']])
             extraRange.setWrap(true)
-
         })
     )
 
     Sheet.getRange(2, 1, rowNr, 9)
         .setWrap(true)
-        .setVerticalAlignment("top")
-        .setHorizontalAlignment("left")
-        .setFontFamily("Roboto")
+        .setVerticalAlignment('top')
+        .setHorizontalAlignment('left')
+        .setFontFamily('Roboto')
 
     Sheet.setColumnWidth(3, 720)
     Sheet.setColumnWidths(4, 6, 200)
     Sheet.setFrozenRows(1)
     Sheet.setFrozenColumns(1)
-
 }
 
 function produceYonYCommentsSheet(Sheet, overwrite) {
-
     let rows = []
-    let header = ["Indicator", "Year On Year Comment"]
+    let header = ['Indicator', 'Year On Year Comment']
     rows.push(header)
 
-
-
-    IndicatorsObj.indicatorCategories.forEach(Category =>
-        Category.indicators.forEach(Indicator => rows.push(
-            [Indicator.labelShort, "TODO"]))
+    IndicatorsObj.indicatorCategories.forEach((Category) =>
+        Category.indicators.forEach((Indicator) =>
+            rows.push([Indicator.labelShort, 'TODO'])
+        )
     )
 
     Sheet.getRange(1, 1, rows.length, header.length)
         .setValues(rows)
-        .setVerticalAlignment("top")
+        .setVerticalAlignment('top')
 
-    Sheet.getRange(1, 1, 1, header.length)
-        .setFontSize(12)
-        .setFontWeight("bold")
+    Sheet.getRange(1, 1, 1, header.length).setFontSize(12).setFontWeight('bold')
 
     Sheet.setColumnWidth(2, 500)
 }
 
 function appendTOC(SS, Sheet, Indicators) {
-
     const flatten = true
     const indicatorLabels = getIndicatorLabelsList(Indicators, flatten)
-    console.log("indicatorLabels")
+    console.log('indicatorLabels')
     console.log(indicatorLabels)
     // let tabs = []
 
@@ -100,19 +102,20 @@ function appendTOC(SS, Sheet, Indicators) {
 
     // console.log(Sheets.map(Sheet => Sheet.getName()))
 
-    let tabs = Sheets.filter(sheet => indicatorLabels.includes(sheet.getName()))
+    let tabs = Sheets.filter((sheet) =>
+        indicatorLabels.includes(sheet.getName())
+    )
 
     let tabCells = []
 
-    tabs.map(tab => {
-        tabCells.push([`=HYPERLINK("#gid=${tab.getSheetId()}","${tab.getSheetName()}")`])
+    tabs.map((tab) => {
+        tabCells.push([
+            `=HYPERLINK("#gid=${tab.getSheetId()}","${tab.getSheetName()}")`,
+        ])
     })
 
-    Sheet.getRange(7, 9, tabs.length, 1)
-        .setValues(tabCells)
-        .setFontSize(12)
+    Sheet.getRange(7, 9, tabs.length, 1).setValues(tabCells).setFontSize(12)
     // return tabs
-
 }
 
 // let Sheets = ["G1", "P9"]

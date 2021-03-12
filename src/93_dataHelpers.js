@@ -8,19 +8,17 @@
 // use startsWith (^) / EndsWith ($) Regex, i.e. "^P1$"
 
 function subsetIndicatorsObject(IndicatorsObj, labelsArray) {
-
     // filter out categories in question
-    let results = indicatorsVector.indicatorCategories.filter(category => {
-        return category.indicators.some(indicator => labelsArray.includes(indicator.labelShort))
+    let results = indicatorsVector.indicatorCategories.filter((category) => {
+        return category.indicators.some((indicator) => labelsArray.includes(indicator.labelShort))
     })
-
 
     // make deep nested copy of greedy results Object
     // crazy: https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
     let newCopy = JSON.parse(JSON.stringify(results))
 
     let findings = {
-        "indicatorCategories": []
+        indicatorCategories: [],
     }
 
     // prepare final results Object with empty indicators[]
@@ -32,13 +30,12 @@ function subsetIndicatorsObject(IndicatorsObj, labelsArray) {
     // category-wise, push only target indicators
     results.map((category, index) => {
         let catIndex = index
-        let found = category.indicators.filter(indicator => {
+        let found = category.indicators.filter((indicator) => {
             return labelsArray.includes(indicator.labelShort)
         })
         // found.forEach(indicator => findings[catIndex].indicators.push(indicator))
         // more elegant:
         findings.indicatorCategories[catIndex].indicators = found
-
     })
 
     // verbose feedback
@@ -56,9 +53,8 @@ function subsetIndicatorsObject(IndicatorsObj, labelsArray) {
     return findings
 }
 
-
 function testSubsetOfIndicators() {
-    let targets = "^G1$|P11a"
+    let targets = '^G1$|P11a'
 
     let findings = subsetIndicatorsObject(indicatorsVector, targets)
     console.log(findings)
@@ -79,35 +75,29 @@ function determineFirstStep(outputParams) {
 }
 
 function determineMaxStep(outputParams, ResearchStepsObj) {
-
     var maxScoringStep = outputParams.lastStepNr ? outputParams.lastStepNr + 1 : ResearchStepsObj.researchSteps.length
 
     return maxScoringStep
 }
 
 function testSelectSingleIndicator() {
-    let Indicators = filterSingleIndicator(indicatorsVector, "P11a")
+    let Indicators = filterSingleIndicator(indicatorsVector, 'P11a')
     console.log(Indicators)
 }
-
 
 // filters the Indicator JSON by a single Indicator (by String: labelShort)
 // and returns the subset JSON with intact Object structure
 
 function filterSingleIndicator(Indicators, indLabel) {
-
     let category, indicator
     let resultVector = {}
 
-    category = Indicators.indicatorCategories.filter(Category =>
-        Category.indicators.some(indicator =>
-            indicator.labelShort === indLabel)
+    category = Indicators.indicatorCategories.filter((Category) =>
+        Category.indicators.some((indicator) => indicator.labelShort === indLabel)
     )
 
-    indicator = category.map(Category =>
-            Category.indicators.filter(indicator =>
-                indicator.labelShort === indLabel)
-        )
+    indicator = category
+        .map((Category) => Category.indicators.filter((indicator) => indicator.labelShort === indLabel))
         .flat()
 
     category[0].indicators = indicator
@@ -115,7 +105,6 @@ function filterSingleIndicator(Indicators, indLabel) {
     resultVector.indicatorCategories = category
 
     return resultVector
-
 }
 
 function filterSingleSubstep(Step, substepLabel) {
@@ -123,7 +112,6 @@ function filterSingleSubstep(Step, substepLabel) {
         if (Step.substeps[i].subStepID == substepLabel) {
             return Step.substeps[i]
         }
-
     }
 
     return null
@@ -134,7 +122,7 @@ function isValueInColumn(SS, sheetName, colNr, value) {
     let isInColumn = false
     Sheet = SS.getSheetByName(sheetName)
     lastRow = Sheet.getLastRow()
-    Logger.log("lastRow: " + lastRow)
+    console.log('lastRow: ' + lastRow)
     if (lastRow >= 1) {
         Range = Sheet.getRange(1, colNr, lastRow)
         isInColumn = Range.getValues()
@@ -144,16 +132,16 @@ function isValueInColumn(SS, sheetName, colNr, value) {
     return isInColumn
 }
 
-
 function createFormula() {
     //let Company=companiesVector.companies.slice(0,1)[0]
-    let stepLabel = "S020"
+    let stepLabel = 'S020'
 
-    let formula = ""
-    let SS = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1Etb_IxD2Xl_bITrbAw7mWepZjQu3N8KSuuyAGEG_MTM/edit#gid=0")
+    let formula = ''
+    let SS = SpreadsheetApp.openByUrl(
+        'https://docs.google.com/spreadsheets/d/1Etb_IxD2Xl_bITrbAw7mWepZjQu3N8KSuuyAGEG_MTM/edit#gid=0'
+    )
     let Sheet = SS.getActiveSheet()
     let row = 1
-
 
     let Companies = companiesVector.companies
     // .slice(0, 0) // on purpose to prevent script from running.
@@ -186,76 +174,84 @@ function createFormula() {
 
     Companies.forEach(function (Company) {
         formula = createPercentageDone(Company, stepLabel)
-        range = "A" + String(row)
+        range = 'A' + String(row)
         Sheet.getRange(range).setFormula(formula)
         row = row + 1
     })
-
-
-
-
 }
 
 function createPercentageDone(Company, stepLabel) {
     let rangeName, Indicator
 
-    let finalFormula = ""
-    let formulaNotSelected = "=1-("
-    let formulaAllCells = "/("
+    let finalFormula = ''
+    let formulaNotSelected = '=1-('
+    let formulaAllCells = '/('
     //let Indicators = subsetIndicatorsObject(indicatorsVector, "G1|G2")
     let Indicators = indicatorsVector
     let currentPrefix = centralConfig.indexPrefix
 
-    Logger.log("indicator:" + Indicators)
+    console.log('indicator:' + Indicators)
 
     // looping through the types of indicators
     for (let indicatorCategory = 0; indicatorCategory < Indicators.indicatorCategories.length; indicatorCategory++) {
-
         let Category = Indicators.indicatorCategories[indicatorCategory]
 
-        Logger.log("--- Starting " + Category.labelLong)
+        console.log('--- Starting ' + Category.labelLong)
 
         // looping through each indicator
         for (let indicator = 0; indicator < Category.indicators.length; indicator++) {
             Indicator = Category.indicators[indicator]
-            rangeName = defineNamedRange(currentPrefix, "DC", stepLabel, Indicator.labelShort, "", Company.id, "", "Step")
-            formulaNotSelected = formulaNotSelected + 'COUNTIF(IMPORTRANGE("' + Company.urlCurrentDataCollectionSheet + '","' + rangeName + '"),"*not selected")+'
-            formulaAllCells = formulaAllCells + 'COUNTIF(IMPORTRANGE("' + Company.urlCurrentDataCollectionSheet + '","' + rangeName + '"),"<>N/A")+'
-
-
-
+            rangeName = defineNamedRange(
+                currentPrefix,
+                'DC',
+                stepLabel,
+                Indicator.labelShort,
+                '',
+                Company.id,
+                '',
+                'Step'
+            )
+            formulaNotSelected =
+                formulaNotSelected +
+                'COUNTIF(IMPORTRANGE("' +
+                Company.urlCurrentInputSheet +
+                '","' +
+                rangeName +
+                '"),"*not selected")+'
+            formulaAllCells =
+                formulaAllCells +
+                'COUNTIF(IMPORTRANGE("' +
+                Company.urlCurrentInputSheet +
+                '","' +
+                rangeName +
+                '"),"<>N/A")+'
         }
-
-
     }
 
     formulaNotSelected = formulaNotSelected + '0)'
     formulaAllCells = formulaAllCells + '0)'
 
-    Logger.log("unselected:" + formulaNotSelected)
-    Logger.log("all:" + formulaAllCells)
+    console.log('unselected:' + formulaNotSelected)
+    console.log('all:' + formulaAllCells)
 
     //return formulaAllCells
     return formulaNotSelected + formulaAllCells
-
 }
 
 function metaIndyFilter(MetaObj, label) {
-    return MetaObj.indicators.find(indicator => indicator.indicator === label)
+    return MetaObj.indicators.find((indicator) => indicator.indicator === label)
 }
 
 function findSubStepComponent(stepNr, subStepNr, componentType) {
-    return researchStepsVector.researchSteps[stepNr].substeps[subStepNr].components.find(component =>
-        component.type === componentType)
+    return researchStepsVector.researchSteps[stepNr].substeps[subStepNr].components.find(
+        (component) => component.type === componentType
+    )
 }
 
 function getIndicatorLabelsList(Indicators, flatten) {
-
-    let indicatorLabels = Indicators.indicatorCategories
-        .map(category =>
-            category.indicators
-            .map(indicator =>
-                indicator.labelShort))
+    let indicatorLabels = Indicators.indicatorCategories.map((category) =>
+        category.indicators.map((indicator) => indicator.labelShort)
+    )
 
     if (flatten) {
         indicatorLabels = indicatorLabels.flat()
@@ -274,10 +270,7 @@ function getColumnFromArray(array, col) {
 
 function elementsTotalLength(Indicators) {
     return Indicators.indicatorCategories
-        .map(category =>
-            category.indicators
-            .map(indicator =>
-                indicator.elements.length))
+        .map((category) => category.indicators.map((indicator) => indicator.elements.length))
         .flat()
         .reduce((a, b) => a + b)
 }

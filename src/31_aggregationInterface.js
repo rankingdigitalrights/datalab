@@ -5,16 +5,30 @@
     addSummarySingleCompany
 */
 
-
 // eslint-disable-next-line no-unused-vars
-function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, indicatorParams, includeElements, isYoyMode) {
-
+function fillSummaryScoresSheet(
+    Sheet,
+    Indicators,
+    thisSubStepID,
+    Companies,
+    indicatorParams,
+    includeElements,
+    isYoyMode
+) {
     let currentRow = 1
     let currentCol = 1
 
     // left column: indicator labels
 
-    currentCol = insertLabelColumn(Sheet, thisSubStepID, Indicators, currentRow, currentCol, includeElements, isYoyMode)
+    currentCol = insertLabelColumn(
+        Sheet,
+        thisSubStepID,
+        Indicators,
+        currentRow,
+        currentCol,
+        includeElements,
+        isYoyMode
+    )
 
     // now operating in currentCol + 1
     if (!includeElements) {
@@ -26,29 +40,45 @@ function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, ind
     }
     // Main part: horizontal company-wise results
 
-    Companies.forEach(Company => {
-
+    Companies.forEach((Company) => {
         // Mobile Total of Pre/Postpaid Hack
 
-        if (Company.type === "telecom" &&
-            Company.services.some(service => service.type === "mobile") &&
-            Company.services[0].subtype !== "mobileTotal") {
-
+        if (
+            Company.type === 'telecom' &&
+            Company.services.some((service) => service.type === 'mobile') &&
+            Company.services[0].subtype !== 'mobileTotal'
+        ) {
             Company.services.splice(0, 0, {
-                "type": "mobile",
-                "subtype": "mobileTotal",
-                "label": {
-                    "current": "Mobile Services"
-                }
+                type: 'mobile',
+                subtype: 'mobileTotal',
+                label: {
+                    current: 'Mobile Services',
+                },
             })
         }
 
-
-
         if (!isYoyMode) {
-            currentCol = addSummarySingleCompany(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements)
+            currentCol = addSummarySingleCompany(
+                Sheet,
+                thisSubStepID,
+                Indicators,
+                indicatorParams,
+                currentRow,
+                currentCol,
+                Company,
+                includeElements
+            )
         } else {
-            currentCol = addSummarySingleCompanyYoy(Sheet, thisSubStepID, Indicators, indicatorParams, currentRow, currentCol, Company, includeElements)
+            currentCol = addSummarySingleCompanyYoy(
+                Sheet,
+                thisSubStepID,
+                Indicators,
+                indicatorParams,
+                currentRow,
+                currentCol,
+                Company,
+                includeElements
+            )
         }
     })
 
@@ -60,9 +90,9 @@ function fillSummaryScoresSheet(Sheet, Indicators, thisSubStepID, Companies, ind
     let lastColumn = Sheet.getLastColumn()
 
     Sheet.getRange(1, 1, lastRow, lastColumn)
-        .setFontFamily("Roboto")
+        .setFontFamily('Roboto')
         .setFontSize(10)
-        .setVerticalAlignment("top")
+        .setVerticalAlignment('top')
 
     return Sheet
 }

@@ -1,9 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 function convertProtectionsToWarning(SS) {
-
     console.log(`File: ${SS.getName()}`)
 
-    console.log("--- starting conversion")
+    console.log('--- starting conversion')
     const protections = SS.getProtections(SpreadsheetApp.ProtectionType.SHEET) // .RANGE if ranges
 
     let protection
@@ -14,10 +13,10 @@ function convertProtectionsToWarning(SS) {
         if (protection.canEdit()) {
             protection.remove()
             protection.getRange().protect().setWarningOnly(true)
-            console.log("Warning added")
+            console.log('Warning added')
         } else {
-            console.log("Not protected, no warning added");
+            console.log('Not protected, no warning added')
         }
     }
-    console.log("--- done converting")
+    console.log('--- done converting')
 }

@@ -4,12 +4,10 @@ function getNamedRangeRowNotation(namedRange, SS) {
     firstR = SS.getRangeByName(namedRange).getRow()
     lastR = SS.getRangeByName(namedRange).getLastRow()
 
-    return firstR + ":" + lastR
-
+    return firstR + ':' + lastR
 }
 
 function createSubstepArray(stepLabel) {
-
     let stepArray = []
     let Steps = researchStepsVector.researchSteps
 

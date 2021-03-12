@@ -3,19 +3,21 @@
  * NEW: Wide and Long (Tidy Format)
  */
 
-/* global Config, insertSheetIfNotExist, dataStoreSingleStepResults, dataStoreSingleStepElementScoring, dataStoreSingleStepLevelScoring, dataStoreSingleStepCompositeScoring, dataStoreSingleStepIndicatorScoring, resizeSheet */
+/* global Config, insertSheetIfNotExist, dataStoreSingleStepResults, dataStoreSingleStepElementScoring, dataStoreSingleStepLevelScoring, dataStoreSingleStepCompositeScoring, dataStoreSingleStepIndicatorScoring, resizeSheet, elementsTotalLength, addTransposedSheet, cropEmptyColumns */
 
 // eslint-disable-next-line no-unused-vars
-function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringStep, maxScoringStep, Company, hasOpCom, integrateOutputs, dataColWidth, DataMode, isYoyMode) {
-
-    let urlDC = Company.urlCurrentDataCollectionSheet
-    let urlSC
-
-    if (!isYoyMode) {
-        urlSC = Company.urlCurrentCompanyScoringSheet
-    } else {
-        urlSC = Company.urlCurrentYoyScoringSheet
-    }
+function addDataStoreSingleCompany(
+    SS,
+    Indicators,
+    ResearchSteps,
+    firstScoringStep,
+    maxScoringStep,
+    Company,
+    hasOpCom,
+    DataMode
+) {
+    let urlDC = Company.urlCurrentInputSheet
+    let urlSC = Company.urlCurrentOutputSheet
 
     let elementsTotalNr = elementsTotalLength(Indicators)
 
@@ -34,7 +36,7 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     // --- // Element Level Results // --- //
 
-    if (DataMode === "results" || DataMode === "changes") {
+    if (DataMode === 'results' || DataMode === 'changes') {
         elementSheet = insertSheetIfNotExist(SS, DataMode, true)
         if (elementSheet !== null) {
             elementSheet.clear()
@@ -44,48 +46,44 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
 
     // New: Transposing Results / Pivot
 
-    if (DataMode === "transpose") {
-        let transposeSheet = insertSheetIfNotExist(SS, "transposed", true)
+    if (DataMode === 'transpose') {
+        let transposeSheet = insertSheetIfNotExist(SS, 'transposed', true)
         if (transposeSheet !== null) {
             // elementSheet.clear()
             let totalSteps = maxScoringStep + 1
             resizeSheet(transposeSheet, 10000) // approaching upper limit of allowed cell limit of 500K
-            addTransposedSheet(transposeSheet, "results", elementsTotalNr, totalSteps)
+            addTransposedSheet(transposeSheet, 'results', elementsTotalNr, totalSteps)
         }
     }
 
     // --- // Scores Sheets // --- //
 
-    if (DataMode === "scores") {
-
-        elementSheet = insertSheetIfNotExist(SS, "element scores", true)
+    if (DataMode === 'scores') {
+        elementSheet = insertSheetIfNotExist(SS, 'element scores', true)
         if (elementSheet !== null) {
             elementSheet.clear()
             resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K
         }
 
-        levelSS = insertSheetIfNotExist(SS, "level scores", true)
+        levelSS = insertSheetIfNotExist(SS, 'level scores', true)
         if (levelSS !== null) {
             levelSS.clear()
         }
 
-        compositeSS = insertSheetIfNotExist(SS, "composite scores", true)
+        compositeSS = insertSheetIfNotExist(SS, 'composite scores', true)
         if (compositeSS !== null) {
             compositeSS.clear()
         }
 
-        indicatorSS = insertSheetIfNotExist(SS, "indicator scores", true)
+        indicatorSS = insertSheetIfNotExist(SS, 'indicator scores', true)
         if (indicatorSS !== null) {
             indicatorSS.clear()
         }
-
     }
-
 
     lastRowR = lastRowS = lastRowL = lastRowC = lastRowI = 1
 
     for (mainStepNr = firstScoringStep; mainStepNr <= maxScoringStep; mainStepNr++) {
-
         // console.log("DEBUG - " + mainStepNr)
         MainStep = ResearchSteps.researchSteps[mainStepNr]
 
@@ -96,56 +94,97 @@ function addDataStoreSingleCompany(SS, Indicators, ResearchSteps, firstScoringSt
             scoringSubStepNr = 0
         }
 
-
         if (MainStep.excludeFromOutputs) {
             continue // i.e. ignore Step 4 Feedback Debate
         }
 
-        if(mainStepNr === 5 && (DataMode === "results" || DataMode==="changes")){continue}
-
+        if (mainStepNr === 5 && (DataMode === 'results' || DataMode === 'changes')) {
+            continue
+        }
 
         for (let subStepNr = 0; subStepNr < MainStep.substeps.length; subStepNr++) {
-
             Substep = MainStep.substeps[subStepNr]
 
-             console.log("--- Main Step : " + mainStepNr)
+            console.log('--- Main Step : ' + mainStepNr)
             // console.log("--- Main Step has " + MainStep.substeps.length + " Substeps")
-            // Logger.log("substepNr====" + subStepNr + ", MainStep.scoring===" + MainStep.scoring)
+            // console.log("substepNr====" + subStepNr + ", MainStep.scoring===" + MainStep.scoring)
 
-            if (DataMode === "results" || DataMode === "changes" || (DataMode === "results" && subStepNr === scoringSubStepNr)) {
-                console.log("MAIN - Beginning Results " + mainStepNr)
-                lastRowR = dataStoreSingleStepResults(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlDC, lastRowR, indexPref,DataMode)
+            if ((DataMode === 'results' && subStepNr === scoringSubStepNr) || DataMode === 'changes') {
+                console.log('MAIN - Beginning Results ' + mainStepNr)
+                lastRowR = dataStoreSingleStepResults(
+                    elementSheet,
+                    Indicators,
+                    Substep,
+                    Company,
+                    hasOpCom,
+                    urlDC,
+                    lastRowR,
+                    indexPref,
+                    DataMode
+                )
                 cropEmptyColumns(elementSheet)
-                console.log("MAIN - Produced Results " + mainStepNr)
+                console.log('MAIN - Produced Results ' + mainStepNr)
+            } else if (DataMode === 'scores' && subStepNr === scoringSubStepNr) {
+                console.log('MAIN - Beginning Scoring ' + mainStepNr)
 
-            } else if (DataMode === "scores" && subStepNr === scoringSubStepNr) {
-
-                console.log("MAIN - Beginning Scoring " + mainStepNr)
-
-                console.log("|----- Element Scores")
-                lastRowS = dataStoreSingleStepElementScoring(elementSheet, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowS, indexPref)
+                console.log('|----- Element Scores')
+                lastRowS = dataStoreSingleStepElementScoring(
+                    elementSheet,
+                    Indicators,
+                    Substep,
+                    Company,
+                    hasOpCom,
+                    urlSC,
+                    lastRowS,
+                    indexPref
+                )
                 cropEmptyColumns(elementSheet)
-                console.log("|----- Element Scores OK")
+                console.log('|----- Element Scores OK')
 
-                console.log("|----- Level Scores")
-                lastRowL = dataStoreSingleStepLevelScoring(levelSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowL, indexPref)
+                console.log('|----- Level Scores')
+                lastRowL = dataStoreSingleStepLevelScoring(
+                    levelSS,
+                    Indicators,
+                    Substep,
+                    Company,
+                    hasOpCom,
+                    urlSC,
+                    lastRowL,
+                    indexPref
+                )
                 cropEmptyColumns(levelSS)
-                console.log("|----- Level Scores OK")
+                console.log('|----- Level Scores OK')
 
-                console.log("|----- Composite Scores")
-                lastRowC = dataStoreSingleStepCompositeScoring(compositeSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowC, indexPref)
+                console.log('|----- Composite Scores')
+                lastRowC = dataStoreSingleStepCompositeScoring(
+                    compositeSS,
+                    Indicators,
+                    Substep,
+                    Company,
+                    hasOpCom,
+                    urlSC,
+                    lastRowC,
+                    indexPref
+                )
                 cropEmptyColumns(compositeSS)
-                console.log("|----- Composite Scores OK")
+                console.log('|----- Composite Scores OK')
 
-
-                console.log("|----- Indicator Scores")
-                lastRowI = dataStoreSingleStepIndicatorScoring(indicatorSS, Indicators, Substep, Company, hasOpCom, integrateOutputs, urlSC, lastRowI, indexPref)
+                console.log('|----- Indicator Scores')
+                lastRowI = dataStoreSingleStepIndicatorScoring(
+                    indicatorSS,
+                    Indicators,
+                    Substep,
+                    Company,
+                    hasOpCom,
+                    urlSC,
+                    lastRowI,
+                    indexPref
+                )
                 cropEmptyColumns(indicatorSS)
-                console.log("|----- Indicator Scores OK")
+                console.log('|----- Indicator Scores OK')
 
-                console.log("MAIN - Ended Scoring " + mainStepNr)
+                console.log('MAIN - Ended Scoring ' + mainStepNr)
             }
-
         } // END SUBSTEP
     } // END MAIN STEP
 }

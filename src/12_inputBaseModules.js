@@ -1,17 +1,23 @@
 // addStepEvaluation creates a dropdown list in each column for each subindicator
 
 /* global
-    Config,
-    indexPrefix,
-    doRepairsOnly,
-    defineNamedRange,
-    checkIndicatorSpecs,
-    checkElementSpecs,
-    makeElementNA
+    Config, indexPrefix, doRepairsOnly, defineNamedRange, checkIndicatorSpecs, checkElementSpecs, makeElementNA
 */
 
-function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRow, mainStepNr, Substep, stepCNr, Category, companyNrOfServices) {
-
+// eslint-disable-next-line no-unused-vars
+function addStepEvaluation(
+    SS,
+    Sheet,
+    Indicator,
+    Company,
+    isNewCompany,
+    activeRow,
+    mainStepNr,
+    Substep,
+    stepCNr,
+    Category,
+    companyNrOfServices
+) {
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(Substep.components[stepCNr].dropdown).build()
 
     let Elements = Indicator.elements
@@ -26,7 +32,7 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
     let rangeStartCol = 1
     let rangeRows, rangeCols
 
-    let Cell, cellID, Element, noteString, cellValue, hasPredecessor, isRevised
+    let Cell, cellID, Element, noteString, cellValue, isNewElement, isRevised
 
     let activeCol
 
@@ -35,11 +41,10 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
     let companyType = Company.type
 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
-
         Element = Elements[elemNr]
         ElementSpecs = checkElementSpecs(Element)
 
-        hasPredecessor = Element.y2yResultRow ? true : false
+        isNewElement = Element.isNew ? true : false
         isRevised = Element.isRevised ? true : false
 
         // row labels
@@ -47,31 +52,30 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
         activeCol = 1
 
         cellValue = StepComp.rowLabel + Element.labelShort
-        noteString = Element.labelShort + ": " + Element.description
-        cellValue += isRevised ? (" (rev.)") : !hasPredecessor ? (" (new)") : ""
+        noteString = Element.labelShort + ': ' + Element.description
+        cellValue += isRevised ? ' (rev.)' : isNewElement ? ' (new)' : ''
 
         // setting up the labels
         Cell = Sheet.getRange(activeRow + elemNr, activeCol)
             .setValue(cellValue)
             .setBackground(Substep.subStepColor)
-            .setFontWeight("bold")
+            .setFontWeight('bold')
             .setNote(noteString)
 
         activeCol += 1
 
         let serviceLabel
-        let serviceType = ""
+        let serviceType = ''
 
-        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
-
+        for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
             // TODO: Switch case
 
             if (serviceNr == 1) {
-                serviceLabel = "group"
-                serviceType = "group"
+                serviceLabel = 'group'
+                serviceType = 'group'
             } else if (serviceNr == 2) {
-                serviceLabel = "opCom"
-                serviceType = "opCom"
+                serviceLabel = 'opCom'
+                serviceType = 'opCom'
             } else {
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
@@ -79,25 +83,30 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
             }
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
-            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(
+                indexPrefix,
+                'DC',
+                Substep.subStepID,
+                Element.labelShort,
+                '',
+                Company.id,
+                serviceLabel,
+                stepCompID
+            )
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
-                cellValue = "N/A"
+                cellValue = 'N/A'
             } else {
-
                 if (serviceNr == 2 && Company.hasOpCom == false) {
-                    cellValue = "N/A" // if no OpCom, pre-select N/A
-
+                    cellValue = 'N/A' // if no OpCom, pre-select N/A
                 } else {
+                    cellValue = 'not selected' // default for drop down list
 
-                    cellValue = "not selected" // default for drop down list
-
-                    if ((hasPredecessor && !isNewCompany) || (mainStepNr > 1 && stepCompID != "YY")) {
+                    if ((!isNewElement && !isNewCompany) || (mainStepNr > 1 && stepCompID != 'YY')) {
                         Cell.setDataValidation(rule)
                     } else {
                         cellValue = isNewCompany ? Config.newCompanyLabelResult : naText
                     }
-
                 }
             }
 
@@ -114,8 +123,8 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
     rangeCols = activeCol
     rangeRows = elementsNr
     Sheet.getRange(rangeStartRow, rangeStartCol + 1, rangeRows, rangeCols)
-        .setFontWeight("bold")
-        .setHorizontalAlignment("center")
+        .setFontWeight('bold')
+        .setHorizontalAlignment('center')
 
     activeRow = activeRow + elementsNr
     return activeRow
@@ -123,8 +132,8 @@ function addStepEvaluation(SS, Sheet, Indicator, Company, isNewCompany, activeRo
 
 // this function creates a cell for comments for each subindicator and names the ranges
 
+// eslint-disable-next-line no-unused-vars
 function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, stepCNr, Category, companyNrOfServices) {
-
     let StepComp = currentStep.components[stepCNr]
     let stepCompID = StepComp.id
 
@@ -161,16 +170,15 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
         let serviceLabel, serviceType
         let cellValue
 
-        for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
-
+        for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
             // TODO: Switch case
 
             if (serviceNr == 1) {
-                serviceLabel = "group"
-                serviceType = "group"
+                serviceLabel = 'group'
+                serviceType = 'group'
             } else if (serviceNr == 2) {
-                serviceLabel = "opCom"
-                serviceType = "opCom"
+                serviceLabel = 'opCom'
+                serviceType = 'opCom'
             } else {
                 let s = serviceNr - 3
                 serviceLabel = Company.services[s].id
@@ -179,16 +187,25 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
             Cell = Sheet.getRange(activeRow + elemNr, activeCol)
 
-            cellID = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, Element.labelShort, "", Company.id, serviceLabel, stepCompID)
+            cellID = defineNamedRange(
+                indexPrefix,
+                'DC',
+                currentStep.subStepID,
+                Element.labelShort,
+                '',
+                Company.id,
+                serviceLabel,
+                stepCompID
+            )
 
             if (makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs)) {
-                cellValue = "N/A"
+                cellValue = 'N/A'
                 if (!doRepairsOnly) {
                     Cell.setValue(cellValue)
                 }
             } else {
                 if (serviceNr == 2 && !Company.hasOpCom) {
-                    cellValue = "N/A"
+                    cellValue = 'N/A'
                     if (!doRepairsOnly) {
                         Cell.setValue(cellValue)
                     }
@@ -197,13 +214,10 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
             SS.setNamedRange(cellID, Cell)
             activeCol += 1
-
         }
     }
 
-    Sheet.getRange(rangeStartRow, rangeStartCol, rangeRows, rangeCols)
-        .setWrap(true)
-        .setVerticalAlignment("top")
+    Sheet.getRange(rangeStartRow, rangeStartCol, rangeRows, rangeCols).setWrap(true).setVerticalAlignment('top')
 
     activeRow = activeRow + indLength
     return activeRow
@@ -211,8 +225,18 @@ function addComments(SS, Sheet, Indicator, Company, activeRow, currentStep, step
 
 // this function adds an element drop down list to a single row
 
-function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, currentStep, stepCNr, Category, companyNrOfServices) {
-
+// eslint-disable-next-line no-unused-vars
+function addBinaryEvaluation(
+    SS,
+    Sheet,
+    currentIndicator,
+    Company,
+    activeRow,
+    currentStep,
+    stepCNr,
+    Category,
+    companyNrOfServices
+) {
     let rule = SpreadsheetApp.newDataValidation().requireValueInList(currentStep.components[stepCNr].dropdown).build()
     let thisStepComponent = currentStep.components[stepCNr]
     let stepCompID = currentStep.components[stepCNr].id
@@ -222,74 +246,91 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
     let cell = Sheet.getRange(activeRow, activeCol)
         .setValue(thisStepComponent.rowLabel)
         .setBackground(currentStep.subStepColor)
-    if (thisStepComponent.type === "binaryEvaluation") {
-        cell.setFontWeight("bold").setFontStyle("italic").setHorizontalAlignment("center").setFontSize(12)
+    if (thisStepComponent.type === 'binaryEvaluation') {
+        cell.setFontWeight('bold').setFontStyle('italic').setHorizontalAlignment('center').setFontSize(12)
     }
     activeCol += 1
 
-    for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) { // (((companyNrOfServices+2)*nrOfIndSubComps)+1)
-
+    for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
         if (serviceNr == 1) {
             // company group
             let Cell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "group", stepCompID)
+            let cellName = defineNamedRange(
+                indexPrefix,
+                'DC',
+                currentStep.subStepID,
+                currentIndicator.labelShort,
+                '',
+                Company.id,
+                'group',
+                stepCompID
+            )
 
             SS.setNamedRange(cellName, Cell)
-            Cell.setDataValidation(rule)
-                .setFontWeight("bold")
+            Cell.setDataValidation(rule).setFontWeight('bold')
 
             if (!doRepairsOnly) {
-                Cell.setValue("not selected")
+                Cell.setValue('not selected')
             }
 
             activeCol += 1
-
         }
 
         // opCom column
         else if (serviceNr == 2) {
-
             let Cell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, "opCom", stepCompID)
+            let cellName = defineNamedRange(
+                indexPrefix,
+                'DC',
+                currentStep.subStepID,
+                currentIndicator.labelShort,
+                '',
+                Company.id,
+                'opCom',
+                stepCompID
+            )
 
             SS.setNamedRange(cellName, Cell)
-            Cell.setDataValidation(rule)
-                .setFontWeight("bold")
+            Cell.setDataValidation(rule).setFontWeight('bold')
 
             if (!doRepairsOnly) {
-                Cell.setValue("not selected")
+                Cell.setValue('not selected')
             }
 
             activeCol += 1
-
         }
 
         // service columns
         else {
-
             let s = serviceNr - 3
 
             let Cell = Sheet.getRange(activeRow, activeCol)
 
-            let cellName = defineNamedRange(indexPrefix, "DC", currentStep.subStepID, currentIndicator.labelShort, "", Company.id, Company.services[s].id, stepCompID)
+            let cellName = defineNamedRange(
+                indexPrefix,
+                'DC',
+                currentStep.subStepID,
+                currentIndicator.labelShort,
+                '',
+                Company.id,
+                Company.services[s].id,
+                stepCompID
+            )
 
             SS.setNamedRange(cellName, Cell)
-            Cell.setDataValidation(rule)
-                .setFontWeight("bold")
+            Cell.setDataValidation(rule).setFontWeight('bold')
 
             if (!doRepairsOnly) {
-                Cell.setValue("not selected")
+                Cell.setValue('not selected')
             }
 
             activeCol += 1
         }
     }
 
-    Sheet.getRange(activeRow, 2, 1, activeCol)
-        .setFontWeight("bold")
-        .setHorizontalAlignment("center")
+    Sheet.getRange(activeRow, 2, 1, activeCol).setFontWeight('bold').setHorizontalAlignment('center')
 
     return activeRow + 1
 }
@@ -298,6 +339,7 @@ function addBinaryEvaluation(SS, Sheet, currentIndicator, Company, activeRow, cu
 
 // the sources step adds a single row in which the sources of each column can be listed
 
+// eslint-disable-next-line no-unused-vars
 function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, Category, companyNrOfServices) {
     let activeCol = 1
 
@@ -309,54 +351,76 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
     Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(Substep.components[stepCNr].rowLabel)
         .setBackground(Substep.subStepColor)
-    Cell.setNote("Sources: reference, specific page, section, etc.")
+    Cell.setNote('Sources: reference, specific page, section, etc.')
     activeCol += 1
 
-    for (let serviceNr = 1; serviceNr < (companyNrOfServices + 3); serviceNr++) {
-
+    for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
         // TODO: fix Cell reference for OpCom
 
         if (serviceNr == 1) {
             // main company
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "group", stepCompID)
+            cellID = defineNamedRange(
+                indexPrefix,
+                'DC',
+                Substep.subStepID,
+                Indicator.labelShort,
+                '',
+                Company.id,
+                'group',
+                stepCompID
+            )
 
             SS.setNamedRange(cellID, Cell)
 
             activeCol += 1
-
-
         } else if (serviceNr == 2) {
             // opCom
             Cell = Sheet.getRange(activeRow, activeCol)
 
-            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, "opCom", stepCompID)
+            cellID = defineNamedRange(
+                indexPrefix,
+                'DC',
+                Substep.subStepID,
+                Indicator.labelShort,
+                '',
+                Company.id,
+                'opCom',
+                stepCompID
+            )
 
             SS.setNamedRange(cellID, Cell)
 
             if (!Company.hasOpCom) {
-                Cell.setValue("N/A")
+                Cell.setValue('N/A')
             }
 
             activeCol += 1
-
         } else {
             // services
             Cell = Sheet.getRange(activeRow, activeCol)
 
             let g = serviceNr - 3 // helper for Services
 
-            cellID = defineNamedRange(indexPrefix, "DC", Substep.subStepID, Indicator.labelShort, "", Company.id, Company.services[g].id, stepCompID)
+            cellID = defineNamedRange(
+                indexPrefix,
+                'DC',
+                Substep.subStepID,
+                Indicator.labelShort,
+                '',
+                Company.id,
+                Company.services[g].id,
+                stepCompID
+            )
 
             SS.setNamedRange(cellID, Cell)
 
             activeCol += 1
         }
-
     }
 
-    Sheet.getRange(activeRow, 2, 1, activeCol).setHorizontalAlignment("center")
+    Sheet.getRange(activeRow, 2, 1, activeCol).setHorizontalAlignment('center')
 
     return activeRow + 1
 }

@@ -4,7 +4,18 @@
     defineNamedRange
 */
 
-function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, MainStep, layoutWidth, companyWidth, activeRow, offsetCol, outputParams) {
+function appendFeedbackSection(
+    Sheet,
+    Company,
+    Indicator,
+    indyLabel,
+    MainStep,
+    layoutWidth,
+    companyWidth,
+    activeRow,
+    offsetCol,
+    outputParams
+) {
     // Results Section Header
 
     let mainStepNr = MainStep.step
@@ -19,84 +30,184 @@ function appendFeedbackSection(Sheet, Company, Indicator, indyLabel, MainStep, l
 
     let omitOpCom = false
 
-    StyleSpecs = returnFBStyleParams("mainSection")
-    activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, layoutWidth, StyleSpecs)
+    StyleSpecs = returnFBStyleParams('mainSection')
+    activeRow = appendFBSectionHeader(
+        Sheet,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        StyleSpecs
+    )
 
     // Company Column Labels Header
-    activeRow = appendFBCompanyHeader(Sheet, Indicator, activeRow, offsetCol, layoutWidth, companyWidth, Company, indyLabel)
+    activeRow = appendFBCompanyHeader(
+        Sheet,
+        Indicator,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        companyWidth,
+        Company,
+        indyLabel
+    )
 
     // Results Block
     // activeRow = appendFBRowsOld(Sheet, Company, Indicator, SubStep, companyWidth, activeRow, offsetCol)
-    contentTypes.push("reviewResults")
-    contentTypes.push("reviewComments")
+    contentTypes.push('reviewResults')
+    contentTypes.push('reviewComments')
     includeSourcesRow = true
 
-
-    activeRow = appendFBRows(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, contentTypes, includeSourcesRow, layoutWidth, companyWidth, activeRow, offsetCol, omitOpCom)
+    activeRow = appendFBRows(
+        Sheet,
+        Company,
+        Indicator,
+        SubStep,
+        mainStepNr,
+        subStepNr,
+        contentTypes,
+        includeSourcesRow,
+        layoutWidth,
+        companyWidth,
+        activeRow,
+        offsetCol,
+        omitOpCom
+    )
 
     // Year-on-Year Text Block
 
-    StyleSpecs = returnFBStyleParams("yearOnYearSection")
-    activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, layoutWidth, StyleSpecs)
+    StyleSpecs = returnFBStyleParams('yearOnYearSection')
+    activeRow = appendFBSectionHeader(
+        Sheet,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        StyleSpecs
+    )
 
-    activeRow = addFBExtraInstruction(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs)
+    activeRow = addFBExtraInstruction(
+        Sheet,
+        Indicator,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        StyleSpecs
+    )
 
     subStepNr = outputParams.feedbackSubstepYonYComments
     SubStep = MainStep.substeps[subStepNr]
 
     contentTypes = []
-    contentTypes.push("comments")
+    contentTypes.push('comments')
     includeSourcesRow = false
 
-    activeRow = appendFBRows(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, contentTypes, includeSourcesRow, layoutWidth, companyWidth, activeRow, offsetCol, omitOpCom)
+    activeRow = appendFBRows(
+        Sheet,
+        Company,
+        Indicator,
+        SubStep,
+        mainStepNr,
+        subStepNr,
+        contentTypes,
+        includeSourcesRow,
+        layoutWidth,
+        companyWidth,
+        activeRow,
+        offsetCol,
+        omitOpCom
+    )
 
     // let extraLink = "=VLOOKUP(\"" + Indicator.labelShort + "\",'" + outputParams.yearOnYearHelperTabName + "'!A2:B,2,TRUE)"
 
     // activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs, extraLink)
 
     // Company Feedback Block
-    StyleSpecs = returnFBStyleParams("feedbackBoxSection")
-    activeRow = appendFBSectionHeader(Sheet, activeRow, offsetCol, layoutWidth, StyleSpecs)
+    StyleSpecs = returnFBStyleParams('feedbackBoxSection')
+    activeRow = appendFBSectionHeader(
+        Sheet,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        StyleSpecs
+    )
 
-    activeRow = addFBExtraInstruction(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs)
+    activeRow = addFBExtraInstruction(
+        Sheet,
+        Indicator,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        StyleSpecs
+    )
 
-    activeRow = addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs, false)
+    activeRow = addFreeTextBox(
+        Sheet,
+        Indicator,
+        activeRow,
+        offsetCol,
+        layoutWidth,
+        StyleSpecs,
+        false
+    )
 
     return activeRow + 2
 }
 
-function appendFBSectionHeader(Sheet, activeRow, offsetCol, layoutWidth, StyleSpecs) {
-
+function appendFBSectionHeader(
+    Sheet,
+    activeRow,
+    offsetCol,
+    layoutWidth,
+    StyleSpecs
+) {
     let Range = Sheet.getRange(activeRow, offsetCol, 1, layoutWidth + 1)
 
     Range.setValue(StyleSpecs.label)
         .merge()
-        .setHorizontalAlignment("center")
-        .setVerticalAlignment("middle")
+        .setHorizontalAlignment('center')
+        .setVerticalAlignment('middle')
         .setBackground(StyleSpecs.backColor)
-        .setFontColor(StyleSpecs.fontColor || "black")
+        .setFontColor(StyleSpecs.fontColor || 'black')
         .setFontSize(14)
-        .setFontWeight("bold")
-        .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.DOTTED)
+        .setFontWeight('bold')
+        .setBorder(
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            'black',
+            SpreadsheetApp.BorderStyle.DOTTED
+        )
 
     Sheet.setRowHeight(activeRow, 40)
 
     return activeRow + 2
 }
 
-function appendFBCompanyHeader(Sheet, Indicator, activeRow, offsetCol, layoutWidth, companyWidth, Company, indyLabel) {
-
+function appendFBCompanyHeader(
+    Sheet,
+    Indicator,
+    activeRow,
+    offsetCol,
+    layoutWidth,
+    companyWidth,
+    Company,
+    indyLabel
+) {
     let activeCol = offsetCol
 
     let Cell
 
     // first cell: MainStep Label
-    Sheet.getRange(activeRow, activeCol)
-        .setValue(indyLabel)
+    Sheet.getRange(activeRow, activeCol).setValue(indyLabel)
 
     activeCol += 1
 
-    if (Indicator.scoringScope === "full" || Indicator.scoringScope === "company") {
+    if (
+        Indicator.scoringScope === 'full' ||
+        Indicator.scoringScope === 'company'
+    ) {
         // Company (group) column(s)
         Cell = Sheet.getRange(activeRow, activeCol)
             // .setValue("Group")
@@ -114,32 +225,43 @@ function appendFBCompanyHeader(Sheet, Indicator, activeRow, offsetCol, layoutWid
 
             activeCol += 1
         }
-
     }
 
-    if (Indicator.scoringScope === "full" || Indicator.scoringScope === "services") {
-
+    if (
+        Indicator.scoringScope === 'full' ||
+        Indicator.scoringScope === 'services'
+    ) {
         // for remaining columns (services)
         for (let i = 0; i < Company.services.length; i++) {
-            Sheet.getRange(activeRow, activeCol)
-                .setValue(Company.services[i].label.current)
+            Sheet.getRange(activeRow, activeCol).setValue(
+                Company.services[i].label.current
+            )
             activeCol += 1
         }
-
     }
 
     Sheet.setRowHeight(activeRow, 30)
 
     Sheet.getRange(activeRow, offsetCol, 1, layoutWidth + 1)
-        .setFontWeight("bold")
-        .setVerticalAlignment("middle")
-        .setHorizontalAlignment("center")
+        .setFontWeight('bold')
+        .setVerticalAlignment('middle')
+        .setHorizontalAlignment('center')
         .setFontSize(12)
         .setWrap(true)
-        .setBorder(false, false, true, false, false, true, "black", SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
+        .setBorder(
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            'black',
+            SpreadsheetApp.BorderStyle.SOLID_MEDIUM
+        )
 
-    Sheet.getRange(activeRow, offsetCol + 1, 1, layoutWidth)
-        .setBackground("#fff2cc")
+    Sheet.getRange(activeRow, offsetCol + 1, 1, layoutWidth).setBackground(
+        '#fff2cc'
+    )
 
     // if (Config.freezeHead) {
     //     Sheet.setFrozenRows(activeRow) // freezes rows; define in config.json
@@ -150,34 +272,100 @@ function appendFBCompanyHeader(Sheet, Indicator, activeRow, offsetCol, layoutWid
 
 // TODO: one generic function to rowwise import Element-level results or Element-level comments by named range from Input Sheet Step 3.2
 
-function appendFBRows(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, contentTypes, includeSourcesRow, layoutWidth, companyWidth, activeRow, offsetCol, omitOpCom) {
-
+function appendFBRows(
+    Sheet,
+    Company,
+    Indicator,
+    SubStep,
+    mainStepNr,
+    subStepNr,
+    contentTypes,
+    includeSourcesRow,
+    layoutWidth,
+    companyWidth,
+    activeRow,
+    offsetCol,
+    omitOpCom
+) {
     let startRow, endRow, block
 
     startRow = activeRow
 
-    contentTypes.forEach(contentType =>
-        activeRow = importContentBlock(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, contentType, activeRow, offsetCol, omitOpCom, layoutWidth, companyWidth))
+    contentTypes.forEach(
+        (contentType) =>
+            (activeRow = importContentBlock(
+                Sheet,
+                Company,
+                Indicator,
+                SubStep,
+                mainStepNr,
+                subStepNr,
+                contentType,
+                activeRow,
+                offsetCol,
+                omitOpCom,
+                layoutWidth,
+                companyWidth
+            ))
+    )
 
     if (includeSourcesRow) {
-        activeRow = importContentRow(Sheet, Company, Indicator, SubStep, mainStepNr, subStepNr, "sources", activeRow, offsetCol, omitOpCom, layoutWidth, companyWidth)
+        activeRow = importContentRow(
+            Sheet,
+            Company,
+            Indicator,
+            SubStep,
+            mainStepNr,
+            subStepNr,
+            'sources',
+            activeRow,
+            offsetCol,
+            omitOpCom,
+            layoutWidth,
+            companyWidth
+        )
     }
 
     endRow = activeRow
 
-    block = Sheet.getRange(startRow, offsetCol, endRow - startRow, layoutWidth + 1)
-        .setVerticalAlignment("top")
-        .setBorder(true, null, true, null, null, null, "black", SpreadsheetApp.BorderStyle.SOLID)
+    block = Sheet.getRange(
+        startRow,
+        offsetCol,
+        endRow - startRow,
+        layoutWidth + 1
+    )
+        .setVerticalAlignment('top')
+        .setBorder(
+            true,
+            null,
+            true,
+            null,
+            null,
+            null,
+            'black',
+            SpreadsheetApp.BorderStyle.SOLID
+        )
         .setFontSize(10)
 
-    block = Sheet.getRange(startRow, offsetCol + 1, endRow - startRow, layoutWidth)
-        .setWrap(true)
+    block = Sheet.getRange(
+        startRow,
+        offsetCol + 1,
+        endRow - startRow,
+        layoutWidth
+    ).setWrap(true)
 
     return activeRow + 1
 }
 
-function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs, extraLink) {
-
+function addFreeTextBox(
+    Sheet,
+    Indicator,
+    activeRow,
+    offsetCol,
+    layoutWidth,
+    StyleSpecs,
+    extraLink
+) {
     let rowLabel = Indicator.labelShort + StyleSpecs.rowLabel
 
     let Cell
@@ -187,51 +375,67 @@ function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, layoutWidth, Sty
     Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(rowLabel)
         .setBackground(StyleSpecs.backColor)
-        .setFontWeight("bold")
+        .setFontWeight('bold')
         .setFontSize(13)
-        .setHorizontalAlignment("center")
-        .setVerticalAlignment("middle")
+        .setHorizontalAlignment('center')
+        .setVerticalAlignment('middle')
         .setWrap(true)
 
     Sheet.setRowHeight(activeRow, StyleSpecs.contentRowHeight)
 
     // Optional Row Label
     if (StyleSpecs.extraRow) {
-
         Sheet.getRange(activeRow + 1, activeCol)
             .setValue(StyleSpecs.extraRowLabel)
             .setBackground(StyleSpecs.backColor)
-            .setFontWeight("bold")
+            .setFontWeight('bold')
             .setFontSize(12)
-            .setHorizontalAlignment("center")
-            .setVerticalAlignment("middle")
+            .setHorizontalAlignment('center')
+            .setVerticalAlignment('middle')
             .setWrap(true)
     }
 
     // Main Row Content
     activeCol += 1
 
-    let cellValue = extraLink ? extraLink : ""
-    Sheet.getRange(activeRow, activeCol, 1, layoutWidth).merge()
+    let cellValue = extraLink ? extraLink : ''
+    Sheet.getRange(activeRow, activeCol, 1, layoutWidth)
+        .merge()
         .setValue(cellValue)
         .setFontSize(12)
-        .setHorizontalAlignment("left")
-        .setVerticalAlignment("top")
+        .setHorizontalAlignment('left')
+        .setVerticalAlignment('top')
 
-    Sheet.getRange(activeRow, offsetCol, 1, layoutWidth + 1)
-        .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.DOTTED)
+    Sheet.getRange(activeRow, offsetCol, 1, layoutWidth + 1).setBorder(
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        'black',
+        SpreadsheetApp.BorderStyle.DOTTED
+    )
 
     // Optional Row Content
 
     if (StyleSpecs.extraRow) {
-
-        Sheet.getRange(activeRow + 1, activeCol, 1, layoutWidth).merge()
+        Sheet.getRange(activeRow + 1, activeCol, 1, layoutWidth)
+            .merge()
             .setFontSize(12)
-            .setHorizontalAlignment("left")
-            .setVerticalAlignment("top")
+            .setHorizontalAlignment('left')
+            .setVerticalAlignment('top')
 
-        Sheet.getRange(activeRow + 1, offsetCol, 1, layoutWidth + 1)
-            .setBorder(true, true, true, true, false, false, "black", SpreadsheetApp.BorderStyle.DOTTED)
+        Sheet.getRange(activeRow + 1, offsetCol, 1, layoutWidth + 1).setBorder(
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            'black',
+            SpreadsheetApp.BorderStyle.DOTTED
+        )
 
         activeRow += 1
     }
@@ -239,16 +443,22 @@ function addFreeTextBox(Sheet, Indicator, activeRow, offsetCol, layoutWidth, Sty
     return activeRow + 2
 }
 
-function addFBExtraInstruction(Sheet, Indicator, activeRow, offsetCol, layoutWidth, StyleSpecs) {
-
+function addFBExtraInstruction(
+    Sheet,
+    Indicator,
+    activeRow,
+    offsetCol,
+    layoutWidth,
+    StyleSpecs
+) {
     Sheet.getRange(activeRow, offsetCol + 1, 1, 3)
         .merge()
         .setValue(StyleSpecs.extraInstructionFB)
         // .setBackground(StyleSpecs.backColor)
-        .setFontStyle("italic")
+        .setFontStyle('italic')
         .setFontSize(13)
-        .setHorizontalAlignment("left")
-        .setVerticalAlignment("middle")
+        .setHorizontalAlignment('left')
+        .setVerticalAlignment('middle')
         .setWrap(true)
 
     return activeRow + 2

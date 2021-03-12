@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 function inspectInputSheet(SS, ListSheet) {
-
     let namedRangesRaw = SS.getNamedRanges()
     console.log(`Length of Named Ranges received: ${namedRangesRaw.length}`)
 
@@ -8,20 +7,19 @@ function inspectInputSheet(SS, ListSheet) {
 
     let indicator, step, range, rangeVal, rangeName
 
-    let regexInd = new RegExp("[G|F|P]\\d+[a-z]?")
-    let regexStep = new RegExp("S\\d{3}")
+    let regexInd = new RegExp('[G|F|P]\\d+[a-z]?')
+    let regexStep = new RegExp('S\\d{3}')
 
-    console.log("processing")
+    console.log('processing')
 
-    namedRangesRaw = namedRangesRaw.filter(namedRange =>
-        namedRange.getRange().getA1Notation() === "#REF!")
+    namedRangesRaw = namedRangesRaw.filter(
+        (namedRange) => namedRange.getRange().getA1Notation() === '#REF!'
+    )
 
-    console.log("Filtered Named Ranges: " + namedRangesRaw.length)
+    console.log('Filtered Named Ranges: ' + namedRangesRaw.length)
 
     if (namedRangesRaw.length > 0) {
-
-        namedRangesRaw.forEach(namedRange => {
-
+        namedRangesRaw.forEach((namedRange) => {
             range = namedRange.getRange()
             rangeVal = range.getA1Notation()
 
@@ -30,13 +28,12 @@ function inspectInputSheet(SS, ListSheet) {
             step = rangeName.match(regexStep)
 
             namedRanges.push([
-                ["|------"],
+                ['|------'],
                 [indicator],
                 [step],
                 [rangeName],
-                [rangeVal]
+                [rangeVal],
             ])
-
         })
     }
 
@@ -44,9 +41,13 @@ function inspectInputSheet(SS, ListSheet) {
         namedRanges = namedRanges.sort()
         let width = namedRanges[0].length
         let height = namedRanges.length
-        ListSheet.getRange(ListSheet.getLastRow() + 1, 1, height, width).setValues(namedRanges)
+        ListSheet.getRange(
+            ListSheet.getLastRow() + 1,
+            1,
+            height,
+            width
+        ).setValues(namedRanges)
     } else {
-        ListSheet.appendRow(["| --- |", "OK"])
+        ListSheet.appendRow(['| --- |', 'OK'])
     }
-
 }

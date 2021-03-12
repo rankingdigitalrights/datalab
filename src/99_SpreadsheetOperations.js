@@ -1,15 +1,7 @@
 // --- File-level connection helper function  --- //
 
 /* global
-    rootFolderID,
-    doRepairsOnly,
-    outputFolderName,
-    assignFolderEditors,
-    assignFolderOwner,
-    assignFileEditors,
-    assignFileOwner,
-    createNewFolder,
-    printParentFolders
+    Config, rootFolderID, doRepairsOnly, outputFolderName, createNewFolder, addNewStep
 */
 
 // Connect by Spreadsheet name //
@@ -18,7 +10,7 @@
 // Main Test Caller //
 
 function mainTestConnectionByName() {
-    var spreadsheetName = "verizon test"
+    var spreadsheetName = 'verizon test'
     createSpreadsheet(spreadsheetName, false)
 }
 
@@ -26,14 +18,18 @@ function mainTestConnectionByID() {
     openSpreadsheetByID(spreadsheetID)
 }
 
-function copyMasterSpreadsheet(masterFileId, outputFolderId, outputFilename, makeDataOwner) {
-
+function copyMasterSpreadsheet(
+    masterFileId,
+    outputFolderId,
+    outputFilename,
+    makeDataOwner
+) {
     let MasterFile = DriveApp.getFileById(masterFileId)
     let outputFolder = DriveApp.getFolderById(outputFolderId)
     let newFile = MasterFile.makeCopy(outputFilename, outputFolder)
     if (makeDataOwner) {
-        newFile.setOwner(centralConfig.dataOwner)
-        newFile.addEditors(centralConfig.devs)
+        newFile.setOwner(Config.dataOwner)
+        newFile.addEditors(Config.devs)
     }
     let SS = openSpreadsheetByID(newFile.getId())
     return SS
@@ -45,7 +41,6 @@ function copyMasterSpreadsheet(masterFileId, outputFolderId, outputFilename, mak
 // --> separation of concerns AND explicit action where needed
 
 function createSpreadsheet(spreadsheetName, createNewFile) {
-
     let Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
 
     let SS = null
@@ -55,14 +50,20 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
     // --- create new SS
     // --- else return null
     // else
-    // if SS exists --> return SS
+    // return existing SS
 
     if (!Spreadsheets.hasNext()) {
-
-        Logger.log(spreadsheetName + " does not exist!")
+        console.log(spreadsheetName + ' does not exist!')
 
         if (createNewFile) {
-            Logger.log("--- --- START: creating " + spreadsheetName + " in " + rootFolderID + "/" + outputFolderName)
+            console.log(
+                '--- --- START: creating ' +
+                    spreadsheetName +
+                    ' in ' +
+                    rootFolderID +
+                    '/' +
+                    outputFolderName
+            )
 
             // TODO: add tests whether script (user?) can access folders
             let folderID = createNewFolder(rootFolderID, outputFolderName)
@@ -70,34 +71,35 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
             let resource = {
                 title: spreadsheetName,
                 mimeType: MimeType.GOOGLE_SHEETS,
-                parents: [{
-                    id: folderID
-                }]
+                parents: [
+                    {
+                        id: folderID,
+                    },
+                ],
             }
 
-            // Logger.log(resource.parents.id)
+            // console.log(resource.parents.id)
             let fileJson = Drive.Files.insert(resource)
 
             let fileId = fileJson.id
 
             let File = DriveApp.getFileById(fileId)
-            File.setOwner("data@rankingdigitalrights.org")
+            File.setOwner(Config.dataOwner)
             let path = printParentFolders(File)
-            Logger.log("new Speadsheet fileID: " + fileId)
-            Logger.log("File Path: " + path)
+            console.log('new Speadsheet fileID: ' + fileId)
+            console.log('File Path: ' + path)
             SS = openSpreadsheetByID(fileId)
-
         } else {
             SS = null
-            Logger.log(spreadsheetName + " does not exist and NOT creating a new file")
+            console.log(
+                spreadsheetName + ' does not exist and NOT creating a new file'
+            )
         }
-
     } else {
-
         // Only do for first Spreadsheet element
         SS = Spreadsheets.next()
-        Logger.log("File " + SS.getName() + " exists")
-        Logger.log("locally connected to: " + SS.getName())
+        console.log('File ' + SS.getName() + ' exists')
+        console.log('locally connected to: ' + SS.getName())
 
         SS = SpreadsheetApp.open(SS)
     }
@@ -109,34 +111,29 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
 // more accurate then by name //
 
 function openSpreadsheetByID(ID) {
-
     let SS = SpreadsheetApp.openById(ID)
-    Logger.log("|---- locally connected to: " + SS.getName())
+    console.log('|---- locally connected to: ' + SS.getName())
     return SS
-
 }
-
 
 // Helper Function to overwrite Sheet in Spreadsheet if it is already existing
 
 function insertSheetIfNotExist(SS, sheetName, overWriteSheet, sheetPos) {
-
-    let positon = sheetPos || SS.getNumSheets() + 1
+    let position = sheetPos || SS.getNumSheets() + 1
     let Sheet = SS.getSheetByName(sheetName)
     if (!Sheet) {
-        Sheet = SS.insertSheet(sheetName, positon)
+        Sheet = SS.insertSheet(sheetName, position)
     } else {
-
-        Logger.log("WARN: " + "Sheet for " + sheetName + " already exists ")
+        console.log('WARN: ' + 'Sheet for ' + sheetName + ' already exists ')
 
         if (overWriteSheet) {
-            Logger.log("|--- Overwriting " + sheetName)
+            console.log('|--- Overwriting ' + sheetName)
         } else {
             if (doRepairsOnly || addNewStep) {
-                console.log("Repairing / Updating / Extending " + sheetName)
+                console.log('Repairing / Updating / Extending ' + sheetName)
             } else {
                 Sheet = null
-                Logger.log("|--- Skipping " + sheetName)
+                console.log('|--- Skipping ' + sheetName)
             }
         }
     }
@@ -144,7 +141,6 @@ function insertSheetIfNotExist(SS, sheetName, overWriteSheet, sheetPos) {
 }
 
 function moveHideSheetifExists(SS, Sheet, posInt) {
-
     if (!posInt) {
         posInt = 1
     }
@@ -156,7 +152,6 @@ function moveHideSheetifExists(SS, Sheet, posInt) {
 }
 
 function moveSheetifExists(SS, Sheet, posInt) {
-
     if (!posInt) {
         posInt = 1
     }
@@ -171,18 +166,8 @@ function moveSheetToPos(SS, Sheet, posInt) {
     SS.moveActiveSheet(posInt)
 }
 
-function importRangeFormula(url, range, integrateOutputs) {
-
-    //Logger.log("importRangeFormula:"+url)
-
-    let formula
-    if (integrateOutputs) {
-        formula = "=" + range
-    } else {
-        formula = "=IMPORTRANGE(\"" + url + "\",\"" + range + "\")"
-        formula = formula.toString()
-    }
-    return formula
+function importRangeFormula(url, range) {
+    return `=IMPORTRANGE("${url}","${range}")`
 }
 
 // Sheets have unique Names, so no iteration
@@ -190,7 +175,7 @@ function getSheetByName(SS, Sheetname) {
     let Sheet
     if (!SS.getSheetByName(Sheetname)) {
         Sheet = null
-        Logger.log("Sheet " + Sheetname + " not found.")
+        console.log('Sheet ' + Sheetname + ' not found.')
     } else {
         Sheet = SS.getSheetByName(Sheetname)
     }
@@ -198,7 +183,7 @@ function getSheetByName(SS, Sheetname) {
 }
 
 function removeEmptySheet(SS) {
-    let emptySheet = SS.getSheetByName("Sheet1")
+    let emptySheet = SS.getSheetByName('Sheet1')
 
     if (emptySheet) {
         SS.deleteSheet(emptySheet)
@@ -213,24 +198,26 @@ function resizeSheet(Sheet, newRows) {
     }
 }
 
-function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, rowLabel, linkedRange, stepcolor) {
-
+function injectInputRows(
+    Sheet,
+    position,
+    nrOfRows,
+    contentWidth,
+    rowOffset,
+    rowLabel,
+    linkedRange,
+    stepcolor
+) {
     Sheet.insertRows(position, nrOfRows)
-
-    let rangeLabel, rangeContent, rangeID
-
-    rangeLabel = Sheet
-        .getRange(position + rowOffset, 1, 1, 1)
+    Sheet.getRange(position + rowOffset, 1, 1, 1)
         .setValue(rowLabel)
         .setBackground(stepcolor)
-        .setFontWeight("bold")
+        .setFontWeight('bold')
         .setFontSize(11)
-        .setHorizontalAlignment("center")
-        .setVerticalAlignment("middle")
+        .setHorizontalAlignment('center')
+        .setVerticalAlignment('middle')
 
-    rangeContent = Sheet
-        .getRange(position + rowOffset, 2, 1, contentWidth)
+    Sheet.getRange(position + rowOffset, 2, 1, contentWidth)
         .merge()
         .setValue(`=${linkedRange}`)
-
 }

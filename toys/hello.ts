@@ -4,5 +4,5 @@ const greeter = (person: string) => {
 
 function testGreeter() {
     const user = 'Grant';
-    Logger.log(greeter(user));
+    console.log(greeter(user));
 }

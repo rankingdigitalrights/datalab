@@ -1,34 +1,16 @@
-// --- Spreadsheet Casting: Company Data Collection Sheet --- //
+/** Spreadsheet Casting: Company Data Collection Sheet */
 
 /* global 
-Config,
-startAtMainStepNr,
-doRepairsOnly,
-updateProduction,
-includeFeedback,
-insertFeedbackSheet,
-IndicatorsObj,
-researchStepsVector,
-spreadSheetFileName,
-createSpreadsheet,
-insertPointValidationSheet,
-cleanCompanyName,
-addSetOfScoringSteps
-insertSheetIfNotExist,
-moveHideSheetifExists,
-removeEmptySheet,
-fillPrevOutcomeSheet,
-produceSourceSheet,
-populateDCSheetByCategory
+    Config, addNewStep, startAtMainStepNr, doRepairsOnly, updateProduction, includeFeedback, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadsheet, cleanCompanyName, insertSheetIfNotExist, removeEmptySheet, produceSourceSheet, populateDCSheetByCategory, insertCompanyFeedbackSheet, fillSheetWithImportRanges
 */
 
-function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
-
-    Logger.log("PROCESS: begin main DC --- // ---")
+// eslint-disable-next-line no-unused-vars
+function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
+    console.log('PROCESS: begin main DC --- // ---')
 
     let companyShortName = cleanCompanyName(Company)
 
-    Logger.log("--- // --- creating " + mainSheetMode + " Spreadsheet for " + companyShortName + " --- // ---")
+    console.log('--- // --- creating ' + mainSheetMode + ' Spreadsheet for ' + companyShortName + ' --- // ---')
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
@@ -37,9 +19,8 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
     let doCollapseAll = Config.collapseAllGroups
-    // let integrateOutputs = Config.integrateOutputs // old Pilot feature
     let importedOutcomeTabName = Config.prevYearOutcomeTab
-    let importedSourcesTabName = "2019 Sources" // TODO: Config
+    let importedSourcesTabName = Config.prevYearSourcesTab
 
     let includeRGuidanceLink = Config.includeRGuidanceLink
     let collapseRGuidance = Config.collapseRGuidance
@@ -54,69 +35,68 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
 
     // HOOK: Override for local development
 
-    let SS = (!doRepairsOnly && !updateProduction) ? createSpreadsheet(spreadsheetName, true) :
-        SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
+    let SS =
+        !doRepairsOnly && !updateProduction
+            ? createSpreadsheet(spreadsheetName, true)
+            : SpreadsheetApp.openById(Company.urlCurrentInputSheet)
 
     let fileID = SS.getId()
 
-    Logger.log("SS ID: " + fileID)
+    console.log('SS ID: ' + fileID)
     // --- // add previous year's outcome sheet // --- //
 
     // Formula for importing previous year's outcome
     let externalFormula
 
-    let tabPrevYearsOutcome = (Company.tabPrevYearsOutcome != null) ? Company.tabPrevYearsOutcome : "VodafoneOutcome"
-
-    let tabPrevYearsSources = (Company.tabPrevYearsOutcome != null) ? (companyShortName + "Sources") : "VodafoneSources"
-
+    let tabPrevOutcome = 'Outcome'
+    let tabPrevSources = importedSourcesTabName
     let sourcesTabName = Config.sourcesTabName
 
     let Sheet
 
     // if set in Config, import previous Index Outcome & Sources
-    if (Config.YearOnYear && !doRepairsOnly && !addNewStep) {
-
-        // Previous OUTCOME
-        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearResults + "\",\"" + tabPrevYearsOutcome + "!" + "A:Z" + "\")"
+    if (Config.importPrevOutcome && !doRepairsOnly && !addNewStep) {
+        // Previous OUTCOME: Labels Column, Results Column
+        externalFormula = [
+            `=IMPORTRANGE("${Company.urlPrevOutputSheet}","${tabPrevOutcome}!A:A")`,
+            `=IMPORTRANGE("${Company.urlPrevOutputSheet}","${tabPrevOutcome}!${Company.columnPrevOutcomeStart}:${Company.columnPrevOutcomeEnd}")`,
+        ]
 
         // Import only once; hard copy; do not overwrite
         Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
 
         if (Sheet !== null) {
-            fillPrevOutcomeSheet(Sheet, importedOutcomeTabName, externalFormula)
+            fillSheetWithImportRanges(Sheet, importedOutcomeTabName, externalFormula)
         }
 
         // Previous SOURCES
-        externalFormula = "=IMPORTRANGE(\"" + Config.urlPreviousYearSources + "\",\"" + tabPrevYearsSources + "!" + "A:Z" + "\")"
+        externalFormula = [`=IMPORTRANGE("${Company.urlPrevInputSheet}","${tabPrevSources}!A:Z")`]
 
         // Import only once; hard copy; do not overwrite
         Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false)
         if (Sheet !== null) {
-            fillPrevOutcomeSheet(Sheet, importedSourcesTabName, externalFormula)
+            fillSheetWithImportRanges(Sheet, importedSourcesTabName, externalFormula)
             produceSourceSheet(Sheet, false)
-
         }
-
     }
 
     // --- // creates sources page // --- //
-    if (!doRepairsOnly) {
+    if (!doRepairsOnly && !addNewStep) {
         Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
-        if (Sheet !== null && !doRepairsOnly && !addNewStep) {
+        if (Sheet !== null) {
             produceSourceSheet(Sheet, true)
         }
     }
 
     // -- // For Company Feedback Steps // --- //
     if (includeFeedback && !doRepairsOnly) {
-        let doOverwrite = false // flag for overwriting or not
-        console.log("producing / updating Feedback Tab")
-        insertCompanyFeedbackSheet(SS, Config.feedbackForms.compFeedbackSheetName, Company, Indicators, doOverwrite)
-        console.log("Feedback Tab produced / updated")
+        let updateSheet = false // flag for overwriting or not
+        console.log('producing / updating Feedback Tab')
+        insertCompanyFeedbackSheet(SS, Config.feedbackForms.compFeedbackSheetName, Company, Indicators, updateSheet)
     }
 
     let hasOpCom = Company.hasOpCom
-    let isNewCompany = (Company.isPrevScored) ? false : true
+    let isNewCompany = Company.isPrevScored ? false : true
 
     // fetch number of Services once
     let companyNumberOfServices = Company.services.length
@@ -126,22 +106,32 @@ function processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, fi
     let Category
 
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
-
         Category = Indicators.indicatorCategories[i]
 
-        Logger.log("--- NEXT : Starting " + Category.labelLong)
+        console.log('--- NEXT : Starting ' + Category.labelLong)
 
-        populateDCSheetByCategory(SS, Category, Company, ResearchStepsObj, companyNumberOfServices, hasOpCom, isNewCompany, doCollapseAll, includeRGuidanceLink, collapseRGuidance, useIndicatorSubset, useStepsSubset)
+        populateDCSheetByCategory(
+            SS,
+            Category,
+            Company,
+            ResearchStepsObj,
+            companyNumberOfServices,
+            hasOpCom,
+            isNewCompany,
+            doCollapseAll,
+            includeRGuidanceLink,
+            collapseRGuidance,
+            useStepsSubset
+        )
 
-        Logger.log("--- Completed " + Category.labelLong)
+        console.log('--- Completed ' + Category.labelLong)
     }
 
-    Logger.log("PROCESS: end DC main")
+    console.log('PROCESS: end DC main')
 
-    // clean up //
-    // if empty Sheet exists, delete
+    // clean up - if empty Sheet exists, delete
     removeEmptySheet(SS)
 
-    Logger.log("FILE: " + mainSheetMode + " Spreadsheet created for " + companyShortName)
+    console.log('FILE: ' + mainSheetMode + ' Spreadsheet created for ' + companyShortName)
     return fileID
 }

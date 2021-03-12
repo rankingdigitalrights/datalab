@@ -12,29 +12,27 @@
 */
 
 function processCompanyHealth(ListSheetBroken, Company) {
-
     var companyShortName = cleanCompanyName(Company)
-    Logger.log("--- // --- begin processing " + companyShortName + " --- // ---")
+    console.log('--- // --- begin processing ' + companyShortName + ' --- // ---')
 
     // connect to Company Input Spreadsheet
 
-    var SS = openSpreadsheetByID(Company.urlCurrentDataCollectionSheet)
+    var SS = openSpreadsheetByID(Company.urlCurrentInputSheet)
 
     // skip if company spreadsheet does not exist
     if (SS === null) {
-        Logger.log("!!!ERROR!!! : " + companyShortName + " does not exist. Skipping.")
+        console.log('!!!ERROR!!! : ' + companyShortName + ' does not exist. Skipping.')
         return null
     }
 
     var currentDate = getISOtimeAsString()
 
-    ListSheetBroken.appendRow([currentDate, companyShortName, Company.urlCurrentDataCollectionSheet])
+    ListSheetBroken.appendRow([currentDate, companyShortName, Company.urlCurrentInputSheet])
 
     // --- // MAIN TASK // --- //
     // for each Indicator Class do
 
-    Logger.log("FLOW --- begin Inspection " + companyShortName + " --- // ---")
+    console.log('FLOW --- begin Inspection ' + companyShortName + ' --- // ---')
 
     inspectInputSheet(SS, ListSheetBroken)
-
 }

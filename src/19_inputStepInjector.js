@@ -1,5 +1,16 @@
-function mainInputStepExtender() {
+// helper function created in order to subsequentlly inject a substep into a main step
+// use case was to add a substep with additional company feedback to Step 4
+// TODO: substep parameters are hard-coded in inputStepExtender due to this reqeusted substem being super special. Keep for now (2021 Index Setup); refactor if necessary
 
+/* global 
+  companiesVector,
+  indicatorsVector,
+  specialRangeName,
+  findValueRowStart,
+  injectInputRows
+*/
+
+function mainInputStepExtender() {
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
         .slice(0, 1) //   0 "Alibaba",
@@ -29,21 +40,19 @@ function mainInputStepExtender() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
     Companies.forEach(function (Company) {
-        // Company.urlCurrentDataCollectionSheet = ""
+        // Company.urlCurrentInputSheet = ""
         console.log(`extending ${Company.label.current}`)
         inputStepExtender(Company)
     })
-
-
 }
 
+// TODO: Integrate into Input Sheet Feedback Module
 function inputStepExtender(Company) {
+    let searchForString = 'Step 4.1'
+    let stepcolor = '#ffe599'
+    let Sheet // , substepLabel
 
-    let searchForString = "Step 4.1"
-    let stepcolor = "#ffe599"
-    let Sheet, substepLabel
-
-    let SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
+    let SS = SpreadsheetApp.openById(Company.urlCurrentInputSheet)
 
     let id = Company.id
 
@@ -57,14 +66,13 @@ function inputStepExtender(Company) {
 
     let rowLabel
 
-    indicatorsVector.indicatorCategories.map(Category => {
-        Category.indicators.map(Indicator => {
-
+    indicatorsVector.indicatorCategories.map((Category) => {
+        Category.indicators.map((Indicator) => {
             indicatorLabel = Indicator.labelShort
             rowLabel = `Follow-up Feedback\n\n${indicatorLabel}`
-            fbStatusText = specialRangeName(id, indicatorLabel, "CoFBextra")
+            fbStatusText = specialRangeName(id, indicatorLabel, 'CoFBextra')
 
-            Logger.log(fbStatusText)
+            console.log(fbStatusText)
 
             let formulaContent = `CONCATENATE(ARRAYFORMULA(concat(FILTER(${fbStatusText},${fbStatusText}<>""),"\n\n")))`
 
@@ -73,7 +81,6 @@ function inputStepExtender(Company) {
             startRow = findValueRowStart(Sheet, searchForString, 0)
 
             injectInputRows(Sheet, startRow - 1, 2, titleWidth, contentRowOffset, rowLabel, formulaContent, stepcolor)
-
         })
     })
 }

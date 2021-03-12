@@ -1,6 +1,5 @@
 function mainSwitchFileEditors() {
-
-    let newEditors = centralConfig.defaultViewers.concat("ahackl2130@gmail.com")
+    let newEditors = centralConfig.defaultViewers.concat('ahackl2130@gmail.com')
 
     const Companies = companiesVector.companies
     // .slice(0, 0) // on purpose to prevent script from running.
@@ -32,10 +31,8 @@ function mainSwitchFileEditors() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-
-        let SS = SpreadsheetApp.openById(Company.urlCurrentDataCollectionSheet)
+        let SS = SpreadsheetApp.openById(Company.urlCurrentInputSheet)
 
         updateFileEditors(SS, newEditors)
     })
-
 }
