@@ -1,6 +1,6 @@
 env:
   browser: true
-  # es6: true
+  es6: true
   node: true
   googleappsscript/googleappsscript: true
 extends: "eslint:recommended"
@@ -20,8 +20,5 @@ rules:
   quotes:
     - error
     - double
-  semi:
-    - error
-    - never
 plugins:
   - googleappsscript
