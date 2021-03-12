@@ -23,43 +23,43 @@
 // global params init (def with initiateGlobalConfig())
 
 /** --- main Prod vs Dev Toggle --- **/
-var isProduction = false
+var isProduction = false;
 /** --- main Prod vs Dev Toggle --- **/
 
-var Config
-var doRepairsOnly
-var updateProduction = false
-var includeFeedback = false
-var addNewStep = false
-var startAtMainStepNr = 0 // Global Config
-var IndicatorsObj
-var globalIndicatorsSubset
-var indexPrefix
-var filenamePrefix
-var filenameSuffix
-var rootFolderID
-var rootFolderName // "2019 Back-End Dev"
-var outputFolderName
-var controlSpreadsheetID
-var Styles
-var includeFormatting = true
+var Config;
+var doRepairsOnly;
+var updateProduction = false;
+var includeFeedback = false;
+var addNewStep = false;
+var startAtMainStepNr = 0; // Global Config
+var IndicatorsObj;
+var globalIndicatorsSubset;
+var indexPrefix;
+var filenamePrefix;
+var filenameSuffix;
+var rootFolderID;
+var rootFolderName; // "2019 Back-End Dev"
+var outputFolderName;
+var controlSpreadsheetID;
+var Styles;
+var includeFormatting = true;
 
 // HOOK: override global parameters here
 function initiateGlobalConfig() {
-    Config = centralConfig
+    Config = centralConfig;
 
-    doRepairsOnly = false
+    doRepairsOnly = false;
     // skipMainSteps = false // TBD: not operation right now
 
     // --- INDICATOR SUBSETTING --- //
     // IMPORTANT: subsetting function now only accepts Array
     // IMPORTANT: disable useIndicatorSubset (i.e. here or locally in mainCaller)
 
-    IndicatorsObj = indicatorsVector
+    IndicatorsObj = indicatorsVector;
     /* OR */
     // param has to be Array[]
     // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1", "G2", "G3", "G4a", "G4b", "G4c", "G4d", "G4e", "G5", "G6a", "G6b", "F1a", "F1b", "F1c", "F1d", "F2a", "F2b", "F2c", "F2d", "F3a", "F3b", "F3c", "F4a", "F4b", "F4c", "F5a", "F5b", "F6", "F7"])
-    globalIndicatorsSubset = false
+    globalIndicatorsSubset = false;
 
     /* Indicator Labels:
     
@@ -72,14 +72,20 @@ function initiateGlobalConfig() {
 
     // "G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7","F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"
 
-    indexPrefix = Config.indexPrefix
-    filenamePrefix = Config.filenamePrefix
-    filenameSuffix = isProduction ? Config.filenameSuffixProd : Config.filenameSuffixDev // Dev, "", Debug, QC
-    outputFolderName = "2020 Dev Fallback Folder" // Specific folder defined in Main Callers
-    rootFolderID = isProduction ? Config.rootFolderIDProd : Config.rootFolderIDDev
-    rootFolderName = isProduction ? Config.rootFolderNameProd : Config.rootFolderIDDev
-    controlSpreadsheetID = Config.controlSpreadsheetID
-    Styles = Config.styles
+    indexPrefix = Config.indexPrefix;
+    filenamePrefix = Config.filenamePrefix;
+    filenameSuffix = isProduction
+        ? Config.filenameSuffixProd
+        : Config.filenameSuffixDev; // Dev, "", Debug, QC
+    outputFolderName = "2020 Dev Fallback Folder"; // Specific folder defined in Main Callers
+    rootFolderID = isProduction
+        ? Config.rootFolderIDProd
+        : Config.rootFolderIDDev;
+    rootFolderName = isProduction
+        ? Config.rootFolderNameProd
+        : Config.rootFolderIDDev;
+    controlSpreadsheetID = Config.controlSpreadsheetID;
+    Styles = Config.styles;
 }
 
 // --- // MAIN CALLERS // --- //
@@ -87,22 +93,23 @@ function initiateGlobalConfig() {
 // create Data Collection spreadsheets for all companies
 
 function mainInputSheets() {
+    initiateGlobalConfig();
 
-    initiateGlobalConfig()
+    includeFeedback = true; // Sheet for parsed Company Feedback
 
-    includeFeedback = true // Sheet for parsed Company Feedback
-
-    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
+    outputFolderName = isProduction
+        ? Config.inputFolderNameProd
+        : Config.inputFolderNameDev;
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
-    let mainSheetMode = "Input" // for filename | TODO: move to Config
-    let useStepsSubset = false // true := use subset; maxStep defined in Config.JSON
-    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
+    let mainSheetMode = "Input"; // for filename | TODO: move to Config
+    let useStepsSubset = false; // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = globalIndicatorsSubset; // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
-        .slice(2, 3) //   2 "América Móvil",
+        .slice(2, 3); //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
@@ -127,42 +134,52 @@ function mainInputSheets() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-    let fileID
+    let fileID;
 
     Companies.forEach(function (Company) {
+        fileID = processInputSpreadsheet(
+            useStepsSubset,
+            useIndicatorSubset,
+            Company,
+            filenamePrefix,
+            filenameSuffix,
+            mainSheetMode
+        );
 
-        fileID = processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
-
-    })
-
+        addFileIDtoControl(
+            mainSheetMode,
+            Company.label.current,
+            fileID,
+            controlSpreadsheetID
+        );
+    });
 }
 
 // --- // add a new Main Research Step at position Sheet.lastRow()
 function mainAddNewInputStep() {
+    initiateGlobalConfig();
 
-    initiateGlobalConfig()
+    includeFormatting = false; // toggle costly Sheet-level formatting updates
 
-    includeFormatting = false // toggle costly Sheet-level formatting updates
+    updateProduction = true; // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
-    updateProduction = true // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
-
-    addNewStep = true // Just ignore: also caution - doesn't care if step already exists
+    addNewStep = true; // Just ignore: also caution - doesn't care if step already exists
 
     // also: Hook to skip steps
-    startAtMainStepNr = 7 // logical Order
-    Config.subsetMaxStep = startAtMainStepNr
+    startAtMainStepNr = 7; // logical Order
+    Config.subsetMaxStep = startAtMainStepNr;
 
-    outputFolderName = isProduction ? Config.inputFolderNameProd : Config.inputFolderNameDev
+    outputFolderName = isProduction
+        ? Config.inputFolderNameProd
+        : Config.inputFolderNameDev;
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
-    let mainSheetMode = "Input" // for filename | TODO: move to Config
-    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
-    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
+    let mainSheetMode = "Input"; // for filename | TODO: move to Config
+    let useStepsSubset = true; // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = globalIndicatorsSubset; // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1); //   0 "Alibaba",
     // .slice(1, 2) //   1 "Amazon",
     // .slice(2, 3) //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
@@ -189,37 +206,39 @@ function mainAddNewInputStep() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-
     Companies.forEach(function (Company) {
-
         // Company.urlCurrentDataCollectionSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg"
 
-        processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-    })
-
+        processInputSpreadsheet(
+            useStepsSubset,
+            useIndicatorSubset,
+            Company,
+            filenamePrefix,
+            filenameSuffix,
+            mainSheetMode
+        );
+    });
 }
 
-
-// --- // repairing // --- // 
+// --- // repairing // --- //
 function mainRepairInputSheets() {
-
     // IMPORTANT: if SS is protected, run with data@
 
-    initiateGlobalConfig()
+    initiateGlobalConfig();
 
-    includeFormatting = false // toggle costly Sheet-level formatting updates
+    includeFormatting = false; // toggle costly Sheet-level formatting updates
 
-    startAtMainStepNr = 6 // logical Order
+    startAtMainStepNr = 6; // logical Order
 
-    Config.subsetMaxStep = startAtMainStepNr
+    Config.subsetMaxStep = startAtMainStepNr;
 
-    doRepairsOnly = true // don't touch
+    doRepairsOnly = true; // don't touch
 
-    updateProduction = true // DANGER
+    updateProduction = true; // DANGER
 
-    let mainSheetMode = "Input" // for filename | TODO: move to Config
-    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
-    let useIndicatorSubset = globalIndicatorsSubset // true := use subset
+    let mainSheetMode = "Input"; // for filename | TODO: move to Config
+    let useStepsSubset = true; // true := use subset; maxStep defined in Config.JSON
+    let useIndicatorSubset = globalIndicatorsSubset; // true := use subset
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -228,7 +247,7 @@ function mainRepairInputSheets() {
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
         // .slice(4, 5) //   4 "AT&T",
-        .slice(5, 6) //   5 "Axiata",
+        .slice(5, 6); //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
@@ -251,29 +270,35 @@ function mainRepairInputSheets() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-
         // Company.urlCurrentDataCollectionSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg"
 
-        processInputSpreadsheet(useStepsSubset, useIndicatorSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
-
-    })
+        processInputSpreadsheet(
+            useStepsSubset,
+            useIndicatorSubset,
+            Company,
+            filenamePrefix,
+            filenameSuffix,
+            mainSheetMode
+        );
+    });
 }
 
 // create Scoring spreadsheets for all companies
 
 function mainScoringSheets() {
+    initiateGlobalConfig();
 
-    initiateGlobalConfig()
-
-    outputFolderName = isProduction ? Config.outputFolderNameProd : Config.outputFolderNameDev
-    let addNewStep = true
-    let stepsToAdd = [6, 7]
+    outputFolderName = isProduction
+        ? Config.outputFolderNameProd
+        : Config.outputFolderNameDev;
+    let addNewStep = true;
+    let stepsToAdd = [6, 7];
 
     // Config.subsetMaxStep = 4
 
-    let isYoyMode = false
-    let yoySteps = [3, 5, 7]
-    let mainSheetMode = isYoyMode ? "Output Yoy" : "Output"
+    let isYoyMode = false;
+    let yoySteps = [3, 5, 7];
+    let mainSheetMode = isYoyMode ? "Output Yoy" : "Output";
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -302,18 +327,29 @@ function mainScoringSheets() {
         // .slice(22, 23) //   22 "Twitter",
         // .slice(23, 24) //   23 "Verizon Media",
         // .slice(24, 25) //   24 "Vodafone",
-        .slice(25, 26) //   25 "Yandex"
+        .slice(25, 26); //   25 "Yandex"
 
-
-    let fileID
+    let fileID;
 
     Companies.forEach(function (Company) {
+        fileID = createSpreadsheetOutput(
+            Company,
+            filenamePrefix,
+            filenameSuffix,
+            mainSheetMode,
+            isYoyMode,
+            yoySteps,
+            addNewStep,
+            stepsToAdd
+        );
 
-        fileID = createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, mainSheetMode, isYoyMode, yoySteps, addNewStep, stepsToAdd)
-
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
-
-    })
+        addFileIDtoControl(
+            mainSheetMode,
+            Company.label.current,
+            fileID,
+            controlSpreadsheetID
+        );
+    });
 }
 
 /** New: Inject (append) Feedback Form Elements to Company-specific Feedback Template
@@ -321,12 +357,11 @@ function mainScoringSheets() {
  */
 
 function mainFeedbackSheets() {
+    isProduction = true;
 
-    isProduction = true
+    initiateGlobalConfig();
 
-    initiateGlobalConfig()
-
-    let makeDataOwner = true // should new file be owned by Data@?
+    let makeDataOwner = true; // should new file be owned by Data@?
 
     // outputFolderName = "2020 - Dev - Feedback"
     let Companies = companiesVector.companies
@@ -355,36 +390,38 @@ function mainFeedbackSheets() {
         // .slice(21, 22) //   21 "Tencent",
         // .slice(22, 23) //   22 "Twitter",
         // .slice(23, 24) //   23 "Verizon Media",
-        .slice(24, 25) //   24 "Vodafone",
+        .slice(24, 25); //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        let fileID = injectFeedbackForms(Company, makeDataOwner)
+        let fileID = injectFeedbackForms(Company, makeDataOwner);
 
-        addFileIDtoControl("Company Feedback", Company.label.current, fileID, controlSpreadsheetID)
-    })
-
-
+        addFileIDtoControl(
+            "Company Feedback",
+            Company.label.current,
+            fileID,
+            controlSpreadsheetID
+        );
+    });
 }
 
 // create Summary Scores spreadsheets for all companies
 
 function mainAggregationSheets() {
-
-    // filename fragments defined in 
+    // filename fragments defined in
     // Config.summaryParams.spreadsheetName
-    initiateGlobalConfig()
-    filenameSuffix = "YoY Test" // DANGER
-    outputFolderName = "2020 - Dev - Summary"
-    let mainSheetMode = "Summary Scores"
+    initiateGlobalConfig();
+    filenameSuffix = "YoY Test"; // DANGER
+    outputFolderName = "2020 - Dev - Summary";
+    let mainSheetMode = "Summary Scores";
 
-    let includeCompanyOutcomeSheets = false
+    let includeCompanyOutcomeSheets = false;
 
-    let useIndicatorSubset = false // true := use subset
+    let useIndicatorSubset = false; // true := use subset
 
-    let scoringStepNr = 3
+    let scoringStepNr = 3;
 
-    let isYoyMode = true
+    let isYoyMode = true;
 
     let Companies = companiesVector.companies
         // .slice(5, 7) // Axiata & Baidu,
@@ -392,35 +429,43 @@ function mainAggregationSheets() {
         // .slice(1, 3) // for debugging
         // .slice(0,3) // Amazon
         // .slice(1, 2) // Apple
-        .slice(3, 4) //
+        .slice(3, 4); //
 
-    let fileID = createAggregationOutput(useIndicatorSubset, Companies, filenamePrefix, filenameSuffix, mainSheetMode, scoringStepNr, includeCompanyOutcomeSheets, yoisYoyModey)
+    let fileID = createAggregationOutput(
+        useIndicatorSubset,
+        Companies,
+        filenamePrefix,
+        filenameSuffix,
+        mainSheetMode,
+        scoringStepNr,
+        includeCompanyOutcomeSheets,
+        yoisYoyModey
+    );
 
     // addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
 
-    Logger.log("|--- added " + mainSheetMode + ";fileID: " + fileID)
+    Logger.log("|--- added " + mainSheetMode + ";fileID: " + fileID);
 }
 
 // create Data Store spreadsheets for all companies
 // Scores: ~2 minutes runtime? TBC
 function mainDataStore() {
+    let DataMode = ["results", "changes"]; // ["results", "transpose", "scores","results","changes"]
 
-  let DataMode = ["results","changes"] // ["results", "transpose", "scores","results","changes"]
+    initiateGlobalConfig();
+    outputFolderName = "2020 - Dev - Data Store";
 
-    initiateGlobalConfig()
-    outputFolderName = "2020 - Dev - Data Store"
-
-    filenameSuffix = " v3"
+    filenameSuffix = " v3";
 
     // filename fragments defined in Config.summaryParams.spreadsheetName
-    let mainSheetMode = Config.dataStoreParams.fileName
-    let isYoyMode = true
+    let mainSheetMode = Config.dataStoreParams.fileName;
+    let isYoyMode = true;
 
-    Config.subsetMaxStep = 7
+    Config.subsetMaxStep = 7;
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1); //   0 "Alibaba",
     // .slice(1, 2) //   1 "Amazon",
     // .slice(2, 3) //   2 "América Móvil",
     // .slice(3, 4) //   3 "Apple",
@@ -447,59 +492,68 @@ function mainDataStore() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-
-    let fileID
+    let fileID;
 
     Companies.forEach(function (Company) {
+        fileID = createCompanyDataStore(
+            Company,
+            filenamePrefix,
+            filenameSuffix,
+            mainSheetMode,
+            DataMode,
+            isYoyMode
+        );
 
-        fileID = createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode, isYoyMode)
-
-        Logger.log("received fileID: " + fileID)
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
-
-    })
+        Logger.log("received fileID: " + fileID);
+        addFileIDtoControl(
+            mainSheetMode,
+            Company.label.current,
+            fileID,
+            controlSpreadsheetID
+        );
+    });
 }
 
 // aggregate Input Spreadsheets Health Status (Named Ranges, ..., tbd)
 
 function mainInspectInputSheets() {
-
-    initiateGlobalConfig()
+    initiateGlobalConfig();
     // IMPORTANT FLAG
 
-    let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID)
-    let ListSheetBroken = insertSheetIfNotExist(controlSpreadsheet, "Input - Broken Refs", true)
+    let controlSpreadsheet = openSpreadsheetByID(controlSpreadsheetID);
+    let ListSheetBroken = insertSheetIfNotExist(
+        controlSpreadsheet,
+        "Input - Broken Refs",
+        true
+    );
     // ListSheetBroken.clear()
 
     let Companies = companiesVector.companies
         // .slice(0, 12) // Batch 1
         // .slice(12, 24) // Batch 2
         // .slice(24,26) // Batch 3
-        .slice(2, 12) // 
+        .slice(2, 12); //
     // .slice(4, 5) //   4 "AT&T",
     // .slice(6, 7) //   6 "Baidu",
     // .slice(7, 8) //   7 "Bharti Airtel",
 
-    Companies.forEach(Company => {
-        processCompanyHealth(ListSheetBroken, Company)
-    })
-
+    Companies.forEach((Company) => {
+        processCompanyHealth(ListSheetBroken, Company);
+    });
 }
 
 // not functional yet
 
 function DevMainBackupFolder() {
+    initiateGlobalConfig();
 
-    initiateGlobalConfig()
+    let sourceFolderId = Config.rootFolderIDProd;
+    let targetFolderId = Config.backupFolderID;
 
-    let sourceFolderId = Config.rootFolderIDProd
-    let targetFolderId = Config.backupFolderID
-
-    deepCloneFolder(sourceFolderId, targetFolderId)
-
+    deepCloneFolder(sourceFolderId, targetFolderId);
 }
 
-// --- // USE WISELY // --- // 
+// --- // USE WISELY // --- //
 /* function mainClearAllNamedRanges() {
 
     initiateGlobalConfig()
@@ -538,7 +592,7 @@ function mainProtectCompanies() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        .slice(10, 11); //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -555,8 +609,7 @@ function mainProtectCompanies() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-    Companies.forEach(Company => mainProtectSingleCompany(Company))
-
+    Companies.forEach((Company) => mainProtectSingleCompany(Company));
 }
 
 function mainUnProtectCompanies() {
@@ -573,7 +626,7 @@ function mainUnProtectCompanies() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        .slice(10, 11); //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -590,25 +643,25 @@ function mainUnProtectCompanies() {
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
-    Companies.forEach(Company => mainUnProtectSingleCompany(Company))
+    Companies.forEach((Company) => mainUnProtectSingleCompany(Company));
 }
 
 function mainOpenStepCompanies() {
     // protects the sheets of a given company vector
 
-    initiateGlobalConfig()
+    initiateGlobalConfig();
 
-    let doUpdateEditors = true // won't change File-level permission status otherwise
+    let doUpdateEditors = true; // won't change File-level permission status otherwise
 
-    let stepLabel = ["S04", "S05"] // maybe better: match ResearchStepObj syntax := S01
-    let subStepIDs = createSubstepArray(stepLabel)
+    let stepLabel = ["S04", "S05"]; // maybe better: match ResearchStepObj syntax := S01
+    let subStepIDs = createSubstepArray(stepLabel);
 
     // let editors = EditorsObj[stepLabel]
 
     /* custom Core editors list for Steps 4++ */
-    let editors = centralConfig.defaultViewers.concat("ahackl2130@gmail.com")
+    let editors = centralConfig.defaultViewers.concat("ahackl2130@gmail.com");
 
-    Logger.log("array: " + subStepIDs)
+    Logger.log("array: " + subStepIDs);
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -624,7 +677,7 @@ function mainOpenStepCompanies() {
         // .slice(9, 10) //   9 "Etisalat",
         // .slice(10, 11) //   10 "Facebook",
         // .slice(11, 12) //   11 "Google",
-        .slice(12, 13) //   12 "Kakao",
+        .slice(12, 13); //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
     // .slice(14, 15) //   14 "Microsoft",
     // .slice(15, 16) //   15 "MTN",
@@ -640,7 +693,7 @@ function mainOpenStepCompanies() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        let companyNr = companiesVector.companies.indexOf(Company)
+        let companyNr = companiesVector.companies.indexOf(Company);
         /* TODO: enable overriding editors from Step 3 on */
         // let editors = []
 
@@ -648,8 +701,14 @@ function mainOpenStepCompanies() {
         //     editors.push(EditorsObj[step][companyNr])
 
         // })
-        Logger.log("editors:" + editors)
+        Logger.log("editors:" + editors);
 
-        mainProtectFileOpenStepSingleCompany(Company, subStepIDs, editors, IndicatorsObj, doUpdateEditors)
-    })
+        mainProtectFileOpenStepSingleCompany(
+            Company,
+            subStepIDs,
+            editors,
+            IndicatorsObj,
+            doUpdateEditors
+        );
+    });
 }
