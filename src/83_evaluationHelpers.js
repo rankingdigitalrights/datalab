@@ -2,19 +2,11 @@ function checkIndicatorSpecs(Indicator) {
     let IndicatorSpecs = {}
 
     // Indicator Level Evaluation & Scoring Specifics
-    IndicatorSpecs.doExcludeCompanies = Indicator.doExcludeCompanies
-        ? true
-        : false
-    IndicatorSpecs.excludeCompanies = IndicatorSpecs.doExcludeCompanies
-        ? Indicator.excludeCompanies
-        : []
+    IndicatorSpecs.doExcludeCompanies = Indicator.doExcludeCompanies ? true : false
+    IndicatorSpecs.excludedCompanies = IndicatorSpecs.doExcludeCompanies ? Indicator.excludedCompanies : []
 
-    IndicatorSpecs.doExcludeServices = Indicator.doExcludeServices
-        ? true
-        : false
-    IndicatorSpecs.excludeServices = IndicatorSpecs.doExcludeServices
-        ? Indicator.excludeServices
-        : []
+    IndicatorSpecs.doExcludeServices = Indicator.doExcludeServices ? true : false
+    IndicatorSpecs.excludedServices = IndicatorSpecs.doExcludeServices ? Indicator.excludedServices : []
 
     IndicatorSpecs.scoringScope = Indicator.scoringScope
 
@@ -26,14 +18,10 @@ function checkElementSpecs(Element) {
 
     // Element Level Evaluation & Scoring Specifics
     ElementSpecs.doExcludeCompanies = Element.doExcludeCompanies ? true : false
-    ElementSpecs.excludeCompanies = ElementSpecs.doExcludeCompanies
-        ? Element.excludeCompanies
-        : []
+    ElementSpecs.excludedCompanies = ElementSpecs.doExcludeCompanies ? Element.excludedCompanies : []
 
     ElementSpecs.doExcludeServices = Element.doExcludeServices ? true : false
-    ElementSpecs.excludeServices = ElementSpecs.doExcludeServices
-        ? Element.excludeServices
-        : []
+    ElementSpecs.excludedServices = ElementSpecs.doExcludeServices ? Element.excludedServices : []
 
     return ElementSpecs
 }
@@ -44,18 +32,14 @@ function makeElementNA(companyType, serviceType, IndicatorSpecs, ElementSpecs) {
 
     if (IndicatorSpecs !== null) {
         indSpecs =
-            (IndicatorSpecs.doExcludeCompanies &&
-                IndicatorSpecs.excludeCompanies.includes(companyType)) ||
-            (IndicatorSpecs.doExcludeServices &&
-                IndicatorSpecs.excludeServices.includes(serviceType))
+            (IndicatorSpecs.doExcludeCompanies && IndicatorSpecs.excludedCompanies.includes(companyType)) ||
+            (IndicatorSpecs.doExcludeServices && IndicatorSpecs.excludedServices.includes(serviceType))
     }
 
     if (ElementSpecs !== null) {
         elemSpecs =
-            (ElementSpecs.doExcludeCompanies &&
-                ElementSpecs.excludeCompanies.includes(companyType)) ||
-            (ElementSpecs.doExcludeServices &&
-                ElementSpecs.excludeServices.includes(serviceType))
+            (ElementSpecs.doExcludeCompanies && ElementSpecs.excludedCompanies.includes(companyType)) ||
+            (ElementSpecs.doExcludeServices && ElementSpecs.excludedServices.includes(serviceType))
     }
 
     return indSpecs || elemSpecs ? true : false

@@ -40,7 +40,7 @@ function initiateGlobalConfig() {
 
     // IndicatorsObj = indicatorsVector
     /* OR: use Subset; (param has to be Array[]) */
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'F1a'])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'F1a', 'P1a'])
 
     /* Indicator Labels:
     
@@ -344,13 +344,13 @@ function mainAggregationSheets() {
     // filename fragments defined in
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = 'YoY Test' // DANGER
+    filenameSuffix = ' Test' // DANGER
     outputFolderName = '2021 - Dev - Summary'
     let mainSheetMode = 'Summary Scores'
 
     let includeCompanyOutcomeSheets = false
 
-    let scoringStepNr = 3
+    let scoringStepNr = 3 //
 
     let isYoyMode = false // TODO: GW - remove or rename
 
