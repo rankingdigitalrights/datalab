@@ -31,13 +31,16 @@ function fillSummaryScoresSheet(
     )
 
     // now operating in currentCol + 1
+    currentCol=2
+    /*
     if (!includeElements) {
-        currentCol = 7
+        currentCol = 2
     }
 
     if (isYoyMode) {
         currentCol = 2
     }
+    */
     // Main part: horizontal company-wise results
 
     Companies.forEach((Company) => {
