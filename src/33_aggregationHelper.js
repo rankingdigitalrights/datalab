@@ -260,7 +260,7 @@ function addCompanyScores(
             if (includeElements) {
                 isElement = true
                 Indicator.elements.forEach((Element) => {
-                    if (isYoyMode) {
+                    if (!isYoyMode) {
                         row = addCompanyScoresRow(
                             row,
                             col,
