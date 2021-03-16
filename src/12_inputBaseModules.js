@@ -351,7 +351,7 @@ function addSources(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, 
     Cell = Sheet.getRange(activeRow, activeCol)
         .setValue(Substep.components[stepCNr].rowLabel)
         .setBackground(Substep.subStepColor)
-    Cell.setNote('Sources: reference, specific page, section, etc.')
+        .setNote('Sources: reference, specific page, section, etc.')
     activeCol += 1
 
     for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {

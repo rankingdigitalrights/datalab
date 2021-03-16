@@ -83,10 +83,6 @@ function addIndicatorGuidance(
 
     let indTitle = '▶ ' + Indicator.labelShort
 
-    if (Indicator.description.length > 1) {
-        indTitle = indTitle + ': ' + Indicator.description
-    }
-
     let indDescription = Indicator.labelLong
 
     // Indicator Heading
@@ -95,6 +91,7 @@ function addIndicatorGuidance(
         .setFontSize(18)
         .setVerticalAlignment('middle')
         .setFontFamily('Oswald')
+        .setNotes([[Indicator.description, Indicator.guidance]])
 
     Sheet.getRange(row, 1).setHorizontalAlignment('center')
 

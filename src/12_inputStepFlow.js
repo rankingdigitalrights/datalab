@@ -29,7 +29,7 @@ function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let importStepID = StepComp.importStepID // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let reviewCell, prevResultCell
@@ -124,7 +124,7 @@ function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, 
                     reviewCell = defineNamedRange(
                         indexPrefix,
                         'DC',
-                        evaluationStep,
+                        evaluationStepID,
                         Element.labelShort,
                         '',
                         Company.id,
@@ -202,7 +202,7 @@ function addCommentsReview(
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let importStepID = StepComp.importStepID // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let reviewCell, prevResultCell
@@ -280,7 +280,7 @@ function addCommentsReview(
                 reviewCell = defineNamedRange(
                     indexPrefix,
                     'DC',
-                    evaluationStep,
+                    evaluationStepID,
                     Element.labelShort,
                     '',
                     Company.id,
@@ -326,7 +326,7 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let importStepID = StepComp.importStepID // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let prevResultCell
@@ -389,7 +389,7 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
             namedRange = defineNamedRange(
                 indexPrefix,
                 'DC',
-                evaluationStep,
+                evaluationStepID,
                 element.labelShort,
                 '',
                 Company.id,
@@ -447,7 +447,7 @@ function addBinaryReview(
     let StepComp = Substep.components[stepCNr]
     let stepCompID = Substep.components[stepCNr].id
     let comparisonType = StepComp.comparisonType // "YY"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
 
     let IndicatorSpecs = checkIndicatorSpecs(Indicator)
     let companyType = Company.type
@@ -495,7 +495,7 @@ function addBinaryReview(
         cellName = defineNamedRange(
             indexPrefix,
             comparisonType,
-            evaluationStep,
+            evaluationStepID,
             Indicator.labelShort,
             '',
             Company.id,
@@ -552,7 +552,7 @@ function addTwoStepComparison(
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id // TODO: add to JSON
 
-    let evaluationStep = StepComp.evaluationStep
+    let evaluationStepID = StepComp.evaluationStepID
     let importStepID = StepComp.importStepID
 
     let isInternalEval = StepComp.isInternalEval
@@ -657,7 +657,7 @@ function addTwoStepComparison(
                             prevYearCell = defineNamedRange(
                                 compIndexPrefix,
                                 'DC',
-                                evaluationStep,
+                                evaluationStepID,
                                 Element.labelShort,
                                 subIndicator,
                                 Company.id,

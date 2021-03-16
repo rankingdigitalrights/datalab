@@ -287,7 +287,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
     let importStepID = StepComp.importStepID // "S07"
-    let evaluationStep = StepComp.evaluationStep // the binary Review or Eval Substep which is evaluated
+    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let reviewCell, prevResultCell
@@ -386,7 +386,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
                             reviewCell = defineNamedRange(
                                 indexPrefix,
                                 'DC',
-                                evaluationStep,
+                                evaluationStepID,
                                 Element.labelShort,
                                 '',
                                 Company.id,
@@ -428,8 +428,6 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
                     cellValue = Config.newCompanyLabelResult
                 }
             }
-
-            Cell.setFontWeight('bold')
 
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)

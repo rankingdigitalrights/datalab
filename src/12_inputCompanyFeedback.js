@@ -93,12 +93,15 @@ function addResearcherFBNotes(
     Company,
     activeRow,
     MainStep,
-    rowLabel,
-    subCompId,
+    SubStep,
+    stepCNr,
     companyNrOfServices
 ) {
     let id = Company.id
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
+
+    let rowLabel = SubStep.components[stepCNr].rowLabel
+    let subCompId = SubStep.components[stepCNr].id
 
     let Cell, rangeName
 

@@ -125,7 +125,7 @@ function populateDCSheetByCategory(
 
             let activeCol = 1
 
-            // adds up indicator guidance
+            // adds Sheet top-level front-matter and indicator guidance
             if (!addNewStep && !(startAtMainStepNr > 0)) {
                 activeRow = addMainSheetHeader(
                     SS,
@@ -171,6 +171,8 @@ function populateDCSheetByCategory(
 
                 let beginStep = activeRow
 
+                // add research names row
+                // but omit row for Step 0 (the import of the prev. year's outcome)
                 if (mainStepNr > 0) {
                     // HOOK for data range and conditional formatting
                     if (dataStartRow === 0 && mainStepNr > 0) {
@@ -470,8 +472,8 @@ function populateDCSheetByCategory(
                                     Company,
                                     activeRow,
                                     MainStep,
-                                    SubStep.components[stepCNr].rowLabel,
-                                    SubStep.components[stepCNr].id,
+                                    SubStep,
+                                    stepCNr,
                                     companyNrOfServices
                                 )
                                 break

@@ -40,7 +40,7 @@ function initiateGlobalConfig() {
 
     // IndicatorsObj = indicatorsVector
     /* OR: use Subset; (param has to be Array[]) */
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'F1a', 'P1a'])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['F1a'])
 
     /* Indicator Labels:
     
