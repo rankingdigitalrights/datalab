@@ -282,6 +282,8 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
 
     let importPreviousResult = StepComp.importPreviousResult === true ? true : false
 
+    let conditional = StepComp.reverseConditional ? 'no' : 'yes'
+
     // for first review, check if Substep should review the outcome from a different Index; if yes, change compared Index Prefix
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
@@ -406,19 +408,9 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
                             )
 
                             if (importPreviousResult) {
-                                cellValue = `=IF(${reviewCell}="yes", ${prevResultCell}, "not selected")`
+                                cellValue = `=IF(${reviewCell}="${conditional}", ${prevResultCell}, "not selected")`
                             } else {
-                                cellValue =
-                                    '=IF(' +
-                                    reviewCell +
-                                    '="yes"' +
-                                    ',' +
-                                    '"' +
-                                    yesAnswer +
-                                    '"' +
-                                    ',' +
-                                    '"not selected"' +
-                                    ')'
+                                cellValue = `=IF(${reviewCell}="${conditional}","${yesAnswer}","not selected")`
                             }
                         } else {
                             cellValue = naText
@@ -428,6 +420,9 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
                     cellValue = Config.newCompanyLabelResult
                 }
             }
+
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
 
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)

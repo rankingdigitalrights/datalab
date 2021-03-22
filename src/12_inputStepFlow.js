@@ -154,6 +154,8 @@ function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, 
                 Cell.setDataValidation(rule)
             }
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
             }
@@ -302,6 +304,8 @@ function addCommentsReview(
                 cellValue = `=IF(${reviewCell}="${conditional}",${prevResultCell},"${yesAnswer}")`
             }
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
             }
@@ -344,6 +348,8 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
     Cell = Sheet.getRange(activeRow, activeCol).setBackground(Substep.subStepColor)
 
+    /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
     if (!doRepairsOnly) {
         Cell.setValue(cellValue)
     }
@@ -414,6 +420,8 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
         cellValue = `=IF(AND(${reviewFormula}),${prevResultCell},"${yesAnswer}")`
 
+        /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
         if (!doRepairsOnly) {
             Cell.setValue(cellValue)
         }
@@ -517,6 +525,8 @@ function addBinaryReview(
             }
         }
 
+        /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
         if (!doRepairsOnly) {
             Cell.setValue(cellValue) // sets default for drop down list
         }
@@ -677,6 +687,8 @@ function addTwoStepComparison(
                 }
             }
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
             }

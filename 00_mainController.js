@@ -40,7 +40,7 @@ function initiateGlobalConfig() {
 
     // IndicatorsObj = indicatorsVector
     /* OR: use Subset; (param has to be Array[]) */
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['F1a'])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'G4b', 'F1a', 'P1a'])
 
     /* Indicator Labels:
     
@@ -179,7 +179,7 @@ function mainRepairInputSheets() {
 
     includeFormatting = false // toggle costly Sheet-level formatting updates
 
-    startAtMainStepNr = 6 // logical Order
+    startAtMainStepNr = 5 // logical Order
 
     Config.subsetMaxStep = startAtMainStepNr
 

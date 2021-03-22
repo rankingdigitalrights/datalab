@@ -110,6 +110,8 @@ function addStepEvaluation(
                 }
             }
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
             }
@@ -270,6 +272,8 @@ function addBinaryEvaluation(
             SS.setNamedRange(cellName, Cell)
             Cell.setDataValidation(rule).setFontWeight('bold')
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue('not selected')
             }
@@ -295,6 +299,8 @@ function addBinaryEvaluation(
             SS.setNamedRange(cellName, Cell)
             Cell.setDataValidation(rule).setFontWeight('bold')
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue('not selected')
             }
@@ -322,6 +328,8 @@ function addBinaryEvaluation(
             SS.setNamedRange(cellName, Cell)
             Cell.setDataValidation(rule).setFontWeight('bold')
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue('not selected')
             }

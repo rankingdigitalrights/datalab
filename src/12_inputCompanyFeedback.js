@@ -118,7 +118,7 @@ function addResearcherFBNotes(
         Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
 
         if (!doRepairsOnly) {
-            Cell.merge().setValue('Dummy Placeholder text to showcase / inspect readability and formatting')
+            Cell.merge().setValue('Placeholder Feedback Text')
         }
 
         Cell.setFontStyle('italic').setFontSize(10).setHorizontalAlignment('left').setVerticalAlignment('top')
@@ -259,6 +259,8 @@ function addFeedbackStepReview(
                 }
             }
 
+            /** HOOK: if running mainRepairInputSheets:
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
             if (!doRepairsOnly) {
                 Cell.setValue(cellValue)
             }
