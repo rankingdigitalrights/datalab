@@ -545,26 +545,6 @@ const researchStepsVector = {
             },
           ],
         },
-        // {
-        //   labelShort: "Step 4.2 (Option A)",
-        //   subStepID: "S047a",
-        //   subStepColor: "#f1c232",
-        //   "components": [{
-        //       type: "subStepHeader",
-        //       rowLabel: "Does company feedback merit a change?",
-        //     },
-        //     {
-        //       type: "binaryReview",
-        //       id: "MB",
-        //       rowLabel: "Answer",
-        //       dropdown: [
-        //         "not selected",
-        //         "yes",
-        //         "no"
-        //       ]
-        //     }
-        //   ]
-        // }
       ],
     },
     {
