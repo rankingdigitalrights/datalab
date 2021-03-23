@@ -40,7 +40,7 @@ function initiateGlobalConfig() {
 
     // IndicatorsObj = indicatorsVector
     /* OR: use Subset; (param has to be Array[]) */
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'G4b', 'F1a', 'P1a'])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'F1a', 'P1a'])
 
     /* Indicator Labels:
     
@@ -74,7 +74,14 @@ function mainInputSheets() {
     outputFolderName = ISPRODUCTION ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
     let mainSheetMode = 'Input' // for filename | TODO: move to Config
-    let useStepsSubset = false // true := use subset; maxStep defined in Config.JSON
+
+    // Hook to skip steps
+    let useStepsSubset = false // true := will use maxStep gloabbly defined in Config.JSON
+
+    /** Hook for DEV: produce only a single Step
+     * startAtMainStepNr = 7 // logical Order
+     * Config.subsetMaxStep = startAtMainStepNr
+     * */
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -125,7 +132,7 @@ function mainAddNewInputStep() {
 
     addNewStep = true // Just ignore: also caution - doesn't care if step already exists
 
-    // also: Hook to skip steps
+    // Hook to skip steps
     startAtMainStepNr = 7 // logical Order
     Config.subsetMaxStep = startAtMainStepNr
 

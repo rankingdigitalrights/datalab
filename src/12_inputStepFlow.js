@@ -28,6 +28,10 @@ function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, 
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
+    // 2021 modification: if subcomponent is supposed to evaluate against indicator-level evaluation (i.e. binaryReview) set to true, else false
+    let evalAtIndicatorLvl = StepComp.evalAtIndicatorLvl || false
+    let evalLabelShort // ID of Element OR Indicator
+
     let importStepID = StepComp.importStepID // "S07"
     let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
@@ -64,7 +68,7 @@ function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, 
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
         Element = Elements[elemNr]
         ElementSpecs = checkElementSpecs(Element)
-
+        evalLabelShort = evalAtIndicatorLvl ? Indicator.labelShort : Element.labelShort
         isNewElement = Element.isNew ? true : false
         isRevised = Element.isRevised ? true : false
 
@@ -125,7 +129,7 @@ function addResultsReview(SS, Sheet, Indicator, Company, activeRow, mainStepNr, 
                         indexPrefix,
                         'DC',
                         evaluationStepID,
-                        Element.labelShort,
+                        evalLabelShort,
                         '',
                         Company.id,
                         serviceLabel,
@@ -203,8 +207,12 @@ function addCommentsReview(
 
     let compIndexPrefix = StepComp.prevIndexPrefix ? StepComp.prevIndexPrefix : indexPrefix
 
-    let importStepID = StepComp.importStepID // "S07"
-    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
+    // 2021 modification: if subcomponent is supposed to evaluate against indicator-level evaluation (i.e. binaryReview) set to true, else false
+    let evalAtIndicatorLvl = StepComp.evalAtIndicatorLvl || false
+    let evalLabelShort // ID of Element OR Indicator
+
+    let importStepID = StepComp.importStepID // ID of MainStep which evaluated
+    let evaluationStepID = StepComp.evaluationStepID // ID of Substep which is evaluated
     let comparisonType = StepComp.comparisonType // "DC",
 
     let reviewCell, prevResultCell
@@ -225,6 +233,7 @@ function addCommentsReview(
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
         Element = Elements[elemNr]
         ElementSpecs = checkElementSpecs(Element)
+        evalLabelShort = evalAtIndicatorLvl ? Indicator.labelShort : Element.labelShort
 
         isNewElement = Element.isNew ? true : false
         isRevised = Element.isRevised ? true : false
@@ -246,6 +255,7 @@ function addCommentsReview(
 
         let conditional = StepComp.reverseConditional ? 'no' : 'yes'
 
+        // 2.) Value Cells
         for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
             // TODO: Switch case
 
@@ -283,7 +293,7 @@ function addCommentsReview(
                     indexPrefix,
                     'DC',
                     evaluationStepID,
-                    Element.labelShort,
+                    evalLabelShort,
                     '',
                     Company.id,
                     serviceLabel,
@@ -391,19 +401,37 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
             stepCompID
         )
 
-        Elements.forEach((element) => {
+        // 2021 Extension: if evaluation critera is on Indicator Level (i.e. binaryReview)
+        // only add Indicator.labelShort
+        // otherwise iterate over Elements
+
+        if (StepComp.evalAtIndicatorLvl) {
             namedRange = defineNamedRange(
                 indexPrefix,
                 'DC',
                 evaluationStepID,
-                element.labelShort,
+                Indicator.labelShort,
                 '',
                 Company.id,
                 serviceLabel,
                 comparisonType
             )
             reviewCells.push(namedRange)
-        })
+        } else {
+            Elements.forEach((element) => {
+                namedRange = defineNamedRange(
+                    indexPrefix,
+                    'DC',
+                    evaluationStepID,
+                    element.labelShort,
+                    '',
+                    Company.id,
+                    serviceLabel,
+                    comparisonType
+                )
+                reviewCells.push(namedRange)
+            })
+        }
 
         reviewFormula = reviewCells.map((cell) => `${cell}<>"${conditional}"`)
 
@@ -437,25 +465,15 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 // NEW: Binary evaluation of whole step per company column
 
 // eslint-disable-next-line no-unused-vars
-function addBinaryReview(
-    SS,
-    Sheet,
-    Indicator,
-    Company,
-    activeRow,
-    Substep,
-    stepCNr,
-    currentClass,
-    companyNrOfServices
-) {
+function addBinaryReview(SS, Sheet, Indicator, Company, activeRow, Substep, stepCNr, companyNrOfServices) {
     activeRow += 1
 
     let subStepID = Substep.subStepID
 
     let StepComp = Substep.components[stepCNr]
+
     let stepCompID = Substep.components[stepCNr].id
-    let comparisonType = StepComp.comparisonType // "YY"
-    let evaluationStepID = StepComp.evaluationStepID // the binary Review or Eval Substep which is evaluated
+    let dataType = StepComp.dataType // "YY"
 
     let IndicatorSpecs = checkIndicatorSpecs(Indicator)
     let companyType = Company.type
@@ -502,8 +520,8 @@ function addBinaryReview(
 
         cellName = defineNamedRange(
             indexPrefix,
-            comparisonType,
-            evaluationStepID,
+            dataType,
+            subStepID,
             Indicator.labelShort,
             '',
             Company.id,
@@ -515,7 +533,7 @@ function addBinaryReview(
         Cell.setDataValidation(rule) // creates dropdown list
             .setFontWeight('bold') // bolds the answers
 
-        cellValue = 'not selected'
+        cellValue = StepComp.preSelectValue ? StepComp.preSelectValue : 'not selected'
 
         if (makeElementNA(companyType, serviceType, IndicatorSpecs, null)) {
             cellValue = 'N/A'
@@ -535,8 +553,6 @@ function addBinaryReview(
     }
 
     Sheet.getRange(activeRow, 1, 1, activeCol).setFontWeight('bold').setHorizontalAlignment('center')
-
-    if (subStepID !== 'S00') activeRow += 1
 
     return activeRow + 1
 }
@@ -560,7 +576,7 @@ function addTwoStepComparison(
     let elementsNr = Elements.length
 
     let StepComp = Substep.components[stepCNr]
-    let stepCompID = StepComp.id // TODO: add to JSON
+    let stepCompID = StepComp.id
 
     let evaluationStepID = StepComp.evaluationStepID
     let importStepID = StepComp.importStepID

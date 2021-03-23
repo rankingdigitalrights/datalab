@@ -28,7 +28,7 @@ function importYonYResults(
     let stepCompID = Substep.components[stepCNr].id
 
     let importStepID = StepComp.importStepID // "S07"
-    let comparisonType = StepComp.comparisonType // "DC",
+    let dataType = StepComp.dataType // "DC",
 
     // for stepwise formatting
     // TODO
@@ -55,6 +55,7 @@ function importYonYResults(
         activeCol = 1
 
         Element = Elements[elemNr]
+
         // Fallback for another major Indicators revision
         // use Element.y2yResultRow when Element order / reference is non-linear
         // prevOutcomeRow = isComments ? Element.y2yResultRow + indicatorLength : Element.y2yResultRow
@@ -104,7 +105,7 @@ function importYonYResults(
 
             cellID = defineNamedRange(
                 prevIndexPrefix,
-                comparisonType,
+                dataType,
                 importStepID,
                 Elements[elemNr].labelShort,
                 '',
@@ -115,7 +116,7 @@ function importYonYResults(
 
             if (!doRepairsOnly) {
                 if (!isNewCompany) {
-                    if ((serviceNr == 2 && Company.hasOpCom == false) || isNewService) {
+                    if ((serviceNr === 2 && Company.hasOpCom === false) || isNewService) {
                         cellValue = 'N/A' // if no OpCom, pre-select N/A
                     } else {
                         if (prevOutcomeRow) {
@@ -280,7 +281,11 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     let StepComp = Substep.components[stepCNr]
     let stepCompID = StepComp.id
 
-    let importPreviousResult = StepComp.importPreviousResult === true ? true : false
+    // 2021 modification: if subcomponent is supposed to evaluate against indicator-level evaluation (i.e. binaryReview) set to true, else false
+    let evalAtIndicatorLvl = StepComp.evalAtIndicatorLvl || false
+    let evalLabelShort // ID of Element OR Indicator
+
+    let importPreviousResult = StepComp.importPreviousResult ? true : false
 
     let conditional = StepComp.reverseConditional ? 'no' : 'yes'
 
@@ -320,7 +325,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
     for (let elemNr = 0; elemNr < elementsNr; elemNr++) {
         Element = Elements[elemNr]
         ElementSpecs = checkElementSpecs(Element)
-
+        evalLabelShort = evalAtIndicatorLvl ? Indicator.labelShort : Element.labelShort
         isNewElement = Element.isNew ? true : false
         isRevised = Element.isRevised ? true : false
 
@@ -389,7 +394,7 @@ function addYonYReview(SS, Sheet, Indicator, Company, isNewCompany, activeRow, S
                                 indexPrefix,
                                 'DC',
                                 evaluationStepID,
-                                Element.labelShort,
+                                evalLabelShort,
                                 '',
                                 Company.id,
                                 serviceLabel,

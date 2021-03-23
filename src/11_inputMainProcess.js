@@ -212,17 +212,14 @@ function populateDCSheetByCategory(
 
                     // Begin step component procedure
                     for (let stepCNr = 0; stepCNr < subStepLength; stepCNr++) {
-                        let substepCompType = SubStep.components[stepCNr].type
+                        let SubStepComp = SubStep.components[stepCNr]
+                        let substepCompType = SubStepComp.type
 
                         console.log('----- component : ' + SubStep.labelShort + ' : ' + substepCompType)
 
                         // create the type of substep component that is specified in the json
 
                         switch (substepCompType) {
-                            case 'stepResearcherRow':
-                                //TODO: remove from JSON
-                                break
-
                             case 'subStepHeader':
                                 activeRow = addSubStepHeader(
                                     SS,
@@ -380,7 +377,6 @@ function populateDCSheetByCategory(
                                     activeRow,
                                     SubStep,
                                     stepCNr,
-                                    Category,
                                     companyNrOfServices
                                 )
                                 break
@@ -446,7 +442,7 @@ function populateDCSheetByCategory(
                                     Company,
                                     activeRow,
                                     MainStep,
-                                    SubStep.components[stepCNr].rowLabel,
+                                    SubStepComp.rowLabel,
                                     companyNrOfServices
                                 )
                                 break
@@ -459,7 +455,7 @@ function populateDCSheetByCategory(
                                     Company,
                                     activeRow,
                                     MainStep,
-                                    SubStep.components[stepCNr].rowLabel,
+                                    SubStepComp,
                                     companyNrOfServices
                                 )
                                 break
@@ -495,7 +491,7 @@ function populateDCSheetByCategory(
                                 break
 
                             default:
-                                Sheet.appendRow(['!!!Error: Missed a component!!!'])
+                                Sheet.appendRow(['!!!Error: Missed a component!!! --- ', substepCompType])
                                 break
                         }
                     } // END substep component procedure

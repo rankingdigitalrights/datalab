@@ -10,9 +10,9 @@ function addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, ro
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
     let indicatorLabel = Indicator.labelShort
 
-    let fbStatusRange = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
+    let fbStatusCell = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
 
-    let fbStatusFormula = checkFeedbackFormula(fbStatusRange)
+    let fbStatusFormula = checkFeedbackFormula(fbStatusCell)
 
     let Cell = Sheet.getRange(activeRow, 1)
 
@@ -54,35 +54,55 @@ function addBinaryFBCheck(SS, Sheet, Indicator, Company, activeRow, MainStep, ro
 }
 
 // eslint-disable-next-line no-unused-vars
-function addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, rowLabel, companyNrOfServices) {
+function addImportFBText(SS, Sheet, Indicator, Company, activeRow, MainStep, SubStepComp, companyNrOfServices) {
     let id = Company.id
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
     let indicatorLabel = Indicator.labelShort
 
-    let fbStatusRange = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
-    let fbStatusText = specialRangeName(id, Indicator.labelShort, 'CoFBtext')
+    let startRow = activeRow
 
-    let fbImportFormula = importFeedbackFormula(fbStatusRange, fbStatusText)
+    // Main Feedback
+    let fbStatusCell = specialRangeName(id, Indicator.labelShort, 'CoFBstatus')
+    let fbContentCell = specialRangeName(id, Indicator.labelShort, 'CoFBtext')
+    let fbImportFormula = importFeedbackFormula(fbStatusCell, fbContentCell)
+    Sheet.getRange(activeRow, 1).setValue('\n\n' + SubStepComp.rowLabelA + ' ' + indicatorLabel)
+    Sheet.getRange(activeRow, 2, 1, titleWidth).merge().setFormula(fbImportFormula)
+    Sheet.setRowHeight(activeRow, 100)
+    activeRow += 1
 
-    let Cell = Sheet.getRange(activeRow, 1)
+    // Potential Sources (unused Dummy in 2020; added for 2021)
 
-    Cell.setValue(rowLabel + ' ' + indicatorLabel)
+    fbContentCell = specialRangeName(id, indicatorLabel, 'CoFBsources')
+    fbImportFormula = `=${fbContentCell}`
+    Sheet.getRange(activeRow, 1).setValue(SubStepComp.rowLabelB + ' ' + indicatorLabel)
+    Sheet.getRange(activeRow, 2, 1, titleWidth).merge().setFormula(fbImportFormula)
+    activeRow += 1
+
+    // Additional Follow-up Feedback (subsequently added Artefact from 2020)
+
+    fbContentCell = specialRangeName(id, indicatorLabel, 'CoFBextra')
+    fbImportFormula = `CONCATENATE(ARRAYFORMULA(concat(FILTER(${fbContentCell},${fbContentCell}<>""),"\n\n")))`
+    Sheet.getRange(activeRow, 1).setValue('\n\n' + SubStepComp.rowLabelC + ' ' + indicatorLabel + '\n\n')
+    Sheet.getRange(activeRow, 2, 1, titleWidth).merge().setFormula(fbImportFormula)
+    activeRow += 1
+
+    // Formatting
+
+    // Row Labels
+    Sheet.getRange(startRow, 1, activeRow - startRow, 1)
         .setBackground(MainStep.stepColor)
         .setFontWeight('bold')
         .setFontSize(11)
         .setHorizontalAlignment('center')
 
-    Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
-    Cell.merge()
-        .setFormula(fbImportFormula)
+    // Content
+    Sheet.getRange(startRow, 2, activeRow - startRow, titleWidth)
         .setFontStyle('italic')
         .setFontSize(10)
         .setHorizontalAlignment('left')
         .setVerticalAlignment('top')
 
-    Sheet.setRowHeight(activeRow, 100)
-
-    return activeRow + 1
+    return activeRow
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -100,39 +120,33 @@ function addResearcherFBNotes(
     let id = Company.id
     let titleWidth = companyNrOfServices == 1 || Company.hasOpCom ? 3 : 4
 
-    let rowLabel = SubStep.components[stepCNr].rowLabel
-    let subCompId = SubStep.components[stepCNr].id
+    let SubStepComp = SubStep.components[stepCNr]
 
     let Cell, rangeName
 
-    for (let i = 0; i < 2; i++) {
-        Cell = Sheet.getRange(activeRow, 1)
+    Cell = Sheet.getRange(activeRow, 1)
 
-        Cell.setValue('\nResearcher ' + String.fromCharCode(65 + i) + '\n\n' + rowLabel + ' ' + Indicator.labelShort)
-            .setBackground(MainStep.stepColor)
-            .setFontWeight('bold')
-            .setFontSize(11)
-            .setHorizontalAlignment('center')
-            .setVerticalAlignment('middle')
+    Cell.setValue(`\n${SubStepComp.rowLabelA}\n\n${SubStepComp.rowLabelB} ${Indicator.labelShort}`)
+        .setBackground(MainStep.stepColor)
+        .setFontWeight('bold')
+        .setFontSize(11)
+        .setHorizontalAlignment('center')
+        .setVerticalAlignment('middle')
 
-        Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
+    Cell = Sheet.getRange(activeRow, 2, 1, titleWidth)
 
-        if (!doRepairsOnly) {
-            Cell.merge().setValue('Placeholder Feedback Text')
-        }
-
-        Cell.setFontStyle('italic').setFontSize(10).setHorizontalAlignment('left').setVerticalAlignment('top')
-
-        let suffix = subCompId + (i + 1)
-        rangeName = specialRangeName(id, Indicator.labelShort, suffix)
-
-        SS.setNamedRange(rangeName, Cell)
-        Sheet.setRowHeight(activeRow, 100)
-
-        activeRow += 1
+    if (!doRepairsOnly) {
+        Cell.merge().setValue('Placeholder Feedback Text')
     }
 
-    return activeRow
+    Cell.setFontStyle('italic').setFontSize(10).setHorizontalAlignment('left').setVerticalAlignment('top')
+
+    rangeName = specialRangeName(id, Indicator.labelShort, SubStepComp.id)
+
+    SS.setNamedRange(rangeName, Cell)
+    Sheet.setRowHeight(activeRow, 100)
+
+    return activeRow + 1
 }
 
 // special feedback evaluation helper
