@@ -1,4 +1,6 @@
-/** Spreadsheet Casting: Company Data Collection Sheet */
+/** Interface  - Produce single Company Data Collection Sheet
+ * also parameterized Interface for mainAddNewInputStep() and mainRepairInputSheets()
+ */
 
 /* global 
     Config, addNewStep, startAtMainStepNr, doRepairsOnly, updateProduction, includeFeedback, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadsheet, cleanCompanyName, insertSheetIfNotExist, removeEmptySheet, produceSourceSheet, populateDCSheetByCategory, insertCompanyFeedbackSheet, fillSheetWithImportRanges

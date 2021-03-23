@@ -367,7 +367,7 @@ function addStepResearcherRow(SS, Sheet, Indicator, Company, activeRow, MainStep
         .setHorizontalAlignment('center')
 
     /** HOOK: if running mainRepairInputSheets:
-           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
+           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level.DON'T FORGET TO REMOVE AGAIN. */
 
     if (!doRepairsOnly) {
         Cell.setValue(thisFiller)
