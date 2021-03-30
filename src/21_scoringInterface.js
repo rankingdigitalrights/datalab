@@ -1,7 +1,8 @@
-// Interface for creating a single set of scoring content
-// Single set := either Outcome OR Comments OR Company Feedback
+// Generic Interface for creating a single set of imported
+// input type data for an array of Steps[]
+// CAUTION: is also used by 30_aggregationMain.js
 
-/* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows, moveSheetifExists */
+/* global indexPrefix, determineFirstStep, determineMaxStep, insertSheetIfNotExist, scoringSingleStep, cropEmptyColumns, cropEmptyRows */
 
 // eslint-disable-next-line no-unused-vars
 function addSetOfScoringSteps(
@@ -12,7 +13,6 @@ function addSetOfScoringSteps(
     Company,
     hasOpCom,
     outputParams,
-    isPilotMode,
     isYoyMode,
     yoyComp,
     addNewStep,
@@ -58,9 +58,7 @@ function addSetOfScoringSteps(
     console.log('Inserting Sheet ' + sheetName)
     let Sheet = insertSheetIfNotExist(SS, sheetName, true)
     if (Sheet === null) {
-        console.log(
-            'BREAK: Sheet for ' + sheetName + ' already exists. Skipping.'
-        )
+        console.log('BREAK: Sheet for ' + sheetName + ' already exists. Skipping.')
         return lastCol
     } else {
         //Sheet.clear()
@@ -74,11 +72,7 @@ function addSetOfScoringSteps(
         lastCol = Sheet.getLastColumn() + 2
     }
 
-    for (
-        let mainStepNr = firstScoringStep;
-        mainStepNr < maxScoringStep;
-        mainStepNr++
-    ) {
+    for (let mainStepNr = firstScoringStep; mainStepNr < maxScoringStep; mainStepNr++) {
         let MainStep = ResearchSteps.researchSteps[mainStepNr]
 
         // if current StepNr isn't in yony array / addNewStep Array / or is exclude in the research steps JSON --> skip Main Step
@@ -92,10 +86,7 @@ function addSetOfScoringSteps(
         }
 
         // console.log(`DEBUG ${MainStep.altScoringSubstepNr}`)
-        let subStepNr =
-            MainStep.altScoringSubstepNr > -1
-                ? MainStep.altScoringSubstepNr
-                : outputParams.subStepNr
+        let subStepNr = MainStep.altScoringSubstepNr > -1 ? MainStep.altScoringSubstepNr : outputParams.subStepNr
 
         let indexPref = MainStep.altIndexID ? MainStep.altIndexID : indexPrefix
 
@@ -110,7 +101,6 @@ function addSetOfScoringSteps(
             indexPref,
             subStepNr,
             lastCol,
-            isPilotMode,
             hasFullScores,
             Indicators,
             sheetModeID,

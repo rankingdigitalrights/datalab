@@ -1,4 +1,13 @@
-/* global 
+/** create Aggregation / Summary Scores Spreadsheet
+ * produces for a particular Main Step
+ * TODO: verify that removal of Substep 3.2 does not break Step 3 Scores
+ * TBC: produces Year-on-Year Sheets as well?
+ * TODO: YonY TBC by GW (and to be documented if yes)
+ * needs @param scoringStepNr
+ * has toggle @param includeElements to include Element level results
+ */
+
+/* global
 Config, IndicatorsObj, researchStepsVector, spreadSheetFileName, createSpreadsheet, insertPointValidationSheet, countIndiClassLengths, cleanCompanyName, addSetOfScoringSteps, insertSheetIfNotExist, fillSummaryScoresSheet, moveSheetifExists, insertSheetConnector, moveHideSheetifExists, removeEmptySheet, filterSingleSubstep
 */
 
@@ -12,22 +21,15 @@ function createAggregationOutput(
     includeCompanyOutcomeSheets,
     isYoyMode
 ) {
-    // scroing step number should be passed via main method call
-
-    let sheetModeID = 'SC'
+    let sheetModeID = 'SC' // data type ID: Scoring Company
 
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
-    let stepName = 'S' + scoringStepNr
-    let summarySheetName = Config.summaryParams.sheetNameSimple + ' ' + stepName
+    let stepName = 'S' + scoringStepNr // just for filename
+    let summarySheetName = Config.summaryParams.sheetNameSimple + ' ' + stepName // tab name; not filename
 
     // connect to existing spreadsheet or creat a blank spreadsheet
-    let spreadsheetName = spreadSheetFileName(
-        filenamePrefix,
-        stepName,
-        mainSheetMode,
-        filenameSuffix
-    )
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, stepName, mainSheetMode, filenameSuffix)
 
     let SS = createSpreadsheet(spreadsheetName, true)
 
@@ -35,14 +37,19 @@ function createAggregationOutput(
     console.log('SS ID: ' + fileID)
 
     // Scoring Scheme / Validation
+    // see 20_scoringMain.js
     let pointsSheet = insertPointValidationSheet(SS, 'Points')
 
+    // helper var to estimate row lengths per category
+    // needed for category wise averages
     let indicatorParams = countIndiClassLengths(Indicators)
 
     // --- // Main Procedure // --- //
 
-    let isPilotMode = false
     let outputParams = Config.scoringParams
+    // legacy hack to hard-code producing only a single step
+    // legacy from including Company Outcome tabs
+    // TODO: deprecate
     outputParams.firstStepNr = scoringStepNr
     outputParams.lastStepNr = scoringStepNr
 
@@ -51,21 +58,17 @@ function createAggregationOutput(
     let companyFilename
     let hasOpCom
 
+    // old mode to include individual company outcome sheets
+    // utilizes 21_scoringInterface.js
+    // discouraged for Spreadsheet performance reasons
+    // if we have Outcome Sheets, the we import Summary Scores internally
+    // TODO: reconsider / deprecate
     if (includeCompanyOutcomeSheets) {
         Companies.forEach(function (CompanyObj) {
             companyFilename = cleanCompanyName(CompanyObj)
-
             outputParams.sheetName = companyFilename
-
-            console.log(
-                '--- --- START: creating ' +
-                    mainSheetMode +
-                    ' Sheet for ' +
-                    companyFilename
-            )
-
+            console.log('--- --- START: creating ' + mainSheetMode + ' Sheet for ' + companyFilename)
             hasOpCom = CompanyObj.hasOpCom
-
             addSetOfScoringSteps(
                 SS,
                 sheetModeID,
@@ -74,21 +77,23 @@ function createAggregationOutput(
                 CompanyObj,
                 hasOpCom,
                 outputParams,
-                isPilotMode,
                 isYoyMode,
                 scoringStepNr
             )
-
-            console.log(
-                '--- --- END: created ' +
-                    mainSheetMode +
-                    ' Sheet for ' +
-                    companyFilename
-            )
+            console.log('--- --- END: created ' + mainSheetMode + ' Sheet for ' + companyFilename)
         })
     }
 
     // --- // Core: Summary Sheet // --- //
+    /** currently, will produce a plain Summary Scores Sheet with only
+     * Indicator-level data AND
+     * an extended Summary Scores Sheet which also includes Element-level data
+     */
+
+    /** Subset the relevant Scoring Substep
+     * has 2020 legacy mode - if a scoring substep is not x.1 then
+     * alternative scoring substep needs to be defined in
+     * @param ResearchStepObj (@param scoringStepNr */
 
     let thisSubStepID = filterSingleSubstep(
         ResearchStepsObj.researchSteps[scoringStepNr],
@@ -99,18 +104,17 @@ function createAggregationOutput(
     let summarySheet
     let includeElements
 
-    includeElements = false
+    // 1. Plain Summary Scores Sheet
 
+    includeElements = false // HOOK: include Element-Level results
+
+    // Caution: as default overwrites tab if it exist
     summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
 
     if (summarySheet === null) {
-        console.log(
-            'BREAK: Sheet for ' +
-                summarySheetName +
-                ' already exists. Skipping.'
-        )
+        console.log('BREAK: Sheet for ' + summarySheetName + ' already exists. Skipping.')
     } else {
-        summarySheet.clear()
+        summarySheet.clear() // Purge existing Sheet
 
         summarySheet = fillSummaryScoresSheet(
             summarySheet,
@@ -131,7 +135,7 @@ function createAggregationOutput(
         moveSheetifExists(SS, summarySheet, 2)
     }
 
-    // Prototype: with Element Level //
+    // 2. Prototype Summary Scores with Element Level //
 
     includeElements = true
 
@@ -139,11 +143,7 @@ function createAggregationOutput(
     summarySheet = insertSheetIfNotExist(SS, summarySheetName + stepName, false)
 
     if (summarySheet === null) {
-        console.log(
-            'BREAK: Sheet for ' +
-                summarySheetName +
-                ' already exists. Skipping.'
-        )
+        console.log('BREAK: Sheet for ' + summarySheetName + ' already exists. Skipping.')
     } else {
         summarySheet.clear()
 
@@ -168,11 +168,10 @@ function createAggregationOutput(
 
     // --- // Final formatiing // --- //
 
+    // Default Utility Sheet for easier connecting to imported Sheets
     let connectorSheet = insertSheetConnector(SS, Companies, 'Scores')
 
-    // moveSheetifExists(SS, connectorSheet, 1)
     moveHideSheetifExists(SS, connectorSheet, 1)
-
     moveHideSheetifExists(SS, pointsSheet, 1)
 
     // if empty Sheet exists, delete

@@ -64,11 +64,6 @@ function importDataStoreRowResults(
 
     // console.log(`DEBUG - ${indexPref}`)
 
-    // PILOT: adjusting substep number for Researcher Name import
-    if (StepComp.importNameFrom) {
-        subStepID = StepComp.importNameFrom
-    }
-
     let rowLabels = []
     let rowCells = []
     let blockCells = []
@@ -79,10 +74,7 @@ function importDataStoreRowResults(
     let c = elemLabelShort
     if (elemLabelShort != null) {
         // console.log("here")
-        c = elemLabelShort.substring(
-            indLabelShort.length + 1,
-            elemLabelShort.length + 1
-        )
+        c = elemLabelShort.substring(indLabelShort.length + 1, elemLabelShort.length + 1)
         // console.log(c)
     }
 
@@ -91,14 +83,7 @@ function importDataStoreRowResults(
         subStepLabel = '0'
     }
 
-    rowLabels.push(
-        subStepID.substring(2, 3),
-        subStepLabel,
-        indCatLabelShort,
-        indLabelShort,
-        c,
-        StepComp.variableName
-    )
+    rowLabels.push(subStepID.substring(2, 3), subStepLabel, indCatLabelShort, indLabelShort, c, StepComp.variableName)
 
     rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
@@ -107,16 +92,7 @@ function importDataStoreRowResults(
     // 1. Group
 
     rowCells.push('Company', 'Group')
-    compCellName = defineNamedRange(
-        indexPref,
-        'DC',
-        subStepID,
-        importID,
-        component,
-        Company.id,
-        'group',
-        stepCompID
-    )
+    compCellName = defineNamedRange(indexPref, 'DC', subStepID, importID, component, Company.id, 'group', stepCompID)
 
     formula = importRangeFormula(urlDC, compCellName, false)
     rowCells.push(compCellName, formula)
@@ -128,16 +104,7 @@ function importDataStoreRowResults(
     rowCells = rowLabels.slice()
     rowCells.push('Company', 'OpCom')
     // for opCom + Indicator Subcomponents
-    compCellName = defineNamedRange(
-        indexPref,
-        'DC',
-        subStepID,
-        importID,
-        component,
-        Company.id,
-        'opCom',
-        stepCompID
-    )
+    compCellName = defineNamedRange(indexPref, 'DC', subStepID, importID, component, Company.id, 'opCom', stepCompID)
     formula = importRangeFormula(urlDC, compCellName, false)
 
     rowCells.push(compCellName, formula)
@@ -149,10 +116,7 @@ function importDataStoreRowResults(
     for (let s = 0; s < Company.services.length; s++) {
         rowCells = rowLabels.slice()
 
-        rowCells.push(
-            Company.services[s].type,
-            Company.services[s].label.current
-        )
+        rowCells.push(Company.services[s].type, Company.services[s].label.current)
 
         // setting up formula that compares values
         compCellName = defineNamedRange(
@@ -202,11 +166,6 @@ function importDataStoreRowScoring(
 
     // console.log(`DEBUG - ${indexPref}`)
 
-    // PILOT: adjusting substep number for Researcher Name import
-    if (StepComp.importNameFrom) {
-        subStepID = StepComp.importNameFrom
-    }
-
     let rowLabels = []
     let rowCells = []
     let blockCells = []
@@ -217,10 +176,7 @@ function importDataStoreRowScoring(
     let c = elemLabelShort
     if (elemLabelShort != null) {
         // console.log("here")
-        c = elemLabelShort.substring(
-            indLabelShort.length + 1,
-            elemLabelShort.length + 1
-        )
+        c = elemLabelShort.substring(indLabelShort.length + 1, elemLabelShort.length + 1)
         // console.log(c)
     }
 
@@ -229,14 +185,7 @@ function importDataStoreRowScoring(
         subStepLabel = '0'
     }
 
-    rowLabels.push(
-        subStepID.substring(2, 3),
-        subStepLabel,
-        indCatLabelShort,
-        indLabelShort,
-        c,
-        'score'
-    )
+    rowLabels.push(subStepID.substring(2, 3), subStepLabel, indCatLabelShort, indLabelShort, c, 'score')
 
     rowCells = rowLabels.slice() //ES5 way to deep-copy; no Array.from()
 
@@ -248,16 +197,7 @@ function importDataStoreRowScoring(
     //compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, "group", stepCompID)
 
     //formula = importRangeFormula(urlDC, compCellName, false)
-    compCellName = defineNamedRange(
-        indexPref,
-        'SC',
-        subStepID,
-        importID,
-        component,
-        Company.id,
-        'group',
-        scoringSuffix
-    )
+    compCellName = defineNamedRange(indexPref, 'SC', subStepID, importID, component, Company.id, 'group', scoringSuffix)
     formula = importRangeFormula(urlSC, compCellName, false)
     rowCells.push(compCellName, formula)
     //rowCells.push(compCellName, "")
@@ -320,10 +260,7 @@ function importDataStoreRowScoring(
     for (let s = 0; s < Company.services.length; s++) {
         rowCells = rowLabels.slice()
 
-        rowCells.push(
-            Company.services[s].type,
-            Company.services[s].label.current
-        )
+        rowCells.push(Company.services[s].type, Company.services[s].label.current)
 
         /*
         // setting up formula that compares values
@@ -494,11 +431,6 @@ function importDataStoreScoringLevelScores(
 
     // console.log(`DEBUG - ${indexPref}`)
 
-    // PILOT: adjusting substep number for Researcher Name import
-    /*if (StepComp.importNameFrom) {
-        subStepID = StepComp.importNameFrom
-    }*/
-
     let rowLabels = []
     let rowCells = []
     let blockCells = []
@@ -512,14 +444,7 @@ function importDataStoreScoringLevelScores(
         subStepLabel = '0'
     }
 
-    rowLabels.push(
-        subStepID.substring(2, 3),
-        subStepLabel,
-        catLabel,
-        indLabelShort,
-        c,
-        'score'
-    )
+    rowLabels.push(subStepID.substring(2, 3), subStepLabel, catLabel, indLabelShort, c, 'score')
 
     rowCells = rowLabels.slice() // ES5 way to deep-copy Array; no Array.from()
 
@@ -531,16 +456,7 @@ function importDataStoreScoringLevelScores(
     //compCellName = defineNamedRange(indexPref, "DC", subStepID, importID, component, Company.id, "group", stepCompID)
 
     //formula = importRangeFormula(urlDC, compCellName, false)
-    compCellName = defineNamedRange(
-        indexPref,
-        'SC',
-        subStepID,
-        importID,
-        component,
-        Company.id,
-        'group',
-        scoringSuffix
-    )
+    compCellName = defineNamedRange(indexPref, 'SC', subStepID, importID, component, Company.id, 'group', scoringSuffix)
     formula = importRangeFormula(urlSC, compCellName, false)
     rowCells.push(compCellName, formula)
     //rowCells.push(compCellName, "")
@@ -596,10 +512,7 @@ function importDataStoreScoringLevelScores(
     for (let s = 0; s < Company.services.length; s++) {
         rowCells = rowLabels.slice()
 
-        rowCells.push(
-            Company.services[s].type,
-            Company.services[s].label.current
-        )
+        rowCells.push(Company.services[s].type, Company.services[s].label.current)
 
         compCellName = defineNamedRange(
             indexPref,

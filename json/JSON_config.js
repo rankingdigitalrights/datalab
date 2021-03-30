@@ -57,7 +57,8 @@ const centralConfig = {
     sourcesSheetName: 'Sources',
     dataColWidth: 300,
     masterTemplateUrl: '125ZK69c-1NntgOQfM8_tD6n2jM4eOytfZmodU8FfZrc',
-    outputFolderId: '1oqphurm6AEZT0CFyvT6Rt57Iyb8JLPxe', // TODO:
+    outputFolderIdProd: '1oqphurm6AEZT0CFyvT6Rt57Iyb8JLPxe', // TODO: 2020
+    outputFolderIdDev: '1e1njzRJoERb9xfDnPsHtsOTr97stcDeG', // TODO: 2020
     frontMatter: {
       frontMatterColsNr: 4,
       indicatorGuidanceLabel: 'Indicator guidance:',

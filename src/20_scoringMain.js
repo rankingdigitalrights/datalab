@@ -1,47 +1,27 @@
-// --- Spreadsheet Casting: Company Scoring Sheet --- //
-// Works only for a single ATOMIC step right now //
+// --- Main Interface Casting: Company Scoring Sheet --- //
+/** produces a single Sompany Output spreadsheet  with
+ * Results and Scores for a set of ResearchSteps[]
+ * 21_scoringInterface.js is also used by other modules
+ * (i.e. Aggregation Scores)
+ */
 
 /* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, insertPointValidationSheet, addSetOfScoringSteps, moveHideSheetifExists, removeEmptySheet */
 
-// --------------- This is the Main Scoring Process Caller ---------------- //
-
-function createSpreadsheetOutput(
-    Company,
-    filenamePrefix,
-    filenameSuffix,
-    mainSheetMode,
-    isYoyMode,
-    yoyComp,
-    addNewStep,
-    stepsToAdd
-) {
-    // importing the JSON objects which contain the parameters
-    // Refactored to fetching from Google Drive
-
+function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, isYoyMode, yoyComp, addNewStep, stepsToAdd) {
     let Indicators = IndicatorsObj
     let ResearchSteps = researchStepsVector
 
-    let sheetModeID = 'SC'
+    let sheetModeID = 'SC' // SC = Scoring Company
 
     let companyFilename = cleanCompanyName(Company)
 
     console.log('--- --- START: main Scoring for ' + companyFilename)
-    console.log(
-        '--- --- START: creating ' +
-            mainSheetMode +
-            ' Spreadsheet for ' +
-            companyFilename
-    )
+    console.log('--- --- START: creating Output Spreadsheet for ' + companyFilename)
 
     let hasOpCom = Company.hasOpCom
 
     // define SS name
-    let spreadsheetName = spreadSheetFileName(
-        filenamePrefix,
-        mainSheetMode,
-        companyFilename,
-        filenameSuffix
-    )
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, 'Output', companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
     // TODO: Check if has urlID & updateProduction --> grab by ID
@@ -50,12 +30,13 @@ function createSpreadsheetOutput(
 
     // creates Outcome  page
 
-    // Scoring Scheme / Validation
+    // Inserts Scoring Scheme which is HLOOKUP'ed to calculate Scores
+    // has reversed Scoring Logic as well
     let pointsSheet = insertPointValidationSheet(SS, 'Points')
 
     // --- // Main Procedure // --- //
 
-    let isPilotMode = false
+    let isPilotMode = false // TODO: 2019 Pilot legacy; remove
     let outputParams = Config.scoringParams
 
     addSetOfScoringSteps(
@@ -66,13 +47,13 @@ function createSpreadsheetOutput(
         Company,
         hasOpCom,
         outputParams,
-        isPilotMode,
-        isYoyMode,
-        yoyComp,
-        addNewStep,
-        stepsToAdd
+        isYoyMode, // TODO: GW - document
+        yoyComp, // TODO: GW - document
+        addNewStep, // TODO: GW - document
+        stepsToAdd // TODO: GW - document
     )
 
+    // move the Points validation Sheet to the front and hide
     moveHideSheetifExists(SS, pointsSheet, 1)
 
     // clean up: if empty Sheet exists, delete

@@ -2,14 +2,14 @@
 // --- //  Branch: Development  // --- //
 
 /* global
-    centralConfig, indicatorsVector, companiesVector, processInputSpreadsheet, createSpreadsheetOutput, createAggregationOutput, createCompanyDataStore, processCompanyHealth, openSpreadsheetByID, insertSheetIfNotExist, addFileIDtoControl, mainProtectFileOpenStepSingleCompany, createSubstepArray, mainUnProtectSingleCompany, mainProtectSingleCompany, deepCloneFolder, subsetIndicatorsObject, injectFeedbackForms
+    centralConfig, indicatorsVector, companiesVector, processInputSpreadsheet, createSpreadsheetOutput, createAggregationOutput, createCompanyDataStore, processCompanyHealth, openSpreadsheetByID, insertSheetIfNotExist, addFileIDtoControl, mainProtectFileOpenStepSingleCompany, createSubstepArray, mainUnProtectSingleCompany, mainProtectSingleCompany, deepCloneFolder, subsetIndicatorsObject, produceCompanyFeedbackForm
 */
 
-// global params init (def with initiateGlobalConfig())
+// GLOBAL PARAMS init (definition happens with initiateGlobalConfig())
 
-/** --- main Prod vs Dev Toggle --- **/
-const ISPRODUCTION = false
-/** --- main Prod vs Dev Toggle --- **/
+/** --- MAIN PROD vs Dev Toggle --- **/
+const ISPRODUCTION = false // true := will allow access to Production folders & file names
+/** --- MAIN PROD vs Dev Toggle --- **/
 
 var Config
 var doRepairsOnly
@@ -32,55 +32,52 @@ var includeFormatting = true
 function initiateGlobalConfig() {
     Config = centralConfig
 
-    doRepairsOnly = false
-    // skipMainSteps = false // TBD: not operation right now
+    doRepairsOnly = false // global defaults; will be overwritten locally where necessary
 
     // --- INDICATOR SUBSETTING --- //
-    // IMPORTANT: subsetting function now only accepts Array
+    // IMPORTANT: subsetting function only accepts Array
 
-    // IndicatorsObj = indicatorsVector
-    /* OR: use Subset; (param has to be Array[]) */
+    // IndicatorsObj = indicatorsVector // EITHER default
+    /* OR: use Array[] to subset */
     IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'F1a', 'P1a'])
 
-    /* Indicator Labels:
-    
+    /* FIY: Indicator Labels:
     Batch 1:
     "G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7"
-    
     Batch 2:
     "F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"
     */
 
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
-    filenameSuffix = ISPRODUCTION ? Config.filenameSuffixProd : Config.filenameSuffixDev // Dev, "", Debug, QC
+    filenameSuffix = ISPRODUCTION ? Config.filenameSuffixProd : Config.filenameSuffixDev // [Dev, "", Debug, QC]
     outputFolderName = '2020 Dev Fallback Folder' // Specific folder defined in Main Callers
     rootFolderID = ISPRODUCTION ? Config.rootFolderIDProd : Config.rootFolderIDDev
     rootFolderName = ISPRODUCTION ? Config.rootFolderNameProd : Config.rootFolderIDDev
-    controlSpreadsheetID = Config.controlSpreadsheetID
+    controlSpreadsheetID = Config.controlSpreadsheetID // spreadsheet to which fileIds of new sheets are added
     Styles = Config.styles
 }
 
 // --- // MAIN CALLERS // --- //
 
-// create Data Collection spreadsheets for all companies
-
+// create Data Collection spreadsheets for an of Companies[]
 // eslint-disable-next-line no-unused-vars
 function mainInputSheets() {
     initiateGlobalConfig()
 
-    includeFeedback = true // Sheet for parsed Company Feedback
+    includeFeedback = true // default: true; Sheet for parsed Company Feedback; needs to exist before Step 4
 
     outputFolderName = ISPRODUCTION ? Config.inputFolderNameProd : Config.inputFolderNameDev
     // filenameSuffix = "" // local override : Dev, "", Debug, QC
     let mainSheetMode = 'Input' // for filename | TODO: move to Config
 
-    // Hook to skip steps
-    let useStepsSubset = false // true := will use maxStep gloabbly defined in Config.JSON
+    // HOOK to not produce all Steps (i.e. stop before Step 4)
+    let useStepsSubset = false // true := will end with maxStep globaly defined in Config.JSON
 
-    /** Hook for DEV: produce only a single Step
+    /** HOOK for DEV: produce only a single Step
      * startAtMainStepNr = 7 // logical Order
      * Config.subsetMaxStep = startAtMainStepNr
+     * useStepsSubset = true
      * */
 
     const Companies = companiesVector.companies
@@ -115,31 +112,32 @@ function mainInputSheets() {
     let fileID
 
     Companies.forEach(function (Company) {
-        fileID = processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        fileID = processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix)
 
         addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
     })
 }
 
-// --- // add a new Main Research Step at position Sheet.lastRow()
+// --- // appends a Main Research Step at position Sheet.lastRow()
+// uses regular mainInputSheet module but skips frontmatter
 // eslint-disable-next-line no-unused-vars
-function mainAddNewInputStep() {
+function mainAppendInputStep() {
     initiateGlobalConfig()
 
-    includeFormatting = false // toggle costly Sheet-level formatting updates
+    // might make sense to add Steps in 1 run at to apply formatting in a 2nd run
+    includeFormatting = true // toggle costly Sheet-level formatting updates
 
     updateProduction = true // IMPORTANT flag; if true then Company DC Sheet is grabbed by sheetID
 
-    addNewStep = true // Just ignore: also caution - doesn't care if step already exists
+    addNewStep = true // don't touch; default for this function call
 
     // Hook to skip steps
     startAtMainStepNr = 7 // logical Order
     Config.subsetMaxStep = startAtMainStepNr
+    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
 
     outputFolderName = ISPRODUCTION ? Config.inputFolderNameProd : Config.inputFolderNameDev
-    // filenameSuffix = "" // local override : Dev, "", Debug, QC
-    let mainSheetMode = 'Input' // for filename | TODO: move to Config
-    let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
+    // filenameSuffix = "" // local override for filename: [Dev, "", Debug, QC]
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -173,29 +171,31 @@ function mainAddNewInputStep() {
     Companies.forEach(function (Company) {
         // Company.urlCurrentInputSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg"
 
-        processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix)
     })
 }
 
-// --- // repairing // --- //
+/** REPAIRING
+ * restores row labels, formatting (optional), and namedRanges (main task)
+ * it will NEVER overwrite cells with user-entered labels
+ * (unless !doRepairs is manually commented out); see Notion & datalab Wiki;
+ */
+
 // eslint-disable-next-line no-unused-vars
 function mainRepairInputSheets() {
-    // IMPORTANT: if SS is protected, run with data@
+    // IMPORTANT: if SS is protected, run function with data@rdr
+    // otherwise permission will be denied
 
     initiateGlobalConfig()
 
-    includeFormatting = false // toggle costly Sheet-level formatting updates
+    includeFormatting = false // HOOK toggle off costly Sheet-level formatting
 
-    startAtMainStepNr = 5 // logical Order
-
-    Config.subsetMaxStep = startAtMainStepNr
-
-    doRepairsOnly = true // don't touch
-
-    updateProduction = true // DANGER
-
-    let mainSheetMode = 'Input' // for filename | TODO: move to Config
+    startAtMainStepNr = 5 // HOOK: which Step to repair - LOGICAL Order
+    Config.subsetMaxStep = startAtMainStepNr // HOOK: only repair 1 Step
     let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
+
+    doRepairsOnly = true // don't touch; global
+    updateProduction = false // DANGER; global HOOK; allows to open production Sheets by ID
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -227,28 +227,25 @@ function mainRepairInputSheets() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        // Company.urlCurrentInputSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg"
-
-        processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode)
+        // Company.urlCurrentInputSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg" // local override of url
+        processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix)
     })
 }
 
-// create Scoring spreadsheets for all companies
-
+// create Company Scoring Spreadsheets for array of Companies[]
 // eslint-disable-next-line no-unused-vars
 function mainScoringSheets() {
     initiateGlobalConfig()
 
     outputFolderName = ISPRODUCTION ? Config.outputFolderNameProd : Config.outputFolderNameDev
-    let addNewStep = false // TODO: GW - remove or rename
-    let stepsToAdd = [6, 7] // TODO: GW - remove or rename
 
-    // Config.subsetMaxStep = 4
+    let addNewStep = false // TODO: GW - remove or rename & document
+    let stepsToAdd = [6, 7] // TODO: GW - remove or rename & document
 
-    let isYoyMode = false // TODO: GW - remove or rename
-    let yoySteps = [3, 5, 7] // TODO: GW - remove
+    // Config.subsetMaxStep = 4 // HOOK to only produce a few steps
 
-    let mainSheetMode = 'Output'
+    let isYoyMode = false // TODO: GW - remove or rename & document
+    let yoySteps = [3, 5, 7] // TODO: GW - remove or rename  & document
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -286,26 +283,32 @@ function mainScoringSheets() {
             Company,
             filenamePrefix,
             filenameSuffix,
-            mainSheetMode,
             isYoyMode,
             yoySteps,
             addNewStep,
             stepsToAdd
         )
 
-        addFileIDtoControl(mainSheetMode, Company.label.current, fileID, controlSpreadsheetID)
+        addFileIDtoControl('Output', Company.label.current, fileID, controlSpreadsheetID)
     })
 }
 
-/** New: Inject (append) Feedback Form Elements to Company-specific Feedback Template
- * @Param: Spreadsheet ID of Template defined in Company JSON
+/** main Process to produce Company Feedback Sheets
+ * for documentation see Notion
+ * TODO: adjust for 2021
+ * copies a Company Feedback Frontmatter Template Sheet (by ID);
+ * then appends results and Feedback Form Elements (input rows for companies)
+ * @param Config.feedbackForms.masterTemplateUrl Company Feedback Master Template
+ * @param Config.feedbackForms.outputFolderIdProd for Output folder
  */
+
+// CAUTION: Needs existing Folder & Folder Id (outputFolderIdProd)
 
 // eslint-disable-next-line no-unused-vars
 function mainFeedbackSheets() {
     initiateGlobalConfig()
 
-    let makeDataOwner = true // should new file be owned by Data@?
+    let makeDataOwner = true // default: true; should new file be owned by Data@?
 
     // outputFolderName = "2020 - Dev - Feedback"
     let Companies = companiesVector.companies
@@ -338,28 +341,37 @@ function mainFeedbackSheets() {
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {
-        let fileID = injectFeedbackForms(Company, makeDataOwner)
+        let fileID = produceCompanyFeedbackForm(Company, makeDataOwner)
 
         addFileIDtoControl('Company Feedback', Company.label.current, fileID, controlSpreadsheetID)
     })
 }
 
-// create Summary Scores spreadsheets for all companies
+/** create Aggregation / Summary Scores Spreadsheet
+ * for a particular Main Step with and without
+ * Element-Level data
+ * TODO: verify that removal of Substep 3.2 does not break Step 3 Scores
+ * needs @param scoringStepNr
+ * adjust @param filenameSuffix and
+ *        @param outputFolderName
+ * for Outpust as needed; no global config as of now
+ */
 
 // eslint-disable-next-line no-unused-vars
 function mainAggregationSheets() {
     // filename fragments defined in
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = ' Test' // DANGER
-    outputFolderName = '2021 - Dev - Summary'
+    filenameSuffix = ' Test' // HOOK  - Local Override - DANGER
+    outputFolderName = '2021 - Dev - Summary' // HOOK
     let mainSheetMode = 'Summary Scores'
 
-    let includeCompanyOutcomeSheets = false
+    // 2020 decision: for performace reasons import from Outcome Sheets directly
+    let includeCompanyOutcomeSheets = false // default: false
 
-    let scoringStepNr = 3 //
+    let scoringStepNr = 3 // Summary Scores always only produces one single Step
 
-    let isYoyMode = false // TODO: GW - remove or rename
+    let isYoyMode = false // TODO: GW - remove or document and rename
 
     let Companies = companiesVector.companies
         // .slice(5, 7) // Axiata & Baidu,
@@ -375,7 +387,7 @@ function mainAggregationSheets() {
         mainSheetMode,
         scoringStepNr,
         includeCompanyOutcomeSheets,
-        isYoyMode // TODO: GW - remove or rename
+        isYoyMode // TODO: GW - remove or document and  rename
     )
 
     // addFileIDtoControl(mainSheetMode, "PROTO", fileID, controlSpreadsheetID)
@@ -383,21 +395,22 @@ function mainAggregationSheets() {
     console.log('|--- added ' + mainSheetMode + ';fileID: ' + fileID)
 }
 
-// create Data Store spreadsheets for all companies
-// Scores: ~2 minutes runtime? TBC
+// create Data Store spreadsheets for Companies[]
+
 // eslint-disable-next-line no-unused-vars
 function mainDataStore() {
-    let DataMode = ['results', 'changes'] // ["results", "transpose", "scores","results","changes"]
+    // TODO: implement DataMode 'sources'
+    let DataMode = ['results', 'changes'] // ["results", "transpose", "scores","changes"]
 
     initiateGlobalConfig()
     outputFolderName = Config.dataStoreParams.outputFolderName
 
-    filenameSuffix = ' v3'
+    filenameSuffix = ' v3' // current default; critical for versioning in sync with `datapipe`
+    // TODO: bump up to v4 once sources tab is added;
 
-    // filename fragments defined in Config.summaryParams.spreadsheetName
-    let mainSheetMode = Config.dataStoreParams.fileName
+    let mainSheetMode = Config.dataStoreParams.fileName // "Data Store"; obsolete
 
-    Config.subsetMaxStep = 7
+    Config.subsetMaxStep = 7 // add all steps? for production no reason not to
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -438,7 +451,9 @@ function mainDataStore() {
     })
 }
 
-// aggregate Input Spreadsheets Health Status (Named Ranges, ..., tbd)
+/** gathers Input Spreadsheets "Health Status" (ake broken Named Ranges)
+ * writes to @param controlSpreadsheetID in @param ListSheetBroken
+ */
 
 // eslint-disable-next-line no-unused-vars
 function mainInspectInputSheets() {
@@ -463,7 +478,9 @@ function mainInspectInputSheets() {
     })
 }
 
-// not functional yet
+// Automating Backup of Index Data Production folde
+// not full functional yet
+// TODO: finalize to streamline daily backup of Index Data
 
 // eslint-disable-next-line no-unused-vars
 function DevMainBackupFolder() {
@@ -475,29 +492,8 @@ function DevMainBackupFolder() {
     deepCloneFolder(sourceFolderId, targetFolderId)
 }
 
-// --- // USE WISELY // --- //
-/* function mainClearAllNamedRanges() {
-
-    initiateGlobalConfig()
-    var mainSheetMode = "Input" // for filename
-
-    var Companies = companiesVector.companies
-        .slice(0, 0)
-    // .slice(0,1) // Amazon
-    // .slice(1, 2) // Apple
-    // .slice(2,3) // Deutsche Telekom
-    // .slice(3,4) // Facebook
-    // .slice(4,5) // Google
-    // .slice(5,6) // Microsoft
-    // .slice(6,7) // Telefonica
-    // .slice(7,8) // Twitter
-    // .slice(8,9) // Vodafone
-
-    Companies.forEach(function (Company) {
-        clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
-    })
-
-} */
+// MAIN PERMISSIONS SECTIOn //
+// TODO: GW - Document, starting in Notion //
 
 // eslint-disable-next-line no-unused-vars
 function mainProtectCompanies() {
@@ -630,3 +626,28 @@ function mainOpenStepCompanies() {
         mainProtectFileOpenStepSingleCompany(Company, subStepIDs, editors, IndicatorsObj, doUpdateEditors)
     })
 }
+
+// DANGER ZONE //
+// --- // USE WISELY // --- //
+/* function mainClearAllNamedRanges() {
+
+    initiateGlobalConfig()
+    var mainSheetMode = "Input" // for filename
+
+    var Companies = companiesVector.companies
+        .slice(0, 0)
+    // .slice(0,1) // Amazon
+    // .slice(1, 2) // Apple
+    // .slice(2,3) // Deutsche Telekom
+    // .slice(3,4) // Facebook
+    // .slice(4,5) // Google
+    // .slice(5,6) // Microsoft
+    // .slice(6,7) // Telefonica
+    // .slice(7,8) // Twitter
+    // .slice(8,9) // Vodafone
+
+    Companies.forEach(function (Company) {
+        clearNamedRangesFromCompanySheet(Company, filenamePrefix, filenameSuffix, mainSheetMode)
+    })
+
+} */

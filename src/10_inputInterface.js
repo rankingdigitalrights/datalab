@@ -1,5 +1,9 @@
-/** Interface  - Produce single Company Data Collection Sheet
- * also parameterized Interface for mainAddNewInputStep() and mainRepairInputSheets()
+/** Main Interface  - Produce single Company Data Collection Sheet
+ * also parameterized Interface for mainAppendInputStep() and mainRepairInputSheets()
+ * mainAppendInputStep() skips the front matter, and appends n Steps[] to lastRow
+ * mainRepairInputSheets() restores labels, formatting (optional), and named Ranges
+ * it will never overwrite cells with user-entered labels
+ * (unless !doRepairs is locally and manually commented out in a particular 1x_submodule)
  */
 
 /* global 
@@ -7,12 +11,12 @@
 */
 
 // eslint-disable-next-line no-unused-vars
-function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix, mainSheetMode) {
-    console.log('PROCESS: begin main DC --- // ---')
+function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filenameSuffix) {
+    console.log('PROCESS: begin main Input --- // ---')
 
-    let companyShortName = cleanCompanyName(Company)
+    let companyShortName = cleanCompanyName(Company) // returns Company Name without empty spaces and special characters
 
-    console.log('--- // --- creating ' + mainSheetMode + ' Spreadsheet for ' + companyShortName + ' --- // ---')
+    console.log('--- // --- creating Input Spreadsheet for ' + companyShortName + ' --- // ---')
 
     // importing the JSON objects which contain the parameters
     // Refactored to fetching from Google Drive
@@ -20,22 +24,29 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
     // let Company = Company // TODO this a JSON Obj now; adapt in scope
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
-    let doCollapseAll = Config.collapseAllGroups
-    let importedOutcomeTabName = Config.prevYearOutcomeTab
-    let importedSourcesTabName = Config.prevYearSourcesTab
+    let doCollapseAll = Config.collapseAllGroups // default: false; fold all row group?
+    let importedOutcomeTabName = Config.prevYearOutcomeTab // for import of prev. results
+    let importedSourcesTabName = Config.prevYearSourcesTab // for import of prev. results
 
-    let includeRGuidanceLink = Config.includeRGuidanceLink
-    let collapseRGuidance = Config.collapseRGuidance
+    let includeRGuidanceLink = Config.includeRGuidanceLink // Baseamp Link
+    let collapseRGuidance = Config.collapseRGuidance // fold research guidance at top of sheet?
 
-    // IMPORTANT: if startAtMainStepNr > 0 the make sure then maxStep is at least equal
+    // for addNewStep and/or development - startAtMainStepNr HOOK to skip research steps
+    // define startAtMainStepNr in 00-mainController
+
+    // if startAtMainStepNr > 0 the make sure that maxStep is at least equal
     if (startAtMainStepNr > Config.subsetMaxStep) {
         Config.subsetMaxStep = startAtMainStepNr
     }
 
-    // connect to existing spreadsheet or creat a blank spreadsheet
-    let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
+    // filename; will also be used for filename-based access to spreadsheets
+    let spreadsheetName = spreadSheetFileName(filenamePrefix, 'Input', companyShortName, filenameSuffix)
 
-    // HOOK: Override for local development
+    /** HOOK: if we only do Repairs AND want to update Production
+     * function tries to connect to existing spreadsheet by ID provided in Companies JSON
+     * otherwise look up spreadsheet by filename and allow overwriting
+     * TODO: reverse boolean Logic
+     */
 
     let SS =
         !doRepairsOnly && !updateProduction
@@ -58,13 +69,16 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
 
     // if set in Config, import previous Index Outcome & Sources
     if (Config.importPrevOutcome && !doRepairsOnly && !addNewStep) {
-        // Previous OUTCOME: Labels Column, Results Column
+        // Previous Company Outcome
+        // new 2021 approach: import directly from Outcome Sheet
+        // [Labels Column, Results Column]
         externalFormula = [
             `=IMPORTRANGE("${Company.urlPrevOutputSheet}","${tabPrevOutcome}!A:A")`,
             `=IMPORTRANGE("${Company.urlPrevOutputSheet}","${tabPrevOutcome}!${Company.columnPrevOutcomeStart}:${Company.columnPrevOutcomeEnd}")`,
         ]
 
-        // Import only once; hard copy; do not overwrite
+        // Import only once; false := do not overwrite
+        // TODO: for performance reasons, this Sheet should be hard-coded
         Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
 
         if (Sheet !== null) {
@@ -74,7 +88,8 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
         // Previous SOURCES
         externalFormula = [`=IMPORTRANGE("${Company.urlPrevInputSheet}","${tabPrevSources}!A:Z")`]
 
-        // Import only once; hard copy; do not overwrite
+        // Import only once; false := do not overwrite
+        // TODO: for performance reasons, this Sheet could behard-coded
         Sheet = insertSheetIfNotExist(SS, importedSourcesTabName, false)
         if (Sheet !== null) {
             fillSheetWithImportRanges(Sheet, importedSourcesTabName, externalFormula)
@@ -83,6 +98,7 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
     }
 
     // --- // creates sources page // --- //
+    // won't overwrite
     if (!doRepairsOnly && !addNewStep) {
         Sheet = insertSheetIfNotExist(SS, sourcesTabName, false)
         if (Sheet !== null) {
@@ -91,27 +107,33 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
     }
 
     // -- // For Company Feedback Steps // --- //
+    /** add Company Feedback tab in which returned company feedback will be copied by hand
+     * returned Company feedback is parsed with `datapipe` and written to
+     * a master feedback collector Spreadsheet
+     * see Notion documentation: Company Feedback Process
+     * see datapipe/wiki
+     */
     if (includeFeedback && !doRepairsOnly) {
         let updateSheet = false // flag for overwriting or not
         console.log('producing / updating Feedback Tab')
         insertCompanyFeedbackSheet(SS, Config.feedbackForms.compFeedbackSheetName, Company, Indicators, updateSheet)
     }
 
-    let hasOpCom = Company.hasOpCom
-    let isNewCompany = Company.isPrevScored ? false : true
+    let hasOpCom = Company.hasOpCom // does company have a Operating Company
+    let isNewCompany = Company.isPrevScored ? false : true // is Company new to this Index
 
-    // fetch number of Services once
     let companyNumberOfServices = Company.services.length
 
-    // --- // MAIN TASK // --- //
-    // for each Indicator Category do
+    // --- // MAIN Process // --- //
     let Category
+    // for each Indicator Category (G/F/P) do
 
     for (let i = 0; i < Indicators.indicatorCategories.length; i++) {
         Category = Indicators.indicatorCategories[i]
 
-        console.log('--- NEXT : Starting ' + Category.labelLong)
+        console.log('--- Starting ' + Category.labelLong)
 
+        // adds all Indicator sheets of one Category
         populateDCSheetByCategory(
             SS,
             Category,
@@ -129,11 +151,11 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
         console.log('--- Completed ' + Category.labelLong)
     }
 
-    console.log('PROCESS: end DC main')
+    console.log('PROCESS: end Input main')
 
     // clean up - if empty Sheet exists, delete
     removeEmptySheet(SS)
 
-    console.log('FILE: ' + mainSheetMode + ' Spreadsheet created for ' + companyShortName)
+    console.log('FILE: Input Spreadsheet created for ' + companyShortName)
     return fileID
 }

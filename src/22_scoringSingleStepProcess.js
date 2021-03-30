@@ -9,7 +9,6 @@ function scoringSingleStep(
     indexPref,
     subStepNr,
     lastCol,
-    isPilotMode,
     hasFullScores,
     Indicators,
     sheetModeID,
@@ -141,7 +140,6 @@ function scoringSingleStep(
                                 hasOpCom,
                                 Category,
                                 blocks,
-                                isPilotMode,
                                 indexPref
                             )
                             console.log(Indicator.labelShort + ' - SC - ' + stepCompType + ' added')
@@ -202,7 +200,6 @@ function scoringSingleStep(
                                 hasOpCom,
                                 Category,
                                 blocks,
-                                false,
                                 indexPref
                             )
                             console.log(Indicator.labelShort + ' - SC - ' + 'sources added')

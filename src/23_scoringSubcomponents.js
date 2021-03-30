@@ -267,16 +267,11 @@ function importElementRow(
     companyHasOpCom,
     Category,
     blocks,
-    isPilotMode,
     indexPref
 ) {
     let stepCompID = StepComp.id
 
     let currentSubStepID = subStepID
-    // TODO - PILOT: adjusting substep number for Researcher Name import
-    if (isPilotMode) {
-        currentSubStepID = StepComp.importNameFrom
-    }
 
     console.log(' - ' + 'in ' + stepCompID + ' ' + Indicator.labelShort)
 

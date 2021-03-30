@@ -18,12 +18,10 @@ function mainTestConnectionByID() {
     openSpreadsheetByID(spreadsheetID)
 }
 
-function copyMasterSpreadsheet(
-    masterFileId,
-    outputFolderId,
-    outputFilename,
-    makeDataOwner
-) {
+// Helper function esp. for Company Feedback
+// Copies a Spreadsheet into a target Folder
+// renames copy; assigns new File Owner and adds Editors
+function copyMasterSpreadsheet(masterFileId, outputFolderId, outputFilename, makeDataOwner) {
     let MasterFile = DriveApp.getFileById(masterFileId)
     let outputFolder = DriveApp.getFolderById(outputFolderId)
     let newFile = MasterFile.makeCopy(outputFilename, outputFolder)
@@ -56,14 +54,7 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
         console.log(spreadsheetName + ' does not exist!')
 
         if (createNewFile) {
-            console.log(
-                '--- --- START: creating ' +
-                    spreadsheetName +
-                    ' in ' +
-                    rootFolderID +
-                    '/' +
-                    outputFolderName
-            )
+            console.log('--- --- START: creating ' + spreadsheetName + ' in ' + rootFolderID + '/' + outputFolderName)
 
             // TODO: add tests whether script (user?) can access folders
             let folderID = createNewFolder(rootFolderID, outputFolderName)
@@ -91,9 +82,7 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
             SS = openSpreadsheetByID(fileId)
         } else {
             SS = null
-            console.log(
-                spreadsheetName + ' does not exist and NOT creating a new file'
-            )
+            console.log(spreadsheetName + ' does not exist and NOT creating a new file')
         }
     } else {
         // Only do for first Spreadsheet element
@@ -198,16 +187,7 @@ function resizeSheet(Sheet, newRows) {
     }
 }
 
-function injectInputRows(
-    Sheet,
-    position,
-    nrOfRows,
-    contentWidth,
-    rowOffset,
-    rowLabel,
-    linkedRange,
-    stepcolor
-) {
+function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, rowLabel, linkedRange, stepcolor) {
     Sheet.insertRows(position, nrOfRows)
     Sheet.getRange(position + rowOffset, 1, 1, 1)
         .setValue(rowLabel)
