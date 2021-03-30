@@ -41,7 +41,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -53,7 +53,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -65,7 +65,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -99,7 +99,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -111,7 +111,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -123,7 +123,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -135,7 +135,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -147,7 +147,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -159,7 +159,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -193,7 +193,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -204,7 +204,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -216,7 +216,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -228,7 +228,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -262,7 +262,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -273,7 +273,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -285,7 +285,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -297,7 +297,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -309,7 +309,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -321,7 +321,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -333,7 +333,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -345,7 +345,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -356,7 +356,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 10,
@@ -367,7 +367,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 11,
@@ -379,7 +379,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -413,7 +413,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -424,7 +424,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -436,7 +436,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -448,7 +448,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -460,7 +460,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -472,7 +472,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -483,7 +483,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -494,7 +494,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -506,7 +506,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -540,7 +540,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -552,7 +552,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -564,7 +564,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -576,7 +576,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -588,7 +588,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -599,7 +599,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -610,7 +610,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -622,7 +622,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -656,7 +656,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -668,7 +668,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -680,7 +680,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -692,7 +692,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -704,7 +704,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -715,7 +715,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -726,7 +726,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -738,7 +738,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -772,7 +772,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -783,7 +783,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -794,7 +794,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -806,7 +806,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -818,7 +818,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -829,7 +829,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -840,7 +840,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -852,7 +852,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -886,7 +886,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -898,7 +898,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -910,7 +910,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -944,7 +944,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -956,7 +956,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -968,7 +968,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -980,7 +980,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -991,7 +991,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -1003,7 +1003,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -1014,7 +1014,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -1026,7 +1026,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -1038,7 +1038,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1072,7 +1072,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1084,7 +1084,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1096,7 +1096,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1107,7 +1107,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -1118,7 +1118,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -1129,7 +1129,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -1141,7 +1141,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -1152,7 +1152,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -1164,7 +1164,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 10,
@@ -1176,7 +1176,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 11,
@@ -1188,7 +1188,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1229,7 +1229,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1241,7 +1241,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1252,7 +1252,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1285,7 +1285,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1297,7 +1297,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1308,7 +1308,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1329,7 +1329,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -1349,7 +1349,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1382,7 +1382,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1394,7 +1394,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1405,7 +1405,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1426,7 +1426,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -1446,7 +1446,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1479,7 +1479,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1491,7 +1491,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1502,7 +1502,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1536,7 +1536,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1547,7 +1547,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1559,7 +1559,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1570,7 +1570,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1604,7 +1604,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1615,7 +1615,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1627,7 +1627,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1638,7 +1638,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -1659,7 +1659,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -1679,7 +1679,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1713,7 +1713,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1724,7 +1724,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1736,7 +1736,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1747,7 +1747,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -1768,7 +1768,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -1789,7 +1789,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1823,7 +1823,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1834,7 +1834,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1846,7 +1846,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1857,7 +1857,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1890,7 +1890,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -1901,7 +1901,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['search'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -1913,7 +1913,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -1925,7 +1925,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -1937,7 +1937,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['mobile', 'cloud', 'eCommerce', 'email'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -1949,7 +1949,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['mobile', 'cloud', 'eCommerce', 'email'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -1961,7 +1961,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -1994,7 +1994,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2006,7 +2006,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2018,7 +2018,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2052,7 +2052,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2063,7 +2063,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2075,7 +2075,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2087,7 +2087,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2099,7 +2099,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2133,7 +2133,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2145,7 +2145,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2157,7 +2157,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2169,7 +2169,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2180,7 +2180,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -2191,7 +2191,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2225,7 +2225,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2237,7 +2237,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2249,7 +2249,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2260,7 +2260,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2271,7 +2271,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2305,7 +2305,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2317,7 +2317,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2329,7 +2329,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2341,7 +2341,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2352,7 +2352,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -2363,7 +2363,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2397,7 +2397,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2408,7 +2408,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2420,7 +2420,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2432,7 +2432,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2444,7 +2444,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -2456,7 +2456,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -2468,7 +2468,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2502,7 +2502,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2514,7 +2514,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2526,7 +2526,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2538,7 +2538,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2550,7 +2550,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2583,7 +2583,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2594,7 +2594,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['search'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2605,7 +2605,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['messagingVoip'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2617,7 +2617,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2629,7 +2629,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -2641,7 +2641,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -2652,7 +2652,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -2664,7 +2664,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -2675,7 +2675,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 10,
@@ -2686,7 +2686,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2720,7 +2720,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2731,7 +2731,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['search'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2742,7 +2742,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['messagingVoip'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2753,7 +2753,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -2764,7 +2764,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -2775,7 +2775,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -2787,7 +2787,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -2798,7 +2798,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -2809,7 +2809,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 10,
@@ -2821,7 +2821,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2855,7 +2855,7 @@ const indicatorsVector = {
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
               excludedServices: ['email', 'search'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2867,7 +2867,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['email'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -2879,7 +2879,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['email'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -2890,7 +2890,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: true,
               excludedServices: ['search'],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2924,7 +2924,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2936,7 +2936,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: true,
             },
             {
               elemNr: 3,
@@ -2948,7 +2948,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -2982,7 +2982,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -2994,7 +2994,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3006,7 +3006,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3018,7 +3018,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -3030,7 +3030,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -3041,7 +3041,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -3052,7 +3052,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -3063,7 +3063,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3097,7 +3097,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: true,
             },
           ],
         },
@@ -3131,7 +3131,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3143,7 +3143,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3155,7 +3155,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3167,7 +3167,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -3179,7 +3179,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3212,7 +3212,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3224,7 +3224,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3235,7 +3235,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3247,7 +3247,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3288,7 +3288,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3300,7 +3300,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3311,7 +3311,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3332,7 +3332,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -3352,7 +3352,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3385,7 +3385,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3397,7 +3397,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3408,7 +3408,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3442,7 +3442,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3453,7 +3453,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3465,7 +3465,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3476,7 +3476,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -3497,7 +3497,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -3517,7 +3517,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3551,7 +3551,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3562,7 +3562,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3574,7 +3574,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3585,7 +3585,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3617,7 +3617,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3629,7 +3629,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3641,7 +3641,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3662,7 +3662,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -3683,7 +3683,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -3703,7 +3703,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -3723,7 +3723,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3756,7 +3756,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3768,7 +3768,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3780,7 +3780,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3813,7 +3813,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3825,7 +3825,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3837,7 +3837,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -3849,7 +3849,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -3870,7 +3870,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -3891,7 +3891,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -3911,7 +3911,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -3931,7 +3931,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -3964,7 +3964,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -3976,7 +3976,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -3988,7 +3988,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4000,7 +4000,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4012,7 +4012,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4045,7 +4045,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4056,7 +4056,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4067,7 +4067,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4079,7 +4079,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4091,7 +4091,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -4112,7 +4112,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -4133,7 +4133,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -4153,7 +4153,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -4173,7 +4173,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4207,7 +4207,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4219,7 +4219,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4231,7 +4231,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4243,7 +4243,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4255,7 +4255,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -4266,7 +4266,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -4278,7 +4278,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -4290,7 +4290,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -4310,7 +4310,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4342,7 +4342,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4353,7 +4353,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4365,7 +4365,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4377,7 +4377,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4389,7 +4389,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -4401,7 +4401,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -4422,7 +4422,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -4442,7 +4442,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4476,7 +4476,7 @@ const indicatorsVector = {
               excludedCompanies: ['telecom'],
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4488,7 +4488,7 @@ const indicatorsVector = {
               excludedCompanies: ['telecom'],
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4500,7 +4500,7 @@ const indicatorsVector = {
               excludedCompanies: ['telecom'],
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4512,7 +4512,7 @@ const indicatorsVector = {
               excludedCompanies: ['telecom'],
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4524,7 +4524,7 @@ const indicatorsVector = {
               excludedCompanies: ['telecom'],
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -4536,7 +4536,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -4548,7 +4548,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -4560,7 +4560,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -4572,7 +4572,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4606,7 +4606,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4617,7 +4617,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4629,7 +4629,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4641,7 +4641,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4653,7 +4653,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -4664,7 +4664,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -4676,7 +4676,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4710,7 +4710,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4722,7 +4722,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4734,7 +4734,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4746,7 +4746,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4758,7 +4758,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4790,7 +4790,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4802,7 +4802,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4813,7 +4813,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4825,7 +4825,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -4837,7 +4837,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -4848,7 +4848,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -4860,7 +4860,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -4872,7 +4872,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -4883,7 +4883,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 10,
@@ -4894,7 +4894,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4928,7 +4928,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -4940,7 +4940,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -4951,7 +4951,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -4962,7 +4962,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -4996,7 +4996,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -5008,7 +5008,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -5020,7 +5020,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -5054,7 +5054,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -5066,7 +5066,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -5078,7 +5078,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -5111,7 +5111,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -5123,7 +5123,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -5135,7 +5135,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -5155,7 +5155,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 5,
@@ -5177,7 +5177,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 6,
@@ -5198,7 +5198,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 7,
@@ -5218,7 +5218,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 8,
@@ -5238,7 +5238,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 9,
@@ -5259,7 +5259,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 10,
@@ -5279,7 +5279,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 11,
@@ -5299,7 +5299,7 @@ const indicatorsVector = {
                 'socialNetworkBlogs',
                 'photoVideo',
               ],
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -5333,7 +5333,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -5345,7 +5345,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -5357,7 +5357,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -5391,7 +5391,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -5403,7 +5403,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -5415,7 +5415,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 4,
@@ -5427,7 +5427,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -5460,7 +5460,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 2,
@@ -5471,7 +5471,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
             {
               elemNr: 3,
@@ -5483,7 +5483,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
@@ -5517,7 +5517,7 @@ const indicatorsVector = {
               excludedCompanies: null,
               doExcludeServices: null,
               excludedServices: null,
-              reversedScoring: null,
+              isReversedScoring: null,
             },
           ],
         },
