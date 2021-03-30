@@ -1,10 +1,10 @@
 /** main Process to produce Company Feedback Sheets
  * for documentation see Notion
- * TODO: adjust for 2021 / verify (main change: how
- * language JSON './json/JSON_elemMetadata.js' is produced with
- * datapipe)
- *
- * Copies a Company Feedback Frontmatter Template Sheet (by ID);
+ * TODO: adjust for 2021 / verify
+ * (main change: how language JSON './json/JSON_elemMetadata.js'
+ * is produced with datapipe)
+ * PROCESS:
+ * Copies a Company Feedback Front-matter Template Sheet (by ID);
  * then for each Indicator appends Company Results and Feedback
  * Form Elements (input rows for companies)
  * @param Config.feedbackForms.masterTemplateUrl Company Feedback Master Template
@@ -66,7 +66,7 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
 
     let Category, Indicator
     let sheetOverwrite = true // HOOK / Caution
-    let ankerSheetPos, sheetPos
+    let ankerSheetPos, sheetPos // for calculating sheet order / position within the spreadsheet
     let sheetName
 
     // for each Category
@@ -79,7 +79,8 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
         console.log('|--- intitial sheetPos: ' + sheetPos)
 
         /** for each Indicator
-         * TODO: Reconsider producing the Indicator Frontmatter in the Template doc. Would allow for easier formatting / adjustments / language updates / fixing row heights for Excel export.
+         * TODO: Reconsider producing the Indicator Frontmatter in the Template doc.
+         * Would allow for easier formatting / adjustments / language updates / fixing row heights for Excel export.
          * then: just append results
          * injects a new sheet
          * add indicator language, imports Step 3 results and

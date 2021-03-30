@@ -1,6 +1,9 @@
-// helper function created in order to subsequentlly inject a substep into a main step
-// use case was to add a substep with additional company feedback to Step 4
-// TODO: substep parameters are hard-coded in inputStepExtender due to this reqeusted substem being super special. Keep for now (2021 Index Setup); refactor if necessary
+/**  helper function created in order to subsequentlly inject a substep into a main step
+ * use case was to add a substep with additional company feedback to Step 4
+ * searches for a row which starts with @param searchForString and appends a payload below this row.
+ * TODO: substep parameters are hard-coded in inputStepExtender due to this requested substep extension being super special.
+ * Keep for now (2021 Index Setup); refactor if necessary
+ */
 
 /* global 
   companiesVector,
@@ -10,6 +13,7 @@
   injectInputRows
 */
 
+// Main Caller
 function mainInputStepExtender() {
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -59,22 +63,22 @@ function inputStepExtender(Company) {
     let titleWidth = Company.services.length === 1 || Company.hasOpCom ? 3 : 4
     let indicatorLabel
 
-    let fbStatusText
+    let fbStatusCellID
 
     let startRow = null
     let contentRowOffset = 1
 
     let rowLabel
 
+    // for each Indicator inject Payload
     indicatorsVector.indicatorCategories.map((Category) => {
         Category.indicators.map((Indicator) => {
+            // Payload
             indicatorLabel = Indicator.labelShort
             rowLabel = `Follow-up Feedback\n\n${indicatorLabel}`
-            fbStatusText = specialRangeName(id, indicatorLabel, 'CoFBextra')
+            fbStatusCellID = specialRangeName(id, indicatorLabel, 'CoFBextra')
 
-            console.log(fbStatusText)
-
-            let formulaContent = `CONCATENATE(ARRAYFORMULA(concat(FILTER(${fbStatusText},${fbStatusText}<>""),"\n\n")))`
+            let formulaContent = `CONCATENATE(ARRAYFORMULA(concat(FILTER(${fbStatusCellID},${fbStatusCellID}<>""),"\n\n")))`
 
             Sheet = SS.getSheetByName(indicatorLabel)
 

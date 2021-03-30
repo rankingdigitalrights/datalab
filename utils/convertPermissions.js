@@ -1,5 +1,6 @@
 /* global companiesVector */
-
+// See https://app.asana.com/0/1160901870568039/1196830211799929 for initial Issue and Reasoning
+// converts Spreadsheet protections to warnings
 function mainConvertSheetProtectionsToWarning() {
     let Companies = companiesVector.companies
         // .slice(0, 1) //   0 "Alibaba",

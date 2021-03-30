@@ -322,7 +322,7 @@ function scoringSingleStep(
         Sheet.hideColumns(hookFirstDataCol, numberOfColumns)
     }
 
-    return (lastCol += 1)
+    return lastCol + 1
 }
 
 // END MAIN Step & function
