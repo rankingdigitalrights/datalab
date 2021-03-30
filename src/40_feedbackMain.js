@@ -1,11 +1,12 @@
 /** main Process to produce Company Feedback Sheets
  * for documentation see Notion
- * TODO: adjust for 2021 / verify (main: change to how
- * language JSON './json/JSON_elemMetadata.js' is produced)
+ * TODO: adjust for 2021 / verify (main change: how
+ * language JSON './json/JSON_elemMetadata.js' is produced with
+ * datapipe)
  *
  * Copies a Company Feedback Frontmatter Template Sheet (by ID);
- * then appends Company Results and Feedback Form Elements
- * (input rows for companies)
+ * then for each Indicator appends Company Results and Feedback
+ * Form Elements (input rows for companies)
  * @param Config.feedbackForms.masterTemplateUrl Company Feedback Master Template
  * @param Config.feedbackForms.outputFolderIdProd for Output folder
  */
@@ -26,10 +27,10 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
     // --- // Feedback Parameters // --- //
     let outputParams = Config.feedbackForms
 
-    let thisFilenameSuffix = filenameSuffix + ' Source'
+    let thisFilenameSuffix = filenameSuffix + ' Source' // TODO: rename in " Template"
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, thisFilenameSuffix)
 
-    // template spreadsheet
+    // company feedback template spreadsheet which has the front matter
     let masterFileId = outputParams.masterTemplateUrl
     // TODO: move Dev folderID to Config
     // target folder ID
@@ -38,7 +39,7 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
     console.log('--- --- START: creating ' + mainSheetMode + ' Spreadsheet for ' + Company.label.current)
 
     // define SS name
-    // connect to Spreadsheet if it already exists (Danger!), otherwise make a COPY of Master Template, rename, and return new file
+    // connect to Spreadsheet if it already exists (Danger!), otherwise make a COPY of Master Template, rename, assigns owner and EDITORS,  and return new file
 
     let SS =
         Company.urlCurrentFeedbackSheet && ISPRODUCTION

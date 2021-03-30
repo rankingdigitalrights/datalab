@@ -14,7 +14,7 @@ function addSetOfScoringSteps(
     hasOpCom,
     outputParams,
     isYoyMode,
-    yoyComp,
+    yoyComp, // TODO: GW - rename / document / deprecate
     addNewStep,
     stepsToAdd
 ) {

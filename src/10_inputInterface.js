@@ -1,9 +1,11 @@
 /** Main Interface  - Produce single Company Data Collection Sheet
- * also parameterized Interface for mainAppendInputStep() and mainRepairInputSheets()
- * mainAppendInputStep() skips the front matter, and appends n Steps[] to lastRow
- * mainRepairInputSheets() restores labels, formatting (optional), and named Ranges
+ * also parameterized Interface for @function mainAppendInputStep()
+ * and @function mainRepairInputSheets()
+ * ---
+ * @function mainAppendInputStep() skips the front matter, and appends n Steps[] to lastRow
+ * @function mainRepairInputSheets() restores labels, formatting (optional), and named Ranges
  * it will never overwrite cells with user-entered labels
- * (unless !doRepairs is locally and manually commented out in a particular 1x_submodule)
+ * (unless @param doRepairs is locally and manually commented out in a particular 1x_submodule)
  */
 
 /* global 
@@ -18,21 +20,19 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
 
     console.log('--- // --- creating Input Spreadsheet for ' + companyShortName + ' --- // ---')
 
-    // importing the JSON objects which contain the parameters
-    // Refactored to fetching from Google Drive
-
-    // let Company = Company // TODO this a JSON Obj now; adapt in scope
     let Indicators = IndicatorsObj
     let ResearchStepsObj = researchStepsVector
-    let doCollapseAll = Config.collapseAllGroups // default: false; fold all row group?
+    let doCollapseAll = Config.collapseAllGroups // default: false; fold all row groups?
     let importedOutcomeTabName = Config.prevYearOutcomeTab // for import of prev. results
     let importedSourcesTabName = Config.prevYearSourcesTab // for import of prev. results
 
     let includeRGuidanceLink = Config.includeRGuidanceLink // Baseamp Link
     let collapseRGuidance = Config.collapseRGuidance // fold research guidance at top of sheet?
 
-    // for addNewStep and/or development - startAtMainStepNr HOOK to skip research steps
-    // define startAtMainStepNr in 00-mainController
+    /** for 
+     * @function addNewStep and/or development
+     * @param startAtMainStepNr is HOOK to skip research steps
+    // define startAtMainStepNr in 00-mainController */
 
     // if startAtMainStepNr > 0 the make sure that maxStep is at least equal
     if (startAtMainStepNr > Config.subsetMaxStep) {
@@ -43,8 +43,9 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
     let spreadsheetName = spreadSheetFileName(filenamePrefix, 'Input', companyShortName, filenameSuffix)
 
     /** HOOK: if we only do Repairs AND want to update Production
-     * function tries to connect to existing spreadsheet by ID provided in Companies JSON
-     * otherwise look up spreadsheet by filename and allow overwriting
+     * function tries to connect to existing spreadsheet by ID provided
+     * in Companies JSON
+     * otherwise it'll look up spreadsheet by filename and allow overwriting
      * TODO: reverse boolean Logic
      */
 
@@ -114,9 +115,15 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
      * see datapipe/wiki
      */
     if (includeFeedback && !doRepairsOnly) {
-        let updateSheet = false // flag for overwriting or not
+        let doOverwriteSheet = false // flag for overwriting or not
         console.log('producing / updating Feedback Tab')
-        insertCompanyFeedbackSheet(SS, Config.feedbackForms.compFeedbackSheetName, Company, Indicators, updateSheet)
+        insertCompanyFeedbackSheet(
+            SS,
+            Config.feedbackForms.compFeedbackSheetName,
+            Company,
+            Indicators,
+            doOverwriteSheet
+        )
     }
 
     let hasOpCom = Company.hasOpCom // does company have a Operating Company

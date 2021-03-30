@@ -1,5 +1,5 @@
-// --- Main Interface Casting: Company Scoring Sheet --- //
-/** produces a single Sompany Output spreadsheet  with
+// --- MAIN Interface Casting: Company Scoring Sheet --- //
+/** produces a single Company Output spreadsheet  with
  * Results and Scores for a set of ResearchSteps[]
  * 21_scoringInterface.js is also used by other modules
  * (i.e. Aggregation Scores)
@@ -36,7 +36,6 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, isYoyM
 
     // --- // Main Procedure // --- //
 
-    let isPilotMode = false // TODO: 2019 Pilot legacy; remove
     let outputParams = Config.scoringParams
 
     addSetOfScoringSteps(

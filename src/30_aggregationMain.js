@@ -19,7 +19,7 @@ function createAggregationOutput(
     mainSheetMode,
     scoringStepNr,
     includeCompanyOutcomeSheets,
-    isYoyMode
+    isYoyMode // TODO: GW
 ) {
     let sheetModeID = 'SC' // data type ID: Scoring Company
 
@@ -96,6 +96,7 @@ function createAggregationOutput(
      * @param ResearchStepObj (@param scoringStepNr */
 
     let thisSubStepID = filterSingleSubstep(
+        // TODO: rename / refactor
         ResearchStepsObj.researchSteps[scoringStepNr],
         ResearchStepsObj.researchSteps[scoringStepNr].scoringSubStep
     )
@@ -104,9 +105,9 @@ function createAggregationOutput(
     let summarySheet
     let includeElements
 
-    // 1. Plain Summary Scores Sheet
+    // CORE 1. Plain Summary Scores Sheet
 
-    includeElements = false // HOOK: include Element-Level results
+    includeElements = false // keep; HOOK: include Element-Level results
 
     // Caution: as default overwrites tab if it exist
     summarySheet = insertSheetIfNotExist(SS, summarySheetName, true)
@@ -136,8 +137,8 @@ function createAggregationOutput(
     }
 
     // 2. Prototype Summary Scores with Element Level //
-
-    includeElements = true
+    // TODO: add global boolean to exclude the Element Level Sheet
+    includeElements = true // default; keep for this part
 
     summarySheetName = 'Summary w Elements '
     summarySheet = insertSheetIfNotExist(SS, summarySheetName + stepName, false)
