@@ -4,6 +4,21 @@
     Config, doRepairsOnly, addNewStep, startAtMainStepNr, Styles, indexPrefix, insertSheetIfNotExist, addMainSheetHeader, addMainStepHeader, addStepResearcherRow, addSubStepHeader, addStepEvaluation, addYonYReview, addBinaryEvaluation, addResultsReview, addBinaryReview, addComments, addCommentsReview, addSources, addExtraInstruction, addTwoStepComparison, importYonYResults, importYonYSources, addBinaryFBCheck, addImportFBText, addFeedbackStepReview, addResearcherFBNotes, defineNamedRange, cropEmptyColumns, addSourcesReview, findValueRowStart, includeFormatting
 */
 
+/**
+ *
+ * @param {GoogleAppsScript.Spreadsheet} SS
+ * @param {JSON} Category
+ * @param {JSON} Company
+ * @param {JSON} ResearchSteps
+ * @param {Number} companyNrOfServices
+ * @param {boolean} hasOpCom
+ * @param {boolean} isNewCompany
+ * @param {boolean} doCollapseAll
+ * @param {boolean} includeRGuidanceLink
+ * @param {boolean} collapseRGuidance
+ * @param {boolean} useStepsSubset
+ */
+
 // eslint-disable-next-line no-unused-vars
 function populateDCSheetByCategory(
     SS,
@@ -245,7 +260,7 @@ function populateDCSheetByCategory(
                                     SubStep,
                                     stepCNr,
                                     companyNrOfServices,
-                                    false
+                                    false // isComments
                                 )
                                 break
 
@@ -261,7 +276,7 @@ function populateDCSheetByCategory(
                                     SubStep,
                                     stepCNr,
                                     companyNrOfServices,
-                                    true
+                                    true // isComments
                                 )
                                 break
 

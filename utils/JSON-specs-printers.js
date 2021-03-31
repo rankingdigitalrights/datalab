@@ -1,4 +1,3 @@
-/* Indicators */
 /**
  * Collection of patterns for printing JSON values
  * helpful to quickly extract i.e. all Indicator Labels
@@ -6,6 +5,24 @@
  * to use, copy into json/JSON_<Object>
  * and run locally in Node (i.e. in VSCode)
  */
+
+/* Research Steps */
+
+// let result = []
+// researchStepsVector.researchSteps.forEach((mainStep) => {
+//   let mainStepID = mainStep.stepID
+//   mainStep.substeps.forEach((subStep) => {
+//     let subStepId = subStep.subStepID
+//     subStep.components.forEach((component) => {
+//       if (component.type !== 'subStepHeader' && component.type !== 'extraQuestion')
+//         result.push([mainStepID, subStepId, component.rowLabel || component.rowLabelA || '', component.type])
+//     })
+//   })
+// })
+
+// console.dir(result)
+
+/* Indicators */
 
 // let indicatorCount = indicatorsVector.indicatorCategories
 //     .map(function (category) {

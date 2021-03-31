@@ -15,7 +15,7 @@ const researchStepsVector = {
       rowLabel: '2020 Final Outcome',
       stepColor: '#faca0f',
       doCollapse: false,
-      scoringSubStep: 'S00',
+      scoringSubStep: 'S00', // TODO: deprecate
       substeps: [
         {
           labelShort: 'Step 0 - 2020 S7 Outcome',
@@ -59,7 +59,7 @@ const researchStepsVector = {
       rowLabel: 'Data Collection and Evaluation',
       stepColor: '#ddd9c3',
       doCollapse: false,
-      scoringSubStep: 'S011',
+      scoringSubStep: 'S011', // TODO: deprecate
       substeps: [
         {
           labelShort: 'Step 1.0',
@@ -184,7 +184,7 @@ const researchStepsVector = {
       rowLabel: 'Fact Check/Review of Step 1',
       stepColor: '#c6d9f0',
       doCollapse: false,
-      scoringSubStep: 'S021',
+      scoringSubStep: 'S021', // TODO: deprecate
       substeps: [
         {
           labelShort: 'Step 2.0',
@@ -257,7 +257,7 @@ const researchStepsVector = {
           components: [
             {
               type: 'subStepHeader',
-              rowLabel: 'TODO: Do you agree with the Year-on-Year Analysis in Step 1.5?',
+              rowLabel: 'Do you agree with the Year-on-Year Analysis in Step 1.5?',
             },
             // {
             //   type: 'evaluation',
@@ -873,7 +873,7 @@ const researchStepsVector = {
               type: 'binaryReview',
               id: 'BR',
               rowLabel: 'Answer',
-              dataType: 'DC', // wrong property name
+              dataType: 'DC',
               dropdown: ['yes', 'no'],
             },
           ],
