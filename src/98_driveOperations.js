@@ -1,4 +1,12 @@
-// search folder and create a new one if needed
+/** set of Google Drive Filesystem Operation
+ * create Folders
+ * assign OWNER / Viewers / Editors
+ * list editors / viewes / owner
+ * getAllSSfromFolder() - list all spreadsheets in a folder
+ * get filepaths
+ * TODO: finish PROTOTYPE deepCloneFolder() for
+ * TODO: easier online daily backup of "RDR 202x Research Data"
+ */
 
 /* global 
     Config
@@ -47,6 +55,8 @@ function tryAccessParent(parentFolderID) {
     return canAccessParent ? Parent : null
 }
 
+// creates a new Subfolder (by Name) in a parentFolder (looked up by ID)
+
 function createNewFolder(parentFolderID, folderName) {
     let ParentFolder = tryAccessParent(parentFolderID)
 
@@ -56,11 +66,7 @@ function createNewFolder(parentFolderID, folderName) {
         let Folder
         let folderID
         if (!Children.hasNext()) {
-            console.log(
-                'CORE: Folder ' +
-                    folderName +
-                    ' does not exist. Creating a new one'
-            )
+            console.log('CORE: Folder ' + folderName + ' does not exist. Creating a new one')
             Folder = ParentFolder.createFolder(folderName)
             Folder.setOwner(Config.dataOwner) // TODO: from config
             assignFolderEditors(Folder, Config.devs)
@@ -78,12 +84,13 @@ function createNewFolder(parentFolderID, folderName) {
     }
 }
 
-function addFileIDtoControl(
-    mode,
-    companyShortName,
-    fileID,
-    controlSpreadsheetID
-) {
+/** frequently used: if a new Spreadsheet is created, this function
+ * adds @param fileID
+ * to @param controlSpreadsheetID
+ * if not duplicate (check with @function isValueInColumn() )
+ * */
+
+function addFileIDtoControl(mode, companyShortName, fileID, controlSpreadsheetID) {
     let colNr = 4
     let sheetName = outputFolderName
     console.log('### sheetName: ' + sheetName)
@@ -97,22 +104,10 @@ function addFileIDtoControl(
             '=HYPERLINK(CONCAT("https://docs.google.com/spreadsheets/d/",INDIRECT(ADDRESS(ROW(),COLUMN()-1))),INDIRECT(ADDRESS(ROW(),COLUMN()-2)))'
         Sheet.appendRow([path, sheetName, companyShortName, fileID, formula])
         console.log(
-            'created ' +
-                sheetName +
-                ' File for ' +
-                companyShortName +
-                ';\nfileID: ' +
-                fileID +
-                ' added to Control'
+            'created ' + sheetName + ' File for ' + companyShortName + ';\nfileID: ' + fileID + ' added to Control'
         )
     } else {
-        console.log(
-            'SKIP: ' +
-                sheetName +
-                ' ' +
-                companyShortName +
-                ' FileID already added'
-        )
+        console.log('SKIP: ' + sheetName + ' ' + companyShortName + ' FileID already added')
     }
 }
 

@@ -1,3 +1,4 @@
+// one way to import JS libraries into Google Appps Script
 // Credit Brian @github
 // https://www.labnol.org/code/20380-load-external-javascript-with-eval
 

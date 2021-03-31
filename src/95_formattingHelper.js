@@ -7,6 +7,13 @@ function returnFBStyleParams(configObjKey) {
     return Config.feedbackForms[configObjKey]
 }
 
+/** useful to simplify estimate of horizopntal company dimension
+ * namely: group + opcom + nr of services
+ * Full: don't omit OpCom column
+ * Naive: respect if has no OpCom
+ * Net: applies Scoring Scopes logic
+ */
+
 function calculateCompanyWidthFull(Company) {
     return Company.services.length + 2
 }
@@ -46,6 +53,8 @@ function calculateCompanyWidthNet(Company, Indicator, omitOpCom) {
     return width
 }
 
+// visual formatting helper; used for Scoring Sheets
+// could be further parameterized
 function styleScoringIndicatorHeader(currentCell, label, colorHex) {
     currentCell
         .setValue(label)
@@ -71,6 +80,10 @@ function columnToLetter(column) {
     return letter
 }
 
+// Special Case for 2020 and Import of 2019 G Indicator Subcomponents (FoE/P)
+// used to add a offest to transpose column-wise indicator subcomponent column placement
+// into row-wise Step 0 import
+// can probably be deprecated but is still used in 12_inputYonYimport.js
 function columnToLetterYonY(column, offset) {
     let temp,
         letter = ''
@@ -92,6 +105,7 @@ function letterToColumn(letter) {
     return column
 }
 
+// rich text helper to underline a string in a cell
 function textUnderline(cell) {
     var style = SpreadsheetApp.newTextStyle().setUnderline(true).build()
     cell.setTextStyle(style)
@@ -103,6 +117,8 @@ function textUnderline(cell) {
 //     // return textRange
 // }
 
+// apply an array of rich text styles to a cell
+// can be used for adding hyperlinks
 function addRichTextArray(Cell, Style, content, terms, links) {
     let richText = SpreadsheetApp.newRichTextValue().setText(content)
 
@@ -135,41 +151,4 @@ function addRichTextSingle(Cell, Style, content, terms) {
         .build()
 
     Cell.setRichTextValue(richText).setFontSize(11)
-}
-
-function returnCompanyFBColWidth() {
-    let widths = []
-
-    let SS = SpreadsheetApp.openById(
-        '1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE'
-    )
-    let Sheet = insertSheetIfNotExist(SS, 'Company Dimensions', true)
-    let opCom
-    companiesVector.companies.forEach((Company) => {
-        Sheet.appendRow([
-            Company.label.current,
-            Company.type,
-            Company.services.length,
-            Company.hasOpCom,
-        ])
-
-        indicatorsVector.indicatorCategories.forEach((Category) => {
-            Category.indicators.forEach((Indicator) => {
-                let thisWidth = calculateCompanyWidthNet(
-                    Company,
-                    Indicator,
-                    false
-                )
-                let indicatorSpecs = [
-                    '---',
-                    Indicator.labelShort,
-                    Indicator.scoringScope,
-                    thisWidth,
-                ]
-                Sheet.appendRow(indicatorSpecs)
-            })
-        })
-    })
-
-    console.log(widths)
 }

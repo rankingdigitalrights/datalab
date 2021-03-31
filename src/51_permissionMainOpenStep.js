@@ -1,3 +1,8 @@
+/** for all things Permissions see
+ * https://www.notion.so/Permissions-Protections-Management-ee5d9b1306974a099b82568565ff559c
+ * https://github.com/rankingdigitalrights/datalab/wiki/50-Permissions
+ */
+
 function mainProtectFileOpenStepSingleCompany(company, subStepIDs, editor, Indicators, doUpdateEditors) {
     // can easily call all the other permissions functions from this function
 

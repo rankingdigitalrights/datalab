@@ -1,31 +1,11 @@
 // --- // central File naming logic // --- //
 
-function spreadSheetFileName(
-    filenamePrefix,
-    mainSheetMode,
-    mainFileNameElement,
-    filenameSuffix
-) {
-    var filename =
-        filenamePrefix +
-        ' ' +
-        mainFileNameElement +
-        ' - ' +
-        mainSheetMode +
-        ' ' +
-        filenameSuffix
-
-    return filename
+function spreadSheetFileName(filenamePrefix, mainSheetMode, mainFileNameElement, filenameSuffix) {
+    return `${filenamePrefix} ${mainFileNameElement} - ${mainSheetMode} ${filenameSuffix}`
 }
 
+// sometimes we provide a manually cleaned / simplified Company name in JSON_Companies.js
+// critical for global file naming of produced spreadsheets incl. access by filename
 function cleanCompanyName(Company) {
-    var companyName
-    if (Company.label.altFilename) {
-        companyName = Company.label.altFilename
-    } else {
-        companyName = Company.label.current
-    }
-
-    console.log('Company Name parsed: ' + companyName)
-    return companyName
+    return Company.label.altFilename ? Company.label.altFilename : Company.label.current
 }

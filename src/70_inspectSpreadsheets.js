@@ -1,16 +1,18 @@
-// --- Spreadsheet Casting: Company Data Collection Sheet --- //
+/** Collects all broken named range references (#REF) from a Input Spreadsheet
+ * writes all broken ranges rowwise per Indicator
+ * into monitoring Spreadsheet
+ * use it to identify which atomic Steps/Indicators
+ * need to be repaired for which Company
+ */
 
 /* global
-        cleanCompanyName,
-        Config,
-        IndicatorsObj,
-        researchStepsVector,
-        spreadSheetFileName,
-        openSpreadsheetByID,
-        getISOtimeAsString,
-        inspectInputSheet
+    cleanCompanyName,
+    openSpreadsheetByID,
+    getISOtimeAsString,
+    inspectInputSheet
 */
 
+// eslint-disable-next-line no-unused-vars
 function processCompanyHealth(ListSheetBroken, Company) {
     var companyShortName = cleanCompanyName(Company)
     console.log('--- // --- begin processing ' + companyShortName + ' --- // ---')
@@ -30,9 +32,6 @@ function processCompanyHealth(ListSheetBroken, Company) {
     ListSheetBroken.appendRow([currentDate, companyShortName, Company.urlCurrentInputSheet])
 
     // --- // MAIN TASK // --- //
-    // for each Indicator Class do
-
     console.log('FLOW --- begin Inspection ' + companyShortName + ' --- // ---')
-
     inspectInputSheet(SS, ListSheetBroken)
 }

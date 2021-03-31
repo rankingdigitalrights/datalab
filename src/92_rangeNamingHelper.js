@@ -1,8 +1,9 @@
-// --- // critical: central range naming logic // --- //
+// --- // critical: global NAMED RANGE naming logic // --- //
+// also: utilities for removing named Ranges
 
 // To change the cell naming logic, re-arrange the vars in the function body (not in the siganture)
 
-// RDR2019DC S01 G1 iVM1 Step
+// structure (whitespace is not part of the syntax): RDR2019 DC S01 G1 iVM1 Subcomponent/"Step"
 
 // eslint-disable-next-line no-unused-vars
 function defineNamedRange(index, sheetModeID, step, indicatorElement, component, companyId, service, suffix) {
@@ -18,13 +19,19 @@ function defineNamedRange(index, sheetModeID, step, indicatorElement, component,
     return compCellName
 }
 
+// simplified named range formula used for Permissions / naming of additional range blocks
+// also used for Company Feedback Import in Input Sheets for the Company Feedback Tab
+
 // eslint-disable-next-line no-unused-vars
 function specialRangeName(Prefix, Main, Suffix) {
     return Prefix + Main + Suffix
 }
 
 // --- // rangedName cleaner // --- //
-// (as named ranges are not removed with sheet.clear())
+
+// Sheet-level
+// (Helpers as named ranges are not removed with sheet.clear())
+// Caution: will remove all named ranges, not only broken ones
 
 // eslint-disable-next-line no-unused-vars
 function clearAllNamedRangesFromSheet(sheet) {
@@ -34,6 +41,7 @@ function clearAllNamedRangesFromSheet(sheet) {
     }
 }
 
+// Spreadsheet-Level
 // eslint-disable-next-line no-unused-vars
 function removeAllNamedRanges(spreadsheetId) {
     var ss = SpreadsheetApp.openById(spreadsheetId)
@@ -48,6 +56,8 @@ function removeAllNamedRanges(spreadsheetId) {
         range.remove()
     })
 }
+
+// -- local main Caller for Convenience -- //
 
 // function mainRemoveAllNamedRanges() {
 //     var spreadsheetId = "1YbbOuxJ-pAWoUhLIo7SxarJb4uyPB7zg7iVKEj_AB7c";

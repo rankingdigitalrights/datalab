@@ -1,9 +1,13 @@
+/** ATTEMPT at creating a universal Subcomponent Block import pattern
+ * TODO: worth refactoring ALL block import / block production subscomponents
+ * into something like this pattern
+ * this would drastically simplify the maintenance and development experience
+ */
+
 /* global
     indexPrefix
     findSubStepComponent,
     checkIndicatorSpecs,
-    checkElementSpecs,
-    calculateCompanyWidth
 */
 
 function importContentBlock(

@@ -1,3 +1,6 @@
+// TEST to add UI Elements and simple "Event listeners" to Spreadsheets
+// FWIW needs to be Script bound to a Spreadsheet
+
 function onOpen() {
     var ui = SpreadsheetApp.getActive().getUi()
     ui.createMenu('GetValues')
@@ -38,11 +41,7 @@ function getByRowAndColumn() {
 function getByCellAddressA1Notation() {
     var ui = SpreadsheetApp.getUi()
 
-    var response = ui.prompt(
-        'Cell address',
-        'Please enter the cell address (A1 notation)',
-        ui.ButtonSet.OK
-    )
+    var response = ui.prompt('Cell address', 'Please enter the cell address (A1 notation)', ui.ButtonSet.OK)
 
     var a1 = response.getResponseText()
 

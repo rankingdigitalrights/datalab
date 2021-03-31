@@ -1,4 +1,4 @@
-/**
+/** just a test
  * Creates a Google Doc and sends an email to the current user with a link to the doc.
  */
 function createAndSendDocument() {
@@ -6,9 +6,7 @@ function createAndSendDocument() {
     var doc = DocumentApp.create('Hello, world!')
 
     // Access the body of the document, then add a paragraph.
-    doc.getBody().appendParagraph(
-        'This document was created by Google Apps Script.'
-    )
+    doc.getBody().appendParagraph('This document was created by Google Apps Script.')
 
     // Get the URL of the document.
     var url = doc.getUrl()

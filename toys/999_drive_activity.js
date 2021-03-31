@@ -1,5 +1,5 @@
 // --- // function to fetch Google Drive activity for all Data Collection Spreadsheets // --- //
-
+// Legacy: used for the 2019 MA Thesis by IS
 /*
 fetches atomic events for each SS from a defined folder of subfolders and adds the results to respective Sheets in an Output Spreadsheet
 */
@@ -20,19 +20,13 @@ function getUsersActivityDC() {
     var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
     // if not - process
     if (!overViewSheet) {
-        overViewSheet = insertSheetIfNotExist(
-            resultsSpreadsheet,
-            overviewSheetName,
-            true
-        )
+        overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
         overViewSheet.clear()
         overViewSheet.appendRow(['Sheet', 'Id', 'Date First', 'Date Last'])
     }
 
     // fetch target folder with Spreadsheets of interest
-    var folderOfInterest = DriveApp.getFoldersByName(
-        '2019 RDR Research Data Collection'
-    ).next()
+    var folderOfInterest = DriveApp.getFoldersByName('2019 RDR Research Data Collection').next()
 
     // as Data Collection is structured into subfolders
     // fetch all subfolders with Spreadsheets of interest
@@ -46,9 +40,7 @@ function getUsersActivityDC() {
         // enter subfolder
         var thisFolder = subFoldersOfInterest.next()
         // fetch all Spreadsheets
-        var spreadsheets = thisFolder.getFilesByType(
-            'application/vnd.google-apps.ritz'
-        )
+        var spreadsheets = thisFolder.getFilesByType('application/vnd.google-apps.ritz')
         // for each Spreadsheet of this subfolder
         while (spreadsheets.hasNext()) {
             // enter Spreadsheet
@@ -65,30 +57,12 @@ function getUsersActivityDC() {
                 console.log(thisCompany + ' yet missing')
 
                 // add general Spreadsheet info to Overview Sheet
-                overViewSheet.appendRow([
-                    SS.getName(),
-                    SS.getId(),
-                    SS.getDateCreated(),
-                    SS.getLastUpdated(),
-                ])
+                overViewSheet.appendRow([SS.getName(), SS.getId(), SS.getDateCreated(), SS.getLastUpdated()])
 
                 // create a Results Sheet for this Spreadsheet
-                var resultsSheet = insertSheetIfNotExist(
-                    resultsSpreadsheet,
-                    thisCompany,
-                    true
-                )
+                var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
                 resultsSheet.clear()
-                resultsSheet.appendRow([
-                    'entry',
-                    'activity',
-                    'event',
-                    'time',
-                    'target',
-                    'main',
-                    'secondary',
-                    'user',
-                ])
+                resultsSheet.appendRow(['entry', 'activity', 'event', 'time', 'target', 'main', 'secondary', 'user'])
 
                 var fileId = SS.getId()
 
@@ -164,11 +138,7 @@ function getUsersActivitySC() {
     var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
     // if not - process
     if (!overViewSheet) {
-        overViewSheet = insertSheetIfNotExist(
-            resultsSpreadsheet,
-            overviewSheetName,
-            true
-        )
+        overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
         overViewSheet.clear()
         overViewSheet.appendRow(['Sheet', 'Id', 'Date First', 'Date Last'])
     }
@@ -183,9 +153,7 @@ function getUsersActivitySC() {
     // enter folder
     var thisFolder = folderOfInterest
     // fetch all Spreadsheets
-    var spreadsheets = thisFolder.getFilesByType(
-        'application/vnd.google-apps.ritz'
-    )
+    var spreadsheets = thisFolder.getFilesByType('application/vnd.google-apps.ritz')
 
     // for each Spreadsheet of this folder
     while (spreadsheets.hasNext()) {
@@ -202,30 +170,12 @@ function getUsersActivitySC() {
             console.log(thisCompany + ' yet missing')
 
             // add general Spreadsheet info to Overview Sheet
-            overViewSheet.appendRow([
-                SS.getName(),
-                SS.getId(),
-                SS.getDateCreated(),
-                SS.getLastUpdated(),
-            ])
+            overViewSheet.appendRow([SS.getName(), SS.getId(), SS.getDateCreated(), SS.getLastUpdated()])
 
             // create a Results Sheet for this Spreadsheet
-            var resultsSheet = insertSheetIfNotExist(
-                resultsSpreadsheet,
-                thisCompany,
-                true
-            )
+            var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
             resultsSheet.clear()
-            resultsSheet.appendRow([
-                'entry',
-                'activity',
-                'event',
-                'time',
-                'target',
-                'main',
-                'secondary',
-                'user',
-            ])
+            resultsSheet.appendRow(['entry', 'activity', 'event', 'time', 'target', 'main', 'secondary', 'user'])
 
             var fileId = SS.getId()
 

@@ -27,19 +27,20 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
     // --- // Feedback Parameters // --- //
     let outputParams = Config.feedbackForms
 
-    let thisFilenameSuffix = filenameSuffix + ' Source' // TODO: rename in " Template"
+    let thisFilenameSuffix = filenameSuffix + ' Source'
     let spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, thisFilenameSuffix)
 
     // company feedback template spreadsheet which has the front matter
     let masterFileId = outputParams.masterTemplateUrl
-    // TODO: move Dev folderID to Config
     // target folder ID
     let outputFolderId = ISPRODUCTION ? outputParams.outputFolderIdProd : outputParams.outputFolderIdDev
 
     console.log('--- --- START: creating ' + mainSheetMode + ' Spreadsheet for ' + Company.label.current)
 
     // define SS name
-    // connect to Spreadsheet if it already exists (Danger!), otherwise make a COPY of Master Template, rename, assigns owner and EDITORS,  and return new file
+    // connect to Spreadsheet if it already exists (Danger!),
+    // otherwise make a COPY of Master Template, rename,
+    // assigns owner and EDITORS, and return new file
 
     let SS =
         Company.urlCurrentFeedbackSheet && ISPRODUCTION
@@ -73,7 +74,7 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
     for (let catNr = 0; catNr < Indicators.indicatorCategories.length; catNr++) {
         Category = Indicators.indicatorCategories[catNr]
 
-        // anker for proper placement of Category Frontmatter Tabs
+        // anker for proper placement of Category Front-matter Tabs
         ankerSheetPos = SS.getSheetByName(Category.labelLong).getIndex()
         // sheetPos = parseInt(ankerSheetPos)
         console.log('|--- intitial sheetPos: ' + sheetPos)

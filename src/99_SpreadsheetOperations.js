@@ -1,4 +1,17 @@
-// --- File-level connection helper function  --- //
+// --- Spreadsheet File-level connection helper function  --- //
+/**
+ * @function copyMasterSpreadsheet()
+ * @function createSpreadsheet()
+ * @function openSpreadsheetByID()
+ * @function insertSheetIfNotExist()
+ * @function moveHideSheetifExists() / @function moveSheetifExists()
+ * @function moveSheetToPos()
+ * @function importRangeFormula()
+ * @function getSheetByName()
+ * @function removeEmptySheet()
+ * @function resizeSheet()
+ * @function injectInputRows()
+ * */
 
 /* global
     Config, rootFolderID, doRepairsOnly, outputFolderName, createNewFolder, addNewStep
@@ -38,13 +51,13 @@ function copyMasterSpreadsheet(masterFileId, outputFolderId, outputFilename, mak
 // one to create a new file
 // --> separation of concerns AND explicit action where needed
 
-function createSpreadsheet(spreadsheetName, createNewFile) {
+function createSpreadsheet(spreadsheetName, doCreateNewFile) {
     let Spreadsheets = DriveApp.getFilesByName(spreadsheetName)
 
     let SS = null
 
     // if SS doesn't exist
-    // --- and createNewFile === true
+    // --- and doCreateNewFile === true
     // --- create new SS
     // --- else return null
     // else
@@ -53,7 +66,7 @@ function createSpreadsheet(spreadsheetName, createNewFile) {
     if (!Spreadsheets.hasNext()) {
         console.log(spreadsheetName + ' does not exist!')
 
-        if (createNewFile) {
+        if (doCreateNewFile) {
             console.log('--- --- START: creating ' + spreadsheetName + ' in ' + rootFolderID + '/' + outputFolderName)
 
             // TODO: add tests whether script (user?) can access folders
@@ -105,7 +118,9 @@ function openSpreadsheetByID(ID) {
     return SS
 }
 
-// Helper Function to overwrite Sheet in Spreadsheet if it is already existing
+// Helper Function to add a Sheet in a Spreadsheet
+// can optionally overwrite a Sheet if it is already existing
+// can be injected at sheetPos, otherwise appended at end of Spreadsheet
 
 function insertSheetIfNotExist(SS, sheetName, overWriteSheet, sheetPos) {
     let position = sheetPos || SS.getNumSheets() + 1
@@ -155,11 +170,18 @@ function moveSheetToPos(SS, Sheet, posInt) {
     SS.moveActiveSheet(posInt)
 }
 
+/**
+ * simplified helper to return the =IMPORTRANGE() formula as a String
+ * @param {*} url
+ * @param {*} range (can be named range or "!A1:D5";
+ *      include ! in payload as namedRange does not need "!")
+ * @returns {String}
+ */
 function importRangeFormula(url, range) {
     return `=IMPORTRANGE("${url}","${range}")`
 }
 
-// Sheets have unique Names, so no iteration
+// Sheets have unique Names, so no iteration needed
 function getSheetByName(SS, Sheetname) {
     let Sheet
     if (!SS.getSheetByName(Sheetname)) {
@@ -171,6 +193,7 @@ function getSheetByName(SS, Sheetname) {
     return Sheet
 }
 
+// Helper to remove the always existing first "Sheet1"
 function removeEmptySheet(SS) {
     let emptySheet = SS.getSheetByName('Sheet1')
 
@@ -179,6 +202,11 @@ function removeEmptySheet(SS) {
     }
 }
 
+// esp. for Data Store
+// appends n empty rows so that Data Store appendRow
+// isn't slowed down (default Sheet starts with 1000 rows)
+// and beyond that each row is added row-by-row --> super slow
+
 function resizeSheet(Sheet, newRows) {
     let oldRows = Sheet.getMaxRows()
     let rowDiff = newRows - oldRows
@@ -186,6 +214,9 @@ function resizeSheet(Sheet, newRows) {
         Sheet.insertRows(1, rowDiff)
     }
 }
+
+// used for 19_StepInjector
+// can inject arbitrary content at row x
 
 function injectInputRows(Sheet, position, nrOfRows, contentWidth, rowOffset, rowLabel, linkedRange, stepcolor) {
     Sheet.insertRows(position, nrOfRows)

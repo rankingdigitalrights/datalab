@@ -1,3 +1,10 @@
+// Never used / finished //
+// functions to compile something like a file / folder list of drive
+
+/**
+ * @function mainListFolderFiles
+ * @function listFolderFiles
+ */
 /* global
     createSpreadsheet,
     insertSheetIfNotExist
@@ -20,19 +27,13 @@ function listFolderFiles(controlSS, folder) {
     var overViewSheet = resultsSpreadsheet.getSheetByName(overviewSheetName)
     // if not - process
     if (!overViewSheet) {
-        overViewSheet = insertSheetIfNotExist(
-            resultsSpreadsheet,
-            overviewSheetName,
-            true
-        )
+        overViewSheet = insertSheetIfNotExist(resultsSpreadsheet, overviewSheetName, true)
         overViewSheet.clear()
         overViewSheet.appendRow(['Sheet', 'Id', 'Date First', 'Date Last'])
     }
 
     // fetch target folder with Spreadsheets of interest
-    var folderOfInterest = DriveApp.getFoldersByName(
-        '2019 RDR Research Data Collection'
-    ).next()
+    var folderOfInterest = DriveApp.getFoldersByName('2019 RDR Research Data Collection').next()
 
     // as Data Collection is structured into subfolders
     // fetch all subfolders with Spreadsheets of interest
@@ -46,9 +47,7 @@ function listFolderFiles(controlSS, folder) {
         // enter subfolder
         var thisFolder = subFoldersOfInterest.next()
         // fetch all Spreadsheets
-        var spreadsheets = thisFolder.getFilesByType(
-            'application/vnd.google-apps.ritz'
-        )
+        var spreadsheets = thisFolder.getFilesByType('application/vnd.google-apps.ritz')
         // for each Spreadsheet of this subfolder
         while (spreadsheets.hasNext()) {
             // enter Spreadsheet
@@ -73,22 +72,9 @@ function listFolderFiles(controlSS, folder) {
                 ])
 
                 // create a Results Sheet for this Spreadsheet
-                var resultsSheet = insertSheetIfNotExist(
-                    resultsSpreadsheet,
-                    thisCompany,
-                    true
-                )
+                var resultsSheet = insertSheetIfNotExist(resultsSpreadsheet, thisCompany, true)
                 resultsSheet.clear()
-                resultsSheet.appendRow([
-                    'entry',
-                    'activity',
-                    'event',
-                    'time',
-                    'target',
-                    'main',
-                    'secondary',
-                    'user',
-                ])
+                resultsSheet.appendRow(['entry', 'activity', 'event', 'time', 'target', 'main', 'secondary', 'user'])
 
                 var fileId = spreadsheet.getId()
 

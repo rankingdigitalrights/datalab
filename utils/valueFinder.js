@@ -1,4 +1,18 @@
+/** vastly underrated / underutilised
+ * Helpful collection of functions to compile a list
+ * of rows / row ranges which start with a particular String
+ * use cases:
+ *    where does the Company Feedback row start
+ *    what are the row dimension of the the 3.5 Year-on-Year Step
+ * CAUTION: also has row deleters
+ * deleter use cases: a broken Step needs to be rebuild.
+ *    for that it needs to be removed first, then the rows be added by hand
+ *    then run step repair functions with manual
+ *    override of doRepairsOnly for Cell.setValue()
+ */
+
 /* Brute: takes a start String and Sheet.getLastRow() */
+// CAUTION: deleteRows() is disabled but can be used to deleteRows
 function mainDeleteStepRowsA() {
     let stepString = '^Step 7.0' // "^[G|F|P].*\n+Response" // "^Step 3"
     let columnNr = 0 // starts with 0 := A so 1 := B
@@ -9,14 +23,7 @@ function mainDeleteStepRowsA() {
     let Indicators = indicatorsVector
 
     let result = []
-    result.push([
-        'indicator',
-        'elements',
-        'scope',
-        'startRow',
-        'endRow',
-        'maxCol',
-    ])
+    result.push(['indicator', 'elements', 'scope', 'startRow', 'endRow', 'maxCol'])
 
     let Sheet, rows
     Indicators.indicatorCategories.forEach((Category) =>
@@ -51,6 +58,7 @@ function mainDeleteStepRowsA() {
 }
 
 /* Segmented: takes a start String and an End String */
+// CAUTION: deleteRows() is disabled but can be used to deleteRows
 function mainDeleteStepRowsB() {
     let stepString = '^Step 7.0' // "^Old Step 5"
     let endStepString = '^Step 7.1' // "^Step 6"
@@ -80,14 +88,7 @@ function mainDeleteStepRowsB() {
     // let Indicators = indicatorsVector
 
     let result = []
-    result.push([
-        'indicator',
-        'elements',
-        'scope',
-        'startRow',
-        'endRow',
-        'maxCol',
-    ])
+    result.push(['indicator', 'elements', 'scope', 'startRow', 'endRow', 'maxCol'])
 
     let Sheet, rowsStart, rowsEnd
     Indicators.indicatorCategories.forEach((Category) =>
@@ -97,7 +98,7 @@ function mainDeleteStepRowsB() {
             if (Sheet !== null) {
                 rowsStart = findStepRows(Sheet, stepString, columnNr)
                 rowsEnd = findStepRows(Sheet, endStepString, columnNr)
-                // deleteRows(Sheet, rowsStart[0], rowsEnd[0]) // DA-A-A-NGER}
+                // deleteRows(Sheet, rowsStart[0], rowsEnd[0]) // DA-A-A-NGER
                 result.push([
                     Indicator.labelShort,
                     Indicator.elements.length,
@@ -163,9 +164,7 @@ function deleteRows(Sheet, startRow, lastRow) {
 function testingRowFunction() {
     let value = '^The following is a preliminary evaluation'
     let value1 = '^Please add your response'
-    let SS = SpreadsheetApp.openById(
-        '18ylfgtOW2fw1Fs7HaL3UEsxhmk4_73Ru7sTcmHA2t24'
-    )
+    let SS = SpreadsheetApp.openById('18ylfgtOW2fw1Fs7HaL3UEsxhmk4_73Ru7sTcmHA2t24')
 
     let Sheets = SS.getSheets()
 
@@ -198,9 +197,7 @@ function testingRowFunction() {
             lastCol = Sheet.getLastColumn()
             //console.log("firstRow="+row+", lastCol="+lastCol)
 
-            rows1.push(
-                '"C' + row + ':' + columnToLetter(lastCol, 0) + row + '"'
-            )
+            rows1.push('"C' + row + ':' + columnToLetter(lastCol, 0) + row + '"')
         }
 
         //console.log("row:"+rows)
@@ -211,9 +208,7 @@ function testingRowFunction() {
 
 function UnprotectedCellsFunction() {
     let value = 'Sources:'
-    let SS = SpreadsheetApp.openById(
-        '1pRnFSD5256vgvYBHji-tq8OuEyuhKltWY_vaoSVjGow'
-    )
+    let SS = SpreadsheetApp.openById('1pRnFSD5256vgvYBHji-tq8OuEyuhKltWY_vaoSVjGow')
 
     let Sheets = SS.getSheets()
 
@@ -246,9 +241,7 @@ function UnprotectedCellsFunction() {
             lastCol = Sheet.getLastColumn()
             //console.log("firstRow="+row+", lastCol="+lastCol)
 
-            rows.push(
-                '"C' + row + ':' + columnToLetter(lastCol, 0) + lastRow + '"'
-            )
+            rows.push('"C' + row + ':' + columnToLetter(lastCol, 0) + lastRow + '"')
             rows1.push('"' + row + ':' + row + '"')
         }
     }
@@ -259,9 +252,7 @@ function UnprotectedCellsFunction() {
 function testingFont() {
     //let value="^The following is a preliminary evaluation"
     let value = '^Indicator guidance:'
-    let SS = SpreadsheetApp.openById(
-        '18p3m5OFfteCUxRyefa9hyMwmuzVTRbwXm85sLxizcnA'
-    )
+    let SS = SpreadsheetApp.openById('18p3m5OFfteCUxRyefa9hyMwmuzVTRbwXm85sLxizcnA')
 
     let Sheets = SS.getSheets()
 
@@ -288,12 +279,8 @@ function testingFont() {
 
             //console.log("firstRow="+row+", lastCol="+lastCol)
 
-            rows1.push(
-                '"A' + 4 + ':' + columnToLetter(lastCol, 0) + lastRow + '"'
-            )
-            rows2.push(
-                '"A' + lastRow + ':' + columnToLetter(lastCol, 0) + lr3 + '"'
-            )
+            rows1.push('"A' + 4 + ':' + columnToLetter(lastCol, 0) + lastRow + '"')
+            rows2.push('"A' + lastRow + ':' + columnToLetter(lastCol, 0) + lr3 + '"')
         }
 
         //console.log("row:"+rows)

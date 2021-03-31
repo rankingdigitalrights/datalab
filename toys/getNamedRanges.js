@@ -1,3 +1,6 @@
+// Tests fo extracting named Ranges
+// Status: unclear
+
 function getNamedRanges2(spreadsheetId) {
     var ss = SpreadsheetApp.openById(spreadsheetId)
     console.log(ss.getName())

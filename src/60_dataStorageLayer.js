@@ -1,11 +1,11 @@
 /**
  * per single company
  * pulls out element level data from data input and puts data into
- * structured tables for further processing
- * shall become main endpoint for fetching input data
+ * structured long-form / tidy tables for further processing
+ * ~~shall become~~ main endpoint for fetching input data
  */
 
-/* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, addDataStoreSingleCompany, removeEmptySheet, determineFirstStep, determineMaxStep */
+/* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, addDataStoreSingleCompany, removeEmptySheet */
 
 // eslint-disable-next-line no-unused-vars
 function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode) {
@@ -25,11 +25,21 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
     let SS = createSpreadsheet(spreadsheetName, true)
     let fileID = SS.getId()
 
-    let outputParams = Config.dataStoreParams
+    let outputParams = Config.dataStoreParams // obsolete
 
-    let firstScoringStep = 0
+    let firstScoringStep = 0 // default: 0; include Step 0 or not? Step 7 = previous year's outcome
+
+    // can control nr of Main Steps to be included but for production just produce all Steps at once
     let maxScoringStep = Config.subsetMaxStep
     // console.log("DEBUG - maxScoringStep " + maxScoringStep)
+
+    /** for each DataMode of [results, changes, TODO: sources]
+     * produce a tab with only this type of data
+     * TODO: sources need to be re-added
+     * consider adding as standalone tab vs including it into results
+     * violates data principles (mixing Element vs Indicator-level data)
+     * but would be much easier to collect with `datapipe`
+     */
 
     DataMode.forEach((mode) =>
         addDataStoreSingleCompany(

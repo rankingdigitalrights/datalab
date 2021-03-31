@@ -1,5 +1,8 @@
+// Google Drive / Permissions helper
+// to subsequently add an Editor email account to Spreadsheet
+
 function mainSwitchFileEditors() {
-    let newEditors = centralConfig.defaultViewers.concat('ahackl2130@gmail.com')
+    let newEditors = centralConfig.defaultViewers.concat('ilja_s@protonmail.com')
 
     const Companies = companiesVector.companies
     // .slice(0, 0) // on purpose to prevent script from running.

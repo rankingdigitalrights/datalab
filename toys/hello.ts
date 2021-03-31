@@ -1,3 +1,4 @@
+// just a test for Typescript
 const greeter = (person: string) => {
     return `Hello, ${person}!`;
 }

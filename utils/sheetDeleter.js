@@ -1,3 +1,5 @@
+// Dev Helper to quickly delete an array of Sheet names from a Spreadsheet
+
 function deleteTabs() {
     let SS = SpreadsheetApp.openById('1FZUZhEPTegWXqjkR5ZoBevyIHsCjkIl4DnBtitlLajA')
     let Sheet

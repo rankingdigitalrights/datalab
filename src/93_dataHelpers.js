@@ -1,3 +1,9 @@
+// data object helpers for //
+// - Subsetting the research Object
+// - estimating row / column lengths of Indicator objects
+// - returning  array of Indicator lables
+// - checking if a Value exists in a spreasdsheet column
+
 /* global
     indicatorsVector
 */
@@ -117,6 +123,9 @@ function filterSingleSubstep(Step, substepLabel) {
     return null
 }
 
+// super helpul for i.e. not adding duplicate entries to a spreadsheet column
+// used for adding fileIds to the dev dashboard Spreadsheet
+
 function isValueInColumn(SS, sheetName, colNr, value) {
     let Range, Sheet, lastRow
     let isInColumn = false
@@ -131,6 +140,11 @@ function isValueInColumn(SS, sheetName, colNr, value) {
     }
     return isInColumn
 }
+
+// PROTOTYPE: Research Step Progress Percentage Tracker
+// never used but might be woth exploring
+// Idea is to count the number of cells with "not selected" divided
+// by number of cells to be edited.
 
 function createFormula() {
     //let Company=companiesVector.companies.slice(0,1)[0]
@@ -238,9 +252,12 @@ function createPercentageDone(Company, stepLabel) {
     return formulaNotSelected + formulaAllCells
 }
 
+// no idea; used in Company Feedback
 function metaIndyFilter(MetaObj, label) {
     return MetaObj.indicators.find((indicator) => indicator.indicator === label)
 }
+
+// used in 97_*::importContentBlock()
 
 function findSubStepComponent(stepNr, subStepNr, componentType) {
     return researchStepsVector.researchSteps[stepNr].substeps[subStepNr].components.find(
@@ -248,6 +265,8 @@ function findSubStepComponent(stepNr, subStepNr, componentType) {
     )
 }
 
+// used for Company Feedback Tab
+// returns a 1D array with all Indicator Labels
 function getIndicatorLabelsList(Indicators, flatten) {
     let indicatorLabels = Indicators.indicatorCategories.map((category) =>
         category.indicators.map((indicator) => indicator.labelShort)
@@ -260,6 +279,9 @@ function getIndicatorLabelsList(Indicators, flatten) {
     return indicatorLabels
 }
 
+// used for Summary Scores to create range blocks for
+// calculating Category-level totals
+
 function getColumnFromArray(array, col) {
     var column = []
     for (var i = 0; i < array.length; i++) {
@@ -268,9 +290,17 @@ function getColumnFromArray(array, col) {
     return column
 }
 
+// critical for SUmmary Scores with Element-level data
+// calculates total number of elements
+
 function elementsTotalLength(Indicators) {
     return Indicators.indicatorCategories
         .map((category) => category.indicators.map((indicator) => indicator.elements.length))
         .flat()
         .reduce((a, b) => a + b)
+}
+
+// eslint-disable-next-line no-unused-vars
+function getISOtimeAsString() {
+    return new Date().toISOString().substr(0, 16).split('T').join(': ')
 }

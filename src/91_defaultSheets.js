@@ -1,8 +1,11 @@
-// --- // creates sources page // --- //
+// --- // Collection of Default frequently used Sheets // --- //
 
 /* global
     Config, insertSheetIfNotExist, fillPointsSheet, fillCompanyFeedbackInputSheet, cropEmptyColumns, cropEmptyRows
 */
+
+// --- // Sources Collection Table for Input Sheets // --- //
+
 // eslint-disable-next-line no-unused-vars
 function produceSourceSheet(Sheet, doFill) {
     // let webArchiveLink = '=HYPERLINK("https://archive.org/web/", "Internet Archive")'
@@ -17,6 +20,8 @@ function produceSourceSheet(Sheet, doFill) {
         'Has this policy changed from the previous year’s Index?',
     ]
 
+    // simple toggle to skip writing to the header row
+    // i.e. !doFill will only apply formatting
     if (doFill) {
         Sheet.appendRow(columns)
     }
@@ -35,6 +40,8 @@ function produceSourceSheet(Sheet, doFill) {
     Sheet.setFrozenRows(1)
 }
 
+// simplified way to add an array of IMPORTRANGE calls to a sheet
+
 // eslint-disable-next-line no-unused-vars
 function fillSheetWithImportRanges(Sheet, sheetname, formulas) {
     Sheet.setName(sheetname)
@@ -42,16 +49,26 @@ function fillSheetWithImportRanges(Sheet, sheetname, formulas) {
     range.setValues([formulas])
 }
 
+// inserts the Scoring Evaluation/Validation Sheet into
+// Output sheets. The sheet is used for calculating Scores
+// see 96_scoringFormulasHelper.js for the content
 // eslint-disable-next-line no-unused-vars
 function insertPointValidationSheet(SS, SheetName) {
     let pointsSheet = insertSheetIfNotExist(SS, SheetName, true)
     if (pointsSheet !== null) {
-        pointsSheet.clear()
+        pointsSheet.clear() // purge to maintain integrity
         fillPointsSheet(pointsSheet)
     }
 
     return pointsSheet
 }
+
+/** Core for the Company Feedback setup
+ * adds a Company Feedback Tab to Input sheets, and
+ * for each Indicator adds named ranges later used to Import Feedback
+ * into Step 4/5 for each Indicator
+ * default: will not overwrite existing sheet
+ */
 
 // eslint-disable-next-line no-unused-vars
 function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSheet = false) {
@@ -68,6 +85,14 @@ function insertCompanyFeedbackSheet(SS, SheetName, Company, Indicators, updateSh
     }
     return Sheet
 }
+
+/** universal Spreadsheet connector Sheet for convinient
+ * click-click-click connecting to any imported Company-level
+ * spreadsheets from a single table
+ * @param company.urlCurrentOutputSheet and
+ * @param company.urlCurrentInputSheet
+ * need to exist in @file json/JSON_Companies.js
+ * */
 
 // eslint-disable-next-line no-unused-vars
 function insertSheetConnector(SS, Companies, Mode) {
@@ -108,38 +133,36 @@ function insertSheetConnector(SS, Companies, Mode) {
     return Sheet
 }
 
-// function produceCompanyFeedbackSheet(Sheet, Company, Indicators) {
-
-//     let header = ["Indicator", "Feedback returned?", "Feedback Text"]
-//     Sheet.appendRow([header])
-
-//     let StatusCell, ValueCell, namedRange
-
-//     Indicators.forEach(Indicator, index =>
-
-//     )
-
-// }
-
-// TODO: Fix this in Aligment with Input Sheet process
+/** For Company Feedback Forms
+ * connects to existing Sources tab in Company Feedback form
+ * and imports a subset of columns from a Input Sheet Sources tab
+ * TODO: Maintain this in Sync with Input Sheet Sources module
+ * TODO: make subset Columns a @param
+ */
 
 // eslint-disable-next-line no-unused-vars
 function importSourcesSheet(SS, sheetName, Company, doOverwrite) {
     let sheet = insertSheetIfNotExist(SS, sheetName, doOverwrite)
 
     if (sheet !== null && doOverwrite) {
-        // sheet.clear()
-        // produceSourceSheet(sheet)
+        // sheet.clear() // will delete the header rows, so don't do
+
+        // row 4 since Header rows have already been added when producing
+        // the Feedback form with produceSourceSheet(sheet)
         let targetCell = sheet.getRange(4, 2)
-        let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentInputSheet}","${Config.sourcesTabName} !A1:C"), "select Col1, Col2, Col3", 1)`
-        // let formula = "=IMPORTRANGE(\"" + Company.urlCurrentInputSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")"
+
+        // subsets particular columns from the Sources tab
+        let formula = `QUERY(IMPORTRANGE("${Company.urlCurrentInputSheet}","${Config.sourcesTabName}!A1:C"), "select Col1, Col2, Col3", 1)`
+        // let formula = "=IMPORTRANGE(\"" + Company.urlCurrentInputSheet + "\",\"" + Config.sourcesTabName + "!A1:G" + "\")" // import all columns
         targetCell.setFormula(formula)
     } else {
         console.log('WARNING: Sources Tab already exists. Skipping!')
     }
 }
 
-// simplified Sources Table Import for Company Feedback Forms
+// same as above but simplified
+// subset is hardcoded
+// TODO: obsolete; deprecate
 
 // eslint-disable-next-line no-unused-vars
 function importFBSourcesSheet(SS, sheetName, Company, doOverwrite) {

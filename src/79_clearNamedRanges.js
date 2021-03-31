@@ -1,17 +1,11 @@
-function clearNamedRangesFromCompanySheet(
-    CompanyObj,
-    filenamePrefix,
-    filenameSuffix,
-    mainSheetMode
-) {
+// TODO: probably outdated
+// maybe use Utils in 92_rangeNamingHelper.js
+// CAUTION
+
+function clearNamedRangesFromCompanySheet(CompanyObj, filenamePrefix, filenameSuffix, mainSheetMode) {
     var companyShortName = cleanCompanyName(CompanyObj)
 
-    var spreadsheetName = spreadSheetFileName(
-        filenamePrefix,
-        mainSheetMode,
-        companyShortName,
-        filenameSuffix
-    )
+    var spreadsheetName = spreadSheetFileName(filenamePrefix, mainSheetMode, companyShortName, filenameSuffix)
 
     var SS = createSpreadsheet(spreadsheetName, false)
 

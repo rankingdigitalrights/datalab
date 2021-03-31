@@ -25,6 +25,11 @@ function importLocalJSON(fileName, subset) {
     }
 }
 
+// experiment to try and grab the json/JSON_ files as actual
+// JSON from within the development environment in Google Script
+// TODO: worth exploring
+// would drastically simplify json access and split SSOT approach with datapipe
+
 function getLocalScriptFile(ID) {
     let url =
         'https://script.googleapis.com/v1/projects/1rZM9rFC9zFPkbxgTzqRBbynz60Bo5xRcdBpL9yi9l6TksLBkJNDAk2Wv/content'

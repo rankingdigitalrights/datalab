@@ -1,4 +1,11 @@
 /* Indicators */
+/**
+ * Collection of patterns for printing JSON values
+ * helpful to quickly extract i.e. all Indicator Labels
+ * or Service classes and so on
+ * to use, copy into json/JSON_<Object>
+ * and run locally in Node (i.e. in VSCode)
+ */
 
 // let indicatorCount = indicatorsVector.indicatorCategories
 //     .map(function (category) {
