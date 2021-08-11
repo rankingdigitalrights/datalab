@@ -5,14 +5,14 @@ const centralConfig = {
   lastRevised: '2021-03-12',
   indexPrefix: 'RDR21',
   prevIndexPrefix: 'RDR20',
-  subsetMaxStep: 4, // logical, inclusive; TODO: maybe move into mainController
+  subsetMaxStep: 5, // logical, inclusive; TODO: maybe move into mainController
   dataOwner: 'data@rankingdigitalrights.org',
-  devs: ['gutermuth@rankingdigitalrights.org', 'sperling@rankingdigitalrights.org', 'walton@rankingdigitalrights.org'],
+  devs: ['gutermuth@rankingdigitalrights.org', 'mathurin@rankingdigitalrights.org'],
   defaultEditors: [
     'walton@rankingdigitalrights.org',
     'gutermuth@rankingdigitalrights.org',
     'sperling@rankingdigitalrights.org',
-    'ilja.sperling@gmail.com',
+    'mathurin@rankingdigitalrights.org',
     // "wessenauer@rankingdigitalrights.org",
     // "brouillette@rankingdigitalrights.org",
   ],
@@ -26,7 +26,7 @@ const centralConfig = {
     'walton@rankingdigitalrights.org',
     'gutermuth@rankingdigitalrights.org',
     'sperling@rankingdigitalrights.org',
-    'ilja.sperling@gmail.com',
+    'mathurin@rankingdigitalrights.org',
   ],
   filenamePrefix: '2021 -',
   filenameSuffixProd: '',
@@ -128,7 +128,7 @@ const centralConfig = {
   scoringParams: {
     subStepNr: 1,
     firstStepNr: 0,
-    lastStepNr: 7,
+    lastStepNr: 3,
     sheetName: 'Outcome',
     dataColWidth: 200,
     hasFullScores: true,

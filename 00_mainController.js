@@ -38,7 +38,7 @@ function initiateGlobalConfig() {
      * IMPORTANT: subsetting function only accepts Array
      */
     /* EITHER default */
-    // IndicatorsObj = indicatorsVector
+    //IndicatorsObj = indicatorsVector
     /* OR ARRAY: use Array[] to subset */
     IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['G4a', 'F1a', 'P1a'])
 
@@ -52,7 +52,7 @@ function initiateGlobalConfig() {
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
     filenameSuffix = ISPRODUCTION ? Config.filenameSuffixProd : Config.filenameSuffixDev // [Dev, "", Debug, QC]
-    outputFolderName = '2020 Dev Fallback Folder' // Specific folder defined in Main Callers
+    outputFolderName = '2021 Index Dev' // Specific folder defined in Main Callers
     // TODO: adjust for 2021 Index
     rootFolderID = ISPRODUCTION ? Config.rootFolderIDProd : Config.rootFolderIDDev
     rootFolderName = ISPRODUCTION ? Config.rootFolderNameProd : Config.rootFolderIDDev
@@ -74,8 +74,8 @@ function mainInputSheets() {
     let mainSheetMode = 'Input' // for filename | TODO: move to Config
 
     // HOOK 1 to not produce all Steps (i.e. stop before Step 4)
-    // Config.subsetMaxStep = 3 // TBC: logical and inclusive so will add S0-S3
-    let useStepsSubset = false // true := will end with Config.subsetMaxStep globally defined in Config.JSON
+    Config.subsetMaxStep = 3 // TBC: logical and inclusive so will add S0-S3
+    let useStepsSubset = true // true := will end with Config.subsetMaxStep globally defined in Config.JSON
 
     /** HOOK 2 for DEV: produce only a single Step
      * startAtMainStepNr = 7 // logical Order
@@ -88,7 +88,7 @@ function mainInputSheets() {
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3); //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -96,7 +96,7 @@ function mainInputSheets() {
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",
     // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
+    .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
     // .slice(14, 15) //   14 "Microsoft",
@@ -138,7 +138,7 @@ function mainAppendInputStep() {
     addNewStep = true // default; don't touch;
 
     // Hook to skip steps
-    startAtMainStepNr = 6 // logical inclusive Order
+    startAtMainStepNr = 5 // logical inclusive Order
     // Config.subsetMaxStep = startAtMainStepNr // unset if you want to have subsequent steps as well
     let useStepsSubset = true // true := use subset; Config.subsetMaxStep defined in Config.JSON
 
@@ -147,10 +147,10 @@ function mainAppendInputStep() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -246,8 +246,8 @@ function mainScoringSheets() {
 
     outputFolderName = ISPRODUCTION ? Config.outputFolderNameProd : Config.outputFolderNameDev
 
-    let addNewStep = false // TODO: GW - remove or rename & document
-    let stepsToAdd = [6, 7] // TODO: GW - remove or rename & document
+    let addNewStep = true // TODO: GW - remove or rename & document
+    let stepsToAdd = [5] // TODO: GW - remove or rename & document
 
     // Config.subsetMaxStep = 4 // HOOK to only produce a few steps
 
@@ -256,10 +256,10 @@ function mainScoringSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -369,7 +369,7 @@ function mainAggregationSheets() {
     // filename fragments defined in
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = ' Test' // HOOK  - Local Override - DANGER
+    filenameSuffix = ' Dev' // HOOK  - Local Override - DANGER
     outputFolderName = '2021 - Dev - Summary' // HOOK
     let mainSheetMode = 'Summary Scores'
 
@@ -380,12 +380,21 @@ function mainAggregationSheets() {
 
     let isYoyMode = false // TODO: GW - remove or document and rename
 
-    let Companies = companiesVector.companies
+    // let Companies = companiesVector.companies
+    let Companies = [
+        companiesVector.companies[0],
+        companiesVector.companies[2],
+        companiesVector.companies[10],
+        companiesVector.companies[13],
+        companiesVector.companies[16],
+        companiesVector.companies[19]
+    ]
         // .slice(5, 7) // Axiata & Baidu,
         // .slice(1, 9) // no Amazon
         // .slice(1, 3) // for debugging
         // .slice(0,3) // Amazon
-        .slice(3, 4) // Apple
+        // .slice(0, 1) // Alibaba
+        // .slice(3, 4) // Apple
 
     let fileID = createAggregationOutput(
         Companies,
@@ -508,7 +517,7 @@ function mainProtectCompanies() {
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
@@ -518,7 +527,7 @@ function mainProtectCompanies() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -543,7 +552,7 @@ function mainUnProtectCompanies() {
     // unprotects the sheets of a given company vector
     var Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
@@ -553,7 +562,7 @@ function mainUnProtectCompanies() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -581,7 +590,7 @@ function mainOpenStepCompanies() {
 
     let doUpdateEditors = true // won't change File-level permission status otherwise
 
-    let stepLabel = ['S04', 'S05'] // maybe better: match ResearchStepObj syntax := S01
+    let stepLabel = ['S01'] // maybe better: match ResearchStepObj syntax := S01
     let subStepIDs = createSubstepArray(stepLabel)
 
     // let editors = EditorsObj[stepLabel]
@@ -593,7 +602,7 @@ function mainOpenStepCompanies() {
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
+        .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
@@ -605,7 +614,7 @@ function mainOpenStepCompanies() {
         // .slice(9, 10) //   9 "Etisalat",
         // .slice(10, 11) //   10 "Facebook",
         // .slice(11, 12) //   11 "Google",
-        .slice(12, 13) //   12 "Kakao",
+        // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
     // .slice(14, 15) //   14 "Microsoft",
     // .slice(15, 16) //   15 "MTN",
