@@ -97,7 +97,7 @@ function appendFeedbackSection(
     SubStep = MainStep.substeps[subStepNr]
 
     contentTypes = []
-    contentTypes.push('comments')
+    contentTypes.push('reviewComments')
     includeSourcesRow = false
 
     activeRow = appendFBRows(
@@ -317,7 +317,7 @@ function appendFBRows(
             SubStep,
             mainStepNr,
             subStepNr,
-            'sources',
+            'reviewSources',
             activeRow,
             offsetCol,
             omitOpCom,

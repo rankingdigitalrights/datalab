@@ -74,6 +74,9 @@ function protectSheets(Indicators, Editors, SS, companyID, currentPrefix) {
                     '',
                     'Step'
                 )
+
+                console.log('Named range: ' + rangeName)
+
                 rangeNotation = getNamedRangeRowNotation(rangeName, SS)
                 range = Sheet.getRange(rangeNotation)
                 unprotectedRanges.push(range)

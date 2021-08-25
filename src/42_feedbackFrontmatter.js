@@ -102,12 +102,12 @@ function addElementDescriptions(Sheet, Indicator, MetaData, frontMatterSpecs, ac
     Indicator.elements.forEach((Element, index) => {
         Textrange = Sheet.getRange(elementRow + index, offsetCol + 1, 1, width - 1).merge()
 
-        // console.log("Found terms " + MetaData.elementsTerms[index])
+        console.log("Found terms " + MetaData.elementsTags[index])
         addRichTextArray(
             Textrange,
             frontMatterSpecs.bold,
             Element.description,
-            MetaData.elementsTerms[index],
+            MetaData.elementsTags[index],
             MetaData.elementsLinks[index]
         )
     })

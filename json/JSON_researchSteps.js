@@ -849,6 +849,7 @@ const researchStepsVector = {
       rowLabel: 'Final Results',
       stepColor: '#a4c2f4',
       doCollapse: false,
+      scoringSubStep: 'S071', // TODO: deprecate
       substeps: [
         {
           labelShort: 'Step 7.0',

@@ -93,10 +93,10 @@ function produceCompanyFeedbackForm(Company, makeDataOwner) {
             console.log(`|---- START Processing ${sheetName}`)
             console.log('|------- sheetPos: ' + (ankerSheetPos + indNr))
             // inserts the sheet at Category Anchor + IndicatorNr
-            Sheet = insertSheetIfNotExist(SS, sheetName, sheetOverwrite, ankerSheetPos + indNr)
+            let indSheet = insertSheetIfNotExist(SS, sheetName, sheetOverwrite, ankerSheetPos + indNr)
 
             // creates Indicator Frontmatter, review results and Comppany Input Fields
-            prefillFeedbackPage(Sheet, Company, Indicator, MainStep, outputParams)
+            prefillFeedbackPage(indSheet, Company, Indicator, MainStep, outputParams)
             console.log(`|---- END Processing ${sheetName}`)
         }
     }

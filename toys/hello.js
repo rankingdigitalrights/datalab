@@ -1,4 +1,4 @@
-// Compiled using ts2gas 3.6.4 (TypeScript 4.1.3)
+// Compiled using clasp-proj 0.0.5 (TypeScript 4.3.5)
 // just a test for Typescript
 var greeter = function (person) {
     return "Hello, " + person + "!";

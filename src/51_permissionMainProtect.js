@@ -14,6 +14,8 @@ function mainProtectSingleCompany(company) {
     let SS = SpreadsheetApp.openById(fileID) //<---------------- undo when we want to edit actual sheets
     //let SS=SpreadsheetApp.openById("1u3F4xtzd89aVhO1UuWoNR_lPCFLsVXaom_xcDij5oKE")
 
+    console.log('Protecting spreadsheet: ' + fileID)
+
     let currentPrefix = centralConfig.indexPrefix
 
     // removing all protections
