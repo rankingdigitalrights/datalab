@@ -246,8 +246,8 @@ function mainScoringSheets() {
 
     outputFolderName = ISPRODUCTION ? Config.outputFolderNameProd : Config.outputFolderNameDev
 
-    let addNewStep = true // TODO: GW - remove or rename & document
-    let stepsToAdd = [5] // TODO: GW - remove or rename & document
+    let addNewStep = false // TODO: GW - remove or rename & document
+    let stepsToAdd = [0, 1, 3] // TODO: GW - remove or rename & document
 
     // Config.subsetMaxStep = 4 // HOOK to only produce a few steps
 
@@ -256,7 +256,7 @@ function mainScoringSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
+        // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
         // .slice(3, 4) //   3 "Apple",
@@ -266,7 +266,7 @@ function mainScoringSheets() {
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
+    .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -330,7 +330,7 @@ function mainFeedbackSheets() {
         // .slice(7, 8) //   7 "Bharti Airtel",
         // .slice(8, 9) //   8 "Deutsche Telekom",
         // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
+        // .slice(10, 11) //   10 "Facebook",
         // .slice(11, 12) //   11 "Google",
         // .slice(12, 13) //   12 "Kakao",
         // .slice(13, 14) //   13 "Mail.Ru",
@@ -339,7 +339,7 @@ function mainFeedbackSheets() {
         // .slice(16, 17) //   16 "Ooredoo",
         // .slice(17, 18) //   17 "Orange",
         // .slice(18, 19) //   18 "Samsung",
-        // .slice(19, 20) //   19 "Telefónica",
+        .slice(19, 20) //   19 "Telefónica",
         // .slice(20, 21) //   20 "Telenor",
         // .slice(21, 22) //   21 "Tencent",
         // .slice(22, 23) //   22 "Twitter",
@@ -376,17 +376,13 @@ function mainAggregationSheets() {
     // 2020 decision: for performance reasons import from Outcome Sheets directly
     let includeCompanyOutcomeSheets = false // default: false
 
-    let scoringStepNr = 7 // Summary Scores always only produces one single Step
+    let scoringStepNr = 1 // Summary Scores always only produces one single Step
 
     let isYoyMode = false // TODO: GW - remove or document and rename
 
     // let Companies = companiesVector.companies
     let Companies = [
-        companiesVector.companies[0],
-        companiesVector.companies[2],
         companiesVector.companies[10],
-        companiesVector.companies[13],
-        companiesVector.companies[16],
         companiesVector.companies[19]
     ]
         // .slice(5, 7) // Axiata & Baidu,
@@ -432,7 +428,7 @@ function mainDataStore() {
         // .slice(0, 1) //   0 "Alibaba",
         // .slice(1, 2) //   1 "Amazon",
         // .slice(2, 3) //   2 "América Móvil",
-        .slice(3, 4) //   3 "Apple",
+        // .slice(3, 4) //   3 "Apple",
     // .slice(4, 5) //   4 "AT&T",
     // .slice(5, 6) //   5 "Axiata",
     // .slice(6, 7) //   6 "Baidu",
@@ -448,7 +444,7 @@ function mainDataStore() {
     // .slice(16, 17) //   16 "Ooredoo",
     // .slice(17, 18) //   17 "Orange",
     // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
+    .slice(19, 20) //   19 "Telefónica",
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
     // .slice(22, 23) //   22 "Twitter",

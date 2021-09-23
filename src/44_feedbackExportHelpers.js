@@ -43,7 +43,7 @@ function HardCopyFeedbackSS(SS, sheetLabels) {
 function mainHardCopyofBFSource() {
     // TODO: add
     let SS = SpreadsheetApp.openById(
-        '1s8vGXYXwPYBafo4LrcFq6aHz81lUr8NZhstfFQiYHsQ'
+        '1SkHXdEj5_oJs8FfSmEd6MUyCiVVhPP1O_wUBEXWMzp8'
     )
 
     // let sheetLabels = ["G4b"]
@@ -109,6 +109,8 @@ function mainHardCopyofBFSource() {
         'P17',
         'P18',
     ]
+
+    sheetLabels = ['Sources', 'G4a','F1a','P1a']
 
     // let targetFolderID = "1si0VeymDcsazl_RDelNsahMfSz5jn3Pm"
 

@@ -37,7 +37,9 @@ function addDataStoreSingleCompany(
     // --- // Element Level Results // --- //
 
     if (DataMode === 'results' || DataMode === 'changes') {
-        elementSheet = insertSheetIfNotExist(SS, DataMode, true)
+        // keeping 2020 tab names
+        tabName = DataMode === 'results' ? 'simple results' : 'reason for change'
+        elementSheet = insertSheetIfNotExist(SS, tabName, true)
         if (elementSheet !== null) {
             elementSheet.clear()
             resizeSheet(elementSheet, 65000) // approaching upper limit of allowed cell limit of 500K

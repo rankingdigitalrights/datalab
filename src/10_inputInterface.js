@@ -83,6 +83,7 @@ function processInputSpreadsheet(useStepsSubset, Company, filenamePrefix, filena
         Sheet = insertSheetIfNotExist(SS, importedOutcomeTabName, false)
 
         if (Sheet !== null) {
+            Sheet.insertRowsAfter(999, 800)
             fillSheetWithImportRanges(Sheet, importedOutcomeTabName, externalFormula)
         }
 
