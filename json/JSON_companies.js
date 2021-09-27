@@ -87,14 +87,6 @@ const companiesVector = {
             legacy: [null],
           },
         },
-        {
-          id: 'clAZ1',
-          type: 'cloud',
-          label: {
-            current: 'Amazon Drive',
-            legacy: [null],
-          },
-        },
       ],
     },
     {
@@ -184,6 +176,14 @@ const companiesVector = {
           type: 'cloud',
           label: {
             current: 'iCloud',
+            legacy: [null],
+          },
+        },
+        {
+          id: 'ebAP1',
+          type: 'pda',
+          label: {
+            current: 'Siri',
             legacy: [null],
           },
         },
@@ -614,6 +614,14 @@ const companiesVector = {
             legacy: [null],
           },
         },
+        {
+          id: 'ebGO1',
+          type: 'pda',
+          label: {
+            current: 'Google Assistant',
+            legacy: [null],
+          },
+        },
       ],
     },
     {
@@ -708,8 +716,8 @@ const companiesVector = {
           id: 'mvMA1',
           type: 'messagingVoip',
           label: {
-            current: 'Mail.Ru Agent',
-            legacy: [null],
+            current: 'Odnoklassniki',
+            legacy: 'Mail.Ru Agent',
           },
         },
         {
@@ -774,6 +782,14 @@ const companiesVector = {
           type: 'cloud',
           label: {
             current: 'OneDrive',
+            legacy: [null],
+          },
+        },
+        {
+          id: 'snMS1',
+          type: 'socialNetworkBlogs',
+          label: {
+            current: 'LinkedIn',
             legacy: [null],
           },
         },
@@ -960,14 +976,6 @@ const companiesVector = {
           type: 'mobileEcosystem',
           label: {
             current: 'Samsung implementation of Android',
-            legacy: [null],
-          },
-        },
-        {
-          id: 'clSA1',
-          type: 'cloud',
-          label: {
-            current: 'Samsung Cloud',
             legacy: [null],
           },
         },
