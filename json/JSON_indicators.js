@@ -998,7 +998,7 @@ const indicatorsVector = {
               Element: 'G06a.06',
               labelShort: 'G6a.6',
               description:
-                'Does the company clearly disclose the number of complaints received related to freedom of expression?',
+                'Does the company clearly disclose the number of complaints it receives related to freedom of expression?',
               doExcludeCompanies: null,
               excludedCompanies: null,
               doExcludeServices: null,
@@ -1009,7 +1009,7 @@ const indicatorsVector = {
               elemNr: 7,
               Element: 'G06a.07',
               labelShort: 'G6a.7',
-              description: 'Does the company clearly disclose the number of complaints received related to privacy?',
+              description: 'Does the company clearly disclose the number of complaints it receives related to privacy?',
               doExcludeCompanies: null,
               excludedCompanies: null,
               doExcludeServices: null,
@@ -1266,7 +1266,7 @@ const indicatorsVector = {
           description:
             'The company should offer advertising content policies that are easy to find and easy to understand.',
           guidance:
-            "Companies that enable any type of advertising on their services or platforms should clearly disclose the rules for what types of ad content is prohibited—for example, ads that discriminate against individuals or groups based on personal attributes like age, religion, gender, and ethnicity. Companies should be transparent about these rules so that both users and advertisers can understand what types of ad content are not permissible and so they can be accountable for the ad content that appears on their services or platforms. Therefore, companies should make these rules easy to find (E1), easy to understand (E3), and available in the main languages of the company's home market (E2). Companies that operate mobile ecosystems (Apple iOS, Google Android, and Samsung's implementation of Android) and personal digital assistant ecosystems (Amazon's Alexa, Alibaba's AliGenie) should enable users to choose which apps or skills to download on the basis of their participation (or not) in advertising networks. Therefore, Element 4 and Element 5 ask whether the company discloses a requirement for apps or skills made available through its app store or skills store to provide users with an advertising content policy.",
+            "Companies that enable any type of advertising on their services or platforms should clearly disclose the rules for what types of ad content is prohibited—for example, ads that discriminate against individuals or groups based on personal attributes like age, religion, gender, and ethnicity. Companies should be transparent about these rules so that both users and advertisers can understand what types of ad content are not permissible and so they can be accountable for the ad content that appears on their services or platforms. Therefore, companies should make these rules easy to find (E1), easy to understand (E3), and available in the main languages of the company's home market (E2). Companies that operate mobile ecosystems (Apple iOS, Google Android, and Samsung's implementation of Android) and virtual assistants (Amazon's Alexa, Alibaba's AliGenie) should enable users to choose which apps or skills to download on the basis of their participation (or not) in advertising networks. Therefore, Element 4 and Element 5 ask whether the company discloses a requirement for apps or skills made available through its app store or skills store to provide users with an advertising content policy.",
           researchGuidance: 'https://basecamp.com/2161726/projects/17361333/messages/91386097',
           scoringScope: 'services',
           prevOutcomeIndyStartRow: 372,
@@ -1336,7 +1336,7 @@ const indicatorsVector = {
               Element: 'F01b.05',
               labelShort: 'F1b.5',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills made available through its skill store to provide users with an advertising content policy?',
+                '(For virtual assistants): Does the company clearly disclose that it requires skills made available through its skill store to provide users with an advertising content policy?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -1363,7 +1363,7 @@ const indicatorsVector = {
           description:
             'The company should offer advertising targeting policies that are easy to find and easy to understand.',
           guidance:
-            "In addition to providing accessible ad content policies (Indicator F1b), companies should also clearly disclose their ad targeting policies. The ability for advertisers or other third parties to target users with tailored content—based on their browsing behaviors, location information, and other data and characteristics that have been inferred about them—can significantly shape (or in some cases, distort) a user's online ecosystem. Targeting, which can include both paid and unpaid content, can amplify offline social inequities and can be overtly discriminatory. It can also result in so-called “filter bubbles” as well as amplify problematic content, including content intended to mislead or to spread falsehoods. Therefore, companies that enable advertisers and other third parties to target their users with tailored ads or content should publish targeting policies that users can easily find and understand, and that are available in the main languages of the company's home market. Users should be able to access and understand these rules in order to make informed decisions using the information about the ad content they are receiving. For mobile ecosystems and personal digital assistant ecosystems, companies should disclose a requirement for apps or skills made available through their app stores or skill stores to provide users with an accessible advertising targeting policy.",
+            "In addition to providing accessible ad content policies (Indicator F1b), companies should also clearly disclose their ad targeting policies. The ability for advertisers or other third parties to target users with tailored content—based on their browsing behaviors, location information, and other data and characteristics that have been inferred about them—can significantly shape (or in some cases, distort) a user's online ecosystem. Targeting, which can include both paid and unpaid content, can amplify offline social inequities and can be overtly discriminatory. It can also result in so-called “filter bubbles” as well as amplify problematic content, including content intended to mislead or to spread falsehoods. Therefore, companies that enable advertisers and other third parties to target their users with tailored ads or content should publish targeting policies that users can easily find and understand, and that are available in the main languages of the company's home market. Users should be able to access and understand these rules in order to make informed decisions using the information about the ad content they are receiving. For mobile ecosystems and virtual assistants, companies should disclose a requirement for apps or skills made available through their app stores or skill stores to provide users with an accessible advertising targeting policy.",
           researchGuidance: 'https://basecamp.com/2161726/projects/17361333/messages/91386142',
           scoringScope: 'services',
           prevOutcomeIndyStartRow: 397,
@@ -1433,7 +1433,7 @@ const indicatorsVector = {
               Element: 'F01c.05',
               labelShort: 'F1c.5',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills made available through its skill store to provide users with an advertising targeting policy?',
+                '(For virtual assistants): Does the company clearly disclose that it requires skills made available through its skill store to provide users with an advertising targeting policy?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -1666,7 +1666,7 @@ const indicatorsVector = {
               Element: 'F02b.06',
               labelShort: 'F2b.6',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills made available through its skill store to notify users when the skills change their advertising content policies?',
+                '(For virtual assistants): Does the company clearly disclose that it requires skills made available through its skill store to notify users when the skills change their advertising content policies?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -1775,7 +1775,7 @@ const indicatorsVector = {
               Element: 'F02c.06',
               labelShort: 'F2c.6',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills made available through its skill store to notify users when the skills change their advertising targeting policies?',
+                '(For virtual assistants): Does the company clearly disclose that it requires skills made available through its skill store to notify users when the skills change their advertising targeting policies?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -1871,7 +1871,7 @@ const indicatorsVector = {
           description:
             'The company should clearly disclose the circumstances under which it may restrict content or user accounts.',
           guidance:
-            "It is fair to expect companies to set rules prohibiting certain content or activities—like toxic speech or malicious behavior. However, when companies develop and enforce rules about what people can do and say on the internet—or whether they can access a service at all—they must do so in a way that is transparent and accountable. We therefore expect companies to clearly disclose what these rules are and how they enforce them. This includes information about how companies learn of material or activities that violate their terms. For example, companies may rely on outside contractors to review content and/or user activity. They may also rely on community flagging mechanisms that allow users to flag other users' content and/or activity for company review. They may also deploy algorithmic systems to detect and flag breaches, in which case, companies should explain how these systems are used and on what types of content. We expect companies to clearly disclose whether they have a policy of granting priority or expedited consideration to any government authorities and/or members of private organizations or other entities that identify their organizational affiliation when they report content or users for allegedly violating the company's rules. For mobile ecosystems, we expect companies to disclose the types of apps they would restrict. For personal digital assistant ecosystems, we expect companies to disclose the types of skills and search results they would restrict. In this disclosure, the company should also provide examples to help users understand what these rules mean.",
+            "It is fair to expect companies to set rules prohibiting certain content or activities—like toxic speech or malicious behavior. However, when companies develop and enforce rules about what people can do and say on the internet—or whether they can access a service at all—they must do so in a way that is transparent and accountable. We therefore expect companies to clearly disclose what these rules are and how they enforce them. This includes information about how companies learn of material or activities that violate their terms. For example, companies may rely on outside contractors to review content and/or user activity. They may also rely on community flagging mechanisms that allow users to flag other users' content and/or activity for company review. They may also deploy algorithmic systems to detect and flag breaches, in which case, companies should explain how these systems are used and on what types of content. We expect companies to clearly disclose whether they have a policy of granting priority or expedited consideration to any government authorities and/or members of private organizations or other entities that identify their organizational affiliation when they report content or users for allegedly violating the company's rules. For mobile ecosystems, we expect companies to disclose the types of apps they would restrict. For virtual assistants, we expect companies to disclose the types of skills and search results they would restrict. In this disclosure, the company should also provide examples to help users understand what these rules mean.",
           researchGuidance: 'https://basecamp.com/2161726/projects/17361333/messages/91445579',
           scoringScope: 'services',
           prevOutcomeIndyStartRow: 541,
@@ -3339,7 +3339,7 @@ const indicatorsVector = {
               Element: 'P01a.05',
               labelShort: 'P1a.5',
               description:
-                '(For personal digital assistant ecosystems): Does the company disclose that it requires skills made available through its skill store to provide users with a privacy policy?',
+                '(For virtual assistants): Does the company disclose that it requires skills made available through its skill store to provide users with a privacy policy?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -3504,7 +3504,7 @@ const indicatorsVector = {
               Element: 'P02a.06',
               labelShort: 'P2a.6',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it requires skills sold through its skill store to notify users when the skill changes its privacy policy?',
+                '(For virtual assistants): Does the company clearly disclose that it requires skills sold through its skill store to notify users when the skill changes its privacy policy?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -3690,7 +3690,7 @@ const indicatorsVector = {
               Element: 'P03a.06',
               labelShort: 'P3a.6',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose what user information the skills collect?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose what user information the skills collect?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -3710,7 +3710,7 @@ const indicatorsVector = {
               Element: 'P03a.07',
               labelShort: 'P3a.7',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether third-party skills made available through its skill store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the skill?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether third-party skills made available through its skill store limit collection of user information to what is directly relevant and necessary to accomplish the purpose of the skill?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -3898,7 +3898,7 @@ const indicatorsVector = {
               Element: 'P04.07',
               labelShort: 'P4.7',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose what user information the skills share?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose what user information the skills share?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -3918,7 +3918,7 @@ const indicatorsVector = {
               Element: 'P04.08',
               labelShort: 'P4.8',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose the types of third parties with whom they share user information?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether the privacy policies of third party skills made available through its skill store disclose the types of third parties with whom they share user information?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -4140,7 +4140,7 @@ const indicatorsVector = {
               Element: 'P06.08',
               labelShort: 'P6.8',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose how long they retain user information?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store disclose how long they retain user information?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -4160,7 +4160,7 @@ const indicatorsVector = {
               Element: 'P06.09',
               labelShort: 'P6.9',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -4187,7 +4187,7 @@ const indicatorsVector = {
           description:
             "The company should clearly disclose to users what options they have to control the company's collection, inference, retention and use of their user information.",
           guidance:
-            "We expect companies to clearly disclose what options users have to control the information that companies collect, retain, and infer about them. Enabling users to control what information about them that a company collects, infers, and retains would mean giving users the ability to delete specific types of user information without requiring them to delete their entire account. We therefore expect companies to clearly disclose whether users have the option to delete specific types of user information. In addition, we expect companies to enable users to control the use of their information for the purpose of targeted advertising and algorithmic system development. Targeted advertising requires extensive collection, retention, and inference of user information, and companies should therefore clearly disclose whether users have options to control how their information is being used for these purposes. For mobile ecosystems and personal digital assistant (PDA) ecosystems, we expect companies to clearly disclose what options users have to control the collection of their location information. A user's location changes frequently and many users carry their mobile devices nearly everywhere, making the collection of this type of information particularly sensitive. In addition, the location settings on mobile ecosystems and personal digital assistant ecosystems can influence how other products and services access their location information. For instance, mobile apps or PDA ecosystem skills may enable users to control location information. However, if the device on which those mobile apps or PDA skills run collects geolocation data by default and does not give users a way to turn this off, users may not be able to limit mobile apps' or PDA skills' collection of their location information. For these reasons, we expect companies to disclose that users can control how their device interacts with their location information.",
+            "We expect companies to clearly disclose what options users have to control the information that companies collect, retain, and infer about them. Enabling users to control what information about them that a company collects, infers, and retains would mean giving users the ability to delete specific types of user information without requiring them to delete their entire account. We therefore expect companies to clearly disclose whether users have the option to delete specific types of user information. In addition, we expect companies to enable users to control the use of their information for the purpose of targeted advertising and algorithmic system development. Targeted advertising requires extensive collection, retention, and inference of user information, and companies should therefore clearly disclose whether users have options to control how their information is being used for these purposes. For mobile ecosystems and personal digital assistant (PDA) ecosystems, we expect companies to clearly disclose what options users have to control the collection of their location information. A user's location changes frequently and many users carry their mobile devices nearly everywhere, making the collection of this type of information particularly sensitive. In addition, the location settings on mobile ecosystems and virtual assistants can influence how other products and services access their location information. For instance, mobile apps or PDA ecosystem skills may enable users to control location information. However, if the device on which those mobile apps or PDA skills run collects geolocation data by default and does not give users a way to turn this off, users may not be able to limit mobile apps' or PDA skills' collection of their location information. For these reasons, we expect companies to disclose that users can control how their device interacts with their location information.",
           researchGuidance: 'https://basecamp.com/2161726/projects/17361333/messages/91443107',
           scoringScope: 'services',
           prevOutcomeIndyStartRow: 1208,
@@ -4297,7 +4297,7 @@ const indicatorsVector = {
               Element: 'P07.09',
               labelShort: 'P7.9',
               description:
-                "(For mobile ecosystems and personal digital assistant ecosystems): Does the company clearly disclose that it provides users with options to control the device's geolocation functions?",
+                "(For mobile ecosystems and virtual assistants): Does the company clearly disclose that it provides users with options to control the device's geolocation functions?",
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -4429,7 +4429,7 @@ const indicatorsVector = {
               Element: 'P08.08',
               labelShort: 'P8.8',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?',
+                '(For virtual assistants): Does the company clearly disclose that it evaluates whether the privacy policies of third-party skills made available through its skill store state that all user information is deleted when users terminate their accounts or delete the skill?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -5142,7 +5142,7 @@ const indicatorsVector = {
               Element: 'P14.04',
               labelShort: 'P14.4',
               description:
-                '(For mobile ecosystems and personal digital assistant ecosystems) Does the company clearly disclose that software updates, security patches, add-ons, or extensions are downloaded over an encrypted channel?',
+                '(For mobile ecosystems and virtual assistants) Does the company clearly disclose that software updates, security patches, add-ons, or extensions are downloaded over an encrypted channel?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -5184,7 +5184,7 @@ const indicatorsVector = {
               Element: 'P14.06',
               labelShort: 'P14.6',
               description:
-                "(For mobile ecosystems, personal digital assistant ecosystems, and telecommunications companies) Does the company clearly disclose what, if any, effect such modifications have on the company's ability to send security updates to users?",
+                "(For mobile ecosystems, virtual assistants, and telecommunications companies) Does the company clearly disclose what, if any, effect such modifications have on the company's ability to send security updates to users?",
               doExcludeCompanies: null,
               excludedCompanies: null,
               doExcludeServices: true,
@@ -5205,7 +5205,7 @@ const indicatorsVector = {
               Element: 'P14.07',
               labelShort: 'P14.7',
               description:
-                '(For mobile ecosystems and personal digital assistant ecosystems) Does the company clearly disclose the date through which it will continue to provide security updates for the device/OS?',
+                '(For mobile ecosystems and virtual assistants) Does the company clearly disclose the date through which it will continue to provide security updates for the device/OS?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -5225,7 +5225,7 @@ const indicatorsVector = {
               Element: 'P14.08',
               labelShort: 'P14.8',
               description:
-                '(For mobile ecosystems and personal digital assistant ecosystems) Does the company commit to provide security updates for the operating system and other critical software for a minimum of five years after release?',
+                '(For mobile ecosystems and virtual assistants) Does the company commit to provide security updates for the operating system and other critical software for a minimum of five years after release?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -5245,7 +5245,7 @@ const indicatorsVector = {
               Element: 'P14.09',
               labelShort: 'P14.9',
               description:
-                '(For mobile ecosystems, personal digital assistant ecosystems, and telecommunications companies) If the company uses an operating system adapted from an existing system, does the company commit to provide security patches within one month of a vulnerability being announced to the public?',
+                '(For mobile ecosystems, virtual assistants, and telecommunications companies) If the company uses an operating system adapted from an existing system, does the company commit to provide security patches within one month of a vulnerability being announced to the public?',
               doExcludeCompanies: null,
               excludedCompanies: null,
               doExcludeServices: true,
@@ -5266,7 +5266,7 @@ const indicatorsVector = {
               Element: 'P14.10',
               labelShort: 'P14.10',
               description:
-                '(For personal digital assistant ecosystems): Does the company clearly disclose what, if any, modifications it has made to a personal digital assistant operating system?',
+                '(For virtual assistants): Does the company clearly disclose what, if any, modifications it has made to a personal digital assistant operating system?',
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -5286,7 +5286,7 @@ const indicatorsVector = {
               Element: 'P14.11',
               labelShort: 'P14.11',
               description:
-                "(For personal digital assistant ecosystems): Does the company clearly disclose what, if any, effect such modifications have on the company's ability to send security updates to users?",
+                "(For virtual assistants): Does the company clearly disclose what, if any, effect such modifications have on the company's ability to send security updates to users?",
               doExcludeCompanies: true,
               excludedCompanies: ['telecom'],
               doExcludeServices: true,
@@ -5371,7 +5371,7 @@ const indicatorsVector = {
           description:
             'The company should encrypt user communication and private content so users can control who has access to it.',
           guidance:
-            'Encryption is an important tool for protecting freedom of expression and privacy. The U.N. Special Rapporteur on freedom of expression has stated unequivocally that encryption and anonymity are essential for the exercise and protection of human rights. We expect companies to clearly disclose that user communications are encrypted by default, that transmissions are protected by “perfect forward secrecy,” that users have an option to turn on end-to-end encryption, and whether it is enabled by default. For mobile ecosystems and personal digital assistant ecosystems, we expect companies to clearly disclose that they enable full-disk encryption.',
+            'Encryption is an important tool for protecting freedom of expression and privacy. The U.N. Special Rapporteur on freedom of expression has stated unequivocally that encryption and anonymity are essential for the exercise and protection of human rights. We expect companies to clearly disclose that user communications are encrypted by default, that transmissions are protected by “perfect forward secrecy,” that users have an option to turn on end-to-end encryption, and whether it is enabled by default. For mobile ecosystems and virtual assistants, we expect companies to clearly disclose that they enable full-disk encryption.',
           researchGuidance: 'https://basecamp.com/2161726/projects/17361333/messages/91446018',
           scoringScope: 'services',
           prevOutcomeIndyStartRow: 1534,
