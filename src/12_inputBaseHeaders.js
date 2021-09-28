@@ -85,13 +85,13 @@ function addIndicatorGuidance(
 
     let indDescription = Indicator.labelLong
 
-    // Indicator Heading
+    // Indicator Heading, for now let's keep them without notes.
     Sheet.getRange(row, 1, 1, 2)
         .setValues([[indTitle, indDescription]])
         .setFontSize(18)
         .setVerticalAlignment('middle')
         .setFontFamily('Oswald')
-        .setNotes([[Indicator.description, Indicator.guidance]])
+        // .setNotes([[Indicator.description, Indicator.guidance]])
 
     Sheet.getRange(row, 1).setHorizontalAlignment('center')
 

@@ -80,7 +80,7 @@ const researchStepsVector = {
               importStepID: 'S07',
               evaluationStepID: 'S00',
               comparisonType: 'DC',
-              dropdown: ['yes', 'no'],
+              dropdown: ['not selected', 'yes', 'no'],
             },
           ],
         },
@@ -104,7 +104,7 @@ const researchStepsVector = {
               importStepID: 'S07',
               evaluationStepID: 'S010',
               comparisonType: 'R',
-              dropdown: ['yes', 'partial', 'no', 'no disclosure found', 'N/A'],
+              dropdown: ['not selected', 'yes', 'partial', 'no', 'no disclosure found', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -158,7 +158,7 @@ const researchStepsVector = {
               variableName: 'yony_reason',
               evaluationStepID: 'S010',
               comparisonType: 'R',
-              dropdown: ['no change', 'improvement', 'decline', 'other', 'N/A'],
+              dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
             },
             {
               type: 'comments',
@@ -203,7 +203,7 @@ const researchStepsVector = {
               rowLabel: 'Answer ',
               variableName: 'review',
               comparisonType: 'DC',
-              dropdown: ['yes', 'no'],
+              dropdown: ['not selected', 'yes', 'no'],
             },
           ],
         },
@@ -226,7 +226,7 @@ const researchStepsVector = {
               importStepID: 'S011',
               evaluationStepID: 'S020',
               comparisonType: 'R',
-              dropdown: ['yes', 'partial', 'no', 'no disclosure found', 'N/A'],
+              dropdown: ['not selected', 'yes', 'partial', 'no', 'no disclosure found', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -280,7 +280,7 @@ const researchStepsVector = {
               importPreviousResult: true,
               importStepID: 'S015',
               comparisonType: 'R',
-              dropdown: ['no change', 'improvement', 'decline', 'other', 'N/A'],
+              dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
             },
             {
               type: 'extraQuestion',
@@ -403,7 +403,7 @@ const researchStepsVector = {
               importStepID: 'S021',
               evaluationStepID: 'S030',
               comparisonType: 'R',
-              dropdown: ['yes', 'partial', 'no', 'no disclosure found', 'N/A'],
+              dropdown: ['not selected', 'yes', 'partial', 'no', 'no disclosure found', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -462,7 +462,7 @@ const researchStepsVector = {
               importPreviousResult: true,
               importStepID: 'S025',
               comparisonType: 'R',
-              dropdown: ['no change', 'improvement', 'decline', 'other', 'N/A'],
+              dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -584,7 +584,7 @@ const researchStepsVector = {
               variableName: 'review',
               evaluationStepID: 'S050',
               comparisonType: 'R',
-              dropdown: ['yes', 'no'],
+              dropdown: ['not selected', 'yes', 'no'],
             },
           ],
         },
@@ -607,7 +607,7 @@ const researchStepsVector = {
               evaluationStepID: 'S050',
               comparisonType: 'FB',
               reverseConditional: true,
-              dropdown: ['yes', 'partial', 'no', 'no disclosure found', 'N/A'],
+              dropdown: ['not selected', 'yes', 'partial', 'no', 'no disclosure found', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -669,7 +669,7 @@ const researchStepsVector = {
               importStepID: 'S035',
               comparisonType: 'FB',
               reverseConditional: true,
-              dropdown: ['no change', 'improvement', 'decline', 'other', 'N/A'],
+              dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -753,7 +753,7 @@ const researchStepsVector = {
               evaluationStepID: 'S060',
               comparisonType: 'BR',
               evalAtIndicatorLvl: true,
-              dropdown: ['yes', 'partial', 'no', 'no disclosure found', 'N/A'],
+              dropdown: ['not selected', 'yes', 'partial', 'no', 'no disclosure found', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -815,7 +815,7 @@ const researchStepsVector = {
               importStepID: 'S055',
               comparisonType: 'BR',
               evalAtIndicatorLvl: true,
-              dropdown: ['no change', 'improvement', 'decline', 'other', 'N/A'],
+              dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -875,7 +875,7 @@ const researchStepsVector = {
               id: 'BR',
               rowLabel: 'Answer',
               dataType: 'DC',
-              dropdown: ['yes', 'no'],
+              dropdown: ['not selected', 'yes', 'no'],
             },
           ],
         },
@@ -899,7 +899,7 @@ const researchStepsVector = {
               evaluationStepID: 'S070',
               comparisonType: 'BR',
               evalAtIndicatorLvl: true,
-              dropdown: ['yes', 'partial', 'no', 'no disclosure found', 'N/A'],
+              dropdown: ['not selected', 'yes', 'partial', 'no', 'no disclosure found', 'N/A'],
             },
             {
               type: 'reviewComments',
@@ -961,7 +961,7 @@ const researchStepsVector = {
               importStepID: 'S065',
               comparisonType: 'BR',
               evalAtIndicatorLvl: true,
-              dropdown: ['no change', 'improvement', 'decline', 'other', 'N/A'],
+              dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
             },
             {
               type: 'reviewComments',
