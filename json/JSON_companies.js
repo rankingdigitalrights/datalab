@@ -23,12 +23,12 @@ const companiesVector = {
       columnPrevOutcomeStart: 'V',
       columnPrevOutcomeEnd: 'Y',
       urlPrevInputSheet: '1WmI5QXq2p4tVY3JdfFV8Ra5DV3wp7bhH6ufo2Mzpkhw',
-      urlCurrentInputSheet: '1k0JXkI0YBL-SjofLnE4xq5Ob9R72bE2j_7qPczfEeaA',
+      urlCurrentInputSheet: null,
       urlPrevOutputSheet: '10kB6eIKaSft7le_Jw_jQ-m6V3w_Q4KxS_2ifK3ebt7g',
-      urlCurrentOutputSheet: '1X7rk682S2igHqbeZcJ-OVdnss_MyMMgHl_TqlYfb56k',
-      urlCurrentFeedbackSheet: null,
+      urlCurrentOutputSheet: null,
       urlPrevDataStoreSheet: '1a50nKAhi14oEoh5Hxba4iZQNFg0A3IUT8vohGfLPfH0',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'ecAL1',
@@ -67,9 +67,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1ynSoO0rLhnaorj1kX0S0NtVFQJOCuBatwMo-td9VVLU',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1jEl6aapmghkdc51Ki78lIzJvSoNg_FVTigGGImQ7tIQ',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'ecAZ1',
@@ -148,12 +148,12 @@ const companiesVector = {
       columnPrevOutcomeStart: 'Z',
       columnPrevOutcomeEnd: 'AD',
       urlPrevInputSheet: '1tvk9IH-BJ5QL-MWrAG-pHURXLVsodnG_XIKZtSK6SP0',
-      urlCurrentInputSheet: '1FZUZhEPTegWXqjkR5ZoBevyIHsCjkIl4DnBtitlLajA',
+      urlCurrentInputSheet: null,
       urlPrevOutputSheet: '17YVnTQrPZc-OcKQCN4hvvzGYjJ9GRIF783xs-u3c47o',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1H5vklBAtRWz9INVWr5lvoLn41Hp6Wfyu9Jcii6mRS9E',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'meAP1',
@@ -182,6 +182,7 @@ const companiesVector = {
         {
           id: 'ebAP1',
           type: 'pda',
+          isNewService: true,
           label: {
             current: 'Siri',
             legacy: [null],
@@ -311,9 +312,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1vZ9kDPaNRqQ-o3ckskuwX6mu5hjnlYi8Qo06ExpMEJs',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1SsVuZ2VIX9EIBikjPF0PfQYurfPg2q82yrVRKXg_xsI',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'seBA1',
@@ -510,12 +511,12 @@ const companiesVector = {
       columnPrevOutcomeStart: 'AD',
       columnPrevOutcomeEnd: 'AI',
       urlPrevInputSheet: '1LkJlcXq3wx4cInqjaxpqC3Udf8MeGvzX607RCWtCffw',
-      urlCurrentInputSheet: '1a-MOaG1a4NrPnKrulJayvZEVoW6t_Cl51xX0X7ltd00',
+      urlCurrentInputSheet: null,
       urlPrevOutputSheet: '12TvSEnAQURFoWGWTBEkUrrmORs_Zdz9cDhd9h3qH0eU',
-      urlCurrentOutputSheet: '1pXL4fj327l2y10tXUgS2FLAGOQhBgOU5_2h88PxNT_U',
-      urlCurrentFeedbackSheet: null,
+      urlCurrentOutputSheet: null,
       urlPrevDataStoreSheet: '1mKA6erBPbTMu5DYiz6wqhLbMQ11-uxk36cPoFTsqw0o',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'snFB1',
@@ -570,9 +571,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1yizjORRCaxzvc8yQD8JrQ-gzW8RaVlK4HRA_Pc990gI',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1e1MsG6euhGvNXj12E5KAwvH70QBTwdFe3uI7C0TvyPs',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'seGO1',
@@ -617,6 +618,7 @@ const companiesVector = {
         {
           id: 'ebGO1',
           type: 'pda',
+          isNewService: true,
           label: {
             current: 'Google Assistant',
             legacy: [null],
@@ -643,9 +645,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1Fdc0UotXXgWV84lTWJaP9rl9wCY5c5o49wswMF5VVcc',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1emUUw9pUzjBPEqatrQFzGWqoG8F0wGHR4ywvmQYDmFA',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'seKA1',
@@ -691,10 +693,10 @@ const companiesVector = {
       urlPrevInputSheet: '1qYiP2KP2xB7SRM1br6LunjF6PoqWvGoCIeE8G8hXbB4',
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1oLxTggmytYBvigz6k97-zPkfT2LX47KGhj9TeIE1NV0',
-      urlCurrentOutputSheet: '17sVWRlTfn_KR-QN5m9b0ZlnkWXqi6KZNcm6Q0-H-2gY',
-      urlCurrentFeedbackSheet: null,
+      urlCurrentOutputSheet: null,
       urlPrevDataStoreSheet: '1U_OOQpcSK_p66UyXWXyFPXddKN9Ez9kidZgnUXEyaIM',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'snMA1',
@@ -717,7 +719,7 @@ const companiesVector = {
           type: 'messagingVoip',
           label: {
             current: 'Odnoklassniki',
-            legacy: 'Mail.Ru Agent',
+            legacy: ['Mail.Ru Agent'],
           },
         },
         {
@@ -749,9 +751,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1X2-cvOtXuq0Ex8oiIHFKYKhBVeTkS92Pcqm3tIofqc8',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1NfQRjLQeeOOqtsNpJDtpl3DOwAUYKvbpqqi2iupbU4s',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'seMS1',
@@ -788,6 +790,7 @@ const companiesVector = {
         {
           id: 'snMS1',
           type: 'socialNetworkBlogs',
+          isNewService: true,
           label: {
             current: 'LinkedIn',
             legacy: [null],
@@ -967,9 +970,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '12plehZS80RuiGSen7QsPFVY2vjtG9smC6FjknXcFZIY',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1RmYTNyzRMJ63l8IpVEwrMNVpY7GIkAH2TQYLehSToZw',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'meSA1',
@@ -1102,9 +1105,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1GLSFkoSYzatMOaRQjNyGbkgJEWZbTtatZsASxcH5LYs',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1rUGzQl68AAsS3CL2Senabd9LVciTZY5P8b26YaESHL8',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'snTC1',
@@ -1159,9 +1162,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1DxsufAJtnphzfdSs5GDMw5mYfjK99_Z3U5AZvAg1FTM',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1hc-jQp9rds3e6FnZiyLA-gKcIHlmpKaEjrwJYP2IQgw',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'smTW1',
@@ -1276,9 +1279,9 @@ const companiesVector = {
       urlCurrentInputSheet: null,
       urlPrevOutputSheet: '1Pemf9q3HlZcXJDfm-10nQNx9oMGtNtHn1mhpvWABHZ4',
       urlCurrentOutputSheet: null,
-      urlCurrentFeedbackSheet: null,
       urlPrevDataStoreSheet: '1D_188l__7GMlMIG7g6JUTxfxkqAzc1GtnxeyobppLCE',
       urlCurrentDataStoreSheet: null,
+      urlCurrentFeedbackSheet: null,
       services: [
         {
           id: 'emYA1',
