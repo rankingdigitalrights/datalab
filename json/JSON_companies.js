@@ -702,8 +702,8 @@ const companiesVector = {
           id: 'snMA1',
           type: 'socialNetworkBlogs',
           label: {
-            current: 'VK',
-            legacy: [null],
+            current: 'Vkontakte',
+            legacy: ['VK'],
           },
         },
         {
@@ -1179,12 +1179,12 @@ const companiesVector = {
     {
       id: 'iVM1',
       label: {
-        current: 'Verizon Media',
+        current: 'Yahoo',
         altFilename: null,
-        legacy: [null],
+        legacy: ['Verizon Media'],
       },
       type: 'internet',
-      groupLabel: 'Verizon Media',
+      groupLabel: 'Yahoo',
       hasOpCom: false,
       opComLabel: null,
       isPrevScored: true,

@@ -257,7 +257,7 @@ const researchStepsVector = {
           components: [
             {
               type: 'subStepHeader',
-              rowLabel: 'Do you agree with the Year-on-Year Analysis in Step 1.5?',
+              rowLabel: 'If this Year’s Results are different, select Reason for Change:',
             },
             // {
             //   type: 'evaluation',
@@ -281,10 +281,6 @@ const researchStepsVector = {
               importStepID: 'S015',
               comparisonType: 'R',
               dropdown: ['not selected', 'no change', 'improvement', 'decline', 'other', 'N/A'],
-            },
-            {
-              type: 'extraQuestion',
-              rowLabel: 'If you disagree, please explain your reasoning:',
             },
             {
               type: 'reviewComments',

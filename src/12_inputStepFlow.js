@@ -364,100 +364,102 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
         Cell.setValue(cellValue)
     }
 
-    activeCol += 1
+    // cell automation disabled
 
-    let serviceLabel
+    // activeCol += 1
 
-    let conditional = StepComp.reverseConditional ? 'yes' : 'no'
+    // let serviceLabel
 
-    let Elements = Indicator.elements
+    // let conditional = StepComp.reverseConditional ? 'yes' : 'no'
 
-    let namedRange
+    // let Elements = Indicator.elements
 
-    for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
-        // TODO: Switch case
+    // let namedRange
 
-        if (serviceNr == 1) {
-            serviceLabel = 'group'
-        } else if (serviceNr == 2) {
-            serviceLabel = 'opCom'
-        } else {
-            let s = serviceNr - 3
-            serviceLabel = Company.services[s].id
-        }
+    // for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
+    //     // TODO: Switch case
 
-        let reviewCells = []
-        let reviewFormula
+    //     if (serviceNr == 1) {
+    //         serviceLabel = 'group'
+    //     } else if (serviceNr == 2) {
+    //         serviceLabel = 'opCom'
+    //     } else {
+    //         let s = serviceNr - 3
+    //         serviceLabel = Company.services[s].id
+    //     }
 
-        Cell = Sheet.getRange(activeRow, activeCol)
-        cellID = defineNamedRange(
-            indexPrefix,
-            'DC',
-            subStepID,
-            Indicator.labelShort,
-            '',
-            Company.id,
-            serviceLabel,
-            stepCompID
-        )
+    //     let reviewCells = []
+    //     let reviewFormula
 
-        // 2021 Extension: if evaluation critera is on Indicator Level (i.e. binaryReview)
-        // only add Indicator.labelShort
-        // otherwise iterate over Elements
+    //     Cell = Sheet.getRange(activeRow, activeCol)
+    //     cellID = defineNamedRange(
+    //         indexPrefix,
+    //         'DC',
+    //         subStepID,
+    //         Indicator.labelShort,
+    //         '',
+    //         Company.id,
+    //         serviceLabel,
+    //         stepCompID
+    //     )
 
-        if (StepComp.evalAtIndicatorLvl) {
-            namedRange = defineNamedRange(
-                indexPrefix,
-                'DC',
-                evaluationStepID,
-                Indicator.labelShort,
-                '',
-                Company.id,
-                serviceLabel,
-                comparisonType
-            )
-            reviewCells.push(namedRange)
-        } else {
-            Elements.forEach((element) => {
-                namedRange = defineNamedRange(
-                    indexPrefix,
-                    'DC',
-                    evaluationStepID,
-                    element.labelShort,
-                    '',
-                    Company.id,
-                    serviceLabel,
-                    comparisonType
-                )
-                reviewCells.push(namedRange)
-            })
-        }
+    //     // 2021 Extension: if evaluation critera is on Indicator Level (i.e. binaryReview)
+    //     // only add Indicator.labelShort
+    //     // otherwise iterate over Elements
 
-        reviewFormula = reviewCells.map((cell) => `${cell}<>"${conditional}"`)
+    //     if (StepComp.evalAtIndicatorLvl) {
+    //         namedRange = defineNamedRange(
+    //             indexPrefix,
+    //             'DC',
+    //             evaluationStepID,
+    //             Indicator.labelShort,
+    //             '',
+    //             Company.id,
+    //             serviceLabel,
+    //             comparisonType
+    //         )
+    //         reviewCells.push(namedRange)
+    //     } else {
+    //         Elements.forEach((element) => {
+    //             namedRange = defineNamedRange(
+    //                 indexPrefix,
+    //                 'DC',
+    //                 evaluationStepID,
+    //                 element.labelShort,
+    //                 '',
+    //                 Company.id,
+    //                 serviceLabel,
+    //                 comparisonType
+    //             )
+    //             reviewCells.push(namedRange)
+    //         })
+    //     }
 
-        prevResultCell = defineNamedRange(
-            compIndexPrefix,
-            'DC',
-            importStepID,
-            Indicator.labelShort,
-            '',
-            Company.id,
-            serviceLabel,
-            stepCompID
-        )
+    //     reviewFormula = reviewCells.map((cell) => `${cell}<>"${conditional}"`)
 
-        cellValue = `=IF(AND(${reviewFormula}),${prevResultCell},"${yesAnswer}")`
+    //     prevResultCell = defineNamedRange(
+    //         compIndexPrefix,
+    //         'DC',
+    //         importStepID,
+    //         Indicator.labelShort,
+    //         '',
+    //         Company.id,
+    //         serviceLabel,
+    //         stepCompID
+    //     )
 
-        /** HOOK: if running mainRepairInputSheets:
-           comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
-        if (!doRepairsOnly) {
-            Cell.setValue(cellValue)
-        }
+    //     cellValue = `=IF(AND(${reviewFormula}),${prevResultCell},"${yesAnswer}")`
 
-        SS.setNamedRange(cellID, Cell) // names cells
+    //     /** HOOK: if running mainRepairInputSheets:
+    //        comment out`!doRepairsOnly` for manual CHIRURGICAL cell overwrite at subcomponent level. DON'T FORGET TO REMOVE AGAIN. */
+    //     if (!doRepairsOnly) {
+    //         Cell.setValue(cellValue)
+    //     }
 
-        activeCol += 1
-    }
+    //     SS.setNamedRange(cellID, Cell) // names cells
+
+    //     activeCol += 1
+    // }
 
     return activeRow + 1
 }
