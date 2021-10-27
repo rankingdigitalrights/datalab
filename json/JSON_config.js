@@ -1,17 +1,23 @@
 const centralConfig = {
   collection: 'config',
-  indexYear: 2021,
+  indexYear: 2022,
   indexType: 'RDR Index',
-  lastRevised: '2021-03-12',
-  indexPrefix: 'RDR21',
+  lastRevised: '2021-10-14',
+  indexPrefix: 'RDR22',
   prevIndexPrefix: 'RDR20',
-  subsetMaxStep: 5, // logical, inclusive; TODO: maybe move into mainController
+  subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
   dataOwner: 'data@rankingdigitalrights.org',
-  devs: ['gutermuth@rankingdigitalrights.org', 'mathurin@rankingdigitalrights.org'],
+  devs: [
+    'gutermuth@rankingdigitalrights.org',
+    'mathurin@rankingdigitalrights.org',
+    'montiel@rankingdigitalrights.org'
+  ],
   defaultEditors: [
     'gutermuth@rankingdigitalrights.org',
     'mathurin@rankingdigitalrights.org',
-    "wessenauer@rankingdigitalrights.org"
+    'montiel@rankingdigitalrights.org',
+    "wessenauer@rankingdigitalrights.org",
+    "zhang@rankingdigitalrights.org"
   ],
   defaultViewers: [
     "wessenauer@rankingdigitalrights.org",
@@ -23,23 +29,23 @@ const centralConfig = {
     'gutermuth@rankingdigitalrights.org',
     'mathurin@rankingdigitalrights.org'
   ],
-  filenamePrefix: '2021 -',
+  filenamePrefix: '2022 -',
   filenameSuffixProd: '',
   filenameSuffixDev: '(Dev)',
   rootFolderNameProd: '2021 RDR Index Data',
-  rootFolderIDProd: '19hiRk0NX3s-eF9i-nFGIuNEvYFqGyazR', // TODO: Data @ 2020 Index
+  rootFolderIDProd: '12EcviVht01HRC2H4mRquTeb4Pj2H8nbh',
   backupFolderID: '1hziGVUl24a1e1iDeMUxZOMjNvm1tnY1V', // TODO:
   rootFolderNameDev: '2021 Index Dev',
   rootFolderIDDev: '13RJjg0hFGz2u-RHQnyHmUi6qTl1XT9PR', // Data @ 2021 Index Dev
-  inputFolderNameProd: '2021 RDR Research Data Collection',
+  inputFolderNameProd: '2022 RDR Research Data Collection',
   inputFolderNameDev: '2021 - Dev - Input',
-  outputFolderNameProd: '2021 RDR Company Scoring',
+  outputFolderNameProd: '2022 RDR Company Scoring',
   outputFolderNameDev: '2021 - Dev - Scoring',
-  controlSpreadsheetID: '1R2YKiItsnacltvRj0RLY6-1yEyyVGKnD3y-sYoyaKqE', // TODO: 00-Dashboard-Dev
+  controlSpreadsheetID: '1k__JTE_5lGEBdBhMaguelgq8kom9Rf1x4uYiI2_BI88', // TODO: 00-Dashboard-Dev
   importPrevOutcome: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
-  scoringSteps: [0, 3, 5, 6, 7],
+  scoringSteps: [0, 1, 2, 3, 5, 6, 7],
   collapseAllGroups: false,
   indicatorsLink: 'https://rankingdigitalrights.org/2020-indicators/',
   glossaryLink: 'https://rankingdigitalrights.org/2020-indicators/#glossary',
@@ -86,7 +92,7 @@ const centralConfig = {
         'Please add your response to the preliminary evaluation for this indicator in the space below. Be sure to indicate the element and services (if applicable) you are referencing, as well as any sources (including the url) that you feel we should be evaluating.',
     },
   },
-  sourcesTabName: '2021 Sources',
+  sourcesTabName: '2022 Sources',
   prevYearOutcomeTab: '2020 Outcome',
   urlPrevOutputSheet: '1HJp7i2RVBGrPm7XbyrafYEtSZqjc9t6Qm3ov4bmHdu0', // 2020 - Excel - Master
   prevYearSourcesTab: '2020 Sources',
@@ -132,7 +138,7 @@ const centralConfig = {
     includeResults: true,
   },
   dataStoreParams: {
-    outputFolderName: '2021 - Dev - Data Store v3',
+    outputFolderName: '2022 - Dev - Data Store v3',
     fileName: 'Data Store',
     summarySheetName: 'Aggregated',
     // subStepNr: 0,

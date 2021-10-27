@@ -366,9 +366,9 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
     // cell automation disabled
 
-    // activeCol += 1
+    activeCol += 1
 
-    // let serviceLabel
+    let serviceLabel
 
     // let conditional = StepComp.reverseConditional ? 'yes' : 'no'
 
@@ -376,32 +376,32 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
     // let namedRange
 
-    // for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
+    for (let serviceNr = 1; serviceNr < companyNrOfServices + 3; serviceNr++) {
     //     // TODO: Switch case
 
-    //     if (serviceNr == 1) {
-    //         serviceLabel = 'group'
-    //     } else if (serviceNr == 2) {
-    //         serviceLabel = 'opCom'
-    //     } else {
-    //         let s = serviceNr - 3
-    //         serviceLabel = Company.services[s].id
-    //     }
+        if (serviceNr == 1) {
+            serviceLabel = 'group'
+        } else if (serviceNr == 2) {
+            serviceLabel = 'opCom'
+        } else {
+            let s = serviceNr - 3
+            serviceLabel = Company.services[s].id
+        }
 
     //     let reviewCells = []
     //     let reviewFormula
 
-    //     Cell = Sheet.getRange(activeRow, activeCol)
-    //     cellID = defineNamedRange(
-    //         indexPrefix,
-    //         'DC',
-    //         subStepID,
-    //         Indicator.labelShort,
-    //         '',
-    //         Company.id,
-    //         serviceLabel,
-    //         stepCompID
-    //     )
+        Cell = Sheet.getRange(activeRow, activeCol)
+        cellID = defineNamedRange(
+            indexPrefix,
+            'DC',
+            subStepID,
+            Indicator.labelShort,
+            '',
+            Company.id,
+            serviceLabel,
+            stepCompID
+        )
 
     //     // 2021 Extension: if evaluation critera is on Indicator Level (i.e. binaryReview)
     //     // only add Indicator.labelShort
@@ -437,16 +437,16 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
 
     //     reviewFormula = reviewCells.map((cell) => `${cell}<>"${conditional}"`)
 
-    //     prevResultCell = defineNamedRange(
-    //         compIndexPrefix,
-    //         'DC',
-    //         importStepID,
-    //         Indicator.labelShort,
-    //         '',
-    //         Company.id,
-    //         serviceLabel,
-    //         stepCompID
-    //     )
+        prevResultCell = defineNamedRange(
+            compIndexPrefix,
+            'DC',
+            importStepID,
+            Indicator.labelShort,
+            '',
+            Company.id,
+            serviceLabel,
+            stepCompID
+        )
 
     //     cellValue = `=IF(AND(${reviewFormula}),${prevResultCell},"${yesAnswer}")`
 
@@ -456,10 +456,10 @@ function addSourcesReview(SS, Sheet, Indicator, Company, activeRow, Substep, ste
     //         Cell.setValue(cellValue)
     //     }
 
-    //     SS.setNamedRange(cellID, Cell) // names cells
+        SS.setNamedRange(cellID, Cell) // names cells
 
-    //     activeCol += 1
-    // }
+        activeCol += 1
+    }
 
     return activeRow + 1
 }

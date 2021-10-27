@@ -38,9 +38,9 @@ function initiateGlobalConfig() {
      * IMPORTANT: subsetting function only accepts Array
      */
     /* EITHER default */
-    // IndicatorsObj = indicatorsVector
+    IndicatorsObj = indicatorsVector
     /* OR ARRAY: use Array[] to subset */
-    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G4a","F1a","P1a"])
+    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["G1"])
 
     /* FIY: Indicator Labels:
     Batch 1:
@@ -104,11 +104,11 @@ function mainInputSheets() {
     // .slice(16, 17) //   16 "Ooredoo",
     // .slice(17, 18) //   17 "Orange",
     // .slice(18, 19) //   18 "Samsung",
-    .slice(19, 20) //   19 "Telefónica",
+    // .slice(19, 20) //   19 "Telefónica",
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
+    .slice(22, 23) //   22 "Twitter",
+    // .slice(23, 24) //   23 "Yahoo",
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
@@ -138,7 +138,7 @@ function mainAppendInputStep() {
     addNewStep = true // default; don't touch;
 
     // Hook to skip steps
-    startAtMainStepNr = 4 // logical inclusive Order
+    startAtMainStepNr = 2 // logical inclusive Order
     // Config.subsetMaxStep = startAtMainStepNr // unset if you want to have subsequent steps as well
     let useStepsSubset = true // true := use subset; Config.subsetMaxStep defined in Config.JSON
 
@@ -157,7 +157,7 @@ function mainAppendInputStep() {
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",
-    .slice(10, 11) //   10 "Facebook",
+    // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -170,7 +170,7 @@ function mainAppendInputStep() {
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
     // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
+    .slice(23, 24) //   23 "Yahoo",
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
@@ -197,7 +197,7 @@ function mainRepairInputSheets() {
 
     includeFormatting = false // HOOK toggle off costly Sheet-level formatting
 
-    startAtMainStepNr = 4 // HOOK: which Step to repair - LOGICAL Order
+    startAtMainStepNr = 2 // HOOK: which Step to repair - LOGICAL Order
     Config.subsetMaxStep = startAtMainStepNr // HOOK: only repair 1 Step // unset if you want to have subsequent steps as well
     let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
 
@@ -216,7 +216,7 @@ function mainRepairInputSheets() {
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",
-    .slice(10, 11) //   10 "Facebook",
+    // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -228,7 +228,7 @@ function mainRepairInputSheets() {
     // .slice(19, 20) //   19 "Telefónica",
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
+    .slice(22, 23) //   22 "Twitter",
     // .slice(23, 24) //   23 "Verizon Media",
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
@@ -247,12 +247,12 @@ function mainScoringSheets() {
     outputFolderName = ISPRODUCTION ? Config.outputFolderNameProd : Config.outputFolderNameDev
 
     let addNewStep = false // TODO: GW - remove or rename & document
-    let stepsToAdd = [0, 1, 3] // TODO: GW - remove or rename & document
+    let stepsToAdd = [0, 1, 2, 3, 5, 6, 7] // TODO: GW - remove or rename & document
 
     // Config.subsetMaxStep = 4 // HOOK to only produce a few steps
 
     let isYoyMode = false // TODO: GW - remove or rename & document
-    let yoySteps = [3, 5, 7] // TODO: GW - remove or rename  & document
+    let yoySteps = [1, 3, 5, 7] // TODO: GW - remove or rename  & document
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
@@ -266,7 +266,7 @@ function mainScoringSheets() {
     // .slice(7, 8) //   7 "Bharti Airtel",
     // .slice(8, 9) //   8 "Deutsche Telekom",
     // .slice(9, 10) //   9 "Etisalat",
-    .slice(10, 11) //   10 "Facebook",
+    // .slice(10, 11) //   10 "Facebook",
     // .slice(11, 12) //   11 "Google",
     // .slice(12, 13) //   12 "Kakao",
     // .slice(13, 14) //   13 "Mail.Ru",
@@ -278,7 +278,7 @@ function mainScoringSheets() {
     // .slice(19, 20) //   19 "Telefónica",
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
+    .slice(22, 23) //   22 "Twitter",
     // .slice(23, 24) //   23 "Verizon Media",
     // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
@@ -537,8 +537,8 @@ function mainProtectCompanies() {
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
     // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    .slice(24, 25) //   24 "Vodafone",
+    .slice(23, 24) //   23 "Yahoo",
+    //.slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach((Company) => mainProtectSingleCompany(Company))
@@ -593,7 +593,7 @@ function mainOpenStepCompanies() {
     // let editors = EditorsObj[stepLabel]
 
     /* custom Core editors list for Steps 4++ */
-    let editors = centralConfig.defaultViewers.concat('matuz9@gmail.com')
+    let editors = 'wessenauer@rankingdigitalrights.org'
 
     console.log('array: ' + subStepIDs)
 
@@ -622,8 +622,8 @@ function mainOpenStepCompanies() {
     // .slice(20, 21) //   20 "Telenor",
     // .slice(21, 22) //   21 "Tencent",
     // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    .slice(24, 25) //   24 "Vodafone",
+    .slice(23, 24) //   23 "Yahoo",
+    // .slice(24, 25) //   24 "Vodafone",
     // .slice(25, 26) //   25 "Yandex"
 
     Companies.forEach(function (Company) {

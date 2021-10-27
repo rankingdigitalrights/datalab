@@ -21,7 +21,7 @@ function createSpreadsheetOutput(Company, filenamePrefix, filenameSuffix, isYoyM
     let hasOpCom = Company.hasOpCom
 
     // define SS name
-    let sheetType = yoyComp ? 'YearOnYear' : 'Output';
+    let sheetType = isYoyMode ? 'YearOnYear' : 'Output';
     let spreadsheetName = spreadSheetFileName(filenamePrefix, sheetType, companyFilename, filenameSuffix)
 
     // connect to Spreadsheet if it already exists (Danger!), otherwise create and return new file
