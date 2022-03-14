@@ -5,7 +5,7 @@ const centralConfig = {
   lastRevised: '2021-10-14',
   indexPrefix: 'RDR22',
   prevIndexPrefix: 'RDR20',
-  subsetMaxStep: 2, // logical, inclusive; TODO: maybe move into mainController
+  subsetMaxStep: 3, // logical, inclusive; TODO: maybe move into mainController
   dataOwner: 'data@rankingdigitalrights.org',
   devs: [
     'gutermuth@rankingdigitalrights.org',
@@ -17,7 +17,8 @@ const centralConfig = {
     'mathurin@rankingdigitalrights.org',
     'montiel@rankingdigitalrights.org',
     "wessenauer@rankingdigitalrights.org",
-    "zhang@rankingdigitalrights.org"
+    "zhang@rankingdigitalrights.org",
+    "rogoff@rankingdigitalrights.org"
   ],
   defaultViewers: [
     "wessenauer@rankingdigitalrights.org",
@@ -57,9 +58,9 @@ const centralConfig = {
     yearOnYearHelperTabName: 'Year on Year Comments',
     sourcesSheetName: 'Sources',
     dataColWidth: 300,
-    masterTemplateUrl: '191f0izWT5jR9g2ZHpU_GfRfMYiP7Y6-Cwi36a2fOT_w',
-    outputFolderIdProd: '1oqphurm6AEZT0CFyvT6Rt57Iyb8JLPxe', // TODO: 2020
-    outputFolderIdDev: '1e1njzRJoERb9xfDnPsHtsOTr97stcDeG', // TODO: 2020
+    masterTemplateUrl: '1pu95U68P6AFHdwMx_EFxau3ML91oqj9JM4wP1SC48aQ',
+    outputFolderIdProd: '10-o8mKqb1PkiewmHXNMdP3KjUR24RdUl', // TODO: 2020
+    outputFolderIdDev: '1f2THqNnhoDfpj0ThUGXGy5CV6N8ydD8e', // TODO: 2020
     frontMatter: {
       frontMatterColsNr: 4,
       indicatorGuidanceLabel: 'Indicator guidance:',
@@ -76,9 +77,9 @@ const centralConfig = {
       backColor: '#5ca5d9',
       fontColor: 'white',
       contentRowHeight: 150,
-      rowLabel: '\n\nChange since 2019 Index:',
+      rowLabel: '\n\nChange since 2020 Index:',
       extraInstructionFB:
-        'The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2019 RDR Index (applicable for indicators/elements that are same as in the 2019 RDR Index).',
+        'The following is a preliminary evaluation of whether your company’s disclosure has changed since the 2020 RDR Index.',
     },
     feedbackBoxSection: {
       label: 'COMPANY RESPONSE',
@@ -138,12 +139,12 @@ const centralConfig = {
     includeResults: true,
   },
   dataStoreParams: {
-    outputFolderName: '2022 - Dev - Data Store v3',
+    outputFolderName: '2022 - Data Store v3',
     fileName: 'Data Store',
     summarySheetName: 'Aggregated',
     // subStepNr: 0,
-    firstStepNr: 0,
-    lastStepNr: 7,
+    firstStepNr: 3, // 0
+    lastStepNr: 3, // 1
     integrateOutputs: false,
   },
 }

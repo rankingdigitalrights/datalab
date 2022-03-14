@@ -442,22 +442,10 @@ function addElementScores(
         // Cell.setValue(range.getA1Notation())
 
         if (isYoyMode) {
-            cellName = defineNamedRange(
-                Config.prevIndexPrefix,
-                sheetModeID,
-                'S07',
-                elementLabel,
-                component,
-                Company.id,
-                'group',
-                scoringSuffix
-            )
-            compCellValue = SpreadsheetApp.openById(Company.urlCurrentOutputSheet).getRangeByName(cellName).getValue()
-
-            if (indexPrefix != Config.prevIndexPrefix && compCellValue == 'exclude (N/A)') {
-                Cell.setValue('N/A')
-            }
-        } else if (indexPrefix != Config.prevIndexPrefix) {
+            elementScore = elementScoreFormula(range, isReversedScoring)
+            Cell.setFormula(elementScore)
+        }
+        if (indexPrefix != Config.prevIndexPrefix) {
             elementScore = elementScoreFormula(range, isReversedScoring)
             Cell.setFormula(elementScore)
         }
@@ -504,12 +492,7 @@ function addElementScores(
                 'opCom',
                 scoringSuffix
             )
-            if (
-                isYoyMode &&
-                subStepID != 'S07' &&
-                SpreadsheetApp.openById(Company.urlCurrentOutputSheet).getRangeByName(cellName).getValue() ==
-                    'exclude (N/A)'
-            ) {
+            if (isYoyMode && subStepID != 'S07') {
                 Cell.setValue('N/A')
             } else {
                 elementScore = elementScoreFormula(range, isReversedScoring)
@@ -553,12 +536,7 @@ function addElementScores(
                 Company.services[g].id,
                 scoringSuffix
             )
-            if (
-                isYoyMode &&
-                subStepID != 'S07' &&
-                SpreadsheetApp.openById(Company.urlCurrentOutputSheet).getRangeByName(cellName).getValue() ==
-                    'exclude (N/A)'
-            ) {
+            if (isYoyMode && Company.services[g].isNewService) {
                 Cell.setValue('N/A')
             } else {
                 elementScore = elementScoreFormula(range, isReversedScoring)

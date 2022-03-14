@@ -1060,7 +1060,7 @@ const indicatorsVector = {
           doExcludeCompanies: 'TRUE',
           excludedCompanies: ['telecom'],
           doExcludeServices: 'TRUE',
-          excludedServices: ['opCom', 'search', 'cloud', 'eCommerce', 'email'],
+          excludedServices: ['opCom', 'search', 'cloud', 'email'],
           elements: [
             {
               elemNr: 1,

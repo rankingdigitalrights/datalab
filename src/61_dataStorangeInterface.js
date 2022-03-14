@@ -10,8 +10,7 @@ function addDataStoreSingleCompany(
     SS,
     Indicators,
     ResearchSteps,
-    firstScoringStep,
-    maxScoringStep,
+    stepsToAdd,
     Company,
     hasOpCom,
     DataMode
@@ -26,7 +25,6 @@ function addDataStoreSingleCompany(
 
     let indexPref
 
-    let mainStepNr
     let MainStep
     let Substep
 
@@ -52,7 +50,7 @@ function addDataStoreSingleCompany(
         let transposeSheet = insertSheetIfNotExist(SS, 'transposed', true)
         if (transposeSheet !== null) {
             // elementSheet.clear()
-            let totalSteps = maxScoringStep + 1
+            let totalSteps = stepsToAdd.length
             resizeSheet(transposeSheet, 10000) // approaching upper limit of allowed cell limit of 500K
             addTransposedSheet(transposeSheet, 'results', elementsTotalNr, totalSteps)
         }
@@ -85,7 +83,7 @@ function addDataStoreSingleCompany(
 
     lastRowR = lastRowS = lastRowL = lastRowC = lastRowI = 1
 
-    for (mainStepNr = firstScoringStep; mainStepNr <= maxScoringStep; mainStepNr++) {
+    for (const mainStepNr of stepsToAdd) {
         // console.log("DEBUG - " + mainStepNr)
         MainStep = ResearchSteps.researchSteps[mainStepNr]
 

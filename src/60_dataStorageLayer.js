@@ -8,7 +8,7 @@
 /* global Config, IndicatorsObj, researchStepsVector, cleanCompanyName, spreadSheetFileName, createSpreadsheet, addDataStoreSingleCompany, removeEmptySheet */
 
 // eslint-disable-next-line no-unused-vars
-function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode) {
+function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainSheetMode, DataMode, stepsToAdd) {
     let Indicators = IndicatorsObj
     let ResearchSteps = researchStepsVector
 
@@ -25,12 +25,12 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
     let SS = createSpreadsheet(spreadsheetName, true)
     let fileID = SS.getId()
 
-    let outputParams = Config.dataStoreParams // obsolete
+    // let outputParams = Config.dataStoreParams // obsolete
 
-    let firstScoringStep = 0 // default: 0; include Step 0 or not? Step 7 = previous year's outcome
+    // let firstScoringStep = 0 // default: 0; include Step 0 or not? Step 7 = previous year's outcome
 
     // can control nr of Main Steps to be included but for production just produce all Steps at once
-    let maxScoringStep = Config.subsetMaxStep
+    // let maxScoringStep = Config.subsetMaxStep
     // console.log("DEBUG - maxScoringStep " + maxScoringStep)
 
     /** for each DataMode of [results, changes, TODO: sources]
@@ -46,8 +46,7 @@ function createCompanyDataStore(Company, filenamePrefix, filenameSuffix, mainShe
             SS,
             Indicators,
             ResearchSteps,
-            firstScoringStep,
-            maxScoringStep,
+            stepsToAdd,
             Company,
             hasOpCom,
             mode
