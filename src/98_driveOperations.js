@@ -50,7 +50,7 @@ function assignFolderViewers(Folder, accounts) {
 
 function tryAccessParent(parentFolderID) {
     let Parent = DriveApp.getFolderById(parentFolderID)
-    let canAccessParent = isEmptyObj(Parent) ? true : false
+    let canAccessParent = !isEmptyObj(Parent) ? true : false
     console.log('CORE: can access rootFolder? --> ' + canAccessParent)
     return canAccessParent ? Parent : null
 }
