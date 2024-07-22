@@ -111,15 +111,13 @@ function aggregateScoreFormula(CompositeScoringEntity) {
         formula += '), "N/A"'
 
         formula += ', AVERAGE('
-
         /** if has Mobile Services then we inject an implicit
          *  MobileServices Composite into the Service Composite Formula */
+        let formulaCells = levelCells
         if (hasMobile) {
-            formula += `AVERAGE(${subLevelCells}),`
+            formulaCells.push(`AVERAGE(${subLevelCells})`)
         }
-
-        // rest of the Service Level Cells
-        formula += levelCells + '))'
+        formula +=  `${formulaCells}))`
     } else {
         formula = 'N/A'
     }

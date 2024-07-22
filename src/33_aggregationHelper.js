@@ -492,8 +492,6 @@ function addCompanyScoresRowYoy(row, col, Sheet, Company, ScoringObj, thisSubSte
     rowFormulas.push(formula1)
     rowFormulas.push(changeFormula)
 
-    col = col + 3
-
     // Group
     formula = '=IMPORTRANGE("' + sheetUrl + '","'
     cellID = defineNamedRange(

@@ -8,7 +8,7 @@
 // GLOBAL PARAMS init (definition happens with initiateGlobalConfig())
 
 /** --- MAIN PROD vs Dev Toggle --- **/
-const ISPRODUCTION = true // CAUTION: true := will allow access to Production folders & file names
+const ISPRODUCTION = false // CAUTION: true := will allow access to Production folders & file names
 /** --- MAIN PROD vs Dev Toggle --- **/
 
 var Config
@@ -38,9 +38,9 @@ function initiateGlobalConfig() {
      * IMPORTANT: subsetting function only accepts Array
      */
     /* EITHER default */
-    IndicatorsObj = indicatorsVector
+    // IndicatorsObj = indicatorsVector
     /* OR ARRAY: use Array[] to subset */
-    // IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ["F8","F9","F10","F11","F12","F13","P1a","P1b","P2a","P2b","P3a","P3b","P4","P5","P6","P7","P8","P9","P10a","P10b","P11a","P11b","P12","P13","P14","P15","P16","P17","P18"])
+    IndicatorsObj = subsetIndicatorsObject(indicatorsVector, ['F9'])
     /* FIY: Indicator Labels:
     Batch 1:
     "G1","G2","G3","G4a","G4b","G4c","G4d","G4e","G5","G6a","G6b","F1a","F1b","F1c","F1d","F2a","F2b","F2c","F2d","F3a","F3b","F3c","F4a","F4b","F4c","F5a","F5b","F6","F7"
@@ -51,7 +51,7 @@ function initiateGlobalConfig() {
     indexPrefix = Config.indexPrefix
     filenamePrefix = Config.filenamePrefix
     filenameSuffix = ISPRODUCTION ? Config.filenameSuffixProd : Config.filenameSuffixDev // [Dev, "", Debug, QC]
-    outputFolderName = '2021 Index Dev' // Specific folder defined in Main Callers
+    outputFolderName = '2022 Telcos Dev' // Specific folder defined in Main Callers
     // TODO: adjust for 2021 Index
     rootFolderID = ISPRODUCTION ? Config.rootFolderIDProd : Config.rootFolderIDDev
     rootFolderName = ISPRODUCTION ? Config.rootFolderNameProd : Config.rootFolderIDDev
@@ -84,32 +84,18 @@ function mainInputSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3); //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
-    // .slice(7, 8) //   7 "Bharti Airtel",
-    // .slice(8, 9) //   8 "Deutsche Telekom",
-    // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Yahoo",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3); //   2 "AT&T",
+        .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     let fileID
 
@@ -146,32 +132,18 @@ function mainAppendInputStep() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
-    // .slice(7, 8) //   7 "Bharti Airtel",
-    // .slice(8, 9) //   8 "Deutsche Telekom",
-    // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Yahoo",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        .slice(2, 3); //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach(function (Company) {
         // Company.urlCurrentInputSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg" // Local override for Testing first
@@ -196,7 +168,7 @@ function mainRepairInputSheets() {
 
     includeFormatting = false // HOOK toggle off costly Sheet-level formatting
 
-    startAtMainStepNr = 1 // HOOK: which Step to repair - LOGICAL Order
+    startAtMainStepNr = 2 // HOOK: which Step to repair - LOGICAL Order
     Config.subsetMaxStep = 2 // HOOK: only repair 1 Step // unset if you want to have subsequent steps as well
     let useStepsSubset = true // true := use subset; maxStep defined in Config.JSON
 
@@ -205,32 +177,18 @@ function mainRepairInputSheets() {
 
     const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
-    // .slice(7, 8) //   7 "Bharti Airtel",
-    // .slice(8, 9) //   8 "Deutsche Telekom",
-    // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    // .slice(24, 25) //   24 "Vodafone",
-    .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3); //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach(function (Company) {
         // Company.urlCurrentInputSheet = "1s9cJtf4ql19M42ygd-xd4UR7DQSh42ofxocXA_n9uHg" // Local override for Testing first
@@ -251,23 +209,21 @@ function mainScoringSheets() {
     // Config.subsetMaxStep = 4 // HOOK to only produce a few steps
 
     let isYoyMode = false // TODO: GW - remove or rename & document
-    let yoySteps = [2, 3, 5, 6, 7] // TODO: GW - remove or rename  & document
+    let yoySteps = [2, 3, 5, 6, 7] // [2, 3, 5, 6, 7]
 
     let Companies = [
-        // companiesVector.companies[0],
-        companiesVector.companies[1],
-        companiesVector.companies[3],
-        companiesVector.companies[6],
-        companiesVector.companies[10],
-        companiesVector.companies[11],
-        companiesVector.companies[12],
-        companiesVector.companies[13],
-        companiesVector.companies[14],
-        companiesVector.companies[18],
-        companiesVector.companies[21],
-        companiesVector.companies[22],
-        companiesVector.companies[23],
-        companiesVector.companies[25]
+        // companiesVector.companies[0], //   0 "Airtel",
+        companiesVector.companies[1], //   1 "América Móvil",
+        // companiesVector.companies[2], //   2 "AT&T",
+        // companiesVector.companies[3], //   3 "Axiata",
+        // companiesVector.companies[4], //   4 "Deutsche Telekom",
+        // companiesVector.companies[5], //   5 "Etisalat",
+        // companiesVector.companies[6], //   6 "MTN",
+        // companiesVector.companies[7], //   7 "Ooredoo",
+        // companiesVector.companies[8], //   8 "Orange",
+        // companiesVector.companies[9], //   9 "Telefónica",
+        // companiesVector.companies[10], //   10 "Telenor",
+        // companiesVector.companies[11], //   11 "Vodafone",
     ]
 
     let fileID
@@ -284,7 +240,7 @@ function mainScoringSheets() {
             stepsToAdd
         )
 
-        addFileIDtoControl('Output', Company.label.current, fileID, controlSpreadsheetID)
+        //addFileIDtoControl('Output', Company.label.current, fileID, controlSpreadsheetID)
     })
 }
 
@@ -308,32 +264,18 @@ function mainFeedbackSheets() {
     // outputFolderName = "2020 - Dev - Feedback"
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-        // .slice(11, 12) //   11 "Google",
-        // .slice(12, 13) //   12 "Kakao",
-        // .slice(13, 14) //   13 "Mail.Ru",
-        // .slice(14, 15) //   14 "Microsoft",
-        // .slice(15, 16) //   15 "MTN",
-        // .slice(16, 17) //   16 "Ooredoo",
-        // .slice(17, 18) //   17 "Orange",
-        // .slice(18, 19) //   18 "Samsung",
-        // .slice(19, 20) //   19 "Telefónica",
-        // .slice(20, 21) //   20 "Telenor",
-        // .slice(21, 22) //   21 "Tencent",
-        // .slice(22, 23) //   22 "Twitter",
-        // .slice(23, 24) //   23 "Verizon Media",
-        // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3) //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach(function (Company) {
         let fileID = produceCompanyFeedbackForm(Company, makeDataOwner)
@@ -357,40 +299,18 @@ function mainAggregationSheets() {
     // filename fragments defined in
     // Config.summaryParams.spreadsheetName
     initiateGlobalConfig()
-    filenameSuffix = ' Dev' // HOOK  - Local Override - DANGER
-    outputFolderName = '2021 - Dev - Summary' // HOOK
-    let mainSheetMode = 'Summary Scoress'
+    filenameSuffix = 'TGS YoY' // HOOK  - Local Override - DANGER
+    outputFolderName = '2022 - TGS Summary' // HOOK
+    let mainSheetMode = 'Summary Scores'
 
     // 2020 decision: for performance reasons import from Outcome Sheets directly
     let includeCompanyOutcomeSheets = false // default: false
 
-    let scoringStepNr = 2 // Summary Scores always only produces one single Step
+    let scoringStepNr = 1 // Summary Scores always only produces one single Step
 
     let isYoyMode = true // TODO: GW - remove or document and rename
 
-    // let Companies = companiesVector.companies
-    let Companies = [
-        companiesVector.companies[0],
-        // companiesVector.companies[1],
-        // companiesVector.companies[3],
-        // companiesVector.companies[6],
-        // companiesVector.companies[10],
-        // companiesVector.companies[11],
-        // companiesVector.companies[12],
-        // companiesVector.companies[13],
-        // companiesVector.companies[14],
-        // companiesVector.companies[18],
-        // companiesVector.companies[21],
-        companiesVector.companies[22],
-        companiesVector.companies[23],
-        companiesVector.companies[25]
-    ]
-        // .slice(5, 7) // Axiata & Baidu,
-        // .slice(1, 9) // no Amazon
-        // .slice(1, 3) // for debugging
-        // .slice(0,3) // Amazon
-        // .slice(0, 1) // Alibaba
-        // .slice(3, 4) // Apple
+    let Companies = companiesVector.companies
 
     let fileID = createAggregationOutput(
         Companies,
@@ -411,47 +331,33 @@ function mainAggregationSheets() {
 // eslint-disable-next-line no-unused-vars
 function mainDataStore() {
     // TODO: implement DataMode 'sources' or integrate sources into results (pragmatic solution)
-    let DataMode = ['results', 'changes', "transpose", "scores"] // ["results", "transpose", "scores","changes"]
+    let DataMode = ['results', 'changes'] // ["results", "transpose", "scores","changes"]
 
     initiateGlobalConfig()
     outputFolderName = Config.dataStoreParams.outputFolderName
 
-    filenameSuffix = ' v2' // current default; critical for versioning in sync with `datapipe`
+    filenameSuffix = ' v3' // current default; critical for versioning in sync with `datapipe`
     // TODO: bump up to v4 once sources tab is added and adjust in datapipe;
 
     let mainSheetMode = Config.dataStoreParams.fileName // "Data Store"; obsolete
 
     // Config.subsetMaxStep = 3 // add all steps? for production no reason not to
-    let stepsToAdd = [0, 1]
+    let stepsToAdd = [0, 1, 2, 3, 5, 6, 7]
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-    // .slice(4, 5) //   4 "AT&T",
-    // .slice(5, 6) //   5 "Axiata",
-    // .slice(6, 7) //   6 "Baidu",
-    // .slice(7, 8) //   7 "Bharti Airtel",
-    // .slice(8, 9) //   8 "Deutsche Telekom",
-    // .slice(9, 10) //   9 "Etisalat",
-    // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3) //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        .slice(11, 12) //   11 "Vodafone",
 
     let fileID
 
@@ -478,32 +384,18 @@ function mainInspectInputSheets() {
 
     let Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Yahoo",
-    // .slice(24, 25) //   24 "Vodafone",
-    .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3) //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach((Company) => {
         processCompanyHealth(ListSheetBroken, Company)
@@ -532,34 +424,20 @@ function DevMainBackupFolder() {
 function mainProtectCompanies() {
     // protects the sheets of a given company vector
 
-    let Companies = companiesVector.companies
+    const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Yahoo",
-    //.slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3) //   2 "AT&T",
+        .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach((Company) => mainProtectSingleCompany(Company))
 }
@@ -567,34 +445,20 @@ function mainProtectCompanies() {
 // eslint-disable-next-line no-unused-vars
 function mainUnProtectCompanies() {
     // unprotects the sheets of a given company vector
-    var Companies = companiesVector.companies
+    const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        // .slice(10, 11) //   10 "Facebook",
-    // .slice(11, 12) //   11 "Google",
-    // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Verizon Media",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3) //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        .slice(8, 9) //   8 "Orange",
+        // .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach((Company) => mainUnProtectSingleCompany(Company))
 }
@@ -613,38 +477,24 @@ function mainOpenStepCompanies() {
     // let editors = EditorsObj[stepLabel]
 
     /* custom Core editors list for Steps 4++ */
-    let editors = 'wessenauer@rankingdigitalrights.org'
+    let editors = 'luisgar12@gmail.com'
 
     console.log('array: ' + subStepIDs)
 
-    let Companies = companiesVector.companies
+    const Companies = companiesVector.companies
         // .slice(0, 0) // on purpose to prevent script from running.
-        // .slice(0, 1) //   0 "Alibaba",
-        // .slice(1, 2) //   1 "Amazon",
-        // .slice(2, 3) //   2 "América Móvil",
-        // .slice(3, 4) //   3 "Apple",
-        // .slice(4, 5) //   4 "AT&T",
-        // .slice(5, 6) //   5 "Axiata",
-        // .slice(6, 7) //   6 "Baidu",
-        // .slice(7, 8) //   7 "Bharti Airtel",
-        // .slice(8, 9) //   8 "Deutsche Telekom",
-        // .slice(9, 10) //   9 "Etisalat",
-        .slice(10, 11) //   10 "Facebook",
-        // .slice(11, 12) //   11 "Google",
-        // .slice(12, 13) //   12 "Kakao",
-    // .slice(13, 14) //   13 "Mail.Ru",
-    // .slice(14, 15) //   14 "Microsoft",
-    // .slice(15, 16) //   15 "MTN",
-    // .slice(16, 17) //   16 "Ooredoo",
-    // .slice(17, 18) //   17 "Orange",
-    // .slice(18, 19) //   18 "Samsung",
-    // .slice(19, 20) //   19 "Telefónica",
-    // .slice(20, 21) //   20 "Telenor",
-    // .slice(21, 22) //   21 "Tencent",
-    // .slice(22, 23) //   22 "Twitter",
-    // .slice(23, 24) //   23 "Yahoo",
-    // .slice(24, 25) //   24 "Vodafone",
-    // .slice(25, 26) //   25 "Yandex"
+        // .slice(0, 1) //   0 "Airtel",
+        // .slice(1, 2) //   1 "América Móvil",
+        // .slice(2, 3) //   2 "AT&T",
+        // .slice(3, 4) //   3 "Axiata",
+        // .slice(4, 5) //   4 "Deutsche Telekom",
+        // .slice(5, 6) //   5 "Etisalat",
+        // .slice(6, 7) //   6 "MTN",
+        // .slice(7, 8) //   7 "Ooredoo",
+        // .slice(8, 9) //   8 "Orange",
+        .slice(9, 10) //   9 "Telefónica",
+        // .slice(10, 11) //   10 "Telenor",
+        // .slice(11, 12) //   11 "Vodafone",
 
     Companies.forEach(function (Company) {
         /* TODO: enable overriding editors from Step 3 on */
@@ -658,6 +508,12 @@ function mainOpenStepCompanies() {
 
         mainProtectFileOpenStepSingleCompany(Company, subStepIDs, editors, IndicatorsObj, doUpdateEditors)
     })
+}
+
+// eslint-disable-next-line no-unused-vars
+function mainHorizontalView() {
+    initiateGlobalConfig()
+    getHorizontalIndicatorElements(IndicatorsObj, companiesVector, Config, 'S01')
 }
 
 // DANGER ZONE //

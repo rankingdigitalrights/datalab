@@ -416,9 +416,7 @@ function addElementScores(
         Element = Indicator.elements[elemNr]
         elementLabel = Element.labelShort
 
-        if (Element.isReversedScoring) {
-            isReversedScoring = true
-        }
+        isReversedScoring = Element.isReversedScoring ? true : false;
 
         tempCol = activeCol
         Cell = Sheet.getRange(activeRow, tempCol)
@@ -441,11 +439,7 @@ function addElementScores(
         range = Sheet.getRange(activeRow - up, tempCol)
         // Cell.setValue(range.getA1Notation())
 
-        if (isYoyMode) {
-            elementScore = elementScoreFormula(range, isReversedScoring)
-            Cell.setFormula(elementScore)
-        }
-        if (indexPrefix != Config.prevIndexPrefix) {
+        if (isYoyMode || indexPrefix != Config.prevIndexPrefix) {
             elementScore = elementScoreFormula(range, isReversedScoring)
             Cell.setFormula(elementScore)
         }
@@ -472,33 +466,11 @@ function addElementScores(
         Cell = Sheet.getRange(activeRow, tempCol)
 
         if (companyHasOpCom) {
-            // Formula by calculating offset --> Refactor
-
             range = Sheet.getRange(activeRow - up, tempCol)
-            // Cell.setValue(range.getA1Notation())
-            elementScore = elementScoreFormula(range, isReversedScoring)
-            Cell.setFormula(elementScore)
-            Cell.setNumberFormat('0.##')
-            // cell name formula; output defined in 44_rangeNamingHelper.js
             component = ''
 
-            cellName = defineNamedRange(
-                Config.prevIndexPrefix,
-                sheetModeID,
-                'S07',
-                elementLabel,
-                component,
-                Company.id,
-                'opCom',
-                scoringSuffix
-            )
-            if (isYoyMode && subStepID != 'S07') {
-                Cell.setValue('N/A')
-            } else {
-                elementScore = elementScoreFormula(range, isReversedScoring)
-                Cell.setFormula(elementScore)
-            }
-
+            elementScore = elementScoreFormula(range, isReversedScoring)
+            Cell.setFormula(elementScore)
             Cell.setNumberFormat('0.##')
 
             cellName = defineNamedRange(

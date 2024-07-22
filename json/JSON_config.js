@@ -2,47 +2,43 @@ const centralConfig = {
   collection: 'config',
   indexYear: 2022,
   indexType: 'RDR Index',
-  lastRevised: '2021-10-14',
+  lastRevised: '2022-04-26',
   indexPrefix: 'RDR22',
   prevIndexPrefix: 'RDR20',
-  subsetMaxStep: 3, // logical, inclusive; TODO: maybe move into mainController
+  subsetMaxStep: 3, // logical, inclusive;
   dataOwner: 'data@rankingdigitalrights.org',
   devs: [
-    'gutermuth@rankingdigitalrights.org',
     'mathurin@rankingdigitalrights.org',
     'montiel@rankingdigitalrights.org'
   ],
   defaultEditors: [
-    'gutermuth@rankingdigitalrights.org',
     'mathurin@rankingdigitalrights.org',
     'montiel@rankingdigitalrights.org',
-    "wessenauer@rankingdigitalrights.org",
-    "zhang@rankingdigitalrights.org",
-    "rogoff@rankingdigitalrights.org"
+    'wessenauer@rankingdigitalrights.org',
+    'zhang@rankingdigitalrights.org',
+    'rogoff@rankingdigitalrights.org'
   ],
   defaultViewers: [
     "wessenauer@rankingdigitalrights.org",
     "rogoff@rankingdigitalrights.org",
     "zhang@rankingdigitalrights.org",
-    "brouillette@rankingdigitalrights.org",
     "abrougui@rankingdigitalrights.org",
     "rydzak@rankingdigitalrights.org",
-    'gutermuth@rankingdigitalrights.org',
-    'mathurin@rankingdigitalrights.org'
+    "mathurin@rankingdigitalrights.org"
   ],
   filenamePrefix: '2022 -',
   filenameSuffixProd: '',
   filenameSuffixDev: '(Dev)',
-  rootFolderNameProd: '2021 RDR Index Data',
-  rootFolderIDProd: '12EcviVht01HRC2H4mRquTeb4Pj2H8nbh',
-  backupFolderID: '1hziGVUl24a1e1iDeMUxZOMjNvm1tnY1V', // TODO:
-  rootFolderNameDev: '2021 Index Dev',
-  rootFolderIDDev: '13RJjg0hFGz2u-RHQnyHmUi6qTl1XT9PR', // Data @ 2021 Index Dev
-  inputFolderNameProd: '2022 RDR Research Data Collection',
-  inputFolderNameDev: '2021 - Dev - Input',
-  outputFolderNameProd: '2022 RDR Company Scoring',
-  outputFolderNameDev: '2021 - Dev - Scoring',
-  controlSpreadsheetID: '1k__JTE_5lGEBdBhMaguelgq8kom9Rf1x4uYiI2_BI88', // TODO: 00-Dashboard-Dev
+  rootFolderNameProd: '2022 TGS Data',
+  rootFolderIDProd: '17fZQ2m0zv5Rhtau_xKuVh5e6Hkq_madu',
+  backupFolderID: '1X0VlMjuy7LLT4llhTT7EzFbOrt-fohUh',
+  rootFolderNameDev: '2022 TGS Dev',
+  rootFolderIDDev: '1psc10Wcc4C4BLxk82r4eEOrFlu4yKnv0',
+  inputFolderNameProd: '2022 TGS Data Collection',
+  inputFolderNameDev: '2022 TGS Input (dev)',
+  outputFolderNameProd: '2022 TGS Company Scoring',
+  outputFolderNameDev: '2022 TGS Scoring (dev)',
+  controlSpreadsheetID: '10YbxafFBGhQkaGHaVO38DadbMcwvDolk1BSQLD47l0E',
   importPrevOutcome: true,
   freezeHead: true,
   // firstScoringStep: 3 // regular index
@@ -58,9 +54,9 @@ const centralConfig = {
     yearOnYearHelperTabName: 'Year on Year Comments',
     sourcesSheetName: 'Sources',
     dataColWidth: 300,
-    masterTemplateUrl: '1pu95U68P6AFHdwMx_EFxau3ML91oqj9JM4wP1SC48aQ',
-    outputFolderIdProd: '10-o8mKqb1PkiewmHXNMdP3KjUR24RdUl', // TODO: 2020
-    outputFolderIdDev: '1f2THqNnhoDfpj0ThUGXGy5CV6N8ydD8e', // TODO: 2020
+    masterTemplateUrl: '1G-neYL2E1mzKnCJB8UjzZrqzc0MR8YboQLAk5ASdGFk',
+    outputFolderIdProd: '1N8eJ3J9VkXS-Xmbbl1fafKn5_4FSotSx',
+    outputFolderIdDev: '1sr3J4kLGHF0VKAPUmP6xhY3YRtFYkfji',
     frontMatter: {
       frontMatterColsNr: 4,
       indicatorGuidanceLabel: 'Indicator guidance:',
@@ -139,7 +135,7 @@ const centralConfig = {
     includeResults: true,
   },
   dataStoreParams: {
-    outputFolderName: '2022 - Data Store v3',
+    outputFolderName: '2022 TGS Data Store v3',
     fileName: 'Data Store',
     summarySheetName: 'Aggregated',
     // subStepNr: 0,
